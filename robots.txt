@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://farinrasuli.github.io/farin-english/sitemap.xml

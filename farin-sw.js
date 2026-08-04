@@ -1,8 +1,8 @@
-const CACHE = 'farin-english-v1';
+const CACHE = 'farin-english-v2';
 const PAGE_URL = self.registration.scope;
 
 self.addEventListener('install', (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.add(PAGE_URL)).catch(() => {}));
+  e.waitUntil(caches.open(CACHE).then((c) => c.add(new Request(PAGE_URL, { cache: 'reload' }))).catch(() => {}));
   self.skipWaiting();
 });
 
@@ -17,7 +17,7 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.mode === 'navigate') {
     e.respondWith(
-      fetch(e.request).then((res) => {
+      fetch(e.request, { cache: 'no-store' }).then((res) => {
         caches.open(CACHE).then((c) => c.put(PAGE_URL, res.clone()));
         return res;
       }).catch(() => caches.match(PAGE_URL))

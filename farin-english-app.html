@@ -4730,7 +4730,7 @@ if(location.hash === '#admin'){
    registration just fails silently and the app works exactly as before, without offline caching. */
 try{
   if('serviceWorker' in navigator){
-    navigator.serviceWorker.register('farin-sw.js').catch(function(){});
+    navigator.serviceWorker.register('farin-sw.js', { scope: 'farin-english-app.html' }).catch(function(){});
   }
 }catch(e){}
 

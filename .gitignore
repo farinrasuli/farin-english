@@ -1,0 +1,37 @@
+# Android signing artifacts — never commit signing keys
+pwabuilder-android-package/
+
+# Backups and working copies
+*-BACKUP-*
+*.bak
+website/
+
+# Archives
+*.zip
+
+# Curriculum source docs (not served)
+A1-stories.docx
+A1-stories.pdf
+A2-stories.docx
+A2-stories.pdf
+B1-stories.docx
+B1-stories.pdf
+B2-stories.docx
+B2-stories.pdf
+C1-stories.docx
+C1-stories.pdf
+english-path-a1-professional.md
+english-path-a2-professional.md
+english-path-b1-professional.md
+english-path-b2-professional.md
+english-path-c1-professional.md
+english-path-story-library.md
+
+# Internal notes
+PROJECT-NOTES.md
+
+# Staging folder for the .nojekyll marker (already copied to root)
+nojekyll-file/
+
+# Claude Code session/config folder — not part of the site
+.claude/
