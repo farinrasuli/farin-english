@@ -1,0 +1,13 @@
+{
+  "name": "Farin English",
+  "short_name": "Farin English",
+  "start_url": "app/farin-english-app.html",
+  "scope": "app/",
+  "display": "standalone",
+  "background_color": "#fdf3ef",
+  "theme_color": "#026763",
+  "icons": [
+    { "src": "app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "app/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
