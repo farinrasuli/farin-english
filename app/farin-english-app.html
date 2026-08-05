@@ -1588,11 +1588,11 @@ const IMMIGRATION_CULTURE = [
 
 /* ============================= STORY LIBRARY (75 stories, A1-C1, 5 genres x 15/level) ============================= */
 const GENRE_LABEL = {
-  Fiction:{en:'Fiction', tr:'Kurgu', ic:'book', cat:'story', cutout:'story-fiction-cutout.png'},
-  Adventure:{en:'Adventure', tr:'Macera', ic:'mountain', cat:'gram', cutout:'story-adventure-cutout.png'},
-  Romance:{en:'Romance', tr:'Romantik', ic:'heart', cat:'lis', cutout:'story-romance-cutout.png'},
-  Thriller:{en:'Thriller', tr:'Gerilim', ic:'bolt', cat:'diag', cutout:'story-thriller-cutout.png'},
-  Documentary:{en:'Documentary', tr:'Belgesel', ic:'clapper', cat:'review', cutout:'story-documentary-cutout.png'}
+  Fiction:{en:'Fiction', tr:'Kurgu', ic:'book', cat:'story', bannerColor:'#b9c6ff', video:'story-fiction.mp4', poster:'story-fiction-cutout.png'},
+  Adventure:{en:'Adventure', tr:'Macera', ic:'mountain', cat:'gram', bannerColor:'#ffd9a8', video:'story-adventure.mp4', poster:'story-adventure-cutout.png'},
+  Romance:{en:'Romance', tr:'Romantik', ic:'heart', cat:'lis', bannerColor:'#ffc2dc', video:'story-romance.mp4', poster:'story-romance-cutout.png'},
+  Thriller:{en:'Thriller', tr:'Gerilim', ic:'bolt', cat:'diag', bannerColor:'#d7ccff', video:'story-thriller.mp4', poster:'story-thriller-cutout.png'},
+  Documentary:{en:'Documentary', tr:'Belgesel', ic:'clapper', cat:'review', bannerColor:'#ffe28a', video:'story-documentary.mp4', poster:'story-documentary-cutout.png'}
 };
 const STORY_LIBRARY = [
  // --- A1 ---
@@ -3236,12 +3236,11 @@ function pickGreeting(p, dueCount){
 
 /* ============================= DASHBOARD TILE ILLUSTRATIONS (flat, non-emoji) ============================= */
 const TILE_ILLUSTRATIONS = {
-  goals:`<img src="icon-goals.png" alt="" loading="lazy">`,
-  speaking:`<img src="icon-speaking.png" alt="" loading="lazy">`,
-  story:`<img src="icon-story.png" alt="" loading="lazy">`,
+  goals:`<img src="tile-goals-cutout.png" alt="" loading="lazy">`,
+  speaking:`<img src="studio-icon-cutout.png" alt="" loading="lazy">`,
+  story:`<img src="story-fiction-cutout.png" alt="" loading="lazy">`,
   review:`<img src="icon-review.png" alt="" loading="lazy">`,
-  studio:`<svg viewBox="0 0 100 100"><rect x="14" y="10" width="52" height="66" rx="10" fill="#fff" fill-opacity=".92"/><path d="M24 26h32M24 38h32M24 50h20" stroke="var(--clay-sky-deep)" stroke-width="4" stroke-linecap="round"/><circle cx="72" cy="66" r="22" fill="var(--clay-sky-deep)"/><path d="M72 54a7 7 0 0 1 7 7v6a7 7 0 0 1-14 0v-6a7 7 0 0 1 7-7Z" fill="#fff"/><path d="M63 65v3a9 9 0 0 0 18 0v-3" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/><line x1="72" y1="77" x2="72" y2="82" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>`,
-  spanish:`<svg viewBox="0 0 100 100"><path d="M50 14c-19 0-34 13-34 30 0 10 5 19 14 25l-3 15 16-9c2 0 4 .3 7 .3 19 0 34-13 34-31S69 14 50 14Z" fill="#fff" fill-opacity=".92"/><circle cx="38" cy="44" r="5" fill="var(--clay-sage-deep)"/><circle cx="50" cy="44" r="5" fill="var(--clay-sage-deep)"/><circle cx="62" cy="44" r="5" fill="var(--clay-sage-deep)"/></svg>`
+  spanish:`<img src="tile-spanish-cutout.png" alt="" loading="lazy">`
 };
 function claySparkles(){
   return `<span class="sparkle" style="top:14px; left:18px; animation-delay:0s;"></span>
@@ -3250,7 +3249,7 @@ function claySparkles(){
 }
 function storyBannerMedia(genre){
   const gl = GENRE_LABEL[genre] || GENRE_LABEL.Fiction;
-  return `<img class="clay-banner-illustration" src="${gl.cutout}" alt="" loading="lazy">`;
+  return `<img class="clay-banner-illustration" style="width:208px; height:208px;" src="${gl.poster}" alt="" loading="lazy">`;
 }
 /* ============================= RENDER: DASHBOARD ============================= */
 function renderDashboard(){
@@ -3988,7 +3987,7 @@ function renderSpeakingClub(){
     <div class="screen" style="padding-top:0;">
       <div style="position:relative; text-align:center; margin:4px 0 8px;">
         ${claySparkles()}
-        <img src="studio-icon-cutout.png" alt="" loading="lazy" class="clay-banner-illustration" style="width:180px; height:180px; margin:0 auto;">
+        <img src="studio-icon-cutout.png" alt="" loading="lazy" class="clay-banner-illustration" style="width:320px; height:320px; margin:0 auto;">
       </div>
       <div class="stack" style="gap:12px;">
         <a class="item-row goal-card" target="_top" rel="noopener" style="background:var(--clay-coral); text-decoration:none;" href="${whatsappLink(L("Hi! I'm "+p.name+". I'd like to start my speaking sessions.","Merhaba! Ben "+p.name+". Konuşma seanslarımı başlatmak istiyorum.")+leadInfoSuffix(p))}">
@@ -4069,11 +4068,11 @@ function renderStoryList(){
     ${topbar(false)}
     ${sectionHeadNoBack(L('Story World','Hikaye Dünyası','دنیای داستان'), L('Short stories that level up with you — new words, new worlds, one quick check at the end.','Seninle birlikte seviye atlayan kısa hikayeler — yeni kelimeler, yeni dünyalar, sonunda küçük bir kontrol.','داستان‌های کوتاهی که با تو سطح‌شان بالا می‌رود — کلمات جدید، دنیاهای جدید، و یک آزمون کوچک در پایان.'))}
     <div class="screen" style="padding-top:0;">
-      <div class="clay-banner" style="background:var(--cat-${gl.cat});">
+      <div class="clay-banner" style="background:${gl.bannerColor};">
         ${claySparkles()}
         ${storyBannerMedia(genre)}
-        <div class="clay-banner-title">${L(bt.title.en,bt.title.tr,bt.title.fa)}</div>
-        <div class="clay-banner-sub">${L(bt.sub.en,bt.sub.tr,bt.sub.fa)}</div>
+        <div class="clay-banner-title" style="color:var(--ink);">${L(bt.title.en,bt.title.tr,bt.title.fa)}</div>
+        <div class="clay-banner-sub" style="color:var(--ink-soft);">${L(bt.sub.en,bt.sub.tr,bt.sub.fa)}</div>
       </div>
       ${levelChips(level)}
       <div class="tab-row" style="margin-top:14px;">
