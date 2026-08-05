@@ -3246,6 +3246,9 @@ function claySparkles(){
     <span class="sparkle" style="top:42px; left:98px; width:5px; height:5px; animation-delay:.6s;"></span>
     <span class="sparkle" style="top:76px; left:36px; width:5px; height:5px; animation-delay:1.2s;"></span>`;
 }
+function storyBannerMedia(){
+  return `<video class="clay-banner-illustration" autoplay loop muted playsinline preload="none" poster="icon-story.png" src="story-banner.mp4"></video>`;
+}
 /* ============================= RENDER: DASHBOARD ============================= */
 function renderDashboard(){
   const p = state.profile, pr = state.progress;
@@ -4039,6 +4042,7 @@ function renderComingSoon(){
 }
 
 /* ============================= RENDER: STORY LIBRARY ============================= */
+const GENRE_ORDER = ['Fiction','Adventure','Romance','Thriller','Documentary'];
 function renderStoryList(){
   const level = state.viewParams.level || state.profile.level;
   const stories = STORY_LIBRARY.filter(s=>s.level===level);
@@ -4048,25 +4052,36 @@ function renderStoryList(){
     <div class="screen" style="padding-top:0;">
       <div class="clay-banner" style="background:var(--clay-lavender);">
         ${claySparkles()}
-        <img src="icon-story.png" alt="" class="clay-banner-illustration" loading="lazy">
+        ${storyBannerMedia()}
         <div class="clay-banner-title">${L('Get lost in a story','Bir hikayede kaybol','در یک داستان گم شو')}</div>
         <div class="clay-banner-sub">${L('New words come alive when you see them in a real story.','Yeni kelimeler gerçek bir hikayede gördüğünde canlanır.','کلمات جدید وقتی در یک داستان واقعی می‌بینی‌شان، زنده می‌شوند.')}</div>
       </div>
       ${levelChips(level)}
-      <div class="stack" style="gap:8px;">
-        ${stories.map(s=>{
-          const done = state.progress.completedStories.includes(s.id);
-          const gl = GENRE_LABEL[s.genre];
-          return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
-            <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
-            <div class="item-body">
-              <div class="item-title">${esc(L(s.title.en,s.title.tr))}</div>
-              <div class="item-sub">${esc(L(gl.en,gl.tr))}</div>
+      ${GENRE_ORDER.map(genre=>{
+        const gl = GENRE_LABEL[genre];
+        const genreStories = stories.filter(s=>s.genre===genre);
+        if(!genreStories.length) return '';
+        const doneCount = genreStories.filter(s=>state.progress.completedStories.includes(s.id)).length;
+        return `<div style="margin-top:20px;">
+          <div class="row between" style="align-items:center; margin-bottom:8px;">
+            <div class="row" style="gap:8px; align-items:center;">
+              <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat}); width:30px; height:30px;">${ICONS[gl.ic]}</span>
+              <h3 class="display" style="font-size:14.5px;">${esc(L(gl.en,gl.tr,gl.en))}</h3>
             </div>
-            ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
-          </button>`;
-        }).join('')}
-      </div>
+            <span style="font-size:11.5px; color:var(--ink-faint); font-weight:700;">${doneCount}/${genreStories.length}</span>
+          </div>
+          <div class="stack" style="gap:8px;">
+            ${genreStories.map(s=>{
+              const done = state.progress.completedStories.includes(s.id);
+              return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
+                <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
+                <div class="item-body"><div class="item-title">${esc(L(s.title.en,s.title.tr))}</div></div>
+                ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+              </button>`;
+            }).join('')}
+          </div>
+        </div>`;
+      }).join('')}
     </div>
   </div>`;
 }
