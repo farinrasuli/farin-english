@@ -18,12 +18,12 @@
     --ink:#14332e; --ink-soft:#4d6b66; --ink-faint:#8aa19c;
     --border:#e5e1d8; --border-soft:#eeebe3;
     --accent:#ff7a59; --accent-ink:#ffffff; --accent-soft:#ffe7de; --accent-strong:#e85c3b;
-    --cat-diag:#7c5cfc; --cat-diag-soft:#ece5ff;
-    --cat-gram:#ff9500; --cat-gram-soft:#ffedd1;
-    --cat-voc:#00bfa6; --cat-voc-soft:#d6f5ef;
-    --cat-lis:#ff3d8f; --cat-lis-soft:#ffe1ef;
-    --cat-story:#4c6fff; --cat-story-soft:#e5eaff;
-    --cat-review:#ffc22e; --cat-review-soft:#fff3d2;
+    --cat-diag:#A99BEA; --cat-diag-soft:#ece5ff;
+    --cat-gram:#FFA53D; --cat-gram-soft:#ffedd1;
+    --cat-voc:#5FC9B8; --cat-voc-soft:#d6f5ef;
+    --cat-lis:#FF8FB3; --cat-lis-soft:#ffe1ef;
+    --cat-story:#7C93FF; --cat-story-soft:#e5eaff;
+    --cat-review:#FFD166; --cat-review-soft:#fff3d2;
     --success:#2ecc71; --success-soft:#dff7e7;
     --error:#ff4444; --error-soft:#ffe1df;
     --shadow:0 1px 2px rgba(20,51,46,.08), 0 8px 24px -12px rgba(20,51,46,.22);
@@ -76,12 +76,12 @@
     --ink:#14332e; --ink-soft:#4d6b66; --ink-faint:#8aa19c;
     --border:#e5e1d8; --border-soft:#eeebe3;
     --accent:#ff7a59; --accent-ink:#ffffff; --accent-soft:#ffe7de; --accent-strong:#e85c3b;
-    --cat-diag:#7c5cfc; --cat-diag-soft:#ece5ff;
-    --cat-gram:#ff9500; --cat-gram-soft:#ffedd1;
-    --cat-voc:#00bfa6; --cat-voc-soft:#d6f5ef;
-    --cat-lis:#ff3d8f; --cat-lis-soft:#ffe1ef;
-    --cat-story:#4c6fff; --cat-story-soft:#e5eaff;
-    --cat-review:#ffc22e; --cat-review-soft:#fff3d2;
+    --cat-diag:#A99BEA; --cat-diag-soft:#ece5ff;
+    --cat-gram:#FFA53D; --cat-gram-soft:#ffedd1;
+    --cat-voc:#5FC9B8; --cat-voc-soft:#d6f5ef;
+    --cat-lis:#FF8FB3; --cat-lis-soft:#ffe1ef;
+    --cat-story:#7C93FF; --cat-story-soft:#e5eaff;
+    --cat-review:#FFD166; --cat-review-soft:#fff3d2;
     --success:#2ecc71; --success-soft:#dff7e7;
     --error:#ff4444; --error-soft:#ffe1df;
     color-scheme: light;
@@ -1588,9 +1588,11 @@ const IMMIGRATION_CULTURE = [
 
 /* ============================= STORY LIBRARY (75 stories, A1-C1, 5 genres x 15/level) ============================= */
 const GENRE_LABEL = {
-  Fiction:{en:'Fiction', tr:'Kurgu', ic:'book', cat:'story'}, Adventure:{en:'Adventure', tr:'Macera', ic:'mountain', cat:'gram'},
-  Romance:{en:'Romance', tr:'Romantik', ic:'heart', cat:'lis'}, Thriller:{en:'Thriller', tr:'Gerilim', ic:'bolt', cat:'diag'},
-  Documentary:{en:'Documentary', tr:'Belgesel', ic:'clapper', cat:'review'}
+  Fiction:{en:'Fiction', tr:'Kurgu', ic:'book', cat:'story', cutout:'story-fiction-cutout.png'},
+  Adventure:{en:'Adventure', tr:'Macera', ic:'mountain', cat:'gram', cutout:'story-adventure-cutout.png'},
+  Romance:{en:'Romance', tr:'Romantik', ic:'heart', cat:'lis', cutout:'story-romance-cutout.png'},
+  Thriller:{en:'Thriller', tr:'Gerilim', ic:'bolt', cat:'diag', cutout:'story-thriller-cutout.png'},
+  Documentary:{en:'Documentary', tr:'Belgesel', ic:'clapper', cat:'review', cutout:'story-documentary-cutout.png'}
 };
 const STORY_LIBRARY = [
  // --- A1 ---
@@ -3246,8 +3248,9 @@ function claySparkles(){
     <span class="sparkle" style="top:42px; left:98px; width:5px; height:5px; animation-delay:.6s;"></span>
     <span class="sparkle" style="top:76px; left:36px; width:5px; height:5px; animation-delay:1.2s;"></span>`;
 }
-function storyBannerMedia(){
-  return `<video class="clay-banner-illustration" autoplay loop muted playsinline preload="none" poster="icon-story.png" src="story-banner.mp4"></video>`;
+function storyBannerMedia(genre){
+  const gl = GENRE_LABEL[genre] || GENRE_LABEL.Fiction;
+  return `<img class="clay-banner-illustration" src="${gl.cutout}" alt="" loading="lazy">`;
 }
 /* ============================= RENDER: DASHBOARD ============================= */
 function renderDashboard(){
@@ -3499,6 +3502,7 @@ function renderGoalsList(){
           const active = p.goals.includes(key);
           const atCap = editing && !active && p.goals.length>=3;
           return `<button class="item-row goal-card ${active?'goal-active':''}" data-action="${editing?'toggle-profile-goal':'nav'}" data-view="goal-levels" data-goal="${key}" ${atCap?'disabled':''} style="background:var(--cat-${g.cat}); ${atCap?'opacity:.4;':''}">
+            ${claySparkles()}
             <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[g.icon]}</span>
             <div class="item-body">
               <div class="item-title">${esc(goalMetaLabel(key))}</div>
@@ -3982,6 +3986,10 @@ function renderSpeakingClub(){
     ${topbar(false)}
     ${sectionHeadNoBack(L('Studio','Stüdyo','استودیو'), L('Real conversation with a human, or practice on your own.','Bir insanla gerçek sohbet, ya da kendi başına pratik yap.','گفتگوی واقعی با یک انسان، یا تمرین به‌تنهایی.'))}
     <div class="screen" style="padding-top:0;">
+      <div style="position:relative; text-align:center; margin:4px 0 8px;">
+        ${claySparkles()}
+        <img src="studio-icon-cutout.png" alt="" loading="lazy" class="clay-banner-illustration" style="width:180px; height:180px; margin:0 auto;">
+      </div>
       <div class="stack" style="gap:12px;">
         <a class="item-row goal-card" target="_top" rel="noopener" style="background:var(--clay-coral); text-decoration:none;" href="${whatsappLink(L("Hi! I'm "+p.name+". I'd like to start my speaking sessions.","Merhaba! Ben "+p.name+". Konuşma seanslarımı başlatmak istiyorum.")+leadInfoSuffix(p))}">
           <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.chat}</span>
@@ -4043,45 +4051,52 @@ function renderComingSoon(){
 
 /* ============================= RENDER: STORY LIBRARY ============================= */
 const GENRE_ORDER = ['Fiction','Adventure','Romance','Thriller','Documentary'];
+const GENRE_BANNER_TEXT = {
+  Fiction: {title:{en:'Get lost in a story', tr:'Bir hikayede kaybol', fa:'در یک داستان گم شو'}, sub:{en:'New words come alive when you see them in a real story.', tr:'Yeni kelimeler gerçek bir hikayede gördüğünde canlanır.', fa:'کلمات جدید وقتی در یک داستان واقعی می‌بینی‌شان، زنده می‌شوند.'}},
+  Adventure: {title:{en:'Chase the adventure', tr:'Maceranın peşine düş', fa:'دنبال ماجراجویی برو'}, sub:{en:'Explore new worlds, one page at a time.', tr:'Sayfa sayfa yeni dünyalar keşfet.', fa:'صفحه به صفحه دنیاهای جدید را کشف کن.'}},
+  Romance: {title:{en:'Follow your heart', tr:'Kalbini takip et', fa:'دلت را دنبال کن'}, sub:{en:'Sweet stories with new words to remember.', tr:'Hatırlanacak yeni kelimelerle tatlı hikayeler.', fa:'داستان‌های شیرین با کلمات جدید برای به‌خاطر سپردن.'}},
+  Thriller: {title:{en:'Solve the mystery', tr:'Gizemi çöz', fa:'راز را کشف کن'}, sub:{en:'Suspense that keeps you reading — and learning.', tr:'Seni okumaya (ve öğrenmeye) devam ettiren bir gerilim.', fa:'هیجانی که تو را به خواندن — و یادگیری — ادامه می‌دهد.'}},
+  Documentary: {title:{en:'Discover the real world', tr:'Gerçek dünyayı keşfet', fa:'دنیای واقعی را کشف کن'}, sub:{en:'True stories, real vocabulary.', tr:'Gerçek hikayeler, gerçek kelimeler.', fa:'داستان‌های واقعی، واژگان واقعی.'}}
+};
 function renderStoryList(){
   const level = state.viewParams.level || state.profile.level;
-  const stories = STORY_LIBRARY.filter(s=>s.level===level);
+  const genre = GENRE_ORDER.includes(state.viewParams.genre) ? state.viewParams.genre : GENRE_ORDER[0];
+  const stories = STORY_LIBRARY.filter(s=>s.level===level && s.genre===genre);
+  const gl = GENRE_LABEL[genre];
+  const bt = GENRE_BANNER_TEXT[genre];
+  const doneCount = stories.filter(s=>state.progress.completedStories.includes(s.id)).length;
   return `<div class="fade-in">
     ${topbar(false)}
     ${sectionHeadNoBack(L('Story World','Hikaye Dünyası','دنیای داستان'), L('Short stories that level up with you — new words, new worlds, one quick check at the end.','Seninle birlikte seviye atlayan kısa hikayeler — yeni kelimeler, yeni dünyalar, sonunda küçük bir kontrol.','داستان‌های کوتاهی که با تو سطح‌شان بالا می‌رود — کلمات جدید، دنیاهای جدید، و یک آزمون کوچک در پایان.'))}
     <div class="screen" style="padding-top:0;">
-      <div class="clay-banner" style="background:var(--clay-lavender);">
+      <div class="clay-banner" style="background:var(--cat-${gl.cat});">
         ${claySparkles()}
-        ${storyBannerMedia()}
-        <div class="clay-banner-title">${L('Get lost in a story','Bir hikayede kaybol','در یک داستان گم شو')}</div>
-        <div class="clay-banner-sub">${L('New words come alive when you see them in a real story.','Yeni kelimeler gerçek bir hikayede gördüğünde canlanır.','کلمات جدید وقتی در یک داستان واقعی می‌بینی‌شان، زنده می‌شوند.')}</div>
+        ${storyBannerMedia(genre)}
+        <div class="clay-banner-title">${L(bt.title.en,bt.title.tr,bt.title.fa)}</div>
+        <div class="clay-banner-sub">${L(bt.sub.en,bt.sub.tr,bt.sub.fa)}</div>
       </div>
       ${levelChips(level)}
-      ${GENRE_ORDER.map(genre=>{
-        const gl = GENRE_LABEL[genre];
-        const genreStories = stories.filter(s=>s.genre===genre);
-        if(!genreStories.length) return '';
-        const doneCount = genreStories.filter(s=>state.progress.completedStories.includes(s.id)).length;
-        return `<div style="margin-top:20px;">
-          <div class="row between" style="align-items:center; margin-bottom:8px;">
-            <div class="row" style="gap:8px; align-items:center;">
-              <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat}); width:30px; height:30px;">${ICONS[gl.ic]}</span>
-              <h3 class="display" style="font-size:14.5px;">${esc(L(gl.en,gl.tr,gl.en))}</h3>
-            </div>
-            <span style="font-size:11.5px; color:var(--ink-faint); font-weight:700;">${doneCount}/${genreStories.length}</span>
-          </div>
-          <div class="stack" style="gap:8px;">
-            ${genreStories.map(s=>{
-              const done = state.progress.completedStories.includes(s.id);
-              return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
-                <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
-                <div class="item-body"><div class="item-title">${esc(L(s.title.en,s.title.tr))}</div></div>
-                ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
-              </button>`;
-            }).join('')}
-          </div>
-        </div>`;
-      }).join('')}
+      <div class="tab-row" style="margin-top:14px;">
+        ${GENRE_ORDER.map(g=>{
+          const gg = GENRE_LABEL[g];
+          const active = genre===g;
+          return `<button class="tab-btn ${active?'active':''}" data-action="set-story-genre" data-genre="${g}" style="${active?`background:var(--cat-${gg.cat}-soft); color:var(--cat-${gg.cat}); border-color:var(--cat-${gg.cat});`:''}">${esc(L(gg.en,gg.tr,gg.en))}</button>`;
+        }).join('')}
+      </div>
+      <div class="row between" style="align-items:center; margin:14px 0 8px;">
+        <h3 class="display" style="font-size:14.5px;">${esc(L(gl.en,gl.tr,gl.en))}</h3>
+        <span style="font-size:11.5px; color:var(--ink-faint); font-weight:700;">${doneCount}/${stories.length}</span>
+      </div>
+      <div class="stack" style="gap:8px;">
+        ${stories.map(s=>{
+          const done = state.progress.completedStories.includes(s.id);
+          return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
+            <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
+            <div class="item-body"><div class="item-title">${esc(L(s.title.en,s.title.tr))}</div></div>
+            ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+          </button>`;
+        }).join('')}
+      </div>
     </div>
   </div>`;
 }
@@ -4845,6 +4860,7 @@ const HANDLERS = {
   'set-level'(el){ state.viewParams.level = el.dataset.level; save(); render(); },
   'set-cat'(el){ state.viewParams.cat = el.dataset.cat; save(); render(); },
   'set-goal-tab'(el){ state.viewParams.tab = el.dataset.tab; save(); render(); },
+  'set-story-genre'(el){ state.viewParams.genre = el.dataset.genre; save(); render(); },
   'toggle-edit-goals'(){ state.viewParams.editingGoals = !state.viewParams.editingGoals; render(); },
   'toggle-profile-goal'(el){
     const key = el.dataset.goal;
