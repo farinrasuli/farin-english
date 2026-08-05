@@ -33,6 +33,7 @@
     --clay-coral:#FF6F5E; --clay-coral-deep:#E44736;
     --clay-lavender:#A99BEA; --clay-lavender-deep:#7C68D6;
     --clay-sage:#8FAE85; --clay-sage-deep:#5F8455;
+    --clay-sky:#4FC3E8; --clay-sky-deep:#1F8FB0;
     --clay-shadow:inset 0 2px 3px rgba(255,255,255,.4), inset 0 -14px 22px -10px rgba(0,0,0,.2), 0 14px 30px -12px rgba(0,0,0,.32);
     color-scheme: light;
   }
@@ -207,10 +208,11 @@
   .character-portrait{width:210px; height:210px; object-fit:contain; display:block; margin:0 auto 4px; filter:drop-shadow(0 12px 14px rgba(0,0,0,.2)); animation:tile-float 4.5s ease-in-out infinite; position:relative; z-index:1;}
   .tile-ic{width:36px;height:36px;border-radius:14px;display:flex;align-items:center;justify-content:center;}
   .tile-illustration{position:absolute; top:6px; right:2px; width:72px; height:72px; filter:drop-shadow(0 6px 8px rgba(0,0,0,.16));}
-  .tile-illustration img{width:100%; height:100%; object-fit:contain; animation:tile-float 4.5s ease-in-out infinite;}
+  .tile-illustration img, .tile-illustration svg{width:100%; height:100%; object-fit:contain; animation:tile-float 4.5s ease-in-out infinite;}
   .tile:nth-child(2) .tile-illustration img{animation-delay:.3s;}
   .tile:nth-child(3) .tile-illustration img{animation-delay:.6s;}
   .tile:nth-child(4) .tile-illustration img{animation-delay:.9s;}
+  .tile:nth-child(5) .tile-illustration svg{animation-delay:1.2s;}
   @keyframes tile-float{0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-5px) rotate(-2deg);}}
   .tile-title{font-weight:800; font-size:15px; color:#fff;}
   .tile-sub{font-size:11.5px; color:rgba(255,255,255,.88); font-weight:700;}
@@ -412,7 +414,9 @@ const ICONS = {
   clapper:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10h18v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M3 10 4.5 5h14L20 10"/><path d="M7 5 8.2 10M12.3 5l1.2 5M17.5 5l1.2 5"/></svg>',
   soundOn:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5Z" fill="currentColor" stroke="none"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a9 9 0 0 1 0 12"/></svg>',
   soundOff:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5Z" fill="currentColor" stroke="none"/><path d="M16 9.5 20.5 14"/><path d="M20.5 9.5 16 14"/></svg>',
-  suitcase:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="13" rx="2.4"/><path d="M8.5 8V5.5A1.7 1.7 0 0 1 10.2 3.8h3.6A1.7 1.7 0 0 1 15.5 5.5V8"/><path d="M2.5 13.5h19"/><path d="M10.6 13.2h2.8"/></svg>'
+  suitcase:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="13" rx="2.4"/><path d="M8.5 8V5.5A1.7 1.7 0 0 1 10.2 3.8h3.6A1.7 1.7 0 0 1 15.5 5.5V8"/><path d="M2.5 13.5h19"/><path d="M10.6 13.2h2.8"/></svg>',
+  pen:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 4.8 15.8 15.6 5a2 2 0 0 1 2.8 0l1.6 1.6a2 2 0 0 1 0 2.8L9.2 20.2 4 20Z"/><path d="M14 7.2 17.8 11"/></svg>',
+  mic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5v1a6.5 6.5 0 0 0 13 0v-1"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8.5" y1="22" x2="15.5" y2="22"/></svg>'
 };
 
 /* ============================= I18N ============================= */
@@ -477,7 +481,7 @@ const LEARNER_OPTIONS = [
   {value:'talker', icon:'chat', label:{en:'Talking it through with a real person', tr:'Gerçek biriyle konuşarak', fa:'صحبت‌کردن با یک فرد واقعی'},
    blurb:{en:"You learn best through real conversation — that's exactly what your free teacher session is for.", tr:'En iyi gerçek sohbetle öğrenirsin — ücretsiz öğretmen seansın tam da bunun için.', fa:'با گفتگوی واقعی بهتر یاد می‌گیری — دقیقاً برای همین، جلسه رایگان با معلم وجود دارد.'}},
   {value:'immersive', icon:'play', label:{en:'Watching or listening in context', tr:'Bağlam içinde izleyerek/dinleyerek', fa:'تماشا یا گوش‌دادن در بافت واقعی'},
-   blurb:{en:'You learn by absorbing real English in context — Speaking Club and the slang sets are your playground.', tr:'Gerçek İngilizceyi bağlam içinde özümseyerek öğrenirsin — Konuşma Kulübü ve argo setleri tam sana göre.', fa:'با جذب انگلیسی واقعی در بافت یاد می‌گیری — باشگاه مکالمه و مجموعه‌های اصطلاحات محل بازی توست.'}}
+   blurb:{en:'You learn by absorbing real English in context — the Studio and the slang sets are your playground.', tr:'Gerçek İngilizceyi bağlam içinde özümseyerek öğrenirsin — Stüdyo ve argo setleri tam sana göre.', fa:'با جذب انگلیسی واقعی در بافت یاد می‌گیری — استودیو و مجموعه‌های اصطلاحات محل بازی توست.'}}
 ];
 const PRIORITY_OPTIONS = [
   {value:'grammar', label:{en:'Grammar rules trip me up', tr:'Dilbilgisi kuralları kafamı karıştırıyor', fa:'قواعد گرامری گیجم می‌کنند'}, sub:{en:'I mix up tenses, articles, pronouns', tr:'Zamanları, tanımlıkları, zamirleri karıştırıyorum', fa:'زمان‌ها، حروف تعریف و ضمایر را قاطی می‌کنم'}},
@@ -488,7 +492,7 @@ const PRIORITY_OPTIONS = [
 const PRACTICE_SECTIONS = [
   {key:'grammar', view:'grammar-list', icon:'dumbbell', cat:'gram', label:{en:'Grammar Gym', tr:'Dilbilgisi Salonu', fa:'باشگاه گرامر'}},
   {key:'vocab', view:'vocab-list', icon:'cards', cat:'voc', label:{en:'Word Play', tr:'Kelime Oyunu', fa:'بازی با کلمات'}},
-  {key:'listening', view:'speaking-club', icon:'chat', cat:'lis', label:{en:'Speaking Club', tr:'Konuşma Kulübü', fa:'باشگاه مکالمه'}},
+  {key:'listening', view:'speaking-club', icon:'chat', cat:'lis', label:{en:'Studio', tr:'Stüdyo', fa:'استودیو'}},
   {key:'story', view:'story-list', icon:'book', cat:'story', label:{en:'Story World', tr:'Hikaye Dünyası', fa:'دنیای داستان'}}
 ];
 const PRACTICE_RECOMMENDATION = {
@@ -501,13 +505,13 @@ const PRACTICE_RECOMMENDATION = {
            tr:'Kelime dağarcığın biraz takviye istiyor — bir süre Kelime Oyunu\'nda takıl, sonra yeni kelimelerin Hikaye Dünyası\'nda nasıl canlandığını gör.',
            fa:'ذخیره کلماتت به تقویت نیاز دارد — مدتی در بازی با کلمات بمان، بعد ببین کلمات جدید چطور در دنیای داستان زنده می‌شوند.'}},
   listening:{emphasize:['listening','story'],
-    blurb:{en:'Real-life English talks fast, huh? Book a Speaking Club session for live practice, and let the Story World get your brain used to a natural pace.',
-           tr:'Gerçek hayattaki İngilizce çok hızlı geliyor, değil mi? Canlı pratik için bir Konuşma Kulübü seansı ayarla, Hikaye Dünyası da beynini doğal bir hıza alıştırsın.',
-           fa:'انگلیسی واقعی خیلی سریع صحبت می‌شود، نه؟ یک جلسه باشگاه مکالمه رزرو کن، و بگذار دنیای داستان مغزت را به سرعت طبیعی عادت بدهد.'}},
+    blurb:{en:'Real-life English talks fast, huh? Book a Studio session for live practice, and let the Story World get your brain used to a natural pace.',
+           tr:'Gerçek hayattaki İngilizce çok hızlı geliyor, değil mi? Canlı pratik için Stüdyo\'dan bir seans ayarla, Hikaye Dünyası da beynini doğal bir hıza alıştırsın.',
+           fa:'انگلیسی واقعی خیلی سریع صحبت می‌شود، نه؟ یک جلسه از استودیو رزرو کن، و بگذار دنیای داستان مغزت را به سرعت طبیعی عادت بدهد.'}},
   speaking:{emphasize:['listening','vocab'],
-    blurb:{en:"Speaking's the moment you go blank — no app can fix that, but real conversation can. Book your Speaking Club sessions, and let the slang sets in Word Play warm up your ear (and your mouth) in the meantime.",
-           tr:'Konuşma anı geldiğinde kafan bomboş kalıyor — bunu düzeltecek tek şey gerçek sohbet. Konuşma Kulübü seanslarını ayarla, bu arada Kelime Oyunu\'ndaki argo setleri kulağını (ve ağzını) ısıtsın.',
-           fa:'وقتی باید صحبت کنی ذهنت خالی می‌شود — فقط گفتگوی واقعی می‌تواند این را حل کند. جلسات باشگاه مکالمه را رزرو کن، و در همین حین مجموعه‌های اصطلاحات در بازی با کلمات گوش (و زبان) تو را گرم کنند.'}}
+    blurb:{en:"Speaking's the moment you go blank — no app can fix that, but real conversation can. Book your Studio teacher sessions, and use the Lab's speaking rounds plus the slang sets in Word Play to warm up your ear (and your mouth) in the meantime.",
+           tr:'Konuşma anı geldiğinde kafan bomboş kalıyor — bunu düzeltecek tek şey gerçek sohbet. Stüdyo\'dan öğretmen seanslarını ayarla, bu arada Lab\'daki konuşma turları ve Kelime Oyunu\'ndaki argo setleri kulağını (ve ağzını) ısıtsın.',
+           fa:'وقتی باید صحبت کنی ذهنت خالی می‌شود — فقط گفتگوی واقعی می‌تواند این را حل کند. جلسات معلم را از استودیو رزرو کن، و در همین حین تمرین‌های صحبت‌کردن در آزمایشگاه و مجموعه‌های اصطلاحات در بازی با کلمات گوش (و زبان) تو را گرم کنند.'}}
 };
 function renderPracticeRecommendation(profile){
   const rec = PRACTICE_RECOMMENDATION[profile.priorityArea] || PRACTICE_RECOMMENDATION.grammar;
@@ -2519,7 +2523,11 @@ const BADGES = [
      return gTotal>0 && vTotal>0 && sTotal>0 && gDone>=gTotal && vDone>=vTotal && sDone>=sTotal;
    }},
   {id:'reviewer', icon:'repeat', title:{en:'Spaced Repetition Fan', tr:'Aralıklı Tekrar Hayranı'}, desc:{en:'Complete 5 Review rounds.', tr:'5 Tekrar turunu tamamla.'},
-   check:(st)=> (st.progress.reviewsCompleted||0) >= 5}
+   check:(st)=> (st.progress.reviewsCompleted||0) >= 5},
+  {id:'writer-1', icon:'pen', title:{en:'First Draft', tr:'İlk Taslak'}, desc:{en:'Complete your first Lab writing round.', tr:'İlk Lab yazma turunu tamamla.'},
+   check:(st)=> (st.progress.writingRoundsDone||0) >= 1},
+  {id:'speaker-10', icon:'mic', title:{en:'Chatterbox', tr:'Geveze'}, desc:{en:'Complete 10 Lab speaking rounds.', tr:'10 Lab konuşma turunu tamamla.'},
+   check:(st)=> (st.progress.speakingRoundsDone||0) >= 10}
 ];
 function badgeColor(id){
   if(id.indexOf('grammar')===0) return {bg:'var(--cat-gram)'};
@@ -2528,6 +2536,8 @@ function badgeColor(id){
   if(id.indexOf('streak')===0) return {bg:'var(--clay-coral)'};
   if(id==='level-complete') return {bg:'var(--cat-diag)'};
   if(id==='reviewer') return {bg:'var(--clay-sage)'};
+  if(id.indexOf('writer')===0) return {bg:'var(--clay-orange)'};
+  if(id.indexOf('speaker')===0) return {bg:'var(--clay-sky)'};
   return {bg:'var(--cat-review)'};
 }
 
@@ -2537,7 +2547,7 @@ function freshState(){
   return {
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
     profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
-    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}},
+    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0},
     diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null},
     quiz:null
   };
@@ -2555,6 +2565,8 @@ function load(){
     if(!merged.progress.srs) merged.progress.srs = {};
     if(!merged.progress.badgesEarnedAt) merged.progress.badgesEarnedAt = {};
     if(merged.progress.reviewsCompleted===undefined) merged.progress.reviewsCompleted = 0;
+    if(merged.progress.writingRoundsDone===undefined) merged.progress.writingRoundsDone = 0;
+    if(merged.progress.speakingRoundsDone===undefined) merged.progress.speakingRoundsDone = 0;
     if(!merged.progress.roadmapChecked) merged.progress.roadmapChecked = {};
     if(merged.profile.levelStage===undefined) merged.profile.levelStage = 1;
     if(!merged.progress.dailyTasksChecked) merged.progress.dailyTasksChecked = {};
@@ -2843,6 +2855,9 @@ function render(){
     currentMusicStoryId = null;
     stopStoryMusic();
   }
+  if(state.view !== 'studio-round' && studioRecognition){
+    stopStudioMic();
+  }
   bindEvents(root);
 }
 function langToggle(){
@@ -2862,7 +2877,7 @@ function bottomNav(){
   const items = [
     {v:'dashboard', ic:ICONS.home, label:L('Home','Ana Sayfa','خانه')},
     {v:'goals-list', ic:ICONS.compass, label:L('Goals','Hedefler','اهداف')},
-    {v:'speaking-club', ic:ICONS.chat, label:L('Speaking','Konuşma','مکالمه')},
+    {v:'speaking-club', ic:ICONS.chat, label:L('Studio','Stüdyo','استودیو')},
     {v:'story-list', ic:ICONS.book, label:L('Stories','Hikayeler','داستان‌ها')}
   ];
   return `<nav class="bottomnav">${items.map(it=>`
@@ -3151,11 +3166,6 @@ function renderReviewHome(){
 }
 function renderProfile(){
   const p = state.profile, pr = state.progress;
-  const dueCount = dueItems().length;
-  const todayTasks = buildDailyTasks(p);
-  const checkedToday = pr.dailyTasksDate === todayISO() ? pr.dailyTasksChecked : {};
-  const tasksDoneCount = todayTasks.filter(t=>checkedToday[t.id]).length;
-  const allCaughtUp = dueCount===0 && tasksDoneCount===todayTasks.length;
   return `<div class="fade-in">
     ${sectionHead(L('Your Profile','Profilin','پروفایل تو'), L('Your plan, your progress, your bragging rights.','Planın, ilerlemen ve övünme hakların.','برنامه‌ات، پیشرفتت و افتخاراتت.'), 'dashboard')}
     <div class="screen" style="padding-top:0;">
@@ -3176,10 +3186,10 @@ function renderProfile(){
 
       <div style="margin-top:20px;">${statRow(pr)}</div>
 
-      <button class="card-flat" data-action="nav" data-view="review-home" style="margin-top:16px; width:100%; display:flex; justify-content:space-between; align-items:center; gap:10px; text-align:start; cursor:pointer;">
+      <button class="card-flat" data-action="nav" data-view="studio-lab" style="margin-top:16px; width:100%; display:flex; justify-content:space-between; align-items:center; gap:10px; text-align:start; cursor:pointer;">
         <div>
-          <div style="font-weight:700; font-size:14px;">${L('Review due','Tekrar zamanı','موعد مرور')}</div>
-          <div style="font-size:12px; color:var(--ink-soft);">${allCaughtUp ? L('All caught up — nice!','Hepsi tamam — harikasın!','همه چیز تمام شد — عالیه!') : (dueCount>0 ? dueCount+' '+L('ready for a quick refresh','hızlı bir tazeleme için hazır','آماده یک مرور سریع') : tasksDoneCount+'/'+todayTasks.length+' '+L('tasks done','görev tamam','کار انجام‌شده'))}</div>
+          <div style="font-weight:700; font-size:14px;">${L('Studio Lab','Stüdyo Lab','آزمایشگاه استودیو')}</div>
+          <div style="font-size:12px; color:var(--ink-soft);">${(pr.writingRoundsDone||0)+(pr.speakingRoundsDone||0)+' '+L('rounds completed','tur tamamlandı','دور تکمیل‌شده')}</div>
         </div>
         <span class="chevron">${ICONS.chev}</span>
       </button>
@@ -3227,7 +3237,9 @@ const TILE_ILLUSTRATIONS = {
   goals:`<img src="icon-goals.png" alt="" loading="lazy">`,
   speaking:`<img src="icon-speaking.png" alt="" loading="lazy">`,
   story:`<img src="icon-story.png" alt="" loading="lazy">`,
-  review:`<img src="icon-review.png" alt="" loading="lazy">`
+  review:`<img src="icon-review.png" alt="" loading="lazy">`,
+  studio:`<svg viewBox="0 0 100 100"><rect x="14" y="10" width="52" height="66" rx="10" fill="#fff" fill-opacity=".92"/><path d="M24 26h32M24 38h32M24 50h20" stroke="var(--clay-sky-deep)" stroke-width="4" stroke-linecap="round"/><circle cx="72" cy="66" r="22" fill="var(--clay-sky-deep)"/><path d="M72 54a7 7 0 0 1 7 7v6a7 7 0 0 1-14 0v-6a7 7 0 0 1 7-7Z" fill="#fff"/><path d="M63 65v3a9 9 0 0 0 18 0v-3" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/><line x1="72" y1="77" x2="72" y2="82" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>`,
+  spanish:`<svg viewBox="0 0 100 100"><path d="M50 14c-19 0-34 13-34 30 0 10 5 19 14 25l-3 15 16-9c2 0 4 .3 7 .3 19 0 34-13 34-31S69 14 50 14Z" fill="#fff" fill-opacity=".92"/><circle cx="38" cy="44" r="5" fill="var(--clay-sage-deep)"/><circle cx="50" cy="44" r="5" fill="var(--clay-sage-deep)"/><circle cx="62" cy="44" r="5" fill="var(--clay-sage-deep)"/></svg>`
 };
 function claySparkles(){
   return `<span class="sparkle" style="top:14px; left:18px; animation-delay:0s;"></span>
@@ -3245,10 +3257,6 @@ function renderDashboard(){
   const doneStoriesAtLevel = pr.completedStories.filter(id=>{ const s=STORY_LIBRARY.find(x=>x.id===id); return s && s.level===p.level; }).length;
   const totalStoriesAtLevel = STORY_LIBRARY.filter(s=>s.level===p.level).length;
   const dueCount = dueItems().length;
-  const todayTasks = buildDailyTasks(p);
-  const checkedToday = pr.dailyTasksDate === todayISO() ? pr.dailyTasksChecked : {};
-  const tasksDoneCount = todayTasks.filter(t=>checkedToday[t.id]).length;
-  const allCaughtUp = dueCount===0 && tasksDoneCount===todayTasks.length;
   const showIntro = !p.dashboardIntroShown;
   if(showIntro){ p.dashboardIntroShown = true; save(); }
   const introSparkles = showIntro ? '<span class="sparkle sparkle-1"></span><span class="sparkle sparkle-2"></span><span class="sparkle sparkle-3"></span>' : '';
@@ -3310,8 +3318,8 @@ function renderDashboard(){
         <button class="tile" data-action="nav" data-view="speaking-club" style="background:var(--clay-coral); color:var(--clay-coral-deep);">
           ${claySparkles()}
           <span class="tile-illustration">${TILE_ILLUSTRATIONS.speaking}</span>
-          <span class="tile-title">${L('Speaking Club','Konuşma Kulübü','باشگاه مکالمه')}</span>
-          <span class="tile-sub">${L('5 live sessions','5 canlı seans','۵ جلسه زنده')}</span>
+          <span class="tile-title">${L('Studio','Stüdyo','استودیو')}</span>
+          <span class="tile-sub">${L('Teacher & practice lab','Öğretmen ve pratik lab','معلم و آزمایشگاه تمرین')}</span>
         </button>
         <button class="tile" data-action="nav" data-view="story-list" style="background:var(--clay-lavender); color:var(--clay-lavender-deep);">
           ${claySparkles()}
@@ -3319,11 +3327,11 @@ function renderDashboard(){
           <span class="tile-title">${L('Story World','Hikaye Dünyası','دنیای داستان')}</span>
           <span class="tile-sub">${p.level} · ${doneStoriesAtLevel}/${totalStoriesAtLevel}</span>
         </button>
-        <button class="tile" data-action="nav" data-view="review-home" style="background:var(--clay-sage); color:var(--clay-sage-deep);">
+        <button class="tile" data-action="nav" data-view="coming-soon" style="background:var(--clay-sage); color:var(--clay-sage-deep);">
           ${claySparkles()}
-          <span class="tile-illustration">${TILE_ILLUSTRATIONS.review}</span>
-          <span class="tile-title">${L('Review','Tekrar','مرور')}</span>
-          <span class="tile-sub">${allCaughtUp ? L('All caught up','Hepsi tamam','همه چیز تمام شد') : (dueCount>0 ? dueCount+' '+L('due today','bugün zamanı geldi','امروز موعدشه') : tasksDoneCount+'/'+todayTasks.length+' '+L('tasks done','görev tamam','کار انجام‌شده'))}</span>
+          <span class="tile-illustration">${TILE_ILLUSTRATIONS.spanish}</span>
+          <span class="tile-title">${L('Learn Spanish!','İspanyolca Öğren!','اسپانیایی یاد بگیر!')}</span>
+          <span class="tile-sub">${L('New language','Yeni bir dil','یک زبان جدید')}</span>
         </button>
       </div>
 
@@ -3572,6 +3580,282 @@ function renderGoalLevelDetail(goal, level){
   </div>`;
 }
 
+/* ============================= STUDIO LAB: Writing & Speaking Practice ============================= */
+const STUDIO_DIFFICULTY_LABEL = {
+  easy: {en:'Easy', tr:'Kolay', fa:'آسان'},
+  medium: {en:'Medium', tr:'Orta', fa:'متوسط'},
+  difficult: {en:'Difficult', tr:'Zor', fa:'دشوار'}
+};
+function buildPracticeRound(goal, level, difficulty){
+  const vPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab');
+  const slPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
+  const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===level);
+  const vTagged = vPoolAll.filter(s=>s.goals.includes(goal));
+  const slTagged = slPoolAll.filter(s=>s.goals.includes(goal));
+  const vSets = vTagged.length ? vTagged : vPoolAll;
+  const slSets = slTagged.length ? slTagged : slPoolAll;
+  const flattenCards = sets => sets.reduce((acc,s)=>acc.concat(s.cards), []);
+  const vCards = flattenCards(vSets);
+  const slCards = flattenCards(slSets);
+  const pick = (arr, n) => {
+    const pool = arr.slice(), out = [];
+    while(out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random()*pool.length), 1)[0]);
+    return out;
+  };
+  const wordCount = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
+  const words = pick(vCards, wordCount).map(c=>({
+    word: c.word,
+    meaning: L(c.meaning.en, c.meaning.tr, c.meaning.fa),
+    note: c.note ? L(c.note.en, c.note.tr, c.note.fa) : null
+  }));
+  let grammar = null;
+  if(difficulty !== 'easy' && gPoolAll.length){
+    const withVariant = gPoolAll.filter(g=>g.goalVariant && g.goalVariant[goal]);
+    const gSource = withVariant.length ? withVariant : gPoolAll;
+    const gItem = gSource[Math.floor(Math.random()*gSource.length)];
+    grammar = {title: grammarTitle(gItem), markerWord: gItem.blank.word, exp: L(gItem.exp.en, gItem.exp.tr, gItem.exp.fa)};
+  }
+  let slang = null;
+  if(difficulty === 'difficult' && slCards.length){
+    const s = pick(slCards, 1)[0];
+    slang = {word: s.word, meaning: L(s.meaning.en, s.meaning.tr, s.meaning.fa)};
+  }
+  const minWords = difficulty==='easy' ? 4 : difficulty==='medium' ? 12 : 30;
+  const minSentences = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
+  return {difficulty, goal, level, words, grammar, slang, minWords, minSentences};
+}
+function stemWord(w){ return w.toLowerCase().replace(/[^a-z']/g,'').replace(/(ing|edly|ed|es|s)$/,''); }
+function checkPracticeAnswer(round, text){
+  const clean = (text||'').trim();
+  const lower = clean.toLowerCase();
+  const wordsHit = [], wordsMissed = [];
+  round.words.forEach(w=>{
+    const escaped = w.word.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+    const wholePattern = new RegExp('\\b'+escaped+'\\w*','i');
+    const stemPattern = new RegExp('\\b'+stemWord(w.word.split(' ')[0]).replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\w*','i');
+    if(wholePattern.test(lower) || stemPattern.test(lower)) wordsHit.push(w.word);
+    else wordsMissed.push(w.word);
+  });
+  const wc = clean ? clean.split(/\s+/).filter(Boolean).length : 0;
+  const sc = clean.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean).length;
+  const lengthOk = wc >= round.minWords && sc >= round.minSentences;
+  const grammarSpotted = round.grammar ? new RegExp('\\b'+round.grammar.markerWord.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i').test(lower) : null;
+  const slangSpotted = round.slang ? lower.includes(round.slang.word.toLowerCase()) : null;
+
+  const weights = round.difficulty==='easy' ? {vocab:70, length:30, grammar:0, slang:0}
+    : round.difficulty==='medium' ? {vocab:50, length:30, grammar:20, slang:0}
+    : {vocab:40, length:20, grammar:20, slang:20};
+  const vocabPct = round.words.length ? wordsHit.length/round.words.length : 1;
+  const wcPct = round.minWords ? Math.min(wc/round.minWords, 1) : 1;
+  const scPct = round.minSentences ? Math.min(sc/round.minSentences, 1) : 1;
+  const lengthPct = (wcPct+scPct)/2;
+  let score = vocabPct*weights.vocab + lengthPct*weights.length;
+  if(weights.grammar) score += (grammarSpotted ? 1 : 0)*weights.grammar;
+  if(weights.slang) score += (slangSpotted ? 1 : 0)*weights.slang;
+  score = Math.max(0, Math.min(100, Math.round(score)));
+
+  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, score, passed: score>=60};
+}
+function practiceFeedback(result, round){
+  const lines = [];
+  if(result.wordsMissed.length===0){
+    lines.push({ok:true, text: L(
+      `All ${round.words.length} target word${round.words.length>1?'s':''} used — nice!`,
+      `Hedeflenen ${round.words.length} kelimenin tümünü kullandın — harika!`,
+      `همه ${round.words.length} کلمه هدف را استفاده کردی — عالی!`
+    )});
+  } else {
+    lines.push({ok:false, text: L(
+      `Missing: ${result.wordsMissed.join(', ')}. Try working ${result.wordsMissed.length>1?'them':'it'} into your ${round.words.length>1?'sentences':'sentence'}.`,
+      `Eksik: ${result.wordsMissed.join(', ')}. Bunları cümlelerine eklemeyi dene.`,
+      `کم داری: ${result.wordsMissed.join(', ')}. سعی کن این‌ها را در جمله‌هایت بگنجانی.`
+    )});
+  }
+  if(result.lengthOk){
+    lines.push({ok:true, text: L(
+      `Good length — ${result.wc} words across ${result.sc} sentence${result.sc>1?'s':''}.`,
+      `İyi bir uzunluk — ${result.sc} cümlede ${result.wc} kelime.`,
+      `طول خوبی داشت — ${result.wc} کلمه در ${result.sc} جمله.`
+    )});
+  } else {
+    lines.push({ok:false, text: L(
+      `Add more detail — you wrote ${result.wc} word${result.wc===1?'':'s'} in ${result.sc} sentence${result.sc===1?'':'s'}; aim for at least ${round.minWords} words across ${round.minSentences}+ sentences.`,
+      `Daha fazla detay ekle — ${result.sc} cümlede ${result.wc} kelime yazdın; en az ${round.minWords} kelime ve ${round.minSentences}+ cümle hedefle.`,
+      `جزئیات بیشتری اضافه کن — ${result.wc} کلمه در ${result.sc} جمله نوشتی؛ حداقل ${round.minWords} کلمه و ${round.minSentences}+ جمله هدف بگیر.`
+    )});
+  }
+  if(round.grammar){
+    if(result.grammarSpotted){
+      lines.push({ok:true, text: L(
+        `Nice — you used "${round.grammar.title}".`,
+        `Harika — "${round.grammar.title}" yapısını kullandın.`,
+        `عالی — از «${round.grammar.title}» استفاده کردی.`
+      )});
+    } else {
+      lines.push({ok:false, text: L(
+        `Bonus: weave in "${round.grammar.title}" for extra polish — ${round.grammar.exp}`,
+        `Bonus: daha parlak olması için "${round.grammar.title}" yapısını ekle — ${round.grammar.exp}`,
+        `امتیاز اضافه: «${round.grammar.title}» را هم اضافه کن — ${round.grammar.exp}`
+      )});
+    }
+  }
+  if(round.slang){
+    if(result.slangSpotted){
+      lines.push({ok:true, text: L(
+        `Great — you used the slang "${round.slang.word}"!`,
+        `Harika — "${round.slang.word}" argosunu kullandın!`,
+        `عالی — از اصطلاح «${round.slang.word}» استفاده کردی!`
+      )});
+    } else {
+      lines.push({ok:false, text: L(
+        `Bonus: try the slang "${round.slang.word}" (${round.slang.meaning}) next time.`,
+        `Bonus: bir dahaki sefere "${round.slang.word}" argosunu dene (${round.slang.meaning}).`,
+        `امتیاز اضافه: دفعه بعد اصطلاح «${round.slang.word}» را امتحان کن (${round.slang.meaning}).`
+      )});
+    }
+  }
+  if(result.wordsMissed.length===0){
+    const bonus = round.words.find(w=>w.note);
+    if(bonus) lines.push({ok:true, text: L('Bonus tip: ','Bonus ipucu: ','نکته اضافه: ') + bonus.note});
+  }
+  return lines;
+}
+
+let studioRecognition = null;
+function studioSpeechSupported(){ return !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
+function stopStudioMic(){
+  if(studioRecognition){ try{ studioRecognition.onend = null; studioRecognition.stop(); }catch(e){} studioRecognition = null; }
+}
+function toggleStudioMic(){
+  if(studioRecognition){ studioRecognition.stop(); return; }
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if(!SR) return;
+  const rec = new SR();
+  rec.lang = 'en-US'; rec.interimResults = true; rec.continuous = true;
+  let finalText = state.viewParams.transcript || '';
+  studioRecognition = rec;
+  render();
+  rec.onresult = (e)=>{
+    let interim = '';
+    for(let i=e.resultIndex; i<e.results.length; i++){
+      const r = e.results[i];
+      if(r.isFinal) finalText += (finalText ? ' ' : '') + r[0].transcript.trim();
+      else interim += r[0].transcript;
+    }
+    const ta = document.getElementById('studio-answer-input');
+    if(ta) ta.value = (finalText + ' ' + interim).trim();
+  };
+  rec.onerror = ()=>{ studioRecognition = null; render(); };
+  rec.onend = ()=>{
+    studioRecognition = null;
+    state.viewParams.transcript = finalText.trim();
+    save(); render();
+  };
+  rec.start();
+}
+
+function renderStudioSetup(){
+  const vp = state.viewParams;
+  const mode = vp.mode || 'writing';
+  const profileGoals = (state.profile.goals && state.profile.goals.length) ? state.profile.goals : GOAL_ORDER;
+  const goal = vp.goal && profileGoals.includes(vp.goal) ? vp.goal : profileGoals[0];
+  const difficulty = vp.difficulty || null;
+  const diffOptions = ['easy','medium','difficult'];
+  const diffSub = {
+    easy: L('One short sentence','Kısa bir cümle','یک جمله کوتاه'),
+    medium: L('A couple of sentences','Birkaç cümle','چند جمله'),
+    difficult: L('A short paragraph','Kısa bir paragraf','یک پاراگراف کوتاه')
+  };
+  return `<div class="fade-in">
+    ${sectionHead(
+      mode==='writing' ? L('Writing Practice','Yazma Pratiği','تمرین نوشتن') : L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن'),
+      L('Pick a goal and a difficulty to start a round.','Bir hedef ve zorluk seç, tura başla.','یک هدف و سطح دشواری انتخاب کن و تمرین را شروع کن.')
+    )}
+    <div class="screen" style="padding-top:0;">
+      ${!state.profile.goals.length ? `<div class="card-flat" style="margin-bottom:14px;"><p style="font-size:13px; color:var(--ink-soft);">${L('Set your goals in Profile to personalize this further.','Bunu kişiselleştirmek için Profilinde hedeflerini ayarla.','برای شخصی‌سازی بیشتر، هدف‌هایت را در پروفایل تنظیم کن.')}</p></div>` : ''}
+      <div class="eyebrow">${L('Goal','Hedef','هدف')}</div>
+      <div class="opt-list" style="margin-top:8px;">
+        ${profileGoals.map(gk=>{
+          const g = GOALS_META[gk];
+          return `<button class="opt ${goal===gk?'selected':''}" data-action="studio-pick-goal" data-goal="${gk}">
+            <span class="opt-ic">${ICONS[g.icon]}</span>
+            <span class="opt-main">${esc(goalMetaLabel(gk))}</span>
+          </button>`;
+        }).join('')}
+      </div>
+      <div class="eyebrow" style="margin-top:20px;">${L('Difficulty','Zorluk','سطح دشواری')}</div>
+      <div class="opt-list" style="margin-top:8px;">
+        ${diffOptions.map(d=>`<button class="opt ${difficulty===d?'selected':''}" data-action="studio-pick-difficulty" data-difficulty="${d}">
+          <span><span class="opt-main">${L(STUDIO_DIFFICULTY_LABEL[d].en,STUDIO_DIFFICULTY_LABEL[d].tr,STUDIO_DIFFICULTY_LABEL[d].fa)}</span><br><span class="opt-sub">${diffSub[d]}</span></span>
+        </button>`).join('')}
+      </div>
+      <button class="btn btn-primary" style="margin-top:22px;" data-action="studio-start-round" ${!difficulty?'disabled':''}>${L('Start round','Tura başla','شروع تمرین')}</button>
+    </div>
+  </div>`;
+}
+
+function renderStudioRound(){
+  const vp = state.viewParams;
+  const round = vp.round;
+  const mode = vp.mode;
+  const result = vp.checked ? vp.result : null;
+  const speechOk = studioSpeechSupported();
+  const listening = !!studioRecognition;
+  const dl = STUDIO_DIFFICULTY_LABEL[round.difficulty];
+  const wordPills = round.words.map(w=>`<span class="pill" style="background:var(--cat-voc-soft); color:var(--cat-voc); margin:3px 4px 3px 0;">${esc(w.word)}</span>`).join('');
+  return `<div class="fade-in">
+    ${sectionHead(
+      mode==='writing' ? L('Writing Practice','Yazma Pratiği','تمرین نوشتن') : L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن'),
+      goalMetaLabel(vp.goal) + ' · ' + L(dl.en, dl.tr, dl.fa)
+    )}
+    <div class="screen" style="padding-top:0;">
+      <div class="card-flat">
+        <div class="eyebrow">${L('Use these words','Bu kelimeleri kullan','از این کلمات استفاده کن')}</div>
+        <div style="margin-top:6px;">${wordPills}</div>
+        ${round.grammar ? `<div style="margin-top:12px; font-size:13px; color:var(--ink-soft);"><b>${L('Try this grammar:','Bu yapıyı dene:','این ساختار را امتحان کن:')}</b> ${esc(round.grammar.title)}</div>` : ''}
+        ${round.slang ? `<div style="margin-top:6px; font-size:13px; color:var(--ink-soft);"><b>${L('Bonus slang:','Bonus argo:','اصطلاح اضافه:')}</b> ${esc(round.slang.word)} — ${esc(round.slang.meaning)}</div>` : ''}
+        <div style="margin-top:10px; font-size:12px; color:var(--ink-soft);">${L(`Aim for at least ${round.minWords} words.`,`En az ${round.minWords} kelime hedefle.`,`حداقل ${round.minWords} کلمه هدف بگیر.`)}</div>
+      </div>
+
+      ${mode==='speaking' ? (speechOk
+        ? `<button class="btn ${listening?'btn-primary':'btn-ghost'}" style="margin-top:14px;" data-action="studio-mic-toggle">${ICONS.mic} ${listening ? L('Stop','Durdur','توقف') : L('Start speaking','Konuşmaya başla','شروع صحبت')}</button>`
+        : `<div class="card-flat" style="margin-top:14px; background:var(--error-soft);"><p style="font-size:13px; color:var(--error);">${L('Speech input needs Chrome — you can type your answer instead.','Ses girişi için Chrome gerekiyor — bunun yerine yazabilirsin.','برای ورودی صوتی به کروم نیاز است — می‌توانی به‌جایش تایپ کنی.')}</p></div>`
+      ) : ''}
+
+      <textarea id="studio-answer-input" rows="5" placeholder="${esc(L('Type your answer here...','Cevabını buraya yaz...','پاسخت را اینجا بنویس...'))}" style="width:100%; box-sizing:border-box; margin-top:14px; padding:14px; border-radius:16px; border:1.5px solid var(--border); font-size:15px; font-family:inherit; background:var(--bg-elevated); color:var(--ink); resize:vertical;">${esc(vp.transcript||'')}</textarea>
+
+      <button class="btn btn-primary" style="margin-top:12px;" data-action="studio-check-answer">${L('Check my answer','Cevabımı kontrol et','پاسخم را بررسی کن')}</button>
+
+      ${result ? (()=>{
+        const band = result.score>=80 ? 'good' : result.score>=60 ? 'ok' : 'low';
+        const bandColor = band==='good' ? 'var(--success)' : band==='ok' ? 'var(--cat-gram)' : 'var(--error)';
+        const bandSoft = band==='good' ? 'var(--success-soft)' : band==='ok' ? 'var(--cat-gram-soft)' : 'var(--error-soft)';
+        const headline = band==='good' ? L('Excellent!','Mükemmel!','عالی!') : band==='ok' ? L('Nice work!','Güzel iş!','کار خوب!') : L('Keep practicing','Pratik yapmaya devam','به تمرین ادامه بده');
+        return `<div class="card-flat" style="margin-top:14px;">
+        <div class="row between" style="align-items:center;">
+          <div class="eyebrow" style="color:${bandColor};">${headline}</div>
+          <span class="pill" style="background:${bandSoft}; color:${bandColor}; font-size:14px; padding:6px 14px;">${result.score}/100</span>
+        </div>
+        <div class="stack" style="gap:9px; margin-top:12px;">
+          ${practiceFeedback(result, round).map(line=>`<div class="row" style="gap:8px; align-items:flex-start;">
+            <span style="flex:0 0 auto; margin-top:2px; color:${line.ok?'var(--success)':'var(--error)'};">${line.ok ? ICONS.check : '×'}</span>
+            <span style="font-size:13.5px; line-height:1.5;">${esc(line.text)}</span>
+          </div>`).join('')}
+        </div>
+        <div style="margin-top:10px;">
+          ${round.words.map(w=>`<span class="pill" style="margin:2px 4px 2px 0; background:${result.wordsHit.includes(w.word)?'var(--success-soft)':'var(--error-soft)'}; color:${result.wordsHit.includes(w.word)?'var(--success)':'var(--error)'};">${esc(w.word)}</span>`).join('')}
+        </div>
+      </div>`;
+      })() : ''}
+
+      <div class="row" style="gap:8px; margin-top:16px;">
+        <button class="btn btn-ghost" style="flex:1;" data-action="studio-new-round">${L('New round','Yeni tur','تمرین جدید')}</button>
+        <button class="btn btn-ghost" style="flex:1;" data-action="studio-change-difficulty">${L('Change difficulty','Zorluğu değiştir','تغییر سطح')}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
 /* ============================= RENDER: GRAMMAR GYM ============================= */
 function levelChips(current){
   return `<div class="level-chip-row">${LEVELS.map(lv=>`
@@ -3686,24 +3970,67 @@ function renderVocabSet(id, cardIndex){
   </div>`;
 }
 
-/* ============================= RENDER: LISTENING LAB ============================= */
+/* ============================= RENDER: STUDIO (Teacher + Lab) ============================= */
 function renderSpeakingClub(){
   const p = state.profile;
   return `<div class="fade-in">
     ${topbar(false)}
-    ${sectionHeadNoBack(L('Speaking Club','Konuşma Kulübü','باشگاه مکالمه'), L('Real practice with a real human — no app can fake this one.','Gerçek bir insanla gerçek pratik — bunu hiçbir uygulama taklit edemez.','تمرین واقعی با یک انسان واقعی — هیچ اپی نمی‌تواند جای آن را بگیرد.'))}
+    ${sectionHeadNoBack(L('Studio','Stüdyo','استودیو'), L('Real conversation with a human, or practice on your own.','Bir insanla gerçek sohbet, ya da kendi başına pratik yap.','گفتگوی واقعی با یک انسان، یا تمرین به‌تنهایی.'))}
     <div class="screen" style="padding-top:0;">
-      <div class="clay-banner" style="background:var(--clay-coral);">
-        ${claySparkles()}
-        <img src="icon-speaking.png" alt="" class="clay-banner-illustration" loading="lazy">
-        <div class="clay-banner-title">${L('Talk it out loud','Yüksek sesle konuş','بلند حرف بزن')}</div>
-        <div class="clay-banner-sub">${L('5 live sessions with a real teacher — book whenever you\'re ready.','Gerçek bir öğretmenle 5 canlı seans — hazır olduğunda ayırt.','۵ جلسه زنده با یک معلم واقعی — هر وقت آماده بودی رزرو کن.')}</div>
+      <div class="stack" style="gap:12px;">
+        <a class="item-row goal-card" target="_top" rel="noopener" style="background:var(--clay-coral); text-decoration:none;" href="${whatsappLink(L("Hi! I'm "+p.name+". I'd like to start my speaking sessions.","Merhaba! Ben "+p.name+". Konuşma seanslarımı başlatmak istiyorum.")+leadInfoSuffix(p))}">
+          <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.chat}</span>
+          <div class="item-body">
+            <div class="item-title">${L('Speak with a Teacher','Bir Öğretmenle Konuş','با یک معلم صحبت کن')}</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,.85); font-weight:700; margin-top:2px;">${L('5 live sessions, one message away','Bir mesaj uzağında 5 canlı seans','۵ جلسه زنده، فقط یک پیام باهات فاصله دارد')}</div>
+          </div>
+          <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
+        </a>
+        <button class="item-row goal-card" data-action="nav" data-view="studio-lab" style="background:var(--clay-sky);">
+          <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.pen}</span>
+          <div class="item-body">
+            <div class="item-title">${L('Lab','Lab','آزمایشگاه')}</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,.85); font-weight:700; margin-top:2px;">${L('Writing & speaking rounds, on your own','Kendi başına yazma ve konuşma turları','تمرین‌های نوشتن و صحبت‌کردن، به‌تنهایی')}</div>
+          </div>
+          <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
+        </button>
       </div>
-      <div class="whatsapp-card">
-        <h3 class="display" style="font-size:15px;">${L('5 live speaking sessions, one text away','Bir mesaj uzağında 5 canlı konuşma seansı')}</h3>
-        <p style="font-size:12.5px; color:var(--ink-soft); margin-top:5px;">${L("Message us and let's get you talking today.",'Bize yaz, bugünden konuşmaya başlayalım.')}</p>
-        <a class="btn btn-primary" style="margin-top:14px; width:100%; justify-content:center;" target="_top" rel="noopener" href="${whatsappLink(L("Hi! I'm "+p.name+". I'd like to start my speaking sessions.","Merhaba! Ben "+p.name+". Konuşma seanslarımı başlatmak istiyorum.")+leadInfoSuffix(p))}">${L('Start your speaking sessions','Konuşma seanslarını başlat')}</a>
-        ${whatsappFallback()}
+    </div>
+  </div>`;
+}
+function renderStudioLab(){
+  return `<div class="fade-in">
+    ${sectionHead(L('Lab','Lab','آزمایشگاه'), L("Short rounds that use your goal's grammar, vocab, and slang — write it or say it, then get tips.",'Hedefine göre dilbilgisi, kelime ve argo kullanan kısa turlar — yaz ya da söyle, sonra ipuçları al.','تمرین‌های کوتاهی که از گرامر، واژگان و اصطلاحات هدفت استفاده می‌کنند — بنویس یا بگو، بعد نکته بگیر.'))}
+    <div class="screen" style="padding-top:0;">
+      <div class="stack" style="gap:12px;">
+        <button class="item-row goal-card" data-action="studio-pick-mode" data-mode="writing" style="background:var(--clay-orange);">
+          <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.pen}</span>
+          <div class="item-body">
+            <div class="item-title">${L('Writing Practice','Yazma Pratiği','تمرین نوشتن')}</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,.85); font-weight:700; margin-top:2px;">${(state.progress.writingRoundsDone||0)+' '+L('rounds done','tur tamam','دور تمام‌شده')}</div>
+          </div>
+          <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
+        </button>
+        <button class="item-row goal-card" data-action="studio-pick-mode" data-mode="speaking" style="background:var(--clay-sky);">
+          <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.mic}</span>
+          <div class="item-body">
+            <div class="item-title">${L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن')}</div>
+            <div style="font-size:11.5px; color:rgba(255,255,255,.85); font-weight:700; margin-top:2px;">${(state.progress.speakingRoundsDone||0)+' '+L('rounds done','tur tamam','دور تمام‌شده')}</div>
+          </div>
+          <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
+        </button>
+      </div>
+    </div>
+  </div>`;
+}
+function renderComingSoon(){
+  return `<div class="fade-in">
+    ${sectionHead(L('Learn Spanish!','İspanyolca Öğren!','اسپانیایی یاد بگیر!'), '')}
+    <div class="screen" style="padding-top:0;">
+      <div class="clay-banner" style="background:var(--clay-sage); text-align:center;">
+        ${claySparkles()}
+        <div class="clay-banner-title">${L('¡Muy pronto!','Çok yakında!','خیلی زود!')}</div>
+        <div class="clay-banner-sub">${L('Spanish lessons are coming soon — same app, new language.','İspanyolca dersleri çok yakında geliyor — aynı uygulama, yeni bir dil.','دروس اسپانیایی خیلی زود می‌آید — همین اپ، زبان جدید.')}</div>
       </div>
     </div>
   </div>`;
@@ -4028,6 +4355,10 @@ const screens = {
   'goal-levels': ()=>renderGoalLevels(state.viewParams.goal),
   'goal-level-detail': ()=>renderGoalLevelDetail(state.viewParams.goal, state.viewParams.level),
   'speaking-club': renderSpeakingClub,
+  'studio-lab': renderStudioLab,
+  'studio-setup': renderStudioSetup,
+  'studio-round': renderStudioRound,
+  'coming-soon': renderComingSoon,
   'story-list': renderStoryList,
   'story-detail': ()=>renderStoryDetail(state.viewParams.id),
   'quiz': ()=> state.quiz.index < state.quiz.questions.length ? renderQuiz() : renderQuizResults()
@@ -4507,6 +4838,46 @@ const HANDLERS = {
     if(goals.length) state.profile.motivationTag = goals[0];
     save(); render();
   },
+  'studio-pick-mode'(el){
+    const mode = el.dataset.mode;
+    const goals = (state.profile.goals && state.profile.goals.length) ? state.profile.goals : GOAL_ORDER;
+    go('studio-setup', {mode, goal: goals[0], difficulty: null});
+  },
+  'studio-pick-goal'(el){ state.viewParams.goal = el.dataset.goal; render(); },
+  'studio-pick-difficulty'(el){ state.viewParams.difficulty = el.dataset.difficulty; render(); },
+  'studio-start-round'(){
+    const vp = state.viewParams;
+    if(!vp.difficulty) return;
+    const round = buildPracticeRound(vp.goal, state.profile.level, vp.difficulty);
+    go('studio-round', {mode: vp.mode, goal: vp.goal, difficulty: vp.difficulty, round, transcript:'', checked:false, result:null});
+  },
+  'studio-new-round'(){
+    stopStudioMic();
+    const vp = state.viewParams;
+    const round = buildPracticeRound(vp.goal, state.profile.level, vp.difficulty);
+    state.viewParams = Object.assign({}, vp, {round, transcript:'', checked:false, result:null});
+    save(); render();
+  },
+  'studio-change-difficulty'(){
+    stopStudioMic();
+    const vp = state.viewParams;
+    go('studio-setup', {mode: vp.mode, goal: vp.goal, difficulty: null});
+  },
+  'studio-check-answer'(){
+    const vp = state.viewParams;
+    const ta = document.getElementById('studio-answer-input');
+    const text = ta ? ta.value : (vp.transcript || '');
+    const result = checkPracticeAnswer(vp.round, text);
+    vp.transcript = text; vp.checked = true; vp.result = result;
+    if(result.passed){
+      const key = vp.mode==='writing' ? 'writingRoundsDone' : 'speakingRoundsDone';
+      state.progress[key] = (state.progress[key]||0) + 1;
+    }
+    save();
+    if(result.passed) checkBadges();
+    render();
+  },
+  'studio-mic-toggle'(){ toggleStudioMic(); },
   'flip-card'(){ state.viewParams.flipped = !state.viewParams.flipped; render(); },
   'vocab-next'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i+1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
   'vocab-prev'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i-1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
