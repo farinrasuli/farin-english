@@ -123,19 +123,6 @@ if (hasGSAP){
     });
   }
 
-  /* ---------------- Difference cards + steps: 3D settle-in, one ScrollTrigger per element ---------------- */
-  var depthEls = document.querySelectorAll('.grid.cols-4 > .depth-card, .steps > .step');
-  depthEls.forEach(function(el, i){
-    gsap.set(el, { transformPerspective: 1000, transformOrigin:'50% 100%' });
-    gsap.fromTo(el,
-      { rotateX: 16, y: 30, scale: .94 },
-      {
-        rotateX: 0, y: 0, scale: 1, ease:'power2.out',
-        scrollTrigger: { trigger: el, start:'top 92%', end:'top 55%', scrub: .6 }
-      }
-    );
-  });
-
   /* Feature showcase is now a continuous CSS-driven infinite marquee (see .feature-track
      keyframes in site.css) — no scroll-triggered JS needed; it just loops on its own. */
 
@@ -174,48 +161,6 @@ if (hasGSAP){
     });
   }
 
-  /* ---------------- Section vortex — a BIG spinning "landspout" of sparkles that sweeps
-     across the whole viewport at each section boundary: it grows in, swirls at full size,
-     then shrinks away, so crossing into a new section feels like a real gust carrying you
-     through rather than a small decorative detail ---------------- */
-  var vortexSections = Array.prototype.slice.call(document.querySelectorAll('section')).filter(function(s){
-    return !s.classList.contains('hero-scene');
-  });
-  vortexSections.forEach(function(section){
-    var vortex = document.createElement('div');
-    vortex.className = 'section-vortex';
-    vortex.setAttribute('aria-hidden', 'true');
-    var glow = document.createElement('div');
-    glow.className = 'vortex-glow';
-    var spin = document.createElement('div');
-    spin.className = 'vortex-spin';
-    var dotCount = isNarrow ? 14 : 24;
-    var vortexHeight = isNarrow ? 440 : 720;
-    var maxRadius = isNarrow ? 100 : 190;
-    for (var v = 0; v < dotCount; v++){
-      var t = v / (dotCount - 1);
-      var radius = 10 + t * maxRadius;
-      var angle = t * 1080 + v * 41;
-      var dot = document.createElement('span');
-      dot.style.top = (t * vortexHeight) + 'px';
-      dot.style.transform = 'rotate(' + angle + 'deg) translateX(' + radius.toFixed(1) + 'px)';
-      dot.style.opacity = (0.45 + Math.random() * 0.55).toFixed(2);
-      spin.appendChild(dot);
-    }
-    vortex.appendChild(glow);
-    vortex.appendChild(spin);
-    section.insertBefore(vortex, section.firstChild);
-    gsap.set(vortex, { scale:.4, transformOrigin:'50% 50%' });
-
-    ScrollTrigger.create({
-      trigger: section, start:'top 100%', end:'top -20%', scrub:true,
-      onUpdate: function(self){
-        var p = self.progress;
-        var peak = p < .5 ? p * 2 : (1 - p) * 2; /* 0 -> 1 -> 0 across the crossing */
-        gsap.set(vortex, { opacity: peak, scale: .4 + peak * .9 });
-      }
-    });
-  });
 } else {
   /* ---------------- No-GSAP / reduced-motion fallback: lightweight vanilla tilt ---------------- */
   var tiltElsFallback = canHover
@@ -259,19 +204,19 @@ document.querySelectorAll('.faq-item').forEach(function(item){
    "sınav" goal and the outgoing WhatsApp text are localized.
    ================================================================== */
 var GOALS = [
-  { id:'kariyer', label:'Kariyer / İş Hayatı', desc:'Toplantı, e-posta, sunum' },
-  { id:'seyahat', label:'Seyahat', desc:'Gezerken rahat konuşmak' },
-  { id:'sinav', label:'Sınav', desc:(LANG && LANG.examLabel) || 'Uluslararası sınavlar' },
-  { id:'gocyurtdisi', label:'Yurt Dışı Yaşam', desc:'Taşınma, göç, günlük hayat' },
-  { id:'akici', label:'Sadece Akıcı Konuşmak', desc:'Özgüvenle konuşabilmek' },
-  { id:'yenidenbasla', label:'Yeniden Başlamak', desc:'Yarım kalmıştı, tazelemek istiyorum' }
+  { id:'kariyer', label:'Kariyer / İş Hayatı', desc:'Toplantı, e-posta, sunum', icon:'assets/char-career.png' },
+  { id:'seyahat', label:'Seyahat', desc:'Gezerken rahat konuşmak', icon:'assets/char-travel.png' },
+  { id:'sinav', label:'Sınav', desc:(LANG && LANG.examLabel) || 'Uluslararası sınavlar', icon:'assets/char-exam.png' },
+  { id:'gocyurtdisi', label:'Yurt Dışı Yaşam', desc:'Taşınma, göç, günlük hayat', icon:'assets/char-immigration.png' },
+  { id:'akici', label:'Sadece Akıcı Konuşmak', desc:'Özgüvenle konuşabilmek', icon:'assets/char-everyday.png' },
+  { id:'yenidenbasla', label:'Yeniden Başlamak', desc:'Yarım kalmıştı, tazelemek istiyorum', badge:'↺' }
 ];
 var LEVELS = [
-  { id:'a1', label:'Yeni Başlıyorum', desc:'A1 seviyesi' },
-  { id:'a2b1', label:'Temel Bilgim Var', desc:'A2–B1 seviyesi' },
-  { id:'b1b2', label:'Orta Seviyeyim', desc:'B1–B2 seviyesi' },
-  { id:'c1', label:'İleri Seviyeyim', desc:'C1 ve üzeri' },
-  { id:'belirsiz', label:'Emin Değilim', desc:'İlk derste birlikte netleştirelim' }
+  { id:'a1', label:'Yeni Başlıyorum', desc:'A1 seviyesi', badge:'A1' },
+  { id:'a2b1', label:'Temel Bilgim Var', desc:'A2–B1 seviyesi', badge:'A2' },
+  { id:'b1b2', label:'Orta Seviyeyim', desc:'B1–B2 seviyesi', badge:'B1' },
+  { id:'c1', label:'İleri Seviyeyim', desc:'C1 ve üzeri', badge:'C1' },
+  { id:'belirsiz', label:'Emin Değilim', desc:'İlk derste birlikte netleştirelim', badge:'?' }
 ];
 var CHARS = [
   { id:'kasif', label:'Kâşif', desc:'Yeni yerler, yeni kültürler, keşfetmeyi severim', plan:'Derslerde seni yeni senaryolara ve kültürel deneyimlere götüreceğiz — her ders küçük bir keşif olacak.' },
@@ -303,8 +248,13 @@ if (wizardEl){
   function renderOptions(list, key){
     return list.map(function(o){
       var selected = state[key] === o.id;
-      return '<button type="button" class="option'+(selected?' selected':'')+'" data-key="'+key+'" data-id="'+o.id+'" aria-pressed="'+selected+'">'+
-        '<strong>'+o.label+'</strong><span class="desc">'+o.desc+'</span>'+
+      var icon = o.icon
+        ? '<span class="opt-ic"><img src="'+o.icon+'" alt=""></span>'
+        : '<span class="opt-ic opt-ic-text">'+(o.badge || o.label.charAt(0))+'</span>';
+      return '<button type="button" class="opt'+(selected?' selected':'')+'" data-key="'+key+'" data-id="'+o.id+'" aria-pressed="'+selected+'">'+
+        icon+
+        '<span class="opt-text"><span class="opt-main">'+o.label+'</span><span class="opt-sub">'+o.desc+'</span></span>'+
+        '<span class="opt-check">✓</span>'+
       '</button>';
     }).join('');
   }
@@ -329,14 +279,14 @@ if (wizardEl){
       '<div class="wizard-progress">'+progressHTML()+'</div>'+
       '<div class="wizard-step-label">'+label+'</div>'+
       '<h3>'+title+'</h3>'+
-      '<div class="option-grid" role="group">'+renderOptions(list,key)+'</div>'+
+      '<div class="opt-list" role="group">'+renderOptions(list,key)+'</div>'+
       '<div class="wizard-nav">'+
         (state.step>1 ? '<button type="button" class="btn btn-ghost btn-sm" id="wizBack">← Geri</button>' : '<span></span>')+
         '<span class="spacer"></span>'+
         '<button type="button" class="btn btn-primary btn-sm" id="wizNext" '+(state[key]?'':'disabled')+'>'+(state.step<stepsTotal?'İleri →':'Programımı Göster')+'</button>'+
       '</div>';
 
-    wizardEl.querySelectorAll('.option').forEach(function(btn){
+    wizardEl.querySelectorAll('.opt').forEach(function(btn){
       btn.addEventListener('click', function(){
         state[btn.dataset.key] = btn.dataset.id;
         render();
