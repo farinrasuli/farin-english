@@ -3594,6 +3594,93 @@ const STUDIO_DIFFICULTY_LABEL = {
   medium: {en:'Medium', tr:'Orta', fa:'متوسط'},
   difficult: {en:'Difficult', tr:'Zor', fa:'دشوار'}
 };
+const PRACTICE_TOPICS = {
+  career: {
+    easy: [
+      {en:"Tell a coworker you'll be a few minutes late today.", tr:'Bir iş arkadaşına bugün birkaç dakika geç kalacağını söyle.', fa:'به یک همکار بگو که امروز چند دقیقه دیر می‌رسی.'},
+      {en:'Ask your manager for one day off next week.', tr:'Yöneticinden gelecek hafta için bir gün izin iste.', fa:'از مدیرت برای هفته آینده یک روز مرخصی بخواه.'},
+      {en:'Thank a colleague for their help on a project.', tr:'Bir projede yardımı için bir iş arkadaşına teşekkür et.', fa:'از یک همکار به‌خاطر کمکش در یک پروژه تشکر کن.'}
+    ],
+    medium: [
+      {en:'Explain to your manager why you need to leave the office early tomorrow.', tr:'Yöneticine yarın ofisten neden erken çıkman gerektiğini açıkla.', fa:'به مدیرت توضیح بده چرا فردا باید زودتر از دفتر بروی.'},
+      {en:'Tell a new coworker about your daily tasks at work.', tr:'Yeni bir iş arkadaşına işteki günlük görevlerinden bahset.', fa:'به یک همکار جدید درباره وظایف روزانه‌ات در محل کار بگو.'},
+      {en:'Describe a recent meeting and what was decided.', tr:'Yakın zamanda katıldığın bir toplantıyı ve alınan kararları anlat.', fa:'یک جلسه اخیر و تصمیماتی که گرفته شد را توصیف کن.'}
+    ],
+    difficult: [
+      {en:"Write a short email to a colleague summarizing what happened in today's meeting and the next steps.", tr:'Bir iş arkadaşına bugünkü toplantıda neler olduğunu ve sonraki adımları özetleyen kısa bir e-posta yaz.', fa:'یک ایمیل کوتاه به یک همکار بنویس که خلاصه‌ای از جلسه امروز و مراحل بعدی را شرح دهد.'},
+      {en:"Explain to your manager a problem you're having with a project and suggest a solution.", tr:'Yöneticine bir projeyle ilgili yaşadığın bir sorunu açıkla ve bir çözüm öner.', fa:'به مدیرت مشکلی که در یک پروژه داری را توضیح بده و یک راه‌حل پیشنهاد بده.'},
+      {en:'Describe your ideal job and why it would suit you well.', tr:'İdeal işini ve seni neden bu kadar iyi tamamlayacağını anlat.', fa:'شغل ایده‌آلت را توصیف کن و بگو چرا برایت مناسب است.'}
+    ]
+  },
+  travel: {
+    easy: [
+      {en:'Tell a friend which city you want to visit next.', tr:'Bir arkadaşına bir sonraki gitmek istediğin şehri söyle.', fa:'به یک دوست بگو دفعه بعد می‌خواهی به کدام شهر بروی.'},
+      {en:'Ask someone for directions to the nearest train station.', tr:'Birine en yakın tren istasyonuna nasıl gidileceğini sor.', fa:'از کسی آدرس نزدیک‌ترین ایستگاه قطار را بپرس.'},
+      {en:"Describe what's in your travel bag.", tr:'Seyahat çantanda neler olduğunu anlat.', fa:'بگو داخل ساک سفرت چه چیزهایی هست.'}
+    ],
+    medium: [
+      {en:'Write a short message to a friend who is traveling, telling them about your week.', tr:'Seyahatte olan bir arkadaşına haftanın nasıl geçtiğini anlatan kısa bir mesaj yaz.', fa:'به یک دوستی که در سفر است پیام کوتاهی بنویس و درباره هفته‌ات بگو.'},
+      {en:'Describe your last vacation and what you liked most about it.', tr:'Son tatilini ve en çok neyini sevdiğini anlat.', fa:'آخرین تعطیلاتت و چیزی که بیشتر از همه دوست داشتی را توصیف کن.'},
+      {en:'Explain to a hotel receptionist a problem with your room.', tr:'Otel resepsiyonistine odanla ilgili bir sorunu açıkla.', fa:'به مسئول پذیرش هتل مشکل اتاقت را توضیح بده.'}
+    ],
+    difficult: [
+      {en:"Write a short email to a friend who's traveling abroad, sharing news from home and asking about their trip.", tr:'Yurt dışında seyahat eden bir arkadaşına evden haberler veren ve gezisini soran kısa bir e-posta yaz.', fa:'برای دوستی که در حال سفر خارج از کشور است ایمیل کوتاهی بنویس، اخبار خانه را بگو و درباره سفرش بپرس.'},
+      {en:"Describe your dream vacation in detail, including where you'd go and what you'd do.", tr:'Hayalindeki tatili, nereye gideceğini ve neler yapacağını da ekleyerek detaylıca anlat.', fa:'تعطیلات رویایی‌ات را با جزئیات توصیف کن، از جمله اینکه کجا می‌روی و چه کار می‌کنی.'},
+      {en:"Explain to an airline staff member why your flight was delayed and what you'd like them to do about it.", tr:'Bir havayolu görevlisine uçuşunun neden gecikmiş olduğunu açıkla ve ne yapmalarını istediğini söyle.', fa:'به یک کارمند خط هوایی توضیح بده چرا پروازت تأخیر داشته و بگو چه می‌خواهی برایت انجام دهند.'}
+    ]
+  },
+  exam: {
+    easy: [
+      {en:'Say whether you prefer studying alone or in a group.', tr:'Tek başına mı yoksa grupla mı çalışmayı tercih ettiğini söyle.', fa:'بگو ترجیح می‌دهی تنهایی درس بخوانی یا گروهی.'},
+      {en:'Say one thing you like about your hometown.', tr:'Memleketinle ilgili sevdiğin bir şeyi söyle.', fa:'یک چیزی که در شهر خودت دوست داری را بگو.'},
+      {en:'Say what your favorite subject in school was.', tr:'Okulda en sevdiğin dersin ne olduğunu söyle.', fa:'بگو موضوع مورد علاقه‌ات در مدرسه چه بود.'}
+    ],
+    medium: [
+      {en:'Give your opinion on whether homework helps students learn better.', tr:'Ev ödevlerinin öğrencilerin daha iyi öğrenmesine yardımcı olup olmadığı hakkındaki fikrini belirt.', fa:'نظرت را درباره اینکه آیا تکلیف به یادگیری بهتر دانش‌آموزان کمک می‌کند یا نه بگو.'},
+      {en:"Describe a skill you'd like to learn and why.", tr:'Öğrenmek istediğin bir beceriyi ve nedenini anlat.', fa:'یک مهارت که می‌خواهی یاد بگیری و دلیلش را توصیف کن.'},
+      {en:'Talk about a book or film that made an impression on you.', tr:'Sende iz bırakan bir kitap ya da filmden bahset.', fa:'درباره یک کتاب یا فیلمی که روی تو تأثیر گذاشته صحبت کن.'}
+    ],
+    difficult: [
+      {en:'Give your opinion on whether social media does more good than harm for teenagers, with reasons.', tr:'Sosyal medyanın gençler için zarardan çok fayda sağlayıp sağlamadığı hakkındaki fikrini nedenleriyle belirt.', fa:'نظرت را با دلیل درباره اینکه آیا شبکه‌های اجتماعی برای نوجوانان بیشتر فایده دارد یا ضرر، بگو.'},
+      {en:'Discuss the advantages and disadvantages of working from home.', tr:'Evden çalışmanın avantajlarını ve dezavantajlarını tartış.', fa:'مزایا و معایب کار کردن از خانه را بررسی کن.'},
+      {en:'Describe a change you would make to your city and explain why it would help.', tr:'Şehrinde yapacağın bir değişikliği anlat ve neden faydalı olacağını açıkla.', fa:'تغییری که در شهرت ایجاد می‌کنی را توصیف کن و بگو چرا کمک می‌کند.'}
+    ]
+  },
+  immigration: {
+    easy: [
+      {en:'Say why you want to move to a new country.', tr:'Neden yeni bir ülkeye taşınmak istediğini söyle.', fa:'بگو چرا می‌خواهی به یک کشور جدید نقل مکان کنی.'},
+      {en:"Tell someone one thing you'll miss about your home country.", tr:'Birine memleketinle ilgili özleyeceğin bir şeyi söyle.', fa:'به کسی بگو چه چیزی از کشورت را دلتنگ خواهی شد.'},
+      {en:'Say what documents you need for your visa application.', tr:'Vize başvurun için hangi belgelere ihtiyacın olduğunu söyle.', fa:'بگو برای درخواست ویزایت به چه مدارکی نیاز داری.'}
+    ],
+    medium: [
+      {en:"Explain to a friend why you're moving abroad and what you're excited about.", tr:'Bir arkadaşına neden yurt dışına taşındığını ve ne konuda heyecanlı olduğunu açıkla.', fa:'به یک دوست توضیح بده چرا به خارج از کشور نقل مکان می‌کنی و درباره چه چیزی هیجان‌زده‌ای.'},
+      {en:"Describe the neighborhood you'd like to live in after moving.", tr:'Taşındıktan sonra yaşamak istediğin mahalleyi anlat.', fa:'محله‌ای که بعد از نقل مکان می‌خواهی در آن زندگی کنی را توصیف کن.'},
+      {en:'Talk about what you expect to be different about daily life abroad.', tr:'Yurt dışındaki günlük hayatta neyin farklı olmasını beklediğinden bahset.', fa:'درباره اینکه فکر می‌کنی زندگی روزمره در خارج چه فرقی خواهد داشت صحبت کن.'}
+    ],
+    difficult: [
+      {en:"Write a short message to a friend explaining why you're moving abroad and what your plans are for the first few months.", tr:'Bir arkadaşına neden yurt dışına taşındığını ve ilk birkaç ay için planlarını açıklayan kısa bir mesaj yaz.', fa:'به یک دوست پیام کوتاهی بنویس و توضیح بده چرا به خارج نقل مکان می‌کنی و برنامه‌هایت برای چند ماه اول چیست.'},
+      {en:'Describe the biggest challenge you expect when settling into a new country and how you plan to handle it.', tr:'Yeni bir ülkeye yerleşirken karşılaşacağını düşündüğün en büyük zorluğu ve bunu nasıl aşmayı planladığını anlat.', fa:'بزرگ‌ترین چالشی که هنگام ساکن شدن در کشور جدید انتظار داری و برنامه‌ات برای مدیریت آن را توصیف کن.'},
+      {en:"Explain the steps you've taken so far to prepare for your move.", tr:'Taşınmana hazırlanmak için şu ana kadar attığın adımları açıkla.', fa:'مراحلی که تا الان برای آماده شدن برای نقل مکانت برداشتی را توضیح بده.'}
+    ]
+  },
+  everyday: {
+    easy: [
+      {en:'Invite a friend to get coffee this weekend.', tr:'Bir arkadaşını bu hafta sonu kahve içmeye davet et.', fa:'یک دوست را برای قهوه خوردن این آخر هفته دعوت کن.'},
+      {en:'Tell someone what you had for breakfast today.', tr:'Birine bugün kahvaltıda ne yediğini söyle.', fa:'به کسی بگو امروز صبحانه چه خوردی.'},
+      {en:'Ask a friend how their weekend was.', tr:'Bir arkadaşına hafta sonunun nasıl geçtiğini sor.', fa:'از یک دوست بپرس آخر هفته‌اش چطور بود.'}
+    ],
+    medium: [
+      {en:'Write a short text inviting a friend to a weekend trip.', tr:'Bir arkadaşını hafta sonu gezisine davet eden kısa bir mesaj yaz.', fa:'پیامک کوتاهی بنویس و یک دوست را به یک سفر آخر هفته دعوت کن.'},
+      {en:'Describe your typical morning routine.', tr:'Tipik sabah rutinini anlat.', fa:'روال معمول صبح‌هایت را توصیف کن.'},
+      {en:'Tell a friend about a funny thing that happened to you recently.', tr:'Bir arkadaşına yakın zamanda başına gelen komik bir şeyi anlat.', fa:'به یک دوست درباره اتفاق خنده‌داری که اخیراً برایت افتاده بگو.'}
+    ],
+    difficult: [
+      {en:'Write a short message to a friend planning a weekend trip together, including where to go and what to bring.', tr:'Bir arkadaşınla birlikte planladığın hafta sonu gezisi için nereye gidileceğini ve ne getirileceğini de içeren kısa bir mesaj yaz.', fa:'پیام کوتاهی برای یک دوست بنویس که با هم یک سفر آخر هفته برنامه‌ریزی می‌کنید، شامل اینکه کجا بروید و چه چیزی ببرید.'},
+      {en:'Describe how your daily routine has changed over the past year.', tr:'Günlük rutininin son bir yılda nasıl değiştiğini anlat.', fa:'بگو روال روزانه‌ات در سال گذشته چطور تغییر کرده است.'},
+      {en:"Tell a friend about a problem you're having and ask for their advice.", tr:'Bir arkadaşına yaşadığın bir sorunu anlat ve tavsiyesini iste.', fa:'به یک دوست درباره مشکلی که داری بگو و نظرش را بخواه.'}
+    ]
+  }
+};
 function buildPracticeRound(goal, level, difficulty){
   const vPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab');
   const slPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
@@ -3631,30 +3718,45 @@ function buildPracticeRound(goal, level, difficulty){
   }
   const minWords = difficulty==='easy' ? 4 : difficulty==='medium' ? 12 : 30;
   const minSentences = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
-  return {difficulty, goal, level, words, grammar, slang, minWords, minSentences};
+  const topicPool = (PRACTICE_TOPICS[goal] && PRACTICE_TOPICS[goal][difficulty]) || [];
+  const topicItem = topicPool.length ? topicPool[Math.floor(Math.random()*topicPool.length)] : null;
+  const topic = topicItem ? L(topicItem.en, topicItem.tr, topicItem.fa) : null;
+  return {difficulty, goal, level, words, grammar, slang, minWords, minSentences, topic};
 }
 function stemWord(w){ return w.toLowerCase().replace(/[^a-z']/g,'').replace(/(ing|edly|ed|es|s)$/,''); }
 const COMMON_ENGLISH_WORDS = new Set(['i','you','he','she','it','we','they','me','him','her','us','them','my','your','his','its','our','their','mine','yours','am','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','can','could','shall','should','may','might','must','a','an','the','this','that','these','those','and','or','but','so','because','if','when','while','than','then','there','here','not','no','yes','very','too','also','just','only','about','after','before','again','all','any','some','many','much','more','most','other','such','what','which','who','whom','whose','where','why','how','of','to','in','on','at','by','for','with','from','up','down','out','off','over','under','into','onto','through','during','between','among','go','goes','went','gone','going','get','gets','got','getting','make','makes','made','making','take','takes','took','taken','taking','come','comes','came','coming','see','sees','saw','seen','seeing','know','knows','knew','known','knowing','think','thinks','thought','thinking','want','wants','wanted','wanting','like','likes','liked','liking','need','needs','needed','say','says','said','saying','tell','tells','told','telling','ask','asks','asked','asking','feel','feels','felt','feeling','look','looks','looked','looking','use','uses','used','using','work','works','worked','working','call','calls','called','calling','try','tries','tried','trying','give','gives','gave','given','giving','find','finds','found','finding','day','time','year','way','people','man','woman','child','life','world','hand','part','place','week','company','system','question','number','night','point','home','water','room','area','money','story','fact','month','lot','right','study','book','eye','job','word','business','side','kind','head','house','friend','father','mother','hour','game','line','end','law','car','city','name','minute','idea','body','information','back','face','level','office','door','health','person','war','result','change','morning','reason','girl','guy','moment','air','teacher','education','good','new','first','last','long','great','little','own','old','big','different','next','early','young','important','few','public','bad','same','able','sure','best','better','today','tomorrow','yesterday','now','soon','always','never','often','sometimes','usually'])
 ;
+const SHORT_WORD_WHITELIST = new Set(['a','i','an','to','of','in','on','at','by','up','no','so','we','he','be','is','it','as','or','if','my','me','us','do','go','ok','on']);
+const COMMON_VERBS = new Set(['am','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','can','could','should','must','go','goes','went','get','gets','got','make','makes','made','take','takes','took','come','comes','came','see','sees','saw','know','knows','knew','think','thinks','thought','want','wants','wanted','like','likes','liked','need','needs','needed','say','says','said','tell','tells','told','ask','asks','asked','feel','feels','felt','look','looks','looked','use','uses','used','work','works','worked','call','calls','called','try','tries','tried','give','gives','gave','find','finds','found','write','writes','wrote','send','sends','sent','meet','meets','met','plan','plans','planned','visit','visits','visited','travel','travels','traveled','love','loves','loved','hope','hopes','hoped','miss','misses','missed','explain','explains','explained','share','shares','shared','agree','agrees','agreed','disagree','disagrees','disagreed','enjoy','enjoys','enjoyed','start','starts','started','stop','stops','stopped','begin','begins','began','finish','finishes','finished','stay','stays','stayed','live','lives','lived','move','moves','moved','change','changes','changed','learn','learns','learned','teach','teaches','taught','study','studies','studied','play','plays','played','watch','watches','watched','listen','listens','listened','speak','speaks','spoke','talk','talks','talked','read','reads','buy','buys','bought','pay','pays','paid','help','helps','helped','decide','decides','decided','remember','remembers','remembered','forget','forgets','forgot']);
+const SUBJECT_WORDS = new Set(['i','you','he','she','it','we','they','my','your','his','her','its','our','their','this','that','these','those']);
 function looksLikeRealWord(w){
-  if(w.length<=2) return true;
+  if(w.length===0) return false;
+  if(w.length<=2) return SHORT_WORD_WHITELIST.has(w);
   if(w.length>16) return false;
   if(!/[aeiouy]/i.test(w)) return false;
-  if(/[^aeiou]{4,}/i.test(w)) return false;
+  if(/[^aeiou]{3,}/i.test(w)) return false;
   if(/(.)\1{2,}/i.test(w)) return false;
+  if(/^(qwert|werty|asdf|sdfg|zxcv|xcvb|jklm|hjkl|wasd)/i.test(w)) return false;
   return true;
 }
 function checkTextLooksReal(text, extraWords){
   const tokens = text.toLowerCase().replace(/[^a-z'\s]/g,' ').split(/\s+/).filter(Boolean);
-  if(!tokens.length) return {isReal:false, ratio:0};
+  if(!tokens.length) return {isReal:false, ratio:0, hasStructure:false};
   const known = new Set(extraWords.map(w=>w.toLowerCase()));
-  let recognized = 0;
+  let recognized = 0, hasSubject = false, hasVerb = false;
+  const freq = {};
   tokens.forEach(t=>{
     const stem = stemWord(t);
     if(COMMON_ENGLISH_WORDS.has(t) || COMMON_ENGLISH_WORDS.has(stem) || known.has(t) || looksLikeRealWord(t)) recognized++;
+    if(SUBJECT_WORDS.has(t)) hasSubject = true;
+    if(COMMON_VERBS.has(t) || COMMON_VERBS.has(stem)) hasVerb = true;
+    freq[t] = (freq[t]||0)+1;
   });
   const ratio = recognized/tokens.length;
-  return {isReal: ratio>=0.6, ratio};
+  const maxFreq = Math.max.apply(null, Object.values(freq));
+  const tooRepetitive = tokens.length>=5 && (maxFreq/tokens.length) > 0.35;
+  const hasStructure = tokens.length<4 || (hasSubject && hasVerb);
+  return {isReal: ratio>=0.75 && !tooRepetitive, ratio, hasStructure, tooRepetitive};
 }
 function grammarUsedInContext(text, markerWord){
   const marker = markerWord.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
@@ -3683,6 +3785,7 @@ function checkPracticeAnswer(round, text){
   const extraKnownWords = round.words.map(w=>w.word).concat(round.grammar?[round.grammar.markerWord]:[]).concat(round.slang?[round.slang.word]:[]);
   const realCheck = checkTextLooksReal(clean, extraKnownWords.join(' ').split(/\s+/));
   const looksReal = clean.length ? realCheck.isReal : false;
+  const hasStructure = clean.length ? realCheck.hasStructure : false;
 
   const weights = round.difficulty==='easy' ? {vocab:70, length:30, grammar:0, slang:0}
     : round.difficulty==='medium' ? {vocab:50, length:30, grammar:20, slang:0}
@@ -3696,8 +3799,9 @@ function checkPracticeAnswer(round, text){
   if(weights.slang) score += (slangSpotted ? 1 : 0)*weights.slang;
   score = Math.max(0, Math.min(100, Math.round(score)));
   if(!looksReal) score = Math.min(score, 15);
+  else if(!hasStructure) score = Math.min(score, 40);
 
-  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, looksReal, score, passed: score>=60 && looksReal};
+  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, looksReal, hasStructure, score, passed: score>=60 && looksReal && hasStructure};
 }
 function practiceFeedback(result, round){
   const lines = [];
@@ -3706,6 +3810,12 @@ function practiceFeedback(result, round){
       "This doesn't look like real English words — try writing an actual sentence, not random letters.",
       'Bu gerçek İngilizce kelimeler gibi görünmüyor — rastgele harfler değil, gerçek bir cümle yazmayı dene.',
       'این شبیه کلمات واقعی انگلیسی نیست — به‌جای حروف رندوم، یک جمله واقعی بنویس.'
+    )});
+  } else if(!result.hasStructure){
+    lines.push({ok:false, text: L(
+      "This doesn't read like a real sentence yet — make sure it has a clear subject and verb, like \"I ...\" or \"My friend ...\".",
+      'Bu henüz gerçek bir cümle gibi okunmuyor — "Ben ..." ya da "Arkadaşım ..." gibi net bir özne ve fiil olduğundan emin ol.',
+      'این هنوز مثل یک جمله واقعی خوانده نمی‌شود — مطمئن شو یک فاعل و فعل واضح دارد، مثل «من ...» یا «دوستم ...».'
     )});
   }
   if(result.wordsMissed.length===0){
@@ -3859,15 +3969,15 @@ function renderStudioRound(){
       goalMetaLabel(vp.goal) + ' · ' + L(dl.en, dl.tr, dl.fa)
     )}
     <div class="screen" style="padding-top:0;">
+      ${round.topic ? `<div class="card-flat" style="background:var(--accent-soft); border-color:var(--accent-soft); margin-bottom:10px;">
+        <div class="eyebrow" style="color:var(--accent-strong);">${L('Your topic','Konun','موضوع تو')}</div>
+        <p style="margin-top:6px; font-size:14.5px; font-weight:600; line-height:1.5;">${esc(round.topic)}</p>
+      </div>` : ''}
       <div class="card-flat">
         <div class="eyebrow">${L('Use these words','Bu kelimeleri kullan','از این کلمات استفاده کن')}</div>
         <div style="margin-top:6px;">${wordPills}</div>
         ${round.grammar ? `<div style="margin-top:12px; font-size:13px; color:var(--ink-soft);"><b>${L('Try this grammar:','Bu yapıyı dene:','این ساختار را امتحان کن:')}</b> ${esc(round.grammar.title)}</div>` : ''}
         ${round.slang ? `<div style="margin-top:6px; font-size:13px; color:var(--ink-soft);"><b>${L('Bonus slang:','Bonus argo:','اصطلاح اضافه:')}</b> ${esc(round.slang.word)} — ${esc(round.slang.meaning)}</div>` : ''}
-        ${round.words.filter(w=>w.sentence).length ? `<div style="margin-top:10px;">
-          <div style="font-size:12px; font-weight:700; color:var(--ink-soft);">${L('Need an idea? Try something like:','Fikre mi ihtiyacın var? Şunun gibi bir şey dene:','فکری لازم داری؟ چیزی شبیه این را امتحان کن:')}</div>
-          ${round.words.filter(w=>w.sentence).slice(0,2).map(w=>`<div style="font-size:12.5px; color:var(--ink-soft); margin-top:3px; font-style:italic;" dir="ltr">"${esc(w.sentence)}"</div>`).join('')}
-        </div>` : ''}
         <div style="margin-top:10px; font-size:12px; color:var(--ink-soft);">${L(`Aim for at least ${round.minWords} words.`,`En az ${round.minWords} kelime hedefle.`,`حداقل ${round.minWords} کلمه هدف بگیر.`)}</div>
       </div>
 
