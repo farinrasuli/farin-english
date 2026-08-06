@@ -3614,7 +3614,8 @@ function buildPracticeRound(goal, level, difficulty){
   const words = pick(vCards, wordCount).map(c=>({
     word: c.word,
     meaning: L(c.meaning.en, c.meaning.tr, c.meaning.fa),
-    note: c.note ? L(c.note.en, c.note.tr, c.note.fa) : null
+    note: c.note ? L(c.note.en, c.note.tr, c.note.fa) : null,
+    sentence: c.sentence || null
   }));
   let grammar = null;
   if(difficulty !== 'easy' && gPoolAll.length){
@@ -3633,6 +3634,36 @@ function buildPracticeRound(goal, level, difficulty){
   return {difficulty, goal, level, words, grammar, slang, minWords, minSentences};
 }
 function stemWord(w){ return w.toLowerCase().replace(/[^a-z']/g,'').replace(/(ing|edly|ed|es|s)$/,''); }
+const COMMON_ENGLISH_WORDS = new Set(['i','you','he','she','it','we','they','me','him','her','us','them','my','your','his','its','our','their','mine','yours','am','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','can','could','shall','should','may','might','must','a','an','the','this','that','these','those','and','or','but','so','because','if','when','while','than','then','there','here','not','no','yes','very','too','also','just','only','about','after','before','again','all','any','some','many','much','more','most','other','such','what','which','who','whom','whose','where','why','how','of','to','in','on','at','by','for','with','from','up','down','out','off','over','under','into','onto','through','during','between','among','go','goes','went','gone','going','get','gets','got','getting','make','makes','made','making','take','takes','took','taken','taking','come','comes','came','coming','see','sees','saw','seen','seeing','know','knows','knew','known','knowing','think','thinks','thought','thinking','want','wants','wanted','wanting','like','likes','liked','liking','need','needs','needed','say','says','said','saying','tell','tells','told','telling','ask','asks','asked','asking','feel','feels','felt','feeling','look','looks','looked','looking','use','uses','used','using','work','works','worked','working','call','calls','called','calling','try','tries','tried','trying','give','gives','gave','given','giving','find','finds','found','finding','day','time','year','way','people','man','woman','child','life','world','hand','part','place','week','company','system','question','number','night','point','home','water','room','area','money','story','fact','month','lot','right','study','book','eye','job','word','business','side','kind','head','house','friend','father','mother','hour','game','line','end','law','car','city','name','minute','idea','body','information','back','face','level','office','door','health','person','war','result','change','morning','reason','girl','guy','moment','air','teacher','education','good','new','first','last','long','great','little','own','old','big','different','next','early','young','important','few','public','bad','same','able','sure','best','better','today','tomorrow','yesterday','now','soon','always','never','often','sometimes','usually'])
+;
+function looksLikeRealWord(w){
+  if(w.length<=2) return true;
+  if(w.length>16) return false;
+  if(!/[aeiouy]/i.test(w)) return false;
+  if(/[^aeiou]{4,}/i.test(w)) return false;
+  if(/(.)\1{2,}/i.test(w)) return false;
+  return true;
+}
+function checkTextLooksReal(text, extraWords){
+  const tokens = text.toLowerCase().replace(/[^a-z'\s]/g,' ').split(/\s+/).filter(Boolean);
+  if(!tokens.length) return {isReal:false, ratio:0};
+  const known = new Set(extraWords.map(w=>w.toLowerCase()));
+  let recognized = 0;
+  tokens.forEach(t=>{
+    const stem = stemWord(t);
+    if(COMMON_ENGLISH_WORDS.has(t) || COMMON_ENGLISH_WORDS.has(stem) || known.has(t) || looksLikeRealWord(t)) recognized++;
+  });
+  const ratio = recognized/tokens.length;
+  return {isReal: ratio>=0.6, ratio};
+}
+function grammarUsedInContext(text, markerWord){
+  const marker = markerWord.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+  const re = new RegExp('\\b'+marker+'\\b','i');
+  return text.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean).some(s=>{
+    if(!re.test(s)) return false;
+    return s.split(/\s+/).filter(Boolean).length >= 3;
+  });
+}
 function checkPracticeAnswer(round, text){
   const clean = (text||'').trim();
   const lower = clean.toLowerCase();
@@ -3647,8 +3678,11 @@ function checkPracticeAnswer(round, text){
   const wc = clean ? clean.split(/\s+/).filter(Boolean).length : 0;
   const sc = clean.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean).length;
   const lengthOk = wc >= round.minWords && sc >= round.minSentences;
-  const grammarSpotted = round.grammar ? new RegExp('\\b'+round.grammar.markerWord.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b','i').test(lower) : null;
+  const grammarSpotted = round.grammar ? grammarUsedInContext(clean, round.grammar.markerWord) : null;
   const slangSpotted = round.slang ? lower.includes(round.slang.word.toLowerCase()) : null;
+  const extraKnownWords = round.words.map(w=>w.word).concat(round.grammar?[round.grammar.markerWord]:[]).concat(round.slang?[round.slang.word]:[]);
+  const realCheck = checkTextLooksReal(clean, extraKnownWords.join(' ').split(/\s+/));
+  const looksReal = clean.length ? realCheck.isReal : false;
 
   const weights = round.difficulty==='easy' ? {vocab:70, length:30, grammar:0, slang:0}
     : round.difficulty==='medium' ? {vocab:50, length:30, grammar:20, slang:0}
@@ -3661,11 +3695,19 @@ function checkPracticeAnswer(round, text){
   if(weights.grammar) score += (grammarSpotted ? 1 : 0)*weights.grammar;
   if(weights.slang) score += (slangSpotted ? 1 : 0)*weights.slang;
   score = Math.max(0, Math.min(100, Math.round(score)));
+  if(!looksReal) score = Math.min(score, 15);
 
-  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, score, passed: score>=60};
+  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, looksReal, score, passed: score>=60 && looksReal};
 }
 function practiceFeedback(result, round){
   const lines = [];
+  if(!result.looksReal){
+    lines.push({ok:false, text: L(
+      "This doesn't look like real English words — try writing an actual sentence, not random letters.",
+      'Bu gerçek İngilizce kelimeler gibi görünmüyor — rastgele harfler değil, gerçek bir cümle yazmayı dene.',
+      'این شبیه کلمات واقعی انگلیسی نیست — به‌جای حروف رندوم، یک جمله واقعی بنویس.'
+    )});
+  }
   if(result.wordsMissed.length===0){
     lines.push({ok:true, text: L(
       `All ${round.words.length} target word${round.words.length>1?'s':''} used — nice!`,
@@ -3822,6 +3864,10 @@ function renderStudioRound(){
         <div style="margin-top:6px;">${wordPills}</div>
         ${round.grammar ? `<div style="margin-top:12px; font-size:13px; color:var(--ink-soft);"><b>${L('Try this grammar:','Bu yapıyı dene:','این ساختار را امتحان کن:')}</b> ${esc(round.grammar.title)}</div>` : ''}
         ${round.slang ? `<div style="margin-top:6px; font-size:13px; color:var(--ink-soft);"><b>${L('Bonus slang:','Bonus argo:','اصطلاح اضافه:')}</b> ${esc(round.slang.word)} — ${esc(round.slang.meaning)}</div>` : ''}
+        ${round.words.filter(w=>w.sentence).length ? `<div style="margin-top:10px;">
+          <div style="font-size:12px; font-weight:700; color:var(--ink-soft);">${L('Need an idea? Try something like:','Fikre mi ihtiyacın var? Şunun gibi bir şey dene:','فکری لازم داری؟ چیزی شبیه این را امتحان کن:')}</div>
+          ${round.words.filter(w=>w.sentence).slice(0,2).map(w=>`<div style="font-size:12.5px; color:var(--ink-soft); margin-top:3px; font-style:italic;" dir="ltr">"${esc(w.sentence)}"</div>`).join('')}
+        </div>` : ''}
         <div style="margin-top:10px; font-size:12px; color:var(--ink-soft);">${L(`Aim for at least ${round.minWords} words.`,`En az ${round.minWords} kelime hedefle.`,`حداقل ${round.minWords} کلمه هدف بگیر.`)}</div>
       </div>
 
