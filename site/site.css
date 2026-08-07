@@ -426,33 +426,36 @@ header.site{
 @media (prefers-reduced-motion: reduce){ .hero-lang-card.is-featured{ animation:none; } }
 @media (max-width:560px){ .hero-lang-card{ min-width:110px; padding:20px 18px; } .hero-lang-card .name{ font-size:1.25rem; } }
 
-/* ---------- course cards (3 Courses — Same System) — side by side, watercolor flag-toned backgrounds ---------- */
+/* ---------- course cards (3 Courses — Same System) — branded like the app itself:
+   the app's own icon + ink/accent colors, flat "clay" gradients instead of photo textures ---------- */
 .lang-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
 @media (max-width:820px){ .lang-grid{ grid-template-columns:1fr; } }
 .lang-card{
-  position:relative; display:block; text-decoration:none; color:#fff; aspect-ratio:3/4;
+  position:relative; display:flex; align-items:center; justify-content:center; text-decoration:none; color:#fff; aspect-ratio:3/4;
   border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-lg);
   transition:transform .3s var(--spring), box-shadow .3s var(--spring);
 }
 .lang-card:hover{ transform:translateY(-8px); box-shadow:0 28px 55px rgba(61,43,31,.32); }
-.lang-watercolor{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .6s var(--spring); }
-.lang-card:hover .lang-watercolor{ transform:scale(1.06); }
+.lang-card.lc-en{ background:linear-gradient(155deg, #ff9a7a, #e85c3b); }
+.lang-card.lc-es{ background:linear-gradient(155deg, #f6cf7d, #b9871f); }
+.lang-card.lc-de{ background:linear-gradient(155deg, #83c9c2, #3d7d78); }
+.lang-card .app-mark{ width:25%; max-width:96px; transition:transform .5s var(--spring); filter:drop-shadow(0 10px 20px rgba(0,0,0,.18)); }
+.lang-card:hover .app-mark{ transform:scale(1.08) translateY(-4px); }
 .lang-card .status-badge{
   position:absolute; top:16px; right:16px; z-index:2;
-  background:rgba(255,255,255,.35); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,.5); color:#fff; font-size:.68rem; font-weight:700; padding:5px 12px; border-radius:99px;
+  background:rgba(20,51,46,.45); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.4); color:#fff; font-size:.68rem; font-weight:700; padding:5px 12px; border-radius:99px;
 }
-/* genuine frosted-glass panel floating over the watercolor art, not a flat scrim */
+/* frosted-glass panel tinted with the app's own ink color, not the site's warm brown */
 .lang-card .lang-body{
   position:absolute; left:14px; right:14px; bottom:14px; z-index:2;
-  background:rgba(20,14,10,.4); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
-  border:1px solid rgba(255,255,255,.22); border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.18);
+  background:rgba(20,51,46,.55); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.25); border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.18);
   padding:20px 20px 22px;
 }
 .lang-card .lang-name{ font-family:var(--serif); font-size:1.6rem; margin:0 0 6px; color:#fff; }
 .lang-card .lang-body p{ color:rgba(255,255,255,.9); margin:0 0 10px; font-size:.92rem; }
 .lang-card .lang-enter{ font-weight:700; font-size:.9rem; display:inline-flex; align-items:center; gap:6px; color:#fff; }
-@media (prefers-reduced-motion: reduce){ .lang-watercolor{ transition:none; } .lang-card:hover .lang-watercolor{ transform:none; } }
 
 /* ---------- audience list ---------- */
 .audience .card{ padding:24px 26px; }
