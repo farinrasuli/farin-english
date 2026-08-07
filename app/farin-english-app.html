@@ -3333,13 +3333,12 @@ function renderDashboard(){
           <span class="tile-title">${L('Story World','Hikaye Dünyası','دنیای داستان')}</span>
           <span class="tile-sub">${p.level} · ${doneStoriesAtLevel}/${totalStoriesAtLevel}</span>
         </button>
-        <button class="tile" data-action="nav" data-view="coming-soon" style="background:var(--clay-sage); color:var(--clay-sage-deep);">
+        <a class="tile" href="https://farinrasuli.github.io/farin-spanish/app/farin-spanish-app.html" target="_top" rel="noopener" style="background:var(--clay-sage); color:var(--clay-sage-deep); text-decoration:none;">
           ${claySparkles()}
-          <span style="position:absolute; top:34px; left:10px; background:rgba(255,255,255,.92); color:var(--clay-sage-deep); font-size:10px; font-weight:800; padding:3px 9px; border-radius:999px; letter-spacing:.04em; text-transform:uppercase; z-index:1;">${L('Coming Soon','Yakında','به‌زودی')}</span>
           <span class="tile-illustration">${TILE_ILLUSTRATIONS.spanish}</span>
           <span class="tile-title">${L('Learn Spanish!','İspanyolca Öğren!','اسپانیایی یاد بگیر!')}</span>
-          <span class="tile-sub">${L('New language','Yeni bir dil','یک زبان جدید')}</span>
-        </button>
+          <span class="tile-sub">${L('A whole new app','Bambaşka bir uygulama','یک اپ کاملاً جدید')}</span>
+        </a>
       </div>
 
       <div class="whatsapp-card${showIntro ? ' intro-glow' : ''}" style="margin-top:20px;">
