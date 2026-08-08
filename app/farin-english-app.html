@@ -323,8 +323,10 @@
 
   .phrase-row{display:flex; flex-direction:column; gap:3px; padding:12px 0; border-bottom:1px solid var(--border-soft);}
   .phrase-row:last-child{border-bottom:none;}
-  .phrase-term{font-weight:700; font-size:14.5px;}
-  .phrase-mean{font-size:13px; color:var(--ink-soft);}
+  .phrase-term{font-weight:800; font-size:16px; letter-spacing:-.01em;}
+  .phrase-mean{font-size:13.5px; color:var(--ink-soft);}
+  .phrase-example{font-size:12.5px; color:var(--ink-faint); font-style:italic; margin-top:3px; padding-left:10px; border-left:2px solid var(--border);}
+  html[dir="rtl"] .phrase-example{padding-left:0; padding-right:10px; border-left:none; border-right:2px solid var(--border);}
 
   /* ---- results ---- */
   .result-ring{width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;margin:8px auto 4px;}
@@ -333,7 +335,15 @@
 
   .whatsapp-card{background:linear-gradient(135deg, var(--cat-diag-soft), var(--bg-elevated)); border:1px solid var(--border-soft); border-radius:var(--radius); padding:18px;}
 
-  .vocab-hl{background:var(--cat-voc-soft); color:var(--cat-voc); font-weight:700; padding:1px 3px; border-radius:5px;}
+  .vocab-hl{background:var(--cat-voc-soft); color:var(--cat-voc); font-weight:700; padding:1px 3px; border-radius:5px; cursor:pointer; -webkit-tap-highlight-color:transparent;}
+  .vocab-hl, .contrast-line span.txt, .phrase-example, .phrase-mean, .flash-sentence, .flash-word, .card-flat[dir="ltr"] p{-webkit-touch-callout:none; -webkit-user-select:none; -moz-user-select:none; user-select:none;}
+  .vocab-hl:active{filter:brightness(.85);}
+  .word-tooltip{position:fixed; z-index:60; max-width:min(78vw,280px); background:var(--ink); color:var(--bg); border-radius:14px; padding:9px 13px; font-size:13px; line-height:1.4; box-shadow:var(--shadow); opacity:0; transform:translateY(4px) scale(.96); transition:opacity .15s ease, transform .15s ease; pointer-events:none;}
+  .word-tooltip.show{opacity:1; transform:translateY(0) scale(1);}
+  .word-tooltip b{display:block; font-weight:800; margin-bottom:2px; color:var(--accent-strong);}
+  .word-tooltip::after{content:''; position:absolute; left:50%; margin-left:-6px; border:6px solid transparent;}
+  .word-tooltip.tip-below::after{top:-11px; border-bottom-color:var(--ink);}
+  .word-tooltip.tip-above::after{bottom:-11px; border-top-color:var(--ink);}
   .intro-glow{position:relative; animation:intro-heartbeat 2.6s ease-in-out infinite; box-shadow:0 0 0 2px rgba(255,194,46,.65), 0 0 26px 6px rgba(255,194,46,.5);}
   .intro-glow .sparkle{color:#ffc22e;}
   @keyframes intro-heartbeat{0%,100%{transform:scale(1);} 50%{transform:scale(1.035);}}
@@ -2701,22 +2711,137 @@ function relativeDate(iso){
 
 /* ============================= HELPERS ============================= */
 function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-function highlightWord(sentence, word){
+function renderLessonText(text, accentVar){
+  const color = accentVar || '--cat-gram';
+  const sentences = (text.match(/[^.!?]+[.!?]+(\s+|$)/g) || [text]).map(s=>s.trim()).filter(Boolean);
+  const blocks = [];
+  let buf = [];
+  const flush = () => { if(buf.length){ blocks.push({type:'p', text:buf.join(' ')}); buf = []; } };
+  sentences.forEach(s=>{
+    const lastColon = s.lastIndexOf(':');
+    if(lastColon > 0 && lastColon < s.length-1){
+      const label = s.slice(0,lastColon).trim();
+      const after = s.slice(lastColon+1);
+      const commaCount = (after.match(/,/g)||[]).length;
+      const items = after.replace(/[.!?]+\s*$/,'').split(',').map(x=>x.trim()).filter(Boolean);
+      const clean = !/[()]/.test(after) && label.length <= 60 && items.every(it=>it.length<=40 && it.length>0);
+      if(commaCount >= 2 && clean){
+        flush();
+        blocks.push({type:'pattern', label, items});
+        return;
+      }
+    }
+    buf.push(s);
+    if(buf.length>=2) flush();
+  });
+  flush();
+  return blocks.map(b=>{
+    if(b.type==='pattern'){
+      return `<div style="margin-top:12px;">
+        <div style="font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(${color});">${esc(b.label)}</div>
+        <div class="row" style="flex-wrap:wrap; gap:6px; margin-top:6px;">
+          ${b.items.map(it=>`<span dir="ltr" style="background:var(--bg-elevated); border:1.5px solid var(${color}-soft); color:var(--ink); padding:4px 11px; border-radius:999px; font-size:13px; font-weight:700;">${esc(it)}</span>`).join('')}
+        </div>
+      </div>`;
+    }
+    return `<p style="margin-top:12px; font-size:15px; line-height:1.7; color:var(--ink);">${esc(b.text)}</p>`;
+  }).join('');
+}
+function tapMark(word, meaning){
+  return meaning ? `<mark class="vocab-hl" data-action="show-word-meaning" data-word="${esc(word)}" data-meaning="${esc(meaning)}">${esc(word)}</mark>` : '<b>'+esc(word)+'</b>';
+}
+function highlightWord(sentence, word, meaning){
   const re = new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
   const m = sentence.match(re);
   if(!m) return esc(sentence);
   const i = m.index;
-  return esc(sentence.slice(0,i)) + '<b>' + esc(m[0]) + '</b>' + esc(sentence.slice(i+m[0].length));
+  return esc(sentence.slice(0,i)) + tapMark(m[0], meaning) + esc(sentence.slice(i+m[0].length));
 }
-function highlightStoryVocab(text, vocab){
-  const words = (vocab||[]).map(v=>v.word).filter(Boolean).sort((a,b)=>b.length-a.length);
+let VOCAB_GLOSSARY = null;
+function buildVocabGlossary(){
+  const map = {};
+  VOCAB_SETS.forEach(set=>{
+    set.cards.forEach(c=>{
+      const key = c.word.toLowerCase();
+      if(!map[key]) map[key] = L(c.meaning.en, c.meaning.tr, c.meaning.fa);
+    });
+  });
+  return map;
+}
+function glossify(text){
+  if(!VOCAB_GLOSSARY) VOCAB_GLOSSARY = buildVocabGlossary();
+  const words = Object.keys(VOCAB_GLOSSARY).sort((a,b)=>b.length-a.length);
   if(!words.length) return esc(text);
-  const pattern = words.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+  const pattern = words.map(w=>w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+')).join('|');
   const re = new RegExp('\\b(?:'+pattern+')\\b', 'gi');
   let result = '', last = 0, m;
   while((m = re.exec(text))){
-    result += esc(text.slice(last, m.index)) + '<mark class="vocab-hl">' + esc(m[0]) + '</mark>';
+    result += esc(text.slice(last, m.index)) + tapMark(m[0], VOCAB_GLOSSARY[m[0].toLowerCase()]);
     last = m.index + m[0].length;
+    if(re.lastIndex === m.index) re.lastIndex++;
+  }
+  result += esc(text.slice(last));
+  return result;
+}
+let wordTooltipTimer = null;
+function showWordTooltip(el){
+  const word = el.dataset.word, meaning = el.dataset.meaning;
+  if(!meaning) return;
+  const old = document.querySelector('.word-tooltip');
+  if(old) old.remove();
+  if(wordTooltipTimer) clearTimeout(wordTooltipTimer);
+  const tip = document.createElement('div');
+  tip.className = 'word-tooltip';
+  tip.innerHTML = `<b>${esc(word)}</b>${esc(meaning)}`;
+  document.body.appendChild(tip);
+  const rect = el.getBoundingClientRect();
+  const tipRect = tip.getBoundingClientRect();
+  let left = rect.left + rect.width/2 - tipRect.width/2;
+  left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
+  let top = rect.top - tipRect.height - 12;
+  if(top < 8){ tip.classList.add('tip-below'); top = rect.bottom + 12; }
+  else{ tip.classList.add('tip-above'); }
+  tip.style.left = left+'px';
+  tip.style.top = top+'px';
+  requestAnimationFrame(()=> tip.classList.add('show'));
+  wordTooltipTimer = setTimeout(()=>{
+    tip.classList.remove('show');
+    setTimeout(()=>{ try{ tip.remove(); }catch(e){} }, 200);
+  }, 2600);
+}
+function highlightStoryVocab(text, vocab){
+  if(!vocab || !vocab.length) return esc(text);
+  const escRe = (w) => w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+');
+  const variantMap = {};
+  const allVariants = [];
+  const addVariant = (form, meaning) => {
+    const key = (form||'').toLowerCase();
+    if(key && !variantMap[key]){ variantMap[key] = meaning; allVariants.push(form); }
+  };
+  // Story vocab is often listed in a base/dictionary form (e.g. "wag") but appears
+  // inflected in the actual text (e.g. "wagged") — so beyond the exact word, match
+  // on the base form and let \w* extend the match to whatever suffix actually appears.
+  vocab.forEach(v=>{
+    const w = (v.word||'').trim();
+    if(!w) return;
+    const meaning = L(v.en, v.tr, v.fa);
+    addVariant(w, meaning);
+  });
+  allVariants.sort((a,b)=>b.length-a.length);
+  const pattern = allVariants.map(escRe).join('|');
+  const re = new RegExp('\\b(?:'+pattern+')[\\w]*', 'gi');
+  let result = '', last = 0, m;
+  while((m = re.exec(text))){
+    const lower = m[0].toLowerCase();
+    let meaning = variantMap[lower];
+    if(!meaning){
+      let best = '';
+      allVariants.forEach(v=>{ const vl=v.toLowerCase(); if(lower.indexOf(vl)===0 && vl.length>best.length) best = vl; });
+      if(best) meaning = variantMap[best];
+    }
+    result += esc(text.slice(last, m.index)) + tapMark(m[0], meaning);
+    last = m.index + m[0].length;
+    if(re.lastIndex === m.index) re.lastIndex++;
   }
   result += esc(text.slice(last));
   return result;
@@ -3395,7 +3520,7 @@ function renderDiagReview(){
       studyCloseTag = '</button>';
     } else {
       const cat = item.type==='slang' ? 'slang' : 'vocab';
-      studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="vocab-set" data-id="'+item.refId+'" data-goal="'+(item.goal||'')+'" data-cat="'+cat+'">';
+      studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="vocab-set-intro" data-id="'+item.refId+'" data-goal="'+(item.goal||'')+'" data-cat="'+cat+'">';
       studyCloseTag = '</button>';
     }
     return `<div class="roadmap-row ${checked?'roadmap-done':''}" style="${rowBg}">
@@ -3550,7 +3675,7 @@ function renderGoalLevelDetail(goal, level){
   const slShown = slTagged.length ? slTagged : VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
   const setRow = (s, ic, tint) => {
     const done = state.progress.completedVocabSets.includes(s.id);
-    return `<button class="item-row" data-action="nav" data-view="vocab-set" data-id="${s.id}" data-goal="${goal}">
+    return `<button class="item-row" data-action="nav" data-view="vocab-set-intro" data-id="${s.id}" data-goal="${goal}">
       <span class="item-ic" style="background:var(--cat-${tint}-soft); color:var(--cat-${tint});">${ic}</span>
       <div class="item-body"><div class="item-title">${esc(setTitle(s))}</div></div>
       ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
@@ -3971,7 +4096,7 @@ function renderStudioRound(){
   const speechOk = studioSpeechSupported();
   const listening = !!studioRecognition;
   const dl = STUDIO_DIFFICULTY_LABEL[round.difficulty];
-  const wordPills = round.words.map(w=>`<span class="pill" style="background:var(--cat-voc-soft); color:var(--cat-voc); margin:3px 4px 3px 0;">${esc(w.word)}</span>`).join('');
+  const wordPills = round.words.map(w=>`<span class="pill vocab-hl" data-action="show-word-meaning" data-word="${esc(w.word)}" data-meaning="${esc(w.meaning)}" style="background:var(--cat-voc-soft); color:var(--cat-voc); margin:3px 4px 3px 0;">${esc(w.word)}</span>`).join('');
   return `<div class="fade-in">
     ${sectionHead(
       mode==='writing' ? L('Writing Practice','Yazma Pratiği','تمرین نوشتن') : L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن'),
@@ -4060,18 +4185,48 @@ function renderGrammarList(){
 }
 function renderGrammarTrap(id){
   const t = GRAMMAR_ITEMS.find(x=>x.id===id);
+  if(!t) return renderComingSoon();
   const goal = state.viewParams.goal;
   const variant = goal && t.goalVariant && t.goalVariant[goal];
-  const wrong = variant ? variant.wrong : t.wrong;
-  const right = variant ? variant.right : t.right;
+  const wrong = (variant && variant.wrong) ? variant.wrong : t.wrong;
+  const right = (variant && variant.right) ? variant.right : t.right;
+  const wrong2 = (variant && variant.wrong2) ? variant.wrong2 : t.wrong2;
+  const right2 = (variant && variant.right2) ? variant.right2 : t.right2;
+  const exampleBadge = (n) => `<span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--cat-gram); color:#fff; font-size:11px; font-weight:800; flex:0 0 auto;">${n}</span>`;
   return `<div class="fade-in">
-    ${sectionHead(grammarTitle(t), L(t.exp.en,t.exp.tr,t.exp.fa))}
+    ${sectionHead(grammarTitle(t), '')}
     <div class="screen" style="padding-top:0;">
-      <div class="contrast" dir="ltr">
-        <div class="contrast-line wrong"><b>✗</b><span class="txt">${esc(wrong)}</span></div>
-        <div class="contrast-line right"><b>✓</b><span class="txt">${esc(right)}</span></div>
+      <div class="card-flat" style="position:relative; overflow:hidden; background:linear-gradient(160deg, var(--cat-gram-soft) 0%, var(--bg-elevated) 130%); border-color:var(--cat-gram-soft);">
+        ${claySparkles()}
+        <div class="row" style="gap:9px; align-items:center;">
+          <span class="item-ic" style="background:var(--bg-elevated); box-shadow:var(--shadow); color:var(--cat-gram); flex:0 0 auto; width:36px; height:36px;">${ICONS.book}</span>
+          <div class="eyebrow" style="color:var(--cat-gram); font-size:12.5px;">${L('The rule','Kural','قاعده')}</div>
+        </div>
+        ${renderLessonText(L(t.exp.en,t.exp.tr,t.exp.fa), '--cat-gram')}
       </div>
-      <button class="btn btn-primary" style="margin-top:8px;" data-action="start-grammar-quiz" data-id="${t.id}">${L('Play Game!','Oyunu Oyna!','بازی کن!')}</button>
+
+      <div class="row" style="gap:7px; align-items:center; margin:22px 0 10px;">
+        ${exampleBadge(1)}
+        <h3 class="display" style="font-size:13.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;">${L('Example','Örnek','مثال')}</h3>
+      </div>
+      <div class="contrast" dir="ltr">
+        <div class="contrast-line wrong"><b>✗</b><span class="txt">${glossify(wrong)}</span></div>
+        <div class="contrast-line right"><b>✓</b><span class="txt">${glossify(right)}</span></div>
+      </div>
+
+      ${wrong2 && right2 ? `
+      <div class="row" style="gap:7px; align-items:center; margin:22px 0 10px;">
+        ${exampleBadge(2)}
+        <h3 class="display" style="font-size:13.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em;">${L('Example','Örnek','مثال')}</h3>
+      </div>
+      <div class="contrast" dir="ltr">
+        <div class="contrast-line wrong"><b>✗</b><span class="txt">${glossify(wrong2)}</span></div>
+        <div class="contrast-line right"><b>✓</b><span class="txt">${glossify(right2)}</span></div>
+      </div>` : ''}
+
+      <p style="margin-top:18px; font-size:12.5px; color:var(--ink-faint); text-align:center;">${L('💬 Tap any word above to see what it means.','💬 Anlamını görmek için yukarıdaki bir kelimeye dokun.','💬 برای دیدن معنی، روی هر کلمه بالا لمس کن.')}</p>
+
+      <button class="btn btn-primary" style="margin-top:14px;" data-action="start-grammar-quiz" data-id="${t.id}">${L("Got it — let's practice!","Anladım — hadi pratik yapalım!","فهمیدم — بریم تمرین کنیم!")}</button>
     </div>
   </div>`;
 }
@@ -4096,7 +4251,7 @@ function renderVocabList(){
       <div class="stack" style="gap:8px;">
         ${sets.map(s=>{
           const done = state.progress.completedVocabSets.includes(s.id);
-          return `<button class="item-row" data-action="nav" data-view="vocab-set" data-id="${s.id}">
+          return `<button class="item-row" data-action="nav" data-view="vocab-set-intro" data-id="${s.id}">
             <span class="item-ic" style="background:var(--cat-voc-soft); color:var(--cat-voc);">${ICONS.cards}</span>
             <div class="item-body">
               <div class="item-title">${esc(setTitle(s))}</div>
@@ -4106,6 +4261,38 @@ function renderVocabList(){
           </button>`;
         }).join('')}
       </div>
+    </div>
+  </div>`;
+}
+function renderVocabSetIntro(id){
+  const s = VOCAB_SETS.find(x=>x.id===id);
+  if(!s) return renderComingSoon();
+  const isSlang = s.category === 'slang';
+  return `<div class="fade-in">
+    ${sectionHead(setTitle(s), '')}
+    <div class="screen" style="padding-top:0;">
+      <div class="card-flat" style="position:relative; overflow:hidden; background:linear-gradient(160deg, var(--cat-voc-soft) 0%, var(--bg-elevated) 130%); border-color:var(--cat-voc-soft);">
+        ${claySparkles()}
+        <div class="row" style="gap:9px; align-items:center;">
+          <span class="item-ic" style="background:var(--bg-elevated); box-shadow:var(--shadow); color:var(--cat-voc); flex:0 0 auto; width:36px; height:36px;">${ICONS.cards}</span>
+          <div class="eyebrow" style="color:var(--cat-voc); font-size:12.5px;">${isSlang ? L('The phrases','İfadeler','عبارت‌ها') : L('The words','Kelimeler','کلمات')}</div>
+        </div>
+        <p style="margin-top:12px; font-size:14.5px; line-height:1.65; color:var(--ink);">${L('Skim through all '+s.cards.length+' below, then flip through flashcards to lock them in.','Aşağıdaki tüm '+s.cards.length+' tanesine göz gezdir, sonra pekiştirmek için kartları çevir.','همه '+s.cards.length+' مورد زیر را مرور کن، بعد با ورق زدن کارت‌ها آن‌ها را در ذهنت ثبت کن.')}</p>
+      </div>
+      <div class="card-flat" dir="ltr" style="margin-top:14px; padding-top:2px; padding-bottom:2px;">
+        ${s.cards.map((c,idx)=>`
+          <div class="phrase-row">
+            <div class="row" style="gap:8px; align-items:center;">
+              <span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--cat-voc-soft); color:var(--cat-voc); font-size:11px; font-weight:800; flex:0 0 auto;">${idx+1}</span>
+              <div class="phrase-term" style="color:var(--cat-voc);">${esc(c.word)}</div>
+            </div>
+            <div class="phrase-mean" style="margin-top:2px;">${esc(L(c.meaning.en,c.meaning.tr,c.meaning.fa))}</div>
+            <div class="phrase-example">${highlightWord(c.sentence, c.word)}</div>
+            ${c.note ? `<div class="flash-note row" style="margin-top:4px; align-items:flex-start; gap:6px;"><span style="flex:0 0 auto; color:var(--ink-faint);">${ICONS.warn}</span><span style="font-size:12px; color:var(--ink-soft);">${esc(L(c.note.en,c.note.tr,c.note.fa))}</span></div>` : ''}
+          </div>
+        `).join('')}
+      </div>
+      <button class="btn btn-primary" style="margin-top:16px;" data-action="nav" data-view="vocab-set" data-id="${s.id}">${L('Start flashcards','Kartlara başla','شروع فلش‌کارت‌ها')}</button>
     </div>
   </div>`;
 }
@@ -4121,7 +4308,7 @@ function renderVocabSet(id, cardIndex){
           <div class="flash-face" style="background:var(--cat-voc-soft);">
             ${state.viewParams.flipped ? `
               <div class="flash-hint">${L('Example','Örnek','مثال')}</div>
-              <div class="flash-sentence" dir="ltr">${highlightWord(card.sentence, card.word)}</div>
+              <div class="flash-sentence" dir="ltr">${highlightWord(card.sentence, card.word, L(card.meaning.en, card.meaning.tr, card.meaning.fa))}</div>
               ${card.meaning ? `<div class="flash-hint" style="margin-top:10px;">${L('Meaning','Anlam','معنی')}</div><div class="flash-sentence" dir="ltr">${esc(card.meaning.en)}${(LANG==='fa'?card.meaning.fa:card.meaning.tr) ? ' — '+esc(LANG==='fa'?card.meaning.fa:card.meaning.tr) : ''}</div>` : ''}
               ${card.note ? `<div class="flash-note row" dir="ltr" style="align-items:flex-start; gap:7px;"><span style="flex:0 0 auto; margin-top:1px;">${ICONS.warn}</span><span>${esc(L(card.note.en,card.note.tr))}</span></div>` : ''}
             ` : `
@@ -4266,6 +4453,7 @@ function renderStoryList(){
 }
 function renderStoryDetail(id){
   const s = STORY_LIBRARY.find(x=>x.id===id);
+  if(!s) return renderComingSoon();
   const gl = GENRE_LABEL[s.genre];
   const paragraphs = s.text.split('\n\n').map(p=>`<p style="margin:0 0 14px;">${highlightStoryVocab(p, s.vocab)}</p>`).join('');
   return `<div class="fade-in">
@@ -4275,19 +4463,28 @@ function renderStoryDetail(id){
         <button class="icon-btn" data-action="toggle-story-music" aria-label="${L('Toggle background music','Arka plan müziğini aç/kapat','روشن/خاموش کردن موسیقی پس‌زمینه')}">${storyMusicMuted ? ICONS.soundOff : ICONS.soundOn}</button>
       </div>
       <div class="card-flat" dir="ltr" style="line-height:1.7; font-size:15px;">${paragraphs}</div>
-      <h3 class="display" style="font-size:14px; margin:20px 0 4px;">${L('New words','Yeni kelimeler','کلمات جدید')}</h3>
+      <div class="row" style="gap:7px; align-items:center; margin:20px 0 8px;">
+        <span class="item-ic" style="background:var(--cat-voc-soft); color:var(--cat-voc); flex:0 0 auto; width:26px; height:26px;">${ICONS.cards}</span>
+        <h3 class="display" style="font-size:14px;">${L('New words','Yeni kelimeler','کلمات جدید')}</h3>
+      </div>
       <div class="card-flat" dir="ltr" style="background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);">
-        ${s.vocab.map(v=>{ const gloss = LANG==='fa' ? v.fa : v.tr; return `<div class="phrase-row"><div class="phrase-term" style="color:var(--cat-voc);">${esc(v.word)}</div><div class="phrase-mean">${v.en?esc(v.en):''}${gloss?' — '+esc(gloss):''}</div></div>`; }).join('')}
+        ${s.vocab.map((v,idx)=>{ const gloss = LANG==='fa' ? v.fa : v.tr; return `<div class="phrase-row"><div class="row" style="gap:8px; align-items:center;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--bg-elevated); color:var(--cat-voc); font-size:10.5px; font-weight:800; flex:0 0 auto;">${idx+1}</span><div class="phrase-term" style="color:var(--cat-voc);">${esc(v.word)}</div></div><div class="phrase-mean" style="margin-top:2px;">${v.en?esc(v.en):''}${gloss?' — '+esc(gloss):''}</div></div>`; }).join('')}
       </div>
       ${s.grammarFocus ? `
-      <h3 class="display" style="font-size:14px; margin:20px 0 4px;">${L('Grammar focus','Dilbilgisi odağı','نکته گرامری')}</h3>
+      <div class="row" style="gap:7px; align-items:center; margin:20px 0 8px;">
+        <span class="item-ic" style="background:var(--cat-gram-soft); color:var(--cat-gram); flex:0 0 auto; width:26px; height:26px;">${ICONS.dumbbell}</span>
+        <h3 class="display" style="font-size:14px;">${L('Grammar focus','Dilbilgisi odağı','نکته گرامری')}</h3>
+      </div>
       <div class="card-flat" dir="ltr">
-        ${s.grammarFocus.map(g=>`<div class="phrase-row"><div class="phrase-term">${esc(g.point)}</div><div class="phrase-mean" style="font-style:italic;">${esc(g.example)}</div></div>`).join('')}
+        ${s.grammarFocus.map((g,idx)=>`<div class="phrase-row"><div class="row" style="gap:8px; align-items:center;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--cat-gram-soft); color:var(--cat-gram); font-size:10.5px; font-weight:800; flex:0 0 auto;">${idx+1}</span><div class="phrase-term">${esc(g.point)}</div></div><div class="phrase-mean" style="font-style:italic; margin-top:2px;">${esc(g.example)}</div></div>`).join('')}
       </div>` : ''}
       ${s.discussionQuestions ? `
-      <h3 class="display" style="font-size:14px; margin:20px 0 4px;">${L('Discussion questions','Tartışma soruları','سوالات بحث')}</h3>
+      <div class="row" style="gap:7px; align-items:center; margin:20px 0 8px;">
+        <span class="item-ic" style="background:var(--cat-story-soft); color:var(--cat-story); flex:0 0 auto; width:26px; height:26px;">${ICONS.chat}</span>
+        <h3 class="display" style="font-size:14px;">${L('Discussion questions','Tartışma soruları','سوالات بحث')}</h3>
+      </div>
       <div class="card-flat" dir="ltr">
-        ${s.discussionQuestions.map((q,i)=>`<div class="phrase-row"><div class="phrase-term">${i+1}. ${esc(q)}</div></div>`).join('')}
+        ${s.discussionQuestions.map((q,i)=>`<div class="phrase-row"><div class="row" style="gap:8px; align-items:flex-start;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--cat-story-soft); color:var(--cat-story); font-size:10.5px; font-weight:800; flex:0 0 auto; margin-top:1px;">${i+1}</span><div class="phrase-term" style="font-weight:600;">${esc(q)}</div></div></div>`).join('')}
       </div>` : ''}
       ${s.writingPractice ? `
       <h3 class="display" style="font-size:14px; margin:20px 0 4px;">${L('Writing practice','Yazma alıştırması','تمرین نوشتاری')}</h3>
@@ -4547,6 +4744,7 @@ const screens = {
   'grammar-trap': ()=>renderGrammarTrap(state.viewParams.id),
   'vocab-list': renderVocabList,
   'vocab-set': ()=>renderVocabSet(state.viewParams.id, state.viewParams.cardIndex||0),
+  'vocab-set-intro': ()=>renderVocabSetIntro(state.viewParams.id),
   'goals-list': renderGoalsList,
   'goal-levels': ()=>renderGoalLevels(state.viewParams.goal),
   'goal-level-detail': ()=>renderGoalLevelDetail(state.viewParams.goal, state.viewParams.level),
@@ -5012,9 +5210,9 @@ const HANDLERS = {
     const view = el.dataset.view;
     const params = {id: el.dataset.id};
     if(view==='grammar-list' || view==='grammar-trap') params.level = state.viewParams.level || state.profile.level;
-    if(view==='vocab-list' || view==='vocab-set'){ params.level = state.viewParams.level || state.profile.level; params.cat = el.dataset.cat || state.viewParams.cat || 'vocab'; }
+    if(view==='vocab-list' || view==='vocab-set' || view==='vocab-set-intro'){ params.level = state.viewParams.level || state.profile.level; params.cat = el.dataset.cat || state.viewParams.cat || 'vocab'; }
     if(view==='story-list' || view==='story-detail') params.level = state.viewParams.level || state.profile.level;
-    if(['goal-levels','goal-level-detail','grammar-trap','vocab-set'].includes(view)){
+    if(['goal-levels','goal-level-detail','grammar-trap','vocab-set','vocab-set-intro'].includes(view)){
       const goal = el.dataset.goal || state.viewParams.goal;
       if(goal) params.goal = goal;
     }
@@ -5075,6 +5273,7 @@ const HANDLERS = {
     render();
   },
   'studio-mic-toggle'(){ toggleStudioMic(); },
+  'show-word-meaning'(el){ showWordTooltip(el); },
   'flip-card'(){ state.viewParams.flipped = !state.viewParams.flipped; render(); },
   'vocab-next'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i+1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
   'vocab-prev'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i-1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
