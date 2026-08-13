@@ -3729,7 +3729,7 @@ function renderStudentPanel(){
           ${roadmap.map((r,i)=>`
           <div style="position:relative; ${i<roadmap.length-1?'margin-bottom:18px;':''}">
             <span style="position:absolute; left:-24px; top:1px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:${r.done?'var(--success)':'var(--bg-elevated)'}; border:2px solid ${r.done?'var(--success)':'var(--border)'}; color:#fff;">${r.done?ICONS.check:''}</span>
-            ${r.date ? `<div style="font-size:11px; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.03em;">${esc(r.date)}</div>` : ''}
+            <div style="font-size:11px; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.03em;">${L('Session','Seans','جلسه')} ${i+1}${r.date ? ' · '+esc(r.date) : ''}</div>
             <div style="font-weight:700; font-size:14px; margin-top:2px; ${r.done?'text-decoration:line-through; opacity:.65;':''}">${esc(r.title||r.label||'')}</div>
             ${r.homework ? `<div style="font-size:12.5px; color:var(--ink-soft); margin-top:4px;"><b>${L('Homework','Ödev','تکلیف')}:</b> ${esc(r.homework)}</div>` : ''}
             ${r.tips ? `<div style="font-size:12px; color:var(--cat-review); background:var(--cat-review-soft); border-radius:9px; padding:6px 10px; margin-top:6px;">💡 ${esc(r.tips)}</div>` : ''}
@@ -5657,6 +5657,7 @@ let adminStudents = null;
 let adminStudentsLoading = false;
 let adminEditingStudent = null;
 let adminStudentError = '';
+let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
 function renderAdminPage(){
@@ -5741,24 +5742,24 @@ function harvestHomeworkFromDOM(){
   }));
 }
 const PROGRESS_TEMPLATES = {
-  excelling: "Excelling this stage — moving through material faster than expected and retaining it well.",
-  steady: "Making steady, consistent progress. Keep up the regular practice!",
-  'needs-practice': "Progress has slowed a bit — could use more regular practice between sessions.",
-  comeback: "Great comeback after a quieter stretch — momentum is picking back up.",
-  'new-start': "Just getting started — building the fundamentals with enthusiasm.",
-  plateau: "Holding steady at the same point for a bit — might help to mix up practice materials.",
-  'almost-there': "Very close to finishing this stage — just a little more practice to lock it in.",
-  inconsistent: "Progress is a bit inconsistent — attendance and between-session practice would help."
+  excelling: "You're on fire this stage! Flying through everything, and it's really sticking. So proud of you!",
+  steady: "Lovely, steady progress. A little bit each time really adds up. Keep going, you're doing great!",
+  'needs-practice': "Things have slowed a little. That's okay! A bit more practice between sessions will help a lot.",
+  comeback: "What a comeback! You took a short break, and you're back stronger than before. I love to see it.",
+  'new-start': "Just getting started, and your energy is wonderful. We're building great foundations together.",
+  plateau: "We've been in the same spot for a bit. Totally normal! Let's mix things up next time to keep it fun.",
+  'almost-there': "So close to finishing this stage! Just a little more, and we're there. You can do it!",
+  inconsistent: "Let's try to practice a little more often. Even a few minutes between sessions makes a real difference. You've got this!"
 };
 const PERFORMANCE_TEMPLATES = {
-  'strong-speaking': "Speaking confidently and fluently in sessions — pronunciation and flow are strong.",
-  'strong-writing': "Grammar and writing are a strong point — sentence structure is clean and accurate.",
-  'needs-grammar': "Grammar accuracy needs more attention, especially around verb tenses.",
-  'needs-vocab': "Could use a bigger vocabulary bank — encourage more reading and word review.",
-  'strong-listening': "Listening comprehension is a strength — picks up context and tone quickly.",
-  'needs-speaking': "Could use more speaking practice to build confidence and reduce hesitation.",
-  'needs-listening': "Listening comprehension needs more practice, especially with natural speed speech.",
-  'well-rounded': "Well-rounded across all four skills — no major weak spots right now."
+  'strong-speaking': "Your speaking is really shining! Confident, clear, and lovely to listen to.",
+  'strong-writing': "Your grammar and writing are excellent. Clean, careful, and thoughtful work.",
+  'needs-grammar': "Let's give grammar a bit more love, especially verb tenses. You'll get there, step by step!",
+  'needs-vocab': "Let's grow your vocabulary a little more. Try reading or watching something new each week.",
+  'strong-listening': "You're a wonderful listener! You pick up meaning and tone so naturally.",
+  'needs-speaking': "Let's build your speaking confidence together. The more you talk, the easier it gets. I believe in you!",
+  'needs-listening': "Let's practice listening a bit more, especially fast, natural speech. You're closer than you think!",
+  'well-rounded': "You're doing wonderfully across the board — speaking, writing, listening, all strong. I'm so proud of you!"
 };
 function quickFillPills(action, templates){
   return `<div class="row" style="gap:6px; flex-wrap:wrap; margin-bottom:10px;">
@@ -5787,6 +5788,7 @@ function renderAdminStudentsTab(){
       <div id="roadmap-items-list" style="margin-bottom:8px;">
         ${roadmap.map((r,idx)=>`
         <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
+          <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">Session ${idx+1}</div>
           <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
             <input type="checkbox" class="roadmap-item-done" ${r.done?'checked':''} style="flex:0 0 auto; width:18px; height:18px;">
             <input type="date" class="roadmap-item-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
@@ -5832,6 +5834,7 @@ function renderAdminStudentsTab(){
       ${quickFillPills('quick-performance', PERFORMANCE_TEMPLATES)}
       ${studentFormField('student-form-performance', 'Performance notes', s.performanceNote, 'textarea')}
       ${adminStudentError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminStudentError)}</p>` : ''}
+      ${adminStudentInfo ? `<p style="color:var(--success); font-size:13px; margin-bottom:10px;">${esc(adminStudentInfo)}</p>` : ''}
       <div class="row" style="gap:8px;">
         <button class="btn btn-primary" style="flex:1;" data-admin-action="save-student" ${adminSavingStudent?'disabled':''}>${adminSavingStudent?'Saving…':'Save'}</button>
         <button class="btn btn-ghost" data-admin-action="cancel-edit-student">Cancel</button>
@@ -5902,12 +5905,14 @@ function bindAdminActions(root){
         if(adminStudents === null) loadAdminStudents();
       } else if(action === 'add-student'){
         adminStudentError = '';
+        adminStudentInfo = '';
         adminEditingStudent = {isNew:true, code:'', name:'', level:'', sessionsInStage:0, progressNote:'', performanceNote:'', roadmap:[], homework:[]};
         renderAdminPage();
       } else if(action === 'edit-student'){
         const code = el.dataset.code;
         const s = (adminStudents||[]).find(x=>x.code===code);
         adminStudentError = '';
+        adminStudentInfo = '';
         adminEditingStudent = Object.assign({isNew:false, sessionsInStage:0, roadmap:[], homework:[]}, s);
         renderAdminPage();
       } else if(action === 'add-roadmap-item'){
@@ -5933,6 +5938,12 @@ function bindAdminActions(root){
       } else if(action === 'suggest-roadmap'){
         const levelEl = document.getElementById('student-form-level');
         const baseLevel = (levelEl.value || '').replace('.2','');
+        adminStudentInfo = '';
+        if(!baseLevel){
+          adminStudentError = 'Pick a level above first, then tap "Suggest from level".';
+          renderAdminPage();
+          return;
+        }
         const existing = harvestRoadmapFromDOM();
         const existingTitles = new Set(existing.map(r=>(r.title||'').trim().toLowerCase()));
         const suggestions = GRAMMAR_ITEMS.filter(g=>g.level===baseLevel).map(g=>g.title)
@@ -5940,13 +5951,23 @@ function bindAdminActions(root){
           .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
         adminEditingStudent.roadmap = existing.concat(suggestions);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminStudentError = '';
+        adminStudentInfo = suggestions.length ? ('Added '+suggestions.length+' session(s) from the '+baseLevel+' curriculum.') : ('No new sessions to add — every '+baseLevel+' item is already in the roadmap.');
         renderAdminPage();
       } else if(action === 'parse-roadmap-paste'){
         const box = document.getElementById('roadmap-paste-box');
         const text = (box && box.value || '').trim();
         const existing = harvestRoadmapFromDOM();
-        adminEditingStudent.roadmap = text ? existing.concat(parsePastedRoadmap(text)) : existing;
+        adminStudentError = '';
+        if(!text){
+          adminStudentInfo = '';
+          renderAdminPage();
+          return;
+        }
+        const parsed = parsePastedRoadmap(text);
+        adminEditingStudent.roadmap = existing.concat(parsed);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminStudentInfo = 'Added '+parsed.length+' session(s) from the pasted text.';
         renderAdminPage();
       } else if(action === 'quick-progress'){
         const ta = document.getElementById('student-form-progress');
@@ -5995,6 +6016,7 @@ function bindAdminActions(root){
       } else if(action === 'cancel-edit-student'){
         adminEditingStudent = null;
         adminStudentError = '';
+        adminStudentInfo = '';
         renderAdminPage();
       } else if(action === 'save-student'){
         saveAdminStudent();
