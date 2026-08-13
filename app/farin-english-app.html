@@ -2569,7 +2569,7 @@ function freshState(){
     profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
     progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0},
     diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null},
-    quiz:null
+    quiz:null, studentPanelCache:null
   };
 }
 let state = load();
@@ -3682,7 +3682,7 @@ function renderStudentClubLogin(){
     </div>
   </div>`;
 }
-let studentPanelData = null;
+let studentPanelData = state.studentPanelCache || null;
 function levelStageInfo(level, sessionsInStage){
   const idx = LEVEL_STAGES.indexOf(level);
   const sessions = Math.max(0, Math.min(10, Number(sessionsInStage)||0));
@@ -5603,6 +5603,7 @@ const HANDLERS = {
         return;
       }
       studentPanelData = Object.assign({code}, doc.data());
+      state.studentPanelCache = studentPanelData;
       go('student-panel');
     }).catch(()=>{
       state.viewParams = {code, error:true};
@@ -5726,12 +5727,33 @@ function harvestRoadmapFromDOM(){
   }));
 }
 function parsePastedRoadmap(text){
-  return text.split('\n').map(l=>l.trim()).filter(Boolean).map(line=>{
-    const parts = line.split('|').map(p=>p.trim());
-    const id = Date.now()+'-'+Math.random().toString(36).slice(2);
+  let counter = 0;
+  const nextId = ()=> 'rm'+Date.now()+'-'+(counter++)+'-'+Math.random().toString(36).slice(2);
+  const toSession = (parts)=>{
+    const id = nextId();
     if(parts.length>=2) return {id, date:parts[0], title:parts[1], homework:parts[2]||'', tips:parts[3]||'', done:false};
-    return {id, date:'', title:parts[0], homework:'', tips:'', done:false};
+    return {id, date:'', title:parts[0]||'', homework:'', tips:'', done:false};
+  };
+  // Handle a pasted "Full roadmap (x/y done): • Item, • Item, ✓ Item." style WhatsApp message —
+  // items are bullet-marked (✓ done, • pending) and comma-separated, not one per line.
+  if(/[•✓]/.test(text)){
+    const afterFirstBullet = text.slice(text.search(/[•✓]/));
+    const bulletItems = afterFirstBullet.split(/[•✓]/).map(c=>c.replace(/^[\s,]+|[\s,.]+$/g,'').trim()).filter(Boolean);
+    if(bulletItems.length>1){
+      return bulletItems.map(title=>({id:nextId(), date:'', title, homework:'', tips:'', done:false}));
+    }
+  }
+  const sessions = [];
+  text.split('\n').map(l=>l.trim()).filter(Boolean).forEach(line=>{
+    const parts = line.split('|').map(p=>p.trim());
+    if(parts.length>4 && parts.length%4===0){
+      // Multiple sessions were pasted onto one line with no line breaks — split every 4 fields.
+      for(let i=0;i<parts.length;i+=4) sessions.push(toSession(parts.slice(i,i+4)));
+    } else {
+      sessions.push(toSession(parts));
+    }
   });
+  return sessions;
 }
 function harvestHomeworkFromDOM(){
   return Array.from(document.querySelectorAll('#homework-items-list .homework-item-row')).map(row=>({
@@ -5804,7 +5826,7 @@ function renderAdminStudentsTab(){
         <button class="btn btn-ghost btn-sm" data-admin-action="suggest-roadmap">✨ Suggest from level</button>
       </div>
       <label class="field-label">Paste a roadmap</label>
-      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 6px;">One session per line: <code>date | title | homework | tips</code> — homework and tips are optional.</p>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 6px;">One session per <b>line</b> (press Enter between sessions): <code>date | title | homework | tips</code> — homework and tips are optional.</p>
       <textarea id="roadmap-paste-box" rows="3" placeholder="2026-08-15 | Present perfect | Exercises 1-3 | Watch out for irregular verbs
 2026-08-22 | Phrasal verbs | Review vocab list | Practice in real sentences" style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px dashed var(--border); font-size:12.5px; background:var(--bg-sunken); color:var(--ink); font-family:inherit; margin-bottom:8px;"></textarea>
       <div class="row" style="gap:8px; margin-bottom:14px;">
@@ -6140,6 +6162,16 @@ if(location.hash === '#admin'){
   if(state.profile.completedDiagnostic && state.view === 'diagnostic-intro'){ state.view = 'dashboard'; }
   if(state.profile.completedDiagnostic && markDailyVisit()){ save(); }
   render();
+  if(state.view === 'student-panel' && studentPanelData && studentPanelData.code && typeof firebase !== 'undefined'){
+    firebase.firestore().collection('studentPanels').doc(studentPanelData.code).get().then(doc=>{
+      if(doc.exists){
+        studentPanelData = Object.assign({code: studentPanelData.code}, doc.data());
+        state.studentPanelCache = studentPanelData;
+        save();
+        if(state.view === 'student-panel') render();
+      }
+    }).catch(()=>{});
+  }
 }
 
 /* Best-effort offline caching for "Add to Home Screen" use. A browser-security rule means a service
