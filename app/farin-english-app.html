@@ -232,6 +232,12 @@
   .stat-box-ic svg{width:15px; height:15px;}
   .stat-num{font-size:15px; font-weight:800; line-height:1.15;}
   .stat-lab{font-size:9.5px; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.02em; margin-top:1px;}
+  .stat-box-club{position:relative; overflow:hidden; border:none; cursor:pointer; text-align:start; background:linear-gradient(135deg,#8a5cf7,#ff4fa3); box-shadow:0 6px 16px -8px rgba(138,92,247,.6);}
+  .stat-box-club .stat-box-ic{background:rgba(255,255,255,.28); color:#fff;}
+  .stat-box-club .stat-num, .stat-box-club .stat-lab{color:#fff;}
+  .stat-box-club .stat-lab{opacity:.9;}
+  .stat-box-club .sparkle{color:#fff;}
+  .stat-box-club:active{transform:scale(.97);}
 
   /* ---- featured tile (roadmap hero card in the dashboard grid) ---- */
   .tile-featured{width:100%; text-align:start; border:none; border-radius:26px; padding:18px 18px 16px; color:#fff; position:relative; overflow:hidden; box-shadow:var(--shadow); background-image:radial-gradient(circle at 92% 0%, rgba(255,255,255,.35), transparent 60%);}
@@ -426,7 +432,8 @@ const ICONS = {
   soundOff:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5Z" fill="currentColor" stroke="none"/><path d="M16 9.5 20.5 14"/><path d="M20.5 9.5 16 14"/></svg>',
   suitcase:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="13" rx="2.4"/><path d="M8.5 8V5.5A1.7 1.7 0 0 1 10.2 3.8h3.6A1.7 1.7 0 0 1 15.5 5.5V8"/><path d="M2.5 13.5h19"/><path d="M10.6 13.2h2.8"/></svg>',
   pen:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 4.8 15.8 15.6 5a2 2 0 0 1 2.8 0l1.6 1.6a2 2 0 0 1 0 2.8L9.2 20.2 4 20Z"/><path d="M14 7.2 17.8 11"/></svg>',
-  mic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5v1a6.5 6.5 0 0 0 13 0v-1"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8.5" y1="22" x2="15.5" y2="22"/></svg>'
+  mic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5v1a6.5 6.5 0 0 0 13 0v-1"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8.5" y1="22" x2="15.5" y2="22"/></svg>',
+  users:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3.2"/><path d="M2.8 19c.6-3.4 3-5.2 5.7-5.2s5.1 1.8 5.7 5.2"/><circle cx="16.8" cy="8.6" r="2.6"/><path d="M15.3 13.9c2.2.2 4 1.7 4.5 4.4"/></svg>'
 };
 
 /* ============================= I18N ============================= */
@@ -2699,16 +2706,6 @@ function progressArrForKind(kind){
        : kind==='story' ? state.progress.completedStories
        : state.progress.completedScenes;
 }
-function relativeDate(iso){
-  if(!iso) return '—';
-  const today = todayISO();
-  const yd = new Date(); yd.setDate(yd.getDate()-1);
-  const y = localDateStr(yd);
-  if(iso === today) return L('Today','Bugün');
-  if(iso === y) return L('Yesterday','Dün');
-  return new Date(iso).toLocaleDateString(LANG==='tr'?'tr-TR':undefined,{month:'short', day:'numeric'});
-}
-
 /* ============================= HELPERS ============================= */
 function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function renderLessonText(text, accentVar){
@@ -2988,7 +2985,7 @@ function render(){
   const root = document.getElementById('app');
   document.documentElement.dir = LANG==='fa' ? 'rtl' : 'ltr';
   root.innerHTML = screens[state.view] ? screens[state.view]() : screens['dashboard']();
-  const bottomNavViews = ['dashboard','goals-list','speaking-club','story-list'];
+  const bottomNavViews = ['dashboard','goals-list','speaking-club','story-list','student-club'];
   const nav = bottomNavViews.includes(state.view) ? bottomNav() : '';
   root.insertAdjacentHTML('beforeend', nav);
   const noHomeButtonViews = bottomNavViews.concat(['diagnostic-intro','diagnostic-step']);
@@ -3028,7 +3025,8 @@ function bottomNav(){
     {v:'dashboard', ic:ICONS.home, label:L('Home','Ana Sayfa','خانه')},
     {v:'goals-list', ic:ICONS.compass, label:L('Goals','Hedefler','اهداف')},
     {v:'speaking-club', ic:ICONS.chat, label:L('Studio','Stüdyo','استودیو')},
-    {v:'story-list', ic:ICONS.book, label:L('Stories','Hikayeler','داستان‌ها')}
+    {v:'story-list', ic:ICONS.book, label:L('Stories','Hikayeler','داستان‌ها')},
+    {v:'student-club', ic:ICONS.users, label:L('Club','Kulüp','باشگاه')}
   ];
   return `<nav class="bottomnav">${items.map(it=>`
     <button class="nav-btn ${state.view===it.v?'active':''}" data-action="nav" data-view="${it.v}">
@@ -3256,7 +3254,12 @@ function statRow(pr){
   return `<div class="stat-row">
     <div class="stat-box"><span class="stat-box-ic" style="background:var(--cat-review-soft); color:var(--cat-review);">${ICONS.flame}</span><div><div class="stat-num">${pr.sessionsExplored}</div><div class="stat-lab">${L('Sessions','Seans','جلسات')}</div></div></div>
     <div class="stat-box"><span class="stat-box-ic" style="background:var(--cat-lis-soft); color:var(--cat-lis);">${ICONS.flame}</span><div><div class="stat-num">${pr.streak}</div><div class="stat-lab">${L('Day streak','Gün serisi','روزهای متوالی')}</div></div></div>
-    <div class="stat-box"><span class="stat-box-ic" style="background:var(--cat-voc-soft); color:var(--cat-voc);">${ICONS.compass}</span><div><div class="stat-num" style="font-size:12.5px;">${relativeDate(pr.lastActiveDate)}</div><div class="stat-lab">${L('Last active','Son aktivite','آخرین فعالیت')}</div></div></div>
+    <button class="stat-box stat-box-club" data-action="nav" data-view="student-club">
+      <span class="sparkle" style="top:5px; right:7px; left:auto; width:5px; height:5px;"></span>
+      <span class="sparkle" style="bottom:5px; left:9px; width:4px; height:4px; animation-delay:.7s;"></span>
+      <span class="stat-box-ic">${ICONS.users}</span>
+      <div><div class="stat-num" style="font-size:12.5px;">${L('Club','Kulüp','باشگاه')}</div><div class="stat-lab">${L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان')}</div></div>
+    </button>
   </div>`;
 }
 const ARCHETYPE_COLOR = {travel:'var(--cat-story)', career:'var(--clay-orange)', exam:'var(--cat-diag)', everyday:'var(--cat-lis)', immigration:'var(--cat-voc)'};
@@ -3618,6 +3621,106 @@ function renderContactOptIn(){
       <input id="contact-optin-phone" type="tel" placeholder="${L('Your WhatsApp number','WhatsApp numaran','شماره واتس‌اپت')}" value="${esc(p.contactPhone||'')}" style="width:100%; box-sizing:border-box; padding:12px 14px; border-radius:12px; border:1.5px solid var(--border); font-size:15px; background:var(--bg-elevated); color:var(--ink);">
       <button class="btn btn-primary" style="margin-top:8px; width:100%;" data-action="save-contact-optin">${L('Save','Kaydet','ذخیره')}</button>
       <p id="contact-optin-status" style="font-size:12px; color:var(--success); margin-top:6px; display:none;">${L('Saved!','Kaydedildi!','ذخیره شد!')}</p>
+    </div>
+  </div>`;
+}
+
+/* ============================= RENDER: STUDENT CLUB ============================= */
+function renderStudentClub(){
+  return `<div class="fade-in">
+    ${topbar(false)}
+    ${sectionHeadNoBack(L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان'), L('Your VIP corner — check your progress or join the club.','Senin VIP köşen — ilerlemeni kontrol et ya da kulübe katıl.','گوشه ویژه تو — پیشرفتت را ببین یا به باشگاه بپیوند.'))}
+    <div class="screen" style="padding-top:0;">
+      <div class="clay-banner" style="background:linear-gradient(135deg,#8a5cf7,#ff4fa3);">
+        <span class="sparkle" style="top:14px; left:20px;"></span>
+        <span class="sparkle" style="top:32px; right:24px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
+        <span class="sparkle" style="bottom:34px; left:34%; width:5px; height:5px; animation-delay:1s;"></span>
+        <span class="sparkle" style="bottom:18px; right:20%; left:auto; width:6px; height:6px; animation-delay:1.4s;"></span>
+        <span class="sparkle" style="top:50%; left:12%; width:4px; height:4px; animation-delay:.3s;"></span>
+        <div style="display:flex; justify-content:center; margin-bottom:8px;">${ICONS.users}</div>
+        <div class="clay-banner-title">${L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان')}</div>
+        <div class="clay-banner-sub">${L('A little sparkly corner just for you.','Sadece senin için küçük, parıltılı bir köşe.','یک گوشه کوچک و پرزرق‌وبرق فقط برای تو.')}</div>
+      </div>
+      <button class="tile-featured" data-action="nav" data-view="student-club-login" style="background:var(--cat-diag); margin-bottom:12px;">
+        <div class="row between" style="align-items:flex-start;">
+          <div>
+            <div class="hero-eyebrow">${L("I'm a student","Ben bir öğrenciyim",'من دانش‌آموز هستم')}</div>
+            <div class="tile-featured-title">${L('See my progress','İlerlemimi gör','دیدن پیشرفتم')}</div>
+            <p style="font-size:12px; color:rgba(255,255,255,.85); margin-top:6px;">${L('Enter your pass to open your own private panel.','Kendi özel panelini açmak için kodunu gir.','برای باز کردن پنل خصوصی‌ات رمزت را وارد کن.')}</p>
+          </div>
+          <span class="tile-featured-ic">${ICONS.star}</span>
+        </div>
+      </button>
+      <button class="tile-featured" data-action="nav" data-view="student-club-join" style="background:var(--clay-orange);">
+        <div class="row between" style="align-items:flex-start;">
+          <div>
+            <div class="hero-eyebrow">${L('New here','Yeni misin','تازه اومدی')}</div>
+            <div class="tile-featured-title">${L('Join Student Club','Öğrenci Kulübüne Katıl','پیوستن به باشگاه دانش‌آموزان')}</div>
+            <p style="font-size:12px; color:rgba(255,255,255,.85); margin-top:6px;">${L('Share your name and number so your teacher can reach you.','Öğretmenin ulaşabilsin diye adını ve numaranı paylaş.','اسم و شماره‌ات را بگو تا معلمت بتواند بهت برسد.')}</p>
+          </div>
+          <span class="tile-featured-ic">${ICONS.heart}</span>
+        </div>
+      </button>
+    </div>
+  </div>`;
+}
+function renderStudentClubLogin(){
+  const vp = state.viewParams || {};
+  return `<div class="fade-in">
+    ${sectionHead(L('Enter your pass','Kodunu gir','رمزت را وارد کن'), L('Your teacher gave you a special pass or username.','Öğretmenin sana özel bir kod ya da kullanıcı adı verdi.','معلمت یک رمز یا نام کاربری ویژه به تو داده.'), 'student-club')}
+    <div class="screen" style="padding-top:0;">
+      <input id="student-panel-code-input" type="text" autocapitalize="characters" placeholder="${L('Your pass / username','Kodun / kullanıcı adın','رمز / نام کاربری‌ات')}" style="width:100%; box-sizing:border-box; padding:14px 16px; border-radius:14px; border:1.5px solid var(--border); font-size:16px; text-align:center; letter-spacing:.05em; background:var(--bg-elevated); color:var(--ink);" value="${esc(vp.code||'')}">
+      ${vp.error ? `<p style="color:var(--error); font-size:13px; margin-top:8px; text-align:center;">${L("We couldn't find that pass. Double-check it and try again.",'Bu kodu bulamadık. Kontrol edip tekrar dene.','این رمز را پیدا نکردیم. بررسی کن و دوباره امتحان کن.')}</p>` : ''}
+      <button class="btn btn-primary" style="margin-top:14px;" data-action="student-panel-submit">${L('View my progress','İlerlemimi gör','دیدن پیشرفتم')}</button>
+    </div>
+  </div>`;
+}
+let studentPanelData = null;
+function renderStudentPanel(){
+  const d = studentPanelData || {};
+  return `<div class="fade-in">
+    ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
+    <div class="screen" style="padding-top:0;">
+      <div class="character-card" style="background:linear-gradient(135deg,#8a5cf7,#ff4fa3);">
+        <span class="sparkle" style="top:16px; left:22px;"></span>
+        <span class="sparkle" style="top:36px; right:26px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
+        <span class="sparkle" style="bottom:14px; right:20px; left:auto; width:5px; height:5px; animation-delay:1s;"></span>
+        <div class="eyebrow" style="color:rgba(255,255,255,.85);">${esc(d.level || L('Level not set','Seviye belirtilmemiş','سطح تنظیم‌نشده'))}</div>
+        <h1 class="display" style="font-size:22px; margin-top:4px; color:#fff;">${esc(d.name || L('Student','Öğrenci','دانش‌آموز'))}</h1>
+      </div>
+      <div class="card-flat" style="margin-top:16px;">
+        <div class="eyebrow">${L('Progress','İlerleme','پیشرفت')}</div>
+        <p style="font-size:14px; margin-top:8px; line-height:1.6; white-space:pre-wrap;">${esc(d.progressNote || L('Nothing added yet — check back soon!','Henüz bir şey eklenmedi — yakında tekrar bak!','هنوز چیزی اضافه نشده — به‌زودی دوباره سر بزن!'))}</p>
+      </div>
+      <div class="card-flat" style="margin-top:12px;">
+        <div class="eyebrow">${L('Performance','Performans','عملکرد')}</div>
+        <p style="font-size:14px; margin-top:8px; line-height:1.6; white-space:pre-wrap;">${esc(d.performanceNote || L('Nothing added yet — check back soon!','Henüz bir şey eklenmedi — yakında tekrar bak!','هنوز چیزی اضافه نشده — به‌زودی دوباره سر بزن!'))}</p>
+      </div>
+      ${d.updatedAt ? `<p style="font-size:11px; color:var(--ink-faint); margin-top:12px; text-align:center;">${L('Last updated','Son güncelleme','آخرین به‌روزرسانی')}: ${esc(new Date(d.updatedAt).toLocaleDateString())}</p>` : ''}
+    </div>
+  </div>`;
+}
+function renderStudentClubJoin(){
+  const vp = state.viewParams || {};
+  if(vp.joined){
+    return `<div class="fade-in">
+      ${sectionHead(L('Join Student Club','Kulübe Katıl','پیوستن به باشگاه'), '', 'student-club')}
+      <div class="screen" style="padding-top:0; text-align:center;">
+        <div style="display:flex; justify-content:center; color:var(--accent-strong); margin-bottom:8px;">${ICONS.heart}</div>
+        <h2 class="display" style="font-size:18px;">${L("You're in!","Aramıza katıldın!",'به جمع ما پیوستی!')}</h2>
+        <p style="color:var(--ink-soft); font-size:13.5px; margin-top:8px;">${L('Your teacher will be in touch soon.','Öğretmenin yakında seninle iletişime geçecek.','معلمت به‌زودی باهات تماس می‌گیرد.')}</p>
+      </div>
+    </div>`;
+  }
+  return `<div class="fade-in">
+    ${sectionHead(L('Join Student Club','Kulübe Katıl','پیوستن به باشگاه'), L('Leave your name and number, and your teacher will reach out.','Adını ve numaranı bırak, öğretmenin seninle iletişime geçsin.','اسم و شماره‌ات را بگذار تا معلمت باهات تماس بگیرد.'), 'student-club')}
+    <div class="screen" style="padding-top:0;">
+      <label class="field-label">${L('Your name','Adın','اسمت')}</label>
+      <input id="club-join-name" type="text" placeholder="${L('First name','Adın','نام')}" value="${esc(vp.name || state.profile.name || '')}" style="width:100%; box-sizing:border-box; padding:12px 14px; border-radius:12px; border:1.5px solid var(--border); font-size:15px; background:var(--bg-elevated); color:var(--ink); margin-bottom:12px;">
+      <label class="field-label">${L('Your WhatsApp number','WhatsApp numaran','شماره واتس‌اپت')}</label>
+      <input id="club-join-phone" type="tel" placeholder="+90 5xx xxx xx xx" value="${esc(vp.phone || state.profile.contactPhone || '')}" style="width:100%; box-sizing:border-box; padding:12px 14px; border-radius:12px; border:1.5px solid var(--border); font-size:15px; background:var(--bg-elevated); color:var(--ink);">
+      ${vp.error ? `<p style="color:var(--error); font-size:13px; margin-top:8px;">${L('Please enter your name and number.','Lütfen adını ve numaranı gir.','لطفاً اسم و شماره‌ات را وارد کن.')}</p>` : ''}
+      <button class="btn btn-primary" style="margin-top:14px; width:100%;" data-action="student-club-join-submit">${L('Join the club','Kulübe katıl','پیوستن به باشگاه')}</button>
     </div>
   </div>`;
 }
@@ -4772,6 +4875,10 @@ const screens = {
   'review-home': renderReviewHome,
   'profile': renderProfile,
   'settings': renderSettings,
+  'student-club': renderStudentClub,
+  'student-club-login': renderStudentClubLogin,
+  'student-club-join': renderStudentClubJoin,
+  'student-panel': renderStudentPanel,
   'grammar-list': renderGrammarList,
   'grammar-trap': ()=>renderGrammarTrap(state.viewParams.id),
   'vocab-list': renderVocabList,
@@ -5417,6 +5524,49 @@ const HANDLERS = {
       setTimeout(()=>{ status.style.display = 'none'; }, 2000);
     }
   },
+  'student-panel-submit'(){
+    const input = document.getElementById('student-panel-code-input');
+    const code = (input && input.value || '').trim().toUpperCase();
+    if(!code || typeof firebase === 'undefined'){
+      state.viewParams = {code, error:true};
+      render();
+      return;
+    }
+    firebase.firestore().collection('studentPanels').doc(code).get().then(doc=>{
+      if(!doc.exists){
+        state.viewParams = {code, error:true};
+        render();
+        return;
+      }
+      studentPanelData = Object.assign({code}, doc.data());
+      go('student-panel');
+    }).catch(()=>{
+      state.viewParams = {code, error:true};
+      render();
+    });
+  },
+  'student-club-join-submit'(){
+    const nameEl = document.getElementById('club-join-name');
+    const phoneEl = document.getElementById('club-join-phone');
+    const name = (nameEl && nameEl.value || '').trim();
+    const phone = (phoneEl && phoneEl.value || '').trim();
+    if(!name || !phone){
+      state.viewParams = {name, phone, error:true};
+      render();
+      return;
+    }
+    try{
+      if(typeof firebase !== 'undefined'){
+        const p = state.profile;
+        firebase.firestore().collection('contacts').add({
+          name, phone, level: p.level || null, goal: goalLabel(p),
+          recoveryCode: p.recoveryCode || null, source:'student-club', createdAt: Date.now()
+        }).catch(()=>{});
+      }
+    }catch(e){}
+    state.viewParams = {joined:true};
+    save(); render();
+  },
   'toggle-story-music'(){
     storyMusicMuted = !storyMusicMuted;
     localStorage.setItem('farinMusicMuted', storyMusicMuted ? '1' : '0');
@@ -5438,6 +5588,13 @@ function waLinkTo(phone, message){
 let adminContacts = null;
 let adminError = '';
 let adminLoading = false;
+let adminTab = 'contacts';
+let adminStudents = null;
+let adminStudentsLoading = false;
+let adminEditingStudent = null;
+let adminStudentError = '';
+let adminSavingStudent = false;
+let adminResetStatus = '';
 function renderAdminPage(){
   const root = document.getElementById('app');
   const user = firebase.auth().currentUser;
@@ -5446,31 +5603,84 @@ function renderAdminPage(){
     html = `<div class="screen" style="padding-top:40px; max-width:360px; margin:0 auto;">
       <h1 class="display" style="font-size:20px; margin-bottom:16px;">Admin sign in</h1>
       ${adminError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminError)}</p>` : ''}
+      ${adminResetStatus ? `<p style="color:var(--success); font-size:13px; margin-bottom:10px;">${esc(adminResetStatus)}</p>` : ''}
       <input id="admin-email" type="email" placeholder="Email" style="width:100%; box-sizing:border-box; padding:12px 14px; border-radius:12px; border:1.5px solid var(--border); font-size:15px; margin-bottom:10px; background:var(--bg-elevated); color:var(--ink);">
       <input id="admin-password" type="password" placeholder="Password" style="width:100%; box-sizing:border-box; padding:12px 14px; border-radius:12px; border:1.5px solid var(--border); font-size:15px; margin-bottom:10px; background:var(--bg-elevated); color:var(--ink);">
       <button class="btn btn-primary" style="width:100%;" data-admin-action="signin">Sign in</button>
+      <button class="btn btn-ghost" style="width:100%; margin-top:8px;" data-admin-action="forgot-password">Forgot password?</button>
     </div>`;
-  } else if(adminLoading){
-    html = `<div class="screen" style="padding-top:40px; text-align:center;"><p>Loading…</p></div>`;
   } else {
-    const rows = (adminContacts||[]).map(c=>`
-      <div class="item-row" style="align-items:flex-start;">
-        <div class="item-body">
-          <div class="item-title">${esc(c.name||'—')}</div>
-          <div class="item-sub">${esc(c.level||'')} · ${esc(c.goal||'')}</div>
-          <div class="item-sub">${esc(c.phone||'')}</div>
-        </div>
-        <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${waLinkTo(c.phone, 'Hi '+c.name+'! This is your Farin English teacher.')}">${ICONS.whatsapp}</a>
-      </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No contacts yet.</p>';
-    html = `<div class="screen" style="padding-top:24px;">
+    const tabs = `<div class="row" style="gap:8px; margin-bottom:14px;">
+      <button class="btn btn-sm ${adminTab==='contacts'?'btn-primary':'btn-ghost'}" data-admin-action="tab-contacts">Contacts (${(adminContacts||[]).length})</button>
+      <button class="btn btn-sm ${adminTab==='students'?'btn-primary':'btn-ghost'}" data-admin-action="tab-students">Student Panels (${(adminStudents||[]).length})</button>
+    </div>`;
+    const body = adminTab === 'contacts' ? renderAdminContactsTab() : renderAdminStudentsTab();
+    html = `<div class="screen" style="padding-top:24px; max-width:480px; margin:0 auto;">
       <div class="row between" style="margin-bottom:14px;">
-        <h1 class="display" style="font-size:20px;">Contacts (${(adminContacts||[]).length})</h1>
+        <h1 class="display" style="font-size:20px;">Admin</h1>
         <button class="btn btn-ghost" data-admin-action="signout">Sign out</button>
       </div>
-      <div class="stack" style="gap:8px;">${rows}</div>
+      ${tabs}
+      ${body}
     </div>`;
   }
   root.innerHTML = html;
+  bindAdminActions(root);
+}
+function renderAdminContactsTab(){
+  if(adminLoading) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
+  const rows = (adminContacts||[]).map(c=>`
+    <div class="item-row" style="align-items:flex-start;">
+      <div class="item-body">
+        <div class="item-title">${esc(c.name||'—')}${c.source==='student-club' ? ' <span class="pill" style="background:var(--cat-diag-soft); color:var(--cat-diag);">Club</span>' : ''}</div>
+        <div class="item-sub">${esc(c.level||'')} ${c.goal ? '· '+esc(c.goal) : ''}</div>
+        <div class="item-sub">${esc(c.phone||'')}</div>
+      </div>
+      <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${waLinkTo(c.phone, 'Hi '+c.name+'! This is your Farin English teacher.')}">${ICONS.whatsapp}</a>
+    </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No contacts yet.</p>';
+  return `<div class="stack" style="gap:8px;">${rows}</div>`;
+}
+function studentFormField(id, label, value, tag, extra){
+  const val = esc(value||'');
+  const el = tag === 'textarea'
+    ? `<textarea id="${id}" rows="4" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); font-family:inherit;" ${extra||''}>${val}</textarea>`
+    : `<input id="${id}" type="text" value="${val}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);" ${extra||''}>`;
+  return `<label class="field-label">${label}</label>${el}<div style="height:10px;"></div>`;
+}
+function renderAdminStudentsTab(){
+  if(adminEditingStudent){
+    const s = adminEditingStudent;
+    const levelOpts = ['','A1','A2','B1','B2','C1'].map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
+    return `<div class="card-flat">
+      ${studentFormField('student-form-code', 'Pass / username', s.code, 'input', s.isNew ? 'placeholder="e.g. AYLIN23"' : 'disabled style="background:var(--bg-sunken);"')}
+      ${studentFormField('student-form-name', 'Name', s.name, 'input')}
+      <label class="field-label">Level</label>
+      <select id="student-form-level" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${levelOpts}</select>
+      ${studentFormField('student-form-progress', 'Progress notes', s.progressNote, 'textarea')}
+      ${studentFormField('student-form-performance', 'Performance notes', s.performanceNote, 'textarea')}
+      ${adminStudentError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminStudentError)}</p>` : ''}
+      <div class="row" style="gap:8px;">
+        <button class="btn btn-primary" style="flex:1;" data-admin-action="save-student" ${adminSavingStudent?'disabled':''}>${adminSavingStudent?'Saving…':'Save'}</button>
+        <button class="btn btn-ghost" data-admin-action="cancel-edit-student">Cancel</button>
+      </div>
+      ${!s.isNew ? `<button class="btn btn-ghost" style="margin-top:10px; width:100%; color:var(--error); border-color:var(--error-soft);" data-admin-action="delete-student" data-code="${esc(s.code)}">Delete this student</button>` : ''}
+    </div>`;
+  }
+  if(adminStudentsLoading) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
+  const rows = (adminStudents||[]).map(s=>`
+    <button class="item-row" data-admin-action="edit-student" data-code="${esc(s.code)}">
+      <div class="item-body">
+        <div class="item-title">${esc(s.name||s.code)}</div>
+        <div class="item-sub">${esc(s.level||'—')} · pass: ${esc(s.code)}</div>
+      </div>
+      <span class="chevron">${ICONS.chev}</span>
+    </button>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No student panels yet.</p>';
+  return `<div class="stack" style="gap:8px;">
+    <button class="btn btn-primary" data-admin-action="add-student">+ Add student</button>
+    ${rows}
+  </div>`;
+}
+function bindAdminActions(root){
   root.querySelectorAll('[data-admin-action]').forEach(el=>{
     el.onclick = function(){
       const action = el.dataset.adminAction;
@@ -5478,6 +5688,7 @@ function renderAdminPage(){
         const email = document.getElementById('admin-email').value.trim();
         const pw = document.getElementById('admin-password').value;
         adminError = '';
+        adminResetStatus = '';
         firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(()=>{}).then(()=>{
           return firebase.auth().signInWithEmailAndPassword(email, pw);
         }).then(()=>{
@@ -5486,8 +5697,52 @@ function renderAdminPage(){
           adminError = err.message || String(err);
           renderAdminPage();
         });
+      } else if(action === 'forgot-password'){
+        const email = (document.getElementById('admin-email').value || '').trim();
+        if(!email){
+          adminError = 'Enter your email above first, then tap "Forgot password?".';
+          renderAdminPage();
+          return;
+        }
+        adminError = '';
+        adminResetStatus = '';
+        firebase.auth().sendPasswordResetEmail(email).then(()=>{
+          adminResetStatus = 'Reset link sent to ' + email + ' — check your inbox.';
+          renderAdminPage();
+        }).catch(err=>{
+          adminError = err.message || String(err);
+          renderAdminPage();
+        });
       } else if(action === 'signout'){
-        firebase.auth().signOut().then(()=>{ adminContacts = null; renderAdminPage(); });
+        firebase.auth().signOut().then(()=>{
+          adminContacts = null; adminStudents = null; adminTab = 'contacts'; adminEditingStudent = null;
+          renderAdminPage();
+        });
+      } else if(action === 'tab-contacts'){
+        adminTab = 'contacts';
+        renderAdminPage();
+      } else if(action === 'tab-students'){
+        adminTab = 'students';
+        renderAdminPage();
+        if(adminStudents === null) loadAdminStudents();
+      } else if(action === 'add-student'){
+        adminStudentError = '';
+        adminEditingStudent = {isNew:true, code:'', name:'', level:'', progressNote:'', performanceNote:''};
+        renderAdminPage();
+      } else if(action === 'edit-student'){
+        const code = el.dataset.code;
+        const s = (adminStudents||[]).find(x=>x.code===code);
+        adminStudentError = '';
+        adminEditingStudent = Object.assign({isNew:false}, s);
+        renderAdminPage();
+      } else if(action === 'cancel-edit-student'){
+        adminEditingStudent = null;
+        adminStudentError = '';
+        renderAdminPage();
+      } else if(action === 'save-student'){
+        saveAdminStudent();
+      } else if(action === 'delete-student'){
+        deleteAdminStudent(el.dataset.code);
       }
     };
   });
@@ -5502,6 +5757,77 @@ function loadAdminContacts(){
   }).catch(err=>{
     adminError = err.message;
     adminLoading = false;
+    renderAdminPage();
+  });
+}
+function loadAdminStudents(){
+  adminStudentsLoading = true;
+  renderAdminPage();
+  firebase.firestore().collection('studentPanels').get().then(snap=>{
+    adminStudents = snap.docs.map(d=>Object.assign({code:d.id}, d.data()))
+      .sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
+    adminStudentsLoading = false;
+    renderAdminPage();
+  }).catch(err=>{
+    adminError = err.message;
+    adminStudentsLoading = false;
+    renderAdminPage();
+  });
+}
+function saveAdminStudent(){
+  const s = adminEditingStudent;
+  const codeEl = document.getElementById('student-form-code');
+  const code = (s.isNew ? (codeEl && codeEl.value || '') : s.code).trim().toUpperCase().replace(/\s+/g,'');
+  const name = (document.getElementById('student-form-name').value || '').trim();
+  const level = document.getElementById('student-form-level').value;
+  const progressNote = document.getElementById('student-form-progress').value;
+  const performanceNote = document.getElementById('student-form-performance').value;
+  if(!code){
+    adminStudentError = 'Please enter a pass / username.';
+    renderAdminPage();
+    return;
+  }
+  adminSavingStudent = true;
+  adminStudentError = '';
+  renderAdminPage();
+  const finish = ()=>{
+    firebase.firestore().collection('studentPanels').doc(code).set({
+      name, level, progressNote, performanceNote, updatedAt: Date.now()
+    }, {merge:true}).then(()=>{
+      adminSavingStudent = false;
+      adminEditingStudent = null;
+      loadAdminStudents();
+    }).catch(err=>{
+      adminSavingStudent = false;
+      adminStudentError = err.message;
+      renderAdminPage();
+    });
+  };
+  if(s.isNew){
+    firebase.firestore().collection('studentPanels').doc(code).get().then(doc=>{
+      if(doc.exists){
+        adminSavingStudent = false;
+        adminStudentError = 'That pass is already taken — pick another.';
+        renderAdminPage();
+        return;
+      }
+      finish();
+    }).catch(err=>{
+      adminSavingStudent = false;
+      adminStudentError = err.message;
+      renderAdminPage();
+    });
+  } else {
+    finish();
+  }
+}
+function deleteAdminStudent(code){
+  if(!confirm('Delete this student panel? This cannot be undone.')) return;
+  firebase.firestore().collection('studentPanels').doc(code).delete().then(()=>{
+    adminEditingStudent = null;
+    loadAdminStudents();
+  }).catch(err=>{
+    adminStudentError = err.message;
     renderAdminPage();
   });
 }
