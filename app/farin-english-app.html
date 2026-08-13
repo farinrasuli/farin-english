@@ -5816,6 +5816,7 @@ let adminLoading = false;
 let adminTab = 'contacts';
 let adminStudents = null;
 let adminStudentsLoading = false;
+let adminStudentsLoadErrors = [];
 let adminEditingStudent = null;
 let adminStudentError = '';
 let adminStudentInfo = '';
@@ -6099,6 +6100,9 @@ function renderAdminStudentsTab(){
     </div>`;
   }
   if(adminStudentsLoading) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
+  const errBanner = (adminStudentsLoadErrors && adminStudentsLoadErrors.length)
+    ? `<p style="background:var(--error-soft); color:var(--error); border-radius:14px; padding:10px 13px; font-size:12.5px; font-weight:600;">Couldn't load some students — ${adminStudentsLoadErrors.map(esc).join('; ')}</p>`
+    : '';
   const rows = (adminStudents||[]).map(s=>`
     <button class="item-row" data-admin-action="edit-student" data-code="${esc(s.code)}" data-course="${esc(s.course||'en')}">
       <div class="item-body">
@@ -6109,6 +6113,7 @@ function renderAdminStudentsTab(){
       <span class="chevron">${ICONS.chev}</span>
     </button>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No student panels yet.</p>';
   return `<div class="stack" style="gap:8px;">
+    ${errBanner}
     <button class="btn btn-primary" data-admin-action="add-student">+ Add student</button>
     ${rows}
   </div>`;
@@ -6325,16 +6330,13 @@ function deleteAdminContact(id){
 }
 function loadAdminStudents(){
   adminStudentsLoading = true;
+  adminStudentsLoadErrors = [];
   renderAdminPage();
-  Promise.all([
-    firebase.firestore().collection('studentPanels').get().then(snap=>snap.docs.map(d=>Object.assign({code:d.id, course:'en'}, d.data()))),
-    firebase.firestore().collection('studentPanelsEs').get().then(snap=>snap.docs.map(d=>Object.assign({code:d.id, course:'es'}, d.data())))
-  ]).then(([en, es])=>{
+  const load = (coll, course) => firebase.firestore().collection(coll).get()
+    .then(snap=>snap.docs.map(d=>Object.assign({code:d.id, course}, d.data())))
+    .catch(err=>{ adminStudentsLoadErrors.push(adminCourseLabel(course)+': '+err.message); return []; });
+  Promise.all([load('studentPanels','en'), load('studentPanelsEs','es')]).then(([en, es])=>{
     adminStudents = en.concat(es).sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
-    adminStudentsLoading = false;
-    renderAdminPage();
-  }).catch(err=>{
-    adminError = err.message;
     adminStudentsLoading = false;
     renderAdminPage();
   });
