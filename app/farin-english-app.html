@@ -443,6 +443,7 @@ function L(en, tr, fa){ if(LANG==='tr') return tr; if(LANG==='fa') return fa!==u
 /* ============================= CONFIG ============================= */
 const WHATSAPP_NUMBER = '905467615974'; // country code (90) + number, no + or spaces
 const LEVELS = ['A1','A2','B1','B2','C1'];
+const LEVEL_STAGES = ['A1','A1.2','A2','A2.2','B1','B1.2','B2','B2.2','C1','C1.2'];
 
 /* ============================= DIAGNOSTIC OPTIONS ============================= */
 const ARCHETYPES = {
@@ -2866,12 +2867,28 @@ function goalLabel(p){
   const opt = MOTIVATION_OPTIONS.find(o=>o.value===p.motivationTag);
   return opt ? L(opt.label.en, opt.label.tr, opt.label.fa) : L('Not set','Belirtilmemiş','تنظیم‌نشده');
 }
-function leadInfoSuffix(p){
+function leadInfoSuffixBasic(p){
   return L(
     " My name is "+p.name+", my level is "+p.level+", and my goal is: "+goalLabel(p)+".",
     " Adım "+p.name+", seviyem "+p.level+", hedefim: "+goalLabel(p)+".",
     " اسم من "+p.name+" است، سطحم "+p.level+" است و هدفم: "+goalLabel(p)+"."
   );
+}
+function roadmapSummarySuffix(p){
+  let roadmap;
+  try{ roadmap = buildRoadmap(p); }catch(e){ return ''; }
+  if(!roadmap || !roadmap.length) return '';
+  const rc = (state.progress && state.progress.roadmapChecked) || {};
+  const doneCount = roadmap.filter((_,i)=>rc[i]).length;
+  const list = roadmap.map((it,i)=>(rc[i]?'✓ ':'• ')+it.title).join(', ');
+  return L(
+    " Full roadmap ("+doneCount+"/"+roadmap.length+" done): "+list+".",
+    " Tüm yol haritası ("+doneCount+"/"+roadmap.length+" tamam): "+list+".",
+    " کل نقشه راه ("+doneCount+"/"+roadmap.length+" انجام‌شده): "+list+"."
+  );
+}
+function leadInfoSuffix(p){
+  return leadInfoSuffixBasic(p) + roadmapSummarySuffix(p);
 }
 function displayPhone(){
   const n = WHATSAPP_NUMBER;
@@ -2945,7 +2962,7 @@ function buildRoadmap(profile){
     "Hi! I'm "+profile.name+". I'd like to book a speaking session"+(topic?' on "'+topic+'"':'')+".",
     'Merhaba! Ben '+profile.name+'. '+(topic?'"'+topic+'" konulu ':'')+'bir konuşma seansı ayırtmak istiyorum.',
     'سلام! من '+profile.name+' هستم. می‌خواهم یک جلسه مکالمه'+(topic?' درباره «'+topic+'»':'')+' رزرو کنم.'
-  )+leadInfoSuffix(profile));
+  )+leadInfoSuffixBasic(profile));
   const pushSession = (topic) => items.push({type:'session', refId:null, goal:primaryGoal, waLink:sessionLink(topic), title:L('Live speaking session','Canlı konuşma seansı','جلسه زنده مکالمه')});
   // Drillers repeat-to-learn, and anyone who flagged vocab as their weak spot gets a warm-up rep first.
   if(stage===1 && (profile.priorityArea==='vocab' || profile.learnerType==='driller') && vPool.length){
@@ -3631,16 +3648,6 @@ function renderStudentClub(){
     ${topbar(false)}
     ${sectionHeadNoBack(L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان'), L('Your VIP corner — check your progress or join the club.','Senin VIP köşen — ilerlemeni kontrol et ya da kulübe katıl.','گوشه ویژه تو — پیشرفتت را ببین یا به باشگاه بپیوند.'))}
     <div class="screen" style="padding-top:0;">
-      <div class="clay-banner" style="background:linear-gradient(135deg,#8a5cf7,#ff4fa3);">
-        <span class="sparkle" style="top:14px; left:20px;"></span>
-        <span class="sparkle" style="top:32px; right:24px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
-        <span class="sparkle" style="bottom:34px; left:34%; width:5px; height:5px; animation-delay:1s;"></span>
-        <span class="sparkle" style="bottom:18px; right:20%; left:auto; width:6px; height:6px; animation-delay:1.4s;"></span>
-        <span class="sparkle" style="top:50%; left:12%; width:4px; height:4px; animation-delay:.3s;"></span>
-        <div style="display:flex; justify-content:center; margin-bottom:8px;">${ICONS.users}</div>
-        <div class="clay-banner-title">${L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان')}</div>
-        <div class="clay-banner-sub">${L('A little sparkly corner just for you.','Sadece senin için küçük, parıltılı bir köşe.','یک گوشه کوچک و پرزرق‌وبرق فقط برای تو.')}</div>
-      </div>
       <button class="tile-featured" data-action="nav" data-view="student-club-login" style="background:var(--cat-diag); margin-bottom:12px;">
         <div class="row between" style="align-items:flex-start;">
           <div>
@@ -3676,8 +3683,18 @@ function renderStudentClubLogin(){
   </div>`;
 }
 let studentPanelData = null;
+function levelStageInfo(level, sessionsInStage){
+  const idx = LEVEL_STAGES.indexOf(level);
+  const sessions = Math.max(0, Math.min(10, Number(sessionsInStage)||0));
+  const next = idx>=0 && idx<LEVEL_STAGES.length-1 ? LEVEL_STAGES[idx+1] : null;
+  return {idx, sessions, next};
+}
 function renderStudentPanel(){
   const d = studentPanelData || {};
+  const roadmap = Array.isArray(d.roadmap) ? d.roadmap : [];
+  const homework = Array.isArray(d.homework) ? d.homework.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')) : [];
+  const stage = levelStageInfo(d.level, d.sessionsInStage);
+  const roadmapDone = roadmap.filter(r=>r.done).length;
   return `<div class="fade-in">
     ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
     <div class="screen" style="padding-top:0;">
@@ -3688,7 +3705,54 @@ function renderStudentPanel(){
         <div class="eyebrow" style="color:rgba(255,255,255,.85);">${esc(d.level || L('Level not set','Seviye belirtilmemiş','سطح تنظیم‌نشده'))}</div>
         <h1 class="display" style="font-size:22px; margin-top:4px; color:#fff;">${esc(d.name || L('Student','Öğrenci','دانش‌آموز'))}</h1>
       </div>
+
+      ${stage.idx>=0 ? `
       <div class="card-flat" style="margin-top:16px;">
+        <div class="row between" style="align-items:center;">
+          <div class="eyebrow">${L('Level progress','Seviye ilerlemesi','پیشرفت سطح')}</div>
+          <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${stage.sessions}/10 ${L('sessions','seans','جلسه')}</span>
+        </div>
+        <div class="progress-track" style="margin-top:10px;"><div class="progress-fill" style="width:${stage.sessions*10}%; background:var(--cat-diag);"></div></div>
+        <p style="font-size:12px; color:var(--ink-faint); margin-top:8px;">${stage.next
+          ? L('Next stop: '+stage.next, stage.next+' — bir sonraki durak', 'ایستگاه بعدی: '+stage.next)
+          : L("You've reached the top of the roadmap!",'Yol haritasının zirvesine ulaştın!','به بالای نقشه راه رسیدی!')}</p>
+      </div>` : ''}
+
+      ${roadmap.length ? `
+      <div class="card-flat" style="margin-top:12px;">
+        <div class="row between" style="align-items:center;">
+          <div class="eyebrow">${L('Roadmap','Yol Haritası','نقشه راه')}</div>
+          <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${roadmapDone}/${roadmap.length}</span>
+        </div>
+        <div style="margin-top:16px; position:relative; padding-left:24px;">
+          <div style="position:absolute; left:9px; top:4px; bottom:4px; width:2px; background:var(--border-soft);"></div>
+          ${roadmap.map((r,i)=>`
+          <div style="position:relative; ${i<roadmap.length-1?'margin-bottom:18px;':''}">
+            <span style="position:absolute; left:-24px; top:1px; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:${r.done?'var(--success)':'var(--bg-elevated)'}; border:2px solid ${r.done?'var(--success)':'var(--border)'}; color:#fff;">${r.done?ICONS.check:''}</span>
+            ${r.date ? `<div style="font-size:11px; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.03em;">${esc(r.date)}</div>` : ''}
+            <div style="font-weight:700; font-size:14px; margin-top:2px; ${r.done?'text-decoration:line-through; opacity:.65;':''}">${esc(r.title||r.label||'')}</div>
+            ${r.homework ? `<div style="font-size:12.5px; color:var(--ink-soft); margin-top:4px;"><b>${L('Homework','Ödev','تکلیف')}:</b> ${esc(r.homework)}</div>` : ''}
+            ${r.tips ? `<div style="font-size:12px; color:var(--cat-review); background:var(--cat-review-soft); border-radius:9px; padding:6px 10px; margin-top:6px;">💡 ${esc(r.tips)}</div>` : ''}
+          </div>`).join('')}
+        </div>
+      </div>` : ''}
+
+      ${homework.length ? `
+      <div class="card-flat" style="margin-top:12px;">
+        <div class="eyebrow">${L('Homework','Ödev','تکلیف')}</div>
+        <div class="stack" style="gap:12px; margin-top:10px;">
+          ${homework.map((h,i)=>`
+          <div style="${i<homework.length-1?'border-bottom:1px solid var(--border-soft); padding-bottom:12px;':''}">
+            <div class="row between" style="align-items:flex-start; gap:8px;">
+              <div style="font-weight:700; font-size:13.5px;">${esc(h.title||'')}</div>
+              <div style="font-size:11px; color:var(--ink-faint); flex:0 0 auto; white-space:nowrap;">${esc(h.date||'')}</div>
+            </div>
+            ${(h.links||'').split('\n').map(l=>l.trim()).filter(Boolean).map(link=>`<a class="pill" href="${esc(link)}" target="_blank" rel="noopener" style="margin-top:8px; margin-right:6px; background:var(--cat-diag-soft); color:var(--cat-diag);">${L('Extra','Ekstra','اضافی')} ↗</a>`).join('')}
+          </div>`).join('')}
+        </div>
+      </div>` : ''}
+
+      <div class="card-flat" style="margin-top:12px;">
         <div class="eyebrow">${L('Progress','İlerleme','پیشرفت')}</div>
         <p style="font-size:14px; margin-top:8px; line-height:1.6; white-space:pre-wrap;">${esc(d.progressNote || L('Nothing added yet — check back soon!','Henüz bir şey eklenmedi — yakında tekrar bak!','هنوز چیزی اضافه نشده — به‌زودی دوباره سر بزن!'))}</p>
       </div>
@@ -5636,7 +5700,10 @@ function renderAdminContactsTab(){
         <div class="item-sub">${esc(c.level||'')} ${c.goal ? '· '+esc(c.goal) : ''}</div>
         <div class="item-sub">${esc(c.phone||'')}</div>
       </div>
-      <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${waLinkTo(c.phone, 'Hi '+c.name+'! This is your Farin English teacher.')}">${ICONS.whatsapp}</a>
+      <div class="stack" style="gap:6px; flex:0 0 auto;">
+        <a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${waLinkTo(c.phone, 'Hi '+c.name+'! This is your Farin English teacher.')}">${ICONS.whatsapp}</a>
+        <button class="btn btn-ghost btn-sm" style="color:var(--error); border-color:var(--error-soft);" data-admin-action="delete-contact" data-id="${esc(c.id)}">✕</button>
+      </div>
     </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No contacts yet.</p>';
   return `<div class="stack" style="gap:8px;">${rows}</div>`;
 }
@@ -5647,16 +5714,122 @@ function studentFormField(id, label, value, tag, extra){
     : `<input id="${id}" type="text" value="${val}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);" ${extra||''}>`;
   return `<label class="field-label">${label}</label>${el}<div style="height:10px;"></div>`;
 }
+function harvestRoadmapFromDOM(){
+  return Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row')).map(row=>({
+    id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
+    date: row.querySelector('.roadmap-item-date').value,
+    title: row.querySelector('.roadmap-item-title').value,
+    homework: row.querySelector('.roadmap-item-homework').value,
+    tips: row.querySelector('.roadmap-item-tips').value,
+    done: row.querySelector('.roadmap-item-done').checked
+  }));
+}
+function parsePastedRoadmap(text){
+  return text.split('\n').map(l=>l.trim()).filter(Boolean).map(line=>{
+    const parts = line.split('|').map(p=>p.trim());
+    const id = Date.now()+'-'+Math.random().toString(36).slice(2);
+    if(parts.length>=2) return {id, date:parts[0], title:parts[1], homework:parts[2]||'', tips:parts[3]||'', done:false};
+    return {id, date:'', title:parts[0], homework:'', tips:'', done:false};
+  });
+}
+function harvestHomeworkFromDOM(){
+  return Array.from(document.querySelectorAll('#homework-items-list .homework-item-row')).map(row=>({
+    id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
+    date: row.querySelector('.homework-item-date').value,
+    title: row.querySelector('.homework-item-title').value,
+    links: row.querySelector('.homework-item-links').value
+  }));
+}
+const PROGRESS_TEMPLATES = {
+  excelling: "Excelling this stage — moving through material faster than expected and retaining it well.",
+  steady: "Making steady, consistent progress. Keep up the regular practice!",
+  'needs-practice': "Progress has slowed a bit — could use more regular practice between sessions.",
+  comeback: "Great comeback after a quieter stretch — momentum is picking back up.",
+  'new-start': "Just getting started — building the fundamentals with enthusiasm.",
+  plateau: "Holding steady at the same point for a bit — might help to mix up practice materials.",
+  'almost-there': "Very close to finishing this stage — just a little more practice to lock it in.",
+  inconsistent: "Progress is a bit inconsistent — attendance and between-session practice would help."
+};
+const PERFORMANCE_TEMPLATES = {
+  'strong-speaking': "Speaking confidently and fluently in sessions — pronunciation and flow are strong.",
+  'strong-writing': "Grammar and writing are a strong point — sentence structure is clean and accurate.",
+  'needs-grammar': "Grammar accuracy needs more attention, especially around verb tenses.",
+  'needs-vocab': "Could use a bigger vocabulary bank — encourage more reading and word review.",
+  'strong-listening': "Listening comprehension is a strength — picks up context and tone quickly.",
+  'needs-speaking': "Could use more speaking practice to build confidence and reduce hesitation.",
+  'needs-listening': "Listening comprehension needs more practice, especially with natural speed speech.",
+  'well-rounded': "Well-rounded across all four skills — no major weak spots right now."
+};
+function quickFillPills(action, templates){
+  return `<div class="row" style="gap:6px; flex-wrap:wrap; margin-bottom:10px;">
+    ${Object.keys(templates).map(key=>`<button type="button" class="pill" data-admin-action="${action}" data-key="${key}" style="background:var(--bg-sunken); color:var(--ink-soft); cursor:pointer; border:none; font-family:inherit;">${key.replace(/-/g,' ')}</button>`).join('')}
+  </div>`;
+}
 function renderAdminStudentsTab(){
   if(adminEditingStudent){
     const s = adminEditingStudent;
-    const levelOpts = ['','A1','A2','B1','B2','C1'].map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
+    const levelOpts = [''].concat(LEVEL_STAGES).map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
+    const roadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
+    const homework = Array.isArray(s.homework) ? s.homework : [];
     return `<div class="card-flat">
       ${studentFormField('student-form-code', 'Pass / username', s.code, 'input', s.isNew ? 'placeholder="e.g. AYLIN23"' : 'disabled style="background:var(--bg-sunken);"')}
       ${studentFormField('student-form-name', 'Name', s.name, 'input')}
-      <label class="field-label">Level</label>
+      <label class="field-label">Level / stage</label>
       <select id="student-form-level" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${levelOpts}</select>
+      <label class="field-label">Sessions in this stage (0–10)</label>
+      <div class="row" style="gap:8px; margin-bottom:14px; align-items:center;">
+        <input id="student-form-sessions" type="number" min="0" max="10" value="${esc(s.sessionsInStage!==undefined?s.sessionsInStage:0)}" style="flex:1; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
+        <button type="button" class="btn btn-ghost btn-sm" data-admin-action="increment-session">+1 session</button>
+      </div>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-8px 0 14px;">Hitting 10 auto-advances to the next stage.</p>
+
+      <label class="field-label">Roadmap</label>
+      <div id="roadmap-items-list" style="margin-bottom:8px;">
+        ${roadmap.map((r,idx)=>`
+        <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
+          <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+            <input type="checkbox" class="roadmap-item-done" ${r.done?'checked':''} style="flex:0 0 auto; width:18px; height:18px;">
+            <input type="date" class="roadmap-item-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+            <input type="text" class="roadmap-item-title" value="${esc(r.title||r.label||'')}" placeholder="Session title, e.g. Present perfect" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+            <button data-admin-action="delete-roadmap-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
+          </div>
+          <input type="text" class="roadmap-item-homework" value="${esc(r.homework||'')}" placeholder="Homework for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
+          <input type="text" class="roadmap-item-tips" value="${esc(r.tips||'')}" placeholder="Tip for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+        </div>`).join('')}
+      </div>
+      <div class="row" style="gap:8px; margin-bottom:10px;">
+        <button class="btn btn-ghost btn-sm" data-admin-action="add-roadmap-item">+ Add session</button>
+        <button class="btn btn-ghost btn-sm" data-admin-action="suggest-roadmap">✨ Suggest from level</button>
+      </div>
+      <label class="field-label">Paste a roadmap</label>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 6px;">One session per line: <code>date | title | homework | tips</code> — homework and tips are optional.</p>
+      <textarea id="roadmap-paste-box" rows="3" placeholder="2026-08-15 | Present perfect | Exercises 1-3 | Watch out for irregular verbs
+2026-08-22 | Phrasal verbs | Review vocab list | Practice in real sentences" style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px dashed var(--border); font-size:12.5px; background:var(--bg-sunken); color:var(--ink); font-family:inherit; margin-bottom:8px;"></textarea>
+      <div class="row" style="gap:8px; margin-bottom:14px;">
+        <button class="btn btn-ghost btn-sm" data-admin-action="parse-roadmap-paste">📋 Add pasted sessions</button>
+      </div>
+
+      <label class="field-label">Homework</label>
+      <div id="homework-items-list" style="margin-bottom:8px;">
+        ${homework.map((h,idx)=>`
+        <div class="homework-item-row" data-id="${esc(h.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
+          <div class="row" style="gap:8px; margin-bottom:8px;">
+            <input type="date" class="homework-item-date" value="${esc(h.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+            <input type="text" class="homework-item-title" value="${esc(h.title||'')}" placeholder="Homework title" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+          </div>
+          <textarea class="homework-item-links" rows="2" placeholder="Extra links (one per line) — video, file, etc." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink); font-family:inherit; margin-bottom:8px;">${esc(h.links||'')}</textarea>
+          <button data-admin-action="delete-homework-item" data-idx="${idx}" class="btn btn-ghost btn-sm">Delete</button>
+        </div>`).join('')}
+      </div>
+      <div class="row" style="gap:8px; margin-bottom:14px;">
+        <button class="btn btn-ghost btn-sm" data-admin-action="add-homework-item">+ Add homework</button>
+        <button class="btn btn-ghost btn-sm" data-admin-action="suggest-homework">✨ Suggest from roadmap</button>
+      </div>
+
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="auto-progress-note" style="margin-bottom:8px;">🪄 Auto-write from data</button>
+      ${quickFillPills('quick-progress', PROGRESS_TEMPLATES)}
       ${studentFormField('student-form-progress', 'Progress notes', s.progressNote, 'textarea')}
+      ${quickFillPills('quick-performance', PERFORMANCE_TEMPLATES)}
       ${studentFormField('student-form-performance', 'Performance notes', s.performanceNote, 'textarea')}
       ${adminStudentError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminStudentError)}</p>` : ''}
       <div class="row" style="gap:8px;">
@@ -5721,19 +5894,103 @@ function bindAdminActions(root){
       } else if(action === 'tab-contacts'){
         adminTab = 'contacts';
         renderAdminPage();
+      } else if(action === 'delete-contact'){
+        deleteAdminContact(el.dataset.id);
       } else if(action === 'tab-students'){
         adminTab = 'students';
         renderAdminPage();
         if(adminStudents === null) loadAdminStudents();
       } else if(action === 'add-student'){
         adminStudentError = '';
-        adminEditingStudent = {isNew:true, code:'', name:'', level:'', progressNote:'', performanceNote:''};
+        adminEditingStudent = {isNew:true, code:'', name:'', level:'', sessionsInStage:0, progressNote:'', performanceNote:'', roadmap:[], homework:[]};
         renderAdminPage();
       } else if(action === 'edit-student'){
         const code = el.dataset.code;
         const s = (adminStudents||[]).find(x=>x.code===code);
         adminStudentError = '';
-        adminEditingStudent = Object.assign({isNew:false}, s);
+        adminEditingStudent = Object.assign({isNew:false, sessionsInStage:0, roadmap:[], homework:[]}, s);
+        renderAdminPage();
+      } else if(action === 'add-roadmap-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.roadmap.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', homework:'', tips:'', done:false});
+        renderAdminPage();
+      } else if(action === 'delete-roadmap-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.roadmap.splice(Number(el.dataset.idx), 1);
+        renderAdminPage();
+      } else if(action === 'add-homework-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', links:''});
+        renderAdminPage();
+      } else if(action === 'delete-homework-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.homework.splice(Number(el.dataset.idx), 1);
+        renderAdminPage();
+      } else if(action === 'suggest-roadmap'){
+        const levelEl = document.getElementById('student-form-level');
+        const baseLevel = (levelEl.value || '').replace('.2','');
+        const existing = harvestRoadmapFromDOM();
+        const existingTitles = new Set(existing.map(r=>(r.title||'').trim().toLowerCase()));
+        const suggestions = GRAMMAR_ITEMS.filter(g=>g.level===baseLevel).map(g=>g.title)
+          .filter(t=>!existingTitles.has(t.trim().toLowerCase()))
+          .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
+        adminEditingStudent.roadmap = existing.concat(suggestions);
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        renderAdminPage();
+      } else if(action === 'parse-roadmap-paste'){
+        const box = document.getElementById('roadmap-paste-box');
+        const text = (box && box.value || '').trim();
+        const existing = harvestRoadmapFromDOM();
+        adminEditingStudent.roadmap = text ? existing.concat(parsePastedRoadmap(text)) : existing;
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        renderAdminPage();
+      } else if(action === 'quick-progress'){
+        const ta = document.getElementById('student-form-progress');
+        const text = PROGRESS_TEMPLATES[el.dataset.key];
+        if(ta && text) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
+      } else if(action === 'quick-performance'){
+        const ta = document.getElementById('student-form-performance');
+        const text = PERFORMANCE_TEMPLATES[el.dataset.key];
+        if(ta && text) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
+      } else if(action === 'increment-session'){
+        const levelEl = document.getElementById('student-form-level');
+        const sessEl = document.getElementById('student-form-sessions');
+        let sessions = (Number(sessEl.value)||0) + 1;
+        if(sessions >= 10){
+          const idx = LEVEL_STAGES.indexOf(levelEl.value);
+          if(idx>=0 && idx<LEVEL_STAGES.length-1){ levelEl.value = LEVEL_STAGES[idx+1]; sessions = 0; }
+          else sessions = 10;
+        }
+        sessEl.value = sessions;
+      } else if(action === 'auto-progress-note'){
+        const levelEl = document.getElementById('student-form-level');
+        const sessEl = document.getElementById('student-form-sessions');
+        const nameEl = document.getElementById('student-form-name');
+        const roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.roadmap = roadmap;
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        const doneCount = roadmap.filter(r=>r.done).length;
+        const nextItems = roadmap.filter(r=>!r.done && r.title && r.title.trim()).slice(0,2).map(r=>r.title.trim());
+        const level = levelEl.value || 'an unset level';
+        const sessions = sessEl.value || 0;
+        const name = (nameEl.value || '').trim() || 'This student';
+        let text = name+' is currently at '+level+' with '+sessions+'/10 sessions completed in this stage.';
+        if(roadmap.length) text += ' Roadmap: '+doneCount+'/'+roadmap.length+' items done.';
+        if(nextItems.length) text += ' Next up: '+nextItems.join(', ')+'.';
+        const ta = document.getElementById('student-form-progress');
+        if(ta) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
+      } else if(action === 'suggest-homework'){
+        const roadmap = harvestRoadmapFromDOM();
+        const homework = harvestHomeworkFromDOM();
+        const next = roadmap.find(r=>!r.done && r.title && r.title.trim());
+        const today = new Date().toISOString().slice(0,10);
+        homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date: today, title: next ? 'Review: '+next.title.trim() : '', links:''});
+        adminEditingStudent.roadmap = roadmap;
+        adminEditingStudent.homework = homework;
         renderAdminPage();
       } else if(action === 'cancel-edit-student'){
         adminEditingStudent = null;
@@ -5751,12 +6008,21 @@ function loadAdminContacts(){
   adminLoading = true;
   renderAdminPage();
   firebase.firestore().collection('contacts').orderBy('createdAt','desc').get().then(snap=>{
-    adminContacts = snap.docs.map(d=>d.data());
+    adminContacts = snap.docs.map(d=>Object.assign({id:d.id}, d.data()));
     adminLoading = false;
     renderAdminPage();
   }).catch(err=>{
     adminError = err.message;
     adminLoading = false;
+    renderAdminPage();
+  });
+}
+function deleteAdminContact(id){
+  if(!confirm('Delete this contact? This cannot be undone.')) return;
+  firebase.firestore().collection('contacts').doc(id).delete().then(()=>{
+    loadAdminContacts();
+  }).catch(err=>{
+    adminError = err.message;
     renderAdminPage();
   });
 }
@@ -5780,8 +6046,13 @@ function saveAdminStudent(){
   const code = (s.isNew ? (codeEl && codeEl.value || '') : s.code).trim().toUpperCase().replace(/\s+/g,'');
   const name = (document.getElementById('student-form-name').value || '').trim();
   const level = document.getElementById('student-form-level').value;
+  const sessionsInStage = Math.max(0, Math.min(10, Number(document.getElementById('student-form-sessions').value)||0));
   const progressNote = document.getElementById('student-form-progress').value;
   const performanceNote = document.getElementById('student-form-performance').value;
+  const roadmap = harvestRoadmapFromDOM();
+  const homework = harvestHomeworkFromDOM();
+  adminEditingStudent.roadmap = roadmap;
+  adminEditingStudent.homework = homework;
   if(!code){
     adminStudentError = 'Please enter a pass / username.';
     renderAdminPage();
@@ -5792,7 +6063,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection('studentPanels').doc(code).set({
-      name, level, progressNote, performanceNote, updatedAt: Date.now()
+      name, level, sessionsInStage, progressNote, performanceNote, roadmap, homework, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
