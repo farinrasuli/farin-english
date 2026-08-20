@@ -24,6 +24,10 @@
   --teal:#6BA8A2;
   --teal-deep:#4d7d78;
   --lavender:#9B8BC4;
+  --peach:#F0B88A;
+  --peach-deep:#D89760;
+  --sage:#9CB88A;
+  --sage-deep:#78996A;
   --border: var(--surface-border);
   --radius:20px;
   --radius-sm:14px;
@@ -197,6 +201,29 @@ header.site{
 
 /* alternating section tint */
 .tint{ background:var(--cream-soft); }
+.tint-peach{ background:color-mix(in srgb, var(--peach) 20%, var(--cream)); }
+.tint-lavender{ background:color-mix(in srgb, var(--lavender) 16%, var(--cream)); }
+.tint-sage{ background:color-mix(in srgb, var(--sage) 18%, var(--cream)); }
+
+/* ---------- editorial display statement — one big standalone line ---------- */
+.display-statement{
+  font-family:var(--serif); font-weight:400; text-align:center;
+  font-size:clamp(2.2rem, 3.2vw + 1.2rem, 4.4rem); line-height:1.12;
+  max-width:920px; margin:0 auto; color:var(--ink);
+}
+.display-statement .soft{ color:var(--ink-soft); }
+
+/* ---------- floating 3D object — gentle idle drift ---------- */
+.floating-3d{ animation:floatDrift 6s ease-in-out infinite; }
+.floating-3d.delay-1{ animation-delay:-1.5s; }
+.floating-3d.delay-2{ animation-delay:-3s; }
+@keyframes floatDrift{
+  0%,100%{ transform:translateY(0) rotate(0deg); }
+  50%{ transform:translateY(-14px) rotate(-1.2deg); }
+}
+@media (prefers-reduced-motion: reduce){
+  .floating-3d{ animation:none; }
+}
 
 /* ---------- generic grids ---------- */
 .grid{ display:grid; gap:24px; }
@@ -224,6 +251,30 @@ header.site{
 
 /* ---------- method tagline — "goal decides what, character decides how" ---------- */
 .method-tagline{ margin-top:26px; font-weight:600; }
+
+/* ---------- philosophy sequence — Goal -> Character -> Roadmap, 3 objects + connectors ---------- */
+.philosophy-sequence{ display:flex; align-items:flex-start; justify-content:center; gap:18px; flex-wrap:wrap; margin:56px auto 0; max-width:760px; }
+.phil-step{ display:flex; flex-direction:column; align-items:center; text-align:center; gap:8px; width:180px; }
+.phil-step img{ width:110px; height:110px; object-fit:contain; filter:drop-shadow(0 14px 20px rgba(61,43,31,.2)); margin-bottom:6px; }
+.phil-step h3{ margin:0; font-size:1.1rem; }
+.phil-step p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+.phil-arrow{ flex:none; color:var(--gold-deep); font-size:1.8rem; align-self:center; margin-top:38px; }
+@media (max-width:760px){
+  .philosophy-sequence{ flex-direction:column; align-items:center; }
+  .phil-arrow{ transform:rotate(90deg); margin-top:0; }
+}
+
+/* ---------- journey-path — enhances .goal-roadmap on the homepage with a dashed
+   connecting trail and clay start/goal markers at the ends; additive, does not
+   change .goal-roadmap itself (still used bare on the language pages) ---------- */
+.journey-path{ position:relative; }
+.journey-path::before{
+  content:""; position:absolute; left:8%; right:8%; top:38px; height:2px;
+  background-image:repeating-linear-gradient(to right, var(--gold-deep) 0 10px, transparent 10px 20px);
+  opacity:.45; z-index:-1;
+}
+.journey-path .rm-icon{ width:36px; height:36px; object-fit:contain; }
+@media (max-width:760px){ .journey-path::before{ display:none; } }
 
 /* ---------- manifesto pull-quote (Who We Are) ---------- */
 .manifesto{
@@ -573,6 +624,45 @@ footer.site{ padding:64px 0 32px; border-top:1px solid var(--surface-border); }
 }
 .hero-content .lead{ max-width:560px; margin:0 auto 32px; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.5), 0 3px 12px rgba(0,0,0,.35); }
 .hero-content .cta-row{ margin-bottom:40px; }
+
+/* ---------- hero-journey — homepage-only hero variant: warm gradient instead of a
+   full-bleed photo, dark ink text, floating clay objects instead of a backdrop image.
+   Scoped so english/spanish/german pages keep the original photo hero untouched. ---------- */
+.hero-scene.hero-journey{
+  align-items:center; justify-content:center;
+  background:linear-gradient(165deg, var(--cream) 0%, color-mix(in srgb, var(--peach) 32%, var(--cream)) 100%);
+  min-height:min(86vh,780px); padding:150px 0 80px;
+}
+@media (prefers-color-scheme: dark){
+  .hero-scene.hero-journey{ background:linear-gradient(165deg, var(--cream) 0%, color-mix(in srgb, var(--peach) 14%, var(--cream)) 100%); }
+}
+.hero-journey .hero-grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:32px; align-items:center; width:100%; }
+.hero-journey .hero-content{ position:relative; z-index:4; text-align:left; width:100%; max-width:none; margin:0; padding:0; }
+.hero-journey .hero-content .eyebrow{ color:var(--primary); text-shadow:none; }
+.hero-journey .hero-content h1{ color:var(--ink); text-shadow:none; }
+.hero-journey .hero-content .lead{ margin:0 0 32px; color:var(--ink-soft); text-shadow:none; max-width:480px; }
+.hero-journey .hero-content .cta-row{ justify-content:flex-start; }
+.hero-visual{ position:relative; display:flex; align-items:center; justify-content:center; min-height:340px; z-index:3; }
+.hero-visual img{ max-width:300px; width:78%; filter:drop-shadow(0 30px 36px rgba(61,43,31,.28)); }
+.hero-visual .hero-visual-goal{ position:relative; z-index:2; }
+.hero-visual .hero-visual-start{
+  position:absolute; left:-6%; bottom:2%; width:38%; max-width:150px; z-index:1;
+  filter:drop-shadow(0 18px 22px rgba(61,43,31,.24));
+}
+@media (max-width:900px){
+  .hero-journey .hero-grid{ grid-template-columns:1fr; text-align:center; }
+  .hero-journey .hero-content{ text-align:center; }
+  .hero-journey .hero-content .lead{ margin-left:auto; margin-right:auto; }
+  .hero-journey .hero-content .cta-row{ justify-content:center; }
+  .hero-visual{ order:-1; min-height:240px; }
+}
+.hero-lang-pills-mini{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:26px; font-size:.88rem; color:var(--ink-soft); }
+.hero-lang-pills-mini a{
+  font-weight:700; color:var(--primary-deep); text-decoration:none; padding:4px 12px; border-radius:99px;
+  background:var(--surface-solid); border:1px solid var(--surface-border);
+}
+.hero-lang-pills-mini a:hover{ background:var(--primary-glow); }
+@media (max-width:900px){ .hero-lang-pills-mini{ justify-content:center; } }
 
 /* ---------- liquid glass — cinematic translucent surface for the hero CTA (and anywhere
    else a frosted, barely-there panel reads better than a solid color, e.g. over video/photo) ---------- */
