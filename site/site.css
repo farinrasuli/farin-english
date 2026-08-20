@@ -284,6 +284,29 @@ header.site{
 }
 .manifesto .no{ color:var(--ink-soft); opacity:.65; font-style:normal; }
 
+/* ---------- destination cards — Chapter 04: Goals ---------- */
+.destination-card{ text-decoration:none; text-align:center; display:flex; flex-direction:column; align-items:center; gap:4px; }
+.destination-card img{ width:96px; height:96px; object-fit:contain; margin-bottom:10px; transition:transform .35s var(--spring); }
+.destination-card:hover img{ transform:translateY(-6px) scale(1.05); }
+.destination-card h3{ margin-bottom:2px; font-size:1.05rem; }
+.destination-card p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+.destination-badge{
+  width:96px; height:96px; display:flex; align-items:center; justify-content:center; margin-bottom:10px;
+  font-size:2.2rem; border-radius:50%; background:var(--surface-solid); border:1.5px dashed var(--surface-border); color:var(--primary);
+}
+
+/* ---------- character cards — Chapter 05: Learning Character ---------- */
+.character-card{ text-align:center; display:flex; flex-direction:column; align-items:center; padding:30px 22px; }
+.character-icon{
+  width:64px; height:64px; display:flex; align-items:center; justify-content:center; margin-bottom:14px;
+  border-radius:50%; background:var(--surface-solid); color:var(--primary);
+}
+.character-icon svg{ width:32px; height:32px; }
+.character-card h3{ margin-bottom:4px; font-size:1.05rem; }
+.character-card p{ margin:0; font-size:.88rem; color:var(--ink-soft); }
+
+.ecosystem-anchor{ width:110px; height:110px; object-fit:contain; margin:0 auto 18px; display:block; filter:drop-shadow(0 14px 20px rgba(61,43,31,.2)); }
+
 /* ---------- environments grid — "learn through multiple environments" ---------- */
 .env-grid .card{ padding:26px 26px 28px; }
 .env-grid .env-emoji{ font-size:1.7rem; display:block; margin-bottom:12px; line-height:1; }
