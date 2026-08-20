@@ -206,8 +206,8 @@ header.site{
 @media (max-width:980px){ .grid.cols-4{ grid-template-columns:repeat(2,1fr); } .grid.cols-3{ grid-template-columns:repeat(2,1fr); } }
 @media (max-width:600px){ .grid.cols-4,.grid.cols-3,.grid.cols-2{ grid-template-columns:1fr; } }
 
-/* ---------- goal roadmap — compact flow replacing the old verbose difference cards:
-   Hedefin → Seviyen → Karakterin → Dersin ---------- */
+/* ---------- goal roadmap — compact flow for the FE Method:
+   Hedef → Karakter → Yol Haritan → Pratik → Sonuç ---------- */
 .goal-roadmap{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:8px; }
 .goal-roadmap .rm-step{
   display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center;
@@ -221,6 +221,27 @@ header.site{
 .goal-roadmap .rm-arrow{ flex:none; color:var(--gold-deep); font-size:1.5rem; line-height:1; }
 .goal-roadmap .rm-step.is-final{ background:linear-gradient(155deg, var(--gold), var(--primary)); border-color:transparent; }
 .goal-roadmap .rm-step.is-final .rm-word, .goal-roadmap .rm-step.is-final .rm-num{ color:#fff; }
+
+/* ---------- method tagline — "goal decides what, character decides how" ---------- */
+.method-tagline{ margin-top:26px; font-weight:600; }
+
+/* ---------- manifesto pull-quote (Who We Are) ---------- */
+.manifesto{
+  font-family:var(--serif); font-style:italic; color:var(--ink);
+  font-size:clamp(1.25rem,1.2vw + 1rem,1.75rem); line-height:1.45;
+  max-width:640px; margin:32px auto 0; text-align:center;
+}
+.manifesto .no{ color:var(--ink-soft); opacity:.65; font-style:normal; }
+
+/* ---------- environments grid — "learn through multiple environments" ---------- */
+.env-grid .card{ padding:26px 26px 28px; }
+.env-grid .env-emoji{ font-size:1.7rem; display:block; margin-bottom:12px; line-height:1; }
+.env-grid h3{ margin-bottom:6px; font-size:1.05rem; }
+.env-grid p{ margin:0; font-size:.9rem; color:var(--ink-soft); }
+
+/* ---------- compact tag row reusing audience-tag look, for method environment chips ---------- */
+.chip-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; max-width:760px; margin:28px auto 0; }
+.chip-row .audience-tag{ font-size:.85rem; }
 @media (max-width:760px){
   .goal-roadmap{ flex-direction:column; }
   .goal-roadmap .rm-arrow{ transform:rotate(90deg); }
