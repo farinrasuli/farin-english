@@ -307,6 +307,32 @@ header.site{
 
 .ecosystem-anchor{ width:110px; height:110px; object-fit:contain; margin:0 auto 18px; display:block; filter:drop-shadow(0 14px 20px rgba(61,43,31,.2)); }
 
+/* ---------- story genre strip — Chapter 08: Stories ---------- */
+.story-genre-strip{ display:flex; gap:20px; overflow-x:auto; padding:8px 4px 22px; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; }
+.story-genre-strip img{ width:220px; height:220px; object-fit:cover; border-radius:28px; flex:none; scroll-snap-align:start; box-shadow:var(--shadow-lg); }
+
+/* ---------- speaking layout — Chapter 09 ---------- */
+.speaking-layout{ display:flex; align-items:center; gap:48px; justify-content:center; }
+.speaking-layout img{ width:140px; height:140px; object-fit:contain; flex:none; filter:drop-shadow(0 16px 24px rgba(61,43,31,.22)); }
+.speaking-layout > div{ max-width:520px; }
+.speaking-layout h2{ margin-bottom:.3em; }
+.speaking-layout .lead{ margin-bottom:24px; }
+@media (max-width:760px){
+  .speaking-layout{ flex-direction:column; text-align:center; gap:24px; }
+  .speaking-layout > div{ max-width:none; }
+}
+
+/* ---------- progress path — Chapter 10 ---------- */
+.progress-path{ display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:10px; }
+.progress-stop{
+  display:flex; align-items:center; gap:8px; padding:14px 22px; border-radius:99px; font-weight:700; font-size:.95rem;
+  background:var(--surface); border:1px solid var(--surface-border); backdrop-filter:blur(10px); color:var(--ink);
+}
+.progress-stop img{ width:22px; height:22px; object-fit:contain; }
+.progress-stop.is-final{ background:linear-gradient(155deg, var(--gold), var(--primary)); color:#fff; border-color:transparent; }
+.progress-arrow{ color:var(--gold-deep); font-size:1.3rem; }
+@media (max-width:760px){ .progress-path{ flex-direction:column; } .progress-arrow{ transform:rotate(90deg); } }
+
 /* ---------- environments grid — "learn through multiple environments" ---------- */
 .env-grid .card{ padding:26px 26px 28px; }
 .env-grid .env-emoji{ font-size:1.7rem; display:block; margin-bottom:12px; line-height:1; }
