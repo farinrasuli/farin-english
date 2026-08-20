@@ -199,6 +199,17 @@ header.site{
 .icon3d img{ width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 6px 14px rgba(61,43,31,.18)); }
 .card:hover .icon3d, .feature-row:hover .icon3d{ transform:rotateY(14deg) translateY(-4px); }
 
+/* ---------- panel — the boxed container each section's content sits inside,
+   so the page reads as a series of organized, contained blocks ---------- */
+.panel{
+  background:var(--surface-solid);
+  border:1px solid var(--surface-border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:clamp(36px,5vw,60px) clamp(20px,4vw,52px);
+}
+@media (max-width:600px){ .panel{ padding:30px 18px; border-radius:var(--radius-sm); } }
+
 /* alternating section tint */
 .tint{ background:var(--cream-soft); }
 .tint-peach{ background:color-mix(in srgb, var(--peach) 20%, var(--cream)); }
