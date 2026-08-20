@@ -84,17 +84,17 @@
     </a>
     <nav aria-label="Ana menü">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#felsefe">Nasıl Çalışır?</a></li>
-        <li><a href="#yontem">Yol Haritan</a></li>
-        <li><a href="#ortamlar">Deneyimler</a></li>
+        <li><a href="#yontem">Yöntem</a></li>
+        <li><a href="#dersler">Dersler</a></li>
+        <li><a href="#neler-var">Oyunlar</a></li>
         <li><a href="#uygulama" class="nav-app-link">FE App</a></li>
         <li><a href="#ozel-dersler">Fiyatlar</a></li>
       </ul>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%C3%96zel%20ders%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum">
+      <a class="btn btn-primary btn-sm" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20Dersime%20ba%C5%9Flamak%20istiyorum.">
         <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h16v11H9l-3.5 3v-3H4v-11Z"/></svg>
-        <span class="long">Ücretsiz Başla</span>
+        <span class="long">Dersine Başla →</span>
       </a>
       <button class="burger" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
@@ -113,9 +113,10 @@
         <span class="eyebrow animate-fade-rise">FE School</span>
         <h1 class="animate-fade-rise-delay">Kendi yolunu <span class="accent-italic">seç.</span></h1>
         <p class="lead animate-fade-rise-delay-2">Hedefine göre öğren. Sana göre tasarlanmış bir İngilizce yolculuğuna çık.</p>
+        <p class="hero-feature-line animate-fade-rise-delay-3">Kişisel Yol Haritası · Online Dersler · Konuşma Oyunları · FE App</p>
         <div class="cta-row animate-fade-rise-delay-3">
-          <a href="#program" class="btn btn-lg btn-primary hero-cta">Yolunu keşfet →</a>
-          <a href="#felsefe" class="btn btn-ghost">Nasıl çalışır?</a>
+          <a target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20Dersime%20ba%C5%9Flamak%20istiyorum." class="btn btn-lg btn-primary hero-cta">Dersine Başla →</a>
+          <a href="#yontem" class="btn btn-ghost">Nasıl çalışır?</a>
         </div>
         <div class="hero-lang-pills-mini animate-fade-rise-delay-4">
           <span>Dersini seç:</span>
@@ -131,132 +132,43 @@
     </div>
   </section>
 
-  <!-- ================= FELSEFEMİZ — CHAPTER 02: how FE works ================= -->
-  <section id="felsefe">
+  <!-- ================= FE NEDİR? — SECTION 02 ================= -->
+  <section id="fe-nedir">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Felsefemiz</p>
+        <p class="eyebrow">FE Nedir?</p>
         <h2 class="display-statement">İngilizceyi değil, <span class="soft">hedefini</span> öğren.</h2>
       </div>
-      <p class="lead center reveal" style="max-width:640px">Geleneksel dil okulları herkese aynı kursu verir. FE öğrenciyle başlar — senin <strong>hedefin</strong> ne öğreneceğini, senin <strong>karakterin</strong> nasıl öğreneceğini belirler.</p>
-      <div class="philosophy-sequence reveal">
-        <div class="phil-step">
-          <img class="floating-3d" src="assets/char-travel.png" alt="" width="120" height="120">
-          <h3>Hedef</h3>
-          <p>Ne öğreneceğini belirler.</p>
-        </div>
-        <span class="phil-arrow" aria-hidden="true">→</span>
-        <div class="phil-step">
-          <img class="floating-3d delay-1" src="assets/studio-icon-cutout.png" alt="" width="120" height="120">
-          <h3>Karakter</h3>
-          <p>Nasıl öğreneceğini belirler.</p>
-        </div>
-        <span class="phil-arrow" aria-hidden="true">→</span>
-        <div class="phil-step">
-          <img class="floating-3d delay-2" src="assets/roadmap-goal-clay.png" alt="" width="120" height="120">
-          <h3>Yol Haritan</h3>
-          <p>Sırada ne olduğunu belirler.</p>
-        </div>
+      <div class="grid cols-4 env-grid reveal">
+        <div class="card"><span class="env-emoji" aria-hidden="true">🎯</span><h3>Hedefin</h3><p>Kariyer · Seyahat · Göç · Sınavlar · Günlük Hayat</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">🧠</span><h3>Öğrenme Tarzın</h3><p>Deneyimin, öğrenme karakterine göre şekillenir.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">🗺️</span><h3>Yol Haritan</h3><p>Hedefine ve seviyene göre kişiselleştirilmiş bir plan.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">🎮</span><h3>Pratiğin</h3><p>Dersler, oyunlar, hikayeler ve gerçek bağlamlar.</p></div>
       </div>
       <p class="manifesto reveal">Genel bir kurs almazsın<span class="no">.</span> <span class="accent-italic">Kendi öğrenme yolunu</span> alırsın.</p>
     </div>
   </section>
 
-  <!-- ================= YOL HARİTAN — CHAPTER 03 ================= -->
+  <!-- ================= NASIL ÇALIŞIR? — SECTION 03 ================= -->
   <section id="yontem" class="tint">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">Yol Haritan</p>
+        <p class="eyebrow">Nasıl Çalışır?</p>
         <h2>Sana hazır bir kurs vermiyoruz.<br>Sana bir yol çiziyoruz.</h2>
-        <p class="lead center">Her adım; hedefine ve öğrenme karakterine göre baştan kurgulanır.</p>
       </div>
       <div class="goal-roadmap journey-path reveal">
-        <div class="rm-step"><img class="rm-icon" src="assets/roadmap-start-clay.png" alt=""><span class="rm-word">Hedef</span></div>
+        <div class="rm-step"><img class="rm-icon" src="assets/roadmap-start-clay.png" alt=""><span class="rm-word">Hedefini Seç</span></div>
         <span class="rm-arrow" aria-hidden="true">→</span>
-        <div class="rm-step"><span class="rm-num">02</span><span class="rm-word">Karakter</span></div>
+        <div class="rm-step"><span class="rm-num">02</span><span class="rm-word">Karakterini Keşfet</span></div>
         <span class="rm-arrow" aria-hidden="true">→</span>
-        <div class="rm-step"><span class="rm-num">03</span><span class="rm-word">Yol Haritan</span></div>
+        <div class="rm-step"><span class="rm-num">03</span><span class="rm-word">VIP Yol Haritan</span></div>
         <span class="rm-arrow" aria-hidden="true">→</span>
-        <div class="rm-step"><span class="rm-num">04</span><span class="rm-word">Pratik</span></div>
+        <div class="rm-step"><span class="rm-num">04</span><span class="rm-word">Öğren, Oyna, Pratik Yap</span></div>
         <span class="rm-arrow" aria-hidden="true">→</span>
-        <div class="rm-step is-final"><img class="rm-icon" src="assets/roadmap-goal-clay.png" alt=""><span class="rm-word">Sonuç</span></div>
+        <div class="rm-step is-final"><img class="rm-icon" src="assets/roadmap-goal-clay.png" alt=""><span class="rm-word">İlerle</span></div>
       </div>
-      <p class="lead center method-tagline reveal"><span class="accent-italic">Hedefin</span> ne öğreneceğini belirler. <span class="accent-italic">Karakterin</span> nasıl öğreneceğini belirler.</p>
-    </div>
-  </section>
-
-  <!-- ================= HEDEFİN — CHAPTER 04: destinations ================= -->
-  <section id="hedefler" class="tint-peach">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Hedefin</p>
-        <h2>Hangisi sana ait?</h2>
-        <p class="lead center">İngilizceyi neden öğrendiğin, ne öğreneceğini belirler.</p>
-      </div>
-      <div class="grid cols-3 destination-grid reveal">
-        <a href="#program" class="card destination-card">
-          <img src="assets/char-career.png" alt="" width="96" height="96" loading="lazy">
-          <h3>Kariyer</h3>
-          <p>İşinde daha güçlü iletişim kur.</p>
-        </a>
-        <a href="#program" class="card destination-card">
-          <img src="assets/char-travel.png" alt="" width="96" height="96" loading="lazy">
-          <h3>Seyahat</h3>
-          <p>Dünyayı daha rahat keşfet.</p>
-        </a>
-        <a href="#program" class="card destination-card">
-          <img src="assets/char-immigration.png" alt="" width="96" height="96" loading="lazy">
-          <h3>Yurt Dışı Yaşam</h3>
-          <p>Yeni hayatına İngilizceyle başla.</p>
-        </a>
-        <a href="#program" class="card destination-card">
-          <img src="assets/char-everyday.png" alt="" width="96" height="96" loading="lazy">
-          <h3>Günlük Hayat</h3>
-          <p>Günlük hayatta daha rahat konuş.</p>
-        </a>
-        <a href="#program" class="card destination-card">
-          <img src="assets/char-exam.png" alt="" width="96" height="96" loading="lazy">
-          <h3>Sınav</h3>
-          <p>Sınavına hedefli hazırlan.</p>
-        </a>
-        <a href="#program" class="card destination-card">
-          <span class="destination-badge" aria-hidden="true">↺</span>
-          <h3>Yeniden Başlamak</h3>
-          <p>Yarım kalmıştı, tazeleyelim.</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= KARAKTERİN — CHAPTER 05: learning character ================= -->
-  <section id="karakter">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Karakterin</p>
-        <h2>Herkes aynı şekilde öğrenmez.</h2>
-        <p class="lead center">Aynı hedefe giden dört farklı yol — hangisi sana daha yakın?</p>
-      </div>
-      <div class="grid cols-4 character-grid reveal">
-        <div class="card character-card">
-          <span class="character-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M31 17 20 20l-3 11 11-3 3-11Z" fill="currentColor"/></svg></span>
-          <h3>Kâşif</h3>
-          <p>Yeni yerler, yeni kültürler, keşfetmeyi severim.</p>
-        </div>
-        <div class="card character-card">
-          <span class="character-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 38V22M19 38V14M28 38V26M37 38V10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
-          <h3>Stratejist</h3>
-          <p>Net hedef ve ölçülebilir ilerleme isterim.</p>
-        </div>
-        <div class="card character-card">
-          <span class="character-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="17" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="31" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M8 37c1-6 5-9 9-9s8 3 9 9M22 37c1-6 5-9 9-9s8 3 9 9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" fill="none"/></svg></span>
-          <h3>Deneyimci</h3>
-          <p>Rol yapmayı, karakterleri, dramayı severim.</p>
-        </div>
-        <div class="card character-card">
-          <span class="character-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 6 29 19h14l-11 9 4 14-12-8-12 8 4-14-11-9h14Z" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg></span>
-          <h3>Yarışmacı</h3>
-          <p>Oyunlar, skorlar, hız beni motive eder.</p>
-        </div>
+      <div class="cta-row center reveal" style="margin-top:40px">
+        <a href="https://wa.me/905467615974?text=Merhaba%20Farin!%20Dersime%20ba%C5%9Flamak%20istiyorum." target="_blank" rel="noopener" class="btn btn-primary btn-lg">Dersine Başla →</a>
       </div>
     </div>
   </section>
@@ -273,23 +185,21 @@
     </div>
   </section>
 
-  <!-- ================= NASIL ÖĞRENİRSİN — CHAPTER 06: ecosystem ================= -->
-  <section id="ortamlar" class="tint-sage">
+  <!-- ================= NELER ALIYORSUN? — SECTION 04 ================= -->
+  <section id="neler-var" class="tint-sage">
     <div class="wrap">
       <div class="section-head reveal">
         <img class="ecosystem-anchor floating-3d" src="assets/studio-icon-cutout.png" alt="" width="110" height="110" loading="lazy">
-        <p class="eyebrow">Öğrenme Ekosistemi</p>
-        <h2>Tek bir ders değil, bütün bir ekosistem</h2>
-        <p class="lead center">VIP yol haritan seni birden fazla ortamda büyütür — her biri aynı hedefe hizmet eder.</p>
+        <p class="eyebrow">Neler Alıyorsun?</p>
+        <h2>Tek bir ders değil, bütün bir sistem</h2>
       </div>
-      <div class="grid cols-3 env-grid reveal">
-        <div class="card"><span class="env-emoji" aria-hidden="true">💻</span><h3>Online Dersler</h3><p>Birebir, hedefine göre kurgulanan canlı dersler.</p></div>
-        <div class="card"><span class="env-emoji" aria-hidden="true">🎮</span><h3>Konuşma Odaklı Oyun Seansları</h3><p>Sahnelere gir, seçim yap, konuşarak ilerle.</p></div>
-        <div class="card"><span class="env-emoji" aria-hidden="true">📱</span><h3>FE App</h3><p>Ücretsiz uygulamayla her yerde pratik yap.</p></div>
-        <div class="card"><span class="env-emoji" aria-hidden="true">📖</span><h3>Hikayeler ve Gerçek Bağlamlar</h3><p>Seviyeli hikayelerle gerçek hayattan kelime dağarcığı.</p></div>
-        <div class="card"><span class="env-emoji" aria-hidden="true">🧩</span><h3>Dilbilgisi, Kelime ve Argo</h3><p>Kalıcı öğrenme için üçünü bir arada işleriz.</p></div>
-        <div class="card"><span class="env-emoji" aria-hidden="true">👥</span><h3>Öğrenci Kulübü</h3><p>Ekstra kaynaklar ve birlikte öğrenen bir topluluk.</p></div>
+      <div class="grid cols-4 env-grid reveal">
+        <div class="card"><span class="env-emoji" aria-hidden="true">🗺️</span><h3>VIP Yol Haritası</h3><p>Kişiselleştirilmiş öğrenme yolun.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">💻</span><h3>Online Dersler</h3><p>Hedefine göre kurgulanan canlı dersler.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">🎮</span><h3>Oyun Seansları</h3><p>Konuşmayı, karar vermeyi ve gerçek dil kullanımını teşvik eden interaktif oyunlar.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">📱</span><h3>FE App</h3><p>Hikayeler, kelime, dilbilgisi, argo ve pratik.</p></div>
       </div>
+      <p class="whatyouget-club reveal">👥 <strong>Öğrenci Kulübü</strong> — ekstra ipuçları, kaynaklar ve destek.</p>
     </div>
   </section>
 
@@ -308,7 +218,8 @@
           <div class="lang-body">
             <h3 class="lang-name">İngilizce</h3>
             <p>Deneyim ve oyunla öğren.</p>
-            <span class="lang-enter">Girin →</span>
+            <div class="lang-tags"><span>Konuşma</span><span>Kariyer</span><span>Seyahat</span><span>Göç</span><span>Günlük Hayat</span></div>
+            <span class="lang-enter">Dersi Keşfet →</span>
           </div>
         </a>
         <a href="spanish.html" class="lang-card lc-es">
@@ -317,7 +228,8 @@
           <div class="lang-body">
             <h3 class="lang-name">İspanyolca</h3>
             <p>Aynı yöntem, İber sıcaklığıyla.</p>
-            <span class="lang-enter">Girin →</span>
+            <div class="lang-tags"><span>Konuşma</span><span>Seyahat</span><span>Günlük Hayat</span><span>Kültür</span></div>
+            <span class="lang-enter">Dersi Keşfet →</span>
           </div>
         </a>
         <a href="german.html" class="lang-card lc-de">
@@ -325,68 +237,86 @@
           <span class="status-badge">Canlı</span>
           <div class="lang-body">
             <h3 class="lang-name">Almanca</h3>
-            <p>Aynı yöntem, Alman netliğiyle.</p>
-            <span class="lang-enter">Girin →</span>
+            <p>Birebir online dil eğitimi.</p>
+            <div class="lang-tags"><span>Konuşma</span><span>Günlük Hayat</span></div>
+            <span class="lang-enter">Dersi Keşfet →</span>
           </div>
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ================= THE APP EXPERIENCE ================= -->
-  <section id="uygulama" class="tint-lavender">
+
+  <!-- ================= PRIVATE CLASSES ================= -->
+  <section id="ozel-dersler" class="tint">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="eyebrow">%100 Ücretsiz</p>
-        <h2>FE App ile her yerde öğren</h2>
-        <p class="lead center">Özel derslerden bağımsız olarak da kullanabileceğin, tamamen ücretsiz bir pratik uygulaması — İngilizce ve İspanyolca tek uygulamada: dilbilgisi, kelime, testler, oyunlar, özel yol haritası ve okuma kütüphanesi bir arada.</p>
+        <p class="eyebrow">Özel Dersler</p>
+        <h2>Sana uygun temposu seç</h2>
       </div>
-
-      <div class="feature-marquee">
-        <div class="feature-track">
-          <div class="feature-card">
-            <div class="feature-icon-wrap"><img src="assets/icon-story.png" alt=""></div>
-            <h3>Okuma Kütüphanesi</h3><p>Seviyeli hikayelerle kelime dağarcığını büyüt.</p>
+      <p class="price-note reveal">İlk dersin tamamen ücretsiz! Sonraki seans fiyatları ₺650 – ₺700 arasındadır; paket büyüdükçe seans başı fiyat düşer. Ödeme detayları WhatsApp üzerinden birlikte netleştirilir.</p>
+      <div class="pricing-grid reveal">
+        <div class="plan">
+          <span class="plan-badge">Ücretsiz</span>
+          <div class="plan-head"><h3>İlk Adım</h3><div class="sessions">1 deneme dersi</div></div>
+          <div class="plan-body">
+            <div><div class="plan-price"><span class="num">Ücretsiz</span></div><div class="plan-total">Normalde ₺650 değerinde — kart bilgisi gerekmez</div></div>
+            <ul><li>Tanışma ve hedef belirleme</li><li>Seviye tespiti</li><li>İlk mini deneyim</li></ul>
+            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22%C4%B0lk%20Ad%C4%B1m%22%20%C3%BCcretsiz%20deneme%20dersini%20almak%20istiyorum.%20Hangi%20dilde%20bilgi%20alabilirim%3F">Dersine Başla →</a>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon-wrap"><img src="assets/icon-controller.png" alt=""></div>
-            <h3>Kelime Oyunları</h3><p>Oynayarak dilbilgisini kalıcı hale getir.</p>
+        </div>
+        <div class="plan">
+          <span class="plan-badge">Esnek</span>
+          <div class="plan-head"><h3>Keşif Paketi</h3><div class="sessions">4 ders / ay</div></div>
+          <div class="plan-body">
+            <div><div class="plan-price"><span class="num">₺690</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺2.760</div></div>
+            <ul><li>Haftalık düzenli ritim</li><li>Deneyim + oyun temelli dersler</li><li>Konuşma odaklı pratik</li></ul>
+            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Ke%C5%9Fif%20Paketi%22%20ile%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Dersine Başla →</a>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon-wrap"><img src="assets/icon-speaking.png" alt=""></div>
-            <h3>Konuşma Pratiği</h3><p>Gerçek senaryolarla günlük konuşmayı geliştir.</p>
+        </div>
+        <div class="plan popular">
+          <span class="plan-badge">En popüler</span>
+          <div class="plan-head"><h3>Macera Paketi</h3><div class="sessions">8 ders / ay</div></div>
+          <div class="plan-body">
+            <div><div class="plan-price"><span class="num">₺670</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺5.360</div></div>
+            <ul><li>Belirgin bir hedefe düzenli ilerleme</li><li>Genişleyen deneyim evreni</li><li>Daha sık konuşma pratiği</li></ul>
+            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Macera%20Paketi%22%20ile%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Dersine Başla →</a>
           </div>
-          <div class="feature-card">
-            <div class="feature-icon-wrap"><img src="assets/icon-goals.png" alt=""></div>
-            <h3>Özel Yol Haritası</h3><p>Hedefine göre kişiselleştirilen ilerleme planı.</p>
-          </div>
-          <div class="feature-card">
-            <div class="feature-icon-wrap"><img src="assets/icon-review.png" alt=""></div>
-            <h3>İlerleme Takibi</h3><p>Gelişimini an be an gör, motive kal.</p>
-          </div>
-          <div class="feature-card" aria-hidden="true">
-            <div class="feature-icon-wrap"><img src="assets/icon-story.png" alt=""></div>
-            <h3>Okuma Kütüphanesi</h3><p>Seviyeli hikayelerle kelime dağarcığını büyüt.</p>
-          </div>
-          <div class="feature-card" aria-hidden="true">
-            <div class="feature-icon-wrap"><img src="assets/icon-controller.png" alt=""></div>
-            <h3>Kelime Oyunları</h3><p>Oynayarak dilbilgisini kalıcı hale getir.</p>
-          </div>
-          <div class="feature-card" aria-hidden="true">
-            <div class="feature-icon-wrap"><img src="assets/icon-speaking.png" alt=""></div>
-            <h3>Konuşma Pratiği</h3><p>Gerçek senaryolarla günlük konuşmayı geliştir.</p>
-          </div>
-          <div class="feature-card" aria-hidden="true">
-            <div class="feature-icon-wrap"><img src="assets/icon-goals.png" alt=""></div>
-            <h3>Özel Yol Haritası</h3><p>Hedefine göre kişiselleştirilen ilerleme planı.</p>
-          </div>
-          <div class="feature-card" aria-hidden="true">
-            <div class="feature-icon-wrap"><img src="assets/icon-review.png" alt=""></div>
-            <h3>İlerleme Takibi</h3><p>Gelişimini an be an gör, motive kal.</p>
+        </div>
+        <div class="plan">
+          <span class="plan-badge">En avantajlı</span>
+          <div class="plan-head"><h3>Kahraman Yolculuğu</h3><div class="sessions">12 ders / ay</div></div>
+          <div class="plan-body">
+            <div><div class="plan-price"><span class="num">₺650</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺7.800</div></div>
+            <ul><li>Sınav, göç veya iş hedefi için yoğun tempo</li><li>En düşük seans fiyatı</li><li>Uzun soluklu deneyim çizgisi</li></ul>
+            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Kahraman%20Yolculu%C4%9Fu%22%20paketiyle%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Dersine Başla →</a>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  <!-- ================= FE APP — SECTION 07 ================= -->
+  <section id="uygulama" class="tint-lavender">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">FE School'a Dahil</p>
+        <h2>FE App ile her yerde öğren</h2>
+        <p class="lead center">Özel derslerden bağımsız olarak da kullanabileceğin, tamamen ücretsiz bir pratik uygulaması — İngilizce ve İspanyolca tek uygulamada.</p>
+      </div>
+      <div class="grid cols-4 env-grid reveal">
+        <div class="card"><span class="env-emoji" aria-hidden="true">🎮</span><h3>Oyna</h3><p>Oyunlar ve meydan okumalar.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">📖</span><h3>Oku</h3><p>Hikayeler ve gerçek bağlamlar.</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">🧩</span><h3>Pratik Yap</h3><p>Kelime · Dilbilgisi · Argo</p></div>
+        <div class="card"><span class="env-emoji" aria-hidden="true">📈</span><h3>İlerle</h3><p>Kişisel yol haritan ve gelişimin.</p></div>
+      </div>
+      <div class="story-genre-strip reveal" aria-label="Okuma Kütüphanesi'nden türler">
+        <img src="assets/story-fiction-cutout.png" alt="Kurgu türünde bir hikaye" width="140" height="140" loading="lazy">
+        <img src="assets/story-adventure-cutout.png" alt="Macera türünde bir hikaye" width="140" height="140" loading="lazy">
+        <img src="assets/story-documentary-cutout.png" alt="Belgesel türünde bir hikaye" width="140" height="140" loading="lazy">
+        <img src="assets/story-romance-cutout.png" alt="Romantik türde bir hikaye" width="140" height="140" loading="lazy">
+        <img src="assets/story-thriller-cutout.png" alt="Gerilim türünde bir hikaye" width="140" height="140" loading="lazy">
+      </div>
       <div class="app-promo reveal">
         <div class="grid">
           <div>
@@ -409,111 +339,7 @@
     </div>
   </section>
 
-  <!-- ================= HİKAYELER — CHAPTER 08: learn through stories ================= -->
-  <section id="hikayeler">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Hikayeler</p>
-        <h2>İngilizceyi sadece çalışmazsın.<br>İçinde yaşarsın.</h2>
-        <p class="lead center">Bağlam → Deneyim → Dil → Pratik. Okuma Kütüphanesi'nde her seviye için beş farklı tür.</p>
-      </div>
-      <div class="story-genre-strip reveal">
-        <img src="assets/story-fiction-cutout.png" alt="Kurgu türünde bir hikaye" width="220" height="220" loading="lazy">
-        <img src="assets/story-adventure-cutout.png" alt="Macera türünde bir hikaye" width="220" height="220" loading="lazy">
-        <img src="assets/story-documentary-cutout.png" alt="Belgesel türünde bir hikaye" width="220" height="220" loading="lazy">
-        <img src="assets/story-romance-cutout.png" alt="Romantik türde bir hikaye" width="220" height="220" loading="lazy">
-        <img src="assets/story-thriller-cutout.png" alt="Gerilim türünde bir hikaye" width="220" height="220" loading="lazy">
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= KONUŞ — CHAPTER 09: speaking ================= -->
-  <section id="konus" class="tint-peach">
-    <div class="wrap">
-      <div class="speaking-layout reveal">
-        <img class="floating-3d" src="assets/icon-speaking.png" alt="" width="140" height="140" loading="lazy">
-        <div>
-          <p class="eyebrow">Konuş</p>
-          <h2>Bildiğini kullan.</h2>
-          <p class="lead">Çünkü İngilizce, konuşmadığında tamamlanmaz. Canlı dersler, rol yapma senaryoları, oyunlar ve gerçek hayat pratiğiyle — öğrendiğin an kullanırsın.</p>
-          <a href="#program" class="btn btn-primary">Konuşma Pratiğine Başla →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= İLERLEME — CHAPTER 10: progress ================= -->
-  <section id="ilerleme">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">İlerleme</p>
-        <h2>Nereden başladığını bil.<br>Nereye gittiğini gör.</h2>
-      </div>
-      <div class="progress-path reveal">
-        <span class="progress-stop">Başla</span>
-        <span class="progress-arrow" aria-hidden="true">→</span>
-        <span class="progress-stop">Pratik Yap</span>
-        <span class="progress-arrow" aria-hidden="true">→</span>
-        <span class="progress-stop">Konuş</span>
-        <span class="progress-arrow" aria-hidden="true">→</span>
-        <span class="progress-stop">Gelişme Kaydet</span>
-        <span class="progress-arrow" aria-hidden="true">→</span>
-        <span class="progress-stop is-final"><img src="assets/icon-goals.png" alt="" width="28" height="28">Hedefe Ulaş</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= PRIVATE CLASSES ================= -->
-  <section id="ozel-dersler" class="tint">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Özel Dersler</p>
-        <h2>Sana uygun temposu seç</h2>
-      </div>
-      <p class="price-note reveal">İlk dersin tamamen ücretsiz! Sonraki seans fiyatları ₺650 – ₺700 arasındadır; paket büyüdükçe seans başı fiyat düşer. Ödeme detayları WhatsApp üzerinden birlikte netleştirilir.</p>
-      <div class="pricing-grid reveal">
-        <div class="plan">
-          <span class="plan-badge">Ücretsiz</span>
-          <div class="plan-head"><h3>İlk Adım</h3><div class="sessions">1 deneme dersi</div></div>
-          <div class="plan-body">
-            <div><div class="plan-price"><span class="num">Ücretsiz</span></div><div class="plan-total">Normalde ₺650 değerinde — kart bilgisi gerekmez</div></div>
-            <ul><li>Tanışma ve hedef belirleme</li><li>Seviye tespiti</li><li>İlk mini deneyim</li></ul>
-            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22%C4%B0lk%20Ad%C4%B1m%22%20%C3%BCcretsiz%20deneme%20dersini%20almak%20istiyorum.%20Hangi%20dilde%20bilgi%20alabilirim%3F">Ücretsiz Dersimi Ayarla</a>
-          </div>
-        </div>
-        <div class="plan">
-          <span class="plan-badge">Esnek</span>
-          <div class="plan-head"><h3>Keşif Paketi</h3><div class="sessions">4 ders / ay</div></div>
-          <div class="plan-body">
-            <div><div class="plan-price"><span class="num">₺690</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺2.760</div></div>
-            <ul><li>Haftalık düzenli ritim</li><li>Deneyim + oyun temelli dersler</li><li>Konuşma odaklı pratik</li></ul>
-            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Ke%C5%9Fif%20Paketi%22%20ile%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Bu Paketi Seç</a>
-          </div>
-        </div>
-        <div class="plan popular">
-          <span class="plan-badge">En popüler</span>
-          <div class="plan-head"><h3>Macera Paketi</h3><div class="sessions">8 ders / ay</div></div>
-          <div class="plan-body">
-            <div><div class="plan-price"><span class="num">₺670</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺5.360</div></div>
-            <ul><li>Belirgin bir hedefe düzenli ilerleme</li><li>Genişleyen deneyim evreni</li><li>Daha sık konuşma pratiği</li></ul>
-            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Macera%20Paketi%22%20ile%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Bu Paketi Seç</a>
-          </div>
-        </div>
-        <div class="plan">
-          <span class="plan-badge">En avantajlı</span>
-          <div class="plan-head"><h3>Kahraman Yolculuğu</h3><div class="sessions">12 ders / ay</div></div>
-          <div class="plan-body">
-            <div><div class="plan-price"><span class="num">₺650</span><span class="unit">/ ders</span></div><div class="plan-total">Toplam ₺7.800</div></div>
-            <ul><li>Sınav, göç veya iş hedefi için yoğun tempo</li><li>En düşük seans fiyatı</li><li>Uzun soluklu deneyim çizgisi</li></ul>
-            <a class="btn btn-primary btn-block" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%22Kahraman%20Yolculu%C4%9Fu%22%20paketiyle%20ilgileniyorum%2C%20bilgi%20alabilir%20miyim%3F">Bu Paketi Seç</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= KİMLER İÇİN ================= -->
-  <!-- ================= FINAL CTA ================= -->
+  <!-- ================= FINAL CTA — SECTION 08 ================= -->
   <section id="iletisim" class="tint">
     <div class="wrap">
       <div class="contact reveal">
@@ -521,9 +347,9 @@
         <h2>Yolun nerede başlıyor?</h2>
         <p class="lead center">Hedefini seç. Yolunu birlikte çizelim.</p>
         <div class="cta-row center">
-          <a class="btn btn-light" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20%C3%96zel%20ders%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum">
+          <a class="btn btn-light" target="_blank" rel="noopener" href="https://wa.me/905467615974?text=Merhaba%20Farin!%20Dersime%20ba%C5%9Flamak%20istiyorum.">
             <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4.5h16v11H9l-3.5 3v-3H4v-11Z"/></svg>
-            WhatsApp'tan Merhaba De
+            Dersine Başla →
           </a>
           <a class="btn btn-ghost" style="border-color:rgba(255,255,255,.55); color:#fff" href="mailto:farinrasuli@gmail.com?subject=%C3%96zel%20ders">
             <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16v12H4V6Zm0 0 8 6 8-6"/></svg>

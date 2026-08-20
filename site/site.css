@@ -306,6 +306,8 @@ header.site{
 .character-card p{ margin:0; font-size:.88rem; color:var(--ink-soft); }
 
 .ecosystem-anchor{ width:110px; height:110px; object-fit:contain; margin:0 auto 18px; display:block; filter:drop-shadow(0 14px 20px rgba(61,43,31,.2)); }
+.whatyouget-club{ text-align:center; margin:36px auto 0; font-size:1rem; color:var(--ink-soft); }
+.whatyouget-club strong{ color:var(--ink); }
 
 /* ---------- story genre strip — Chapter 08: Stories ---------- */
 .story-genre-strip{ display:flex; gap:20px; overflow-x:auto; padding:8px 4px 22px; scroll-snap-type:x proximity; -webkit-overflow-scrolling:touch; }
@@ -577,6 +579,8 @@ header.site{
 .lang-card .lang-name{ font-family:var(--serif); font-size:1.6rem; margin:0 0 6px; color:#fff; }
 .lang-card .lang-body p{ color:rgba(255,255,255,.9); margin:0 0 10px; font-size:.92rem; }
 .lang-card .lang-enter{ font-weight:700; font-size:.9rem; display:inline-flex; align-items:center; gap:6px; color:#fff; }
+.lang-tags{ display:flex; flex-wrap:wrap; gap:6px; margin:0 0 14px; }
+.lang-tags span{ font-size:.72rem; font-weight:700; padding:3px 9px; border-radius:99px; background:rgba(255,255,255,.22); color:#fff; }
 
 /* ---------- audience list ---------- */
 .audience .card{ padding:24px 26px; }
@@ -706,6 +710,7 @@ footer.site{ padding:64px 0 32px; border-top:1px solid var(--surface-border); }
   .hero-journey .hero-content .cta-row{ justify-content:center; }
   .hero-visual{ min-height:240px; }
 }
+.hero-feature-line{ font-size:.85rem; font-weight:700; letter-spacing:.02em; color:var(--primary-deep); margin:0 0 22px; }
 .hero-lang-pills-mini{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:26px; font-size:.88rem; color:var(--ink-soft); }
 .hero-lang-pills-mini a{
   font-weight:700; color:var(--primary-deep); text-decoration:none; padding:4px 12px; border-radius:99px;
