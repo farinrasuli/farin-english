@@ -124,6 +124,8 @@ p{ margin:0 0 1em; }
 .btn-cta{ background:var(--gold); color:var(--ink); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 20px var(--gold-glow); }
 .btn-cta:hover{ transform:translateY(-3px) scale(1.02); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 0 26px var(--gold-glow), 0 12px 26px var(--gold-glow); }
 .btn-ghost{ background:var(--surface-solid); color:var(--primary); border:2px solid var(--primary); }
+.btn-dark{ background:var(--ink); color:var(--cream); box-shadow: inset 0 1.5px 2px rgba(255,255,255,.15), 0 8px 18px rgba(20,51,46,.35); }
+.btn-dark:hover{ transform:translateY(-2px); background:color-mix(in srgb, var(--ink) 85%, black 15%); }
 .btn-ghost:hover{ border-width:2.5px; transform:translateY(-2px); background:var(--surface); }
 .btn-light{ background:#fff; color:var(--primary-deep); }
 .btn-light:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(0,0,0,.14); }
@@ -318,25 +320,26 @@ header.site{
 /* ---------- tile — bold solid-color clay block, ported from the app's .tile/.goal-card.
    Used wherever a grid needs real color punch instead of white cards with a small icon. ---------- */
 .tile{
-  position:relative; overflow:hidden; border-radius:28px; padding:24px 24px 26px; text-align:left; color:#fff;
+  position:relative; overflow:hidden; border-radius:28px; padding:24px 24px 26px; text-align:left; color:var(--ink);
   display:flex; flex-direction:column; gap:8px; min-height:180px; justify-content:flex-end;
-  box-shadow:var(--clay-shadow);
-  background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%);
+  background:var(--bg-elevated); border:1px solid var(--surface-border);
+  box-shadow:var(--clay-shadow-soft);
   transition:transform .3s var(--spring), box-shadow .3s var(--spring);
 }
-.tile:hover{ transform:translateY(-5px); }
+.tile:hover{ transform:translateY(-5px); box-shadow:var(--shadow-lg), var(--clay-shadow-soft); }
 .tile .tile-icon{
-  width:44px; height:44px; display:flex; align-items:center; justify-content:center; color:#fff;
-  border-radius:50%; background:rgba(255,255,255,.28); margin-bottom:4px;
+  width:48px; height:48px; display:flex; align-items:center; justify-content:center; color:#fff;
+  border-radius:50%; background:var(--primary); margin-bottom:4px; box-shadow:var(--clay-shadow-soft);
 }
 .tile .tile-icon svg{ width:22px; height:22px; }
 .tile .tile-icon img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
-.tile h3{ color:#fff; margin:0 0 2px; font-size:1.1rem; }
-.tile p{ color:rgba(255,255,255,.92); margin:0; font-size:.9rem; }
-.tile-orange{ background-color:var(--gold); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #ffc266, var(--gold-deep)); }
-.tile-coral{ background-color:var(--peach); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #ff9a8c, var(--peach-deep)); }
-.tile-lavender{ background-color:var(--lavender); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #c2b8f0, var(--lavender-deep)); }
-.tile-sage{ background-color:var(--sage); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #aecaa4, var(--sage-deep)); }
+.tile h3{ color:var(--ink); margin:0 0 2px; font-size:1.1rem; }
+.tile p{ color:var(--ink-soft); margin:0; font-size:.9rem; }
+.tile-orange .tile-icon{ background:var(--gold); }
+.tile-coral .tile-icon{ background:var(--peach); }
+.tile-lavender .tile-icon{ background:var(--lavender); }
+.tile-sage .tile-icon{ background:var(--sage); }
+.tile-sky .tile-icon{ background:var(--teal); }
 .tile-sky{ background-color:var(--teal); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #83d9f0, var(--teal-deep)); }
 
 /* ---------- section-head-banner — vivid clay banner for a section-head that needs
@@ -353,7 +356,18 @@ header.site{
 
 /* ---------- testimonials + stat callout ---------- */
 .stat-callout{ display:flex; align-items:center; justify-content:center; gap:14px; margin:0 auto 44px; }
-.stat-character{ width:90px; height:90px; object-fit:contain; filter:drop-shadow(0 12px 18px rgba(20,51,46,.2)); }
+.stat-character{ width:90px; height:90px; object-fit:contain; filter:drop-shadow(0 12px 18px rgba(20,51,46,.2)); position:relative; z-index:1; }
+
+/* ---------- deco-wrap — soft colored glow behind an accent character/icon image,
+   carrying the hero's "floating object with a glow" motif into other sections ---------- */
+.deco-wrap{ position:relative; display:inline-block; }
+.deco-wrap::before{
+  content:""; position:absolute; left:50%; top:50%; width:82%; height:82%; transform:translate(-50%,-50%);
+  border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--gold) 42%, transparent), transparent 72%); z-index:-1;
+}
+.deco-wrap.deco-lavender::before{ background:radial-gradient(circle, color-mix(in srgb, var(--lavender) 42%, transparent), transparent 72%); }
+.deco-wrap.deco-coral::before{ background:radial-gradient(circle, color-mix(in srgb, var(--peach) 42%, transparent), transparent 72%); }
+.deco-wrap.deco-sage::before{ background:radial-gradient(circle, color-mix(in srgb, var(--sage) 42%, transparent), transparent 72%); }
 .stat-callout .stat-number{ font-family:var(--serif); font-size:clamp(2.6rem,4vw + 1rem,4rem); color:var(--primary); font-weight:400; line-height:1; }
 .stat-callout .stat-label{ font-weight:700; font-size:1.05rem; color:var(--ink-soft); }
 .testimonial-card{ display:flex; flex-direction:column; gap:16px; }
