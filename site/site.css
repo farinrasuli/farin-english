@@ -812,6 +812,7 @@ footer.site{ padding:64px 0 32px; border-top:1px solid var(--surface-border); }
 }
 .hero-feature-line{ font-size:clamp(1.05rem,1vw + .8rem,1.35rem); font-weight:600; color:var(--ink-soft); margin:0 0 32px; }
 .hero-feature-line .hl-orange{ font-weight:800; color:var(--gold-deep); }
+.hero-trust-line{ margin-top:18px; font-size:.88rem; font-weight:700; color:var(--ink-soft); }
 .hero-lang-pills-mini{ display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:26px; font-size:.88rem; color:var(--ink-soft); }
 .hero-lang-pills-mini a{
   font-weight:700; color:var(--primary-deep); text-decoration:none; padding:4px 12px; border-radius:99px;
