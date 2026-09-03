@@ -6170,7 +6170,7 @@ function bindAdminActions(root){
         const pw = document.getElementById('admin-password').value;
         adminError = '';
         adminResetStatus = '';
-        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(()=>{}).then(()=>{
+        firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{}).then(()=>{
           return firebase.auth().signInWithEmailAndPassword(email, pw);
         }).then(()=>{
           loadAdminContacts();
@@ -6459,7 +6459,7 @@ function deleteAdminStudent(code, course){
 if(location.hash === '#admin'){
   document.title = 'Admin';
   let adminAuthResolved = false;
-  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).catch(()=>{});
+  firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
   firebase.auth().onAuthStateChanged(function(user){
     adminAuthResolved = true;
     if(user) loadAdminContacts();
