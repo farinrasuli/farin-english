@@ -444,6 +444,166 @@
 })();
 </script>
 <script>
+// Firestore's SDK normally keeps a persistent streaming connection open ("Watch channel") to
+// serve even one-off .get() calls. Some networks let plain request/response HTTPS through fine
+// but silently break that long-lived connection, which makes the SDK fall back to an empty
+// local cache and report success with zero results instead of an error. Firestore's plain REST
+// API (single request, single response, same as any other API call) works reliably in exactly
+// that situation, so this replaces firebase.firestore() with a small client that talks to that
+// REST API directly instead of the SDK's streaming layer. firebase.auth() is untouched.
+(function(){
+  var BASE = 'https://firestore.googleapis.com/v1/projects/farinenglish/databases/(default)/documents';
+
+  function encodeValue(v){
+    if(v === null || v === undefined) return {nullValue: null};
+    if(typeof v === 'string') return {stringValue: v};
+    if(typeof v === 'boolean') return {booleanValue: v};
+    if(typeof v === 'number') return Number.isInteger(v) ? {integerValue: String(v)} : {doubleValue: v};
+    if(Array.isArray(v)) return {arrayValue: v.length ? {values: v.map(encodeValue)} : {}};
+    if(typeof v === 'object') {
+      var fields = {};
+      Object.keys(v).forEach(function(k){ if(v[k] !== undefined) fields[k] = encodeValue(v[k]); });
+      return {mapValue: Object.keys(fields).length ? {fields: fields} : {}};
+    }
+    return {nullValue: null};
+  }
+  function decodeValue(fv){
+    if(!fv) return null;
+    if('stringValue' in fv) return fv.stringValue;
+    if('integerValue' in fv) return Number(fv.integerValue);
+    if('doubleValue' in fv) return Number(fv.doubleValue);
+    if('booleanValue' in fv) return fv.booleanValue;
+    if('nullValue' in fv) return null;
+    if('timestampValue' in fv) return fv.timestampValue;
+    if('arrayValue' in fv) return (fv.arrayValue.values || []).map(decodeValue);
+    if('mapValue' in fv) return decodeFields(fv.mapValue.fields || {});
+    return null;
+  }
+  function encodeFields(obj){
+    var fields = {};
+    Object.keys(obj || {}).forEach(function(k){ if(obj[k] !== undefined) fields[k] = encodeValue(obj[k]); });
+    return fields;
+  }
+  function decodeFields(fields){
+    var out = {};
+    Object.keys(fields || {}).forEach(function(k){ out[k] = decodeValue(fields[k]); });
+    return out;
+  }
+
+  function authHeaders(){
+    try{
+      var user = firebase.auth && firebase.auth().currentUser;
+      if(!user) return Promise.resolve({});
+      return user.getIdToken().then(function(token){ return {Authorization: 'Bearer ' + token}; }).catch(function(){ return {}; });
+    }catch(e){ return Promise.resolve({}); }
+  }
+  function toError(payload, fallbackMessage){
+    var msg = (payload && payload.error && payload.error.message) || fallbackMessage || 'Firestore request failed';
+    var code = (payload && payload.error && payload.error.status) || 'unknown';
+    var err = new Error(msg);
+    err.code = code;
+    return err;
+  }
+  function req(method, url, headers, body){
+    return fetch(url, {method: method, headers: headers, body: body !== undefined ? JSON.stringify(body) : undefined})
+      .then(function(resp){
+        return resp.text().then(function(text){
+          var json = null;
+          try{ json = text ? JSON.parse(text) : null; }catch(e){}
+          if(!resp.ok){
+            if(resp.status === 404) return {__notFound: true};
+            throw toError(json, 'HTTP ' + resp.status);
+          }
+          return json;
+        });
+      });
+  }
+
+  function DocRef(collPath, id){
+    this.collPath = collPath;
+    this.id = id;
+    this.url = BASE + '/' + collPath + '/' + encodeURIComponent(id);
+  }
+  DocRef.prototype.get = function(){
+    var self = this;
+    return authHeaders().then(function(h){
+      return req('GET', self.url, h);
+    }).then(function(json){
+      if(!json || json.__notFound) return {exists: false, id: self.id, data: function(){ return undefined; }};
+      return {exists: true, id: self.id, data: function(){ return decodeFields(json.fields || {}); }};
+    });
+  };
+  DocRef.prototype.set = function(data, opts){
+    var self = this;
+    var merge = opts && opts.merge;
+    var qs = merge ? Object.keys(data || {}).map(function(k){ return 'updateMask.fieldPaths=' + encodeURIComponent(k); }).join('&') : '';
+    var url = self.url + (qs ? '?' + qs : '');
+    return authHeaders().then(function(h){
+      h = Object.assign({'Content-Type': 'application/json'}, h);
+      return req('PATCH', url, h, {fields: encodeFields(data)});
+    }).then(function(){});
+  };
+  DocRef.prototype.update = function(data){
+    return this.set(data, {merge: true});
+  };
+  DocRef.prototype.delete = function(){
+    var self = this;
+    return authHeaders().then(function(h){ return req('DELETE', self.url, h); }).then(function(){});
+  };
+
+  function QuerySnapshot(docs){
+    this.docs = docs;
+    this.empty = docs.length === 0;
+    this.size = docs.length;
+    this.metadata = {fromCache: false};
+  }
+  QuerySnapshot.prototype.forEach = function(cb){ this.docs.forEach(cb); };
+
+  function CollRef(collPath){
+    this.collPath = collPath;
+    this._orderBy = null;
+  }
+  CollRef.prototype.doc = function(id){ return new DocRef(this.collPath, id); };
+  CollRef.prototype.orderBy = function(field, dir){
+    var next = new CollRef(this.collPath);
+    next._orderBy = field + ' ' + (dir === 'desc' ? 'desc' : 'asc');
+    return next;
+  };
+  CollRef.prototype.get = function(){
+    var self = this;
+    var params = ['pageSize=1000'];
+    if(self._orderBy) params.push('orderBy=' + encodeURIComponent(self._orderBy));
+    var url = BASE + '/' + self.collPath + '?' + params.join('&');
+    return authHeaders().then(function(h){
+      return req('GET', url, h);
+    }).then(function(json){
+      var docs = ((json && json.documents) || []).map(function(d){
+        var id = d.name.split('/').pop();
+        return {id: id, exists: true, data: function(){ return decodeFields(d.fields || {}); }};
+      });
+      return new QuerySnapshot(docs);
+    });
+  };
+  CollRef.prototype.add = function(data){
+    var self = this;
+    var url = BASE + '/' + self.collPath;
+    return authHeaders().then(function(h){
+      h = Object.assign({'Content-Type': 'application/json'}, h);
+      return req('POST', url, h, {fields: encodeFields(data)});
+    }).then(function(json){
+      var id = json && json.name ? json.name.split('/').pop() : null;
+      return {id: id};
+    });
+  };
+
+  var instance = {
+    collection: function(name){ return new CollRef(name); },
+    settings: function(){ /* no-op: REST calls need no transport settings */ }
+  };
+  firebase.firestore = function(){ return instance; };
+})();
+</script>
+<script>
 try{
   firebase.initializeApp({
     apiKey: "AIzaSyDo0M3Hyzy1ZdEgVx7I8vkc1YHxpA-8cA4",
@@ -453,10 +613,6 @@ try{
     messagingSenderId: "524447251671",
     appId: "1:524447251671:web:0b7f87276f2ee65e214492"
   });
-  // Some networks (restrictive countries, some proxies/firewalls) can't hold open the
-  // streaming connection Firestore prefers, which otherwise fails silently and falls back
-  // to an empty local cache. Auto-detecting long-polling is Firebase's own fix for that.
-  firebase.firestore().settings({ experimentalAutoDetectLongPolling: true });
 }catch(e){}
 </script>
 <script>
@@ -6617,16 +6773,7 @@ function loadAdminStudents(){
   adminStudentsLoadErrors = [];
   renderAdminPage();
   const load = (coll, course) => firebase.firestore().collection(coll).get()
-    .then(snap=>{
-      if(snap.empty && snap.metadata.fromCache){
-        // An empty result served from an empty local cache means we never actually reached
-        // the server — not that there are zero students. Treat it as a failure so it's visible,
-        // instead of silently rendering "(0)" as if the data were confirmed gone.
-        adminStudentsLoadErrors.push(adminCourseLabel(course)+": couldn't reach the server (showing nothing rather than guessing) — check your connection and try again.");
-        return [];
-      }
-      return snap.docs.map(d=>Object.assign({code:d.id, course}, d.data()));
-    })
+    .then(snap=>snap.docs.map(d=>Object.assign({code:d.id, course}, d.data())))
     .catch(err=>{ adminStudentsLoadErrors.push(adminCourseLabel(course)+': '+err.message); return []; });
   Promise.all([load('studentPanels','en'), load('studentPanelsEs','es')]).then(([en, es])=>{
     adminStudents = en.concat(es).sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
