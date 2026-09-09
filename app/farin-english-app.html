@@ -453,6 +453,10 @@ try{
     messagingSenderId: "524447251671",
     appId: "1:524447251671:web:0b7f87276f2ee65e214492"
   });
+  // Some networks (restrictive countries, some proxies/firewalls) can't hold open the
+  // streaming connection Firestore prefers, which otherwise fails silently and falls back
+  // to an empty local cache. Auto-detecting long-polling is Firebase's own fix for that.
+  firebase.firestore().settings({ experimentalAutoDetectLongPolling: true });
 }catch(e){}
 </script>
 <script>
@@ -6301,7 +6305,10 @@ function renderAdminStudentsTab(){
   }
   if(adminStudentsLoading) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
   const errBanner = (adminStudentsLoadErrors && adminStudentsLoadErrors.length)
-    ? `<p style="background:var(--error-soft); color:var(--error); border-radius:14px; padding:10px 13px; font-size:12.5px; font-weight:600;">Couldn't load some students — ${adminStudentsLoadErrors.map(esc).join('; ')}</p>`
+    ? `<div style="background:var(--error-soft); border-radius:14px; padding:10px 13px; margin-bottom:4px;">
+        <p style="color:var(--error); font-size:12.5px; font-weight:600; margin:0 0 8px;">Couldn't load some students — ${adminStudentsLoadErrors.map(esc).join('; ')}</p>
+        <button class="btn btn-sm btn-ghost" data-admin-action="retry-load-students">↻ Retry</button>
+      </div>`
     : '';
   const rows = (adminStudents||[]).map(s=>`
     <button class="item-row" data-admin-action="edit-student" data-code="${esc(s.code)}" data-course="${esc(s.course||'en')}">
@@ -6365,6 +6372,8 @@ function bindAdminActions(root){
         adminTab = 'students';
         renderAdminPage();
         if(adminStudents === null) loadAdminStudents();
+      } else if(action === 'retry-load-students'){
+        loadAdminStudents();
       } else if(action === 'tab-calendar'){
         adminTab = 'calendar';
         adminCalendarError = '';
@@ -6608,7 +6617,16 @@ function loadAdminStudents(){
   adminStudentsLoadErrors = [];
   renderAdminPage();
   const load = (coll, course) => firebase.firestore().collection(coll).get()
-    .then(snap=>snap.docs.map(d=>Object.assign({code:d.id, course}, d.data())))
+    .then(snap=>{
+      if(snap.empty && snap.metadata.fromCache){
+        // An empty result served from an empty local cache means we never actually reached
+        // the server — not that there are zero students. Treat it as a failure so it's visible,
+        // instead of silently rendering "(0)" as if the data were confirmed gone.
+        adminStudentsLoadErrors.push(adminCourseLabel(course)+": couldn't reach the server (showing nothing rather than guessing) — check your connection and try again.");
+        return [];
+      }
+      return snap.docs.map(d=>Object.assign({code:d.id, course}, d.data()));
+    })
     .catch(err=>{ adminStudentsLoadErrors.push(adminCourseLabel(course)+': '+err.message); return []; });
   Promise.all([load('studentPanels','en'), load('studentPanelsEs','es')]).then(([en, es])=>{
     adminStudents = en.concat(es).sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
