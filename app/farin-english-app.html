@@ -6182,6 +6182,11 @@ let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
 let adminCalendarError = '';
+let adminPreviewLessonId = null;
+function nextRoadmapTopic(student){
+  const item = (Array.isArray(student && student.roadmap) ? student.roadmap : []).find(r=>!r.done && r.title && r.title.trim());
+  return item ? item.title.trim() : '';
+}
 function renderAdminPage(){
   const root = document.getElementById('app');
   const user = firebase.auth().currentUser;
@@ -6240,10 +6245,11 @@ function renderAdminCalendarTab(){
     ${sortedStudents.length ? `
     <label class="field-label">Student</label>
     <select id="calendar-add-student" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${studentOpts}</select>
-    <div class="row" style="gap:8px; margin-bottom:10px;">
+    <div class="row" style="gap:8px; margin-bottom:4px;">
       <input id="calendar-add-date" type="date" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-      <input id="calendar-add-title" type="text" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+      <input id="calendar-add-title" type="text" value="${esc(sortedStudents.length ? nextRoadmapTopic(sortedStudents[0]) : '')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
     </div>
+    <p style="font-size:11px; color:var(--ink-faint); margin:0 0 10px;">Topic is filled in from the student's next un-done roadmap session — edit it if you want something else.</p>
     <div class="row" style="gap:8px; margin-bottom:10px;">
       <select id="calendar-add-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
         <option value="grammar">📘 Grammar</option>
@@ -6290,8 +6296,17 @@ function renderAdminCalendarTab(){
         <button class="btn btn-primary btn-sm" style="flex:0 0 auto;" data-admin-action="calendar-save-lesson">Save</button>
         <button class="btn btn-ghost btn-sm" style="flex:0 0 auto; color:var(--error); border-color:var(--error-soft);" data-admin-action="calendar-delete-lesson">✕</button>
       </div>
+      ${r.genLesson ? `<button class="btn btn-ghost btn-sm" style="width:100%; margin-top:8px;" data-admin-action="calendar-preview-lesson">${adminPreviewLessonId===r.id?'▲ Hide preview':'👁 Preview lesson + homework'}</button>` : ''}
       ${(r.genLesson || r.genHomework) && !r.sentAt ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="calendar-send-homework">📤 Send homework on WhatsApp</button>` : ''}
       ${(r.genLesson || r.genHomework) && !r.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file for ${esc(r.studentName)} yet — add one in Student Panels first.</p>` : ''}
+      ${adminPreviewLessonId===r.id && r.genLesson ? `
+      <div style="margin-top:10px; padding-top:12px; border-top:1.5px dashed var(--border);">
+        ${renderLessonContent(r.genLesson)}
+        ${r.genHomework ? `<div style="margin-top:20px; padding-top:16px; border-top:2px solid var(--border-soft);">
+          <h2 class="display" style="font-size:16px; margin-bottom:10px;">Homework</h2>
+          ${renderHomeworkContent(r.genHomework)}
+        </div>` : ''}
+      </div>` : ''}
     </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No lessons scheduled yet — add one above.</p>';
   return addForm + list;
 }
@@ -6635,6 +6650,15 @@ function renderAdminStudentsTab(){
   </div>`;
 }
 function bindAdminActions(root){
+  const calStudentSel = root.querySelector('#calendar-add-student');
+  if(calStudentSel){
+    calStudentSel.onchange = function(){
+      const [course, code] = calStudentSel.value.split('|');
+      const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+      const titleEl = root.querySelector('#calendar-add-title');
+      if(titleEl && s) titleEl.value = nextRoadmapTopic(s);
+    };
+  }
   root.querySelectorAll('[data-admin-action]').forEach(el=>{
     el.onclick = function(){
       const action = el.dataset.adminAction;
@@ -6735,6 +6759,11 @@ function bindAdminActions(root){
         window.open(waLinkTo(s.whatsapp, msg), '_blank');
         const lessons = (s.lessons||[]).map(x=> x.id===lessonId ? Object.assign({}, x, {sentAt: Date.now(), status:'sent'}) : x);
         saveStudentLessons(course, code, lessons);
+      } else if(action === 'calendar-preview-lesson'){
+        const row = el.closest('.lesson-cal-row');
+        const lessonId = row.dataset.lessonId;
+        adminPreviewLessonId = adminPreviewLessonId === lessonId ? null : lessonId;
+        renderAdminPage();
       } else if(action === 'add-student'){
         adminStudentError = '';
         adminStudentInfo = '';
