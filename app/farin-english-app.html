@@ -409,6 +409,41 @@
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 <script>
+// Some countries block Google's googleapis.com domains, which breaks Firebase Auth/Firestore
+// even though the rest of the internet works fine. This routes those specific calls through a
+// Cloudflare Worker instead, so the browser never has to reach googleapis.com directly.
+// Set FIREBASE_PROXY_BASE to your deployed Worker URL (e.g. "https://fe-proxy.YOURNAME.workers.dev").
+// Leave it as '' to disable the proxy and call Google directly (the old, default behavior).
+(function(){
+  var FIREBASE_PROXY_BASE = 'https://fe-proxy.farinrasuli.workers.dev';
+  if(!FIREBASE_PROXY_BASE) return;
+  var PROXIED_HOSTS = ['firestore.googleapis.com','identitytoolkit.googleapis.com','securetoken.googleapis.com','firebaseinstallations.googleapis.com'];
+  function rewrite(url){
+    try{
+      var u = new URL(url, location.href);
+      if(PROXIED_HOSTS.indexOf(u.hostname) === -1) return url;
+      return FIREBASE_PROXY_BASE + '/proxy/' + u.hostname + u.pathname + u.search;
+    }catch(e){ return url; }
+  }
+  var origFetch = window.fetch;
+  window.fetch = function(input, init){
+    if(typeof input === 'string'){
+      input = rewrite(input);
+    }else if(input && typeof input === 'object' && input.url){
+      var newUrl = rewrite(input.url);
+      if(newUrl !== input.url){ input = new Request(newUrl, input); }
+    }
+    return origFetch.call(this, input, init);
+  };
+  var origOpen = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(method, url){
+    var args = Array.prototype.slice.call(arguments);
+    args[1] = rewrite(url);
+    return origOpen.apply(this, args);
+  };
+})();
+</script>
+<script>
 try{
   firebase.initializeApp({
     apiKey: "AIzaSyDo0M3Hyzy1ZdEgVx7I8vkc1YHxpA-8cA4",
