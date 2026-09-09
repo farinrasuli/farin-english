@@ -3846,6 +3846,15 @@ function renderStudentPanel(){
         <h1 class="display" style="font-size:22px; margin-top:4px; color:#fff;">${esc(d.name || L('Student','Öğrenci','دانش‌آموز'))}</h1>
       </div>
 
+      ${d.freezeUntil ? `
+      <div class="card-flat" style="margin-top:12px; border-left:4px solid var(--cat-lis); display:flex; align-items:center; gap:10px;">
+        <span style="font-size:20px;">❄️</span>
+        <div>
+          <div class="eyebrow">${L('Lessons paused','Dersler duraklatıldı','درس‌ها متوقف شده')}</div>
+          <div style="font-size:13px; color:var(--ink-soft); margin-top:2px;">${esc(d.freezeUntil)}</div>
+        </div>
+      </div>` : ''}
+
       ${d.goal && GOALS_META[d.goal] ? `
       <div class="item-row goal-card" style="margin-top:12px; background:var(--cat-${GOALS_META[d.goal].cat});">
         <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[GOALS_META[d.goal].icon]}</span>
@@ -5900,6 +5909,7 @@ let adminStudentError = '';
 let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
+let adminCalendarError = '';
 function renderAdminPage(){
   const root = document.getElementById('app');
   const user = firebase.auth().currentUser;
@@ -5915,11 +5925,12 @@ function renderAdminPage(){
       <button class="btn btn-ghost" style="width:100%; margin-top:8px;" data-admin-action="forgot-password">Forgot password?</button>
     </div>`;
   } else {
-    const tabs = `<div class="row" style="gap:8px; margin-bottom:14px;">
+    const tabs = `<div class="row" style="gap:8px; margin-bottom:14px; flex-wrap:wrap;">
       <button class="btn btn-sm ${adminTab==='contacts'?'btn-primary':'btn-ghost'}" data-admin-action="tab-contacts">Contacts (${(adminContacts||[]).length})</button>
       <button class="btn btn-sm ${adminTab==='students'?'btn-primary':'btn-ghost'}" data-admin-action="tab-students">Student Panels (${(adminStudents||[]).length})</button>
+      <button class="btn btn-sm ${adminTab==='calendar'?'btn-primary':'btn-ghost'}" data-admin-action="tab-calendar">📅 Lesson Calendar</button>
     </div>`;
-    const body = adminTab === 'contacts' ? renderAdminContactsTab() : renderAdminStudentsTab();
+    const body = adminTab === 'contacts' ? renderAdminContactsTab() : adminTab === 'calendar' ? renderAdminCalendarTab() : renderAdminStudentsTab();
     html = `<div class="screen" style="padding-top:24px; max-width:480px; margin:0 auto;">
       <div class="row between" style="margin-bottom:14px;">
         <h1 class="display" style="font-size:20px;">Admin</h1>
@@ -5947,6 +5958,67 @@ function renderAdminContactsTab(){
       </div>
     </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No contacts yet.</p>';
   return `<div class="stack" style="gap:8px;">${rows}</div>`;
+}
+function renderAdminCalendarTab(){
+  if(adminStudentsLoading || adminStudents === null) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
+  const sortedStudents = (adminStudents||[]).slice().sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
+  const studentOpts = sortedStudents.map(s=>`<option value="${esc(s.course)}|${esc(s.code)}">${esc(s.name||s.code)} (${adminCourseLabel(s.course)})</option>`).join('');
+  const addForm = `<div class="card-flat" style="margin-bottom:16px;">
+    ${adminSectionHead('➕','Add a lesson', true)}
+    ${sortedStudents.length ? `
+    <label class="field-label">Student</label>
+    <select id="calendar-add-student" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${studentOpts}</select>
+    <div class="row" style="gap:8px; margin-bottom:10px;">
+      <input id="calendar-add-date" type="date" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+      <input id="calendar-add-title" type="text" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+    </div>
+    <div class="row" style="gap:8px;">
+      <input id="calendar-add-link" type="url" placeholder="Link to the lesson (paste later if not ready)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+      <button class="btn btn-primary btn-sm" data-admin-action="calendar-add-lesson" style="flex:0 0 auto;">+ Add</button>
+    </div>` : `<p style="font-size:13px; color:var(--ink-faint);">Add a student in Student Panels first.</p>`}
+    ${adminCalendarError ? `<p style="color:var(--error); font-size:13px; margin-top:8px;">${esc(adminCalendarError)}</p>` : ''}
+  </div>`;
+  const rows = [];
+  sortedStudents.forEach(s=>{
+    (Array.isArray(s.lessons)?s.lessons:[]).forEach(ls=>{
+      rows.push(Object.assign({}, ls, {studentCode:s.code, studentName:s.name||s.code, course:s.course, goal:s.goal}));
+    });
+  });
+  rows.sort((a,b)=>(a.date||'9999-99-99').localeCompare(b.date||'9999-99-99'));
+  const list = rows.map(r=>`
+    <div class="lesson-cal-row" data-course="${esc(r.course)}" data-code="${esc(r.studentCode)}" data-lesson-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
+      <div class="row between" style="margin-bottom:6px; align-items:center;">
+        <span style="font-weight:800; font-size:13px;">${esc(r.studentName)}</span>
+        <span class="row" style="gap:6px; flex:0 0 auto;">
+          <span class="pill" style="background:${r.course==='es'?'var(--cat-lis-soft)':'var(--cat-story-soft)'}; color:${r.course==='es'?'var(--cat-lis)':'var(--cat-story)'};">${r.course==='es'?'🇪🇸 ES':'🇬🇧 EN'}</span>
+          ${r.goal ? `<span class="pill" style="background:var(--accent-soft); color:var(--clay-orange);">${esc(GOAL_LABELS[r.goal]||r.goal)}</span>` : ''}
+        </span>
+      </div>
+      <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+        <input type="date" class="cal-lesson-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+        <input type="text" class="cal-lesson-title" value="${esc(r.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+      </div>
+      <div class="row" style="gap:8px; align-items:center;">
+        <input type="url" class="cal-lesson-link" value="${esc(r.link||'')}" placeholder="Link to the lesson" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+        ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
+        <button class="btn btn-primary btn-sm" style="flex:0 0 auto;" data-admin-action="calendar-save-lesson">Save</button>
+        <button class="btn btn-ghost btn-sm" style="flex:0 0 auto; color:var(--error); border-color:var(--error-soft);" data-admin-action="calendar-delete-lesson">✕</button>
+      </div>
+    </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No lessons scheduled yet — add one above.</p>';
+  return addForm + list;
+}
+function saveStudentLessons(course, code, lessons, onDone){
+  const coll = STUDENT_COLLECTION[course==='es'?'es':'en'];
+  firebase.firestore().collection(coll).doc(code).update({lessons, updatedAt: Date.now()}).then(()=>{
+    const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+    if(s) s.lessons = lessons;
+    adminCalendarError = '';
+    if(onDone) onDone();
+    renderAdminPage();
+  }).catch(err=>{
+    adminCalendarError = err.message || String(err);
+    renderAdminPage();
+  });
 }
 function studentFormField(id, label, value, tag, extra){
   const val = esc(value||'');
@@ -6008,6 +6080,26 @@ function harvestHomeworkFromDOM(){
     links: row.querySelector('.homework-item-links').value
   }));
 }
+function harvestLessonsFromDOM(){
+  return Array.from(document.querySelectorAll('#lessons-items-list .lesson-item-row')).map(row=>({
+    id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
+    date: row.querySelector('.lesson-item-date').value,
+    title: row.querySelector('.lesson-item-title').value,
+    link: row.querySelector('.lesson-item-link').value
+  }));
+}
+function nextWeekdayLessonDates(count){
+  // Picks the next Mon/Wed/Fri on/after today for a 3-lesson-a-week cadence.
+  const weekdays = [1,3,5];
+  const dates = [];
+  const d = new Date();
+  d.setHours(0,0,0,0);
+  while(dates.length < count){
+    if(weekdays.includes(d.getDay())) dates.push(d.toISOString().slice(0,10));
+    d.setDate(d.getDate()+1);
+  }
+  return dates;
+}
 const PROGRESS_TEMPLATES = {
   excelling: "You're on fire this stage! Flying through everything, and it's really sticking. So proud of you!",
   steady: "Lovely, steady progress. A little bit each time really adds up. Keep going, you're doing great!",
@@ -6067,6 +6159,7 @@ function renderAdminStudentsTab(){
     const levelOpts = [''].concat(LEVEL_STAGES).map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
     const roadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
     const homework = Array.isArray(s.homework) ? s.homework : [];
+    const lessons = Array.isArray(s.lessons) ? s.lessons : [];
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
     const goalOpts = [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${s.goal===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
     return `<div class="card-flat" style="background:linear-gradient(180deg, var(--cat-diag-soft) 0%, var(--bg-elevated) 90px);">
@@ -6080,6 +6173,8 @@ function renderAdminStudentsTab(){
       <p style="font-size:13px; font-weight:700; margin:-2px 0 14px;">${s.course==='es'?'🇪🇸 Spanish':'🇬🇧 English'} <span style="font-weight:400; color:var(--ink-faint);">(can't change course after creating — delete and re-add if needed)</span></p>`}
       ${studentFormField('student-form-code', 'Pass / username', s.code, 'input', s.isNew ? 'placeholder="e.g. AYLIN23"' : 'disabled style="background:var(--bg-sunken);"')}
       ${studentFormField('student-form-name', 'Name', s.name, 'input')}
+      <label class="field-label">WhatsApp number <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(homework gets sent here when you tick a session done)</span></label>
+      <input id="student-form-whatsapp" type="tel" value="${esc(s.whatsapp||'')}" placeholder="e.g. 5352805808" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:16px;">
 
       ${adminSectionHead('🧭','Level & pace')}
       <label class="field-label">Level / stage <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(${adminCourseLabel(s.course)} course)</span></label>
@@ -6090,6 +6185,12 @@ function renderAdminStudentsTab(){
         <button type="button" class="btn btn-ghost btn-sm" data-admin-action="increment-session">+1 session</button>
       </div>
       <p style="font-size:11px; color:var(--ink-faint); margin:-8px 0 4px;">Hitting 10 auto-advances to the next stage.</p>
+      <label class="field-label" style="margin-top:12px;">Package (sessions / month)</label>
+      <div class="row" style="gap:8px; margin-bottom:12px;">
+        ${[4,8,12].map(n=>`<button type="button" class="btn btn-sm ${Number(s.package)===n?'btn-primary':'btn-ghost'}" data-admin-action="set-student-package" data-package="${n}" style="flex:1;">${n}/mo</button>`).join('')}
+      </div>
+      <label class="field-label">Freeze <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(leave blank if active)</span></label>
+      <input id="student-form-freeze" type="text" value="${esc(s.freezeUntil||'')}" placeholder="e.g. Paused until October" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:4px;">
 
       ${adminSectionHead('🗺️','Roadmap')}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
@@ -6133,6 +6234,27 @@ function renderAdminStudentsTab(){
       <div class="row" style="gap:8px; margin-bottom:14px;">
         <button class="btn btn-ghost btn-sm" data-admin-action="add-homework-item">+ Add homework</button>
         <button class="btn btn-ghost btn-sm" data-admin-action="suggest-homework">✨ Suggest from roadmap</button>
+      </div>
+
+      ${adminSectionHead('📅','Lessons')}
+      <p style="font-size:12px; color:var(--ink-faint); margin:-6px 0 10px;">${adminCourseLabel(s.course)} · ${s.level||'no level set'} · Goal: ${s.goal?GOAL_LABELS[s.goal]:'—'}</p>
+      <div id="lessons-items-list" style="margin-bottom:8px;">
+        ${lessons.map((ls,idx)=>`
+        <div class="lesson-item-row" data-id="${esc(ls.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
+          <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+            <input type="date" class="lesson-item-date" value="${esc(ls.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+            <input type="text" class="lesson-item-title" value="${esc(ls.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
+            <button data-admin-action="delete-lesson-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
+          </div>
+          <div class="row" style="gap:8px; align-items:center;">
+            <input type="url" class="lesson-item-link" value="${esc(ls.link||'')}" placeholder="Link to the lesson (paste after writing it)" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+            ${ls.link ? `<a href="${esc(ls.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
+          </div>
+        </div>`).join('') || '<p style="font-size:12.5px; color:var(--ink-faint); padding:4px 0 8px;">No lessons scheduled yet.</p>'}
+      </div>
+      <div class="row" style="gap:8px; margin-bottom:14px;">
+        <button class="btn btn-ghost btn-sm" data-admin-action="add-lesson-item">+ Add lesson</button>
+        <button class="btn btn-ghost btn-sm" data-admin-action="suggest-lessons-week">✨ Add 3 lessons for this week</button>
       </div>
 
       ${adminSectionHead('💬','Notes for '+(s.name||'this student'))}
@@ -6185,7 +6307,7 @@ function renderAdminStudentsTab(){
     <button class="item-row" data-admin-action="edit-student" data-code="${esc(s.code)}" data-course="${esc(s.course||'en')}">
       <div class="item-body">
         <div class="item-title">${esc(s.name||s.code)}</div>
-        <div class="item-sub">${esc(s.level||'—')} · pass: ${esc(s.code)}</div>
+        <div class="item-sub">${esc(s.level||'—')} · pass: ${esc(s.code)} · ${Number(s.package)||8}/mo${s.freezeUntil?` · ❄️ ${esc(s.freezeUntil)}`:''}</div>
       </div>
       <span class="pill" style="background:${s.course==='es'?'var(--cat-lis-soft)':'var(--cat-story-soft)'}; color:${s.course==='es'?'var(--cat-lis)':'var(--cat-story)'}; flex:0 0 auto;">${s.course==='es'?'🇪🇸 ES':'🇬🇧 EN'}</span>
       <span class="chevron">${ICONS.chev}</span>
@@ -6243,40 +6365,112 @@ function bindAdminActions(root){
         adminTab = 'students';
         renderAdminPage();
         if(adminStudents === null) loadAdminStudents();
+      } else if(action === 'tab-calendar'){
+        adminTab = 'calendar';
+        adminCalendarError = '';
+        renderAdminPage();
+        if(adminStudents === null) loadAdminStudents();
+      } else if(action === 'calendar-add-lesson'){
+        const sel = document.getElementById('calendar-add-student');
+        const [course, code] = (sel ? sel.value : '').split('|');
+        const date = document.getElementById('calendar-add-date').value;
+        const title = document.getElementById('calendar-add-title').value;
+        const link = document.getElementById('calendar-add-link').value;
+        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+        if(!s){
+          adminCalendarError = 'Pick a student first.';
+          renderAdminPage();
+          return;
+        }
+        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).concat([{id: Date.now()+'-'+Math.random().toString(36).slice(2), date, title, link}]);
+        saveStudentLessons(course, code, lessons);
+      } else if(action === 'calendar-save-lesson'){
+        const row = el.closest('.lesson-cal-row');
+        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
+        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+        if(!s) return;
+        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).map(ls=> ls.id===lessonId ? Object.assign({}, ls, {
+          date: row.querySelector('.cal-lesson-date').value,
+          title: row.querySelector('.cal-lesson-title').value,
+          link: row.querySelector('.cal-lesson-link').value
+        }) : ls);
+        saveStudentLessons(course, code, lessons);
+      } else if(action === 'calendar-delete-lesson'){
+        if(!confirm('Delete this lesson from the calendar?')) return;
+        const row = el.closest('.lesson-cal-row');
+        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
+        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+        if(!s) return;
+        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).filter(ls=>ls.id!==lessonId);
+        saveStudentLessons(course, code, lessons);
       } else if(action === 'add-student'){
         adminStudentError = '';
         adminStudentInfo = '';
-        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[]};
+        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''};
         renderAdminPage();
       } else if(action === 'set-student-course'){
         adminEditingStudent.course = el.dataset.course;
+        renderAdminPage();
+      } else if(action === 'set-student-package'){
+        adminEditingStudent.package = Number(el.dataset.package);
         renderAdminPage();
       } else if(action === 'edit-student'){
         const code = el.dataset.code, course = el.dataset.course;
         const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
         adminStudentError = '';
         adminStudentInfo = '';
-        adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[]}, s);
+        adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''}, s);
         renderAdminPage();
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.roadmap.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', homework:'', tips:'', done:false});
         renderAdminPage();
       } else if(action === 'delete-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.roadmap.splice(Number(el.dataset.idx), 1);
         renderAdminPage();
       } else if(action === 'add-homework-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', links:''});
         renderAdminPage();
       } else if(action === 'delete-homework-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.homework.splice(Number(el.dataset.idx), 1);
+        renderAdminPage();
+      } else if(action === 'add-lesson-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
+        adminEditingStudent.lessons.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', link:''});
+        renderAdminPage();
+      } else if(action === 'delete-lesson-item'){
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
+        adminEditingStudent.lessons.splice(Number(el.dataset.idx), 1);
+        renderAdminPage();
+      } else if(action === 'suggest-lessons-week'){
+        const roadmap = harvestRoadmapFromDOM();
+        const homework = harvestHomeworkFromDOM();
+        const lessons = harvestLessonsFromDOM();
+        const usedTitles = new Set(lessons.map(l=>(l.title||'').trim().toLowerCase()));
+        const topics = roadmap.filter(r=>!r.done && r.title && r.title.trim() && !usedTitles.has(r.title.trim().toLowerCase())).slice(0,3).map(r=>r.title.trim());
+        const dates = nextWeekdayLessonDates(3);
+        for(let i=0;i<3;i++){
+          lessons.push({id: Date.now()+'-'+i+'-'+Math.random().toString(36).slice(2), date: dates[i], title: topics[i]||'', link:''});
+        }
+        adminEditingStudent.roadmap = roadmap;
+        adminEditingStudent.homework = homework;
+        adminEditingStudent.lessons = lessons;
+        adminStudentInfo = topics.length ? ('Added 3 lessons for this week, titled from the roadmap.') : ('Added 3 lessons for this week — add topics manually, no un-done roadmap sessions left to suggest from.');
         renderAdminPage();
       } else if(action === 'suggest-roadmap'){
         const levelEl = document.getElementById('student-form-level');
@@ -6294,6 +6488,7 @@ function bindAdminActions(root){
           .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
         adminEditingStudent.roadmap = existing.concat(suggestions);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminStudentError = '';
         adminStudentInfo = suggestions.length ? ('Added '+suggestions.length+' session(s) from the '+baseLevel+' curriculum.') : ('No new sessions to add — every '+baseLevel+' item is already in the roadmap.');
         renderAdminPage();
@@ -6310,6 +6505,7 @@ function bindAdminActions(root){
         const parsed = parsePastedRoadmap(text);
         adminEditingStudent.roadmap = existing.concat(parsed);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminStudentInfo = 'Added '+parsed.length+' session(s) from the pasted text.';
         renderAdminPage();
       } else if(action === 'quick-progress'){
@@ -6370,6 +6566,7 @@ function bindAdminActions(root){
         homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date: today, title: next ? 'Review: '+next.title.trim() : '', links:''});
         adminEditingStudent.roadmap = roadmap;
         adminEditingStudent.homework = homework;
+        adminEditingStudent.lessons = harvestLessonsFromDOM();
         renderAdminPage();
       } else if(action === 'cancel-edit-student'){
         adminEditingStudent = null;
@@ -6426,6 +6623,9 @@ function saveAdminStudent(){
   const codeEl = document.getElementById('student-form-code');
   const code = (s.isNew ? (codeEl && codeEl.value || '') : s.code).trim().toUpperCase().replace(/\s+/g,'');
   const name = (document.getElementById('student-form-name').value || '').trim();
+  const whatsapp = (document.getElementById('student-form-whatsapp').value || '').trim();
+  const pkg = Number(s.package) || 8;
+  const freezeUntil = (document.getElementById('student-form-freeze').value || '').trim();
   const level = document.getElementById('student-form-level').value;
   const goal = document.getElementById('student-form-goal').value;
   const sessionsInStage = Math.max(0, Math.min(10, Number(document.getElementById('student-form-sessions').value)||0));
@@ -6435,22 +6635,40 @@ function saveAdminStudent(){
     const inp = document.getElementById('student-form-objective-'+i);
     return inp ? inp.value : '';
   });
+  const oldRoadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
   const roadmap = harvestRoadmapFromDOM();
   const homework = harvestHomeworkFromDOM();
+  const lessons = harvestLessonsFromDOM();
   adminEditingStudent.roadmap = roadmap;
   adminEditingStudent.homework = homework;
+  adminEditingStudent.lessons = lessons;
   adminEditingStudent.objectives = objectives;
   if(!code){
     adminStudentError = 'Please enter a pass / username.';
     renderAdminPage();
     return;
   }
+  // Any session freshly ticked "done" in this save, that has homework text, sends that
+  // homework to the student's WhatsApp — this is the one moment a message goes out, and
+  // it's a direct result of the admin's own tick, never an automatic background trigger.
+  const newlyDone = roadmap.filter(r=>{
+    const was = oldRoadmap.find(o=>o.id===r.id);
+    return r.done && (!was || !was.done) && r.homework && r.homework.trim();
+  });
+  if(newlyDone.length && whatsapp){
+    newlyDone.forEach(r=>{
+      const msg = `Hi ${name||'there'}! Homework for "${r.title||r.label||'this session'}":\n\n${r.homework.trim()}`;
+      window.open(waLinkTo(whatsapp, msg), '_blank');
+    });
+  } else if(newlyDone.length && !whatsapp){
+    adminStudentInfo = 'Marked done, but no WhatsApp number on file to send homework to.';
+  }
   adminSavingStudent = true;
   adminStudentError = '';
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, lessons, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
