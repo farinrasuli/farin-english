@@ -657,6 +657,7 @@ function L(en, tr, fa){ if(LANG==='tr') return tr; if(LANG==='fa') return fa!==u
 
 /* ============================= CONFIG ============================= */
 const WHATSAPP_NUMBER = '905455783260'; // country code (90) + number, no + or spaces
+const APP_URL = 'https://farinrasuli.github.io/farin-english/app/farin-english-app.html';
 const COURSE_LABEL = 'English';
 const STUDENT_COLLECTION = {en:'studentPanels', es:'studentPanelsEs'};
 function adminCourseLabel(course){ return course==='es' ? 'Spanish' : 'English'; }
@@ -3995,6 +3996,7 @@ function renderStudentPanel(){
   const roadmapDone = roadmap.filter(r=>r.done).length;
   const learnedTitles = roadmap.filter(r=>r.done).map(r=>r.title||r.label).filter(Boolean);
   const objectives = (Array.isArray(d.objectives) ? d.objectives : []).filter(o=>o && o.trim());
+  const lessons = (Array.isArray(d.lessons) ? d.lessons : []).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   return `<div class="fade-in">
     ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
     <div class="screen" style="padding-top:0;">
@@ -4085,6 +4087,21 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
 
+      ${lessons.filter(ls=>ls.genLesson).length ? `
+      <div class="card-flat" style="margin-top:12px;">
+        <div class="eyebrow">${L('Your lessons','Derslerin','درس‌هایت')}</div>
+        <div class="stack" style="gap:10px; margin-top:10px;">
+          ${lessons.filter(ls=>ls.genLesson).map(ls=>`
+          <button class="item-row" data-action="nav" data-view="lesson-view" data-lesson-id="${esc(ls.id)}" style="background:var(--bg-sunken);">
+            <span style="flex:0 0 auto; font-size:18px;">${ls.type==='vocab'?'📗':ls.type==='speaking'?'🗣️':'📘'}</span>
+            <div class="item-body">
+              <div class="item-title">${esc(ls.title||'')}</div>
+              <div class="item-sub">${esc(ls.date||'')}${ls.genHomework?' · '+L('homework ready','ödev hazır','تکلیف آماده'):''}</div>
+            </div>
+            <span class="chevron">${ICONS.chev}</span>
+          </button>`).join('')}
+        </div>
+      </div>` : ''}
       ${homework.length ? `
       <div class="card-flat" style="margin-top:12px;">
         <div class="eyebrow">${L('Homework','Ödev','تکلیف')}</div>
@@ -4134,6 +4151,90 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
       ${d.updatedAt ? `<p style="font-size:11px; color:var(--ink-faint); margin-top:12px; text-align:center;">${L('Last updated','Son güncelleme','آخرین به‌روزرسانی')}: ${esc(new Date(d.updatedAt).toLocaleDateString())}</p>` : ''}
+    </div>
+  </div>`;
+}
+function renderRevealQA(q, i){
+  return `<details class="card-flat" style="padding:12px 14px;">
+    <summary style="font-size:13px; cursor:pointer; font-weight:600;">${(i!=null?(i+1)+'. ':'')}${esc(q.q||'')}</summary>
+    <div style="font-size:12.5px; color:var(--ink-soft); margin-top:8px; padding-top:8px; border-top:1px solid var(--border-soft);">${esc(q.a||'')}</div>
+  </details>`;
+}
+function renderLessonSection(sec){
+  const head = `<div style="margin-top:20px;">
+    <div style="font-weight:800; font-size:14.5px; margin-bottom:2px;">${esc(sec.heading||'')}</div>
+    ${sec.intro ? `<p style="font-size:12.5px; color:var(--ink-faint); margin-bottom:10px; line-height:1.5;">${esc(sec.intro)}</p>` : ''}
+  </div>`;
+  let body = '';
+  if(sec.kind === 'vocab'){
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(v=>`
+      <div class="card-flat" style="padding:12px 14px;">
+        <div style="font-weight:700; font-size:14px;">${esc(v.term||'')}${v.pos?` <span style="font-weight:400; font-size:11px; color:var(--ink-faint);">${esc(v.pos)}</span>`:''}</div>
+        <div style="font-size:12.5px; color:var(--ink-soft); margin-top:3px; line-height:1.5;">${esc(v.def||'')}</div>
+        ${v.example?`<div style="font-size:11.5px; color:var(--ink-faint); margin-top:6px; font-style:italic;">${esc(v.example)}</div>`:''}
+      </div>`).join('')}</div>`;
+  } else if(sec.kind === 'text'){
+    body = `<div class="card-flat" style="padding:16px;">
+        <p style="font-size:13.5px; line-height:1.7; white-space:pre-wrap;">${esc(sec.body||'')}</p>
+      </div>
+      ${(sec.questions&&sec.questions.length) ? `<div class="stack" style="gap:8px; margin-top:10px;">${sec.questions.map((q,i)=>renderRevealQA(q,i)).join('')}</div>`:''}`;
+  } else if(sec.kind === 'list'){
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((t,i)=>`
+      <div class="card-flat" style="padding:10px 14px; display:flex; gap:10px; align-items:flex-start;">
+        <span style="flex:0 0 auto; font-weight:800; color:var(--ink-faint);">${i+1}</span>
+        <span style="font-size:13px; line-height:1.55;">${esc(t)}</span>
+      </div>`).join('')}</div>`;
+  } else if(sec.kind === 'pairs'){
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(p=>`
+      <div class="card-flat" style="padding:12px 14px;">
+        <div style="font-size:12.5px; color:var(--error);">✗ <span style="text-decoration:line-through;">${esc(p.a||'')}</span></div>
+        <div style="font-size:13px; color:var(--success); margin-top:4px; font-weight:600;">✓ ${esc(p.b||'')}</div>
+      </div>`).join('')}</div>`;
+  } else if(sec.kind === 'qa'){
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((q,i)=>renderRevealQA(q,i)).join('')}</div>`;
+  }
+  return head + body;
+}
+function renderLessonContent(gl){
+  return `${gl.subtitle ? `<p style="font-size:13px; color:var(--ink-soft); margin-bottom:6px; line-height:1.6;">${esc(gl.subtitle)}</p>` : ''}
+    ${(gl.sections||[]).map(renderLessonSection).join('')}
+    ${gl.recap && gl.recap.length ? `
+    <div class="card-flat" style="margin-top:22px; background:linear-gradient(135deg,#8a5cf7,#ff4fa3); color:#fff;">
+      <div style="font-weight:800; font-size:14px; margin-bottom:10px;">${L('Quick reference','Hızlı özet','مرور سریع')}</div>
+      <div class="stack" style="gap:8px;">${gl.recap.map(r=>`
+        <div style="background:rgba(255,255,255,.14); border-radius:10px; padding:10px 12px;">
+          <div style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:.85;">${esc(r.label||'')}</div>
+          <div style="font-size:12.5px; margin-top:3px; line-height:1.5;">${esc(r.text||'')}</div>
+        </div>`).join('')}</div>
+    </div>` : ''}`;
+}
+function renderHomeworkContent(hw){
+  return `
+    ${hw.reminder ? `<div class="card-flat" style="border-left:4px solid var(--cat-diag);"><div class="eyebrow">${L('Reminder','Hatırlatma','یادآوری')}</div><p style="font-size:13px; margin-top:8px; white-space:pre-wrap; line-height:1.6;">${esc(hw.reminder)}</p></div>` : ''}
+    ${(hw.exercises && hw.exercises.length) ? `<div class="stack" style="gap:8px; margin-top:12px;">${hw.exercises.map((e,i)=>renderRevealQA(e,i)).join('')}</div>` : ''}
+    ${hw.productionTask ? `<div class="card-flat" style="margin-top:12px; border-left:4px solid var(--clay-orange);"><div class="eyebrow">${L('Your task','Görevin','وظیفه‌ات')}</div><p style="font-size:13px; margin-top:8px; line-height:1.6;">${esc(hw.productionTask)}</p></div>` : ''}
+    ${hw.spacingNote ? `<p style="font-size:11.5px; color:var(--ink-faint); margin-top:12px; text-align:center;">${esc(hw.spacingNote)}</p>` : ''}`;
+}
+function renderLessonView(){
+  const d = studentPanelData || {};
+  const lessons = Array.isArray(d.lessons) ? d.lessons : [];
+  const ls = lessons.find(x=>x.id === (state.viewParams && state.viewParams.lessonId));
+  if(!ls || !ls.genLesson){
+    return `<div class="fade-in">
+      ${sectionHead(L('Lesson','Ders','درس'), '', 'student-panel')}
+      <div class="screen" style="padding-top:0;"><p style="text-align:center; color:var(--ink-faint); padding:30px 20px;">${L("This lesson isn't ready yet — check back closer to your session.",'Bu ders henüz hazır değil — seansına yaklaşınca tekrar bak.','این درس هنوز آماده نیست — نزدیک جلسه‌ات دوباره سر بزن.')}</p></div>
+    </div>`;
+  }
+  const gl = ls.genLesson;
+  const hw = ls.genHomework;
+  return `<div class="fade-in">
+    ${sectionHead(gl.title || ls.title || '', ls.date || '', 'student-panel')}
+    <div class="screen" style="padding-top:0;">
+      ${renderLessonContent(gl)}
+      ${hw ? `<div style="margin-top:30px; padding-top:20px; border-top:2px solid var(--border-soft);">
+        <h2 class="display" style="font-size:18px; margin-bottom:14px;">${L('Homework','Ödev','تکلیف')}</h2>
+        ${renderHomeworkContent(hw)}
+      </div>` : ''}
     </div>
   </div>`;
 }
@@ -5339,6 +5440,7 @@ const screens = {
   'student-club-login': renderStudentClubLogin,
   'student-club-join': renderStudentClubJoin,
   'student-panel': renderStudentPanel,
+  'lesson-view': renderLessonView,
   'grammar-list': renderGrammarList,
   'grammar-trap': ()=>renderGrammarTrap(state.viewParams.id),
   'vocab-list': renderVocabList,
@@ -5816,6 +5918,7 @@ const HANDLERS = {
       if(goal) params.goal = goal;
     }
     if(view==='goal-level-detail'){ params.level = el.dataset.level || state.viewParams.level || state.profile.level; params.tab = 'grammar'; }
+    if(view==='lesson-view') params.lessonId = el.dataset.lessonId;
     go(view, params);
   },
   'set-level'(el){ state.viewParams.level = el.dataset.level; save(); render(); },
@@ -6057,6 +6160,15 @@ function waLinkTo(phone, message){
   const clean = String(phone||'').replace(/[^\d]/g, '');
   return 'https://wa.me/' + clean + '?text=' + encodeURIComponent(message);
 }
+function buildHomeworkWhatsAppMessage(student, lesson){
+  const name = student.name || 'there';
+  const title = lesson.title || 'this week’s lesson';
+  const hw = lesson.genHomework;
+  const teaser = hw && hw.reminder ? hw.reminder.split('\n')[0] : '';
+  return `Hi ${name}! 📚 This week's homework — "${title}" — is ready.\n\n`
+    + (teaser ? teaser + '\n\n' : '')
+    + `Open the app anytime with your pass to see the full lesson, homework, and your progress:\n${APP_URL}`;
+}
 let adminContacts = null;
 let adminError = '';
 let adminLoading = false;
@@ -6132,8 +6244,16 @@ function renderAdminCalendarTab(){
       <input id="calendar-add-date" type="date" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
       <input id="calendar-add-title" type="text" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
     </div>
+    <div class="row" style="gap:8px; margin-bottom:10px;">
+      <select id="calendar-add-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+        <option value="grammar">📘 Grammar</option>
+        <option value="vocab">📗 Vocabulary</option>
+        <option value="speaking">🗣️ Speaking</option>
+      </select>
+      <input id="calendar-add-focus" type="text" placeholder="Optional focus (e.g. real interview on the 20th)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+    </div>
     <div class="row" style="gap:8px;">
-      <input id="calendar-add-link" type="url" placeholder="Link to the lesson (paste later if not ready)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+      <input id="calendar-add-link" type="url" placeholder="Link to the lesson (optional — a lesson gets auto-written 7 days before)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
       <button class="btn btn-primary btn-sm" data-admin-action="calendar-add-lesson" style="flex:0 0 auto;">+ Add</button>
     </div>` : `<p style="font-size:13px; color:var(--ink-faint);">Add a student in Student Panels first.</p>`}
     ${adminCalendarError ? `<p style="color:var(--error); font-size:13px; margin-top:8px;">${esc(adminCalendarError)}</p>` : ''}
@@ -6141,7 +6261,7 @@ function renderAdminCalendarTab(){
   const rows = [];
   sortedStudents.forEach(s=>{
     (Array.isArray(s.lessons)?s.lessons:[]).forEach(ls=>{
-      rows.push(Object.assign({}, ls, {studentCode:s.code, studentName:s.name||s.code, course:s.course, goal:s.goal}));
+      rows.push(Object.assign({}, ls, {studentCode:s.code, studentName:s.name||s.code, course:s.course, goal:s.goal, whatsapp:s.whatsapp}));
     });
   });
   rows.sort((a,b)=>(a.date||'9999-99-99').localeCompare(b.date||'9999-99-99'));
@@ -6158,12 +6278,20 @@ function renderAdminCalendarTab(){
         <input type="date" class="cal-lesson-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
         <input type="text" class="cal-lesson-title" value="${esc(r.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
       </div>
-      <div class="row" style="gap:8px; align-items:center;">
+      <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+        <select class="cal-lesson-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+          ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(r.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
+        </select>
+        <input type="text" class="cal-lesson-focus" value="${esc(r.focus||'')}" placeholder="Optional focus" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+      </div>
+      ${adminLessonStatusBadge(r)}
+      <div class="row" style="gap:8px; align-items:center; margin-top:6px;">
         <input type="url" class="cal-lesson-link" value="${esc(r.link||'')}" placeholder="Link to the lesson" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-        ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
         <button class="btn btn-primary btn-sm" style="flex:0 0 auto;" data-admin-action="calendar-save-lesson">Save</button>
         <button class="btn btn-ghost btn-sm" style="flex:0 0 auto; color:var(--error); border-color:var(--error-soft);" data-admin-action="calendar-delete-lesson">✕</button>
       </div>
+      ${(r.genLesson || r.genHomework) && !r.sentAt ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="calendar-send-homework">📤 Send homework on WhatsApp</button>` : ''}
+      ${(r.genLesson || r.genHomework) && !r.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file for ${esc(r.studentName)} yet — add one in Student Panels first.</p>` : ''}
     </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No lessons scheduled yet — add one above.</p>';
   return addForm + list;
 }
@@ -6186,6 +6314,12 @@ function studentFormField(id, label, value, tag, extra){
     ? `<textarea id="${id}" rows="4" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); font-family:inherit;" ${extra||''}>${val}</textarea>`
     : `<input id="${id}" type="text" value="${val}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);" ${extra||''}>`;
   return `${label ? `<label class="field-label">${label}</label>` : ''}${el}<div style="height:10px;"></div>`;
+}
+function adminLessonStatusBadge(ls){
+  const style = 'display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; margin-top:2px;';
+  if(ls.sentAt) return `<span style="${style} background:var(--success-soft,#dceee3); color:var(--success,#2f7a56);">✓ Sent ${esc(new Date(ls.sentAt).toLocaleDateString())}</span>`;
+  if(ls.genLesson || ls.genHomework) return `<span style="${style} background:var(--accent-soft); color:var(--clay-orange);">✨ Ready to send</span>`;
+  return `<span style="${style} background:var(--bg-sunken); color:var(--ink-faint);">Scheduled — generates 7 days before</span>`;
 }
 function adminSectionHead(emoji, label, first){
   return `<div style="display:flex; align-items:center; gap:8px; margin:${first?'0':'24px'} 0 12px; ${first?'':'padding-top:16px; border-top:1px solid var(--border-soft);'}">
@@ -6241,12 +6375,24 @@ function harvestHomeworkFromDOM(){
   }));
 }
 function harvestLessonsFromDOM(){
-  return Array.from(document.querySelectorAll('#lessons-items-list .lesson-item-row')).map(row=>({
-    id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
-    date: row.querySelector('.lesson-item-date').value,
-    title: row.querySelector('.lesson-item-title').value,
-    link: row.querySelector('.lesson-item-link').value
-  }));
+  // Merges onto whatever was already there instead of rebuilding from scratch, so fields the
+  // form doesn't show (genLesson, genHomework, generatedAt, sentAt, status — written by the
+  // automation, not the admin) survive every save instead of getting silently wiped.
+  const existing = Array.isArray(adminEditingStudent && adminEditingStudent.lessons) ? adminEditingStudent.lessons : [];
+  return Array.from(document.querySelectorAll('#lessons-items-list .lesson-item-row')).map(row=>{
+    const id = row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2));
+    const prev = existing.find(x=>x.id===id) || {};
+    const typeEl = row.querySelector('.lesson-item-type');
+    const focusEl = row.querySelector('.lesson-item-focus');
+    return Object.assign({}, prev, {
+      id,
+      date: row.querySelector('.lesson-item-date').value,
+      title: row.querySelector('.lesson-item-title').value,
+      link: row.querySelector('.lesson-item-link').value,
+      type: typeEl ? typeEl.value : (prev.type || 'grammar'),
+      focus: focusEl ? focusEl.value : (prev.focus || '')
+    });
+  });
 }
 function nextWeekdayLessonDates(count){
   // Picks the next Mon/Wed/Fri on/after today for a 3-lesson-a-week cadence.
@@ -6406,7 +6552,14 @@ function renderAdminStudentsTab(){
             <input type="text" class="lesson-item-title" value="${esc(ls.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
             <button data-admin-action="delete-lesson-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
           </div>
-          <div class="row" style="gap:8px; align-items:center;">
+          <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+            <select class="lesson-item-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+              ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(ls.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
+            </select>
+            <input type="text" class="lesson-item-focus" value="${esc(ls.focus||'')}" placeholder="Optional focus, e.g. real interview on the 20th" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+          </div>
+          ${adminLessonStatusBadge(ls)}
+          <div class="row" style="gap:8px; align-items:center; margin-top:6px;">
             <input type="url" class="lesson-item-link" value="${esc(ls.link||'')}" placeholder="Link to the lesson (paste after writing it)" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
             ${ls.link ? `<a href="${esc(ls.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
           </div>
@@ -6540,6 +6693,8 @@ function bindAdminActions(root){
         const [course, code] = (sel ? sel.value : '').split('|');
         const date = document.getElementById('calendar-add-date').value;
         const title = document.getElementById('calendar-add-title').value;
+        const type = document.getElementById('calendar-add-type').value;
+        const focus = document.getElementById('calendar-add-focus').value;
         const link = document.getElementById('calendar-add-link').value;
         const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
         if(!s){
@@ -6547,7 +6702,7 @@ function bindAdminActions(root){
           renderAdminPage();
           return;
         }
-        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).concat([{id: Date.now()+'-'+Math.random().toString(36).slice(2), date, title, link}]);
+        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).concat([{id: Date.now()+'-'+Math.random().toString(36).slice(2), date, title, type, focus, link, status:'scheduled'}]);
         saveStudentLessons(course, code, lessons);
       } else if(action === 'calendar-save-lesson'){
         const row = el.closest('.lesson-cal-row');
@@ -6557,6 +6712,8 @@ function bindAdminActions(root){
         const lessons = (Array.isArray(s.lessons)?s.lessons:[]).map(ls=> ls.id===lessonId ? Object.assign({}, ls, {
           date: row.querySelector('.cal-lesson-date').value,
           title: row.querySelector('.cal-lesson-title').value,
+          type: row.querySelector('.cal-lesson-type').value,
+          focus: row.querySelector('.cal-lesson-focus').value,
           link: row.querySelector('.cal-lesson-link').value
         }) : ls);
         saveStudentLessons(course, code, lessons);
@@ -6567,6 +6724,16 @@ function bindAdminActions(root){
         const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
         if(!s) return;
         const lessons = (Array.isArray(s.lessons)?s.lessons:[]).filter(ls=>ls.id!==lessonId);
+        saveStudentLessons(course, code, lessons);
+      } else if(action === 'calendar-send-homework'){
+        const row = el.closest('.lesson-cal-row');
+        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
+        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+        const ls = s && (s.lessons||[]).find(x=>x.id===lessonId);
+        if(!s || !ls || !s.whatsapp) return;
+        const msg = buildHomeworkWhatsAppMessage(s, ls);
+        window.open(waLinkTo(s.whatsapp, msg), '_blank');
+        const lessons = (s.lessons||[]).map(x=> x.id===lessonId ? Object.assign({}, x, {sentAt: Date.now(), status:'sent'}) : x);
         saveStudentLessons(course, code, lessons);
       } else if(action === 'add-student'){
         adminStudentError = '';
