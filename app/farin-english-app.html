@@ -6259,6 +6259,28 @@ let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
 let adminCalendarError = '';
+let adminStudentOpenSection = null;
+function studentSectionRow(key, icon, label, summary){
+  const open = adminStudentOpenSection === key;
+  return `<button type="button" class="item-row" data-admin-action="toggle-student-section" data-section="${key}" style="margin-bottom:0; ${open?'border-radius:14px 14px 0 0;':''}">
+    <span style="flex:0 0 auto; font-size:18px;">${icon}</span>
+    <div class="item-body">
+      <div class="item-title">${esc(label)}</div>
+      <div class="item-sub">${esc(summary)}</div>
+    </div>
+    <span class="chevron" style="transform:rotate(${open?'90deg':'0deg'});">${ICONS.chev}</span>
+  </button>`;
+}
+// Open/close markers instead of taking the section's content as an argument, so the existing
+// multi-line, already-deeply-nested-template-literal content in between never has to be
+// re-typed or re-nested — it just sits between these two, unchanged.
+function studentSectionOpen(key){
+  const open = adminStudentOpenSection === key;
+  return `<div style="${open?'':'display:none;'} border:1.5px solid var(--border); border-top:none; border-radius:0 0 14px 14px; padding:14px; margin-bottom:8px;">`;
+}
+function studentSectionClose(){
+  return `</div>`;
+}
 let adminPreviewLessonId = null;
 function nextRoadmapTopic(student){
   const item = (Array.isArray(student && student.roadmap) ? student.roadmap : []).find(r=>!r.done && r.title && r.title.trim());
@@ -6585,7 +6607,15 @@ function renderAdminStudentsTab(){
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
     const goalOpts = [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${s.goal===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
     return `<div class="card-flat" style="background:linear-gradient(180deg, var(--cat-diag-soft) 0%, var(--bg-elevated) 90px);">
-      ${adminSectionHead('👤','Basics',true)}
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="width:42px; height:42px; border-radius:50%; background:var(--cat-diag-soft); display:flex; align-items:center; justify-content:center; font-size:19px; flex:0 0 auto;">👤</div>
+        <div>
+          <div style="font-weight:800; font-size:16px;">${esc(s.name||s.code||'New student')}</div>
+          <div style="font-size:11.5px; color:var(--ink-faint);">${adminCourseLabel(s.course)} · pass: ${esc(s.code||'—')}</div>
+        </div>
+      </div>
+      ${studentSectionRow('basics','📋','Basics', s.whatsapp?'WhatsApp on file':'No WhatsApp number yet')}
+      ${studentSectionOpen('basics')}
       <label class="field-label">Course</label>
       ${s.isNew ? `
       <div class="row" style="gap:8px; margin-bottom:14px;">
@@ -6596,9 +6626,11 @@ function renderAdminStudentsTab(){
       ${studentFormField('student-form-code', 'Pass / username', s.code, 'input', s.isNew ? 'placeholder="e.g. AYLIN23"' : 'disabled style="background:var(--bg-sunken);"')}
       ${studentFormField('student-form-name', 'Name', s.name, 'input')}
       <label class="field-label">WhatsApp number <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(homework gets sent here when you tick a session done)</span></label>
-      <input id="student-form-whatsapp" type="tel" value="${esc(s.whatsapp||'')}" placeholder="e.g. 5352805808" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:16px;">
+      <input id="student-form-whatsapp" type="tel" value="${esc(s.whatsapp||'')}" placeholder="e.g. 5352805808" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
+      ${studentSectionClose()}
 
-      ${adminSectionHead('🧭','Level & pace')}
+      ${studentSectionRow('level','🧭','Level & pace', (s.level||'No level set')+' · '+(Number(s.package)||8)+'/mo'+(s.freezeUntil?' · ❄️ frozen':''))}
+      ${studentSectionOpen('level')}
       <label class="field-label">Level / stage <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(${adminCourseLabel(s.course)} course)</span></label>
       <select id="student-form-level" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${levelOpts}</select>
       <label class="field-label">Sessions in this stage (0–10)</label>
@@ -6612,9 +6644,11 @@ function renderAdminStudentsTab(){
         ${[4,8,12].map(n=>`<button type="button" class="btn btn-sm ${Number(s.package)===n?'btn-primary':'btn-ghost'}" data-admin-action="set-student-package" data-package="${n}" style="flex:1;">${n}/mo</button>`).join('')}
       </div>
       <label class="field-label">Freeze <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(leave blank if active)</span></label>
-      <input id="student-form-freeze" type="text" value="${esc(s.freezeUntil||'')}" placeholder="e.g. Paused until October" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:4px;">
+      <input id="student-form-freeze" type="text" value="${esc(s.freezeUntil||'')}" placeholder="e.g. Paused until October" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
+      ${studentSectionClose()}
 
-      ${adminSectionHead('🗺️','Roadmap')}
+      ${studentSectionRow('roadmap','🗺️','Roadmap', roadmap.filter(r=>r.done).length+'/'+roadmap.length+' sessions done')}
+      ${studentSectionOpen('roadmap')}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
         ${roadmap.map((r,idx)=>`
         <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
@@ -6660,8 +6694,10 @@ function renderAdminStudentsTab(){
       <div class="row" style="gap:8px; margin-bottom:14px;">
         <button class="btn btn-ghost btn-sm" data-admin-action="parse-roadmap-paste">📋 Add pasted sessions</button>
       </div>
+      ${studentSectionClose()}
 
-      ${adminSectionHead('📝','Homework')}
+      ${studentSectionRow('homework','📝','Homework', homework.length+' item(s)')}
+      ${studentSectionOpen('homework')}
       <div id="homework-items-list" style="margin-bottom:8px;">
         ${homework.map((h,idx)=>`
         <div class="homework-item-row" data-id="${esc(h.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
@@ -6677,8 +6713,10 @@ function renderAdminStudentsTab(){
         <button class="btn btn-ghost btn-sm" data-admin-action="add-homework-item">+ Add homework</button>
         <button class="btn btn-ghost btn-sm" data-admin-action="suggest-homework">✨ Suggest from roadmap</button>
       </div>
+      ${studentSectionClose()}
 
-      ${adminSectionHead('📅','Lessons')}
+      ${studentSectionRow('lessons','📅','Lessons', lessons.length+' scheduled')}
+      ${studentSectionOpen('lessons')}
       <p style="font-size:12px; color:var(--ink-faint); margin:-6px 0 10px;">${adminCourseLabel(s.course)} · ${s.level||'no level set'} · Goal: ${s.goal?GOAL_LABELS[s.goal]:'—'}</p>
       <div id="lessons-items-list" style="margin-bottom:8px;">
         ${lessons.map((ls,idx)=>`
@@ -6705,8 +6743,10 @@ function renderAdminStudentsTab(){
         <button class="btn btn-ghost btn-sm" data-admin-action="add-lesson-item">+ Add lesson</button>
         <button class="btn btn-ghost btn-sm" data-admin-action="suggest-lessons-week">✨ Add 3 lessons for this week</button>
       </div>
+      ${studentSectionClose()}
 
-      ${adminSectionHead('💬','Notes for '+(s.name||'this student'))}
+      ${studentSectionRow('notes','💬','Notes', s.goal?GOAL_LABELS[s.goal]:'No goal set')}
+      ${studentSectionOpen('notes')}
       <label class="field-label">Goal <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(unlocks result-based performance options)</span></label>
       <select id="student-form-goal" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:16px;">${goalOpts}</select>
 
@@ -6738,6 +6778,7 @@ function renderAdminStudentsTab(){
         </div>
         <input type="text" id="student-form-objective-${i}" value="${esc((objectives[i]||''))}" placeholder="e.g. Ready to handle a real job interview in English." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:9px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
       </div>`).join('')}
+      ${studentSectionClose()}
 
       ${adminStudentError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminStudentError)}</p>` : ''}
       ${adminStudentInfo ? `<p style="color:var(--success); font-size:13px; margin-bottom:10px;">${esc(adminStudentInfo)}</p>` : ''}
@@ -6905,6 +6946,7 @@ function bindAdminActions(root){
       } else if(action === 'add-student'){
         adminStudentError = '';
         adminStudentInfo = '';
+        adminStudentOpenSection = 'basics';
         adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''};
         renderAdminPage();
       } else if(action === 'set-student-course'){
@@ -6918,7 +6960,12 @@ function bindAdminActions(root){
         const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
         adminStudentError = '';
         adminStudentInfo = '';
+        adminStudentOpenSection = null;
         adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''}, s);
+        renderAdminPage();
+      } else if(action === 'toggle-student-section'){
+        const section = el.dataset.section;
+        adminStudentOpenSection = adminStudentOpenSection === section ? null : section;
         renderAdminPage();
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
@@ -7071,6 +7118,7 @@ function bindAdminActions(root){
         adminEditingStudent = null;
         adminStudentError = '';
         adminStudentInfo = '';
+        adminStudentOpenSection = null;
         renderAdminPage();
       } else if(action === 'save-student'){
         saveAdminStudent();
