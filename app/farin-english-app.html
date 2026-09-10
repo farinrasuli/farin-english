@@ -6201,8 +6201,6 @@ function harvestRoadmapFromDOM(){
       id,
       date: row.querySelector('.roadmap-item-date').value,
       title: row.querySelector('.roadmap-item-title').value,
-      homework: row.querySelector('.roadmap-item-homework').value,
-      tips: row.querySelector('.roadmap-item-tips').value,
       done: row.querySelector('.roadmap-item-done').checked,
       type: typeEl ? typeEl.value : (prev.type || 'grammar'),
       focus: focusEl ? focusEl.value : (prev.focus || ''),
@@ -6362,8 +6360,6 @@ function renderAdminStudentsTab(){
             <input type="text" class="roadmap-item-title" value="${esc(r.title||r.label||'')}" placeholder="Session title, e.g. Present perfect" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
             <button data-admin-action="delete-roadmap-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
           </div>
-          <input type="text" class="roadmap-item-homework" value="${esc(r.homework||'')}" placeholder="Homework for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
-          <input type="text" class="roadmap-item-tips" value="${esc(r.tips||'')}" placeholder="Tip for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
           <div style="border-top:1.5px dashed var(--border); padding-top:8px; margin-top:2px;">
             <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">✨ Generated lesson + homework</div>
             <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
@@ -6374,14 +6370,15 @@ function renderAdminStudentsTab(){
             </div>
             <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
               <span style="flex:0 0 auto; font-size:12px; color:var(--ink-faint); width:64px;">Lesson</span>
-              <input type="url" class="roadmap-item-link" value="${esc(r.link||'')}" placeholder="Not generated yet — ask Claude" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+              <input type="url" class="roadmap-item-link" value="${esc(r.link||'')}" placeholder="Not generated yet" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
               ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
             </div>
-            <div class="row" style="gap:8px; align-items:center;">
+            <div class="row" style="gap:8px; align-items:center; margin-bottom:8px;">
               <span style="flex:0 0 auto; font-size:12px; color:var(--ink-faint); width:64px;">Homework</span>
-              <input type="url" class="roadmap-item-homework-link" value="${esc(r.homeworkLink||'')}" placeholder="Not generated yet — ask Claude" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+              <input type="url" class="roadmap-item-homework-link" value="${esc(r.homeworkLink||'')}" placeholder="Not generated yet" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
               ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
             </div>
+            <button class="btn btn-ghost btn-sm" style="width:100%;" data-admin-action="roadmap-request-generate">🪄 ${r.link||r.homeworkLink ? 'Ask Claude to regenerate' : 'Ask Claude to generate'}</button>
             ${r.sentAt ? `<p style="font-size:11px; color:var(--success); margin-top:8px; font-weight:600;">✓ Sent ${esc(new Date(r.sentAt).toLocaleDateString())}</p>` : (r.homeworkLink ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="roadmap-send-homework">📤 Send homework on WhatsApp</button>` : '')}
             ${r.homeworkLink && !s.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file yet — add one in Basics.</p>` : ''}
           </div>
@@ -6534,6 +6531,29 @@ function bindAdminActions(root){
         if(adminStudents === null) loadAdminStudents();
       } else if(action === 'retry-load-students'){
         loadAdminStudents();
+      } else if(action === 'roadmap-request-generate'){
+        const row = el.closest('.roadmap-item-row');
+        const id = row.dataset.id;
+        const s = adminEditingStudent;
+        const roadmap = harvestRoadmapFromDOM();
+        const item = roadmap.find(x=>x.id===id);
+        if(!item) return;
+        const req = `Generate the lesson and homework for "${item.title||'this session'}"`
+          + (item.date?` (${item.date})`:'') + ` — type: ${item.type||'grammar'}`
+          + (item.focus?`, focus: ${item.focus}`:'')
+          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, goal ${s.goal?GOAL_LABELS[s.goal]:'not set'}.`;
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(req).then(()=>{
+            adminStudentInfo = 'Copied — paste this to Claude in chat to generate the lesson.';
+            renderAdminPage();
+          }).catch(()=>{
+            adminStudentInfo = req;
+            renderAdminPage();
+          });
+        } else {
+          adminStudentInfo = req;
+          renderAdminPage();
+        }
       } else if(action === 'roadmap-send-homework'){
         const row = el.closest('.roadmap-item-row');
         const id = row.dataset.id;
@@ -6751,7 +6771,6 @@ function saveAdminStudent(){
     const inp = document.getElementById('student-form-objective-'+i);
     return inp ? inp.value : '';
   });
-  const oldRoadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
   const roadmap = harvestRoadmapFromDOM();
   const homework = harvestHomeworkFromDOM();
   adminEditingStudent.roadmap = roadmap;
@@ -6761,21 +6780,6 @@ function saveAdminStudent(){
     adminStudentError = 'Please enter a pass / username.';
     renderAdminPage();
     return;
-  }
-  // Any session freshly ticked "done" in this save, that has homework text, sends that
-  // homework to the student's WhatsApp — this is the one moment a message goes out, and
-  // it's a direct result of the admin's own tick, never an automatic background trigger.
-  const newlyDone = roadmap.filter(r=>{
-    const was = oldRoadmap.find(o=>o.id===r.id);
-    return r.done && (!was || !was.done) && r.homework && r.homework.trim();
-  });
-  if(newlyDone.length && whatsapp){
-    newlyDone.forEach(r=>{
-      const msg = `Hi ${name||'there'}! Homework for "${r.title||r.label||'this session'}":\n\n${r.homework.trim()}`;
-      window.open(waLinkTo(whatsapp, msg), '_blank');
-    });
-  } else if(newlyDone.length && !whatsapp){
-    adminStudentInfo = 'Marked done, but no WhatsApp number on file to send homework to.';
   }
   adminSavingStudent = true;
   adminStudentError = '';
