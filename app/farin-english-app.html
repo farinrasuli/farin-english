@@ -4077,6 +4077,11 @@ function renderStudentPanel(){
                   <div style="font-size:13.5px; color:var(--ink); margin-top:3px; line-height:1.55;">${esc(r.tips)}</div>
                 </div>
               </div>` : ''}
+              ${(r.link || r.homeworkLink) ? `
+              <div class="row" style="gap:8px; margin-top:9px;">
+                ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📘 ${L('Lesson','Ders','درس')}</a>` : ''}
+                ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📝 ${L('Homework','Ödev','تکلیف')}</a>` : ''}
+              </div>` : ''}
             </div>
           </div>`; }).join(''); })()}
           <div style="position:relative; padding-left:40px;">
@@ -4086,20 +4091,6 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
 
-      ${roadmap.filter(r=>r.link || r.homeworkLink).length ? `
-      <div class="card-flat" style="margin-top:12px;">
-        <div class="eyebrow">${L('Your lessons','Derslerin','درس‌هایت')}</div>
-        <div class="stack" style="gap:10px; margin-top:10px;">
-          ${roadmap.filter(r=>r.link || r.homeworkLink).map(r=>`
-          <div style="background:var(--bg-sunken); border-radius:14px; padding:12px 14px;">
-            <div style="font-weight:700; font-size:13.5px; margin-bottom:8px;">${esc(r.title||'')}</div>
-            <div class="row" style="gap:8px;">
-              ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📘 ${L('Lesson','Ders','درس')}</a>` : ''}
-              ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📝 ${L('Homework','Ödev','تکلیف')}</a>` : ''}
-            </div>
-          </div>`).join('')}
-        </div>
-      </div>` : ''}
       ${homework.length ? `
       <div class="card-flat" style="margin-top:12px;">
         <div class="eyebrow">${L('Homework','Ödev','تکلیف')}</div>
