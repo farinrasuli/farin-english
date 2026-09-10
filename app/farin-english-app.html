@@ -3997,6 +3997,7 @@ function renderStudentPanel(){
   const learnedTitles = roadmap.filter(r=>r.done).map(r=>r.title||r.label).filter(Boolean);
   const objectives = (Array.isArray(d.objectives) ? d.objectives : []).filter(o=>o && o.trim());
   const lessons = (Array.isArray(d.lessons) ? d.lessons : []).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+  const generatedLessons = roadmap.concat(lessons).filter(ls=>ls.genLesson).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   return `<div class="fade-in">
     ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
     <div class="screen" style="padding-top:0;">
@@ -4087,11 +4088,11 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
 
-      ${lessons.filter(ls=>ls.genLesson).length ? `
+      ${generatedLessons.length ? `
       <div class="card-flat" style="margin-top:12px;">
         <div class="eyebrow">${L('Your lessons','Derslerin','درس‌هایت')}</div>
         <div class="stack" style="gap:10px; margin-top:10px;">
-          ${lessons.filter(ls=>ls.genLesson).map(ls=>`
+          ${generatedLessons.map(ls=>`
           <button class="item-row" data-action="nav" data-view="lesson-view" data-lesson-id="${esc(ls.id)}" style="background:var(--bg-sunken);">
             <span style="flex:0 0 auto; font-size:18px;">${ls.type==='vocab'?'📗':ls.type==='speaking'?'🗣️':'📘'}</span>
             <div class="item-body">
@@ -4179,19 +4180,76 @@ function renderLessonSection(sec){
       </div>
       ${(sec.questions&&sec.questions.length) ? `<div class="stack" style="gap:8px; margin-top:10px;">${sec.questions.map((q,i)=>renderRevealQA(q,i)).join('')}</div>`:''}`;
   } else if(sec.kind === 'list'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((t,i)=>`
-      <div class="card-flat" style="padding:10px 14px; display:flex; gap:10px; align-items:flex-start;">
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((t,i)=>{
+      const isObj = t && typeof t === 'object';
+      return `<div class="card-flat" style="padding:10px 14px; display:flex; gap:10px; align-items:flex-start;">
         <span style="flex:0 0 auto; font-weight:800; color:var(--ink-faint);">${i+1}</span>
-        <span style="font-size:13px; line-height:1.55;">${esc(t)}</span>
-      </div>`).join('')}</div>`;
+        <div style="min-width:0;">
+          ${isObj && t.title ? `<div style="font-weight:700; font-size:13px; margin-bottom:2px;">${esc(t.title)}</div>` : ''}
+          <span style="font-size:13px; line-height:1.55;">${esc(isObj ? (t.body||'') : t)}</span>
+        </div>
+      </div>`;
+    }).join('')}</div>`;
   } else if(sec.kind === 'pairs'){
     body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(p=>`
       <div class="card-flat" style="padding:12px 14px;">
         <div style="font-size:12.5px; color:var(--error);">✗ <span style="text-decoration:line-through;">${esc(p.a||'')}</span></div>
         <div style="font-size:13px; color:var(--success); margin-top:4px; font-weight:600;">✓ ${esc(p.b||'')}</div>
-      </div>`).join('')}</div>`;
+      </div>`).join('')}</div>
+      ${sec.note ? `<p style="font-size:12px; color:var(--ink-faint); margin-top:8px; font-style:italic;">${esc(sec.note)}</p>` : ''}`;
   } else if(sec.kind === 'qa'){
     body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((q,i)=>renderRevealQA(q,i)).join('')}</div>`;
+  } else if(sec.kind === 'intro'){
+    body = `<div class="card-flat" style="padding:14px 16px; background:var(--bg-sunken);">
+      <p style="font-size:13.5px; line-height:1.6; white-space:pre-wrap;">${esc(sec.body||'')}</p>
+    </div>`;
+  } else if(sec.kind === 'meet'){
+    body = `<div class="stack" style="gap:10px;">${(sec.uses||[]).map(u=>`
+      <div class="card-flat" style="padding:12px 14px;">
+        <div style="font-weight:700; font-size:13.5px; margin-bottom:4px;">${esc(u.label||'')}</div>
+        <div style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">${esc(u.definition||'')}</div>
+        ${(u.examples||[]).length ? `<div class="stack" style="gap:4px; margin-top:6px;">${u.examples.map(ex=>`<div style="font-size:11.5px; color:var(--ink-faint); font-style:italic;">${esc(ex)}</div>`).join('')}</div>` : ''}
+      </div>`).join('')}</div>
+      ${sec.bridge ? `<div class="card-flat" style="margin-top:10px; border-left:4px solid var(--cat-lis);">
+        <div class="eyebrow">🇹🇷 ${L('Turkish bridge','Türkçe köprüsü','پل ترکی')}</div>
+        <p style="font-size:12.5px; margin-top:6px; line-height:1.55;">${esc(sec.bridge)}</p>
+      </div>` : ''}`;
+  } else if(sec.kind === 'table'){
+    const formLabels = {affirmative:'Affirmative', negative:'Negative', question:'Question', whQuestion:'Wh-question'};
+    body = `<div class="stack" style="gap:8px;">${(sec.rows||[]).map(row=>`
+      <div class="card-flat" style="padding:12px 14px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">${esc(row.label||'')}</div>
+        <div class="stack" style="gap:4px;">${Object.keys(formLabels).filter(k=>row.forms && row.forms[k]).map(k=>`
+          <div style="font-size:12px; display:flex; gap:8px;">
+            <span style="flex:0 0 auto; width:78px; color:var(--ink-faint); font-weight:600;">${formLabels[k]}</span>
+            <span style="font-family:var(--font-mono,monospace);">${esc(row.forms[k])}</span>
+          </div>`).join('')}</div>
+      </div>`).join('')}</div>
+      ${(sec.fixedLexis||[]).length ? `<div class="row" style="gap:6px; flex-wrap:wrap; margin-top:8px;">${sec.fixedLexis.map(w=>`<span class="pill" style="background:var(--bg-sunken);">${esc(w)}</span>`).join('')}</div>` : ''}`;
+  } else if(sec.kind === 'phrases'){
+    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(p=>`
+      <div class="card-flat" style="padding:11px 14px; display:flex; gap:10px; align-items:flex-start;">
+        ${p.tag ? `<span class="pill" style="flex:0 0 auto; background:var(--accent-soft); color:var(--clay-orange); text-transform:uppercase; font-size:10px;">${esc(p.tag)}</span>` : ''}
+        <span style="font-size:13px; line-height:1.5; font-style:italic;">${esc(p.text||'')}</span>
+      </div>`).join('')}</div>`;
+  } else if(sec.kind === 'builder'){
+    const slots = sec.slots || [];
+    const template = sec.template || '';
+    let initialOutput = template;
+    slots.forEach((slot,i)=>{ initialOutput = initialOutput.split('{'+i+'}').join((slot.options||[])[0]||''); });
+    body = `<div class="lesson-builder card-flat" data-template="${esc(template)}" style="padding:16px;">
+      <div class="row" style="gap:8px; flex-wrap:wrap; margin-bottom:12px;">
+        ${slots.map((slot,i)=>`
+        <div>
+          <label style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; display:block; margin-bottom:3px;">${esc(slot.label||'')}</label>
+          <select class="lesson-builder-select" data-slot="${i}" style="box-sizing:border-box; padding:8px 10px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+            ${(slot.options||[]).map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}
+          </select>
+        </div>`).join('')}
+      </div>
+      <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; margin-bottom:4px;">${esc(sec.outputLabel || L('Your sentence','Cümlen','جمله‌ات'))}</div>
+      <div class="lesson-builder-output" style="font-size:14px; font-weight:600; padding:10px 12px; background:var(--bg-sunken); border-radius:10px; min-height:1.4em;">${esc(initialOutput)}</div>
+    </div>`;
   }
   return head + body;
 }
@@ -4209,16 +4267,24 @@ function renderLessonContent(gl){
     </div>` : ''}`;
 }
 function renderHomeworkContent(hw){
+  const skillIcon = {writing:'✍️', speaking:'🗣️', listening:'👂', reading:'📖'};
   return `
     ${hw.reminder ? `<div class="card-flat" style="border-left:4px solid var(--cat-diag);"><div class="eyebrow">${L('Reminder','Hatırlatma','یادآوری')}</div><p style="font-size:13px; margin-top:8px; white-space:pre-wrap; line-height:1.6;">${esc(hw.reminder)}</p></div>` : ''}
     ${(hw.exercises && hw.exercises.length) ? `<div class="stack" style="gap:8px; margin-top:12px;">${hw.exercises.map((e,i)=>renderRevealQA(e,i)).join('')}</div>` : ''}
+    ${(hw.tasks && hw.tasks.length) ? `<div class="stack" style="gap:8px; margin-top:12px;">${hw.tasks.map(t=>`
+      <div class="card-flat" style="padding:11px 14px; display:flex; gap:10px; align-items:flex-start; border-left:4px solid var(--clay-orange);">
+        <span style="flex:0 0 auto; font-size:16px;">${skillIcon[t.skill]||'📝'}</span>
+        <span style="font-size:13px; line-height:1.55;">${esc(t.task||'')}</span>
+      </div>`).join('')}</div>` : ''}
     ${hw.productionTask ? `<div class="card-flat" style="margin-top:12px; border-left:4px solid var(--clay-orange);"><div class="eyebrow">${L('Your task','Görevin','وظیفه‌ات')}</div><p style="font-size:13px; margin-top:8px; line-height:1.6;">${esc(hw.productionTask)}</p></div>` : ''}
     ${hw.spacingNote ? `<p style="font-size:11.5px; color:var(--ink-faint); margin-top:12px; text-align:center;">${esc(hw.spacingNote)}</p>` : ''}`;
 }
 function renderLessonView(){
   const d = studentPanelData || {};
   const lessons = Array.isArray(d.lessons) ? d.lessons : [];
-  const ls = lessons.find(x=>x.id === (state.viewParams && state.viewParams.lessonId));
+  const roadmap = Array.isArray(d.roadmap) ? d.roadmap : [];
+  const lessonId = state.viewParams && state.viewParams.lessonId;
+  const ls = lessons.find(x=>x.id === lessonId) || roadmap.find(x=>x.id === lessonId);
   if(!ls || !ls.genLesson){
     return `<div class="fade-in">
       ${sectionHead(L('Lesson','Ders','درس'), '', 'student-panel')}
@@ -5531,6 +5597,17 @@ function unlockAudioCtx(){
   if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
 }
 document.addEventListener('click', unlockAudioCtx);
+document.addEventListener('change', function(e){
+  if(!e.target.classList || !e.target.classList.contains('lesson-builder-select')) return;
+  const container = e.target.closest('.lesson-builder');
+  if(!container) return;
+  const template = container.dataset.template || '';
+  const selects = Array.from(container.querySelectorAll('.lesson-builder-select'));
+  let output = template;
+  selects.forEach((sel,i)=>{ output = output.split('{'+i+'}').join(sel.value); });
+  const out = container.querySelector('.lesson-builder-output');
+  if(out) out.textContent = output;
+});
 document.addEventListener('touchend', unlockAudioCtx);
 function ensureReverbBus(){
   if(reverbSend || !audioCtx) return;
@@ -6323,6 +6400,18 @@ function saveStudentLessons(course, code, lessons, onDone){
     renderAdminPage();
   });
 }
+function saveStudentRoadmap(course, code, roadmap, onDone){
+  const coll = STUDENT_COLLECTION[course==='es'?'es':'en'];
+  firebase.firestore().collection(coll).doc(code).update({roadmap, updatedAt: Date.now()}).then(()=>{
+    const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
+    if(s) s.roadmap = roadmap;
+    if(onDone) onDone();
+    renderAdminPage();
+  }).catch(err=>{
+    adminStudentError = err.message || String(err);
+    renderAdminPage();
+  });
+}
 function studentFormField(id, label, value, tag, extra){
   const val = esc(value||'');
   const el = tag === 'textarea'
@@ -6343,14 +6432,26 @@ function adminSectionHead(emoji, label, first){
   </div>`;
 }
 function harvestRoadmapFromDOM(){
-  return Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row')).map(row=>({
-    id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
-    date: row.querySelector('.roadmap-item-date').value,
-    title: row.querySelector('.roadmap-item-title').value,
-    homework: row.querySelector('.roadmap-item-homework').value,
-    tips: row.querySelector('.roadmap-item-tips').value,
-    done: row.querySelector('.roadmap-item-done').checked
-  }));
+  // Merges onto whatever was already there so fields the form doesn't show (genLesson,
+  // genHomework, generatedAt, sentAt, status — written by the lesson engine, not the admin)
+  // survive every save instead of getting silently wiped, same pattern as harvestLessonsFromDOM.
+  const existing = Array.isArray(adminEditingStudent && adminEditingStudent.roadmap) ? adminEditingStudent.roadmap : [];
+  return Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row')).map(row=>{
+    const id = row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2));
+    const prev = existing.find(x=>x.id===id) || {};
+    const typeEl = row.querySelector('.roadmap-item-type');
+    const focusEl = row.querySelector('.roadmap-item-focus');
+    return Object.assign({}, prev, {
+      id,
+      date: row.querySelector('.roadmap-item-date').value,
+      title: row.querySelector('.roadmap-item-title').value,
+      homework: row.querySelector('.roadmap-item-homework').value,
+      tips: row.querySelector('.roadmap-item-tips').value,
+      done: row.querySelector('.roadmap-item-done').checked,
+      type: typeEl ? typeEl.value : (prev.type || 'grammar'),
+      focus: focusEl ? focusEl.value : (prev.focus || '')
+    });
+  });
 }
 function parsePastedRoadmap(text){
   let counter = 0;
@@ -6525,7 +6626,27 @@ function renderAdminStudentsTab(){
             <button data-admin-action="delete-roadmap-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
           </div>
           <input type="text" class="roadmap-item-homework" value="${esc(r.homework||'')}" placeholder="Homework for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
-          <input type="text" class="roadmap-item-tips" value="${esc(r.tips||'')}" placeholder="Tip for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+          <input type="text" class="roadmap-item-tips" value="${esc(r.tips||'')}" placeholder="Tip for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
+          <div style="border-top:1.5px dashed var(--border); padding-top:8px; margin-top:2px;">
+            <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">✨ Full lesson + homework</div>
+            <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+              <select class="roadmap-item-lesson-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+                ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(r.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
+              </select>
+              <input type="text" class="roadmap-item-focus" value="${esc(r.focus||'')}" placeholder="Optional focus" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+            </div>
+            ${adminLessonStatusBadge(r)}
+            ${r.genLesson ? `<button class="btn btn-ghost btn-sm" style="width:100%; margin-top:8px;" data-admin-action="roadmap-preview-lesson">${adminPreviewLessonId===r.id?'▲ Hide preview':'👁 Preview lesson + homework'}</button>` : ''}
+            ${(r.genLesson || r.genHomework) && !r.sentAt ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="roadmap-send-homework">📤 Send homework on WhatsApp</button>` : ''}
+            ${adminPreviewLessonId===r.id && r.genLesson ? `
+            <div style="margin-top:10px; padding-top:12px; border-top:1.5px dashed var(--border);">
+              ${renderLessonContent(r.genLesson)}
+              ${r.genHomework ? `<div style="margin-top:20px; padding-top:16px; border-top:2px solid var(--border-soft);">
+                <h2 class="display" style="font-size:16px; margin-bottom:10px;">Homework</h2>
+                ${renderHomeworkContent(r.genHomework)}
+              </div>` : ''}
+            </div>` : ''}
+          </div>
         </div>`).join('')}
       </div>
       <div class="row" style="gap:8px; margin-bottom:10px;">
@@ -6764,6 +6885,23 @@ function bindAdminActions(root){
         const lessonId = row.dataset.lessonId;
         adminPreviewLessonId = adminPreviewLessonId === lessonId ? null : lessonId;
         renderAdminPage();
+      } else if(action === 'roadmap-preview-lesson'){
+        const row = el.closest('.roadmap-item-row');
+        const id = row.dataset.id;
+        adminPreviewLessonId = adminPreviewLessonId === id ? null : id;
+        renderAdminPage();
+      } else if(action === 'roadmap-send-homework'){
+        const row = el.closest('.roadmap-item-row');
+        const id = row.dataset.id;
+        const s = adminEditingStudent;
+        const roadmap = harvestRoadmapFromDOM();
+        const item = roadmap.find(x=>x.id===id);
+        if(!item || !s.whatsapp) return;
+        const msg = buildHomeworkWhatsAppMessage(s, item);
+        window.open(waLinkTo(s.whatsapp, msg), '_blank');
+        const updated = roadmap.map(x=> x.id===id ? Object.assign({}, x, {sentAt: Date.now(), status:'sent'}) : x);
+        adminEditingStudent.roadmap = updated;
+        saveStudentRoadmap(s.course, s.code, updated);
       } else if(action === 'add-student'){
         adminStudentError = '';
         adminStudentInfo = '';
