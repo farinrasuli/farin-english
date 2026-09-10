@@ -3996,8 +3996,6 @@ function renderStudentPanel(){
   const roadmapDone = roadmap.filter(r=>r.done).length;
   const learnedTitles = roadmap.filter(r=>r.done).map(r=>r.title||r.label).filter(Boolean);
   const objectives = (Array.isArray(d.objectives) ? d.objectives : []).filter(o=>o && o.trim());
-  const lessons = (Array.isArray(d.lessons) ? d.lessons : []).slice().sort((a,b)=>(b.date||'').localeCompare(a.date||''));
-  const generatedLessons = roadmap.concat(lessons).filter(ls=>ls.genLesson).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
   return `<div class="fade-in">
     ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
     <div class="screen" style="padding-top:0;">
@@ -4088,19 +4086,18 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
 
-      ${generatedLessons.length ? `
+      ${roadmap.filter(r=>r.link || r.homeworkLink).length ? `
       <div class="card-flat" style="margin-top:12px;">
         <div class="eyebrow">${L('Your lessons','Derslerin','درس‌هایت')}</div>
         <div class="stack" style="gap:10px; margin-top:10px;">
-          ${generatedLessons.map(ls=>`
-          <button class="item-row" data-action="nav" data-view="lesson-view" data-lesson-id="${esc(ls.id)}" style="background:var(--bg-sunken);">
-            <span style="flex:0 0 auto; font-size:18px;">${ls.type==='vocab'?'📗':ls.type==='speaking'?'🗣️':'📘'}</span>
-            <div class="item-body">
-              <div class="item-title">${esc(ls.title||'')}</div>
-              <div class="item-sub">${esc(ls.date||'')}${ls.genHomework?' · '+L('homework ready','ödev hazır','تکلیف آماده'):''}</div>
+          ${roadmap.filter(r=>r.link || r.homeworkLink).map(r=>`
+          <div style="background:var(--bg-sunken); border-radius:14px; padding:12px 14px;">
+            <div style="font-weight:700; font-size:13.5px; margin-bottom:8px;">${esc(r.title||'')}</div>
+            <div class="row" style="gap:8px;">
+              ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📘 ${L('Lesson','Ders','درس')}</a>` : ''}
+              ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📝 ${L('Homework','Ödev','تکلیف')}</a>` : ''}
             </div>
-            <span class="chevron">${ICONS.chev}</span>
-          </button>`).join('')}
+          </div>`).join('')}
         </div>
       </div>` : ''}
       ${homework.length ? `
@@ -4152,155 +4149,6 @@ function renderStudentPanel(){
         </div>
       </div>` : ''}
       ${d.updatedAt ? `<p style="font-size:11px; color:var(--ink-faint); margin-top:12px; text-align:center;">${L('Last updated','Son güncelleme','آخرین به‌روزرسانی')}: ${esc(new Date(d.updatedAt).toLocaleDateString())}</p>` : ''}
-    </div>
-  </div>`;
-}
-function renderRevealQA(q, i){
-  return `<details class="card-flat" style="padding:12px 14px;">
-    <summary style="font-size:13px; cursor:pointer; font-weight:600;">${(i!=null?(i+1)+'. ':'')}${esc(q.q||'')}</summary>
-    <div style="font-size:12.5px; color:var(--ink-soft); margin-top:8px; padding-top:8px; border-top:1px solid var(--border-soft);">${esc(q.a||'')}</div>
-  </details>`;
-}
-function renderLessonSection(sec){
-  const head = `<div style="margin-top:20px;">
-    <div style="font-weight:800; font-size:14.5px; margin-bottom:2px;">${esc(sec.heading||'')}</div>
-    ${sec.intro ? `<p style="font-size:12.5px; color:var(--ink-faint); margin-bottom:10px; line-height:1.5;">${esc(sec.intro)}</p>` : ''}
-  </div>`;
-  let body = '';
-  if(sec.kind === 'vocab'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(v=>`
-      <div class="card-flat" style="padding:12px 14px;">
-        <div style="font-weight:700; font-size:14px;">${esc(v.term||'')}${v.pos?` <span style="font-weight:400; font-size:11px; color:var(--ink-faint);">${esc(v.pos)}</span>`:''}</div>
-        <div style="font-size:12.5px; color:var(--ink-soft); margin-top:3px; line-height:1.5;">${esc(v.def||'')}</div>
-        ${v.example?`<div style="font-size:11.5px; color:var(--ink-faint); margin-top:6px; font-style:italic;">${esc(v.example)}</div>`:''}
-      </div>`).join('')}</div>`;
-  } else if(sec.kind === 'text'){
-    body = `<div class="card-flat" style="padding:16px;">
-        <p style="font-size:13.5px; line-height:1.7; white-space:pre-wrap;">${esc(sec.body||'')}</p>
-      </div>
-      ${(sec.questions&&sec.questions.length) ? `<div class="stack" style="gap:8px; margin-top:10px;">${sec.questions.map((q,i)=>renderRevealQA(q,i)).join('')}</div>`:''}`;
-  } else if(sec.kind === 'list'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((t,i)=>{
-      const isObj = t && typeof t === 'object';
-      return `<div class="card-flat" style="padding:10px 14px; display:flex; gap:10px; align-items:flex-start;">
-        <span style="flex:0 0 auto; font-weight:800; color:var(--ink-faint);">${i+1}</span>
-        <div style="min-width:0;">
-          ${isObj && t.title ? `<div style="font-weight:700; font-size:13px; margin-bottom:2px;">${esc(t.title)}</div>` : ''}
-          <span style="font-size:13px; line-height:1.55;">${esc(isObj ? (t.body||'') : t)}</span>
-        </div>
-      </div>`;
-    }).join('')}</div>`;
-  } else if(sec.kind === 'pairs'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(p=>`
-      <div class="card-flat" style="padding:12px 14px;">
-        <div style="font-size:12.5px; color:var(--error);">✗ <span style="text-decoration:line-through;">${esc(p.a||'')}</span></div>
-        <div style="font-size:13px; color:var(--success); margin-top:4px; font-weight:600;">✓ ${esc(p.b||'')}</div>
-      </div>`).join('')}</div>
-      ${sec.note ? `<p style="font-size:12px; color:var(--ink-faint); margin-top:8px; font-style:italic;">${esc(sec.note)}</p>` : ''}`;
-  } else if(sec.kind === 'qa'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map((q,i)=>renderRevealQA(q,i)).join('')}</div>`;
-  } else if(sec.kind === 'intro'){
-    body = `<div class="card-flat" style="padding:14px 16px; background:var(--bg-sunken);">
-      <p style="font-size:13.5px; line-height:1.6; white-space:pre-wrap;">${esc(sec.body||'')}</p>
-    </div>`;
-  } else if(sec.kind === 'meet'){
-    body = `<div class="stack" style="gap:10px;">${(sec.uses||[]).map(u=>`
-      <div class="card-flat" style="padding:12px 14px;">
-        <div style="font-weight:700; font-size:13.5px; margin-bottom:4px;">${esc(u.label||'')}</div>
-        <div style="font-size:12.5px; color:var(--ink-soft); line-height:1.5;">${esc(u.definition||'')}</div>
-        ${(u.examples||[]).length ? `<div class="stack" style="gap:4px; margin-top:6px;">${u.examples.map(ex=>`<div style="font-size:11.5px; color:var(--ink-faint); font-style:italic;">${esc(ex)}</div>`).join('')}</div>` : ''}
-      </div>`).join('')}</div>
-      ${sec.bridge ? `<div class="card-flat" style="margin-top:10px; border-left:4px solid var(--cat-lis);">
-        <div class="eyebrow">🇹🇷 ${L('Turkish bridge','Türkçe köprüsü','پل ترکی')}</div>
-        <p style="font-size:12.5px; margin-top:6px; line-height:1.55;">${esc(sec.bridge)}</p>
-      </div>` : ''}`;
-  } else if(sec.kind === 'table'){
-    const formLabels = {affirmative:'Affirmative', negative:'Negative', question:'Question', whQuestion:'Wh-question'};
-    body = `<div class="stack" style="gap:8px;">${(sec.rows||[]).map(row=>`
-      <div class="card-flat" style="padding:12px 14px;">
-        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">${esc(row.label||'')}</div>
-        <div class="stack" style="gap:4px;">${Object.keys(formLabels).filter(k=>row.forms && row.forms[k]).map(k=>`
-          <div style="font-size:12px; display:flex; gap:8px;">
-            <span style="flex:0 0 auto; width:78px; color:var(--ink-faint); font-weight:600;">${formLabels[k]}</span>
-            <span style="font-family:var(--font-mono,monospace);">${esc(row.forms[k])}</span>
-          </div>`).join('')}</div>
-      </div>`).join('')}</div>
-      ${(sec.fixedLexis||[]).length ? `<div class="row" style="gap:6px; flex-wrap:wrap; margin-top:8px;">${sec.fixedLexis.map(w=>`<span class="pill" style="background:var(--bg-sunken);">${esc(w)}</span>`).join('')}</div>` : ''}`;
-  } else if(sec.kind === 'phrases'){
-    body = `<div class="stack" style="gap:8px;">${(sec.items||[]).map(p=>`
-      <div class="card-flat" style="padding:11px 14px; display:flex; gap:10px; align-items:flex-start;">
-        ${p.tag ? `<span class="pill" style="flex:0 0 auto; background:var(--accent-soft); color:var(--clay-orange); text-transform:uppercase; font-size:10px;">${esc(p.tag)}</span>` : ''}
-        <span style="font-size:13px; line-height:1.5; font-style:italic;">${esc(p.text||'')}</span>
-      </div>`).join('')}</div>`;
-  } else if(sec.kind === 'builder'){
-    const slots = sec.slots || [];
-    const template = sec.template || '';
-    let initialOutput = template;
-    slots.forEach((slot,i)=>{ initialOutput = initialOutput.split('{'+i+'}').join((slot.options||[])[0]||''); });
-    body = `<div class="lesson-builder card-flat" data-template="${esc(template)}" style="padding:16px;">
-      <div class="row" style="gap:8px; flex-wrap:wrap; margin-bottom:12px;">
-        ${slots.map((slot,i)=>`
-        <div>
-          <label style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; display:block; margin-bottom:3px;">${esc(slot.label||'')}</label>
-          <select class="lesson-builder-select" data-slot="${i}" style="box-sizing:border-box; padding:8px 10px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-            ${(slot.options||[]).map(o=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}
-          </select>
-        </div>`).join('')}
-      </div>
-      <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; margin-bottom:4px;">${esc(sec.outputLabel || L('Your sentence','Cümlen','جمله‌ات'))}</div>
-      <div class="lesson-builder-output" style="font-size:14px; font-weight:600; padding:10px 12px; background:var(--bg-sunken); border-radius:10px; min-height:1.4em;">${esc(initialOutput)}</div>
-    </div>`;
-  }
-  return head + body;
-}
-function renderLessonContent(gl){
-  return `${gl.subtitle ? `<p style="font-size:13px; color:var(--ink-soft); margin-bottom:6px; line-height:1.6;">${esc(gl.subtitle)}</p>` : ''}
-    ${(gl.sections||[]).map(renderLessonSection).join('')}
-    ${gl.recap && gl.recap.length ? `
-    <div class="card-flat" style="margin-top:22px; background:linear-gradient(135deg,#8a5cf7,#ff4fa3); color:#fff;">
-      <div style="font-weight:800; font-size:14px; margin-bottom:10px;">${L('Quick reference','Hızlı özet','مرور سریع')}</div>
-      <div class="stack" style="gap:8px;">${gl.recap.map(r=>`
-        <div style="background:rgba(255,255,255,.14); border-radius:10px; padding:10px 12px;">
-          <div style="font-size:10px; font-weight:800; text-transform:uppercase; opacity:.85;">${esc(r.label||'')}</div>
-          <div style="font-size:12.5px; margin-top:3px; line-height:1.5;">${esc(r.text||'')}</div>
-        </div>`).join('')}</div>
-    </div>` : ''}`;
-}
-function renderHomeworkContent(hw){
-  const skillIcon = {writing:'✍️', speaking:'🗣️', listening:'👂', reading:'📖'};
-  return `
-    ${hw.reminder ? `<div class="card-flat" style="border-left:4px solid var(--cat-diag);"><div class="eyebrow">${L('Reminder','Hatırlatma','یادآوری')}</div><p style="font-size:13px; margin-top:8px; white-space:pre-wrap; line-height:1.6;">${esc(hw.reminder)}</p></div>` : ''}
-    ${(hw.exercises && hw.exercises.length) ? `<div class="stack" style="gap:8px; margin-top:12px;">${hw.exercises.map((e,i)=>renderRevealQA(e,i)).join('')}</div>` : ''}
-    ${(hw.tasks && hw.tasks.length) ? `<div class="stack" style="gap:8px; margin-top:12px;">${hw.tasks.map(t=>`
-      <div class="card-flat" style="padding:11px 14px; display:flex; gap:10px; align-items:flex-start; border-left:4px solid var(--clay-orange);">
-        <span style="flex:0 0 auto; font-size:16px;">${skillIcon[t.skill]||'📝'}</span>
-        <span style="font-size:13px; line-height:1.55;">${esc(t.task||'')}</span>
-      </div>`).join('')}</div>` : ''}
-    ${hw.productionTask ? `<div class="card-flat" style="margin-top:12px; border-left:4px solid var(--clay-orange);"><div class="eyebrow">${L('Your task','Görevin','وظیفه‌ات')}</div><p style="font-size:13px; margin-top:8px; line-height:1.6;">${esc(hw.productionTask)}</p></div>` : ''}
-    ${hw.spacingNote ? `<p style="font-size:11.5px; color:var(--ink-faint); margin-top:12px; text-align:center;">${esc(hw.spacingNote)}</p>` : ''}`;
-}
-function renderLessonView(){
-  const d = studentPanelData || {};
-  const lessons = Array.isArray(d.lessons) ? d.lessons : [];
-  const roadmap = Array.isArray(d.roadmap) ? d.roadmap : [];
-  const lessonId = state.viewParams && state.viewParams.lessonId;
-  const ls = lessons.find(x=>x.id === lessonId) || roadmap.find(x=>x.id === lessonId);
-  if(!ls || !ls.genLesson){
-    return `<div class="fade-in">
-      ${sectionHead(L('Lesson','Ders','درس'), '', 'student-panel')}
-      <div class="screen" style="padding-top:0;"><p style="text-align:center; color:var(--ink-faint); padding:30px 20px;">${L("This lesson isn't ready yet — check back closer to your session.",'Bu ders henüz hazır değil — seansına yaklaşınca tekrar bak.','این درس هنوز آماده نیست — نزدیک جلسه‌ات دوباره سر بزن.')}</p></div>
-    </div>`;
-  }
-  const gl = ls.genLesson;
-  const hw = ls.genHomework;
-  return `<div class="fade-in">
-    ${sectionHead(gl.title || ls.title || '', ls.date || '', 'student-panel')}
-    <div class="screen" style="padding-top:0;">
-      ${renderLessonContent(gl)}
-      ${hw ? `<div style="margin-top:30px; padding-top:20px; border-top:2px solid var(--border-soft);">
-        <h2 class="display" style="font-size:18px; margin-bottom:14px;">${L('Homework','Ödev','تکلیف')}</h2>
-        ${renderHomeworkContent(hw)}
-      </div>` : ''}
     </div>
   </div>`;
 }
@@ -5506,7 +5354,6 @@ const screens = {
   'student-club-login': renderStudentClubLogin,
   'student-club-join': renderStudentClubJoin,
   'student-panel': renderStudentPanel,
-  'lesson-view': renderLessonView,
   'grammar-list': renderGrammarList,
   'grammar-trap': ()=>renderGrammarTrap(state.viewParams.id),
   'vocab-list': renderVocabList,
@@ -5597,17 +5444,6 @@ function unlockAudioCtx(){
   if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(()=>{});
 }
 document.addEventListener('click', unlockAudioCtx);
-document.addEventListener('change', function(e){
-  if(!e.target.classList || !e.target.classList.contains('lesson-builder-select')) return;
-  const container = e.target.closest('.lesson-builder');
-  if(!container) return;
-  const template = container.dataset.template || '';
-  const selects = Array.from(container.querySelectorAll('.lesson-builder-select'));
-  let output = template;
-  selects.forEach((sel,i)=>{ output = output.split('{'+i+'}').join(sel.value); });
-  const out = container.querySelector('.lesson-builder-output');
-  if(out) out.textContent = output;
-});
 document.addEventListener('touchend', unlockAudioCtx);
 function ensureReverbBus(){
   if(reverbSend || !audioCtx) return;
@@ -5995,7 +5831,6 @@ const HANDLERS = {
       if(goal) params.goal = goal;
     }
     if(view==='goal-level-detail'){ params.level = el.dataset.level || state.viewParams.level || state.profile.level; params.tab = 'grammar'; }
-    if(view==='lesson-view') params.lessonId = el.dataset.lessonId;
     go(view, params);
   },
   'set-level'(el){ state.viewParams.level = el.dataset.level; save(); render(); },
@@ -6237,14 +6072,11 @@ function waLinkTo(phone, message){
   const clean = String(phone||'').replace(/[^\d]/g, '');
   return 'https://wa.me/' + clean + '?text=' + encodeURIComponent(message);
 }
-function buildHomeworkWhatsAppMessage(student, lesson){
+function buildHomeworkWhatsAppMessage(student, item){
   const name = student.name || 'there';
-  const title = lesson.title || 'this week’s lesson';
-  const hw = lesson.genHomework;
-  const teaser = hw && hw.reminder ? hw.reminder.split('\n')[0] : '';
-  return `Hi ${name}! 📚 This week's homework — "${title}" — is ready.\n\n`
-    + (teaser ? teaser + '\n\n' : '')
-    + `Open the app anytime with your pass to see the full lesson, homework, and your progress:\n${APP_URL}`;
+  const title = item.title || 'this week’s lesson';
+  return `Hi ${name}! 📚 This week's homework — "${title}" — is ready:\n${item.homeworkLink}\n\n`
+    + `You can also check the app anytime with your pass for your full lesson and progress:\n${APP_URL}`;
 }
 let adminContacts = null;
 let adminError = '';
@@ -6258,7 +6090,6 @@ let adminStudentError = '';
 let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
-let adminCalendarError = '';
 let adminStudentOpenSection = null;
 function studentSectionRow(key, icon, label, summary){
   const open = adminStudentOpenSection === key;
@@ -6281,11 +6112,6 @@ function studentSectionOpen(key){
 function studentSectionClose(){
   return `</div>`;
 }
-let adminPreviewLessonId = null;
-function nextRoadmapTopic(student){
-  const item = (Array.isArray(student && student.roadmap) ? student.roadmap : []).find(r=>!r.done && r.title && r.title.trim());
-  return item ? item.title.trim() : '';
-}
 function renderAdminPage(){
   const root = document.getElementById('app');
   const user = firebase.auth().currentUser;
@@ -6304,9 +6130,8 @@ function renderAdminPage(){
     const tabs = `<div class="row" style="gap:8px; margin-bottom:14px; flex-wrap:wrap;">
       <button class="btn btn-sm ${adminTab==='contacts'?'btn-primary':'btn-ghost'}" data-admin-action="tab-contacts">Contacts (${(adminContacts||[]).length})</button>
       <button class="btn btn-sm ${adminTab==='students'?'btn-primary':'btn-ghost'}" data-admin-action="tab-students">Student Panels (${(adminStudents||[]).length})</button>
-      <button class="btn btn-sm ${adminTab==='calendar'?'btn-primary':'btn-ghost'}" data-admin-action="tab-calendar">📅 Lesson Calendar</button>
     </div>`;
-    const body = adminTab === 'contacts' ? renderAdminContactsTab() : adminTab === 'calendar' ? renderAdminCalendarTab() : renderAdminStudentsTab();
+    const body = adminTab === 'contacts' ? renderAdminContactsTab() : renderAdminStudentsTab();
     html = `<div class="screen" style="padding-top:24px; max-width:480px; margin:0 auto;">
       <div class="row between" style="margin-bottom:14px;">
         <h1 class="display" style="font-size:20px;">Admin</h1>
@@ -6335,93 +6160,6 @@ function renderAdminContactsTab(){
     </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No contacts yet.</p>';
   return `<div class="stack" style="gap:8px;">${rows}</div>`;
 }
-function renderAdminCalendarTab(){
-  if(adminStudentsLoading || adminStudents === null) return `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>`;
-  const sortedStudents = (adminStudents||[]).slice().sort((a,b)=>(a.name||a.code).localeCompare(b.name||b.code));
-  const studentOpts = sortedStudents.map(s=>`<option value="${esc(s.course)}|${esc(s.code)}">${esc(s.name||s.code)} (${adminCourseLabel(s.course)})</option>`).join('');
-  const addForm = `<div class="card-flat" style="margin-bottom:16px;">
-    ${adminSectionHead('➕','Add a lesson', true)}
-    ${sortedStudents.length ? `
-    <label class="field-label">Student</label>
-    <select id="calendar-add-student" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${studentOpts}</select>
-    <div class="row" style="gap:8px; margin-bottom:4px;">
-      <input id="calendar-add-date" type="date" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-      <input id="calendar-add-title" type="text" value="${esc(sortedStudents.length ? nextRoadmapTopic(sortedStudents[0]) : '')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-    </div>
-    <p style="font-size:11px; color:var(--ink-faint); margin:0 0 10px;">Topic is filled in from the student's next un-done roadmap session — edit it if you want something else.</p>
-    <div class="row" style="gap:8px; margin-bottom:10px;">
-      <select id="calendar-add-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-        <option value="grammar">📘 Grammar</option>
-        <option value="vocab">📗 Vocabulary</option>
-        <option value="speaking">🗣️ Speaking</option>
-      </select>
-      <input id="calendar-add-focus" type="text" placeholder="Optional focus (e.g. real interview on the 20th)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-    </div>
-    <div class="row" style="gap:8px;">
-      <input id="calendar-add-link" type="url" placeholder="Link to the lesson (optional — a lesson gets auto-written 7 days before)" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-      <button class="btn btn-primary btn-sm" data-admin-action="calendar-add-lesson" style="flex:0 0 auto;">+ Add</button>
-    </div>` : `<p style="font-size:13px; color:var(--ink-faint);">Add a student in Student Panels first.</p>`}
-    ${adminCalendarError ? `<p style="color:var(--error); font-size:13px; margin-top:8px;">${esc(adminCalendarError)}</p>` : ''}
-  </div>`;
-  const rows = [];
-  sortedStudents.forEach(s=>{
-    (Array.isArray(s.lessons)?s.lessons:[]).forEach(ls=>{
-      rows.push(Object.assign({}, ls, {studentCode:s.code, studentName:s.name||s.code, course:s.course, goal:s.goal, whatsapp:s.whatsapp}));
-    });
-  });
-  rows.sort((a,b)=>(a.date||'9999-99-99').localeCompare(b.date||'9999-99-99'));
-  const list = rows.map(r=>`
-    <div class="lesson-cal-row" data-course="${esc(r.course)}" data-code="${esc(r.studentCode)}" data-lesson-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
-      <div class="row between" style="margin-bottom:6px; align-items:center;">
-        <span style="font-weight:800; font-size:13px;">${esc(r.studentName)}</span>
-        <span class="row" style="gap:6px; flex:0 0 auto;">
-          <span class="pill" style="background:${r.course==='es'?'var(--cat-lis-soft)':'var(--cat-story-soft)'}; color:${r.course==='es'?'var(--cat-lis)':'var(--cat-story)'};">${r.course==='es'?'🇪🇸 ES':'🇬🇧 EN'}</span>
-          ${r.goal ? `<span class="pill" style="background:var(--accent-soft); color:var(--clay-orange);">${esc(GOAL_LABELS[r.goal]||r.goal)}</span>` : ''}
-        </span>
-      </div>
-      <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
-        <input type="date" class="cal-lesson-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-        <input type="text" class="cal-lesson-title" value="${esc(r.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-      </div>
-      <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
-        <select class="cal-lesson-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-          ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(r.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
-        </select>
-        <input type="text" class="cal-lesson-focus" value="${esc(r.focus||'')}" placeholder="Optional focus" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-      </div>
-      ${adminLessonStatusBadge(r)}
-      <div class="row" style="gap:8px; align-items:center; margin-top:6px;">
-        <input type="url" class="cal-lesson-link" value="${esc(r.link||'')}" placeholder="Link to the lesson" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-        <button class="btn btn-primary btn-sm" style="flex:0 0 auto;" data-admin-action="calendar-save-lesson">Save</button>
-        <button class="btn btn-ghost btn-sm" style="flex:0 0 auto; color:var(--error); border-color:var(--error-soft);" data-admin-action="calendar-delete-lesson">✕</button>
-      </div>
-      ${r.genLesson ? `<button class="btn btn-ghost btn-sm" style="width:100%; margin-top:8px;" data-admin-action="calendar-preview-lesson">${adminPreviewLessonId===r.id?'▲ Hide preview':'👁 Preview lesson + homework'}</button>` : ''}
-      ${(r.genLesson || r.genHomework) && !r.sentAt ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="calendar-send-homework">📤 Send homework on WhatsApp</button>` : ''}
-      ${(r.genLesson || r.genHomework) && !r.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file for ${esc(r.studentName)} yet — add one in Student Panels first.</p>` : ''}
-      ${adminPreviewLessonId===r.id && r.genLesson ? `
-      <div style="margin-top:10px; padding-top:12px; border-top:1.5px dashed var(--border);">
-        ${renderLessonContent(r.genLesson)}
-        ${r.genHomework ? `<div style="margin-top:20px; padding-top:16px; border-top:2px solid var(--border-soft);">
-          <h2 class="display" style="font-size:16px; margin-bottom:10px;">Homework</h2>
-          ${renderHomeworkContent(r.genHomework)}
-        </div>` : ''}
-      </div>` : ''}
-    </div>`).join('') || '<p style="padding:20px; text-align:center; color:var(--ink-faint);">No lessons scheduled yet — add one above.</p>';
-  return addForm + list;
-}
-function saveStudentLessons(course, code, lessons, onDone){
-  const coll = STUDENT_COLLECTION[course==='es'?'es':'en'];
-  firebase.firestore().collection(coll).doc(code).update({lessons, updatedAt: Date.now()}).then(()=>{
-    const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-    if(s) s.lessons = lessons;
-    adminCalendarError = '';
-    if(onDone) onDone();
-    renderAdminPage();
-  }).catch(err=>{
-    adminCalendarError = err.message || String(err);
-    renderAdminPage();
-  });
-}
 function saveStudentRoadmap(course, code, roadmap, onDone){
   const coll = STUDENT_COLLECTION[course==='es'?'es':'en'];
   firebase.firestore().collection(coll).doc(code).update({roadmap, updatedAt: Date.now()}).then(()=>{
@@ -6441,12 +6179,6 @@ function studentFormField(id, label, value, tag, extra){
     : `<input id="${id}" type="text" value="${val}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);" ${extra||''}>`;
   return `${label ? `<label class="field-label">${label}</label>` : ''}${el}<div style="height:10px;"></div>`;
 }
-function adminLessonStatusBadge(ls){
-  const style = 'display:inline-block; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; margin-top:2px;';
-  if(ls.sentAt) return `<span style="${style} background:var(--success-soft,#dceee3); color:var(--success,#2f7a56);">✓ Sent ${esc(new Date(ls.sentAt).toLocaleDateString())}</span>`;
-  if(ls.genLesson || ls.genHomework) return `<span style="${style} background:var(--accent-soft); color:var(--clay-orange);">✨ Ready to send</span>`;
-  return `<span style="${style} background:var(--bg-sunken); color:var(--ink-faint);">Scheduled — generates 7 days before</span>`;
-}
 function adminSectionHead(emoji, label, first){
   return `<div style="display:flex; align-items:center; gap:8px; margin:${first?'0':'24px'} 0 12px; ${first?'':'padding-top:16px; border-top:1px solid var(--border-soft);'}">
     <span style="font-size:16px;">${emoji}</span>
@@ -6454,15 +6186,17 @@ function adminSectionHead(emoji, label, first){
   </div>`;
 }
 function harvestRoadmapFromDOM(){
-  // Merges onto whatever was already there so fields the form doesn't show (genLesson,
-  // genHomework, generatedAt, sentAt, status — written by the lesson engine, not the admin)
-  // survive every save instead of getting silently wiped, same pattern as harvestLessonsFromDOM.
+  // Merges onto whatever was already there so fields the form doesn't show (generatedAt,
+  // sentAt, status — written by Claude when generating, not typed by the admin) survive every
+  // save instead of getting silently wiped.
   const existing = Array.isArray(adminEditingStudent && adminEditingStudent.roadmap) ? adminEditingStudent.roadmap : [];
   return Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row')).map(row=>{
     const id = row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2));
     const prev = existing.find(x=>x.id===id) || {};
-    const typeEl = row.querySelector('.roadmap-item-type');
+    const typeEl = row.querySelector('.roadmap-item-lesson-type');
     const focusEl = row.querySelector('.roadmap-item-focus');
+    const linkEl = row.querySelector('.roadmap-item-link');
+    const hwLinkEl = row.querySelector('.roadmap-item-homework-link');
     return Object.assign({}, prev, {
       id,
       date: row.querySelector('.roadmap-item-date').value,
@@ -6471,7 +6205,9 @@ function harvestRoadmapFromDOM(){
       tips: row.querySelector('.roadmap-item-tips').value,
       done: row.querySelector('.roadmap-item-done').checked,
       type: typeEl ? typeEl.value : (prev.type || 'grammar'),
-      focus: focusEl ? focusEl.value : (prev.focus || '')
+      focus: focusEl ? focusEl.value : (prev.focus || ''),
+      link: linkEl ? linkEl.value : (prev.link || ''),
+      homeworkLink: hwLinkEl ? hwLinkEl.value : (prev.homeworkLink || '')
     });
   });
 }
@@ -6511,38 +6247,6 @@ function harvestHomeworkFromDOM(){
     title: row.querySelector('.homework-item-title').value,
     links: row.querySelector('.homework-item-links').value
   }));
-}
-function harvestLessonsFromDOM(){
-  // Merges onto whatever was already there instead of rebuilding from scratch, so fields the
-  // form doesn't show (genLesson, genHomework, generatedAt, sentAt, status — written by the
-  // automation, not the admin) survive every save instead of getting silently wiped.
-  const existing = Array.isArray(adminEditingStudent && adminEditingStudent.lessons) ? adminEditingStudent.lessons : [];
-  return Array.from(document.querySelectorAll('#lessons-items-list .lesson-item-row')).map(row=>{
-    const id = row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2));
-    const prev = existing.find(x=>x.id===id) || {};
-    const typeEl = row.querySelector('.lesson-item-type');
-    const focusEl = row.querySelector('.lesson-item-focus');
-    return Object.assign({}, prev, {
-      id,
-      date: row.querySelector('.lesson-item-date').value,
-      title: row.querySelector('.lesson-item-title').value,
-      link: row.querySelector('.lesson-item-link').value,
-      type: typeEl ? typeEl.value : (prev.type || 'grammar'),
-      focus: focusEl ? focusEl.value : (prev.focus || '')
-    });
-  });
-}
-function nextWeekdayLessonDates(count){
-  // Picks the next Mon/Wed/Fri on/after today for a 3-lesson-a-week cadence.
-  const weekdays = [1,3,5];
-  const dates = [];
-  const d = new Date();
-  d.setHours(0,0,0,0);
-  while(dates.length < count){
-    if(weekdays.includes(d.getDay())) dates.push(d.toISOString().slice(0,10));
-    d.setDate(d.getDate()+1);
-  }
-  return dates;
 }
 const PROGRESS_TEMPLATES = {
   excelling: "You're on fire this stage! Flying through everything, and it's really sticking. So proud of you!",
@@ -6603,7 +6307,6 @@ function renderAdminStudentsTab(){
     const levelOpts = [''].concat(LEVEL_STAGES).map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
     const roadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
     const homework = Array.isArray(s.homework) ? s.homework : [];
-    const lessons = Array.isArray(s.lessons) ? s.lessons : [];
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
     const goalOpts = [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${s.goal===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
     return `<div class="card-flat" style="background:linear-gradient(180deg, var(--cat-diag-soft) 0%, var(--bg-elevated) 90px);">
@@ -6662,24 +6365,25 @@ function renderAdminStudentsTab(){
           <input type="text" class="roadmap-item-homework" value="${esc(r.homework||'')}" placeholder="Homework for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
           <input type="text" class="roadmap-item-tips" value="${esc(r.tips||'')}" placeholder="Tip for this session (optional)" style="width:100%; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); margin-bottom:6px;">
           <div style="border-top:1.5px dashed var(--border); padding-top:8px; margin-top:2px;">
-            <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">✨ Full lesson + homework</div>
+            <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">✨ Generated lesson + homework</div>
             <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
               <select class="roadmap-item-lesson-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
                 ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(r.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
               </select>
               <input type="text" class="roadmap-item-focus" value="${esc(r.focus||'')}" placeholder="Optional focus" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
             </div>
-            ${adminLessonStatusBadge(r)}
-            ${r.genLesson ? `<button class="btn btn-ghost btn-sm" style="width:100%; margin-top:8px;" data-admin-action="roadmap-preview-lesson">${adminPreviewLessonId===r.id?'▲ Hide preview':'👁 Preview lesson + homework'}</button>` : ''}
-            ${(r.genLesson || r.genHomework) && !r.sentAt ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="roadmap-send-homework">📤 Send homework on WhatsApp</button>` : ''}
-            ${adminPreviewLessonId===r.id && r.genLesson ? `
-            <div style="margin-top:10px; padding-top:12px; border-top:1.5px dashed var(--border);">
-              ${renderLessonContent(r.genLesson)}
-              ${r.genHomework ? `<div style="margin-top:20px; padding-top:16px; border-top:2px solid var(--border-soft);">
-                <h2 class="display" style="font-size:16px; margin-bottom:10px;">Homework</h2>
-                ${renderHomeworkContent(r.genHomework)}
-              </div>` : ''}
-            </div>` : ''}
+            <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
+              <span style="flex:0 0 auto; font-size:12px; color:var(--ink-faint); width:64px;">Lesson</span>
+              <input type="url" class="roadmap-item-link" value="${esc(r.link||'')}" placeholder="Not generated yet — ask Claude" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+              ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
+            </div>
+            <div class="row" style="gap:8px; align-items:center;">
+              <span style="flex:0 0 auto; font-size:12px; color:var(--ink-faint); width:64px;">Homework</span>
+              <input type="url" class="roadmap-item-homework-link" value="${esc(r.homeworkLink||'')}" placeholder="Not generated yet — ask Claude" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
+              ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
+            </div>
+            ${r.sentAt ? `<p style="font-size:11px; color:var(--success); margin-top:8px; font-weight:600;">✓ Sent ${esc(new Date(r.sentAt).toLocaleDateString())}</p>` : (r.homeworkLink ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="roadmap-send-homework">📤 Send homework on WhatsApp</button>` : '')}
+            ${r.homeworkLink && !s.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file yet — add one in Basics.</p>` : ''}
           </div>
         </div>`).join('')}
       </div>
@@ -6712,36 +6416,6 @@ function renderAdminStudentsTab(){
       <div class="row" style="gap:8px; margin-bottom:14px;">
         <button class="btn btn-ghost btn-sm" data-admin-action="add-homework-item">+ Add homework</button>
         <button class="btn btn-ghost btn-sm" data-admin-action="suggest-homework">✨ Suggest from roadmap</button>
-      </div>
-      ${studentSectionClose()}
-
-      ${studentSectionRow('lessons','📅','Lessons', lessons.length+' scheduled')}
-      ${studentSectionOpen('lessons')}
-      <p style="font-size:12px; color:var(--ink-faint); margin:-6px 0 10px;">${adminCourseLabel(s.course)} · ${s.level||'no level set'} · Goal: ${s.goal?GOAL_LABELS[s.goal]:'—'}</p>
-      <div id="lessons-items-list" style="margin-bottom:8px;">
-        ${lessons.map((ls,idx)=>`
-        <div class="lesson-item-row" data-id="${esc(ls.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
-          <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
-            <input type="date" class="lesson-item-date" value="${esc(ls.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-            <input type="text" class="lesson-item-title" value="${esc(ls.title||'')}" placeholder="Lesson topic" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-            <button data-admin-action="delete-lesson-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
-          </div>
-          <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
-            <select class="lesson-item-type" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-              ${['grammar','vocab','speaking'].map(t=>`<option value="${t}" ${(ls.type||'grammar')===t?'selected':''}>${t==='grammar'?'📘 Grammar':t==='vocab'?'📗 Vocabulary':'🗣️ Speaking'}</option>`).join('')}
-            </select>
-            <input type="text" class="lesson-item-focus" value="${esc(ls.focus||'')}" placeholder="Optional focus, e.g. real interview on the 20th" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-          </div>
-          ${adminLessonStatusBadge(ls)}
-          <div class="row" style="gap:8px; align-items:center; margin-top:6px;">
-            <input type="url" class="lesson-item-link" value="${esc(ls.link||'')}" placeholder="Link to the lesson (paste after writing it)" style="flex:1; box-sizing:border-box; padding:8px 11px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink);">
-            ${ls.link ? `<a href="${esc(ls.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 10px;">Open ↗</a>` : ''}
-          </div>
-        </div>`).join('') || '<p style="font-size:12.5px; color:var(--ink-faint); padding:4px 0 8px;">No lessons scheduled yet.</p>'}
-      </div>
-      <div class="row" style="gap:8px; margin-bottom:14px;">
-        <button class="btn btn-ghost btn-sm" data-admin-action="add-lesson-item">+ Add lesson</button>
-        <button class="btn btn-ghost btn-sm" data-admin-action="suggest-lessons-week">✨ Add 3 lessons for this week</button>
       </div>
       ${studentSectionClose()}
 
@@ -6812,15 +6486,6 @@ function renderAdminStudentsTab(){
   </div>`;
 }
 function bindAdminActions(root){
-  const calStudentSel = root.querySelector('#calendar-add-student');
-  if(calStudentSel){
-    calStudentSel.onchange = function(){
-      const [course, code] = calStudentSel.value.split('|');
-      const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-      const titleEl = root.querySelector('#calendar-add-title');
-      if(titleEl && s) titleEl.value = nextRoadmapTopic(s);
-    };
-  }
   root.querySelectorAll('[data-admin-action]').forEach(el=>{
     el.onclick = function(){
       const action = el.dataset.adminAction;
@@ -6869,75 +6534,13 @@ function bindAdminActions(root){
         if(adminStudents === null) loadAdminStudents();
       } else if(action === 'retry-load-students'){
         loadAdminStudents();
-      } else if(action === 'tab-calendar'){
-        adminTab = 'calendar';
-        adminCalendarError = '';
-        renderAdminPage();
-        if(adminStudents === null) loadAdminStudents();
-      } else if(action === 'calendar-add-lesson'){
-        const sel = document.getElementById('calendar-add-student');
-        const [course, code] = (sel ? sel.value : '').split('|');
-        const date = document.getElementById('calendar-add-date').value;
-        const title = document.getElementById('calendar-add-title').value;
-        const type = document.getElementById('calendar-add-type').value;
-        const focus = document.getElementById('calendar-add-focus').value;
-        const link = document.getElementById('calendar-add-link').value;
-        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-        if(!s){
-          adminCalendarError = 'Pick a student first.';
-          renderAdminPage();
-          return;
-        }
-        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).concat([{id: Date.now()+'-'+Math.random().toString(36).slice(2), date, title, type, focus, link, status:'scheduled'}]);
-        saveStudentLessons(course, code, lessons);
-      } else if(action === 'calendar-save-lesson'){
-        const row = el.closest('.lesson-cal-row');
-        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
-        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-        if(!s) return;
-        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).map(ls=> ls.id===lessonId ? Object.assign({}, ls, {
-          date: row.querySelector('.cal-lesson-date').value,
-          title: row.querySelector('.cal-lesson-title').value,
-          type: row.querySelector('.cal-lesson-type').value,
-          focus: row.querySelector('.cal-lesson-focus').value,
-          link: row.querySelector('.cal-lesson-link').value
-        }) : ls);
-        saveStudentLessons(course, code, lessons);
-      } else if(action === 'calendar-delete-lesson'){
-        if(!confirm('Delete this lesson from the calendar?')) return;
-        const row = el.closest('.lesson-cal-row');
-        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
-        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-        if(!s) return;
-        const lessons = (Array.isArray(s.lessons)?s.lessons:[]).filter(ls=>ls.id!==lessonId);
-        saveStudentLessons(course, code, lessons);
-      } else if(action === 'calendar-send-homework'){
-        const row = el.closest('.lesson-cal-row');
-        const course = row.dataset.course, code = row.dataset.code, lessonId = row.dataset.lessonId;
-        const s = (adminStudents||[]).find(x=>x.code===code && x.course===course);
-        const ls = s && (s.lessons||[]).find(x=>x.id===lessonId);
-        if(!s || !ls || !s.whatsapp) return;
-        const msg = buildHomeworkWhatsAppMessage(s, ls);
-        window.open(waLinkTo(s.whatsapp, msg), '_blank');
-        const lessons = (s.lessons||[]).map(x=> x.id===lessonId ? Object.assign({}, x, {sentAt: Date.now(), status:'sent'}) : x);
-        saveStudentLessons(course, code, lessons);
-      } else if(action === 'calendar-preview-lesson'){
-        const row = el.closest('.lesson-cal-row');
-        const lessonId = row.dataset.lessonId;
-        adminPreviewLessonId = adminPreviewLessonId === lessonId ? null : lessonId;
-        renderAdminPage();
-      } else if(action === 'roadmap-preview-lesson'){
-        const row = el.closest('.roadmap-item-row');
-        const id = row.dataset.id;
-        adminPreviewLessonId = adminPreviewLessonId === id ? null : id;
-        renderAdminPage();
       } else if(action === 'roadmap-send-homework'){
         const row = el.closest('.roadmap-item-row');
         const id = row.dataset.id;
         const s = adminEditingStudent;
         const roadmap = harvestRoadmapFromDOM();
         const item = roadmap.find(x=>x.id===id);
-        if(!item || !s.whatsapp) return;
+        if(!item || !item.homeworkLink || !s.whatsapp) return;
         const msg = buildHomeworkWhatsAppMessage(s, item);
         window.open(waLinkTo(s.whatsapp, msg), '_blank');
         const updated = roadmap.map(x=> x.id===id ? Object.assign({}, x, {sentAt: Date.now(), status:'sent'}) : x);
@@ -6947,7 +6550,7 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = 'basics';
-        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''};
+        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:''};
         renderAdminPage();
       } else if(action === 'set-student-course'){
         adminEditingStudent.course = el.dataset.course;
@@ -6961,7 +6564,7 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = null;
-        adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], lessons:[], whatsapp:'', package:8, freezeUntil:''}, s);
+        adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:''}, s);
         renderAdminPage();
       } else if(action === 'toggle-student-section'){
         const section = el.dataset.section;
@@ -6970,53 +6573,22 @@ function bindAdminActions(root){
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.roadmap.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', homework:'', tips:'', done:false});
         renderAdminPage();
       } else if(action === 'delete-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.roadmap.splice(Number(el.dataset.idx), 1);
         renderAdminPage();
       } else if(action === 'add-homework-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', links:''});
         renderAdminPage();
       } else if(action === 'delete-homework-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminEditingStudent.homework.splice(Number(el.dataset.idx), 1);
-        renderAdminPage();
-      } else if(action === 'add-lesson-item'){
-        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
-        adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
-        adminEditingStudent.lessons.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', link:''});
-        renderAdminPage();
-      } else if(action === 'delete-lesson-item'){
-        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
-        adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
-        adminEditingStudent.lessons.splice(Number(el.dataset.idx), 1);
-        renderAdminPage();
-      } else if(action === 'suggest-lessons-week'){
-        const roadmap = harvestRoadmapFromDOM();
-        const homework = harvestHomeworkFromDOM();
-        const lessons = harvestLessonsFromDOM();
-        const usedTitles = new Set(lessons.map(l=>(l.title||'').trim().toLowerCase()));
-        const topics = roadmap.filter(r=>!r.done && r.title && r.title.trim() && !usedTitles.has(r.title.trim().toLowerCase())).slice(0,3).map(r=>r.title.trim());
-        const dates = nextWeekdayLessonDates(3);
-        for(let i=0;i<3;i++){
-          lessons.push({id: Date.now()+'-'+i+'-'+Math.random().toString(36).slice(2), date: dates[i], title: topics[i]||'', link:''});
-        }
-        adminEditingStudent.roadmap = roadmap;
-        adminEditingStudent.homework = homework;
-        adminEditingStudent.lessons = lessons;
-        adminStudentInfo = topics.length ? ('Added 3 lessons for this week, titled from the roadmap.') : ('Added 3 lessons for this week — add topics manually, no un-done roadmap sessions left to suggest from.');
         renderAdminPage();
       } else if(action === 'suggest-roadmap'){
         const levelEl = document.getElementById('student-form-level');
@@ -7034,7 +6606,6 @@ function bindAdminActions(root){
           .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
         adminEditingStudent.roadmap = existing.concat(suggestions);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminStudentError = '';
         adminStudentInfo = suggestions.length ? ('Added '+suggestions.length+' session(s) from the '+baseLevel+' curriculum.') : ('No new sessions to add — every '+baseLevel+' item is already in the roadmap.');
         renderAdminPage();
@@ -7051,7 +6622,6 @@ function bindAdminActions(root){
         const parsed = parsePastedRoadmap(text);
         adminEditingStudent.roadmap = existing.concat(parsed);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         adminStudentInfo = 'Added '+parsed.length+' session(s) from the pasted text.';
         renderAdminPage();
       } else if(action === 'quick-progress'){
@@ -7112,7 +6682,6 @@ function bindAdminActions(root){
         homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date: today, title: next ? 'Review: '+next.title.trim() : '', links:''});
         adminEditingStudent.roadmap = roadmap;
         adminEditingStudent.homework = homework;
-        adminEditingStudent.lessons = harvestLessonsFromDOM();
         renderAdminPage();
       } else if(action === 'cancel-edit-student'){
         adminEditingStudent = null;
@@ -7185,10 +6754,8 @@ function saveAdminStudent(){
   const oldRoadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
   const roadmap = harvestRoadmapFromDOM();
   const homework = harvestHomeworkFromDOM();
-  const lessons = harvestLessonsFromDOM();
   adminEditingStudent.roadmap = roadmap;
   adminEditingStudent.homework = homework;
-  adminEditingStudent.lessons = lessons;
   adminEditingStudent.objectives = objectives;
   if(!code){
     adminStudentError = 'Please enter a pass / username.';
@@ -7215,7 +6782,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, lessons, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
