@@ -27,8 +27,22 @@ english-path-b2-professional.md
 english-path-c1-professional.md
 english-path-story-library.md
 
-# Internal notes
+# Internal notes (contain secrets / internal-only content — this repo is
+# served via GitHub Pages, so anything tracked here is publicly readable)
 PROJECT-NOTES.md
+LESSON-ENGINE.md
+site/farin-website-session-summary.md
+
+# Android packaging artifacts — signing key must never be public;
+# apk/aab are just build output, not source
+app/*.keystore
+app/signing-key-info.txt
+app/*.aab
+app/*.apk
+appp/
+
+# Real student data — no retention policy decided yet, keep untracked
+Claude outputs/
 
 # Staging folder for the .nojekyll marker (already copied to root)
 nojekyll-file/
