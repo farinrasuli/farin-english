@@ -254,11 +254,12 @@ header.site{
 
 /* ---------- generic grids ---------- */
 .grid{ display:grid; gap:24px; }
+.grid.cols-5{ grid-template-columns:repeat(5,1fr); }
 .grid.cols-4{ grid-template-columns:repeat(4,1fr); }
 .grid.cols-3{ grid-template-columns:repeat(3,1fr); }
 .grid.cols-2{ grid-template-columns:repeat(2,1fr); }
-@media (max-width:980px){ .grid.cols-4{ grid-template-columns:repeat(2,1fr); } .grid.cols-3{ grid-template-columns:repeat(2,1fr); } }
-@media (max-width:600px){ .grid.cols-4,.grid.cols-3,.grid.cols-2{ grid-template-columns:1fr; } }
+@media (max-width:980px){ .grid.cols-5{ grid-template-columns:repeat(3,1fr); } .grid.cols-4{ grid-template-columns:repeat(2,1fr); } .grid.cols-3{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:600px){ .grid.cols-5,.grid.cols-4,.grid.cols-3,.grid.cols-2{ grid-template-columns:1fr; } }
 
 /* ---------- goal roadmap — compact flow for the FE Method:
    Hedef → Karakter → Yol Haritan → Pratik → Sonuç ---------- */
@@ -341,6 +342,16 @@ header.site{
 .tile-sage .tile-icon{ background:var(--sage); }
 .tile-sky .tile-icon{ background:var(--teal); }
 .tile-sky{ background-color:var(--teal); background-image:radial-gradient(circle at 14% 10%, rgba(255,255,255,.4), transparent 46%), linear-gradient(155deg, #83d9f0, var(--teal-deep)); }
+
+/* ---------- tile-expandable — click-to-expand variant of .tile, used by the
+   homepage "system" cards (site.js toggles the .open class + max-height) ---------- */
+.tile-expandable{ cursor:pointer; }
+.tile-expandable:focus-visible{ outline:2px solid var(--primary); outline-offset:2px; }
+.tile-more{ display:inline-flex; align-items:center; gap:4px; margin-top:2px; font-size:.78rem; font-weight:700; color:var(--primary); }
+.tile-more .tile-plus{ display:inline-block; transition:transform .3s var(--spring); }
+.tile-expandable.open .tile-more .tile-plus{ transform:rotate(45deg); }
+.tile-detail{ max-height:0; overflow:hidden; transition:max-height .3s ease; }
+.tile-detail p{ margin:10px 0 0; padding-top:10px; border-top:1px solid var(--surface-border); font-size:.85rem; color:var(--ink-soft); }
 
 /* ---------- section-head-banner — vivid clay banner for a section-head that needs
    more energy than plain eyebrow+heading text ---------- */

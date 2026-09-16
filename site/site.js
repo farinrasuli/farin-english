@@ -198,6 +198,22 @@ document.querySelectorAll('.faq-item').forEach(function(item){
   });
 });
 
+/* ---------------- Expandable system cards ("Tek bir ders değil, bütün bir sistem") ---------------- */
+document.querySelectorAll('.tile-expandable').forEach(function(tile){
+  var detail = tile.querySelector('.tile-detail');
+  if (!detail) return;
+  function toggleTile(){
+    var isOpen = tile.classList.contains('open');
+    if (isOpen){ tile.classList.remove('open'); detail.style.maxHeight = null; }
+    else { tile.classList.add('open'); detail.style.maxHeight = detail.scrollHeight + 'px'; }
+    tile.setAttribute('aria-expanded', String(!isOpen));
+  }
+  tile.addEventListener('click', toggleTile);
+  tile.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggleTile(); }
+  });
+});
+
 /* ==================================================================
    PERSONALIZATION WIZARD — "Sana Özel Programını Oluştur"
    Same categories for every language; only the exam names in the
