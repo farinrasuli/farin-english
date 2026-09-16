@@ -7004,6 +7004,67 @@ const GOAL_PERFORMANCE_RESULTS = {
   ]
 };
 const GOAL_LABELS = {travel:'Travel', career:'Career', exam:'Exam', everyday:'Everyday life', immigration:'Immigration'};
+/* ---- Course Completion Message (2026-09-16): template-assembled from data already on the
+   student doc (roadmap/goal/objectives/personalization) — no LLM call, no new backend, same
+   pattern as auto-progress-note. Manual/admin-triggered only, never auto-fired on completion,
+   since applyCourseCompletion() is not yet live-verified (Claude/tasks.md item 27). ---- */
+const COURSE_TYPE_LABELS = {grammar:'grammar', vocab:'vocabulary', speaking:'speaking'};
+function buildCourseCompletionMessage(student, course){
+  const name = (student.name || 'there').trim() || 'there';
+  const roadmap = Array.isArray(student.roadmap) ? student.roadmap : [];
+  const sessionIds = course.sessionIds || [];
+  const sessions = sessionIds.map(id=>roadmap.find(r=>r.id===id)).filter(Boolean);
+  const lines = [];
+
+  lines.push(`Hi ${name}! 🌿`);
+  lines.push(`You've officially completed your ${course.level || 'course'} course! 🎉`);
+
+  const byType = {};
+  sessions.forEach(s=>{
+    const t = s.type || 'grammar';
+    if(!byType[t]) byType[t] = [];
+    if(s.focus && s.focus.trim() && !byType[t].includes(s.focus.trim())) byType[t].push(s.focus.trim());
+  });
+  const skillPhrases = [];
+  ['grammar','vocab','speaking'].forEach(t=>{
+    if(!byType[t]) return;
+    const focuses = byType[t].slice(0,2);
+    if(focuses.length) skillPhrases.push(`${COURSE_TYPE_LABELS[t]} like ${focuses.join(' and ')}`);
+    else if(byType[t]) skillPhrases.push(COURSE_TYPE_LABELS[t]);
+  });
+  if(skillPhrases.length){
+    lines.push(`During this course, you worked on ${skillPhrases.join(', ')}.`);
+  }
+
+  if(student.goal && GOAL_LABELS[student.goal]){
+    const objectives = (Array.isArray(student.objectives) ? student.objectives : []).filter(o=>o && o.trim());
+    if(objectives.length){
+      lines.push(`With ${GOAL_LABELS[student.goal].toLowerCase()} as your focus, you're now ${objectives[0].trim().replace(/^./,c=>c.toLowerCase())}`);
+    } else {
+      lines.push(`You've kept making real progress toward your goal of ${GOAL_LABELS[student.goal].toLowerCase()}.`);
+    }
+  }
+
+  const observations = (student.personalization && Array.isArray(student.personalization.observations)) ? student.personalization.observations : [];
+  const activeFocusAreas = [];
+  observations.filter(o=>o.status!=='resolved').forEach(o=>{
+    (o.focusAreas||[]).forEach(f=>{ if(!activeFocusAreas.includes(f)) activeFocusAreas.push(f); });
+  });
+  if(activeFocusAreas.length){
+    lines.push(`You also worked especially on your ${activeFocusAreas.slice(0,2).map(personalizationFocusLabel).join(' and ').toLowerCase()}.`);
+  }
+
+  lines.push(`It's been really wonderful to see your progress throughout this course. I'm genuinely honored to be part of your learning journey, and I'm proud of the work you've put in.`);
+
+  const courses = Array.isArray(student.courses) ? student.courses : [];
+  const nextOrder = (course.order || course.number || 1) + 1;
+  const hasNext = courses.some(c=>(c.order||c.number)===nextOrder);
+  if(hasNext){
+    lines.push(`This is just one step forward — your next course is ready for the next stage of your journey. ✨`);
+  }
+
+  return lines.join('\n\n');
+}
 /* ---- Teacher Personalization Layer (2026-09-16): per-student admin-only observations that give
    future lesson-writing sessions more context. Lightweight data+UI only — no automated weighting,
    see english app/LESSON-ENGINE.md for how a human/Claude session should read these by hand. ---- */
@@ -7125,6 +7186,70 @@ function saveStudentPersonalization(){
     renderAdminPage();
   });
 }
+// Scoped write: replaces one course's fields inside the courses array via a merge on the
+// top-level `courses` field only — same pattern as saveStudentPersonalization, doesn't touch
+// roadmap/personalization/anything else, so it can't hit the stale-tab-overwrite bug class.
+function saveCourseCompletionMessage(courseId, text, generatedAt){
+  const s = adminEditingStudent;
+  if(!s) return;
+  const courseSide = s.course === 'es' ? 'es' : 'en';
+  const coll = STUDENT_COLLECTION[courseSide];
+  const code = s.code;
+  if(!code) return;
+  const courses = (Array.isArray(s.courses) ? s.courses : []).map(c=>{
+    if(c.id !== courseId) return c;
+    return Object.assign({}, c, {completionMessage: text, completionMessageGeneratedAt: generatedAt});
+  });
+  adminStudentError = '';
+  firebase.firestore().collection(coll).doc(code).set({courses, updatedAt: Date.now()}, {merge:true}).then(()=>{
+    adminEditingStudent.courses = courses;
+    adminStudentInfo = 'Completion message saved.';
+    renderAdminPage();
+  }).catch(err=>{
+    adminStudentError = err.message || String(err);
+    renderAdminPage();
+  });
+}
+function saveRoadmapItemTeacherNote(itemId){
+  const s = adminEditingStudent;
+  if(!s || !itemId) return;
+  const course = s.course === 'es' ? 'es' : 'en';
+  const coll = STUDENT_COLLECTION[course];
+  const code = (s.code||'').trim().toUpperCase().replace(/\s+/g,'');
+  if(!code){
+    adminStudentError = 'Enter a pass / username above first, then save a teacher note.';
+    renderAdminPage();
+    return;
+  }
+  const noteEl = document.querySelector('.roadmap-item-teacher-note[data-note-id="'+CSS.escape(itemId)+'"]');
+  const note = noteEl ? noteEl.value : '';
+  const now = Date.now();
+  adminStudentError = '';
+  // Scoped write: re-reads the freshest roadmap straight from Firestore right before writing,
+  // patches only this one item's teacherNote/teacherNoteUpdatedAt fields, and writes the roadmap
+  // array back via merge. Deliberately does NOT go through harvestRoadmapFromDOM() (which rebuilds
+  // the whole roadmap from whatever's currently rendered in this browser tab) — so a stale-tab
+  // roadmap Save elsewhere can't wipe this note, and this note-save can't wipe stale-tab roadmap
+  // edits either, matching the safe pattern documented in LESSON-ENGINE.md's Known Bug section.
+  const ref = firebase.firestore().collection(coll).doc(code);
+  ref.get().then(doc=>{
+    const data = doc.exists ? (doc.data()||{}) : {};
+    const freshRoadmap = Array.isArray(data.roadmap) ? data.roadmap.slice() : [];
+    const idx = freshRoadmap.findIndex(r=>r.id===itemId);
+    if(idx < 0){
+      throw new Error('Session not found in Firestore — save the roadmap first, then add a note.');
+    }
+    freshRoadmap[idx] = Object.assign({}, freshRoadmap[idx], {teacherNote: note, teacherNoteUpdatedAt: now});
+    return ref.set({roadmap: freshRoadmap, updatedAt: now}, {merge:true}).then(()=>freshRoadmap);
+  }).then(freshRoadmap=>{
+    adminEditingStudent.roadmap = freshRoadmap;
+    adminStudentInfo = 'Teacher note saved.';
+    renderAdminPage();
+  }).catch(err=>{
+    adminStudentError = err.message || String(err);
+    renderAdminPage();
+  });
+}
 function quickFillPills(action, templates){
   return `<div class="row" style="gap:6px; flex-wrap:wrap; margin-bottom:10px;">
     ${Object.keys(templates).map(key=>`<button type="button" class="pill" data-admin-action="${action}" data-key="${key}" style="background:var(--bg-sunken); color:var(--ink-soft); cursor:pointer; border:none; font-family:inherit;">${key.replace(/-/g,' ')}</button>`).join('')}
@@ -7148,6 +7273,22 @@ function renderCourseAddForm(){
       <button type="button" class="btn btn-primary btn-sm" style="flex:1;" data-admin-action="create-course">Create course</button>
       <button type="button" class="btn btn-ghost btn-sm" style="flex:1;" data-admin-action="cancel-add-course">Cancel</button>
     </div>
+  </div>`;
+}
+function renderCourseCompletionMessage(course){
+  const hasMessage = course.completionMessage && course.completionMessage.trim();
+  const generatedLabel = course.completionMessageGeneratedAt ? new Date(course.completionMessageGeneratedAt).toLocaleDateString() : '';
+  return `<div style="border:1.5px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px; background:var(--bg-sunken);">
+    <div style="font-weight:800; font-size:13px; margin-bottom:8px;">🎓 Course Completion Message</div>
+    ${hasMessage ? `
+    <textarea id="completion-message-text" data-course-id="${esc(course.id)}" rows="8" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink); font-family:inherit; margin-bottom:8px;">${esc(course.completionMessage)}</textarea>
+    ${generatedLabel ? `<p style="font-size:11px; color:var(--ink-faint); margin:-4px 0 8px;">Generated ${esc(generatedLabel)}</p>` : ''}
+    <div class="row" style="gap:8px; flex-wrap:wrap;">
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="regenerate-completion-message" data-course-id="${esc(course.id)}">🪄 Regenerate</button>
+      <button type="button" class="btn btn-primary btn-sm" data-admin-action="save-completion-message" data-course-id="${esc(course.id)}">💾 Save edits</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="copy-completion-message">📋 Copy Message</button>
+    </div>` : `
+    <button type="button" class="btn btn-primary btn-sm" data-admin-action="generate-completion-message" data-course-id="${esc(course.id)}">🪄 Generate Message</button>`}
   </div>`;
 }
 function renderAdminStudentsTab(){
@@ -7213,6 +7354,7 @@ function renderAdminStudentsTab(){
         <span style="font-size:12.5px; font-weight:700;">Course ${activeCourse.number} — ${esc(activeCourse.level)} <span style="font-weight:400; color:var(--ink-faint);">(${courseStatusLabel(activeCourse.status)})</span></span>
         <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${courseDone}/${(activeCourse.sessionIds||[]).length}</span>
       </div>` : ''}
+      ${activeCourse && activeCourse.status==='completed' ? renderCourseCompletionMessage(activeCourse) : ''}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
         ${visibleRoadmap.map((r,idx)=>`
         <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
@@ -7244,6 +7386,13 @@ function renderAdminStudentsTab(){
             <button class="btn btn-ghost btn-sm" style="width:100%;" data-admin-action="roadmap-request-generate">🪄 ${r.link||r.homeworkLink ? 'Ask Claude to regenerate' : 'Ask Claude to generate'}</button>
             ${r.sentAt ? `<p style="font-size:11px; color:var(--success); margin-top:8px; font-weight:600;">✓ Sent ${esc(new Date(r.sentAt).toLocaleDateString())}</p>` : (r.homeworkLink ? `<button class="btn btn-sm" style="width:100%; margin-top:8px; background:var(--send-soft,#dceee3); color:var(--send-strong,#235c41); border-color:var(--send-line,#b9dcc7);" data-admin-action="roadmap-send-homework">📤 Send homework on WhatsApp</button>` : '')}
             ${r.homeworkLink && !s.whatsapp ? `<p style="font-size:11.5px; color:var(--error); margin-top:6px;">No WhatsApp number on file yet — add one in Basics.</p>` : ''}
+          </div>
+          <div style="border-top:1.5px dashed var(--border); padding-top:8px; margin-top:8px;">
+            <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">🔒 Private Teacher Note</div>
+            <p style="font-size:10.5px; color:var(--ink-faint); margin:0 0 6px;">Visible only to admin — never shown to the student.</p>
+            <textarea class="roadmap-item-teacher-note" data-note-id="${esc(r.id)}" rows="2" placeholder="e.g. Struggled with past perfect, revisit next session..." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:9px; border:1.5px solid var(--border); font-size:12.5px; background:var(--bg-elevated); color:var(--ink); font-family:inherit; margin-bottom:6px;">${esc(r.teacherNote||'')}</textarea>
+            <button type="button" class="btn btn-ghost btn-sm" style="width:100%;" data-admin-action="save-roadmap-item-note" data-id="${esc(r.id)}">💾 Save note</button>
+            ${r.teacherNoteUpdatedAt ? `<p style="font-size:10.5px; color:var(--ink-faint); margin-top:6px;">Last saved ${esc(new Date(r.teacherNoteUpdatedAt).toLocaleString())}</p>` : ''}
           </div>
         </div>`).join('')}
       </div>
@@ -7663,6 +7812,28 @@ function bindAdminActions(root){
         saveAdminStudent();
       } else if(action === 'save-personalization'){
         saveStudentPersonalization();
+      } else if(action === 'generate-completion-message' || action === 'regenerate-completion-message'){
+        const s = adminEditingStudent;
+        const course = s && Array.isArray(s.courses) ? s.courses.find(c=>c.id===el.dataset.courseId) : null;
+        if(course){
+          const text = buildCourseCompletionMessage(s, course);
+          saveCourseCompletionMessage(course.id, text, Date.now());
+        }
+      } else if(action === 'save-completion-message'){
+        const ta = document.getElementById('completion-message-text');
+        if(ta){
+          const course = adminEditingStudent && Array.isArray(adminEditingStudent.courses) ? adminEditingStudent.courses.find(c=>c.id===ta.dataset.courseId) : null;
+          if(course) saveCourseCompletionMessage(course.id, ta.value, course.completionMessageGeneratedAt || null);
+        }
+      } else if(action === 'copy-completion-message'){
+        const ta = document.getElementById('completion-message-text');
+        if(ta){
+          copyText(ta.value);
+          adminStudentInfo = 'Message copied.';
+          renderAdminPage();
+        }
+      } else if(action === 'save-roadmap-item-note'){
+        saveRoadmapItemTeacherNote(el.dataset.id);
       } else if(action === 'delete-student'){
         deleteAdminStudent(el.dataset.code, el.dataset.course);
       }
