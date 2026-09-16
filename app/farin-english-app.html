@@ -3001,6 +3001,24 @@ function badgeColor(id){
 
 /* ============================= STATE ============================= */
 const STORAGE_KEY = 'farinEnglishApp.v2';
+const RECOVERY_COOKIE = 'farinRecoveryCode';
+// Fallback store for recoveryCode only (not full profile/progress) so a wiped
+// localStorage (cache clear, private mode, Android WebView data reset) can
+// still be silently reunited with the user's Firestore-backed profile.
+// Cookies survive localStorage.clear() but not a full "clear all site data".
+function setRecoveryCookie(code){
+  try{
+    if(!code) return;
+    document.cookie = RECOVERY_COOKIE + '=' + encodeURIComponent(code) + '; max-age=' + (60*60*24*365) + '; path=/; SameSite=Lax';
+  }catch(e){}
+}
+function getRecoveryCookie(){
+  try{
+    const m = document.cookie.match(new RegExp('(?:^|; )' + RECOVERY_COOKIE + '=([^;]*)'));
+    return m ? decodeURIComponent(m[1]) : null;
+  }catch(e){ return null; }
+}
+let loadedFromStorage = false;
 function freshState(){
   return {
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
@@ -3029,6 +3047,7 @@ function load(){
     const parsed = JSON.parse(raw);
     if(parsed.profile && parsed.profile.completedDiagnostic) parsed.view = parsed.view === 'diagnostic-intro' ? 'dashboard' : parsed.view;
     const merged = Object.assign(freshState(), parsed);
+    if(merged.profile && merged.profile.completedDiagnostic) loadedFromStorage = true;
     if(!merged.progress.completedStories) merged.progress.completedStories = [];
     if(!merged.progress.srs) merged.progress.srs = {};
     if(!merged.progress.badgesEarnedAt) merged.progress.badgesEarnedAt = {};
@@ -3047,6 +3066,7 @@ function load(){
     if(!merged.profile.goals || !merged.profile.goals.length){
       merged.profile.goals = merged.profile.motivationTag ? [merged.profile.motivationTag] : [];
     }
+    if(merged.profile.recoveryCode) setRecoveryCookie(merged.profile.recoveryCode);
     return merged;
   }catch(e){ return freshState(); }
 }
@@ -3069,7 +3089,7 @@ function syncToCloud(){
     }catch(e){}
   }, 1500);
 }
-function save(){ state.lang = LANG; localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); syncToCloud(); }
+function save(){ state.lang = LANG; localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); if(state.profile.recoveryCode) setRecoveryCookie(state.profile.recoveryCode); syncToCloud(); }
 let resetConfirmPending = false;
 let navHistory = [];
 let newlyEarnedBadges = [];
