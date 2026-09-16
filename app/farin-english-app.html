@@ -1944,7 +1944,68 @@ const VOCAB_SETS = [
    {word:'peel back the onion', sentence:'We need to peel back the onion on this issue.', meaning:{en:'To examine something layer by layer, in depth.',tr:'bir konuyu derinlemesine incelemek.',fa:'بررسی عمیق و لایه‌به‌لایه یک موضوع'}, note:{en:'Used when a problem needs deeper investigation.', tr:'Bir sorunun daha derinlemesine incelenmesi gerektiğinde kullanılır.'}},
    {word:'drink from the firehose', sentence:'As a new hire, I felt like I was drinking from the firehose.', meaning:{en:'To be overwhelmed with too much information at once.',tr:'bir anda çok fazla bilgiyle boğuşmak.',fa:'غرق شدن در حجم زیاد اطلاعات ناگهانی'}, note:{en:'Common when describing onboarding overload.', tr:'İşe alışma sürecindeki bilgi yoğunluğunu anlatırken sık kullanılır.'}},
    {word:'par for the course', sentence:'Delays like this are par for the course in this industry.', meaning:{en:'Something typical or expected, often negative.',tr:'bu sektörde/işte normal/beklenen bir durum.',fa:'یک وضعیت عادی و قابل‌انتظار'}, note:{en:'Often used with mild resignation.', tr:'Genelde hafif bir teslimiyet tonuyla kullanılır.'}},
-   {word:'the elephant in the room', sentence:'No one mentioned the elephant in the room: the budget cuts.', meaning:{en:'An obvious problem that people avoid discussing.',tr:'herkesin bildiği ama konuşmaktan kaçındığı sorun.',fa:'مشکل واضحی که همه از صحبت درباره‌اش اجتناب می‌کنند'}, note:{en:'A very common idiom for an unspoken, obvious issue.', tr:'Dile getirilmeyen ama herkesçe bilinen bir sorun için çok yaygın bir deyim.'}}]}
+   {word:'the elephant in the room', sentence:'No one mentioned the elephant in the room: the budget cuts.', meaning:{en:'An obvious problem that people avoid discussing.',tr:'herkesin bildiği ama konuşmaktan kaçındığı sorun.',fa:'مشکل واضحی که همه از صحبت درباره‌اش اجتناب می‌کنند'}, note:{en:'A very common idiom for an unspoken, obvious issue.', tr:'Dile getirilmeyen ama herkesçe bilinen bir sorun için çok yaygın bir deyim.'}}]},
+
+/* ---- Travel goal-specific sets: level = communicative demand, not just harder words ---- */
+ {id:'v-travel-B2-1', level:'B2', category:'vocab', goals:['travel'], title:{en:'Handling Travel Problems', tr:'Seyahat Sorunlarıyla Başa Çıkmak'}, cards:[
+   {word:'flight delay', sentence:'The flight delay meant we missed our connection.', meaning:{en:'A situation where a flight leaves later than scheduled.',tr:'uçuş gecikmesi.',fa:'تأخیر پرواز'}},
+   {word:'connecting flight', sentence:'We have a tight connecting flight in Frankfurt.', meaning:{en:'A second flight you take to reach your final destination.',tr:'aktarma uçuşu.',fa:'پرواز ارتباطی'}},
+   {word:'baggage claim', sentence:'Our suitcases never showed up at baggage claim.', meaning:{en:'The area of an airport where you collect your luggage.',tr:'bagaj teslim alanı.',fa:'محل تحویل چمدان'}},
+   {word:'file a complaint', sentence:"I'd like to file a complaint about the cancelled flight.", meaning:{en:'To formally report a problem to a company or authority.',tr:'şikayette bulunmak.',fa:'ثبت شکایت رسمی'}},
+   {word:'compensation', sentence:'The airline offered compensation for the delay.', meaning:{en:'Money or another benefit given to make up for a problem.',tr:'tazminat.',fa:'غرامت'}},
+   {word:'reroute', sentence:'They had to reroute us through another city.', meaning:{en:'To send someone on a different route or path.',tr:'güzergahı değiştirmek.',fa:'تغییر مسیر دادن'}},
+   {word:'overbooked', sentence:'The flight was overbooked, so they asked for volunteers.', meaning:{en:'When more tickets are sold than there are seats available.',tr:'fazla rezervasyon alınmış.',fa:'رزرو بیش از ظرفیت'}},
+   {word:'lost luggage', sentence:'We had to report our lost luggage at the counter.', meaning:{en:'Baggage that did not arrive with the passenger.',tr:'kayıp bagaj.',fa:'چمدان گم‌شده'}},
+   {word:'refund', sentence:'I requested a full refund for the cancelled tour.', meaning:{en:'Money given back after a purchase is cancelled or unsatisfactory.',tr:'geri ödeme.',fa:'بازپرداخت وجه'}},
+   {word:'travel insurance claim', sentence:'We submitted a travel insurance claim for the missed flight.', meaning:{en:'A formal request for payment from a travel insurance company.',tr:'seyahat sigortası talebi.',fa:'درخواست خسارت بیمه سفر'}}]},
+ {id:'v-travel-C1-1', level:'C1', category:'vocab', goals:['travel'], title:{en:'Negotiating & Resolving Travel Disputes', tr:'Seyahat Anlaşmazlıklarında Pazarlık ve Çözüm'}, cards:[
+   {word:'escalate the issue', sentence:'If the desk staff can\'t help, escalate the issue to a supervisor.', meaning:{en:'To pass a problem to someone with more authority to solve it.',tr:'sorunu üst mercie taşımak.',fa:'ارجاع مسئله به سطح بالاتر'}},
+   {word:'goodwill gesture', sentence:'The hotel offered a free night as a goodwill gesture.', meaning:{en:'A friendly action offered to make up for a problem, without admitting fault.',tr:'iyi niyet jesti.',fa:'اقدام حسن‌نیت'}},
+   {word:'terms and conditions', sentence:'The refund policy is buried in the terms and conditions.', meaning:{en:'The formal rules that apply to a booking or service.',tr:'şartlar ve koşullar.',fa:'شرایط و ضوابط'}},
+   {word:'liability', sentence:'The airline denied liability for the missed connection.', meaning:{en:'Legal responsibility for a problem or loss.',tr:'sorumluluk, mesuliyet.',fa:'مسئولیت قانونی'}},
+   {word:'arbitration', sentence:'The dispute eventually went to arbitration.', meaning:{en:'A formal process where a neutral third party settles a disagreement.',tr:'tahkim.',fa:'داوری برای حل اختلاف'}},
+   {word:'seek a resolution', sentence:'We\'re seeking a resolution before taking this further.', meaning:{en:'To look for a way to solve a disagreement.',tr:'çözüm aramak.',fa:'به دنبال راه‌حل بودن'}},
+   {word:'formal complaint', sentence:'I put my formal complaint in writing.', meaning:{en:'An official, often written, statement of dissatisfaction.',tr:'resmi şikayet.',fa:'شکایت رسمی'}},
+   {word:'service disruption', sentence:'The service disruption affected thousands of travelers.', meaning:{en:'An interruption to a normal service, like transport or booking.',tr:'hizmet aksaması.',fa:'اختلال در خدمات'}},
+   {word:'reasonable accommodation', sentence:'They arranged a reasonable accommodation given the circumstances.', meaning:{en:'A fair adjustment made to solve a problem for someone.',tr:'makul düzenleme/çözüm.',fa:'ترتیب منصفانه برای حل مشکل'}},
+   {word:'breach of contract', sentence:"Cancelling without notice could be a breach of contract.", meaning:{en:'Failing to do what was formally agreed.',tr:'sözleşme ihlali.',fa:'نقض قرارداد'}}]},
+
+/* ---- Exam goal-specific sets: earlier levels get exam-room basics, not full IELTS strategy yet ---- */
+ {id:'v-exam-A1-1', level:'A1', category:'vocab', goals:['exam'], title:{en:'Classroom & Test Basics', tr:'Sınıf ve Sınav Temelleri'}, cards:[
+   {word:'test', sentence:'We have a test on Friday.', meaning:{en:'A short exam that checks what you know.',tr:'sınav, test.',fa:'آزمون کوتاه'}},
+   {word:'question', sentence:'This question is difficult.', meaning:{en:'Something asked that needs an answer.',tr:'soru.',fa:'سؤال'}},
+   {word:'answer', sentence:'Write your answer here.', meaning:{en:'A reply to a question.',tr:'cevap.',fa:'پاسخ'}},
+   {word:'correct', sentence:'Your answer is correct.', meaning:{en:'Right, without mistakes.',tr:'doğru.',fa:'درست'}},
+   {word:'mistake', sentence:'I made a small mistake.', meaning:{en:'Something done incorrectly.',tr:'hata.',fa:'اشتباه'}},
+   {word:'pass', sentence:'I hope I pass the test.', meaning:{en:'To succeed in a test or exam.',tr:'geçmek (sınavdan).',fa:'قبول شدن'}},
+   {word:'fail', sentence:'Don\'t worry if you fail, you can try again.', meaning:{en:'To not succeed in a test or exam.',tr:'kalmak (sınavdan).',fa:'مردود شدن'}},
+   {word:'score', sentence:'What was your score?', meaning:{en:'The number of points you get on a test.',tr:'puan, skor.',fa:'نمره'}},
+   {word:'practice', sentence:'Practice makes the test easier.', meaning:{en:'Doing something again and again to improve.',tr:'pratik, alıştırma.',fa:'تمرین'}},
+   {word:'study', sentence:'I study every evening.', meaning:{en:'To spend time learning something.',tr:'ders çalışmak.',fa:'درس خواندن'}}]},
+ {id:'v-exam-A2-1', level:'A2', category:'vocab', goals:['exam'], title:{en:'Test Day Basics', tr:'Sınav Günü Temelleri'}, cards:[
+   {word:'register', sentence:'You must register for the exam online.', meaning:{en:'To officially sign up for something.',tr:'kayıt olmak.',fa:'ثبت‌نام کردن'}},
+   {word:'exam hall', sentence:'Please arrive at the exam hall by nine.', meaning:{en:'The room where an exam takes place.',tr:'sınav salonu.',fa:'سالن آزمون'}},
+   {word:'time limit', sentence:'There is a strict time limit for each section.', meaning:{en:'The maximum amount of time allowed.',tr:'zaman sınırı.',fa:'محدودیت زمانی'}},
+   {word:'multiple choice', sentence:'Section one is multiple choice.', meaning:{en:'A question type with several answer options to choose from.',tr:'çoktan seçmeli.',fa:'چندگزینه‌ای'}},
+   {word:'instructions', sentence:'Read the instructions carefully before you start.', meaning:{en:'Directions telling you what to do.',tr:'talimatlar.',fa:'دستورالعمل‌ها'}},
+   {word:'ID card', sentence:'Bring your ID card to the exam.', meaning:{en:'An official card that proves who you are.',tr:'kimlik kartı.',fa:'کارت شناسایی'}},
+   {word:'section', sentence:'The listening section comes first.', meaning:{en:'One part of a longer test.',tr:'bölüm.',fa:'بخش'}},
+   {word:'retake', sentence:'You can retake the exam next month.', meaning:{en:'To take a test again.',tr:'yeniden almak (sınav).',fa:'مجدداً شرکت کردن'}},
+   {word:'result', sentence:'Results are usually ready in two weeks.', meaning:{en:'The outcome or score of a test.',tr:'sonuç.',fa:'نتیجه'}},
+   {word:'deadline', sentence:'The registration deadline is this Friday.', meaning:{en:'The final date or time something must be done by.',tr:'son tarih.',fa:'مهلت نهایی'}}]},
+
+/* ---- Immigration goal-specific sets: fills the A1 gap for absolute-beginner arrival needs ---- */
+ {id:'v-immigration-A1-1', level:'A1', category:'vocab', goals:['immigration'], title:{en:'Arrival Essentials', tr:'Varış Temel Bilgileri'}, cards:[
+   {word:'passport control', sentence:'We waited in line at passport control.', meaning:{en:'The airport checkpoint where your passport is checked.',tr:'pasaport kontrolü.',fa:'کنترل گذرنامه'}},
+   {word:'arrival card', sentence:'Please fill out the arrival card before landing.', meaning:{en:'A form travelers complete when entering a country.',tr:'giriş kartı.',fa:'کارت ورود'}},
+   {word:'customs', sentence:'We went through customs quickly.', meaning:{en:'The airport area where officials check bags for illegal items.',tr:'gümrük.',fa:'گمرک'}},
+   {word:'luggage', sentence:'My luggage is over there.', meaning:{en:'Bags and suitcases you travel with.',tr:'bagaj.',fa:'چمدان'}},
+   {word:'address', sentence:'What is your new address?', meaning:{en:'The location where you live.',tr:'adres.',fa:'آدرس'}},
+   {word:'phone number', sentence:'Please write your phone number here.', meaning:{en:'The number used to call someone.',tr:'telefon numarası.',fa:'شماره تلفن'}},
+   {word:'identification', sentence:'You need identification for this appointment.', meaning:{en:'An official document proving who you are.',tr:'kimlik.',fa:'مدرک شناسایی'}},
+   {word:'appointment', sentence:'My appointment is at ten tomorrow.', meaning:{en:'A planned meeting at a specific time.',tr:'randevu.',fa:'قرار ملاقات'}},
+   {word:'form', sentence:'Please complete this form.', meaning:{en:'A document with spaces for information.',tr:'form.',fa:'فرم'}},
+   {word:'sign here', sentence:'Please sign here, at the bottom.', meaning:{en:'An instruction to write your signature in a specific place.',tr:'burayı imzalayın.',fa:'اینجا را امضا کنید'}}]}
 ];
 
 /* ============================= GOALS: 4th-tab content (IELTS Exam Strategy, Immigration Culture Guide) ============================= */
