@@ -3792,6 +3792,15 @@ function sectionHeadNoBack(title, sub){
 /* ============================= RENDER: DIAGNOSTIC ============================= */
 const DIAG_TOTAL_STEPS = 5;
 function renderDiagIntro(){
+  if(state.viewParams && state.viewParams.recovering){
+    return `<div class="fade-in">
+      <div class="diag-hero">
+        <div class="compass-mark">${ICONS.compass}</div>
+        <h1 class="display">${L('One sec…','Bir saniye…','یک لحظه…')}</h1>
+        <p style="color:var(--ink-soft); margin-top:10px; font-size:14.5px;">${L('Looking for your saved progress.','Kayıtlı ilerlemeni arıyoruz.','در حال جست‌وجوی پیشرفت ذخیره‌شده‌ات هستیم.')}</p>
+      </div>
+    </div>`;
+  }
   return `<div class="fade-in">
     <div class="diag-hero">
       <div class="row between" style="position:absolute; top:16px; left:16px; right:16px;">
@@ -7504,7 +7513,37 @@ if(location.hash === '#admin'){
 } else {
   if(state.profile.completedDiagnostic && state.view === 'diagnostic-intro'){ state.view = 'dashboard'; }
   if(state.profile.completedDiagnostic && markDailyVisit()){ save(); }
-  render();
+  const fallbackRecoveryCode = (!loadedFromStorage && !state.profile.completedDiagnostic) ? getRecoveryCookie() : null;
+  if(fallbackRecoveryCode && typeof firebase !== 'undefined'){
+    // localStorage looks wiped/fresh but a recovery cookie survived — try a
+    // silent restore from Firestore before showing the diagnostic at all.
+    state.view = 'diagnostic-intro';
+    state.viewParams = {recovering:true};
+    render();
+    let settled = false;
+    const giveUp = ()=>{
+      if(settled) return;
+      settled = true;
+      state.view = 'diagnostic-intro';
+      state.viewParams = {};
+      render();
+    };
+    firebase.firestore().collection('progress').doc(fallbackRecoveryCode).get().then(doc=>{
+      if(settled) return;
+      if(!doc.exists){ giveUp(); return; }
+      const data = doc.data();
+      settled = true;
+      state.profile = Object.assign({}, freshState().profile, data.profile);
+      state.progress = Object.assign({}, freshState().progress, data.progress);
+      state.view = state.profile.completedDiagnostic ? 'dashboard' : 'diagnostic-intro';
+      state.viewParams = {};
+      save();
+      render();
+    }).catch(giveUp);
+    setTimeout(giveUp, 6000);
+  } else {
+    render();
+  }
   if(state.view === 'student-panel' && studentPanelData && studentPanelData.code && typeof firebase !== 'undefined'){
     firebase.firestore().collection('studentPanels').doc(studentPanelData.code).get().then(doc=>{
       if(doc.exists){
