@@ -3005,7 +3005,7 @@ function freshState(){
   return {
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
     profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
-    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0},
+    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0, usedSpeakingTopics:[]},
     diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null},
     quiz:null, studentPanelCache:null
   };
@@ -3036,6 +3036,7 @@ function load(){
     if(merged.progress.writingRoundsDone===undefined) merged.progress.writingRoundsDone = 0;
     if(merged.progress.speakingRoundsDone===undefined) merged.progress.speakingRoundsDone = 0;
     if(!merged.progress.roadmapChecked) merged.progress.roadmapChecked = {};
+    if(!merged.progress.usedSpeakingTopics) merged.progress.usedSpeakingTopics = [];
     if(merged.profile.levelStage===undefined) merged.profile.levelStage = 1;
     if(!merged.progress.dailyTasksChecked) merged.progress.dailyTasksChecked = {};
     if(merged.progress.dailyTasksDate===undefined) merged.progress.dailyTasksDate = null;
@@ -3377,6 +3378,243 @@ function nextDisplayLevel(p){
   const li = LEVELS.indexOf(p.level);
   return li < LEVELS.length-1 ? LEVELS[li+1] : p.level;
 }
+/* ============================= LIVE SPEAKING SESSION ENGINE =============================
+   Real per-goal, per-level content for the WhatsApp speaking-session handoff, instead of a
+   bare link. Level changes the communicative demand, not just the vocabulary: e.g. Travel A2
+   is "ask where the station is," Travel C1 is "negotiate a resolution to a travel dispute."
+   A1 reuses the A2 pool (A1 learners aren't ready for a live session's demands yet, but the
+   fallback keeps buildRoadmap() from ever finding an empty pool). */
+const SPEAKING_TOPICS = {
+  career: {
+    A2:[{id:'career-A2-1', topic:{en:'Talking About Your Job',tr:'İşinden Bahsetmek',fa:'صحبت درباره شغلت'},
+      warmup:{en:'What do you do for work?',tr:'İş olarak ne yapıyorsun?',fa:'شغلت چیست؟'},
+      questions:[{en:'What do you usually do in a normal work day?',tr:'Normal bir iş gününde genelde ne yaparsın?',fa:'در یک روز کاری معمولی معمولاً چه کار می‌کنی؟'},
+        {en:'What do you like about your job?',tr:'İşinde neyi seviyorsun?',fa:'چی رو در شغلت دوست داری؟'},
+        {en:'Is your job easy or difficult? Why?',tr:'İşin kolay mı zor mu? Neden?',fa:'شغلت آسونه یا سخت؟ چرا؟'}],
+      followups:[{en:'Would you like to change your job one day? Why or why not?',tr:'Bir gün işini değiştirmek ister misin? Neden?',fa:'دوست داری یه روز شغلت رو عوض کنی؟ چرا؟'}],
+      expressions:[{phrase:'I work as a...', meaning:{en:'A simple way to say your job title.',tr:'İş unvanını söylemenin basit yolu.',fa:'روش ساده گفتن عنوان شغلی'}},
+        {phrase:'I\'m in charge of...', meaning:{en:'A phrase for describing your main responsibility.',tr:'Ana sorumluluğunu anlatan bir ifade.',fa:'عبارتی برای بیان مسئولیت اصلی'}},
+        {phrase:'a typical day', meaning:{en:'A normal, usual day.',tr:'sıradan, tipik bir gün.',fa:'یک روز معمولی'}}]}],
+    B1:[{id:'career-B1-1', topic:{en:'Job Interviews',tr:'İş Görüşmeleri',fa:'مصاحبه‌های شغلی'},
+      warmup:{en:'Have you ever had a job interview? How did it go?',tr:'Hiç iş görüşmesine girdin mi? Nasıl geçti?',fa:'تا حالا مصاحبه شغلی داشتی؟ چطور پیش رفت؟'},
+      questions:[{en:'What questions do interviewers usually ask?',tr:'Mülakatçılar genelde ne tür sorular sorar?',fa:'مصاحبه‌کننده‌ها معمولاً چه سؤال‌هایی می‌پرسند؟'},
+        {en:'How do you talk about your strengths without sounding arrogant?',tr:'Kibirli görünmeden güçlü yönlerinden nasıl bahsedersin?',fa:'چطور بدون اینکه مغرور به‌نظر برسی درباره نقاط قوتت حرف می‌زنی؟'},
+        {en:'What is a weakness you could mention in an interview, and how would you frame it?',tr:'Görüşmede bahsedebileceğin bir zayıf yön ne olurdu, nasıl anlatırdın?',fa:'یک نقطه ضعف که می‌تونی تو مصاحبه بگی چیه و چطور مطرحش می‌کنی؟'}],
+      followups:[{en:'How do you usually prepare before an important interview?',tr:'Önemli bir görüşmeden önce genelde nasıl hazırlanırsın?',fa:'قبل از یک مصاحبه مهم معمولاً چطور آماده می‌شی؟'}],
+      expressions:[{phrase:'I\'m a quick learner', meaning:{en:'A common phrase to describe adaptability.',tr:'Uyum yeteneğini anlatan yaygın bir ifade.',fa:'عبارت رایج برای توصیف تطبیق‌پذیری سریع'}},
+        {phrase:'I bring X years of experience', meaning:{en:'A phrase for summarizing your background.',tr:'Geçmişini özetlemek için kullanılan bir ifade.',fa:'عبارتی برای خلاصه‌کردن سابقه کاری'}},
+        {phrase:'What does success look like in this role?', meaning:{en:'A smart question to ask the interviewer back.',tr:'Mülakatçıya sorulabilecek akıllıca bir soru.',fa:'سؤال هوشمندانه‌ای برای پرسیدن از مصاحبه‌کننده'}}]}],
+    B2:[{id:'career-B2-1', topic:{en:'Meetings & Teamwork',tr:'Toplantılar ve Takım Çalışması',fa:'جلسات و کار تیمی'},
+      warmup:{en:'What makes a meeting productive or a waste of time?',tr:'Bir toplantıyı verimli ya da zaman kaybı yapan nedir?',fa:'چی یک جلسه رو مفید یا اتلاف وقت می‌کنه؟'},
+      questions:[{en:'How do you politely disagree with a colleague in a meeting?',tr:'Toplantıda bir iş arkadaşınla nazikçe nasıl aynı fikirde olmadığını söylersin?',fa:'چطور مؤدبانه با نظر یک همکار تو جلسه مخالفت می‌کنی؟'},
+        {en:'Describe a time teamwork solved a problem you couldn\'t solve alone.',tr:'Takım çalışmasının tek başına çözemeyeceğin bir sorunu çözdüğü bir anı anlat.',fa:'یه زمانی رو توصیف کن که کار تیمی مشکلی رو حل کرد که تنهایی نمی‌تونستی حلش کنی.'},
+        {en:'How do you give an update on a project that\'s behind schedule?',tr:'Programın gerisinde kalmış bir proje hakkında nasıl güncelleme verirsin?',fa:'چطور درباره پروژه‌ای که از برنامه عقب افتاده گزارش می‌دی؟'}],
+      followups:[{en:'What\'s the difference between a good leader and a good manager, in your opinion?',tr:'Sence iyi bir lider ile iyi bir yönetici arasındaki fark nedir?',fa:'به نظرت فرق یک رهبر خوب با یک مدیر خوب چیه؟'}],
+      expressions:[{phrase:'I see your point, but...', meaning:{en:'A polite way to disagree.',tr:'Kibarca fikir ayrılığı belirtmenin bir yolu.',fa:'روشی مؤدبانه برای مخالفت'}},
+        {phrase:'to be on the same page', meaning:{en:'To share the same understanding as someone else.',tr:'Birisiyle aynı anlayışa sahip olmak.',fa:'هم‌نظر بودن با کسی'}},
+        {phrase:'let\'s table that for now', meaning:{en:'To postpone a discussion for later.',tr:'Bir konuyu sonraya ertelemek.',fa:'بحث را به بعد موکول کردن'}}]}],
+    C1:[{id:'career-C1-1', topic:{en:'Negotiation & Leadership',tr:'Müzakere ve Liderlik',fa:'مذاکره و رهبری'},
+      warmup:{en:'What makes someone a persuasive negotiator?',tr:'Birini ikna edici bir müzakereci yapan nedir?',fa:'چی یک نفر رو مذاکره‌کننده متقاعدکننده می‌کنه؟'},
+      questions:[{en:'Describe a time you had to negotiate something difficult at work — how did you approach it?',tr:'İşte zor bir şeyi müzakere etmen gereken bir anı anlat — nasıl yaklaştın?',fa:'یه زمانی رو تعریف کن که باید تو کار یه چیز سخت رو مذاکره می‌کردی — چطور بهش نزدیک شدی؟'},
+        {en:'How do you give critical feedback without damaging a working relationship?',tr:'Bir çalışma ilişkisine zarar vermeden nasıl eleştirel geri bildirim verirsin?',fa:'چطور بدون آسیب به رابطه کاری، بازخورد انتقادی می‌دی؟'},
+        {en:'When is it better to compromise, and when is it better to hold your position?',tr:'Ne zaman uzlaşmak, ne zaman pozisyonunda ısrar etmek daha iyidir?',fa:'کی بهتره کوتاه بیای و کی بهتره سر موضعت بمونی؟'}],
+      followups:[{en:'How does company culture shape the way people negotiate internally?',tr:'Şirket kültürü, insanların içeride müzakere etme biçimini nasıl şekillendirir?',fa:'فرهنگ شرکت چطور نحوه مذاکره داخلی افراد رو شکل می‌ده؟'}],
+      expressions:[{phrase:'let\'s find a middle ground', meaning:{en:'To look for a compromise both sides accept.',tr:'İki tarafın da kabul edeceği bir orta yol aramak.',fa:'به دنبال یک راه‌حل میانه که هر دو طرف قبول کنند'}},
+        {phrase:'I hear where you\'re coming from', meaning:{en:'Acknowledging someone\'s perspective before responding.',tr:'Cevap vermeden önce birinin bakış açısını kabul etmek.',fa:'قبول کردن دیدگاه طرف مقابل پیش از پاسخ دادن'}},
+        {phrase:'a win-win outcome', meaning:{en:'A result that benefits everyone involved.',tr:'Herkese fayda sağlayan bir sonuç.',fa:'نتیجه‌ای که به نفع همه طرف‌هاست'}}],
+      culture:{en:'In many professional contexts, silence during a negotiation is a deliberate tactic — not necessarily a sign of hesitation or disagreement.',tr:'Birçok profesyonel bağlamda, müzakere sırasındaki sessizlik kasıtlı bir taktiktir — mutlaka tereddüt ya da anlaşmazlık işareti değildir.',fa:'در بسیاری از فضاهای حرفه‌ای، سکوت در حین مذاکره یک تاکتیک عمدی است، نه لزوماً نشانه تردید یا مخالفت.'}}]},
+  travel: {
+    A2:[{id:'travel-A2-1', topic:{en:'Getting Around a New City',tr:'Yeni Bir Şehirde Ulaşım',fa:'رفت‌وآمد در یک شهر جدید'},
+      warmup:{en:'Excuse me, where is the train station?',tr:'Affedersiniz, tren istasyonu nerede?',fa:'ببخشید، ایستگاه قطار کجاست؟'},
+      questions:[{en:'How do you ask a stranger for directions?',tr:'Bir yabancıdan nasıl yol tarifi istersin?',fa:'چطور از یک غریبه آدرس می‌پرسی؟'},
+        {en:'What do you say if you don\'t understand the directions someone gives you?',tr:'Biri sana yol tarif ederken anlamazsan ne dersin?',fa:'اگه آدرسی که کسی بهت می‌ده رو نفهمی چی می‌گی؟'},
+        {en:'How do you buy a ticket at a bus or train station?',tr:'Otobüs ya da tren istasyonunda nasıl bilet alırsın?',fa:'چطور تو ایستگاه اتوبوس یا قطار بلیت می‌خری؟'}],
+      expressions:[{phrase:'How do I get to...?', meaning:{en:'A simple way to ask for directions.',tr:'Yol sormanın basit bir yolu.',fa:'روش ساده‌ی پرسیدن آدرس'}},
+        {phrase:'Is it far from here?', meaning:{en:'Asking about distance.',tr:'Mesafe sormak.',fa:'پرسیدن درباره فاصله'}},
+        {phrase:'Could you repeat that, please?', meaning:{en:'Politely asking someone to say something again.',tr:'Birinden bir şeyi tekrar söylemesini kibarca istemek.',fa:'مؤدبانه خواستن تکرار حرف کسی'}}]}],
+    B1:[{id:'travel-B1-1', topic:{en:'Planning a Trip',tr:'Bir Seyahat Planlamak',fa:'برنامه‌ریزی یک سفر'},
+      warmup:{en:'What\'s your dream travel destination, and why?',tr:'Hayalindeki seyahat destinasyonu nedir, neden?',fa:'مقصد رویایی سفرت کجاست و چرا؟'},
+      questions:[{en:'How do you decide between different hotel or flight options?',tr:'Farklı otel ya da uçuş seçenekleri arasında nasıl karar verirsin?',fa:'چطور بین گزینه‌های مختلف هتل یا پرواز تصمیم می‌گیری؟'},
+        {en:'What do you usually pack that other people forget?',tr:'Genelde başkalarının unuttuğu ne paketlersin?',fa:'معمولاً چی می‌ذاری تو چمدون که بقیه یادشون می‌ره؟'},
+        {en:'Do you prefer planning every detail or traveling more spontaneously? Why?',tr:'Her detayı planlamayı mı yoksa daha spontane seyahat etmeyi mi tercih edersin? Neden?',fa:'دوست داری همه‌چیز رو برنامه‌ریزی کنی یا خودجوش سفر کنی؟ چرا؟'}],
+      followups:[{en:'Tell me about a trip that didn\'t go according to plan.',tr:'Planlandığı gibi gitmeyen bir seyahatinden bahset.',fa:'درباره یک سفری که طبق برنامه پیش نرفت تعریف کن.'}],
+      expressions:[{phrase:'book in advance', meaning:{en:'To reserve something ahead of time.',tr:'Önceden rezervasyon yapmak.',fa:'از قبل رزرو کردن'}},
+        {phrase:'off the beaten path', meaning:{en:'Not a typical tourist destination.',tr:'Alışılmadık, turistik olmayan yer.',fa:'مسیر کمتر شناخته‌شده و غیرتوریستی'}},
+        {phrase:'a rough itinerary', meaning:{en:'A general, not-too-detailed travel plan.',tr:'Genel, çok detaylı olmayan bir seyahat planı.',fa:'برنامه سفر کلی و نه‌چندان دقیق'}}]}],
+    B2:[{id:'travel-B2-1', topic:{en:'When Travel Plans Go Wrong',tr:'Seyahat Planları Ters Gittiğinde',fa:'وقتی برنامه سفر خراب می‌شود'},
+      warmup:{en:'Have you ever had a flight delayed or cancelled? What happened?',tr:'Hiç uçuşun gecikti ya da iptal oldu mu? Ne oldu?',fa:'تا حالا پروازت به تأخیر افتاده یا کنسل شده؟ چی شد؟'},
+      questions:[{en:'How would you politely but firmly complain about lost luggage at an airport counter?',tr:'Havalimanı gişesinde kayıp bagaj hakkında nazik ama kararlı bir şekilde nasıl şikayet edersin?',fa:'چطور تو باجه فرودگاه درباره چمدون گم‌شده مؤدبانه ولی قاطع شکایت می‌کنی؟'},
+        {en:'What\'s the difference between explaining a problem and demanding a solution?',tr:'Bir sorunu açıklamakla bir çözüm talep etmek arasındaki fark nedir?',fa:'فرق توضیح‌دادن یک مشکل با درخواست راه‌حل چیه؟'},
+        {en:'How do you stay calm when dealing with a stressful travel situation?',tr:'Stresli bir seyahat durumuyla uğraşırken nasıl sakin kalırsın?',fa:'موقع یک وضعیت پراسترس سفر چطور آرومت رو حفظ می‌کنی؟'}],
+      followups:[{en:'What compensation would you consider fair for a cancelled flight?',tr:'İptal edilen bir uçuş için hangi tazminatı adil bulursun?',fa:'برای یک پرواز کنسل‌شده چه غرامتی رو منصفانه می‌دونی؟'}],
+      expressions:[{phrase:'I understand, but this isn\'t good enough', meaning:{en:'A firm but polite way to push back on a weak response.',tr:'Zayıf bir yanıta kararlı ama kibarca karşı çıkmanın bir yolu.',fa:'روشی قاطع اما مؤدبانه برای رد یک پاسخ ضعیف'}},
+        {phrase:'What are my options here?', meaning:{en:'Asking what solutions are available.',tr:'Hangi çözümlerin mevcut olduğunu sormak.',fa:'پرسیدن اینکه چه راه‌حل‌هایی موجود است'}},
+        {phrase:'I\'d like this in writing', meaning:{en:'Asking for a promise or solution to be documented.',tr:'Bir söz ya da çözümün belgelenmesini istemek.',fa:'خواستن مکتوب‌شدن یک قول یا راه‌حل'}}]}],
+    C1:[{id:'travel-C1-1', topic:{en:'Negotiating a Travel Dispute Resolution',tr:'Bir Seyahat Anlaşmazlığında Çözüm Müzakeresi',fa:'مذاکره برای حل یک اختلاف سفر'},
+      warmup:{en:'When a company gets something badly wrong, what does a genuinely fair resolution look like to you?',tr:'Bir şirket bir şeyi ciddi şekilde yanlış yaptığında, senin için gerçekten adil bir çözüm neye benzer?',fa:'وقتی یک شرکت اشتباه بزرگی می‌کنه، یک راه‌حل واقعاً منصفانه از نظر تو چه شکلیه؟'},
+      questions:[{en:'Roleplay: you were bumped from an overbooked flight and missed a connecting business meeting. Negotiate compensation with an airline representative.',tr:'Rol yap: aşırı rezervasyon nedeniyle uçaktan indirildin ve bağlantılı bir iş toplantısını kaçırdın. Bir havayolu temsilcisiyle tazminat için müzakere et.',fa:'ایفای نقش: به‌خاطر رزرو بیش از ظرفیت از پروازت جا موندی و یک جلسه کاری ارتباطی رو از دست دادی. با نماینده هواپیمایی درباره غرامت مذاکره کن.'},
+        {en:'How do you escalate a complaint professionally without sounding aggressive?',tr:'Saldırgan görünmeden bir şikayeti profesyonelce nasıl üst mercie taşırsın?',fa:'چطور بدون تهاجمی به‌نظررسیدن، یک شکایت رو به‌صورت حرفه‌ای به سطح بالاتر ارجاع می‌دی؟'},
+        {en:'What\'s the value of a written paper trail in a dispute like this?',tr:'Böyle bir anlaşmazlıkta yazılı belge kaydının değeri nedir?',fa:'ارزش یک سابقه مکتوب در چنین اختلافی چیه؟'}],
+      followups:[{en:'At what point would you involve a consumer rights authority or take legal action?',tr:'Ne noktada bir tüketici hakları kurumunu devreye sokar ya da yasal işlem başlatırsın?',fa:'کی سراغ نهاد حقوق مصرف‌کننده می‌ری یا اقدام قانونی می‌کنی؟'}],
+      expressions:[{phrase:'I\'d appreciate it if we could resolve this amicably', meaning:{en:'A diplomatic way to push for a friendly resolution.',tr:'Dostane bir çözüm için diplomatik bir ifade.',fa:'روشی دیپلماتیک برای پیشنهاد راه‌حل دوستانه'}},
+        {phrase:'this falls short of what was promised', meaning:{en:'Formally pointing out a broken commitment.',tr:'Yerine getirilmemiş bir taahhüdü resmi şekilde belirtmek.',fa:'اشاره رسمی به یک تعهد انجام‌نشده'}},
+        {phrase:'let\'s put this in writing to avoid further confusion', meaning:{en:'Suggesting documentation to prevent future disputes.',tr:'Gelecekteki anlaşmazlıkları önlemek için belgeleme önermek.',fa:'پیشنهاد مکتوب‌کردن موضوع برای جلوگیری از سوءتفاهم بیشتر'}}],
+      culture:{en:'In many consumer-protection systems, a calm written complaint that cites specific policy terms tends to move faster than an emotional verbal one — tone and documentation both matter.',tr:'Birçok tüketici koruma sisteminde, belirli politika maddelerine atıfta bulunan sakin bir yazılı şikayet, duygusal bir sözlü şikayetten daha hızlı ilerleme eğilimindedir — hem üslup hem belgeleme önemlidir.',fa:'در بسیاری از سیستم‌های حمایت از مصرف‌کننده، یک شکایت مکتوب آرام که به بندهای مشخص خط‌مشی اشاره می‌کند، معمولاً سریع‌تر از یک شکایت شفاهی احساسی پیش می‌رود — هم لحن و هم مستندسازی اهمیت دارند.'}}]},
+  exam: {
+    A2:[{id:'exam-A2-1', topic:{en:'Talking About School & Studying',tr:'Okul ve Ders Çalışma Hakkında Konuşmak',fa:'صحبت درباره مدرسه و درس‌خواندن'},
+      warmup:{en:'Do you like studying English? Why or why not?',tr:'İngilizce çalışmayı sever misin? Neden?',fa:'دوست داری انگلیسی درس بخونی؟ چرا؟'},
+      questions:[{en:'What is your favorite subject to study, and why?',tr:'Çalışmayı en çok sevdiğin ders hangisi, neden?',fa:'مورد علاقه‌ترین درست چیه و چرا؟'},
+        {en:'How do you usually prepare for a test?',tr:'Bir sınava genelde nasıl hazırlanırsın?',fa:'معمولاً چطور برای یک آزمون آماده می‌شی؟'},
+        {en:'What do you do if you feel nervous before a test?',tr:'Sınavdan önce gergin hissedersen ne yaparsın?',fa:'اگه قبل از آزمون استرس داشته باشی چیکار می‌کنی؟'}],
+      expressions:[{phrase:'I\'m preparing for...', meaning:{en:'Saying you are getting ready for something.',tr:'Bir şeye hazırlandığını söylemek.',fa:'گفتن اینکه داری برای چیزی آماده می‌شی'}},
+        {phrase:'it takes practice', meaning:{en:'Saying something improves with repeated effort.',tr:'Bir şeyin tekrarlı çabayla geliştiğini söylemek.',fa:'گفتن اینکه یک چیز با تمرین بهتر می‌شود'}},
+        {phrase:'I need to review', meaning:{en:'Saying you need to look over material again.',tr:'Bir materyali tekrar gözden geçirmen gerektiğini söylemek.',fa:'گفتن اینکه لازمه دوباره مطلب رو مرور کنی'}}]}],
+    B1:[{id:'exam-B1-1', topic:{en:'Study Strategies',tr:'Çalışma Stratejileri',fa:'راهبردهای مطالعه'},
+      warmup:{en:'What\'s the biggest challenge you face when studying for a test?',tr:'Sınava çalışırken karşılaştığın en büyük zorluk nedir?',fa:'بزرگ‌ترین چالشی که موقع درس‌خوندن برای آزمون داری چیه؟'},
+      questions:[{en:'Do you prefer studying alone or with other people? Why?',tr:'Tek başına mı yoksa başkalarıyla mı çalışmayı tercih edersin? Neden?',fa:'ترجیح می‌دی تنها درس بخونی یا با بقیه؟ چرا؟'},
+        {en:'How do you manage your time when you have a lot to study?',tr:'Çalışacak çok şey olduğunda zamanını nasıl yönetirsin?',fa:'وقتی خیلی چیز برای خوندن داری چطور وقتت رو مدیریت می‌کنی؟'},
+        {en:'What study method has worked best for you?',tr:'Senin için en iyi işe yarayan çalışma yöntemi hangisi?',fa:'کدوم روش مطالعه برات بیشترین جواب رو داده؟'}],
+      followups:[{en:'Have you ever changed your study method because the first one wasn\'t working? What did you change?',tr:'İlk yöntemin işe yaramaması nedeniyle çalışma yöntemini hiç değiştirdin mi? Neyi değiştirdin?',fa:'تا حالا روش مطالعه‌ات رو عوض کردی چون جواب نمی‌داد؟ چی رو تغییر دادی؟'}],
+      expressions:[{phrase:'cram for a test', meaning:{en:'To study intensively right before a test.',tr:'Sınavdan hemen önce yoğun şekilde çalışmak.',fa:'شبانه‌خونی درست قبل از آزمون'}},
+        {phrase:'break it down into smaller parts', meaning:{en:'To divide a big task into manageable pieces.',tr:'Büyük bir görevi yönetilebilir parçalara bölmek.',fa:'تقسیم یک کار بزرگ به بخش‌های کوچک‌تر'}},
+        {phrase:'stay on track', meaning:{en:'To continue following a plan without getting distracted.',tr:'Dikkati dağılmadan bir planı takip etmeye devam etmek.',fa:'ادامه دادن به برنامه بدون منحرف‌شدن'}}]}],
+    B2:[{id:'exam-B2-1', topic:{en:'Giving Opinions, IELTS-Style',tr:'IELTS Tarzı Fikir Bildirmek',fa:'بیان نظر به سبک آیلتس'},
+      warmup:{en:'Do you think exams are a fair way to measure someone\'s ability? Why or why not?',tr:'Sence sınavlar birinin yeteneğini ölçmenin adil bir yolu mu? Neden?',fa:'به نظرت آزمون‌ها راه منصفانه‌ای برای سنجش توانایی افراد هستن؟ چرا؟'},
+      questions:[{en:'Some people say technology has made studying easier. Do you agree or disagree?',tr:'Bazı insanlar teknolojinin çalışmayı kolaylaştırdığını söylüyor. Katılıyor musun, katılmıyor musun?',fa:'بعضی‌ها می‌گن تکنولوژی درس‌خوندن رو آسون‌تر کرده. موافقی یا مخالف؟'},
+        {en:'What are the advantages and disadvantages of standardized testing?',tr:'Standart sınavların avantajları ve dezavantajları nelerdir?',fa:'مزایا و معایب آزمون‌های استاندارد چیه؟'},
+        {en:'How would you support your opinion with a specific example?',tr:'Fikrini belirli bir örnekle nasıl desteklersin?',fa:'چطور نظرت رو با یک مثال مشخص پشتیبانی می‌کنی؟'}],
+      followups:[{en:'How is this topic viewed differently in different countries, as far as you know?',tr:'Bildiğin kadarıyla bu konu farklı ülkelerde nasıl farklı algılanıyor?',fa:'تا جایی که می‌دونی این موضوع تو کشورهای مختلف چطور متفاوت دیده می‌شه؟'}],
+      expressions:[{phrase:'On the one hand... on the other hand...', meaning:{en:'A structure for presenting two sides of an argument.',tr:'Bir konunun iki yönünü sunmak için kullanılan bir yapı.',fa:'ساختاری برای ارائه دو طرف یک استدلال'}},
+        {phrase:'this is largely due to', meaning:{en:'A formal way to explain a cause.',tr:'Bir nedeni açıklamanın resmi bir yolu.',fa:'روشی رسمی برای بیان یک علت'}},
+        {phrase:'to illustrate this point', meaning:{en:'Introducing an example to support an idea.',tr:'Bir fikri desteklemek için örnek sunmak.',fa:'معرفی یک مثال برای تقویت یک ایده'}}]}],
+    C1:[{id:'exam-C1-1', topic:{en:'Abstract Discussion, IELTS Part 3 Style',tr:'IELTS Bölüm 3 Tarzı Soyut Tartışma',fa:'بحث انتزاعی به سبک آیلتس بخش سوم'},
+      warmup:{en:'How has the definition of "success" changed across generations, in your view?',tr:'Sence "başarı" tanımı nesiller arasında nasıl değişti?',fa:'به نظرت تعریف «موفقیت» بین نسل‌ها چطور تغییر کرده؟'},
+      questions:[{en:'To what extent should governments regulate access to standardized education versus leaving it to the private sector?',tr:'Hükümetler standart eğitime erişimi ne ölçüde düzenlemeli, ne ölçüde özel sektöre bırakmalı?',fa:'دولت‌ها تا چه حد باید دسترسی به آموزش استاندارد رو تنظیم کنن، در مقابل سپردنش به بخش خصوصی؟'},
+        {en:'Is competition in education ultimately beneficial or harmful to society? Justify your view with more than one angle.',tr:'Eğitimdeki rekabet toplum için nihayetinde faydalı mı zararlı mı? Görüşünü birden fazla açıdan gerekçelendir.',fa:'رقابت در آموزش نهایتاً به نفع جامعه‌ست یا ضرر؟ نظرت رو از چند زاویه توجیه کن.'},
+        {en:'How might assessment methods need to evolve as technology changes what "knowledge" means?',tr:'Teknoloji "bilgi"nin anlamını değiştirirken değerlendirme yöntemleri nasıl gelişmeli?',fa:'با تغییر معنای «دانش» به‌واسطه تکنولوژی، روش‌های ارزیابی چطور باید تحول پیدا کنن؟'}],
+      followups:[{en:'Push back on your own argument for a moment — what\'s the strongest counterpoint to what you just said?',tr:'Bir an için kendi argümanına karşı çık — az önce söylediğine en güçlü karşı görüş nedir?',fa:'یه لحظه با استدلال خودت مخالفت کن — قوی‌ترین نقطه مقابل حرفی که زدی چیه؟'}],
+      expressions:[{phrase:'this raises the broader question of', meaning:{en:'A way to pivot from a specific point to a wider issue.',tr:'Belirli bir noktadan daha geniş bir konuya geçmenin bir yolu.',fa:'روشی برای گذر از یک نکته خاص به موضوعی گسترده‌تر'}},
+        {phrase:'a nuanced view', meaning:{en:'An opinion that acknowledges complexity rather than one simple side.',tr:'Tek bir basit taraf yerine karmaşıklığı kabul eden bir görüş.',fa:'نظری که پیچیدگی را می‌پذیرد نه یک طرف ساده'}},
+        {phrase:'that said,', meaning:{en:'A transition phrase for introducing a qualifying or opposing point.',tr:'Sınırlayıcı ya da karşıt bir noktayı sunmak için geçiş ifadesi.',fa:'عبارت انتقالی برای معرفی یک نکته محدودکننده یا مخالف'}}]}]},
+  immigration: {
+    A2:[{id:'immigration-A2-1', topic:{en:'Settling the Basics',tr:'Temel İhtiyaçları Halletmek',fa:'حل مسائل ابتدایی زندگی'},
+      warmup:{en:'What was the first thing you had to arrange after arriving in a new country?',tr:'Yeni bir ülkeye vardıktan sonra halletmen gereken ilk şey neydi?',fa:'بعد از رسیدن به یک کشور جدید اولین کاری که باید انجام می‌دادی چی بود؟'},
+      questions:[{en:'How do you ask about renting an apartment?',tr:'Bir daire kiralamak hakkında nasıl sorarsın?',fa:'چطور درباره اجاره یک آپارتمان سؤال می‌پرسی؟'},
+        {en:'What do you say when you open a bank account?',tr:'Banka hesabı açarken ne dersin?',fa:'موقع باز کردن حساب بانکی چی می‌گی؟'},
+        {en:'How do you explain a health problem to a doctor in simple words?',tr:'Bir doktora sağlık sorununu basit kelimelerle nasıl anlatırsın?',fa:'چطور با کلمات ساده یک مشکل سلامتی رو به دکتر توضیح می‌دی؟'}],
+      expressions:[{phrase:'I\'d like to open an account', meaning:{en:'A phrase for starting a bank appointment.',tr:'Bir banka randevusunu başlatmak için kullanılan bir ifade.',fa:'عبارتی برای شروع درخواست باز کردن حساب'}},
+        {phrase:'Is this apartment still available?', meaning:{en:'Asking if a rental is still on the market.',tr:'Bir kiralık yerin hâlâ müsait olup olmadığını sormak.',fa:'پرسیدن اینکه آیا یک اجاره هنوز موجوده'}},
+        {phrase:'I don\'t feel well', meaning:{en:'A simple, common way to start describing a health issue.',tr:'Bir sağlık sorununu anlatmaya başlamanın basit, yaygın bir yolu.',fa:'روشی ساده و رایج برای شروع توضیح یک مشکل سلامتی'}}]}],
+    B1:[{id:'immigration-B1-1', topic:{en:'Settling In',tr:'Yerleşme Süreci',fa:'جاافتادن در زندگی جدید'},
+      warmup:{en:'What has surprised you most about daily life here compared to where you\'re from?',tr:'Buradaki günlük hayatta seni memleketine göre en çok ne şaşırttı?',fa:'چی بیشتر از همه درباره زندگی روزمره اینجا نسبت به کشورت شگفت‌زده‌ات کرد؟'},
+      questions:[{en:'What do you miss most about your home country?',tr:'Memleketinle ilgili en çok neyi özlüyorsun?',fa:'بیشتر از همه دلت برای چی کشورت تنگ می‌شه؟'},
+        {en:'How did you make your first friends here?',tr:'Buradaki ilk arkadaşlarını nasıl edindin?',fa:'اولین دوست‌هات رو اینجا چطور پیدا کردی؟'},
+        {en:'What advice would you give someone who just arrived?',tr:'Yeni gelmiş birine ne tavsiye verirdin?',fa:'به کسی که تازه رسیده چه توصیه‌ای می‌کردی؟'}],
+      followups:[{en:'Describe your neighborhood — what do you like or dislike about it?',tr:'Mahalleni tarif et — neyi seviyorsun neyi sevmiyorsun?',fa:'محله‌ات رو توصیف کن — چی توش دوست داری و چی نه؟'}],
+      expressions:[{phrase:'it took some getting used to', meaning:{en:'Saying something felt strange at first but became normal.',tr:'Bir şeyin ilk başta garip gelip sonra normalleştiğini söylemek.',fa:'گفتن اینکه چیزی اول عجیب بود ولی بعد عادی شد'}},
+        {phrase:'I\'m still finding my way around', meaning:{en:'Saying you\'re still learning how a place works.',tr:'Bir yerin nasıl işlediğini hâlâ öğrendiğini söylemek.',fa:'گفتن اینکه هنوز داری یاد می‌گیری اینجا چطور کار می‌کنه'}},
+        {phrase:'a home away from home', meaning:{en:'A place that feels comfortable even though it isn\'t your original home.',tr:'Aslında memleketin olmasa da rahat hissettiren bir yer.',fa:'جایی که با اینکه خانه اصلی‌ات نیست، راحت حس می‌کنی'}}]}],
+    B2:[{id:'immigration-B2-1', topic:{en:'Navigating Bureaucracy',tr:'Bürokraside Yol Almak',fa:'عبور از پیچ‌وخم بروکراسی'},
+      warmup:{en:'What\'s the most confusing piece of paperwork you\'ve dealt with here?',tr:'Burada uğraştığın en kafa karıştırıcı evrak neydi?',fa:'گیج‌کننده‌ترین کاغذبازی‌ای که اینجا باهاش سروکله زدی چی بود؟'},
+      questions:[{en:'How do you explain a problem clearly to an official who doesn\'t have much time?',tr:'Fazla zamanı olmayan bir yetkiliye bir sorunu nasıl net anlatırsın?',fa:'چطور یک مشکل رو واضح به مسئولی که زیاد وقت نداره توضیح می‌دی؟'},
+        {en:'What do you do if a form asks for a document you don\'t have?',tr:'Bir form sahip olmadığın bir belge istiyorsa ne yaparsın?',fa:'اگه یک فرم مدرکی رو بخواد که نداری چیکار می‌کنی؟'},
+        {en:'How do you politely ask for an extension or exception to a rule?',tr:'Bir kural için nazikçe nasıl ek süre ya da istisna istersin?',fa:'چطور مؤدبانه برای یک قانون درخواست تمدید یا استثنا می‌کنی؟'}],
+      followups:[{en:'Have you ever had to make an appointment change or correction after a mistake? How did you handle it?',tr:'Bir hata sonrası randevu değişikliği ya da düzeltmesi yapman gerekti mi? Nasıl hallettin?',fa:'تا حالا مجبور شدی بعد از یک اشتباه، قرار یا مدرکت رو اصلاح کنی؟ چطور حلش کردی؟'}],
+      expressions:[{phrase:'could you clarify what\'s needed here?', meaning:{en:'A polite way to ask for more precise instructions.',tr:'Daha net talimat istemenin kibar bir yolu.',fa:'روشی مؤدبانه برای درخواست توضیح دقیق‌تر'}},
+        {phrase:'is there a way to expedite this?', meaning:{en:'Asking if a process can be made faster.',tr:'Bir sürecin hızlandırılıp hızlandırılamayacağını sormak.',fa:'پرسیدن اینکه آیا فرآیند رو می‌شه سریع‌تر کرد'}},
+        {phrase:'I want to make sure I understand correctly', meaning:{en:'A phrase to confirm understanding before proceeding.',tr:'İlerlemeden önce anlayışını doğrulamak için bir ifade.',fa:'عبارتی برای تأیید فهمیدن درست پیش از ادامه'}}]}],
+    C1:[{id:'immigration-C1-1', topic:{en:'Advocating for Yourself',tr:'Kendini Savunmak',fa:'دفاع از حق خودت'},
+      warmup:{en:'Have you ever had to push back on an official decision that felt unfair? What happened?',tr:'Hiç adil hissetmeyen resmi bir karara karşı çıkman gerekti mi? Ne oldu?',fa:'تا حالا مجبور شدی با یک تصمیم رسمی که ناعادلانه به‌نظر می‌رسید مخالفت کنی؟ چی شد؟'},
+      questions:[{en:'How do you formally appeal a decision you believe was made in error?',tr:'Hatalı verildiğine inandığın bir kararı resmi olarak nasıl itiraz edersin?',fa:'چطور به‌طور رسمی به تصمیمی که فکر می‌کنی اشتباه گرفته شده اعتراض می‌کنی؟'},
+        {en:'What\'s the difference between being assertive and being aggressive when dealing with institutions?',tr:'Kurumlarla uğraşırken kararlı olmak ile saldırgan olmak arasındaki fark nedir?',fa:'فرق قاطع بودن و پرخاشگر بودن در برخورد با نهادها چیه؟'},
+        {en:'How do cultural expectations around authority shape how comfortable people feel challenging a decision?',tr:'Otorite hakkındaki kültürel beklentiler, insanların bir kararı sorgularken ne kadar rahat hissettiğini nasıl şekillendirir?',fa:'انتظارات فرهنگی درباره اقتدار چطور راحتی افراد در به‌چالش‌کشیدن یک تصمیم رو شکل می‌ده؟'}],
+      followups:[{en:'Reflecting on your own adjustment, what would you tell your first-week-in-the-country self?',tr:'Kendi uyum sürecini düşünerek, bu ülkedeki ilk haftandaki kendine ne söylerdin?',fa:'با نگاه به تطبیق خودت، به خودت تو هفته اول این کشور چی می‌گفتی؟'}],
+      expressions:[{phrase:'I\'d like this decision reviewed', meaning:{en:'A formal phrase for requesting a reconsideration.',tr:'Bir kararın yeniden gözden geçirilmesini talep etmek için resmi bir ifade.',fa:'عبارتی رسمی برای درخواست بازنگری یک تصمیم'}},
+        {phrase:'on what grounds was this decided?', meaning:{en:'Asking for the formal reasoning behind a decision.',tr:'Bir kararın arkasındaki resmi gerekçeyi sormak.',fa:'پرسیدن دلیل رسمی پشت یک تصمیم'}},
+        {phrase:'I understand the policy, but my situation is somewhat different because...', meaning:{en:'A structure for respectfully requesting an exception.',tr:'Saygılı bir şekilde istisna talep etmek için bir yapı.',fa:'ساختاری برای درخواست محترمانه یک استثنا'}}],
+      culture:{en:'In many immigration systems, a calm, well-documented written appeal — rather than repeated phone calls — tends to be the fastest way to get a decision reconsidered.',tr:'Birçok göçmenlik sisteminde, tekrarlanan telefon aramaları yerine sakin, iyi belgelenmiş yazılı bir itiraz, bir kararın yeniden gözden geçirilmesini sağlamanın en hızlı yoludur.',fa:'در بسیاری از سیستم‌های مهاجرت، یک اعتراض مکتوب آرام و مستند، نه تماس‌های تلفنی مکرر، معمولاً سریع‌ترین راه برای بازنگری یک تصمیم است.'}}]},
+  everyday: {
+    A2:[{id:'everyday-A2-1', topic:{en:'Making Plans With Friends',tr:'Arkadaşlarla Plan Yapmak',fa:'برنامه‌ریزی با دوستان'},
+      warmup:{en:'What do you usually do on weekends?',tr:'Hafta sonları genelde ne yaparsın?',fa:'آخر هفته‌ها معمولاً چیکار می‌کنی؟'},
+      questions:[{en:'How do you invite a friend to do something?',tr:'Bir arkadaşını bir şey yapmaya nasıl davet edersin?',fa:'چطور یک دوست رو به کاری دعوت می‌کنی؟'},
+        {en:'What do you say if you can\'t come to something?',tr:'Bir şeye gelemeyeceksen ne dersin?',fa:'اگه نتونی جایی بیای چی می‌گی؟'},
+        {en:'What kind of activities do you enjoy doing with friends?',tr:'Arkadaşlarınla ne tür aktiviteler yapmaktan hoşlanırsın?',fa:'با دوستات از چه فعالیت‌هایی لذت می‌بری؟'}],
+      expressions:[{phrase:'Do you want to hang out?', meaning:{en:'A casual way to suggest spending time together.',tr:'Birlikte vakit geçirmeyi önermenin gündelik bir yolu.',fa:'روش غیررسمی پیشنهاد گذراندن وقت با هم'}},
+        {phrase:'I\'m free on Saturday', meaning:{en:'Saying you have no plans at a certain time.',tr:'Belirli bir zamanda planın olmadığını söylemek.',fa:'گفتن اینکه زمانی وقتت آزاده'}},
+        {phrase:'maybe another time', meaning:{en:'A polite way to decline while leaving the door open.',tr:'Kapıyı açık bırakarak kibarca reddetme yolu.',fa:'روشی مؤدبانه برای رد پیشنهاد با امکان بعداً'}}]}],
+    B1:[{id:'everyday-B1-1', topic:{en:'Sharing Everyday Experiences',tr:'Günlük Deneyimleri Paylaşmak',fa:'به‌اشتراک گذاشتن تجربیات روزمره'},
+      warmup:{en:'Tell me about your last weekend — what did you do?',tr:'Son hafta sonundan bahset — ne yaptın?',fa:'درباره آخر هفته گذشته‌ات بگو — چیکار کردی؟'},
+      questions:[{en:'What\'s a small habit that makes your day better?',tr:'Gününü daha iyi yapan küçük bir alışkanlığın nedir?',fa:'یک عادت کوچیک که روزت رو بهتر می‌کنه چیه؟'},
+        {en:'How do your habits differ from your friends\' or family\'s?',tr:'Alışkanlıkların arkadaşlarınınkinden ya da ailenkinden nasıl farklı?',fa:'عادت‌های تو چطور با دوستان یا خانواده‌ات فرق داره؟'},
+        {en:'What\'s something you\'ve started doing recently that you didn\'t use to do?',tr:'Son zamanlarda yapmaya başladığın ama eskiden yapmadığın bir şey var mı?',fa:'اخیراً چه کاری رو شروع کردی که قبلاً نمی‌کردی؟'}],
+      followups:[{en:'Would you say you\'re more of a morning person or a night person? Why?',tr:'Kendini daha çok sabah insanı mı yoksa gece insanı mı olarak tanımlarsın? Neden?',fa:'خودت رو بیشتر آدم صبح می‌دونی یا شب؟ چرا؟'}],
+      expressions:[{phrase:'to be honest', meaning:{en:'A phrase for introducing a candid opinion.',tr:'Dürüst bir fikir sunmak için kullanılan bir ifade.',fa:'عبارتی برای بیان یک نظر صادقانه'}},
+        {phrase:'it depends', meaning:{en:'A phrase used when an answer isn\'t simple yes/no.',tr:'Cevabın basit bir evet/hayır olmadığı durumlarda kullanılan bir ifade.',fa:'عبارتی برای وقتی جواب ساده بله یا نه نیست'}},
+        {phrase:'more often than not', meaning:{en:'Meaning "usually."',tr:'"Genellikle" anlamına gelir.',fa:'به معنای «معمولاً»'}}]}],
+    B2:[{id:'everyday-B2-1', topic:{en:'Debating Everyday Topics',tr:'Günlük Konuları Tartışmak',fa:'بحث درباره موضوعات روزمره'},
+      warmup:{en:'Do you think social media has made people more or less connected?',tr:'Sosyal medyanın insanları daha bağlı mı yoksa daha az bağlı mı yaptığını düşünüyorsun?',fa:'به نظرت شبکه‌های اجتماعی آدم‌ها رو بیشتر به هم نزدیک کرده یا کمتر؟'},
+      questions:[{en:'What\'s your opinion on work-life balance in modern life?',tr:'Modern hayatta iş-yaşam dengesi hakkında fikrin nedir?',fa:'نظرت درباره تعادل کار و زندگی در دنیای مدرن چیه؟'},
+        {en:'Do you think people rely too much on technology in daily life?',tr:'Sence insanlar günlük hayatta teknolojiye fazla mı güveniyor?',fa:'به نظرت آدم‌ها تو زندگی روزمره بیش از حد به تکنولوژی وابسته‌ن؟'},
+        {en:'How do you handle a disagreement with a friend about something you both care about?',tr:'İkinizin de önemsediği bir konuda bir arkadaşınla anlaşmazlığı nasıl idare edersin?',fa:'وقتی با یک دوست سر موضوعی که هر دو براتون مهمه اختلاف نظر داری چطور برخورد می‌کنی؟'}],
+      followups:[{en:'Can you think of a counterargument to the opinion you just gave?',tr:'Az önce verdiğin fikre karşı bir görüş düşünebilir misin?',fa:'می‌تونی یه استدلال مخالف نظری که الان دادی پیدا کنی؟'}],
+      expressions:[{phrase:'I see it differently', meaning:{en:'A polite way to introduce disagreement.',tr:'Fikir ayrılığını sunmak için kibar bir yol.',fa:'روشی مؤدبانه برای بیان مخالفت'}},
+        {phrase:'that\'s a fair point, but...', meaning:{en:'Acknowledging a point before adding a counterpoint.',tr:'Bir karşı görüş eklemeden önce bir noktayı kabul etmek.',fa:'پذیرفتن یک نکته قبل از افزودن نظر مخالف'}},
+        {phrase:'at the end of the day', meaning:{en:'A phrase for introducing a concluding or bottom-line point.',tr:'Sonuç ya da özet bir nokta sunmak için kullanılan bir ifade.',fa:'عبارتی برای بیان نتیجه‌گیری نهایی'}}]}],
+    C1:[{id:'everyday-C1-1', topic:{en:'Values, Humor & Nuance',tr:'Değerler, Mizah ve İncelik',fa:'ارزش‌ها، طنز و ظرافت'},
+      warmup:{en:'Has your sense of humor changed as you\'ve gotten older? How?',tr:'Yaşın ilerledikçe mizah anlayışın değişti mi? Nasıl?',fa:'با بزرگ‌تر شدنت حس شوخ‌طبعی‌ات تغییر کرده؟ چطور؟'},
+      questions:[{en:'If you had to explain your core values to someone who barely knows you, what would you say?',tr:'Seni pek tanımayan birine temel değerlerini anlatman gerekse ne söylerdin?',fa:'اگه باید ارزش‌های اصلیت رو به کسی که خیلی نمی‌شناستت توضیح بدی چی می‌گی؟'},
+        {en:'What\'s a widely accepted idea that you personally disagree with?',tr:'Genel kabul görmüş ama senin kişisel olarak katılmadığın bir fikir nedir?',fa:'یک فکر که همه قبول دارن ولی تو شخصاً باهاش مخالفی چیه؟'},
+        {en:'How does humor differ across the languages or cultures you know?',tr:'Bildiğin diller ya da kültürler arasında mizah nasıl farklılık gösteriyor?',fa:'طنز بین زبان‌ها یا فرهنگ‌هایی که می‌شناسی چطور فرق داره؟'}],
+      followups:[{en:'If you could change one small daily habit of the people around you, what would it be, and why?',tr:'Etrafındaki insanların küçük bir günlük alışkanlığını değiştirebilseydin, ne olurdu ve neden?',fa:'اگه می‌تونستی یک عادت روزمره کوچیک اطرافیانت رو تغییر بدی، چی بود و چرا؟'}],
+      expressions:[{phrase:'it\'s a matter of perspective', meaning:{en:'Saying something depends on how you look at it.',tr:'Bir şeyin bakış açısına bağlı olduğunu söylemek.',fa:'گفتن اینکه یک چیز به دیدگاه بستگی دارد'}},
+        {phrase:'I can see it both ways', meaning:{en:'Acknowledging validity on more than one side of an issue.',tr:'Bir konunun birden fazla tarafının geçerliliğini kabul etmek.',fa:'پذیرفتن اعتبار بیش از یک طرف یک موضوع'}},
+        {phrase:'tongue-in-cheek', meaning:{en:'Said in a joking way, not meant to be taken seriously.',tr:'Şaka yollu söylenmiş, ciddiye alınması gerekmeyen.',fa:'گفته‌شده به‌شوخی، نباید جدی گرفته شود'}}]}]}
+};
+/* Combines two goals into a single blended session intro when they pair naturally
+   (e.g. career + travel = business travel) — a lightweight first pass, not a full
+   combinatorial content matrix: it reuses one goal's real topic pool and frames it
+   as relevant to both goals, rather than requiring a separate hand-written topic
+   for every possible goal pair. */
+const GOAL_COMBO_LABEL = {
+  'career+travel':{en:'business travel',tr:'iş seyahati',fa:'سفر کاری'},
+  'career+immigration':{en:'working abroad',tr:'yurt dışında çalışma',fa:'کار در خارج از کشور'},
+  'career+exam':{en:'career-focused exam prep',tr:'kariyer odaklı sınav hazırlığı',fa:'آماده‌سازی برای آزمون با هدف شغلی'},
+  'travel+everyday':{en:'everyday travel talk',tr:'günlük seyahat sohbeti',fa:'گفتگوی روزمره درباره سفر'},
+  'immigration+everyday':{en:'settling into daily life',tr:'günlük hayata yerleşme',fa:'جاافتادن در زندگی روزمره'},
+  'exam+everyday':{en:'exam prep for daily life',tr:'günlük hayat için sınav hazırlığı',fa:'آماده‌سازی آزمون برای زندگی روزمره'}
+};
+function comboKey(g1, g2){
+  const pair = [g1, g2].sort((a,b)=>GOAL_ORDER.indexOf(a)-GOAL_ORDER.indexOf(b));
+  return pair.join('+');
+}
+/* Picks a speaking topic for this profile: prefers the primary goal's pool at the
+   student's level (A1 falls back to A2 — a live session's demands are lighter than
+   a first-level learner is usually ready to originate), avoids topics already used
+   recently (tracked in state.progress.usedSpeakingTopics), and labels the topic with
+   a blended goal name when two of the student's goals pair naturally. */
+function pickSpeakingTopic(profile, seedExtra){
+  const goals = (profile.goals && profile.goals.length) ? profile.goals : (profile.motivationTag ? [profile.motivationTag] : ['everyday']);
+  const primary = goals[0] || 'everyday';
+  const secondary = goals.find(g=>g!==primary);
+  const levelKey = profile.level === 'A1' ? 'A2' : (profile.level || 'A2');
+  const pool = (SPEAKING_TOPICS[primary] && SPEAKING_TOPICS[primary][levelKey]) || SPEAKING_TOPICS.everyday[levelKey] || SPEAKING_TOPICS.everyday.A2;
+  const used = (state.progress && state.progress.usedSpeakingTopics) || [];
+  const unused = pool.filter(t=>!used.includes(t.id));
+  const candidates = unused.length ? unused : pool;
+  const seed = dateSeed((profile.name||'')+primary+levelKey+String(seedExtra||0));
+  const topic = candidates[seed % candidates.length];
+  const combo = secondary ? GOAL_COMBO_LABEL[comboKey(primary, secondary)] : null;
+  return Object.assign({goal:primary, secondaryGoal:secondary||null, comboLabel:combo}, topic);
+}
+function markSpeakingTopicUsed(topicId){
+  if(!topicId) return;
+  if(!state.progress.usedSpeakingTopics) state.progress.usedSpeakingTopics = [];
+  if(!state.progress.usedSpeakingTopics.includes(topicId)){
+    state.progress.usedSpeakingTopics.push(topicId);
+    if(state.progress.usedSpeakingTopics.length > 30) state.progress.usedSpeakingTopics.shift();
+  }
+  save();
+}
 function buildRoadmap(profile){
   const goals = (profile.goals && profile.goals.length) ? profile.goals : (profile.motivationTag ? [profile.motivationTag] : []);
   const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===profile.level);
@@ -3387,51 +3625,76 @@ function buildRoadmap(profile){
   const slPoolGoal = matchesGoal(slPoolAll);
   const vPool = vPoolGoal.length ? vPoolGoal : vPoolAll;
   const slPool = slPoolGoal.length ? slPoolGoal : slPoolAll;
-  // Grammar rules stay the same for every goal — only reorder so goal-flavored examples surface first.
+  // primaryGoal still drives ordering/labels when an item has no per-goal content of its own
+  // (e.g. a vocab set untagged for any of the student's goals) — but it's no longer the only
+  // goal that can ever appear on a roadmap item, see itemGoalFor() below.
   const primaryGoal = goals.find(gk => gPoolAll.some(g=>g.goalVariant && g.goalVariant[gk])) || goals[0] || null;
-  const gPool = (primaryGoal && gPoolAll.some(g=>g.goalVariant && g.goalVariant[primaryGoal]))
-    ? gPoolAll.filter(g=>g.goalVariant && g.goalVariant[primaryGoal]).concat(gPoolAll.filter(g=>!(g.goalVariant && g.goalVariant[primaryGoal])))
+  // Pull goal-specific grammar variants into the sequence for ALL of the student's goals (not
+  // just one): items with a variant matching any selected goal move to the front, in the order
+  // the student picked their goals, so a multi-goal student sees each goal's flavored content.
+  const gPool = goals.length
+    ? gPoolAll.filter(g=>g.goalVariant && goals.some(gk=>g.goalVariant[gk]))
+        .sort((a,b)=>{
+          const ai = goals.findIndex(gk=>a.goalVariant[gk]);
+          const bi = goals.findIndex(gk=>b.goalVariant[gk]);
+          return ai - bi;
+        })
+        .concat(gPoolAll.filter(g=>!(g.goalVariant && goals.some(gk=>g.goalVariant[gk]))))
     : gPoolAll;
+  // Which goal "owns" a given grammar item on this roadmap: the first of the student's goals
+  // that has a written variant for it, falling back to the primary goal so labels/links still work.
+  const itemGoalFor = g => goals.find(gk => g.goalVariant && g.goalVariant[gk]) || primaryGoal;
   const stage = profile.levelStage===2 ? 2 : 1;
   const gHalf = Math.ceil(gPool.length/2);
   const gSlice = stage===1 ? gPool.slice(0, gHalf) : gPool.slice(gHalf);
   const items = [];
-  const sessionLink = (topic) => whatsappLink(L(
-    "Hi! I'm "+profile.name+". I'd like to book a speaking session"+(topic?' on "'+topic+'"':'')+".",
-    'Merhaba! Ben '+profile.name+'. '+(topic?'"'+topic+'" konulu ':'')+'bir konuşma seansı ayırtmak istiyorum.',
-    'سلام! من '+profile.name+' هستم. می‌خواهم یک جلسه مکالمه'+(topic?' درباره «'+topic+'»':'')+' رزرو کنم.'
+  let sessionSeed = 0;
+  // Character shapes activity style, not the goal itself: analysts get grammar explained up
+  // front (default order already does this); drillers get a vocab rep after every item instead
+  // of every other one; talkers get more live sessions; immersives get slang earlier and lean on
+  // the session's cultural note. See per-branch comments below for where each hooks in.
+  const vocabEvery = profile.learnerType==='driller' ? 1 : 2;
+  const sessionLink = (topicText) => whatsappLink(L(
+    "Hi! I'm "+profile.name+". I'd like to book a speaking session"+(topicText?' on "'+topicText+'"':'')+".",
+    'Merhaba! Ben '+profile.name+'. '+(topicText?'"'+topicText+'" konulu ':'')+'bir konuşma seansı ayırtmak istiyorum.',
+    'سلام! من '+profile.name+' هستم. می‌خواهم یک جلسه مکالمه'+(topicText?' درباره «'+topicText+'»':'')+' رزرو کنم.'
   )+leadInfoSuffixBasic(profile));
-  const pushSession = (topic) => items.push({type:'session', refId:null, goal:primaryGoal, waLink:sessionLink(topic), title:L('Live speaking session','Canlı konuşma seansı','جلسه زنده مکالمه')});
+  const pushSession = () => {
+    const session = pickSpeakingTopic(profile, sessionSeed++);
+    const topicText = L(session.topic.en, session.topic.tr, session.topic.fa);
+    items.push({type:'session', refId:session.id, goal:session.goal, session, waLink:sessionLink(topicText),
+      title:L('Live speaking session','Canlı konuşma seansı','جلسه زنده مکالمه')+': '+topicText});
+  };
   // Drillers repeat-to-learn, and anyone who flagged vocab as their weak spot gets a warm-up rep first.
   if(stage===1 && (profile.priorityArea==='vocab' || profile.learnerType==='driller') && vPool.length){
-    items.push({type:'vocab', refId:vPool[0].id, goal:primaryGoal, title:L('Vocab warm-up','Kelime ısınması','گرم‌کردن با کلمات')+': '+setTitle(vPool[0])});
+    items.push({type:'vocab', refId:vPool[0].id, goal:(vPool[0].goals&&vPool[0].goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Vocab warm-up','Kelime ısınması','گرم‌کردن با کلمات')+': '+setTitle(vPool[0])});
   }
   let vi = vPool.length ? (stage===2 ? Math.ceil(vPool.length/2) : 0) : 0;
   let sli = slPool.length ? (stage===2 ? Math.ceil(slPool.length/2) : 0) : 0;
   gSlice.forEach((g, i)=>{
-    items.push({type:'grammar', refId:g.id, goal:primaryGoal, title:L('Grammar','Dilbilgisi','گرامر')+': '+grammarTitle(g)});
-    if(i % 2 === 1 && vPool.length){
+    items.push({type:'grammar', refId:g.id, goal:itemGoalFor(g), title:L('Grammar','Dilbilgisi','گرامر')+': '+grammarTitle(g)});
+    if(i % vocabEvery === (vocabEvery===1?0:1) && vPool.length){
       const v = vPool[vi % vPool.length]; vi++;
-      items.push({type:'vocab', refId:v.id, goal:primaryGoal, title:L('Vocab','Kelime','کلمات')+': '+setTitle(v)});
+      items.push({type:'vocab', refId:v.id, goal:(v.goals&&v.goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Vocab','Kelime','کلمات')+': '+setTitle(v)});
     }
     // Immersive learners absorb best in context, so slang lands early instead of only at the end.
     if(profile.learnerType==='immersive' && slPool.length && i===1){
       const sl = slPool[sli % slPool.length]; sli++;
-      items.push({type:'slang', refId:sl.id, goal:primaryGoal, title:L('Slang','Argo','اصطلاحات')+': '+setTitle(sl)});
+      items.push({type:'slang', refId:sl.id, goal:(sl.goals&&sl.goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Slang','Argo','اصطلاحات')+': '+setTitle(sl)});
     }
     if(i === Math.max(Math.floor(gSlice.length/2)-1, 0)){
-      pushSession(grammarTitle(g));
+      pushSession();
     }
   });
   if(slPool.length){
     const sl = slPool[sli % slPool.length];
-    items.push({type:'slang', refId:sl.id, goal:primaryGoal, title:L('Slang','Argo','اصطلاحات')+': '+setTitle(sl)});
+    items.push({type:'slang', refId:sl.id, goal:(sl.goals&&sl.goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Slang','Argo','اصطلاحات')+': '+setTitle(sl)});
   }
   // Talkers (and anyone who said listening/speaking is their weak spot) get an extra live rep.
   if((profile.learnerType==='talker' || profile.priorityArea==='listening') && stage===1){
-    pushSession(null);
+    pushSession();
   }
-  pushSession(null);
+  pushSession();
   return items.map((it,idx)=>Object.assign({n:idx+1}, it));
 }
 
@@ -4030,12 +4293,12 @@ function renderDiagReview(){
     const isCurrent = idx === currentIndex;
     const color = 'var(--cat-'+m.c+')';
     const subtitle = isSession
-      ? L('Recommended — message on WhatsApp',"Önerilir — WhatsApp'tan mesaj at",'پیشنهادی — در واتس‌اپ پیام بده')
+      ? L('Recommended — see prep, then message on WhatsApp',"Önerilir — önce hazırlığa bak, sonra WhatsApp'tan mesaj at",'پیشنهادی — اول آماده‌سازی را ببین، بعد در واتس‌اپ پیام بده')
       : ((item.goal && GOALS_META[item.goal]) ? goalMetaLabel(item.goal)+' · '+m.label : m.label);
     let studyOpenTag, studyCloseTag;
     if(isSession){
-      studyOpenTag = '<a class="roadmap-study" target="_top" rel="noopener" href="'+item.waLink+'" style="display:block; padding:10px 12px;">';
-      studyCloseTag = '</a>';
+      studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="session-prep" data-idx="'+idx+'" style="display:block; width:100%; text-align:start; padding:10px 12px;">';
+      studyCloseTag = '</button>';
     } else if(item.type==='grammar'){
       studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="grammar-trap" data-id="'+item.refId+'" data-goal="'+(item.goal||'')+'" style="display:block; width:100%; text-align:start; padding:10px 12px;">';
       studyCloseTag = '</button>';
@@ -4073,6 +4336,55 @@ function renderDiagReview(){
       </div>
       <a class="btn btn-primary" style="margin-top:18px; width:100%; justify-content:center;" target="_top" rel="noopener" href="${whatsappLink(L("Hi! I'm "+p.name+". I'd like to start my course.","Merhaba! Ben "+p.name+". Kursuma başlamak istiyorum.","سلام! من "+p.name+" هستم. می‌خواهم دوره‌ام را شروع کنم.")+leadInfoSuffix(p))}">${L('Start your course','Kursuna başla','شروع دوره‌ات')}</a>
       <button class="btn btn-ghost" style="margin-top:10px;" data-action="retake-diagnostic">${L('Redo my diagnostic','Testimi yeniden yap','دوباره انجام‌دادن آزمون')}</button>
+    </div>
+  </div>`;
+}
+function renderSessionPrep(idx){
+  const p = state.profile;
+  const roadmap = buildRoadmap(p);
+  const item = roadmap[idx];
+  if(!item || item.type!=='session' || !item.session) return renderComingSoon();
+  const s = item.session;
+  const topicText = L(s.topic.en, s.topic.tr, s.topic.fa);
+  const goalLabel = s.goal && GOALS_META[s.goal] ? goalMetaLabel(s.goal) : '';
+  const comboText = s.comboLabel ? L(s.comboLabel.en, s.comboLabel.tr, s.comboLabel.fa) : null;
+  // Immersive learners lean on context/culture, so their prep leads with the culture note when one exists.
+  const leadWithCulture = p.learnerType==='immersive' && s.culture;
+  const cultureBlock = s.culture ? `<div class="card-flat" style="margin-top:14px; background:var(--bg-sunken);">
+      <div class="eyebrow" style="color:var(--cat-lis);">${L('Did you know?','Biliyor muydun?','می‌دانستی؟')}</div>
+      <p style="font-size:13px; line-height:1.55; margin-top:6px;">${esc(L(s.culture.en, s.culture.tr, s.culture.fa))}</p>
+    </div>` : '';
+  return `<div class="fade-in">
+    ${sectionHead(L('Speaking Session Prep','Konuşma Seansı Hazırlığı','آماده‌سازی جلسه مکالمه'), goalLabel + (comboText ? ' · '+comboText : ''))}
+    <div class="screen" style="padding-top:0;">
+      <div class="card-flat">
+        <div class="eyebrow" style="color:var(--cat-lis);">${L('Topic','Konu','موضوع')}</div>
+        <h2 class="display" style="font-size:19px; margin-top:6px;">${esc(topicText)}</h2>
+        <div style="margin-top:12px; padding:10px 12px; border-radius:12px; background:var(--bg-sunken);">
+          <div style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase;">${L('Warm-up','Isınma','گرم‌کردن')}</div>
+          <p style="font-size:14px; margin-top:4px;">${esc(L(s.warmup.en, s.warmup.tr, s.warmup.fa))}</p>
+        </div>
+      </div>
+      ${leadWithCulture ? cultureBlock : ''}
+      <div class="card-flat" style="margin-top:14px;">
+        <div class="eyebrow" style="color:var(--cat-gram);">${L('Discussion Questions','Tartışma Soruları','سؤالات بحث')}</div>
+        <ol style="margin:8px 0 0; padding-inline-start:18px;">
+          ${s.questions.map(q=>`<li style="font-size:14px; line-height:1.6; margin-top:6px;">${esc(L(q.en,q.tr,q.fa))}</li>`).join('')}
+        </ol>
+        ${s.followups && s.followups.length ? `<div style="margin-top:10px; padding-top:10px; border-top:1px solid var(--border-soft);">
+          <div style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase;">${L('Follow-up','Devamı','ادامه سؤال')}</div>
+          ${s.followups.map(f=>`<p style="font-size:13.5px; margin-top:5px;">${esc(L(f.en,f.tr,f.fa))}</p>`).join('')}
+        </div>` : ''}
+      </div>
+      <div class="card-flat" style="margin-top:14px;">
+        <div class="eyebrow" style="color:var(--cat-voc);">${L('Useful Expressions','Kullanışlı İfadeler','عبارات کاربردی')}</div>
+        ${s.expressions.map(x=>`<div style="margin-top:8px;">
+          <div dir="ltr" style="font-weight:700; font-size:13.5px;">${esc(x.phrase)}</div>
+          <div style="font-size:12.5px; color:var(--ink-faint);">${esc(L(x.meaning.en, x.meaning.tr, x.meaning.fa))}</div>
+        </div>`).join('')}
+      </div>
+      ${!leadWithCulture ? cultureBlock : ''}
+      <button class="btn btn-primary" style="margin-top:18px; width:100%; justify-content:center;" data-action="open-speaking-session" data-topic-id="${esc(s.id)}" data-walink="${esc(item.waLink)}">${L('Continue on WhatsApp','WhatsApp\'ta devam et','ادامه در واتس‌اپ')}</button>
     </div>
   </div>`;
 }
@@ -5519,6 +5831,7 @@ const screens = {
   'privacy-policy': renderPrivacyPolicy,
   'dashboard': renderDashboard,
   'diag-intro-review': renderDiagReview,
+  'session-prep': ()=>renderSessionPrep(state.viewParams.idx),
   'review-home': renderReviewHome,
   'profile': renderProfile,
   'settings': renderSettings,
@@ -5892,6 +6205,10 @@ function bindEvents(root){
 }
 
 const HANDLERS = {
+  'open-speaking-session'(el){
+    markSpeakingTopicUsed(el.dataset.topicId);
+    window.top.location.href = el.dataset.walink;
+  },
   'toggle-lang'(){ LANG = LANG==='tr' ? 'fa' : LANG==='fa' ? 'en' : 'tr'; save(); render(); },
   'set-lang'(el){ LANG = el.dataset.lang; save(); render(); },
   'restore-submit'(){
