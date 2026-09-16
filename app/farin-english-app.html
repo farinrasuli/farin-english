@@ -4510,14 +4510,137 @@ function levelStageInfo(level, sessionsInStage){
   const next = idx>=0 && idx<LEVEL_STAGES.length-1 ? LEVEL_STAGES[idx+1] : null;
   return {idx, sessions, next};
 }
+// Renders the winding pin timeline for a given ordered list of roadmap items — shared between
+// the student panel's "current course" preview and the dedicated course-view screen, so both use
+// the exact same visual as the original single flat roadmap timeline.
+function renderRoadmapTimeline(items){
+  const done = items.filter(r=>r.done).length;
+  if(!items.length) return '';
+  return `
+  <div style="margin-top:20px; position:relative;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
+      <div style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 3px 6px -1px rgba(0,0,0,.25);">🚩</div>
+      <span style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em;">${L('Start','Başla','شروع')}</span>
+    </div>
+    <div style="position:absolute; left:14px; top:38px; bottom:40px; width:3px; border-radius:2px; background-image:repeating-linear-gradient(to bottom, var(--border) 0 6px, transparent 6px 13px);"></div>
+    ${(() => { const currentIndex = items.findIndex(r=>!r.done); return items.map((r,i)=>{
+      const color = PALETTE_COLORS[i % PALETTE_COLORS.length];
+      const isCurrent = i === currentIndex;
+      return `
+    <div style="position:relative; padding-left:40px; margin-bottom:${i<items.length-1?'20px':'6px'};">
+      <div class="${isCurrent?'roadmap-pin-current':''}" style="position:absolute; left:0; top:-1px; width:30px; height:30px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:${r.done?color:'var(--bg-elevated)'}; border:2.5px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 6px -1px rgba(0,0,0,.22);">
+        <span style="transform:rotate(45deg); color:${r.done?'#fff':color}; font-size:11px; font-weight:800;">${r.done?ICONS.check:String(i+1).padStart(2,'0')}</span>
+      </div>
+      ${isCurrent ? `<span class="roadmap-here-badge pill" style="position:absolute; left:36px; top:-14px; background:var(--accent); color:var(--accent-ink); font-size:9.5px; white-space:nowrap; box-shadow:var(--shadow); z-index:1;">${L("You're here","Buradasın","اینجایی")}</span>` : ''}
+      <div style="background:var(--bg-sunken); border-radius:16px; padding:12px 14px; border:1.5px solid ${isCurrent?'var(--accent)':(r.done?color+'66':'var(--border-soft)')};">
+        ${r.date ? `<div style="font-size:10px; color:var(--ink-faint); font-weight:800; text-transform:uppercase; letter-spacing:.03em;">${esc(r.date)}</div>` : ''}
+        <div style="font-weight:800; font-size:14.5px; margin-top:2px; color:${color}; ${r.done?'text-decoration:line-through; opacity:.6;':''}">${esc(r.title||r.label||'')}</div>
+        ${r.homework ? `
+        <div style="margin-top:9px; background:var(--bg-elevated); border-radius:12px; padding:10px 12px; display:flex; gap:9px; align-items:flex-start;">
+          <span style="flex:0 0 auto; color:${color}; margin-top:1px;">${ICONS.pen}</span>
+          <div style="min-width:0;">
+            <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.03em;">${L('Homework','Ödev','تکلیف')}</div>
+            <div style="font-size:13.5px; color:var(--ink); margin-top:3px; line-height:1.55;">${esc(r.homework)}</div>
+          </div>
+        </div>` : ''}
+        ${r.tips ? `
+        <div style="margin-top:${r.homework?'7px':'9px'}; background:var(--cat-review-soft); border-radius:12px; padding:10px 12px; display:flex; gap:9px; align-items:flex-start;">
+          <span style="flex:0 0 auto; font-size:15px; margin-top:1px;">💡</span>
+          <div style="min-width:0;">
+            <div style="font-size:10.5px; font-weight:800; color:var(--cat-review); text-transform:uppercase; letter-spacing:.03em;">${L('Tip','İpucu','نکته')}</div>
+            <div style="font-size:13.5px; color:var(--ink); margin-top:3px; line-height:1.55;">${esc(r.tips)}</div>
+          </div>
+        </div>` : ''}
+        ${(r.link || r.homeworkLink) ? `
+        <div class="row" style="gap:8px; margin-top:9px;">
+          ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📘 ${L('Lesson','Ders','درس')}</a>` : ''}
+          ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📝 ${L('Homework','Ödev','تکلیف')}</a>` : ''}
+        </div>` : ''}
+      </div>
+    </div>`; }).join(''); })()}
+    <div style="position:relative; padding-left:40px;">
+      <div style="position:absolute; left:2px; top:-4px; font-size:24px;">${done===items.length ? '🏆' : '🏁'}</div>
+      <span style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; padding-top:5px; display:inline-block;">${done===items.length ? L("You've made it!",'Başardın!','موفق شدی!') : L('Goal','Hedef','هدف')}</span>
+    </div>
+  </div>`;
+}
+function courseStatusLabelL(status){
+  return {
+    upcoming: L('Upcoming','Yaklaşan','پیش‌رو'),
+    active: L('Current course','Şu anki kurs','دوره فعلی'),
+    completed: L('Completed','Tamamlandı','تکمیل‌شده'),
+    locked: L('Locked','Kilitli','قفل‌شده'),
+    archived: L('Archived','Arşivlendi','بایگانی‌شده')
+  }[status] || status;
+}
+// "My FEschool Journey" — one card per course, clickable, reusing the existing
+// .progress-track/.progress-fill bar already used for the level-progress card above it.
+function renderCourseJourney(courses, roadmap){
+  const sorted = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0));
+  return `
+  <div class="card-flat" style="margin-top:12px;">
+    <div class="eyebrow">${L('My FEschool Journey','FEschool Yolculuğum','سفر من در FEschool')}</div>
+    <div class="stack" style="gap:10px; margin-top:12px;">
+      ${sorted.map(c=>{
+        const ids = c.sessionIds||[];
+        const done = ids.filter(id=>{ const r = roadmap.find(x=>x.id===id); return r && r.done; }).length;
+        const pct = ids.length ? Math.round(done/ids.length*100) : 0;
+        return `
+        <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" class="item-row" style="text-align:left; width:100%; cursor:pointer; border:1.5px solid var(--border-soft); border-radius:14px;">
+          <div class="item-body">
+            <div class="row between" style="align-items:center;">
+              <div class="item-title">Course ${c.number} — ${esc(c.level)}</div>
+              <span style="font-size:11px; font-weight:800; color:var(--ink-faint);">${courseStatusLabelL(c.status)}</span>
+            </div>
+            <div class="progress-track" style="margin-top:8px;"><div class="progress-fill" style="width:${pct}%; background:${c.status==='completed'?'var(--success)':'var(--cat-diag)'};"></div></div>
+            <div style="font-size:11px; color:var(--ink-faint); margin-top:6px;">${done}/${ids.length} ${L('sessions','seans','جلسه')}</div>
+          </div>
+        </button>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+function renderCourseView(courseId){
+  const d = studentPanelData || {};
+  const roadmap = Array.isArray(d.roadmap) ? d.roadmap : [];
+  const courses = Array.isArray(d.courses) ? d.courses : [];
+  const course = courses.find(c=>c.id===courseId);
+  if(!course){
+    return `<div class="fade-in">${sectionHead(L('Course','Kurs','دوره'), '', 'student-panel')}<div class="screen"><p style="color:var(--ink-faint); font-size:13px;">${L('Course not found.','Kurs bulunamadı.','دوره پیدا نشد.')}</p></div></div>`;
+  }
+  const items = (course.sessionIds||[]).map(id=>roadmap.find(r=>r.id===id)).filter(Boolean);
+  const done = items.filter(r=>r.done).length;
+  return `<div class="fade-in">
+    ${sectionHead('Course '+course.number+' — '+course.level, courseStatusLabelL(course.status), 'student-panel')}
+    <div class="screen" style="padding-top:0;">
+      ${items.length ? `
+      <div class="card-flat" style="margin-top:12px; position:relative; overflow:hidden;">
+        <div class="row between" style="align-items:center;">
+          <div class="eyebrow">${L('Sessions','Seanslar','جلسات')}</div>
+          <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${done}/${items.length}</span>
+        </div>
+        ${renderRoadmapTimeline(items)}
+      </div>` : `<p style="color:var(--ink-faint); font-size:13px; margin-top:16px;">${L('No sessions in this course yet.','Bu kursta henüz seans yok.','هنوز جلسه‌ای در این دوره نیست.')}</p>`}
+    </div>
+  </div>`;
+}
 function renderStudentPanel(){
   const d = studentPanelData || {};
   const roadmap = Array.isArray(d.roadmap) ? d.roadmap : [];
+  const courses = Array.isArray(d.courses) ? d.courses : [];
   const homework = Array.isArray(d.homework) ? d.homework.slice().sort((a,b)=>(b.date||'').localeCompare(a.date||'')) : [];
   const stage = levelStageInfo(d.level, d.sessionsInStage);
   const roadmapDone = roadmap.filter(r=>r.done).length;
   const learnedTitles = roadmap.filter(r=>r.done).map(r=>r.title||r.label).filter(Boolean);
   const objectives = (Array.isArray(d.objectives) ? d.objectives : []).filter(o=>o && o.trim());
+  const sortedCourses = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0));
+  const activeCourse = sortedCourses.find(c=>c.status==='active') || sortedCourses[sortedCourses.length-1] || null;
+  const activeCourseItems = activeCourse ? (activeCourse.sessionIds||[]).map(id=>roadmap.find(r=>r.id===id)).filter(Boolean) : [];
+  const activeCourseIdx = activeCourse ? sortedCourses.indexOf(activeCourse) : -1;
+  // The "you just finished a course" banner is derived structurally (previous course by order
+  // is completed, this one is active) rather than a stored one-time flag — see Claude/history.md.
+  const prevCourse = activeCourseIdx > 0 ? sortedCourses[activeCourseIdx-1] : null;
+  const justCompletedPrev = (prevCourse && prevCourse.status==='completed' && activeCourse && activeCourse.status==='active') ? prevCourse : null;
   return `<div class="fade-in">
     ${sectionHead(L('Your Progress','İlerlemen','پیشرفت تو'), L('Curated by your teacher, just for you.','Öğretmenin tarafından, sadece senin için hazırlandı.','توسط معلمت و فقط برای تو آماده شده.'), 'student-club')}
     <div class="screen" style="padding-top:0;">
@@ -4559,59 +4682,33 @@ function renderStudentPanel(){
           : L("You've reached the top of the roadmap!",'Yol haritasının zirvesine ulaştın!','به بالای نقشه راه رسیدی!')}</p>
       </div>` : ''}
 
-      ${roadmap.length ? `
+      ${justCompletedPrev ? `
+      <div class="card-flat" style="margin-top:12px; border-left:4px solid var(--success); background:var(--cat-diag-soft);">
+        <div class="eyebrow">${L('Course completed','Kurs tamamlandı','دوره تکمیل شد')}</div>
+        <p style="font-size:13.5px; margin-top:4px;">${L(
+          `You've completed ${prevCourse.level}. Your next personalized roadmap is ready: ${activeCourse.level}.`,
+          `${prevCourse.level} seviyesini tamamladın. Bir sonraki kişisel yol haritan hazır: ${activeCourse.level}.`,
+          `سطح ${prevCourse.level} را تمام کردی. نقشه راه شخصی بعدی‌ات آماده است: ${activeCourse.level}.`
+        )}</p>
+      </div>` : ''}
+
+      ${courses.length ? renderCourseJourney(courses, roadmap) : ''}
+
+      ${activeCourse && activeCourseItems.length ? `
+      <div class="card-flat" style="margin-top:12px; position:relative; overflow:hidden;">
+        <div class="row between" style="align-items:center;">
+          <div class="eyebrow">Course ${activeCourse.number} — ${esc(activeCourse.level)}</div>
+          <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${activeCourseItems.filter(r=>r.done).length}/${activeCourseItems.length}</span>
+        </div>
+        ${renderRoadmapTimeline(activeCourseItems)}
+      </div>` : (!courses.length && roadmap.length ? `
       <div class="card-flat" style="margin-top:12px; position:relative; overflow:hidden;">
         <div class="row between" style="align-items:center;">
           <div class="eyebrow">${L('Roadmap','Yol Haritası','نقشه راه')}</div>
           <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${roadmapDone}/${roadmap.length}</span>
         </div>
-        <div style="margin-top:20px; position:relative;">
-          <div style="display:flex; align-items:center; gap:10px; margin-bottom:18px;">
-            <div style="flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); display:flex; align-items:center; justify-content:center; font-size:14px; box-shadow:0 3px 6px -1px rgba(0,0,0,.25);">🚩</div>
-            <span style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em;">${L('Start','Başla','شروع')}</span>
-          </div>
-          <div style="position:absolute; left:14px; top:38px; bottom:40px; width:3px; border-radius:2px; background-image:repeating-linear-gradient(to bottom, var(--border) 0 6px, transparent 6px 13px);"></div>
-          ${(() => { const currentIndex = roadmap.findIndex(r=>!r.done); return roadmap.map((r,i)=>{
-            const color = PALETTE_COLORS[i % PALETTE_COLORS.length];
-            const isCurrent = i === currentIndex;
-            return `
-          <div style="position:relative; padding-left:40px; margin-bottom:${i<roadmap.length-1?'20px':'6px'};">
-            <div class="${isCurrent?'roadmap-pin-current':''}" style="position:absolute; left:0; top:-1px; width:30px; height:30px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:${r.done?color:'var(--bg-elevated)'}; border:2.5px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 6px -1px rgba(0,0,0,.22);">
-              <span style="transform:rotate(45deg); color:${r.done?'#fff':color}; font-size:11px; font-weight:800;">${r.done?ICONS.check:String(i+1).padStart(2,'0')}</span>
-            </div>
-            ${isCurrent ? `<span class="roadmap-here-badge pill" style="position:absolute; left:36px; top:-14px; background:var(--accent); color:var(--accent-ink); font-size:9.5px; white-space:nowrap; box-shadow:var(--shadow); z-index:1;">${L("You're here","Buradasın","اینجایی")}</span>` : ''}
-            <div style="background:var(--bg-sunken); border-radius:16px; padding:12px 14px; border:1.5px solid ${isCurrent?'var(--accent)':(r.done?color+'66':'var(--border-soft)')};">
-              ${r.date ? `<div style="font-size:10px; color:var(--ink-faint); font-weight:800; text-transform:uppercase; letter-spacing:.03em;">${esc(r.date)}</div>` : ''}
-              <div style="font-weight:800; font-size:14.5px; margin-top:2px; color:${color}; ${r.done?'text-decoration:line-through; opacity:.6;':''}">${esc(r.title||r.label||'')}</div>
-              ${r.homework ? `
-              <div style="margin-top:9px; background:var(--bg-elevated); border-radius:12px; padding:10px 12px; display:flex; gap:9px; align-items:flex-start;">
-                <span style="flex:0 0 auto; color:${color}; margin-top:1px;">${ICONS.pen}</span>
-                <div style="min-width:0;">
-                  <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.03em;">${L('Homework','Ödev','تکلیف')}</div>
-                  <div style="font-size:13.5px; color:var(--ink); margin-top:3px; line-height:1.55;">${esc(r.homework)}</div>
-                </div>
-              </div>` : ''}
-              ${r.tips ? `
-              <div style="margin-top:${r.homework?'7px':'9px'}; background:var(--cat-review-soft); border-radius:12px; padding:10px 12px; display:flex; gap:9px; align-items:flex-start;">
-                <span style="flex:0 0 auto; font-size:15px; margin-top:1px;">💡</span>
-                <div style="min-width:0;">
-                  <div style="font-size:10.5px; font-weight:800; color:var(--cat-review); text-transform:uppercase; letter-spacing:.03em;">${L('Tip','İpucu','نکته')}</div>
-                  <div style="font-size:13.5px; color:var(--ink); margin-top:3px; line-height:1.55;">${esc(r.tips)}</div>
-                </div>
-              </div>` : ''}
-              ${(r.link || r.homeworkLink) ? `
-              <div class="row" style="gap:8px; margin-top:9px;">
-                ${r.link ? `<a href="${esc(r.link)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📘 ${L('Lesson','Ders','درس')}</a>` : ''}
-                ${r.homeworkLink ? `<a href="${esc(r.homeworkLink)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="flex:1; text-align:center;">📝 ${L('Homework','Ödev','تکلیف')}</a>` : ''}
-              </div>` : ''}
-            </div>
-          </div>`; }).join(''); })()}
-          <div style="position:relative; padding-left:40px;">
-            <div style="position:absolute; left:2px; top:-4px; font-size:24px;">${roadmapDone===roadmap.length ? '🏆' : '🏁'}</div>
-            <span style="font-size:11px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; padding-top:5px; display:inline-block;">${roadmapDone===roadmap.length ? L("You've made it!",'Başardın!','موفق شدی!') : L('Goal','Hedef','هدف')}</span>
-          </div>
-        </div>
-      </div>` : ''}
+        ${renderRoadmapTimeline(roadmap)}
+      </div>` : '')}
 
       ${homework.length ? `
       <div class="card-flat" style="margin-top:12px;">
@@ -5868,6 +5965,7 @@ const screens = {
   'student-club-login': renderStudentClubLogin,
   'student-club-join': renderStudentClubJoin,
   'student-panel': renderStudentPanel,
+  'course-view': ()=>renderCourseView(state.viewParams.courseId),
   'grammar-list': renderGrammarList,
   'grammar-trap': ()=>renderGrammarTrap(state.viewParams.id),
   'vocab-list': renderVocabList,
@@ -6304,6 +6402,9 @@ const HANDLERS = {
     save();
     go('diagnostic-intro');
   },
+  'open-course'(el){
+    go('course-view', {courseId: el.dataset.courseId});
+  },
   'toggle-roadmap-item'(el){
     const idx = el.dataset.idx;
     const rc = state.progress.roadmapChecked;
@@ -6543,6 +6644,7 @@ const HANDLERS = {
         return;
       }
       studentPanelData = Object.assign({code}, doc.data());
+      ensureStudentCourses(studentPanelData); // in-memory only — persisting the migration happens admin-side
       state.studentPanelCache = studentPanelData;
       go('student-panel');
     }).catch(err=>{
@@ -6609,6 +6711,8 @@ let adminStudentInfo = '';
 let adminSavingStudent = false;
 let adminResetStatus = '';
 let adminStudentOpenSection = null;
+let adminActiveCourseId = null;
+let adminAddingCourse = false;
 function studentSectionRow(key, icon, label, summary){
   const open = adminStudentOpenSection === key;
   return `<button type="button" class="item-row" data-admin-action="toggle-student-section" data-section="${key}" style="margin-bottom:0; ${open?'border-radius:14px 14px 0 0;':''}">
@@ -6706,9 +6810,13 @@ function adminSectionHead(emoji, label, first){
 function harvestRoadmapFromDOM(){
   // Merges onto whatever was already there so fields the form doesn't show (generatedAt,
   // sentAt, status — written by Claude when generating, not typed by the admin) survive every
-  // save instead of getting silently wiped.
+  // save instead of getting silently wiped. Since the DOM list is now filtered to the active
+  // course's sessions, items belonging to OTHER courses (not currently rendered) must be carried
+  // through untouched rather than dropped — that's the `untouched` concat below.
   const existing = Array.isArray(adminEditingStudent && adminEditingStudent.roadmap) ? adminEditingStudent.roadmap : [];
-  return Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row')).map(row=>{
+  const domRows = Array.from(document.querySelectorAll('#roadmap-items-list .roadmap-item-row'));
+  const domIds = new Set(domRows.map(row=>row.dataset.id));
+  const harvested = domRows.map(row=>{
     const id = row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2));
     const prev = existing.find(x=>x.id===id) || {};
     const typeEl = row.querySelector('.roadmap-item-lesson-type');
@@ -6726,6 +6834,23 @@ function harvestRoadmapFromDOM(){
       homeworkLink: hwLinkEl ? hwLinkEl.value : (prev.homeworkLink || '')
     });
   });
+  const untouched = existing.filter(x=>!domIds.has(x.id));
+  return untouched.concat(harvested);
+}
+// Helpers used by the roadmap add/delete/suggest/paste actions to keep a course's `sessionIds`
+// in sync with whichever session ids actually exist in `roadmap`.
+function addSessionIdToActiveCourse(id){
+  const courses = adminEditingStudent && adminEditingStudent.courses;
+  if(!Array.isArray(courses) || !courses.length) return;
+  const course = courses.find(c=>c.id===adminActiveCourseId) || courses.find(c=>c.status==='active') || courses[courses.length-1];
+  if(!course) return;
+  if(!Array.isArray(course.sessionIds)) course.sessionIds = [];
+  if(!course.sessionIds.includes(id)) course.sessionIds.push(id);
+}
+function removeSessionIdFromCourses(id){
+  const courses = adminEditingStudent && adminEditingStudent.courses;
+  if(!Array.isArray(courses)) return;
+  courses.forEach(c=>{ if(Array.isArray(c.sessionIds)) c.sessionIds = c.sessionIds.filter(x=>x!==id); });
 }
 function parsePastedRoadmap(text){
   let counter = 0;
@@ -6755,6 +6880,73 @@ function parsePastedRoadmap(text){
     }
   });
   return sessions;
+}
+/* ============================= COURSE GROUPING LAYER =============================
+   A `courses` array sits alongside `roadmap` on the student doc — it never duplicates
+   session content, it just groups existing roadmap item ids under a level/status
+   (Course 1 — B1, Course 2 — B1.2, ...) so the roadmap doesn't read as one endless
+   list. See Claude/history.md for the full design writeup. */
+function getNextLevelStage(level){
+  const idx = LEVEL_STAGES.indexOf(level);
+  if(idx<0 || idx>=LEVEL_STAGES.length-1) return null;
+  return LEVEL_STAGES[idx+1];
+}
+function courseStatusLabel(status){
+  return {upcoming:'Upcoming', active:'Active', completed:'Completed', locked:'Locked', archived:'Archived'}[status] || status;
+}
+function makeCourseId(){ return 'crs'+Date.now()+'-'+Math.random().toString(36).slice(2); }
+function synthesizeCoursesFromRoadmap(student){
+  const roadmap = Array.isArray(student.roadmap) ? student.roadmap : [];
+  if(!roadmap.length) return [];
+  const allDone = roadmap.every(r=>r.done);
+  return [{
+    id: makeCourseId(),
+    number: 1,
+    level: student.level || 'A1',
+    status: allDone ? 'completed' : 'active',
+    order: 1,
+    autoProgress: true,
+    sessionIds: roadmap.map(r=>r.id)
+  }];
+}
+// Idempotent, additive-only: only synthesizes a course list when `courses` doesn't
+// exist yet at all, so it can never run twice or clobber a manually-built one.
+// Returns true if it just synthesized (caller may want to persist that).
+function ensureStudentCourses(student){
+  if(!Array.isArray(student.courses)){
+    student.courses = synthesizeCoursesFromRoadmap(student);
+    return true;
+  }
+  return false;
+}
+// Mutates student.courses in place: marks a course completed once every one of its
+// sessionIds is done in student.roadmap, then idempotently creates the next course
+// (by order) if one doesn't already exist — never twice, per Claude/tasks.md safeguards.
+function applyCourseCompletion(student){
+  const roadmap = Array.isArray(student.roadmap) ? student.roadmap : [];
+  const courses = Array.isArray(student.courses) ? student.courses : [];
+  const doneMap = {};
+  roadmap.forEach(r=>{ doneMap[r.id] = !!r.done; });
+  courses.forEach(c=>{
+    if(c.status !== 'active' || !c.sessionIds || !c.sessionIds.length) return;
+    if(!c.sessionIds.every(id=>doneMap[id])) return;
+    c.status = 'completed';
+    const nextOrder = (c.order||c.number||1) + 1;
+    if(c.autoProgress === false) return;
+    if(courses.some(x=>(x.order||x.number)===nextOrder)) return;
+    const nextLevel = getNextLevelStage(c.level);
+    if(!nextLevel) return;
+    courses.push({
+      id: makeCourseId(),
+      number: (c.number||1)+1,
+      level: nextLevel,
+      status: 'active',
+      order: nextOrder,
+      autoProgress: true,
+      sessionIds: []
+    });
+  });
+  return courses;
 }
 function harvestHomeworkFromDOM(){
   return Array.from(document.querySelectorAll('#homework-items-list .homework-item-row')).map(row=>({
@@ -6938,6 +7130,26 @@ function quickFillPills(action, templates){
     ${Object.keys(templates).map(key=>`<button type="button" class="pill" data-admin-action="${action}" data-key="${key}" style="background:var(--bg-sunken); color:var(--ink-soft); cursor:pointer; border:none; font-family:inherit;">${key.replace(/-/g,' ')}</button>`).join('')}
   </div>`;
 }
+function renderCourseChips(courses, activeId){
+  const chips = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0)).map(c=>{
+    const icon = c.status==='completed' ? '✓' : c.status==='active' ? '●' : c.status==='locked' ? '🔒' : c.status==='archived' ? '📦' : '○';
+    const active = c.id===activeId;
+    return `<button type="button" class="btn btn-sm ${active?'btn-primary':'btn-ghost'}" data-admin-action="select-course-chip" data-course-id="${esc(c.id)}" style="white-space:nowrap; flex:0 0 auto;">${icon} Course ${c.number} — ${esc(c.level)}</button>`;
+  }).join('');
+  return `<div class="row" style="gap:6px; margin-bottom:10px; overflow-x:auto; padding-bottom:2px;">${chips}<button type="button" class="btn btn-ghost btn-sm" data-admin-action="show-add-course-form" style="white-space:nowrap; flex:0 0 auto;">+ Add Course</button></div>`;
+}
+function renderCourseAddForm(){
+  const levelOpts = LEVEL_STAGES.map(l=>`<option value="${l}">${l}</option>`).join('');
+  return `<div style="border:1.5px dashed var(--border); border-radius:12px; padding:10px; margin-bottom:12px;">
+    <label class="field-label">New course level</label>
+    <select id="new-course-level" style="width:100%; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink); margin-bottom:8px;">${levelOpts}</select>
+    <label style="display:flex; align-items:center; gap:6px; font-size:12.5px; margin-bottom:10px;"><input id="new-course-autoprogress" type="checkbox" checked style="width:14px;height:14px;"> Auto-progress to next level when complete</label>
+    <div class="row" style="gap:8px;">
+      <button type="button" class="btn btn-primary btn-sm" style="flex:1;" data-admin-action="create-course">Create course</button>
+      <button type="button" class="btn btn-ghost btn-sm" style="flex:1;" data-admin-action="cancel-add-course">Cancel</button>
+    </div>
+  </div>`;
+}
 function renderAdminStudentsTab(){
   if(adminEditingStudent){
     const s = adminEditingStudent;
@@ -6947,6 +7159,10 @@ function renderAdminStudentsTab(){
     const personalizationObservations = (s.personalization && Array.isArray(s.personalization.observations)) ? s.personalization.observations : [];
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
     const goalOpts = [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${s.goal===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
+    const courses = Array.isArray(s.courses) ? s.courses : [];
+    const activeCourse = courses.find(c=>c.id===adminActiveCourseId) || null;
+    const visibleRoadmap = activeCourse ? (activeCourse.sessionIds||[]).map(id=>roadmap.find(r=>r.id===id)).filter(Boolean) : roadmap;
+    const courseDone = activeCourse ? (activeCourse.sessionIds||[]).filter(id=>{ const r = roadmap.find(x=>x.id===id); return r && r.done; }).length : 0;
     return `<div class="card-flat" style="background:linear-gradient(180deg, var(--cat-diag-soft) 0%, var(--bg-elevated) 90px);">
       <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
         <div style="width:42px; height:42px; border-radius:50%; background:var(--cat-diag-soft); display:flex; align-items:center; justify-content:center; font-size:19px; flex:0 0 auto;">👤</div>
@@ -6990,15 +7206,22 @@ function renderAdminStudentsTab(){
 
       ${studentSectionRow('roadmap','🗺️','Roadmap', roadmap.filter(r=>r.done).length+'/'+roadmap.length+' sessions done')}
       ${studentSectionOpen('roadmap')}
+      ${courses.length ? renderCourseChips(courses, adminActiveCourseId) : `<p style="font-size:11.5px; color:var(--ink-faint); margin:-2px 0 10px;">No courses yet — add sessions below, or tap "+ Add Course" once one exists.</p>`}
+      ${adminAddingCourse ? renderCourseAddForm() : ''}
+      ${activeCourse ? `
+      <div class="row between" style="align-items:center; margin-bottom:10px; padding:8px 10px; border-radius:10px; background:var(--bg-sunken);">
+        <span style="font-size:12.5px; font-weight:700;">Course ${activeCourse.number} — ${esc(activeCourse.level)} <span style="font-weight:400; color:var(--ink-faint);">(${courseStatusLabel(activeCourse.status)})</span></span>
+        <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${courseDone}/${(activeCourse.sessionIds||[]).length}</span>
+      </div>` : ''}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
-        ${roadmap.map((r,idx)=>`
+        ${visibleRoadmap.map((r,idx)=>`
         <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
           <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">Session ${idx+1}</div>
           <div class="row" style="gap:8px; margin-bottom:6px; align-items:center;">
             <input type="checkbox" class="roadmap-item-done" ${r.done?'checked':''} style="flex:0 0 auto; width:18px; height:18px;">
             <input type="date" class="roadmap-item-date" value="${esc(r.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
             <input type="text" class="roadmap-item-title" value="${esc(r.title||r.label||'')}" placeholder="Session title, e.g. Present perfect" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-            <button data-admin-action="delete-roadmap-item" data-idx="${idx}" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
+            <button data-admin-action="delete-roadmap-item" class="btn btn-ghost btn-sm" style="flex:0 0 auto; padding:8px 12px;">✕</button>
           </div>
           <div style="border-top:1.5px dashed var(--border); padding-top:8px; margin-top:2px;">
             <div style="font-size:10px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;">✨ Generated lesson + homework</div>
@@ -7241,7 +7464,9 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = 'basics';
-        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
+        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
+        adminActiveCourseId = null;
+        adminAddingCourse = false;
         renderAdminPage();
       } else if(action === 'set-student-course'){
         adminEditingStudent.course = el.dataset.course;
@@ -7256,20 +7481,70 @@ function bindAdminActions(root){
         adminStudentInfo = '';
         adminStudentOpenSection = null;
         adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}}, s);
+        adminAddingCourse = false;
+        const justSynthesized = ensureStudentCourses(adminEditingStudent);
+        if(justSynthesized && adminEditingStudent.courses.length){
+          // Persist the one-time migration so it never has to be recomputed — scoped write,
+          // same pattern as saveStudentPersonalization, doesn't touch roadmap/anything else.
+          firebase.firestore().collection(STUDENT_COLLECTION[adminEditingStudent.course==='es'?'es':'en'])
+            .doc(adminEditingStudent.code)
+            .set({courses: adminEditingStudent.courses, updatedAt: Date.now()}, {merge:true})
+            .catch(()=>{});
+        }
+        const activeC = adminEditingStudent.courses.find(c=>c.status==='active') || adminEditingStudent.courses[adminEditingStudent.courses.length-1];
+        adminActiveCourseId = activeC ? activeC.id : null;
         renderAdminPage();
       } else if(action === 'toggle-student-section'){
         const section = el.dataset.section;
         adminStudentOpenSection = adminStudentOpenSection === section ? null : section;
         renderAdminPage();
+      } else if(action === 'select-course-chip'){
+        adminActiveCourseId = el.dataset.courseId;
+        adminAddingCourse = false;
+        renderAdminPage();
+      } else if(action === 'show-add-course-form'){
+        adminAddingCourse = true;
+        renderAdminPage();
+      } else if(action === 'cancel-add-course'){
+        adminAddingCourse = false;
+        renderAdminPage();
+      } else if(action === 'create-course'){
+        const levelEl = document.getElementById('new-course-level');
+        const autoEl = document.getElementById('new-course-autoprogress');
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        adminEditingStudent.homework = harvestHomeworkFromDOM();
+        const courses = Array.isArray(adminEditingStudent.courses) ? adminEditingStudent.courses : (adminEditingStudent.courses = []);
+        const nextOrder = courses.reduce((m,c)=>Math.max(m, c.order||c.number||0), 0) + 1;
+        // Any roadmap sessions not already grouped into a course (typically the very first
+        // course being created for a legacy student) get adopted into this new course, so
+        // nothing becomes an orphaned, invisible session.
+        const grouped = new Set(courses.reduce((ids,c)=>ids.concat(c.sessionIds||[]), []));
+        const orphanIds = adminEditingStudent.roadmap.map(r=>r.id).filter(id=>!grouped.has(id));
+        const course = {
+          id: makeCourseId(),
+          number: nextOrder,
+          level: (levelEl && levelEl.value) || LEVEL_STAGES[0],
+          status: courses.some(c=>c.status==='active') ? 'upcoming' : 'active',
+          order: nextOrder,
+          autoProgress: autoEl ? !!autoEl.checked : true,
+          sessionIds: orphanIds
+        };
+        courses.push(course);
+        adminActiveCourseId = course.id;
+        adminAddingCourse = false;
+        renderAdminPage();
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.roadmap.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', homework:'', tips:'', done:false});
+        const newItem = {id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', homework:'', tips:'', done:false};
+        adminEditingStudent.roadmap.push(newItem);
+        addSessionIdToActiveCourse(newItem.id);
         renderAdminPage();
       } else if(action === 'delete-roadmap-item'){
-        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
+        const removeId = el.closest('.roadmap-item-row').dataset.id;
+        adminEditingStudent.roadmap = harvestRoadmapFromDOM().filter(r=>r.id!==removeId);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.roadmap.splice(Number(el.dataset.idx), 1);
+        removeSessionIdFromCourses(removeId);
         renderAdminPage();
       } else if(action === 'add-homework-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
@@ -7297,6 +7572,7 @@ function bindAdminActions(root){
           .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
         adminEditingStudent.roadmap = existing.concat(suggestions);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        suggestions.forEach(sugg=>addSessionIdToActiveCourse(sugg.id));
         adminStudentError = '';
         adminStudentInfo = suggestions.length ? ('Added '+suggestions.length+' session(s) from the '+baseLevel+' curriculum.') : ('No new sessions to add — every '+baseLevel+' item is already in the roadmap.');
         renderAdminPage();
@@ -7313,6 +7589,7 @@ function bindAdminActions(root){
         const parsed = parsePastedRoadmap(text);
         adminEditingStudent.roadmap = existing.concat(parsed);
         adminEditingStudent.homework = harvestHomeworkFromDOM();
+        parsed.forEach(p=>addSessionIdToActiveCourse(p.id));
         adminStudentInfo = 'Added '+parsed.length+' session(s) from the pasted text.';
         renderAdminPage();
       } else if(action === 'quick-progress'){
@@ -7379,6 +7656,8 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = null;
+        adminActiveCourseId = null;
+        adminAddingCourse = false;
         renderAdminPage();
       } else if(action === 'save-student'){
         saveAdminStudent();
@@ -7449,6 +7728,9 @@ function saveAdminStudent(){
   adminEditingStudent.roadmap = roadmap;
   adminEditingStudent.homework = homework;
   adminEditingStudent.objectives = objectives;
+  ensureStudentCourses(adminEditingStudent);
+  const courses = applyCourseCompletion(adminEditingStudent);
+  adminEditingStudent.courses = courses;
   if(!code){
     adminStudentError = 'Please enter a pass / username.';
     renderAdminPage();
@@ -7459,7 +7741,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
@@ -7548,6 +7830,7 @@ if(location.hash === '#admin'){
     firebase.firestore().collection('studentPanels').doc(studentPanelData.code).get().then(doc=>{
       if(doc.exists){
         studentPanelData = Object.assign({code: studentPanelData.code}, doc.data());
+        ensureStudentCourses(studentPanelData);
         state.studentPanelCache = studentPanelData;
         save();
         if(state.view === 'student-panel') render();
