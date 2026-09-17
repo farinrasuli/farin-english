@@ -1,0 +1,56 @@
+name: Deploy Pages (thefeschool.com)
+
+# Publishes the repo to GitHub Pages with the marketing site (site/) promoted
+# to the domain root, so https://thefeschool.com/ shows the homepage directly
+# instead of https://thefeschool.com/site/. Everything else in the repo
+# (app/, docs, etc.) is copied through unchanged at its existing path, so
+# https://thefeschool.com/app/farin-english-app.html keeps working exactly
+# as before - no app file is modified by this workflow, only where the
+# built output is assembled from.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Assemble published site
+        run: |
+          set -e
+          mkdir -p _site
+          # 1. Full parity copy: everything in the repo is reachable at its
+          #    current path, exactly like today's branch-based Pages deploy.
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+          # 2. Overlay the marketing site on top of the root, so the
+          #    homepage (and its now root-relative asset/app paths) is
+          #    served at the domain root.
+          rsync -a site/ _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
