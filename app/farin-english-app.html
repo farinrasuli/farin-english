@@ -7142,63 +7142,71 @@ const PERSONALIZATION_STUDENT_PHRASES = {
   comprehension: 'understanding what you hear and read',
   'cultural-communication': 'communicating naturally across cultures'
 };
+// Joins a list into natural, readable prose instead of a raw dump — caps at `max` items and
+// folds any remainder into "among other things" rather than naming every single one.
+function naturalJoin(arr, max){
+  if(!arr || !arr.length) return '';
+  const items = arr.slice(0, max);
+  const truncated = arr.length > max;
+  let joined;
+  if(items.length===1) joined = items[0];
+  else if(items.length===2) joined = items.join(' and ');
+  else joined = items.slice(0,-1).join(', ') + ', and ' + items[items.length-1];
+  return truncated ? `${joined}, among other things` : joined;
+}
 function buildCourseCompletionMessage(student, course){
   const d = aggregateCourseCompletionData(student, course);
   const lines = [];
 
   // Opening
-  lines.push(`Hi ${d.name}! 🌿`);
-  lines.push(`Congratulations — you've officially completed your ${d.level || 'course'} course! 🎉`);
+  lines.push(`Hi ${d.name}! 🎉`);
+  lines.push(`Congratulations on completing your ${d.level || 'course'} course!`);
 
-  // What We Worked On (overall focus)
+  // What We Worked On — one short, focused sentence, not a session-count recap
   if(d.goal){
-    lines.push(`With ${d.goal.toLowerCase()} as your focus, this course was built around real, practical English for that goal — and you worked through ${d.topics.length} session${d.topics.length===1?'':'s'} to get there.`);
+    lines.push(`This course was built around ${d.goal.toLowerCase()} — real, practical English for the situations that matter most to you.`);
   } else if(d.topics.length){
-    lines.push(`Over this course, you worked through ${d.topics.length} session${d.topics.length===1?'':'s'} covering real, practical English.`);
+    lines.push(`This course focused on real, practical English you can use right away.`);
   }
 
-  // Topics
+  // Topics — a natural sentence, capped, not the full raw list
   if(d.topics.length){
-    lines.push(`Topics — ${d.topics.join(', ')}.`);
+    lines.push(`You covered ${naturalJoin(d.topics, 4)}.`);
   }
 
-  // Grammar
+  // Grammar — the one or two structures that mattered most, woven into a sentence
   if(d.grammarPhrases.length){
-    lines.push(`Grammar — You worked on ${d.grammarPhrases.join('; and ')}.`);
+    lines.push(`On the grammar side, you worked on ${naturalJoin(d.grammarPhrases, 2)}.`);
   }
 
-  // Vocabulary
-  if(d.vocabPhrases.length){
-    lines.push(`Vocabulary — You built up ${d.vocabPhrases.join(' and ')}.`);
+  // Vocabulary & Expressions — merged into one short, natural section
+  const vocabAndExpressions = [...d.vocabPhrases, ...d.expressionPhrases];
+  if(vocabAndExpressions.length){
+    lines.push(`You also built up ${naturalJoin(vocabAndExpressions, 3)}.`);
   }
 
-  // Expressions
-  if(d.expressionPhrases.length){
-    lines.push(`Expressions — You practiced ${d.expressionPhrases.join(' and ')}.`);
-  }
-
-  // Speaking
+  // Speaking — one concise line
   if(d.speakingPhrases.length){
-    lines.push(`Speaking — You got ${d.speakingPhrases.join(', and ')}.`);
+    lines.push(`For speaking, you got ${naturalJoin(d.speakingPhrases, 2)}.`);
   }
 
-  // Your Main Focus (goal + objectives + personalization, combined)
-  const focusLines = [];
+  // Your Main Focus — one tight sentence combining objective + personalization
+  const focusParts = [];
   if(d.objectives.length){
-    focusLines.push(d.objectives[0].trim().replace(/^./,c=>c.toUpperCase()));
+    focusParts.push(d.objectives[0].trim().replace(/\.$/,''));
   }
   if(d.activeFocusAreas.length){
     const phrases = d.activeFocusAreas.slice(0,2).map(f=>PERSONALIZATION_STUDENT_PHRASES[f] || personalizationFocusLabel(f).toLowerCase());
-    focusLines.push(`We also kept working on ${phrases.join(' and ')} throughout the course.`);
+    focusParts.push(phrases.join(' and '));
   }
-  if(focusLines.length){
-    lines.push(`Your Main Focus — ${focusLines.join(' ')}`);
+  if(focusParts.length){
+    lines.push(`Your main focus: ${focusParts.join(', with extra attention on ')}.`);
   }
 
-  // Closing
-  let closing = `It's been genuinely wonderful watching your progress throughout this course — I'm proud of the work you've put in.`;
+  // Closing — short and warm
+  let closing = `Really proud of the progress you've made here.`;
   if(d.hasNext){
-    closing += ` This is just one step forward — your next course is ready and waiting for the next stage of your journey. ✨`;
+    closing += ` Your next course is ready whenever you are. ✨`;
   }
   lines.push(closing);
 
