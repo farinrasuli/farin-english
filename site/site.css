@@ -207,6 +207,14 @@ header.site{
 .card .index-num{ font-family:var(--serif); font-style:italic; font-size:1.6rem; color:var(--primary); margin-bottom:14px; display:block; }
 .card p{ color:var(--ink-soft); margin-bottom:0; font-size:.97rem; }
 
+/* ---------- blog-card — .card variant that's a whole clickable link,
+   used on /blog/ index for article listings ---------- */
+.blog-card{ display:block; text-decoration:none; }
+.blog-card h3{ color:var(--ink); margin:0 0 10px; font-size:1.15rem; }
+.blog-card p{ margin-bottom:14px; }
+.blog-card .blog-read-more{ display:inline-flex; align-items:center; gap:4px; font-weight:700; font-size:.9rem; color:var(--primary); }
+.blog-card:hover .blog-read-more{ text-decoration:underline; }
+
 /* ---------- 3D icon wrapper ---------- */
 .icon3d{ width:56px; height:56px; margin-bottom:16px; transition:transform .35s var(--spring); display:block; }
 .icon3d img{ width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 6px 14px rgba(61,43,31,.18)); }

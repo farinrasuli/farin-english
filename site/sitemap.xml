@@ -21,6 +21,51 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://thefeschool.com/is-ingilizcesi.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/ielts-hazirlik.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/ingilizce-konusma-pratigi-nasil-yapilir.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/ingilizce-konusma-korkusu.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/ingilizce-ogrenirken-yapilan-hatalar.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/ielts-speaking-nasil-hazirlanilir.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://thefeschool.com/blog/hedefe-gore-ingilizce-ogrenmek.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://farinrasuli.github.io/farin-english-app/farin-english-app.html</loc>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
