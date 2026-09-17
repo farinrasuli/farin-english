@@ -65,14 +65,4 @@
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://farinrasuli.github.io/farin-english-app/farin-english-app.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://farinrasuli.github.io/farin-english-app/privacy-policy.html</loc>
-    <changefreq>yearly</changefreq>
-    <priority>0.2</priority>
-  </url>
 </urlset>
