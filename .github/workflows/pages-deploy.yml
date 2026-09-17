@@ -3,10 +3,15 @@ name: Deploy Pages (thefeschool.com)
 # Publishes the repo to GitHub Pages with the marketing site (site/) promoted
 # to the domain root, so https://thefeschool.com/ shows the homepage directly
 # instead of https://thefeschool.com/site/. Everything else in the repo
-# (app/, docs, etc.) is copied through unchanged at its existing path, so
-# https://thefeschool.com/app/farin-english-app.html keeps working exactly
-# as before - no app file is modified by this workflow, only where the
-# built output is assembled from.
+# (docs, backups, etc.) is copied through unchanged at its existing path.
+#
+# app/ is deliberately EXCLUDED from this deploy: the learner app now lives
+# in its own repo (farinrasuli/farin-english-app) with no custom domain, so
+# it keeps being served from farinrasuli.github.io and existing users'
+# localStorage progress isn't lost to a domain-redirect origin change.
+# Serving a second, stale copy of the app here would just be confusing
+# duplicate content. The site links to the app via its new repo's absolute
+# URL instead of a local /app/ path.
 
 on:
   push:
@@ -34,7 +39,7 @@ jobs:
           mkdir -p _site
           # 1. Full parity copy: everything in the repo is reachable at its
           #    current path, exactly like today's branch-based Pages deploy.
-          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' --exclude='app' ./ _site/
           # 2. Overlay the marketing site on top of the root, so the
           #    homepage (and its now root-relative asset/app paths) is
           #    served at the domain root.
