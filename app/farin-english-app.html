@@ -7004,64 +7004,203 @@ const GOAL_PERFORMANCE_RESULTS = {
   ]
 };
 const GOAL_LABELS = {travel:'Travel', career:'Career', exam:'Exam', everyday:'Everyday life', immigration:'Immigration'};
-/* ---- Course Completion Message (2026-09-16): template-assembled from data already on the
-   student doc (roadmap/goal/objectives/personalization) — no LLM call, no new backend, same
-   pattern as auto-progress-note. Manual/admin-triggered only, never auto-fired on completion,
-   since applyCourseCompletion() is not yet live-verified (Claude/tasks.md item 27). ---- */
+/* ---- Course Completion Message (2026-09-16, revised 2026-09-17): template-assembled from data
+   already on the student doc (roadmap/goal/objectives/personalization) — no LLM call, no new
+   backend, same pattern as auto-progress-note. Manual/admin-triggered only, never auto-fired on
+   completion, since applyCourseCompletion() is not yet live-verified (Claude/tasks.md item 27).
+
+   Data reality check (2026-09-17): the roadmap item shape (see LESSON-ENGINE.md) has no
+   structured per-lesson tags for topics/grammar-points/vocab-domains/expressions/speaking-tasks —
+   that level of detail exists only inside the published lesson HTML pages (external Claude
+   artifact URLs), which this app never fetches back into Firestore. The only real, reliable
+   per-session signal available here is: `title` (real, human-written, usually names the actual
+   grammar point or vocab domain — e.g. "Must / Have to / Should", "Passive Voice Basics",
+   "Slang: Office Expressions"), `type` (grammar|vocab|speaking, sometimes stale per the caveat in
+   LESSON-ENGINE.md), and `focus` (optional freeform admin steer, often empty). So "topics" below
+   are the actual roadmap titles, deduped and cleaned — never invented. The GRAMMAR_TOPIC_PHRASES /
+   VOCAB_DOMAIN_PHRASES / EXPRESSION_DOMAIN_PHRASES maps only add generic, well-established
+   pedagogical phrasing for a topic that was genuinely studied (matched by keyword against the real
+   title) — they never introduce a topic/skill that isn't already in the student's own roadmap. If
+   a title doesn't match any known keyword, the raw (cleaned) title is used as-is rather than
+   guessing a description. Categories with zero real sessions are omitted entirely. ---- */
 const COURSE_TYPE_LABELS = {grammar:'grammar', vocab:'vocabulary', speaking:'speaking'};
-function buildCourseCompletionMessage(student, course){
-  const name = (student.name || 'there').trim() || 'there';
+// Keyword -> concrete, student-facing description of a grammar structure. Only ever applied to a
+// title the student actually studied (real roadmap session) — never used to add a topic on its own.
+const GRAMMAR_TOPIC_PHRASES = [
+  [/first conditional/i, 'using the First Conditional to talk about real, likely future situations and their results'],
+  [/second conditional/i, 'using the Second Conditional to talk about imaginary or unlikely situations'],
+  [/third conditional/i, 'using the Third Conditional to talk about imagined outcomes of the past'],
+  [/zero conditional/i, 'using the Zero Conditional to talk about facts and general truths'],
+  [/present perfect/i, 'using the Present Perfect to talk about experiences and events with a present connection, and how it contrasts with the Past Simple'],
+  [/past continuous/i, 'using the Past Continuous to describe actions that were in progress in the past'],
+  [/past simple/i, 'using the Past Simple to talk about finished actions and events in the past'],
+  [/passive/i, 'forming and using the Passive Voice to shift the focus onto the action or the receiver of the action'],
+  [/must|have to|should/i, 'using modal verbs like must, have to, and should to talk about obligation, necessity, and advice'],
+  [/going to/i, 'using "going to" to talk about plans and predictions'],
+  [/future/i, 'talking about the future with will and going to'],
+  [/comparativ|superlativ/i, 'comparatives and superlatives to compare people, places, and things'],
+  [/relative clause/i, 'relative clauses to add extra information about people and things'],
+  [/reported speech/i, 'reported speech to retell what someone else said'],
+  [/article/i, 'the correct use of articles (a / an / the)'],
+  [/question/i, 'forming clear, natural questions in different tenses']
+];
+// Keyword -> concrete, student-facing description of a vocabulary domain (same rule: only applied
+// to a title the student actually studied).
+const VOCAB_DOMAIN_PHRASES = [
+  [/shop/i, 'practical shopping and retail vocabulary'],
+  [/travel|airport|transport/i, 'travel and transportation vocabulary'],
+  [/office|business|workplace|career|meeting|interview|email/i, 'professional, workplace and business vocabulary'],
+  [/food|restaurant|menu|cook/i, 'food and restaurant vocabulary'],
+  [/health|doctor|hospital/i, 'health and everyday wellbeing vocabulary'],
+  [/house|home|apartment/i, 'home and household vocabulary'],
+  [/daily life|everyday/i, 'everyday, daily-life vocabulary']
+];
+// Titles containing these keywords are treated as "expressions/communication functions" rather
+// than plain vocabulary — still drawn only from real roadmap titles, never invented.
+const EXPRESSION_KEYWORDS = /slang|expression|idiom|phrase/i;
+function cleanRoadmapTitle(title){
+  return (title||'').replace(/^\s*(grammar|vocab(?:ulary)?|speaking)\s*:\s*/i,'').trim();
+}
+function describeTopicByKeywordList(title, phraseList){
+  const clean = cleanRoadmapTitle(title);
+  const hit = phraseList.find(([re])=>re.test(clean));
+  return hit ? hit[1] : `"${clean}"`;
+}
+// Data-aggregation step: pulls the completed course's real roadmap sessions + goal/objectives +
+// active personalization notes into one structured object, deduped and grouped by category. This
+// reads existing fields only — it does not duplicate lesson data into any new store.
+function aggregateCourseCompletionData(student, course){
   const roadmap = Array.isArray(student.roadmap) ? student.roadmap : [];
   const sessionIds = course.sessionIds || [];
   const sessions = sessionIds.map(id=>roadmap.find(r=>r.id===id)).filter(Boolean);
-  const lines = [];
 
-  lines.push(`Hi ${name}! 🌿`);
-  lines.push(`You've officially completed your ${course.level || 'course'} course! 🎉`);
+  const topics = [];
+  const grammarPhrases = [];
+  const vocabPhrases = [];
+  const expressionPhrases = [];
+  const speakingPhrases = [];
 
-  const byType = {};
   sessions.forEach(s=>{
+    const clean = cleanRoadmapTitle(s.title);
+    if(!clean) return;
+    if(!topics.includes(clean)) topics.push(clean);
     const t = s.type || 'grammar';
-    if(!byType[t]) byType[t] = [];
-    if(s.focus && s.focus.trim() && !byType[t].includes(s.focus.trim())) byType[t].push(s.focus.trim());
-  });
-  const skillPhrases = [];
-  ['grammar','vocab','speaking'].forEach(t=>{
-    if(!byType[t]) return;
-    const focuses = byType[t].slice(0,2);
-    if(focuses.length) skillPhrases.push(`${COURSE_TYPE_LABELS[t]} like ${focuses.join(' and ')}`);
-    else if(byType[t]) skillPhrases.push(COURSE_TYPE_LABELS[t]);
-  });
-  if(skillPhrases.length){
-    lines.push(`During this course, you worked on ${skillPhrases.join(', ')}.`);
-  }
-
-  if(student.goal && GOAL_LABELS[student.goal]){
-    const objectives = (Array.isArray(student.objectives) ? student.objectives : []).filter(o=>o && o.trim());
-    if(objectives.length){
-      lines.push(`With ${GOAL_LABELS[student.goal].toLowerCase()} as your focus, you're now ${objectives[0].trim().replace(/^./,c=>c.toLowerCase())}`);
-    } else {
-      lines.push(`You've kept making real progress toward your goal of ${GOAL_LABELS[student.goal].toLowerCase()}.`);
+    const focusNote = (s.focus && s.focus.trim()) ? s.focus.trim() : '';
+    if(t === 'grammar'){
+      const phrase = describeTopicByKeywordList(s.title, GRAMMAR_TOPIC_PHRASES);
+      if(!grammarPhrases.includes(phrase)) grammarPhrases.push(phrase + (focusNote ? ` (${focusNote})` : ''));
+    } else if(t === 'vocab'){
+      if(EXPRESSION_KEYWORDS.test(clean)){
+        const domainPhrase = describeTopicByKeywordList(s.title, VOCAB_DOMAIN_PHRASES);
+        const domainNoun = domainPhrase.startsWith('"') ? `related to ${clean}` : `for ${domainPhrase.replace(/\s*vocabulary$/,'').replace(/^practical /,'').replace(/^professional, /,'professional ')} situations`;
+        const phrase = `natural expressions and phrases ${domainNoun}`;
+        if(!expressionPhrases.includes(phrase)) expressionPhrases.push(phrase);
+      } else {
+        const phrase = describeTopicByKeywordList(s.title, VOCAB_DOMAIN_PHRASES);
+        if(!vocabPhrases.includes(phrase)) vocabPhrases.push(phrase);
+      }
+    } else if(t === 'speaking'){
+      const phrase = `real-life speaking practice on ${clean.startsWith('Canlı') || clean.startsWith('Live') ? 'live conversation situations' : `"${clean}"`}${focusNote ? ` (${focusNote})` : ''}`;
+      if(!speakingPhrases.includes(phrase)) speakingPhrases.push(phrase);
     }
-  }
+  });
 
+  const objectives = (Array.isArray(student.objectives) ? student.objectives : []).filter(o=>o && o.trim());
   const observations = (student.personalization && Array.isArray(student.personalization.observations)) ? student.personalization.observations : [];
   const activeFocusAreas = [];
   observations.filter(o=>o.status!=='resolved').forEach(o=>{
     (o.focusAreas||[]).forEach(f=>{ if(!activeFocusAreas.includes(f)) activeFocusAreas.push(f); });
   });
-  if(activeFocusAreas.length){
-    lines.push(`You also worked especially on your ${activeFocusAreas.slice(0,2).map(personalizationFocusLabel).join(' and ').toLowerCase()}.`);
-  }
-
-  lines.push(`It's been really wonderful to see your progress throughout this course. I'm genuinely honored to be part of your learning journey, and I'm proud of the work you've put in.`);
 
   const courses = Array.isArray(student.courses) ? student.courses : [];
   const nextOrder = (course.order || course.number || 1) + 1;
   const hasNext = courses.some(c=>(c.order||c.number)===nextOrder);
-  if(hasNext){
-    lines.push(`This is just one step forward — your next course is ready for the next stage of your journey. ✨`);
+
+  return {
+    name: (student.name || 'there').trim() || 'there',
+    level: course.level || student.level || '',
+    topics, grammarPhrases, vocabPhrases, expressionPhrases, speakingPhrases,
+    goal: student.goal && GOAL_LABELS[student.goal] ? GOAL_LABELS[student.goal] : '',
+    objectives, activeFocusAreas, hasNext
+  };
+}
+// Student-friendly phrasing for a personalization focus area — never exposes raw teacher notes,
+// only the focus-area category itself, converted to a warm sentence fragment.
+const PERSONALIZATION_STUDENT_PHRASES = {
+  pronunciation: 'clearer pronunciation',
+  vocabulary: 'growing your vocabulary',
+  grammar: 'accuracy with grammar',
+  'speaking-fluency': 'speaking more fluently',
+  listening: 'listening to natural, fast speech',
+  reading: 'reading comprehension',
+  writing: 'writing skills',
+  accuracy: 'overall accuracy',
+  confidence: 'speaking with more confidence',
+  'natural-expressions': 'sounding more natural in everyday English',
+  'sentence-formation': 'building sentences more naturally',
+  'conversation-skills': 'everyday conversation skills',
+  comprehension: 'understanding what you hear and read',
+  'cultural-communication': 'communicating naturally across cultures'
+};
+function buildCourseCompletionMessage(student, course){
+  const d = aggregateCourseCompletionData(student, course);
+  const lines = [];
+
+  // Opening
+  lines.push(`Hi ${d.name}! 🌿`);
+  lines.push(`Congratulations — you've officially completed your ${d.level || 'course'} course! 🎉`);
+
+  // What We Worked On (overall focus)
+  if(d.goal){
+    lines.push(`With ${d.goal.toLowerCase()} as your focus, this course was built around real, practical English for that goal — and you worked through ${d.topics.length} session${d.topics.length===1?'':'s'} to get there.`);
+  } else if(d.topics.length){
+    lines.push(`Over this course, you worked through ${d.topics.length} session${d.topics.length===1?'':'s'} covering real, practical English.`);
   }
+
+  // Topics
+  if(d.topics.length){
+    lines.push(`Topics — ${d.topics.join(', ')}.`);
+  }
+
+  // Grammar
+  if(d.grammarPhrases.length){
+    lines.push(`Grammar — You worked on ${d.grammarPhrases.join('; and ')}.`);
+  }
+
+  // Vocabulary
+  if(d.vocabPhrases.length){
+    lines.push(`Vocabulary — You built up ${d.vocabPhrases.join(' and ')}.`);
+  }
+
+  // Expressions
+  if(d.expressionPhrases.length){
+    lines.push(`Expressions — You practiced ${d.expressionPhrases.join(' and ')}.`);
+  }
+
+  // Speaking
+  if(d.speakingPhrases.length){
+    lines.push(`Speaking — You got ${d.speakingPhrases.join(', and ')}.`);
+  }
+
+  // Your Main Focus (goal + objectives + personalization, combined)
+  const focusLines = [];
+  if(d.objectives.length){
+    focusLines.push(d.objectives[0].trim().replace(/^./,c=>c.toUpperCase()));
+  }
+  if(d.activeFocusAreas.length){
+    const phrases = d.activeFocusAreas.slice(0,2).map(f=>PERSONALIZATION_STUDENT_PHRASES[f] || personalizationFocusLabel(f).toLowerCase());
+    focusLines.push(`We also kept working on ${phrases.join(' and ')} throughout the course.`);
+  }
+  if(focusLines.length){
+    lines.push(`Your Main Focus — ${focusLines.join(' ')}`);
+  }
+
+  // Closing
+  let closing = `It's been genuinely wonderful watching your progress throughout this course — I'm proud of the work you've put in.`;
+  if(d.hasNext){
+    closing += ` This is just one step forward — your next course is ready and waiting for the next stage of your journey. ✨`;
+  }
+  lines.push(closing);
 
   return lines.join('\n\n');
 }
