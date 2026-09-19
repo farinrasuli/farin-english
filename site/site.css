@@ -914,3 +914,17 @@ footer.site{ padding:64px 0 32px; border-top:1px solid var(--surface-border); }
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
 }
+
+/* ---- About Farin (homepage #hakkimda) ---- */
+.about-grid{ display:grid; grid-template-columns:minmax(200px,340px) 1fr; gap:56px; align-items:center; max-width:960px; margin:0 auto; }
+.about-photo{ width:100%; height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:var(--radius); box-shadow:var(--shadow-lg); display:block; }
+.about-body h2{ margin-bottom:.5em; }
+.about-body p{ color:var(--ink-soft); }
+.about-facts{ list-style:none; padding:0; margin:22px 0 0; display:flex; flex-wrap:wrap; gap:10px; }
+.about-facts li{ padding:8px 16px; border-radius:999px; background:var(--surface); border:1px solid var(--surface-border); color:var(--ink); font-weight:600; font-size:.9rem; }
+@media (max-width:760px){
+  .about-grid{ grid-template-columns:1fr; gap:28px; }
+  .about-photo{ max-width:280px; margin:0 auto; }
+  .about-body{ text-align:center; }
+  .about-facts{ justify-content:center; }
+}
