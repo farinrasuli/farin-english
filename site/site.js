@@ -3,6 +3,28 @@
    sets window.FARIN_LANG before loading this file to localize the
    wizard and the mini story game; pages without it (the hub) simply
    skip anything that needs it. */
+/* Contact / app-link click tracking -> GA4. Kept in its own block at the very
+   top so nothing further down this file can stop it from registering.
+   No-op if the Google tag hasn't loaded (blocked, offline, etc). */
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
+    if (!a || typeof window.gtag !== 'function') return;
+    var href = a.getAttribute('href') || '';
+    var name = null;
+    if (href.indexOf('wa.me/') !== -1) name = 'whatsapp_click';
+    else if (href.indexOf('mailto:') === 0) name = 'email_click';
+    else if (href.indexOf('farin-english.apk') !== -1) name = 'app_apk_click';
+    else if (href.indexOf('farin-english-app') !== -1 && href.indexOf('privacy-policy') === -1) name = 'app_web_click';
+    if (!name) return;
+    window.gtag('event', name, {
+      page_path: location.pathname,
+      link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60),
+      transport_type: 'beacon'
+    });
+  }, true);
+})();
+
 (function(){
 "use strict";
 
