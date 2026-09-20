@@ -7052,6 +7052,18 @@ function studentGoalKeys(s){
   const keys = (Array.isArray(s.goals) && s.goals.length) ? s.goals : (s.goal ? [s.goal] : []);
   return keys.filter(k=>GOAL_LABELS[k]).slice(0,3);
 }
+const GOAL_EMOJI = {travel:'✈️', career:'💼', exam:'📝', everyday:'💬', immigration:'🌍'};
+function renderStudentGoalChips(goals){
+  return Object.keys(GOAL_LABELS).map(k=>{
+    const i = goals.indexOf(k);
+    return `<button type="button" class="btn btn-sm ${i>-1?'btn-primary':'btn-ghost'}" data-admin-action="toggle-student-goal" data-goal="${k}">${i>-1?`<b>${i+1}</b> · `:''}${GOAL_EMOJI[k]} ${GOAL_LABELS[k]}</button>`;
+  }).join('');
+}
+function goalsHelpText(goals){
+  if(!goals.length) return 'No goals picked yet — pick at least one so lessons can be tailored.';
+  if(goals.length<3) return `${goals.length} of 3 picked. Tap a picked goal again to remove it.`;
+  return '3 of 3 picked — tap one to remove it before choosing another.';
+}
 function studentGoalsText(s){
   const names = studentGoalKeys(s).map(k=>GOAL_LABELS[k]);
   if(names.length<=1) return names[0]||'';
@@ -7499,8 +7511,7 @@ function renderAdminStudentsTab(){
     const homework = Array.isArray(s.homework) ? s.homework : [];
     const personalizationObservations = (s.personalization && Array.isArray(s.personalization.observations)) ? s.personalization.observations : [];
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
-    const goalKeys = studentGoalKeys(s);
-    const goalOptsFor = i => [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${goalKeys[i]===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
+    if(!Array.isArray(s.goals)) s.goals = studentGoalKeys(s);
     const courses = Array.isArray(s.courses) ? s.courses : [];
     const activeCourse = courses.find(c=>c.id===adminActiveCourseId) || null;
     const visibleRoadmap = activeCourse ? (activeCourse.sessionIds||[]).map(id=>roadmap.find(r=>r.id===id)).filter(Boolean) : roadmap;
@@ -7526,6 +7537,15 @@ function renderAdminStudentsTab(){
       ${studentFormField('student-form-name', 'Name', s.name, 'input')}
       <label class="field-label">WhatsApp number <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(homework gets sent here when you tick a session done)</span></label>
       <input id="student-form-whatsapp" type="tel" value="${esc(s.whatsapp||'')}" placeholder="e.g. 5352805808" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
+      ${studentSectionClose()}
+
+      ${studentSectionRow('goals','🎯','Goals', studentGoalsText(s) || 'No goals set yet')}
+      ${studentSectionOpen('goals')}
+      <label class="field-label">Learning goals <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(pick up to 3 — tap in order of importance)</span></label>
+      <div id="student-goal-chips" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;">${renderStudentGoalChips(s.goals)}</div>
+      <p id="student-goal-msg" style="font-size:11.5px; color:var(--ink-faint); min-height:16px; margin:0 0 12px;">${goalsHelpText(s.goals)}</p>
+      ${studentFormField('student-form-goal-notes', 'Specifics (optional)', s.goalNotes, 'textarea', 'rows="3" placeholder="e.g. IELTS 6.5 by March · interviews at tech companies · trip to Japan in June"')}
+      <p style="font-size:11px; color:var(--ink-faint); margin:-6px 0 4px;">Every lesson, homework and roadmap topic is built around all the goals above, using these details when they help. Goal 1 is the primary one.</p>
       ${studentSectionClose()}
 
       ${studentSectionRow('level','🧭','Level & pace', (s.level||'No level set')+' · '+(Number(s.package)||8)+'/mo'+(s.freezeUntil?' · ❄️ frozen':''))}
@@ -7660,11 +7680,8 @@ function renderAdminStudentsTab(){
       </div>
       ${studentSectionClose()}
 
-      ${studentSectionRow('notes','💬','Notes', studentGoalsText(s) || 'No goal set')}
+      ${studentSectionRow('notes','💬','Notes', 'Progress, performance, objectives')}
       ${studentSectionOpen('notes')}
-      <label class="field-label">Goals <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(up to 3 — every lesson, roadmap and exercise uses all of them; the first unlocks result-based performance options)</span></label>
-      ${[0,1,2].map(i=>`<select id="student-form-goal${i?'-'+(i+1):''}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:${i===2?16:8}px;">${goalOptsFor(i)}</select>`).join('')}
-
       <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
         <span style="width:26px; height:26px; border-radius:50%; background:var(--cat-lis-soft); color:var(--cat-lis); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.compass}</span>
         <span style="font-weight:800; font-size:13.5px;">Progress</span>
@@ -7684,7 +7701,7 @@ function renderAdminStudentsTab(){
         <span style="width:26px; height:26px; border-radius:50%; background:var(--cat-voc-soft); color:var(--cat-voc); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">🎯</span>
         <span style="font-weight:800; font-size:13.5px;">Objectives</span>
       </div>
-      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 10px;">Three concrete, goal-based results — pick a goal above, then fill each one.</p>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 10px;">Three concrete, goal-based results — set the goals in the Goals section, then fill each one (objective 1 from goal 1, 2 from goal 2, 3 from goal 3).</p>
       ${[0,1,2].map(i=>`
       <div style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
         <div class="row between" style="align-items:center; margin-bottom:6px;">
@@ -7785,7 +7802,9 @@ function bindAdminActions(root){
         const req = `Generate the lesson and homework for "${item.title||'this session'}"`
           + (item.date?` (${item.date})`:'') + ` — type: ${item.type||'grammar'}`
           + (item.focus?`, focus: ${item.focus}`:'')
-          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, ${studentGoalKeys(s).length>1?'goals':'goal'} ${studentGoalsText(s)||'not set'} (weave ALL of these goals into the lesson and homework, not just the first).`;
+          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, ${studentGoalKeys(s).length>1?'goals':'goal'} ${studentGoalsText(s)||'not set'} (weave ALL of these goals into the lesson and homework, not just the first)`
+          + ((()=>{ const gn = document.getElementById('student-form-goal-notes'); const t = gn ? gn.value.trim() : (s.goalNotes||''); return t ? `. Goal specifics: ${t}` : ''; })())
+          + `.`;
         if(navigator.clipboard && navigator.clipboard.writeText){
           navigator.clipboard.writeText(req).then(()=>{
             adminStudentInfo = 'Copied — paste this to Claude in chat to generate the lesson.';
@@ -7814,7 +7833,7 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = 'basics';
-        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
+        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', goals:[], goalNotes:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
         adminActiveCourseId = null;
         adminAddingCourse = false;
         renderAdminPage();
@@ -7950,15 +7969,31 @@ function bindAdminActions(root){
         const ta = document.getElementById('student-form-performance');
         const text = PERFORMANCE_TEMPLATES[el.dataset.key];
         if(ta && text) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
+      } else if(action === 'toggle-student-goal'){
+        // Updates the chips in place (no full re-render) so nothing typed in other fields is lost.
+        const s = adminEditingStudent;
+        if(!Array.isArray(s.goals)) s.goals = studentGoalKeys(s);
+        const key = el.dataset.goal;
+        const at = s.goals.indexOf(key);
+        let msg = null;
+        if(at>-1) s.goals.splice(at,1);
+        else if(s.goals.length<3) s.goals.push(key);
+        else msg = 'You can pick 3 goals at most — remove one first.';
+        s.goal = s.goals[0] || '';
+        const chips = document.getElementById('student-goal-chips');
+        if(chips) chips.innerHTML = renderStudentGoalChips(s.goals);
+        const msgEl = document.getElementById('student-goal-msg');
+        if(msgEl) msgEl.textContent = msg || goalsHelpText(s.goals);
       } else if(action === 'fill-objective'){
-        const goalEl = document.getElementById('student-form-goal');
-        const goal = goalEl ? goalEl.value : '';
+        const goals = studentGoalKeys(adminEditingStudent);
+        const idx = Number(el.dataset.idx);
+        // objective 1 from goal 1, 2 from goal 2, 3 from goal 3 (wraps if fewer goals are set)
+        const goal = goals.length ? goals[idx % goals.length] : '';
         if(!goal){
-          adminStudentError = 'Pick a goal above first to fill objectives.';
+          adminStudentError = 'Pick at least one goal in the Goals section first to fill objectives.';
           renderAdminPage();
           return;
         }
-        const idx = Number(el.dataset.idx);
         const results = GOAL_PERFORMANCE_RESULTS[goal];
         const text = results && results[idx];
         if(text){
@@ -8087,10 +8122,10 @@ function saveAdminStudent(){
   const pkg = Number(s.package) || 8;
   const freezeUntil = (document.getElementById('student-form-freeze').value || '').trim();
   const level = document.getElementById('student-form-level').value;
-  const goals = ['student-form-goal','student-form-goal-2','student-form-goal-3']
-    .map(id=>{ const el = document.getElementById(id); return el ? el.value : ''; })
-    .filter((g,i,a)=>g && a.indexOf(g)===i);
+  const goals = studentGoalKeys(s);
   const goal = goals[0] || '';
+  const goalNotesEl = document.getElementById('student-form-goal-notes');
+  const goalNotes = goalNotesEl ? goalNotesEl.value.trim() : (s.goalNotes || '');
   const sessionsInStage = Math.max(0, Math.min(10, Number(document.getElementById('student-form-sessions').value)||0));
   const progressNote = document.getElementById('student-form-progress').value;
   const performanceNote = document.getElementById('student-form-performance').value;
@@ -8116,7 +8151,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, whatsapp, package: pkg, freezeUntil, level, goal, goals, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, goals, goalNotes, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
