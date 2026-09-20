@@ -7802,7 +7802,7 @@ function bindAdminActions(root){
         const req = `Generate the lesson and homework for "${item.title||'this session'}"`
           + (item.date?` (${item.date})`:'') + ` — type: ${item.type||'grammar'}`
           + (item.focus?`, focus: ${item.focus}`:'')
-          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, ${studentGoalKeys(s).length>1?'goals':'goal'} ${studentGoalsText(s)||'not set'} (weave ALL of these goals into the lesson and homework, not just the first)`
+          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, ${studentGoalKeys(s).length>1?'goals':'goal'} ${studentGoalsText(s)||'not set'} (pick ONE of these goals as the focus for this lesson, varying it across the course; use the student notes to personalise)`
           + ((()=>{ const gn = document.getElementById('student-form-goal-notes'); const t = gn ? gn.value.trim() : (s.goalNotes||''); return t ? `. Goal specifics: ${t}` : ''; })())
           + `.`;
         if(navigator.clipboard && navigator.clipboard.writeText){
