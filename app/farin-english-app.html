@@ -3322,15 +3322,30 @@ function setTitle(set){ return LANG==='tr' ? set.title.tr : set.title.en; }
 function whatsappLink(message){
   return 'https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(message);
 }
+/* All of the learner's chosen goals (max 3), in the order they picked them. Every place that
+   personalizes by goal — messages to the teacher, roadmap, speaking sessions, practice rounds —
+   reads this instead of a single field, so no chosen goal is ever dropped. */
+function profileGoalKeys(p){
+  const keys = (p.goals && p.goals.length) ? p.goals : (p.motivationTag ? [p.motivationTag] : []);
+  return keys.filter(k=>GOALS_META[k]);
+}
+function joinList(items){
+  if(items.length<=1) return items[0]||'';
+  return items.slice(0,-1).join(', ')+' '+L('and','ve','و')+' '+items[items.length-1];
+}
+function goalsLabel(keys){
+  return joinList(keys.map(goalMetaLabel));
+}
 function goalLabel(p){
-  const opt = MOTIVATION_OPTIONS.find(o=>o.value===p.motivationTag);
-  return opt ? L(opt.label.en, opt.label.tr, opt.label.fa) : L('Not set','Belirtilmemiş','تنظیم‌نشده');
+  const keys = profileGoalKeys(p);
+  return keys.length ? goalsLabel(keys) : L('Not set','Belirtilmemiş','تنظیم‌نشده');
 }
 function leadInfoSuffixBasic(p){
+  const many = profileGoalKeys(p).length > 1;
   return L(
-    " My name is "+p.name+", my level is "+p.level+", and my goal is: "+goalLabel(p)+".",
-    " Adım "+p.name+", seviyem "+p.level+", hedefim: "+goalLabel(p)+".",
-    " اسم من "+p.name+" است، سطحم "+p.level+" است و هدفم: "+goalLabel(p)+"."
+    " My name is "+p.name+", my level is "+p.level+", and my "+(many?"goals are":"goal is")+": "+goalLabel(p)+".",
+    " Adım "+p.name+", seviyem "+p.level+", "+(many?"hedeflerim":"hedefim")+": "+goalLabel(p)+".",
+    " اسم من "+p.name+" است، سطحم "+p.level+" است و "+(many?"اهدافم":"هدفم")+": "+goalLabel(p)+"."
   );
 }
 function roadmapSummarySuffix(p){
@@ -3613,9 +3628,13 @@ function comboKey(g1, g2){
    recently (tracked in state.progress.usedSpeakingTopics), and labels the topic with
    a blended goal name when two of the student's goals pair naturally. */
 function pickSpeakingTopic(profile, seedExtra){
-  const goals = (profile.goals && profile.goals.length) ? profile.goals : (profile.motivationTag ? [profile.motivationTag] : ['everyday']);
-  const primary = goals[0] || 'everyday';
-  const secondary = goals.find(g=>g!==primary);
+  const keys = profileGoalKeys(profile);
+  const goals = keys.length ? keys : ['everyday'];
+  // seedExtra is the session's position on the roadmap, so consecutive sessions rotate through
+  // all of the learner's goals (each session leads with a different one and blends in the next).
+  const turn = Number(seedExtra) || 0;
+  const primary = goals[turn % goals.length];
+  const secondary = goals.length>1 ? goals[(turn+1) % goals.length] : null;
   const levelKey = profile.level === 'A1' ? 'A2' : (profile.level || 'A2');
   const pool = (SPEAKING_TOPICS[primary] && SPEAKING_TOPICS[primary][levelKey]) || SPEAKING_TOPICS.everyday[levelKey] || SPEAKING_TOPICS.everyday.A2;
   const used = (state.progress && state.progress.usedSpeakingTopics) || [];
@@ -3636,11 +3655,22 @@ function markSpeakingTopicUsed(topicId){
   save();
 }
 function buildRoadmap(profile){
-  const goals = (profile.goals && profile.goals.length) ? profile.goals : (profile.motivationTag ? [profile.motivationTag] : []);
+  const goals = profileGoalKeys(profile);
   const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===profile.level);
   const vPoolAll = VOCAB_SETS.filter(s=>s.level===profile.level && s.category==='vocab');
   const slPoolAll = VOCAB_SETS.filter(s=>s.level===profile.level && s.category==='slang');
-  const matchesGoal = arr => arr.filter(x=>x.goals && x.goals.some(gk=>goals.includes(gk)));
+  // Sets tagged for any of the student's goals, interleaved goal-by-goal (goal 1, goal 2, goal 3,
+  // goal 1, ...) so a 3-goal student meets every goal early instead of exhausting the first one.
+  const matchesGoal = arr => {
+    const buckets = goals.map(()=>[]);
+    arr.forEach(x=>{
+      const gi = x.goals ? goals.findIndex(gk=>x.goals.includes(gk)) : -1;
+      if(gi>-1) buckets[gi].push(x);
+    });
+    const out = [];
+    for(let i=0; buckets.some(b=>i<b.length); i++) buckets.forEach(b=>{ if(i<b.length) out.push(b[i]); });
+    return out;
+  };
   const vPoolGoal = matchesGoal(vPoolAll);
   const slPoolGoal = matchesGoal(slPoolAll);
   const vPool = vPoolGoal.length ? vPoolGoal : vPoolAll;
@@ -4372,7 +4402,7 @@ function renderSessionPrep(idx){
   const p = state.profile;
   const roadmap = buildRoadmap(p);
   const item = roadmap[idx];
-  if(!item || item.type!=='session' || !item.session) return renderComingSoon();
+  if(!item || item.type!=='session' || !item.session) return renderNotFound();
   const s = item.session;
   const topicText = L(s.topic.en, s.topic.tr, s.topic.fa);
   const goalLabel = s.goal && GOALS_META[s.goal] ? goalMetaLabel(s.goal) : '';
@@ -4804,7 +4834,7 @@ function renderGoalsList(){
   return `<div class="fade-in">
     ${topbar(false)}
     ${sectionHeadNoBack(L('Goals','Hedefler','اهداف'), editing
-      ? L('Pick up to 3 goals — they shape your Roadmap.','En fazla 3 hedef seç — Yol Haritanı şekillendirirler.','حداکثر ۳ هدف انتخاب کن — نقشه راهت را شکل می‌دهند.')
+      ? L('Pick up to 3 goals — all of them shape your Roadmap, lessons and practice.','En fazla 3 hedef seç — hepsi Yol Haritanı, derslerini ve alıştırmalarını şekillendirir.','حداکثر ۳ هدف انتخاب کن — همه آن‌ها نقشه راه، درس‌ها و تمرین‌هایت را شکل می‌دهند.')
       : L('Pick a goal to see grammar, vocabulary, and slang built around it.','Etrafında dilbilgisi, kelime ve argo oluşturulmuş bir hedef seç.','هدفی را انتخاب کن تا گرامر، واژگان و اصطلاحات ساخته‌شده برای آن را ببینی.'))}
     <div class="screen" style="padding-top:0;">
       <div class="stack" style="gap:10px;">
@@ -4993,12 +5023,15 @@ const PRACTICE_TOPICS = {
     ]
   }
 };
+/* goal is one goal key, or 'all' to draw on every goal the learner chose. */
 function buildPracticeRound(goal, level, difficulty){
+  const goalKeys = goal==='all' ? profileGoalKeys(state.profile) : [goal];
+  if(!goalKeys.length) goalKeys.push('everyday');
   const vPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab');
   const slPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
   const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===level);
-  const vTagged = vPoolAll.filter(s=>s.goals.includes(goal));
-  const slTagged = slPoolAll.filter(s=>s.goals.includes(goal));
+  const vTagged = vPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
+  const slTagged = slPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
   const vSets = vTagged.length ? vTagged : vPoolAll;
   const slSets = slTagged.length ? slTagged : slPoolAll;
   const flattenCards = sets => sets.reduce((acc,s)=>acc.concat(s.cards), []);
@@ -5018,7 +5051,7 @@ function buildPracticeRound(goal, level, difficulty){
   }));
   let grammar = null;
   if(difficulty !== 'easy' && gPoolAll.length){
-    const withVariant = gPoolAll.filter(g=>g.goalVariant && g.goalVariant[goal]);
+    const withVariant = gPoolAll.filter(g=>g.goalVariant && goalKeys.some(gk=>g.goalVariant[gk]));
     const gSource = withVariant.length ? withVariant : gPoolAll;
     const gItem = gSource[Math.floor(Math.random()*gSource.length)];
     grammar = {title: grammarTitle(gItem), markerWord: gItem.blank.word, exp: L(gItem.exp.en, gItem.exp.tr, gItem.exp.fa)};
@@ -5030,7 +5063,10 @@ function buildPracticeRound(goal, level, difficulty){
   }
   const minWords = difficulty==='easy' ? 4 : difficulty==='medium' ? 12 : 30;
   const minSentences = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
-  const topicPool = (PRACTICE_TOPICS[goal] && PRACTICE_TOPICS[goal][difficulty]) || [];
+  // With several goals, the topic comes from a randomly chosen one of them (words/grammar above
+  // already draw from all), so repeat rounds cover every goal.
+  const topicGoal = goalKeys[Math.floor(Math.random()*goalKeys.length)];
+  const topicPool = (PRACTICE_TOPICS[topicGoal] && PRACTICE_TOPICS[topicGoal][difficulty]) || [];
   const topicItem = topicPool.length ? topicPool[Math.floor(Math.random()*topicPool.length)] : null;
   const topic = topicItem ? L(topicItem.en, topicItem.tr, topicItem.fa) : null;
   return {difficulty, goal, level, words, grammar, slang, minWords, minSentences, topic};
@@ -5242,8 +5278,10 @@ function toggleStudioMic(){
 function renderStudioSetup(){
   const vp = state.viewParams;
   const mode = vp.mode || 'writing';
-  const profileGoals = (state.profile.goals && state.profile.goals.length) ? state.profile.goals : GOAL_ORDER;
-  const goal = vp.goal && profileGoals.includes(vp.goal) ? vp.goal : profileGoals[0];
+  const chosenGoals = profileGoalKeys(state.profile);
+  const profileGoals = chosenGoals.length ? chosenGoals : GOAL_ORDER;
+  const hasAllOption = chosenGoals.length > 1;
+  const goal = vp.goal && (profileGoals.includes(vp.goal) || (hasAllOption && vp.goal==='all')) ? vp.goal : (hasAllOption ? 'all' : profileGoals[0]);
   const difficulty = vp.difficulty || null;
   const diffOptions = ['easy','medium','difficult'];
   const diffSub = {
@@ -5260,6 +5298,10 @@ function renderStudioSetup(){
       ${!state.profile.goals.length ? `<div class="card-flat" style="margin-bottom:14px;"><p style="font-size:13px; color:var(--ink-soft);">${L('Set your goals in Profile to personalize this further.','Bunu kişiselleştirmek için Profilinde hedeflerini ayarla.','برای شخصی‌سازی بیشتر، هدف‌هایت را در پروفایل تنظیم کن.')}</p></div>` : ''}
       <div class="eyebrow">${L('Goal','Hedef','هدف')}</div>
       <div class="opt-list" style="margin-top:8px;">
+        ${hasAllOption ? `<button class="opt ${goal==='all'?'selected':''}" data-action="studio-pick-goal" data-goal="all">
+            <span class="opt-ic">${ICONS.check}</span>
+            <span><span class="opt-main">${L('All my goals','Tüm hedeflerim','همه اهدافم')}</span><br><span class="opt-sub">${esc(goalsLabel(chosenGoals))}</span></span>
+          </button>` : ''}
         ${profileGoals.map(gk=>{
           const g = GOALS_META[gk];
           return `<button class="opt ${goal===gk?'selected':''}" data-action="studio-pick-goal" data-goal="${gk}">
@@ -5291,7 +5333,7 @@ function renderStudioRound(){
   return `<div class="fade-in">
     ${sectionHead(
       mode==='writing' ? L('Writing Practice','Yazma Pratiği','تمرین نوشتن') : L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن'),
-      goalMetaLabel(vp.goal) + ' · ' + L(dl.en, dl.tr, dl.fa)
+      (vp.goal==='all' ? goalsLabel(profileGoalKeys(state.profile)) : goalMetaLabel(vp.goal)) + ' · ' + L(dl.en, dl.tr, dl.fa)
     )}
     <div class="screen" style="padding-top:0;">
       ${round.topic ? `<div class="card-flat" style="background:var(--accent-soft); border-color:var(--accent-soft); margin-bottom:10px;">
@@ -5376,7 +5418,7 @@ function renderGrammarList(){
 }
 function renderGrammarTrap(id){
   const t = GRAMMAR_ITEMS.find(x=>x.id===id);
-  if(!t) return renderComingSoon();
+  if(!t) return renderNotFound();
   const goal = state.viewParams.goal;
   const variant = goal && t.goalVariant && t.goalVariant[goal];
   const wrong = (variant && variant.wrong) ? variant.wrong : t.wrong;
@@ -5478,7 +5520,7 @@ function renderVocabList(){
 }
 function renderVocabSetIntro(id){
   const s = VOCAB_SETS.find(x=>x.id===id);
-  if(!s) return renderComingSoon();
+  if(!s) return renderNotFound();
   const isSlang = s.category === 'slang';
   return `<div class="fade-in">
     ${sectionHead(setTitle(s), '')}
@@ -5599,14 +5641,14 @@ function renderStudioLab(){
     </div>
   </div>`;
 }
-function renderComingSoon(){
+function renderNotFound(){
   return `<div class="fade-in">
-    ${sectionHead(L('Learn Spanish!','İspanyolca Öğren!','اسپانیایی یاد بگیر!'), '')}
+    ${sectionHead(L('Not found','Bulunamadı','پیدا نشد'), '')}
     <div class="screen" style="padding-top:0;">
       <div class="clay-banner" style="background:var(--clay-sage); text-align:center;">
         ${claySparkles()}
-        <div class="clay-banner-title">${L('¡Muy pronto!','Çok yakında!','خیلی زود!')}</div>
-        <div class="clay-banner-sub">${L('Spanish lessons are coming soon — same app, new language.','İspanyolca dersleri çok yakında geliyor — aynı uygulama, yeni bir dil.','دروس اسپانیایی خیلی زود می‌آید — همین اپ، زبان جدید.')}</div>
+        <div class="clay-banner-title">${L("We couldn't find that page",'Bu sayfa bulunamadı','این صفحه پیدا نشد')}</div>
+        <div class="clay-banner-sub">${L('It may have moved or no longer exists. Go back and try again.','Taşınmış ya da kaldırılmış olabilir. Geri dönüp tekrar dene.','ممکن است جابه‌جا شده یا حذف شده باشد. برگرد و دوباره امتحان کن.')}</div>
       </div>
     </div>
   </div>`;
@@ -5665,7 +5707,7 @@ function renderStoryList(){
 }
 function renderStoryDetail(id){
   const s = STORY_LIBRARY.find(x=>x.id===id);
-  if(!s) return renderComingSoon();
+  if(!s) return renderNotFound();
   const gl = GENRE_LABEL[s.genre];
   const paragraphs = s.text.split('\n\n').map(p=>`<p style="margin:0 0 14px;">${highlightStoryVocab(p, s.vocab)}</p>`).join('');
   return `<div class="fade-in">
@@ -5978,7 +6020,8 @@ const screens = {
   'studio-lab': renderStudioLab,
   'studio-setup': renderStudioSetup,
   'studio-round': renderStudioRound,
-  'coming-soon': renderComingSoon,
+  'coming-soon': renderNotFound,
+  'not-found': renderNotFound,
   'story-list': renderStoryList,
   'story-detail': ()=>renderStoryDetail(state.viewParams.id),
   'quiz': ()=> state.quiz.index < state.quiz.questions.length ? renderQuiz() : renderQuizResults()
@@ -6468,8 +6511,8 @@ const HANDLERS = {
   },
   'studio-pick-mode'(el){
     const mode = el.dataset.mode;
-    const goals = (state.profile.goals && state.profile.goals.length) ? state.profile.goals : GOAL_ORDER;
-    go('studio-setup', {mode, goal: goals[0], difficulty: null});
+    const chosen = profileGoalKeys(state.profile);
+    go('studio-setup', {mode, goal: chosen.length>1 ? 'all' : (chosen[0] || GOAL_ORDER[0]), difficulty: null});
   },
   'studio-pick-goal'(el){ state.viewParams.goal = el.dataset.goal; render(); },
   'studio-pick-difficulty'(el){ state.viewParams.difficulty = el.dataset.difficulty; render(); },
@@ -7004,6 +7047,16 @@ const GOAL_PERFORMANCE_RESULTS = {
   ]
 };
 const GOAL_LABELS = {travel:'Travel', career:'Career', exam:'Exam', everyday:'Everyday life', immigration:'Immigration'};
+// A student record keeps up to 3 goals in `goals`; `goal` mirrors the first one for older code paths.
+function studentGoalKeys(s){
+  const keys = (Array.isArray(s.goals) && s.goals.length) ? s.goals : (s.goal ? [s.goal] : []);
+  return keys.filter(k=>GOAL_LABELS[k]).slice(0,3);
+}
+function studentGoalsText(s){
+  const names = studentGoalKeys(s).map(k=>GOAL_LABELS[k]);
+  if(names.length<=1) return names[0]||'';
+  return names.slice(0,-1).join(', ')+' and '+names[names.length-1];
+}
 /* ---- Course Completion Message (2026-09-16, revised 2026-09-17): template-assembled from data
    already on the student doc (roadmap/goal/objectives/personalization) — no LLM call, no new
    backend, same pattern as auto-progress-note. Manual/admin-triggered only, never auto-fired on
@@ -7120,7 +7173,7 @@ function aggregateCourseCompletionData(student, course){
     name: (student.name || 'there').trim() || 'there',
     level: course.level || student.level || '',
     topics, grammarPhrases, vocabPhrases, expressionPhrases, speakingPhrases,
-    goal: student.goal && GOAL_LABELS[student.goal] ? GOAL_LABELS[student.goal] : '',
+    goal: studentGoalsText(student),
     objectives, activeFocusAreas, hasNext
   };
 }
@@ -7446,7 +7499,8 @@ function renderAdminStudentsTab(){
     const homework = Array.isArray(s.homework) ? s.homework : [];
     const personalizationObservations = (s.personalization && Array.isArray(s.personalization.observations)) ? s.personalization.observations : [];
     const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
-    const goalOpts = [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${s.goal===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
+    const goalKeys = studentGoalKeys(s);
+    const goalOptsFor = i => [''].concat(Object.keys(GOAL_LABELS)).map(g=>`<option value="${g}" ${goalKeys[i]===g?'selected':''}>${g?GOAL_LABELS[g]:'—'}</option>`).join('');
     const courses = Array.isArray(s.courses) ? s.courses : [];
     const activeCourse = courses.find(c=>c.id===adminActiveCourseId) || null;
     const visibleRoadmap = activeCourse ? (activeCourse.sessionIds||[]).map(id=>roadmap.find(r=>r.id===id)).filter(Boolean) : roadmap;
@@ -7606,10 +7660,10 @@ function renderAdminStudentsTab(){
       </div>
       ${studentSectionClose()}
 
-      ${studentSectionRow('notes','💬','Notes', s.goal?GOAL_LABELS[s.goal]:'No goal set')}
+      ${studentSectionRow('notes','💬','Notes', studentGoalsText(s) || 'No goal set')}
       ${studentSectionOpen('notes')}
-      <label class="field-label">Goal <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(unlocks result-based performance options)</span></label>
-      <select id="student-form-goal" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:16px;">${goalOpts}</select>
+      <label class="field-label">Goals <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(up to 3 — every lesson, roadmap and exercise uses all of them; the first unlocks result-based performance options)</span></label>
+      ${[0,1,2].map(i=>`<select id="student-form-goal${i?'-'+(i+1):''}" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:${i===2?16:8}px;">${goalOptsFor(i)}</select>`).join('')}
 
       <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
         <span style="width:26px; height:26px; border-radius:50%; background:var(--cat-lis-soft); color:var(--cat-lis); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.compass}</span>
@@ -7731,7 +7785,7 @@ function bindAdminActions(root){
         const req = `Generate the lesson and homework for "${item.title||'this session'}"`
           + (item.date?` (${item.date})`:'') + ` — type: ${item.type||'grammar'}`
           + (item.focus?`, focus: ${item.focus}`:'')
-          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, goal ${s.goal?GOAL_LABELS[s.goal]:'not set'}.`;
+          + `. Student: ${s.name||s.code} (${s.code}, ${adminCourseLabel(s.course)} course), level ${s.level||'not set'}, ${studentGoalKeys(s).length>1?'goals':'goal'} ${studentGoalsText(s)||'not set'} (weave ALL of these goals into the lesson and homework, not just the first).`;
         if(navigator.clipboard && navigator.clipboard.writeText){
           navigator.clipboard.writeText(req).then(()=>{
             adminStudentInfo = 'Copied — paste this to Claude in chat to generate the lesson.';
@@ -8033,7 +8087,10 @@ function saveAdminStudent(){
   const pkg = Number(s.package) || 8;
   const freezeUntil = (document.getElementById('student-form-freeze').value || '').trim();
   const level = document.getElementById('student-form-level').value;
-  const goal = document.getElementById('student-form-goal').value;
+  const goals = ['student-form-goal','student-form-goal-2','student-form-goal-3']
+    .map(id=>{ const el = document.getElementById(id); return el ? el.value : ''; })
+    .filter((g,i,a)=>g && a.indexOf(g)===i);
+  const goal = goals[0] || '';
   const sessionsInStage = Math.max(0, Math.min(10, Number(document.getElementById('student-form-sessions').value)||0));
   const progressNote = document.getElementById('student-form-progress').value;
   const performanceNote = document.getElementById('student-form-performance').value;
@@ -8059,7 +8116,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, whatsapp, package: pkg, freezeUntil, level, goal, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, goals, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
