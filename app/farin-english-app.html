@@ -4615,7 +4615,9 @@ function renderCourseJourney(courses, roadmap){
         const ids = c.sessionIds||[];
         const done = ids.filter(id=>{ const r = roadmap.find(x=>x.id===id); return r && r.done; }).length;
         const pct = ids.length ? Math.round(done/ids.length*100) : 0;
+        const report = courseReportUrl(c);
         return `
+        <div>
         <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" class="item-row" style="text-align:left; width:100%; cursor:pointer; border:1.5px solid var(--border-soft); border-radius:14px;">
           <div class="item-body">
             <div class="row between" style="align-items:center;">
@@ -4625,7 +4627,9 @@ function renderCourseJourney(courses, roadmap){
             <div class="progress-track" style="margin-top:8px;"><div class="progress-fill" style="width:${pct}%; background:${c.status==='completed'?'var(--success)':'var(--cat-diag)'};"></div></div>
             <div style="font-size:11px; color:var(--ink-faint); margin-top:6px;">${done}/${ids.length} ${L('sessions','seans','جلسه')}</div>
           </div>
-        </button>`;
+        </button>
+        ${report ? `<a href="${esc(report)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="margin-top:6px; width:100%; text-align:center; box-sizing:border-box;">📄 ${L('Course report','Kurs raporu','گزارش دوره')}</a>` : ''}
+        </div>`;
       }).join('')}
     </div>
   </div>`;
@@ -4643,6 +4647,12 @@ function renderCourseView(courseId){
   return `<div class="fade-in">
     ${sectionHead('Course '+course.number+' — '+course.level, courseStatusLabelL(course.status), 'student-panel')}
     <div class="screen" style="padding-top:0;">
+      ${courseReportUrl(course) ? `
+      <div class="card-flat" style="margin-top:12px; border-left:4px solid var(--success); background:var(--cat-diag-soft);">
+        <div class="eyebrow">${L('Course report','Kurs raporu','گزارش دوره')}</div>
+        <p style="font-size:13.5px; margin-top:4px;">${L('Everything you learned in this course, in one page.','Bu kursta öğrendiğin her şey tek sayfada.','هر چیزی که در این دوره یاد گرفتی، در یک صفحه.')}</p>
+        <a href="${esc(courseReportUrl(course))}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">📄 ${L('Open your course report','Kurs raporunu aç','باز کردن گزارش دوره')}</a>
+      </div>` : ''}
       ${items.length ? `
       <div class="card-flat" style="margin-top:12px; position:relative; overflow:hidden;">
         <div class="row between" style="align-items:center;">
@@ -4720,6 +4730,7 @@ function renderStudentPanel(){
           `${prevCourse.level} seviyesini tamamladın. Bir sonraki kişisel yol haritan hazır: ${activeCourse.level}.`,
           `سطح ${prevCourse.level} را تمام کردی. نقشه راه شخصی بعدی‌ات آماده است: ${activeCourse.level}.`
         )}</p>
+        ${courseReportUrl(prevCourse) ? `<a href="${esc(courseReportUrl(prevCourse))}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">📄 ${L('Open your course report','Kurs raporunu aç','باز کردن گزارش دوره')}</a>` : ''}
       </div>` : ''}
 
       ${courses.length ? renderCourseJourney(courses, roadmap) : ''}
@@ -7069,214 +7080,6 @@ function studentGoalsText(s){
   if(names.length<=1) return names[0]||'';
   return names.slice(0,-1).join(', ')+' and '+names[names.length-1];
 }
-/* ---- Course Completion Message (2026-09-16, revised 2026-09-17): template-assembled from data
-   already on the student doc (roadmap/goal/objectives/personalization) — no LLM call, no new
-   backend, same pattern as auto-progress-note. Manual/admin-triggered only, never auto-fired on
-   completion, since applyCourseCompletion() is not yet live-verified (Claude/tasks.md item 27).
-
-   Data reality check (2026-09-17): the roadmap item shape (see LESSON-ENGINE.md) has no
-   structured per-lesson tags for topics/grammar-points/vocab-domains/expressions/speaking-tasks —
-   that level of detail exists only inside the published lesson HTML pages (external Claude
-   artifact URLs), which this app never fetches back into Firestore. The only real, reliable
-   per-session signal available here is: `title` (real, human-written, usually names the actual
-   grammar point or vocab domain — e.g. "Must / Have to / Should", "Passive Voice Basics",
-   "Slang: Office Expressions"), `type` (grammar|vocab|speaking, sometimes stale per the caveat in
-   LESSON-ENGINE.md), and `focus` (optional freeform admin steer, often empty). So "topics" below
-   are the actual roadmap titles, deduped and cleaned — never invented. The GRAMMAR_TOPIC_PHRASES /
-   VOCAB_DOMAIN_PHRASES / EXPRESSION_DOMAIN_PHRASES maps only add generic, well-established
-   pedagogical phrasing for a topic that was genuinely studied (matched by keyword against the real
-   title) — they never introduce a topic/skill that isn't already in the student's own roadmap. If
-   a title doesn't match any known keyword, the raw (cleaned) title is used as-is rather than
-   guessing a description. Categories with zero real sessions are omitted entirely. ---- */
-const COURSE_TYPE_LABELS = {grammar:'grammar', vocab:'vocabulary', speaking:'speaking'};
-// Keyword -> concrete, student-facing description of a grammar structure. Only ever applied to a
-// title the student actually studied (real roadmap session) — never used to add a topic on its own.
-const GRAMMAR_TOPIC_PHRASES = [
-  [/first conditional/i, 'using the First Conditional to talk about real, likely future situations and their results'],
-  [/second conditional/i, 'using the Second Conditional to talk about imaginary or unlikely situations'],
-  [/third conditional/i, 'using the Third Conditional to talk about imagined outcomes of the past'],
-  [/zero conditional/i, 'using the Zero Conditional to talk about facts and general truths'],
-  [/present perfect/i, 'using the Present Perfect to talk about experiences and events with a present connection, and how it contrasts with the Past Simple'],
-  [/past continuous/i, 'using the Past Continuous to describe actions that were in progress in the past'],
-  [/past simple/i, 'using the Past Simple to talk about finished actions and events in the past'],
-  [/passive/i, 'forming and using the Passive Voice to shift the focus onto the action or the receiver of the action'],
-  [/must|have to|should/i, 'using modal verbs like must, have to, and should to talk about obligation, necessity, and advice'],
-  [/going to/i, 'using "going to" to talk about plans and predictions'],
-  [/future/i, 'talking about the future with will and going to'],
-  [/comparativ|superlativ/i, 'comparatives and superlatives to compare people, places, and things'],
-  [/relative clause/i, 'relative clauses to add extra information about people and things'],
-  [/reported speech/i, 'reported speech to retell what someone else said'],
-  [/article/i, 'the correct use of articles (a / an / the)'],
-  [/question/i, 'forming clear, natural questions in different tenses']
-];
-// Keyword -> concrete, student-facing description of a vocabulary domain (same rule: only applied
-// to a title the student actually studied).
-const VOCAB_DOMAIN_PHRASES = [
-  [/shop/i, 'practical shopping and retail vocabulary'],
-  [/travel|airport|transport/i, 'travel and transportation vocabulary'],
-  [/office|business|workplace|career|meeting|interview|email/i, 'professional, workplace and business vocabulary'],
-  [/food|restaurant|menu|cook/i, 'food and restaurant vocabulary'],
-  [/health|doctor|hospital/i, 'health and everyday wellbeing vocabulary'],
-  [/house|home|apartment/i, 'home and household vocabulary'],
-  [/daily life|everyday/i, 'everyday, daily-life vocabulary']
-];
-// Titles containing these keywords are treated as "expressions/communication functions" rather
-// than plain vocabulary — still drawn only from real roadmap titles, never invented.
-const EXPRESSION_KEYWORDS = /slang|expression|idiom|phrase/i;
-function cleanRoadmapTitle(title){
-  return (title||'').replace(/^\s*(grammar|vocab(?:ulary)?|speaking)\s*:\s*/i,'').trim();
-}
-function describeTopicByKeywordList(title, phraseList){
-  const clean = cleanRoadmapTitle(title);
-  const hit = phraseList.find(([re])=>re.test(clean));
-  return hit ? hit[1] : `"${clean}"`;
-}
-// Data-aggregation step: pulls the completed course's real roadmap sessions + goal/objectives +
-// active personalization notes into one structured object, deduped and grouped by category. This
-// reads existing fields only — it does not duplicate lesson data into any new store.
-function aggregateCourseCompletionData(student, course){
-  const roadmap = Array.isArray(student.roadmap) ? student.roadmap : [];
-  const sessionIds = course.sessionIds || [];
-  const sessions = sessionIds.map(id=>roadmap.find(r=>r.id===id)).filter(Boolean);
-
-  const topics = [];
-  const grammarPhrases = [];
-  const vocabPhrases = [];
-  const expressionPhrases = [];
-  const speakingPhrases = [];
-
-  sessions.forEach(s=>{
-    const clean = cleanRoadmapTitle(s.title);
-    if(!clean) return;
-    if(!topics.includes(clean)) topics.push(clean);
-    const t = s.type || 'grammar';
-    const focusNote = (s.focus && s.focus.trim()) ? s.focus.trim() : '';
-    if(t === 'grammar'){
-      const phrase = describeTopicByKeywordList(s.title, GRAMMAR_TOPIC_PHRASES);
-      if(!grammarPhrases.includes(phrase)) grammarPhrases.push(phrase + (focusNote ? ` (${focusNote})` : ''));
-    } else if(t === 'vocab'){
-      if(EXPRESSION_KEYWORDS.test(clean)){
-        const domainPhrase = describeTopicByKeywordList(s.title, VOCAB_DOMAIN_PHRASES);
-        const domainNoun = domainPhrase.startsWith('"') ? `related to ${clean}` : `for ${domainPhrase.replace(/\s*vocabulary$/,'').replace(/^practical /,'').replace(/^professional, /,'professional ')} situations`;
-        const phrase = `natural expressions and phrases ${domainNoun}`;
-        if(!expressionPhrases.includes(phrase)) expressionPhrases.push(phrase);
-      } else {
-        const phrase = describeTopicByKeywordList(s.title, VOCAB_DOMAIN_PHRASES);
-        if(!vocabPhrases.includes(phrase)) vocabPhrases.push(phrase);
-      }
-    } else if(t === 'speaking'){
-      const phrase = `real-life speaking practice on ${clean.startsWith('Canlı') || clean.startsWith('Live') ? 'live conversation situations' : `"${clean}"`}${focusNote ? ` (${focusNote})` : ''}`;
-      if(!speakingPhrases.includes(phrase)) speakingPhrases.push(phrase);
-    }
-  });
-
-  const objectives = (Array.isArray(student.objectives) ? student.objectives : []).filter(o=>o && o.trim());
-  const observations = (student.personalization && Array.isArray(student.personalization.observations)) ? student.personalization.observations : [];
-  const activeFocusAreas = [];
-  observations.filter(o=>o.status!=='resolved').forEach(o=>{
-    (o.focusAreas||[]).forEach(f=>{ if(!activeFocusAreas.includes(f)) activeFocusAreas.push(f); });
-  });
-
-  const courses = Array.isArray(student.courses) ? student.courses : [];
-  const nextOrder = (course.order || course.number || 1) + 1;
-  const hasNext = courses.some(c=>(c.order||c.number)===nextOrder);
-
-  return {
-    name: (student.name || 'there').trim() || 'there',
-    level: course.level || student.level || '',
-    topics, grammarPhrases, vocabPhrases, expressionPhrases, speakingPhrases,
-    goal: studentGoalsText(student),
-    objectives, activeFocusAreas, hasNext
-  };
-}
-// Student-friendly phrasing for a personalization focus area — never exposes raw teacher notes,
-// only the focus-area category itself, converted to a warm sentence fragment.
-const PERSONALIZATION_STUDENT_PHRASES = {
-  pronunciation: 'clearer pronunciation',
-  vocabulary: 'growing your vocabulary',
-  grammar: 'accuracy with grammar',
-  'speaking-fluency': 'speaking more fluently',
-  listening: 'listening to natural, fast speech',
-  reading: 'reading comprehension',
-  writing: 'writing skills',
-  accuracy: 'overall accuracy',
-  confidence: 'speaking with more confidence',
-  'natural-expressions': 'sounding more natural in everyday English',
-  'sentence-formation': 'building sentences more naturally',
-  'conversation-skills': 'everyday conversation skills',
-  comprehension: 'understanding what you hear and read',
-  'cultural-communication': 'communicating naturally across cultures'
-};
-// Joins a list into natural, readable prose instead of a raw dump — caps at `max` items and
-// folds any remainder into "among other things" rather than naming every single one.
-function naturalJoin(arr, max){
-  if(!arr || !arr.length) return '';
-  const items = arr.slice(0, max);
-  const truncated = arr.length > max;
-  let joined;
-  if(items.length===1) joined = items[0];
-  else if(items.length===2) joined = items.join(' and ');
-  else joined = items.slice(0,-1).join(', ') + ', and ' + items[items.length-1];
-  return truncated ? `${joined}, among other things` : joined;
-}
-function buildCourseCompletionMessage(student, course){
-  const d = aggregateCourseCompletionData(student, course);
-  const lines = [];
-
-  // Opening
-  lines.push(`Hi ${d.name}! 🎉`);
-  lines.push(`Congratulations on completing your ${d.level || 'course'} course!`);
-
-  // What We Worked On — one short, focused sentence, not a session-count recap
-  if(d.goal){
-    lines.push(`This course was built around ${d.goal.toLowerCase()} — real, practical English for the situations that matter most to you.`);
-  } else if(d.topics.length){
-    lines.push(`This course focused on real, practical English you can use right away.`);
-  }
-
-  // Topics — a natural sentence, capped, not the full raw list
-  if(d.topics.length){
-    lines.push(`You covered ${naturalJoin(d.topics, 4)}.`);
-  }
-
-  // Grammar — the one or two structures that mattered most, woven into a sentence
-  if(d.grammarPhrases.length){
-    lines.push(`On the grammar side, you worked on ${naturalJoin(d.grammarPhrases, 2)}.`);
-  }
-
-  // Vocabulary & Expressions — merged into one short, natural section
-  const vocabAndExpressions = [...d.vocabPhrases, ...d.expressionPhrases];
-  if(vocabAndExpressions.length){
-    lines.push(`You also built up ${naturalJoin(vocabAndExpressions, 3)}.`);
-  }
-
-  // Speaking — one concise line
-  if(d.speakingPhrases.length){
-    lines.push(`For speaking, you got ${naturalJoin(d.speakingPhrases, 2)}.`);
-  }
-
-  // Your Main Focus — one tight sentence combining objective + personalization
-  const focusParts = [];
-  if(d.objectives.length){
-    focusParts.push(d.objectives[0].trim().replace(/\.$/,''));
-  }
-  if(d.activeFocusAreas.length){
-    const phrases = d.activeFocusAreas.slice(0,2).map(f=>PERSONALIZATION_STUDENT_PHRASES[f] || personalizationFocusLabel(f).toLowerCase());
-    focusParts.push(phrases.join(' and '));
-  }
-  if(focusParts.length){
-    lines.push(`Your main focus: ${focusParts.join(', with extra attention on ')}.`);
-  }
-
-  // Closing — short and warm
-  let closing = `Really proud of the progress you've made here.`;
-  if(d.hasNext){
-    closing += ` Your next course is ready whenever you are. ✨`;
-  }
-  lines.push(closing);
-
-  return lines.join('\n\n');
-}
 /* ---- Teacher Personalization Layer (2026-09-16): per-student admin-only observations that give
    future lesson-writing sessions more context. Lightweight data+UI only — no automated weighting,
    see english app/LESSON-ENGINE.md for how a human/Claude session should read these by hand. ---- */
@@ -7398,30 +7201,6 @@ function saveStudentPersonalization(){
     renderAdminPage();
   });
 }
-// Scoped write: replaces one course's fields inside the courses array via a merge on the
-// top-level `courses` field only — same pattern as saveStudentPersonalization, doesn't touch
-// roadmap/personalization/anything else, so it can't hit the stale-tab-overwrite bug class.
-function saveCourseCompletionMessage(courseId, text, generatedAt){
-  const s = adminEditingStudent;
-  if(!s) return;
-  const courseSide = s.course === 'es' ? 'es' : 'en';
-  const coll = STUDENT_COLLECTION[courseSide];
-  const code = s.code;
-  if(!code) return;
-  const courses = (Array.isArray(s.courses) ? s.courses : []).map(c=>{
-    if(c.id !== courseId) return c;
-    return Object.assign({}, c, {completionMessage: text, completionMessageGeneratedAt: generatedAt});
-  });
-  adminStudentError = '';
-  firebase.firestore().collection(coll).doc(code).set({courses, updatedAt: Date.now()}, {merge:true}).then(()=>{
-    adminEditingStudent.courses = courses;
-    adminStudentInfo = 'Completion message saved.';
-    renderAdminPage();
-  }).catch(err=>{
-    adminStudentError = err.message || String(err);
-    renderAdminPage();
-  });
-}
 function saveRoadmapItemTeacherNote(itemId){
   const s = adminEditingStudent;
   if(!s || !itemId) return;
@@ -7487,20 +7266,55 @@ function renderCourseAddForm(){
     </div>
   </div>`;
 }
-function renderCourseCompletionMessage(course){
-  const hasMessage = course.completionMessage && course.completionMessage.trim();
-  const generatedLabel = course.completionMessageGeneratedAt ? new Date(course.completionMessageGeneratedAt).toLocaleDateString() : '';
+/* ---- Course Report link (2026-09-20): the finished-course report page (built by Claude from
+   english app/course-summary/, published as an Artifact) is stored as courses[].summaryLink and shown
+   in the admin roadmap section of a completed course and in the Student Club. Same scoped merge write
+   on `courses` as the other course fields, so it can't hit the stale-tab-overwrite bug class. ---- */
+function courseReportUrl(c){
+  const u = ((c && c.summaryLink) || '').trim();
+  return /^https:\/\//i.test(u) ? u : '';
+}
+function saveCourseSummaryLink(courseId, url){
+  const s = adminEditingStudent;
+  if(!s) return;
+  const coll = STUDENT_COLLECTION[s.course === 'es' ? 'es' : 'en'];
+  const code = s.code;
+  if(!code) return;
+  const courses = (Array.isArray(s.courses) ? s.courses : []).map(c=>{
+    if(c.id !== courseId) return c;
+    const next = Object.assign({}, c);
+    if(url){ next.summaryLink = url; next.summaryLinkAt = Date.now(); }
+    else { delete next.summaryLink; delete next.summaryLinkAt; }
+    return next;
+  });
+  adminStudentError = '';
+  firebase.firestore().collection(coll).doc(code).set({courses, updatedAt: Date.now()}, {merge:true}).then(()=>{
+    adminEditingStudent.courses = courses;
+    adminStudentInfo = url ? 'Course report link saved.' : 'Course report link removed.';
+    renderAdminPage();
+  }).catch(err=>{
+    adminStudentError = err.message || String(err);
+    renderAdminPage();
+  });
+}
+function renderCourseReportAdmin(course){
+  const link = courseReportUrl(course);
+  const savedLabel = course.summaryLinkAt ? new Date(course.summaryLinkAt).toLocaleDateString() : '';
+  const who = adminEditingStudent && adminEditingStudent.name ? adminEditingStudent.name : 'the student';
   return `<div style="border:1.5px solid var(--border); border-radius:12px; padding:12px; margin-bottom:12px; background:var(--bg-sunken);">
-    <div style="font-weight:800; font-size:13px; margin-bottom:8px;">🎓 Course Completion Message</div>
-    ${hasMessage ? `
-    <textarea id="completion-message-text" data-course-id="${esc(course.id)}" rows="8" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink); font-family:inherit; margin-bottom:8px;">${esc(course.completionMessage)}</textarea>
-    ${generatedLabel ? `<p style="font-size:11px; color:var(--ink-faint); margin:-4px 0 8px;">Generated ${esc(generatedLabel)}</p>` : ''}
-    <div class="row" style="gap:8px; flex-wrap:wrap;">
-      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="regenerate-completion-message" data-course-id="${esc(course.id)}">🪄 Regenerate</button>
-      <button type="button" class="btn btn-primary btn-sm" data-admin-action="save-completion-message" data-course-id="${esc(course.id)}">💾 Save edits</button>
-      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="copy-completion-message">📋 Copy Message</button>
-    </div>` : `
-    <button type="button" class="btn btn-primary btn-sm" data-admin-action="generate-completion-message" data-course-id="${esc(course.id)}">🪄 Generate Message</button>`}
+    <div style="font-weight:800; font-size:13px; margin-bottom:8px;">📄 Course Report</div>
+    ${link ? `
+    <div class="row" style="gap:8px; flex-wrap:wrap; margin-bottom:8px;">
+      <a href="${esc(link)}" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Open report</a>
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="copy-course-report" data-url="${esc(link)}">📋 Copy link</button>
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="remove-course-report" data-course-id="${esc(course.id)}">Remove</button>
+    </div>
+    <p style="font-size:11.5px; color:var(--ink-faint); margin:0 0 8px; word-break:break-all;">${esc(link)}${savedLabel ? ` · saved ${esc(savedLabel)}` : ''}</p>` : `
+    <p style="font-size:12.5px; color:var(--ink-soft); margin:0 0 8px;">No report yet. Ask Claude: “create the final document of course ${esc(String(course.number))} ${esc(course.level)} ${esc(who)}”, then paste the link below — students see it in the Student Club.</p>`}
+    <div class="row" style="gap:8px;">
+      <input id="course-report-url" type="url" value="${esc(link)}" placeholder="https://claude.ai/artifact/…" style="flex:1; min-width:0; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
+      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="save-course-report" data-course-id="${esc(course.id)}">💾 ${link ? 'Update' : 'Save'}</button>
+    </div>
   </div>`;
 }
 function renderAdminStudentsTab(){
@@ -7575,7 +7389,7 @@ function renderAdminStudentsTab(){
         <span style="font-size:12.5px; font-weight:700;">Course ${activeCourse.number} — ${esc(activeCourse.level)} <span style="font-weight:400; color:var(--ink-faint);">(${courseStatusLabel(activeCourse.status)})</span></span>
         <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${courseDone}/${(activeCourse.sessionIds||[]).length}</span>
       </div>` : ''}
-      ${activeCourse && activeCourse.status==='completed' ? renderCourseCompletionMessage(activeCourse) : ''}
+      ${activeCourse && activeCourse.status==='completed' ? renderCourseReportAdmin(activeCourse) : ''}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
         ${visibleRoadmap.map((r,idx)=>`
         <div class="roadmap-item-row" data-id="${esc(r.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
@@ -8048,26 +7862,21 @@ function bindAdminActions(root){
         saveAdminStudent();
       } else if(action === 'save-personalization'){
         saveStudentPersonalization();
-      } else if(action === 'generate-completion-message' || action === 'regenerate-completion-message'){
-        const s = adminEditingStudent;
-        const course = s && Array.isArray(s.courses) ? s.courses.find(c=>c.id===el.dataset.courseId) : null;
-        if(course){
-          const text = buildCourseCompletionMessage(s, course);
-          saveCourseCompletionMessage(course.id, text, Date.now());
-        }
-      } else if(action === 'save-completion-message'){
-        const ta = document.getElementById('completion-message-text');
-        if(ta){
-          const course = adminEditingStudent && Array.isArray(adminEditingStudent.courses) ? adminEditingStudent.courses.find(c=>c.id===ta.dataset.courseId) : null;
-          if(course) saveCourseCompletionMessage(course.id, ta.value, course.completionMessageGeneratedAt || null);
-        }
-      } else if(action === 'copy-completion-message'){
-        const ta = document.getElementById('completion-message-text');
-        if(ta){
-          copyText(ta.value);
-          adminStudentInfo = 'Message copied.';
+      } else if(action === 'save-course-report'){
+        const inp = document.getElementById('course-report-url');
+        const url = inp ? inp.value.trim() : '';
+        if(url && !/^https:\/\//i.test(url)){
+          adminStudentError = 'The report link must start with https://';
           renderAdminPage();
+        } else {
+          saveCourseSummaryLink(el.dataset.courseId, url);
         }
+      } else if(action === 'remove-course-report'){
+        saveCourseSummaryLink(el.dataset.courseId, '');
+      } else if(action === 'copy-course-report'){
+        copyText(el.dataset.url || '');
+        adminStudentInfo = 'Report link copied.';
+        renderAdminPage();
       } else if(action === 'save-roadmap-item-note'){
         saveRoadmapItemTeacherNote(el.dataset.id);
       } else if(action === 'delete-student'){
