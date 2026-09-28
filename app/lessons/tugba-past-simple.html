@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Past Simple</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ===== FARIN LESSON SHELL v2 — derived from the "Adım Adım Türkçe" design. Do NOT restyle per lesson. ===== */
+:root{
+  color-scheme:light dark;
+  --ground:#EEF3F2; --surface:#FFFFFF; --sunk:#E3EBEA; --ink:#13212A; --muted:#566A72; --line:#D2DEDD;
+  --cobalt:#1B4F8C; --teal:#0C8584; --tulip:#C23A2E; --gold:#B7862A;
+  --ok:#1D7A46; --okbg:#DDF1E4; --bad:#B3261E; --badbg:#FBE3E0;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --recap-a:#1B4F8C; --recap-b:#0C8584; --recap-ink:#FFFFFF;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1418; --surface:#142027; --sunk:#1A2A32; --ink:#E4EDEF; --muted:#93A8B0; --line:#26363E;
+    --cobalt:#79A8E6; --teal:#3FC3C0; --tulip:#EE7466; --gold:#E0B25A;
+    --ok:#6FD39A; --okbg:#133325; --bad:#FF8F85; --badbg:#3A1C1A;
+    --recap-a:#1F3B63; --recap-b:#0E4A49; --recap-ink:#E4EDEF;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1418; --surface:#142027; --sunk:#1A2A32; --ink:#E4EDEF; --muted:#93A8B0; --line:#26363E;
+  --cobalt:#79A8E6; --teal:#3FC3C0; --tulip:#EE7466; --gold:#E0B25A;
+  --ok:#6FD39A; --okbg:#133325; --bad:#FF8F85; --badbg:#3A1C1A;
+  --recap-a:#1F3B63; --recap-b:#0E4A49; --recap-ink:#E4EDEF;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+a{color:var(--cobalt)}
+.hide-tl .tl{display:none!important}
+.tl{color:var(--muted);font-size:.9em}
+
+.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 20px;padding-top:calc(10px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand b{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.01em}
+.brand b i{font-style:normal;color:var(--tulip)}
+.brand span{font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.prog{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog .bar{width:110px;height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.tog{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.85rem;font-weight:600}
+.tog[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+.wrap{max-width:880px;margin:0 auto;padding:24px 20px 40px}
+
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:end;padding-bottom:18px}
+.bignum{grid-row:span 2;font-family:var(--display);font-weight:800;font-size:4.6rem;line-height:.85;color:var(--tulip);font-variant-numeric:tabular-nums}
+.lhead .kick{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.lhead h1{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.05;margin:2px 0 0;text-wrap:balance;letter-spacing:-.015em}
+.lhead .sub{grid-column:2;color:var(--muted);margin:0}
+.gram-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.8rem;background:var(--sunk);padding:3px 10px;border-radius:6px;color:var(--ink);margin-top:6px}
+
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto;scrollbar-width:none}
+.tab{border:0;background:none;padding:10px 14px;font-weight:600;color:var(--muted);border-bottom:2.5px solid transparent;margin-bottom:-1px;white-space:nowrap;text-align:left}
+.tab small{display:block;font-weight:400;font-size:.72rem}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tulip)}
+.tab .ck{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-left:6px;vertical-align:middle}
+
+.panel{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.card h2{font-family:var(--display);font-size:1.25rem;margin:0 0 8px;font-weight:700}
+.card h4{margin:14px 0 6px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+p{margin:0 0 8px;max-width:68ch}
+.sx{font-family:var(--mono);font-weight:700;color:var(--tulip);font-size:.95em}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;color:var(--muted);font-weight:700}
+.ex{display:flex;flex-direction:column;gap:0;border-left:3px solid var(--teal);padding:6px 0 6px 14px;margin:8px 0}
+.ex .sent{font-family:var(--read);font-size:1.08rem}
+.tip{background:var(--sunk);border-radius:8px;padding:12px 14px;font-size:.94rem;margin-top:12px}
+.tip b.lbl{color:var(--cobalt)}
+.hint{font-size:.84rem;color:var(--muted);font-family:var(--body)}
+
+.prompts{margin:6px 0 0;padding-left:20px}
+.prompts li{margin:6px 0;font-family:var(--read);font-size:1.05rem}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.vc{background:var(--sunk);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.vc strong{font-family:var(--display);font-size:1.02rem}
+.vc .m{font-size:.9rem;color:var(--muted)}
+.vc .e{font-family:var(--read);font-size:.92rem;font-style:italic}
+
+.mixgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mix{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.mix .w{background:var(--badbg);color:var(--bad);border-radius:6px;padding:4px 9px;text-decoration:line-through;font-family:var(--read)}
+.mix .r{background:var(--okbg);color:var(--ok);border-radius:6px;padding:4px 9px;font-weight:600;font-family:var(--read)}
+.mix .why{font-size:.86rem;color:var(--muted)}
+
+.reading{font-family:var(--read);font-size:1.12rem;line-height:1.75}
+.reading p{max-width:62ch;margin-bottom:12px}
+.reading .tl{font-family:var(--body);font-size:.88rem;line-height:1.5;margin:-6px 0 14px;padding-left:12px;border-left:2px solid var(--line)}
+.gloss{display:flex;flex-wrap:wrap;gap:6px}
+.gloss span{background:var(--sunk);border-radius:6px;padding:3px 9px;font-size:.88rem}
+.gloss span em{font-style:normal;color:var(--muted)}
+
+.q{padding:12px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q .qt{font-weight:600;margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;text-align:left}
+.opt:hover{border-color:var(--teal)}
+.opt.right{background:var(--okbg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.fb{font-size:.88rem;margin-top:6px;min-height:1.2em}
+.fb.good{color:var(--ok)} .fb.no{color:var(--bad)}
+
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.fc{perspective:900px;border:0;background:none;padding:0;min-height:130px;text-align:left}
+.fc .in{position:relative;width:100%;height:100%;min-height:130px;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .in{transform:rotateY(180deg)}
+.fc .f,.fc .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);padding:16px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line)}
+.fc .f{background:var(--surface)}
+.fc .f strong{font-family:var(--display);font-size:1.15rem;line-height:1.2}
+.fc .b{background:var(--cobalt);color:var(--surface);transform:rotateY(180deg);border-color:var(--cobalt)}
+.fc .b strong{font-size:1rem}
+.fc .b span{font-size:.84rem;opacity:.9;font-family:var(--read)}
+.fc small{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+
+.pi{padding:14px 0;border-top:1px solid var(--line)}
+.pi:first-of-type{border-top:0}
+.ptype{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fill{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--read);font-size:1.08rem;margin:6px 0}
+.fill input{font-family:var(--mono);font-size:.95rem;border:0;border-bottom:2px solid var(--cobalt);background:var(--sunk);padding:4px 8px;width:170px;border-radius:4px 4px 0 0}
+.fill input.good{border-color:var(--ok);background:var(--okbg)}
+.fill input.no{border-color:var(--bad);background:var(--badbg)}
+.fill .btn{font-family:var(--body);font-size:.88rem;padding:5px 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;padding:6px;border-radius:8px}
+.chips.ans{background:var(--sunk);border:1px dashed var(--line)}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;font-family:var(--read);font-size:1rem}
+.chip:hover{border-color:var(--cobalt)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.score .big{font-family:var(--display);font-weight:800;font-size:2rem;font-variant-numeric:tabular-nums}
+
+.sq{padding:10px 0;border-top:1px solid var(--line)}
+.sq:first-of-type{border-top:0}
+.sq .main{font-family:var(--read);font-size:1.1rem}
+.sq .follow{font-size:.9rem;color:var(--muted);margin-top:2px}
+.act{border-left:3px solid var(--gold);padding:6px 0 6px 14px;margin:10px 0}
+.act strong{font-family:var(--display)}
+
+.ls{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.lcard{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.lcard:hover{border-color:var(--tulip)}
+.lcard .k{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lcard .k .yt{background:var(--tulip);color:#fff;border-radius:4px;padding:2px 7px;letter-spacing:.04em}
+.lcard strong{font-family:var(--display);font-size:1.08rem;line-height:1.2}
+.lcard p{font-size:.88rem;color:var(--muted);margin:0}
+.lcard .go{margin-top:auto;font-size:.82rem;font-weight:600;color:var(--cobalt)}
+.kind-series .k span:first-child{color:var(--gold)}
+
+.tab .n{font-family:var(--mono);font-size:.72rem;color:var(--tulip);margin-right:6px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.stat{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);background:var(--surface)}
+.partbar{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.86rem;margin:-8px 0 18px}
+.partbar b{font-family:var(--display);color:var(--ink);font-size:1.05rem}
+
+.play-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.play-grid label{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.play-grid select{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 11px}
+.play-out{font-family:var(--read);font-size:1.5rem;line-height:1.3;margin:14px 0 6px;padding:14px 16px;background:var(--sunk);border-radius:8px;border-left:3px solid var(--tulip)}
+.play-note{font-size:.9rem;color:var(--muted);min-height:1.3em}
+.play-note b{color:var(--ink)}
+
+.card.recap{background:linear-gradient(135deg,var(--recap-a),var(--recap-b));color:var(--recap-ink);border:0}
+.recap h2{color:inherit}
+.recap .sx{color:inherit;background:rgba(255,255,255,.18);padding:0 4px;border-radius:4px}
+.recap .tl{color:inherit;opacity:.8}
+
+.nav{justify-content:space-between;margin-top:26px}
+.credit{max-width:880px;margin:0 auto;padding:0 20px 36px;font-size:.78rem;color:var(--muted)}
+
+@media (max-width:860px){
+  .wrap{padding:16px 16px 32px}
+  .credit{padding:0 16px 32px}
+  .top{padding-left:16px;padding-right:16px}
+  .prog .bar{width:70px}
+  .bignum{font-size:3.2rem}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){ .fc .in,.prog .bar i{transition:none} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><b>Farin <i>English</i></b><span id="meta"></span></div>
+  <div class="prog" id="prog"></div>
+  <button class="tog" id="trTog" aria-pressed="true">Türkçe: açık</button>
+</header>
+<main class="wrap" id="main"></main>
+<footer class="credit" id="credit"></footer>
+
+<script>
+const LESSON = {
+  num: 1,
+  course: "Course 1 · A1",
+  level: "A1",
+  minutes: 37,
+  showTr: true,
+  title: "Past Simple",
+  titleTr: "Geçmiş Zaman",
+  gram: "Past Simple: regular & irregular verbs",
+
+  learn: [
+    {k:"warmup", h:"Warm-up", items:[
+      "What did you do yesterday? Say three sentences.",
+      "Where did you go last weekend?",
+      "What was the last thing you bought?",
+      "Who did you meet last week?",
+      "What did you eat for dinner last night?"
+    ]},
+    {k:"text", h:"Meet the structure", p:[
+      "Past Simple describes a finished action at a finished time. Regular verbs add {-ed}: work → worked. Irregular verbs change completely and must be memorised: go → went, see → saw, buy → bought.",
+      "The negative is always {didn't} + the {base form} of the verb — never a second past form: “I {didn't go}”, not “I didn't went”.",
+      "Questions are always {Did} + subject + {base form}: “{Did} you {see} him?”, not “Did you saw him?”.",
+      "{Be} has its own past forms: {was} (I/he/she/it) and {were} (you/we/they). Negative: {wasn't} / {weren't}.",
+      "Time words like {yesterday}, {last night}, {last week}, {two days ago}, {in 2020} are finished-time signals — when you hear or say them, use Past Simple."
+    ]},
+    {k:"table", h:"Build it", rows:[
+      ["Form","Positive","Negative","Question"],
+      ["regular","I {worked} yesterday.","I {didn't work} yesterday.","{Did} you {work} yesterday?"],
+      ["irregular","She {went} home.","She {didn't go} home.","{Did} she {go} home?"],
+      ["be","They {were} at home.","They {weren't} at home.","{Were} they at home?"]
+    ]},
+    {k:"table", h:"Spelling rules for regular verbs", rows:[
+      ["Rule","Example"],
+      ["verb + {-ed}","work → worked, watch → watched, stay → stayed"],
+      ["consonant + y → {-ied}","study → studied, try → tried"],
+      ["1 syllable, vowel+consonant → double the consonant","stop → stopped, plan → planned"],
+      ["irregular — no rule, just memorise","go → went, see → saw, buy → bought, eat → ate, meet → met, take → took, come → came"]
+    ]},
+    {k:"examples", h:"In real sentences", items:[
+      ["I {worked} late on Friday."],
+      ["She {went} to Izmir two days ago."],
+      ["We {didn't watch} the film last night."],
+      ["{Did} you {see} the message yesterday?"],
+      ["They {bought} a new table last month."],
+      ["He {didn't come} to the party."],
+      ["I {met} her in 2019."],
+      ["{Did} he {work} on Saturday?"]
+    ]},
+    {k:"tip", t:"Türkçe köprüsü", en:"In Turkish, the verb itself carries the past ending (-di/-dı). In English, {did} already carries the past — so the main verb must stay in its {base form} after did/didn't. This is the single biggest mistake Turkish speakers make with this tense.", tr:"Türkçede fiil kendisi geçmiş ekini alır. İngilizcede did zaten geçmişi taşır; fiil ikinci kez geçmiş yapılmaz — 'didn't went' değil 'didn't go'."},
+    {k:"text", h:"Culture note: telling a story", p:[
+      "In everyday English conversation, people often tell short stories about their day using a fast chain of Past Simple verbs: “I woke up, had breakfast, caught the bus, and got to work late.” Notice how “and” often replaces “then” between the last two actions.",
+      "US and UK: most Past Simple grammar is identical, but a few irregular verbs differ. Table below."
+    ]},
+    {k:"table", h:"US and UK: a few different past forms", rows:[
+      ["Verb","Usually American","Usually British"],
+      ["learn","learned","learned or learnt"],
+      ["burn","burned","burned or burnt"],
+      ["dream","dreamed","dreamed or dreamt"],
+      ["get (past participle)","gotten (have gotten)","got (have got)"]
+    ]}
+  ],
+
+  timing: {l:7, r:6, m:5, p:3, s:7, q:6, w:3},
+
+  mixups: [
+    ["I didn't went to work.","I didn't go to work.","No double past — didn't already shows the past. The verb stays in its base form.","Did/didn't zaten geçmişi gösterir; fiil ikinci kez geçmiş yapılmaz."],
+    ["Did you saw him?","Did you see him?","Same rule in questions: did + base form.","Soruda da did'ten sonra fiil yalın kalır."],
+    ["I goed to the market.","I went to the market.","Go is irregular — there is no word 'goed'.","Go düzensiz bir fiildir; 'goed' diye bir kelime yoktur."],
+    ["I to the market went.","I went to the market.","English word order is Subject-Verb-Object, not Turkish's Subject-Object-Verb.","Türkçe SOV, İngilizce SVO'dur; fiil özneden hemen sonra gelir."],
+    ["She studyed all night.","She studied all night.","Consonant + y → change y to ied.","Sessiz harften sonra gelen y, i'ye döner: studied."],
+    ["Last week I to my sister called.","Last week I called my sister.","The verb comes right after the subject, not at the end of the sentence.","Fiil özneden hemen sonra gelir, cümle sonunda değil."],
+    ["I buyed the tickets.","I bought the tickets.","Buy is irregular: buy → bought.","Buy düzensiz bir fiildir: buy → bought."],
+    ["Yesterday I have a meeting.","Yesterday I had a meeting.","'Yesterday' is a finished-time signal — it needs Past Simple, not present.","'Yesterday' bitmiş zaman işaretidir; Past Simple gerektirir, present değil."]
+  ],
+
+  play: {
+    h: "Play with the pattern",
+    intro: "Pick a word from each box and read the sentence out loud. Notice which verbs are irregular.",
+    slots: [
+      {label:"Who", options:["I","She","We","They"]},
+      {label:"Verb", options:[["went","irregular — go"],["worked","regular"],["bought","irregular — buy"],["didn't come","negative"]]},
+      {label:"Where / When", options:["to Ankara last week","to the shop yesterday","home last night","to a meeting two days ago"]}
+    ],
+    end: "."
+  },
+
+  read: {
+    title: "A Busy Day Yesterday",
+    en: [
+      "Elif {woke} up early yesterday because she {had} a busy day planned. She {ate} breakfast quickly and {left} the house at seven. She {took} the bus to the city centre and {arrived} at work by eight thirty.",
+      "In the morning, she {met} a client and they {talked} about a new project. At lunchtime, she {went} to a small café near her office. She {ordered} a sandwich and {sat} outside because the weather was nice. She also {bought} a coffee for her colleague.",
+      "In the afternoon, Elif {didn't have} any meetings, so she {worked} on a report. She {finished} it at five and {left} the office. On her way home, she {saw} an old friend at the bus stop. They {talked} for a few minutes and {promised} to meet again soon.",
+      "Elif {got} home at six thirty. She {didn't cook} dinner — she {ordered} pizza instead. She {watched} a film and {went} to bed early because she was tired. It {was} a long day, but a good one."
+    ],
+    gloss: [["client","müşteri"],["colleague","meslektaş"],["report","rapor"],["promised","söz verdi"],["tired","yorgun"],["nice","güzel"]],
+    qs: [
+      ["What time did Elif arrive at work?",["Seven","Eight thirty","Nine"],1],
+      ["Who did she meet in the morning?",["A client","Her sister","A friend"],0],
+      ["Where did she have lunch?",["At home","At a café","At the office"],1],
+      ["Did Elif cook dinner?",["Yes, she did","No, she ordered pizza","She didn't eat"],1],
+      ["Who did she see on the way home?",["Her boss","An old friend","A client"],1],
+      ["Why did she go to bed early?",["She was tired","She had a meeting","She was bored"],0]
+    ]
+  },
+
+  phrases: [
+    ["yesterday","dün","Talking about the day before today."],
+    ["last night","dün gece","The evening/night before today."],
+    ["last week / last month","geçen hafta / geçen ay","A period that finished before now."],
+    ["two days ago","iki gün önce","A specific point in the finished past."],
+    ["in 2020","2020'de","A finished year."],
+    ["the other day","geçen gün","An informal way to say 'recently, a few days ago'."],
+    ["a while ago","bir süre önce","Some time in the past, not exact."],
+    ["at first","önce / başta","Describing how something started."]
+  ],
+
+  speak: {
+    questions: [
+      ["What did you do yesterday evening?","Did you enjoy it?"],
+      ["Where did you go last weekend?","Who did you go with?"],
+      ["What was the last thing you bought?","Why did you buy it?"],
+      ["Who did you meet last week?","What did you talk about?"],
+      ["What did you have for breakfast this morning?","Was it different from usual?"],
+      ["Did you watch anything last night?","What was it about?"],
+      ["What is the last trip you took?","Where did you go?"],
+      ["What did you study or learn last month?","Was it difficult?"],
+      ["Tell me about your last birthday.","What did you do?"],
+      ["What is something you didn't do last week but wanted to?","Why not?"]
+    ],
+    activities: [
+      ["Yesterday chain","Say five sentences about yesterday in order, from morning to night."],
+      ["Guess the verb","Your teacher mimes an action; guess it and say it in Past Simple: “You went…”, “You ate…”"],
+      ["Interview","Ask your teacher three “did you…?” questions about last weekend."],
+      ["Error hunt","Your teacher reads five sentences, some with mistakes. Say “correct” or fix the mistake."],
+      ["My last holiday","Tell your teacher about your last holiday in six sentences using at least three irregular verbs."]
+    ],
+    exit: [
+      "Say one thing you did yesterday.",
+      "Say one thing you didn't do last week.",
+      "Ask me a question with 'did'.",
+      "Say one irregular past verb and its base form."
+    ]
+  },
+
+  practice: [
+    {t:"fill", pre:"I", post:"(watch) a film last night.", hint:"regular verb", a:["watched"], why:"Regular verb + -ed."},
+    {t:"fill", pre:"She", post:"(go) to Izmir two days ago.", hint:"go is irregular", a:["went"], why:"go → went, irregular."},
+    {t:"fill", pre:"We", post:"(not / come) to the party.", hint:"negative", a:["didn't come","did not come"], why:"didn't + base form."},
+    {t:"mcq", q:"Which question is correct?", o:["Did you saw the message?","Did you see the message?","Did you seen the message?"], a:1, why:"did + base form (see)."},
+    {t:"mcq", q:"Which sentence is correct?", o:["Last week I to my sister called.","Last week I called my sister.","Last week called I my sister."], a:1, why:"Subject-Verb-Object word order."},
+    {t:"order", w:["didn't","go","to","work","yesterday","I"], a:"I didn't go to work yesterday"},
+    {t:"order", w:["Did","you","buy","the","tickets"], a:"Did you buy the tickets"}
+  ],
+
+  recap: [
+    "Regular verbs: add {-ed}. Irregular verbs: no rule — memorise them.",
+    "{Did} already carries the past — the main verb stays in its base form: {didn't go}, not didn't went.",
+    "Questions: {Did} + subject + base form: {Did you see…}?",
+    "Word order is Subject-Verb-Object, even when Turkish word order feels natural.",
+    ["Time words like yesterday, last week, two days ago signal Past Simple.","Yesterday, last week gibi zaman ifadeleri Past Simple'ı tetikler."]
+  ],
+
+  watch: [
+    ["Video","Past Simple explained","A clear grammar explanation with examples.","past simple tense English grammar explained"],
+    ["Channel","BBC Learning English","Short, clear lessons for past tense practice.","BBC Learning English past simple"],
+    ["Series","Friends — talking about yesterday clips","Natural past-simple storytelling in real conversation.","Friends TV show talking about what happened yesterday clip"],
+    ["Video","50 common irregular verbs","A practical list with pronunciation.","50 common irregular verbs English pronunciation"]
+  ],
+
+  preparedFor: "Tuğba"
+};</script>
+
+<script>
+/* ============================ ENGINE — do not edit per lesson ============================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const plain = s => esc(String(s).replace(/[{}]/g,""));
+const fmt = s => esc(s).replace(/\{([^}]*)\}/g, '<b class="sx">$1</b>');
+const norm = s => String(s).trim().toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,;:“”"]/g,"").replace(/\s+/g," ");
+const pad = n => String(n).padStart(2,"0");
+const pair = x => Array.isArray(x) ? x : [x,""];
+const tl = s => s ? `<p class="tl" lang="tr">${plain(s)}</p>` : "";
+
+const L = LESSON;
+document.documentElement.lang = "en";
+const TABS = () => [["l","Learn","Öğren"],["r","Read","Oku"]]
+  .concat((L.mixups||L.play) ? [["m","Fix & Play","Düzelt"]] : [])
+  .concat([["p","Phrases","İfadeler"]])
+  .concat(L.speak ? [["s","Speak","Konuş"]] : [])
+  .concat([["q","Practice","Alıştırma"],["w","Watch","İzle"]]);
+
+const KEY = "fe-lesson-v2";
+const S = {tab:"l", tl:L.showTr!==false, seen:{}, best:0, pdone:false};
+try{ Object.assign(S, JSON.parse(localStorage.getItem(KEY)||"{}")); }catch(e){}
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+let cur = {};
+const PURPOSE = {l:"Understand the rule",r:"See it in a story",m:"Fix common mistakes, then play with the pattern",p:"Learn phrases people really say",s:"Say it out loud",q:"Test yourself",w:"Hear it in real life"};
+
+function renderTop(){
+  const tabs = TABS(), n = tabs.filter(t => t[0]==="q" ? S.pdone : S.seen[t[0]]).length;
+  $("#meta").textContent = `${L.level} · ${L.minutes} min`;
+  $("#prog").innerHTML = `<span>${n}/${tabs.length}</span><span class="bar"><i style="width:${n/tabs.length*100}%"></i></span>`;
+  const t = $("#trTog"); t.setAttribute("aria-pressed", S.tl); t.textContent = S.tl ? "Türkçe: açık" : "Türkçe: kapalı";
+  document.body.classList.toggle("hide-tl", !S.tl);
+  $("#credit").textContent = L.preparedFor ? `Prepared for ${L.preparedFor} · Farin English` : "Farin English";
+}
+function render(){
+  const tabs = TABS();
+  if(!tabs.some(t => t[0]===S.tab)) S.tab = "l";
+  S.seen[S.tab] = true; save();
+  const i = tabs.findIndex(t => t[0]===S.tab);
+  $("#main").innerHTML = `
+   <div class="lhead"><div class="bignum">${pad(L.num)}</div>
+    <div><div class="kick">${esc(L.course)}</div><h1>${esc(L.title)}</h1>${L.titleTr?`<div class="tl">${esc(L.titleTr)}</div>`:""}</div>
+    <p class="sub"><span class="gram-pill">${esc(L.gram)}</span> ${L.gramTr?`<span class="tl">— ${esc(L.gramTr)}</span>`:""}</p>
+    <div class="stats" style="grid-column:1/-1"><span class="stat">${L.minutes} min</span><span class="stat">${esc(L.level)}</span><span class="stat">${tabs.length} parts</span></div></div>
+   <div class="tabs" role="tablist">${tabs.map(t=>`<button class="tab" role="tab" data-tab="${t[0]}" aria-selected="${S.tab===t[0]}"><span class="n">${tabs.indexOf(t)+1}</span>${t[1]}${(t[0]==="q"?S.pdone:S.seen[t[0]]&&S.tab!==t[0])?'<span class="ck" aria-label="done"></span>':""}<small>${t[2]}</small></button>`).join("")}</div>
+   <div class="partbar">Part ${i+1} of ${tabs.length} · <b>${tabs[i][1]}</b> · ${PURPOSE[S.tab]}${L.timing&&L.timing[S.tab]?` · about ${L.timing[S.tab]} min`:""}</div>
+   <div class="panel" id="panel"></div>
+   <div class="row nav">
+     <button class="btn ghost" data-step="-1" ${i===0?"disabled":""}>← ${i>0?tabs[i-1][1]:"Back"}</button>
+     <button class="btn ${i===tabs.length-1?"":"ghost"}" data-step="1" ${i===tabs.length-1?"disabled":""}>${i<tabs.length-1?tabs[i+1][1]+" →":"Finished ✓"}</button>
+   </div>`;
+  renderTop(); renderPanel();
+}
+function block(b){
+  const h = b.h ? `<h2>${esc(b.h)}</h2>` : "";
+  switch(b.k){
+    case "warmup": return `<section class="card">${h}<ol class="prompts">${b.items.map(x=>{const p=pair(x);return `<li>${fmt(p[0])}${tl(p[1])}</li>`;}).join("")}</ol></section>`;
+    case "text": return `<section class="card">${h}${b.p.map(x=>{const p=pair(x);return `<p>${fmt(p[0])}</p>${tl(p[1])}`;}).join("")}</section>`;
+    case "table": return `<section class="card">${h}<div class="tw"><table><thead><tr>${b.rows[0].map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.rows.slice(1).map(r=>`<tr>${r.map(c=>`<td>${fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></section>`;
+    case "examples": return `<section class="card">${h}${b.items.map(x=>`<div class="ex"><span class="sent">${fmt(x[0])}</span>${x[1]?`<span class="tl">${plain(x[1])}</span>`:""}</div>`).join("")}</section>`;
+    case "tip": return `<div class="tip"><b class="lbl">${esc(b.t)}:</b> ${fmt(b.en)}${tl(b.tr)}</div>`;
+    case "mixups": return `<section class="card">${h||"<h2>Common mix-ups</h2>"}<div class="mixgrid">${b.items.map(x=>`<div class="mix"><span class="w">${esc(x[0])}</span><span class="r">${esc(x[1])}</span><span class="why">${plain(x[2]||"")}</span>${tl(x[3])}</div>`).join("")}</div></section>`;
+    case "vocab": return `<section class="card">${h}<div class="vgrid">${b.items.map(x=>`<div class="vc"><strong>${esc(x[0])}</strong><span class="m tl" lang="tr">${esc(x[1]||"")}</span>${x[2]?`<span class="e">${fmt(x[2])}</span>`:""}</div>`).join("")}</div></section>`;
+  }
+  return "";
+}
+function renderPanel(){
+  const p = $("#panel");
+  if(S.tab==="l"){ p.innerHTML = L.learn.map(block).join(""); }
+  else if(S.tab==="r"){
+    const r = L.read;
+    p.innerHTML = `<section class="card"><h2>${esc(r.title)}</h2>${r.note?`<p class="hint">${esc(r.note)}</p>`:""}
+      <div class="reading">${r.en.map((t,k)=>`<p>${fmt(t)}</p>${tl(r.tr&&r.tr[k])}`).join("")}</div>
+      <h4>Words</h4><div class="gloss">${r.gloss.map(g=>`<span>${esc(g[0])} <em class="tl">· ${esc(g[1])}</em></span>`).join("")}</div></section>
+      <section class="card"><h2>Check your understanding</h2>${r.qs.map((q,k)=>mcq("r"+k,q[0],q[1],q[2])).join("")}</section>`;
+  }
+  else if(S.tab==="m"){
+    p.innerHTML = (L.mixups ? block({k:"mixups",items:L.mixups}) : "") + (L.play ? playCard() : "");
+    if(L.play) drawPlay();
+  }
+  else if(S.tab==="p"){
+    p.innerHTML = `<section class="card"><div class="row" style="justify-content:space-between"><div><h2>Phrases</h2><p class="hint">Tap a card to see the meaning and when to use it. Try to guess first!</p></div>
+      <div class="row"><button class="btn ghost" id="shuf">Shuffle</button><button class="btn ghost" id="flipAll">Flip all</button></div></div>
+      <div class="fc-grid" id="fcg" style="margin-top:14px">${L.phrases.map(x=>`<button class="fc"><div class="in"><div class="f"><small>Phrase</small><strong>${esc(x[0])}</strong><small>flip ↺</small></div><div class="b"><small>Meaning</small><strong>${esc(x[1])}</strong><span>${esc(x[2]||"")}</span></div></div></button>`).join("")}</div></section>`;
+  }
+  else if(S.tab==="s"){
+    const s = L.speak;
+    p.innerHTML = `<section class="card"><h2>Question bank</h2><p class="hint">Answer out loud. Your teacher will ask the follow-ups.</p>
+      ${s.questions.map(q=>`<div class="sq"><div class="main">${fmt(q[0])}</div>${q[1]?`<div class="follow">Follow-up: ${fmt(q[1])}</div>`:""}</div>`).join("")}</section>
+      <section class="card"><h2>Talking activities</h2>${s.activities.map(a=>`<div class="act"><strong>${esc(a[0])}</strong><p>${fmt(a[1])}</p></div>`).join("")}</section>
+      ${s.exit?`<section class="card"><h2>Exit check</h2><ol class="prompts">${s.exit.map(x=>`<li>${fmt(x)}</li>`).join("")}</ol></section>`:""}`;
+  }
+  else if(S.tab==="q"){
+    cur = {ok:{}};
+    p.innerHTML = `<section class="card"><h2>Practice</h2><p class="hint">Type the missing words and press Enter. Contractions are fine (doesn’t = does not).</p>
+      ${L.practice.map((q,k)=>practiceItem(q,k)).join("")}</section>
+      <section class="card score"><span class="big" id="scoreBig">0/${L.practice.length}</span><span class="hint" id="scoreTxt">Correct answers are counted here.${S.best?` Your best score: ${S.best}/${L.practice.length}`:""}</span></section>
+      ${L.recap&&L.recap.length?`<section class="card recap"><h2>Recap</h2><ul class="prompts">${L.recap.map(x=>{const p=pair(x);return `<li>${fmt(p[0])}${tl(p[1])}</li>`;}).join("")}</ul></section>`:""}`;
+    L.practice.forEach((q,k)=>{ if(q.t==="order") setupOrder(k,q); });
+  }
+  else if(S.tab==="w"){
+    p.innerHTML = `<section class="card"><h2>Watch &amp; listen</h2>
+      <p>${L.watchTask ? fmt(L.watchTask) : `1. First watch: just get the general idea. 2. Second watch: listen for <span class="gram-pill">${esc(L.gram)}</span> and write down three sentences you hear. 3. If you hear a phrase from this lesson’s cards, go back and review it.`}</p>
+      <p class="tl">${L.watchTaskTr ? plain(L.watchTaskTr) : "Önce genel konuyu anla, sonra dersin yapısını “avla” ve duyduğun üç cümleyi yaz. Bağlantılar YouTube araması açar; böylece her zaman güncel videolara ulaşırsın."}</p></section>
+      <div class="ls">${L.watch.map(x=>{const direct=x[4];const href=direct||`https://www.youtube.com/results?search_query=${encodeURIComponent(x[3])}`;
+        return `<a class="lcard ${x[0]==="Series"?"kind-series":""}" href="${esc(href)}" target="_blank" rel="noopener"><span class="k"><span>${esc(x[0])}</span><span class="yt">YouTube</span></span><strong>${esc(x[1])}</strong><p>${esc(x[2])}</p><span class="go">${direct?"Watch":"Search: “"+esc(x[3])+"”"} ↗</span></a>`;}).join("")}</div>`;
+  }
+}
+function playCard(){
+  const p = L.play;
+  return `<section class="card"><h2>${esc(p.h||"Play with the pattern")}</h2>${p.intro?`<p class="hint">${fmt(p.intro)}</p>`:""}
+    <div class="play-grid">${p.slots.map((s,i)=>`<div><label for="pl${i}">${esc(s.label)}</label><select id="pl${i}" data-pl="${i}">${s.options.map((o,j)=>`<option value="${j}">${esc(pair(o)[0])}</option>`).join("")}</select></div>`).join("")}</div>
+    <div class="play-out" id="plOut" aria-live="polite"></div><div class="play-note" id="plNote"></div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" id="plRand">Surprise me</button></div></section>`;
+}
+function drawPlay(){
+  const p = L.play, parts = [], notes = [];
+  p.slots.forEach((s,i)=>{ const o = pair(s.options[+$("#pl"+i).value]); parts.push(o[0]); if(o[1]) notes.push(`<b>${esc(o[0])}</b> = ${esc(o[1])}`); });
+  let t = parts.join(" ") + (p.end||"."); t = t[0].toUpperCase() + t.slice(1);
+  $("#plOut").textContent = t; $("#plNote").innerHTML = notes.join(" · ");
+}
+function mcq(id,q,opts,a,why){
+  return `<div class="q" data-q="${id}" data-a="${a}"><div class="qt">${fmt(q)}</div><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>${why?`<span hidden class="why">${esc(why)}</span>`:""}</div>`;
+}
+function practiceItem(q,k){
+  if(q.t==="fill") return `<div class="pi"><div class="ptype">Fill the gap</div>
+    <div class="fill">${q.pre?`<span>${esc(q.pre)}</span>`:""}<input id="f${k}" data-f="${k}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Answer ${k+1}">${q.post?`<span>${esc(q.post)}</span>`:""}
+    <button class="btn ghost" data-chk="${k}">Check</button></div><div class="hint">(${esc(q.hint||"")})</div><div class="fb" id="fb${k}"></div></div>`;
+  if(q.t==="mcq") return `<div class="pi"><div class="ptype">Choose the correct answer</div>${mcq("p"+k,q.q,q.o,q.a,q.why)}</div>`;
+  return `<div class="pi"><div class="ptype">Build the sentence</div><p class="hint">Tap the words in order.</p>
+    <div class="chips ans" id="oa${k}"></div><div class="chips" id="op${k}"></div>
+    <div class="row"><button class="btn ghost" data-ochk="${k}">Check</button><button class="btn ghost" data-oreset="${k}">Reset</button></div><div class="fb" id="fb${k}"></div></div>`;
+}
+function setupOrder(k,q){ cur["o"+k] = {pool:q.w.slice().sort(()=>Math.random()-.5), ans:[]}; drawOrder(k); }
+function drawOrder(k){
+  const st = cur["o"+k];
+  $("#oa"+k).innerHTML = st.ans.map((w,j)=>`<button class="chip" data-oback="${k}:${j}">${esc(w)}</button>`).join("");
+  $("#op"+k).innerHTML = st.pool.map((w,j)=>`<button class="chip" data-opick="${k}:${j}">${esc(w)}</button>`).join("");
+}
+function mark(k, good, msg){
+  const fb = $("#fb"+k); fb.className = "fb " + (good?"good":"no"); fb.textContent = msg;
+  if(good) cur.ok[k] = true;
+  updScore();
+}
+function updScore(){
+  const n = Object.keys(cur.ok).length, tot = L.practice.length;
+  $("#scoreBig").textContent = `${n}/${tot}`;
+  if(n > (S.best||0)) S.best = n;
+  if(n === tot){ $("#scoreTxt").textContent = "Great work! Everything is correct."; S.pdone = true; renderTop(); }
+  else $("#scoreTxt").textContent = "Keep going. You can retry the wrong ones.";
+  save();
+}
+function checkFill(k){
+  const q = L.practice[k], inp = $("#f"+k), v = norm(inp.value);
+  if(!v) return;
+  const good = q.a.some(a => norm(a) === v);
+  inp.classList.toggle("good", good); inp.classList.toggle("no", !good);
+  inp.dataset.tries = String((+inp.dataset.tries||0)+1);
+  mark(k, good, good ? ("Correct!" + (q.why ? " " + q.why : "")) : `Try again. Hint: starts with “${q.a[0][0]}”, ${q.a[0].length} characters.`);
+  if(!good && +inp.dataset.tries >= 3){ $("#fb"+k).textContent = `Answer: ${q.a[0]}` + (q.why ? " — " + q.why : ""); }
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button, a"); if(!t) return;
+  if(t.id==="trTog"){ S.tl=!S.tl; save(); renderTop(); return; }
+  if(t.dataset.tab){ S.tab=t.dataset.tab; render(); window.scrollTo({top:0}); return; }
+  if(t.dataset.step){ const tabs=TABS(), i=tabs.findIndex(x=>x[0]===S.tab)+ +t.dataset.step; if(tabs[i]){ S.tab=tabs[i][0]; render(); window.scrollTo({top:0}); } return; }
+  if(t.classList.contains("opt")){
+    const q = t.closest(".q"); if(q.dataset.solved) return;
+    const good = +t.dataset.k === +q.dataset.a;
+    t.classList.add(good?"right":"wrong");
+    const fb = q.querySelector(".fb"), w = q.querySelector(".why");
+    fb.className = "fb "+(good?"good":"no"); fb.textContent = good ? "Correct!" + (w ? " " + w.textContent : "") : "Not quite. Try again.";
+    if(good){ q.dataset.solved="1"; const id=q.dataset.q; if(id[0]==="p"){ cur.ok[+id.slice(1)]=true; updScore(); } }
+    return;
+  }
+  if(t.classList.contains("fc")){ t.classList.toggle("flip"); return; }
+  if(t.id==="plRand"){ L.play.slots.forEach((s,i)=>{ $("#pl"+i).value = Math.floor(Math.random()*s.options.length); }); drawPlay(); return; }
+  if(t.id==="flipAll"){ const all=[...document.querySelectorAll(".fc")]; const anyUn = all.some(c=>!c.classList.contains("flip")); all.forEach(c=>c.classList.toggle("flip",anyUn)); return; }
+  if(t.id==="shuf"){ const g=$("#fcg"); [...g.children].sort(()=>Math.random()-.5).forEach(c=>{c.classList.remove("flip");g.appendChild(c);}); return; }
+  if(t.dataset.chk!==undefined){ checkFill(+t.dataset.chk); return; }
+  if(t.dataset.opick){ const [k,j]=t.dataset.opick.split(":").map(Number); const st=cur["o"+k]; st.ans.push(st.pool.splice(j,1)[0]); drawOrder(k); return; }
+  if(t.dataset.oback){ const [k,j]=t.dataset.oback.split(":").map(Number); const st=cur["o"+k]; st.pool.push(st.ans.splice(j,1)[0]); drawOrder(k); return; }
+  if(t.dataset.oreset!==undefined){ const k=+t.dataset.oreset; setupOrder(k, L.practice[k]); $("#fb"+k).textContent=""; return; }
+  if(t.dataset.ochk!==undefined){ const k=+t.dataset.ochk, st=cur["o"+k], q=L.practice[k];
+    if(st.pool.length){ mark(k,false,"Use all the words first."); return; }
+    const good = norm(st.ans.join(" "))===norm(q.a); mark(k,good, good?"Perfect sentence!":"Not the right order. Check the word order and try again."); return; }
+});
+document.addEventListener("change", e => { if(e.target.dataset && e.target.dataset.pl!==undefined) drawPlay(); });
+document.addEventListener("keydown", e => { if(e.key==="Enter" && e.target.dataset && e.target.dataset.f!==undefined){ checkFill(+e.target.dataset.f); } });
+render();
+</script>
+</body>
+</html>
