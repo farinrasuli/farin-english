@@ -3024,7 +3024,8 @@ function freshState(){
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
     profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
     progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0, usedSpeakingTopics:[]},
-    diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null},
+    diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null, test:null},
+    roadmap:null,
     quiz:null, studentPanelCache:null
   };
 }
@@ -3084,7 +3085,7 @@ function syncToCloud(){
       const code = state.profile.recoveryCode;
       if(!code || typeof firebase === 'undefined') return;
       firebase.firestore().collection('progress').doc(code).set({
-        profile: state.profile, progress: state.progress, savedAt: Date.now()
+        profile: state.profile, progress: state.progress, roadmap: state.roadmap || null, savedAt: Date.now()
       }).catch(()=>{});
     }catch(e){}
   }, 1500);
@@ -3350,11 +3351,10 @@ function leadInfoSuffixBasic(p){
 }
 function roadmapSummarySuffix(p){
   let roadmap;
-  try{ roadmap = buildRoadmap(p); }catch(e){ return ''; }
+  try{ roadmap = currentRoadmap(); }catch(e){ return ''; }
   if(!roadmap || !roadmap.length) return '';
-  const rc = (state.progress && state.progress.roadmapChecked) || {};
-  const doneCount = roadmap.filter((_,i)=>rc[i]).length;
-  const list = roadmap.map((it,i)=>(rc[i]?'✓ ':'• ')+it.title).join(', ');
+  const doneCount = roadmap.filter(it=>isRoadmapNodeDone(it)).length;
+  const list = roadmap.map(it=>(isRoadmapNodeDone(it)?'✓ ':'• ')+it.title).join(', ');
   return L(
     " Full roadmap ("+doneCount+"/"+roadmap.length+" done): "+list+".",
     " Tüm yol haritası ("+doneCount+"/"+roadmap.length+" tamam): "+list+".",
@@ -3747,6 +3747,108 @@ function buildRoadmap(profile){
   pushSession();
   return items.map((it,idx)=>Object.assign({n:idx+1}, it));
 }
+/* Roadmap 2.0 engine groundwork: a stable, position-independent id for a roadmap
+   item. type+refId already uniquely identifies the underlying content (a grammar
+   item, vocab/slang set, or speaking-topic id) regardless of where it lands in the
+   generated sequence, so — unlike the item's array index — this id survives goal
+   edits that insert/reorder/regenerate the roadmap (see FVF5wbT2). */
+function roadmapNodeId(item){ return item.type+':'+item.refId; }
+function isRoadmapNodeDone(item){ return !!(state.progress.roadmapChecked && state.progress.roadmapChecked[roadmapNodeId(item)]); }
+/* One-time migration for saves (local or cloud-restored) written before this id
+   scheme existed: those keyed roadmapChecked by array index (e.g. {"0":true}),
+   which silently "unchecks" a completed step whenever the roadmap sequence shifts.
+   Rekeys any numeric-indexed entries onto the stable id scheme using the roadmap
+   as it exists right now (unchanged since those entries were written), then drops
+   the old numeric keys. Safe to call anytime after profile/progress are loaded —
+   a no-op once nothing numeric-keyed remains. */
+function migrateRoadmapChecked(){
+  const rc = state.progress && state.progress.roadmapChecked;
+  if(!rc) return;
+  const numericKeys = Object.keys(rc).filter(k=>/^\d+$/.test(k));
+  if(!numericKeys.length) return;
+  if(!state.profile || !state.profile.completedDiagnostic) return;
+  try{
+    const roadmap = buildRoadmap(state.profile);
+    numericKeys.forEach(k=>{
+      const idx = Number(k);
+      if(rc[k] && roadmap[idx]) rc[roadmapNodeId(roadmap[idx])] = true;
+      delete rc[k];
+    });
+  }catch(e){ /* leave old keys in place if the roadmap can't be rebuilt right now */ }
+}
+/* Roadmap 2.0 engine: generate-once-then-mutate, not recompute-live.
+   buildRoadmap(profile) is a pure function of profile fields, but two of its
+   inputs are NOT stable over a user's lifetime on one roadmap: pickSpeakingTopic()
+   consults state.progress.usedSpeakingTopics, which grows over time, so calling
+   buildRoadmap(profile) fresh on every render can silently swap out which speaking
+   topic a "session" node points to mid-roadmap. Persisting the generated array
+   once and reading it thereafter (currentRoadmap()) keeps every node's identity —
+   and therefore its roadmapChecked/streak history via roadmapNodeId() — fixed
+   until something deliberately regenerates it. This is also the model
+   FVF5wbT2 (non-destructive goal editing) needs: it should mutate state.roadmap
+   in place (insert/reorder nodes for the new goal) rather than replace it, so
+   completed nodes are never recomputed away.
+   Known tradeoff: a roadmap session node's WhatsApp message text is baked in at
+   generation time (via leadInfoSuffixBasic), so if a user's name changes after
+   generation, already-generated session nodes keep the old name until the next
+   regeneration. Acceptable for now — flagging for whoever builds profile name
+   editing. */
+function currentRoadmap(){
+  if(state.roadmap && state.roadmap.length) return state.roadmap;
+  return (state.profile && state.profile.completedDiagnostic) ? buildRoadmap(state.profile) : [];
+}
+/* Regenerates state.roadmap from the current profile and clears roadmapChecked —
+   call this ONLY at genuine full-regeneration points (placement test completion,
+   or a level/stage advance — both mean every node is legitimately new). A goal
+   edit is NOT one of these; it uses mergeRoadmapForGoalChange() below instead,
+   never on every render. */
+function regenerateRoadmap(){
+  state.roadmap = buildRoadmap(state.profile);
+  state.progress.roadmapChecked = {};
+  return state.roadmap;
+}
+/* Migration for users who completed the diagnostic before state.roadmap existed:
+   freezes their current live-computed roadmap once, so they land on the same
+   generate-once model going forward without losing/reshuffling anything. */
+function ensureRoadmap(){
+  if(state.profile && state.profile.completedDiagnostic && (!state.roadmap || !state.roadmap.length)){
+    try{ state.roadmap = buildRoadmap(state.profile); }catch(e){}
+  }
+}
+/* Non-destructive goal-edit regeneration (FVF5wbT2). Unlike regenerateRoadmap(),
+   this MUTATES state.roadmap in place instead of replacing it wholesale:
+   - Completed nodes (per isRoadmapNodeDone/roadmapNodeId, 2q51DdAB) are NEVER
+     dropped, even if the goal they were labeled with just got removed — their
+     streak/XP/roadmapChecked credit is untouched, and roadmapChecked is
+     deliberately NOT cleared here (that's the entire point of "non-destructive").
+   - Not-yet-done nodes still labeled with one of the user's current goals are
+     kept as-is, in their original order/position.
+   - Not-yet-done nodes labeled with a goal the user just removed are dropped —
+     no point queuing more content for a goal they opted out of ("stop producing
+     new nodes" for it).
+   - Fresh content for a newly added goal is appended AFTER everything already
+     kept — i.e. inserted going forward into the still-to-do portion of the
+     roadmap, never jumping ahead of content already in progress.
+   Known limitation: a roadmap item's `.goal` is the single goal it was labeled
+   with at generation time (from itemGoalFor()/primaryGoal), not the full list of
+   goals its underlying content could serve — so a still-relevant multi-goal
+   vocab/slang set can occasionally get dropped-then-re-added (same content,
+   same id, just moved to the end) rather than staying in its original slot.
+   Harmless (no duplicate, no lost credit), just an occasional reordering. */
+function mergeRoadmapForGoalChange(){
+  if(!state.profile || !state.profile.completedDiagnostic) return;
+  const existing = (state.roadmap && state.roadmap.length) ? state.roadmap : currentRoadmap();
+  if(!existing.length){ regenerateRoadmap(); return; }
+  const currentGoals = state.profile.goals || [];
+  const kept = existing.filter(it=>
+    isRoadmapNodeDone(it) || currentGoals.includes(it.goal) || !GOAL_ORDER.includes(it.goal)
+  );
+  let target;
+  try{ target = buildRoadmap(state.profile); }catch(e){ return; }
+  const keptIds = new Set(kept.map(roadmapNodeId));
+  const newNodes = target.filter(it=>!keptIds.has(roadmapNodeId(it)));
+  state.roadmap = kept.concat(newNodes).map((it,idx)=>Object.assign({}, it, {n:idx+1}));
+}
 
 /* ============================= RENDER: SHELL ============================= */
 function render(){
@@ -3901,16 +4003,101 @@ function renderDiagMotivation(){
     </div>
   </div>`;
 }
+/* ---- Placement test (Roadmap 2.0 Phase 1): replaces the old self-reported
+   LEVEL_OPTIONS radio with a short adaptive test that MEASURES level and, when
+   the result is clear, the weak skill (priorityArea) too — see the design
+   posted on fltvNY7R. Question bank reuses existing content (GRAMMAR_ITEMS'
+   MCQ-ready blanks, VOCAB_SETS cards) rather than new authored content. A
+   listening/reading-comprehension question type was deliberately left out of
+   this pass (would preempt STORY_LIBRARY goal/level wiring, card nFVCPAce) —
+   priorityArea still falls back to the old self-report step (renderDiagPriority)
+   whenever the test can't tell grammar and vocab apart. */
+function initPlacementTest(){
+  return {
+    tierIdx: 1, // start at A2 (LEVELS[1]) — a lighter first impression than A1
+    highestPassIdx: -1,
+    tiersVisited: [],
+    grammarCorrect: 0, grammarTotal: 0,
+    vocabCorrect: 0, vocabTotal: 0,
+    totalAsked: 0,
+    askedGrammarIds: [], askedVocabSetIds: [],
+    queue: [], qIndex: 0, tierCorrect: 0, answered: false, selected: null
+  };
+}
+function placementBuildGrammarQ(item, primaryGoal){
+  const variant = primaryGoal && item.goalVariant && item.goalVariant[primaryGoal];
+  const blank = (variant && variant.blank) || item.blank;
+  const choices = shuffle([blank.word].concat(blank.distractors));
+  return {kind:'grammar', refId:item.id, prompt: blank.sentence, correct: blank.word, choices};
+}
+function placementBuildVocabQ(setObj){
+  const idx = Math.floor(Math.random()*setObj.cards.length);
+  const card = setObj.cards[idx];
+  const decoys = shuffle(setObj.cards.filter((_,i)=>i!==idx)).slice(0,2).map(c=>c.word);
+  const choices = shuffle([card.word].concat(decoys));
+  const meaning = L(card.meaning.en, card.meaning.tr, card.meaning.fa);
+  return {kind:'vocab', refId:setObj.id, prompt: meaning, correct: card.word, choices};
+}
+function loadTierQueue(test, primaryGoal){
+  const levelKey = LEVELS[test.tierIdx];
+  const gPool = shuffle(GRAMMAR_ITEMS.filter(g=>g.level===levelKey && !test.askedGrammarIds.includes(g.id)));
+  const gPicks = gPool.slice(0,2);
+  gPicks.forEach(g=>test.askedGrammarIds.push(g.id));
+  const vCandidates = VOCAB_SETS.filter(s=>s.level===levelKey && s.category==='vocab' && !test.askedVocabSetIds.includes(s.id));
+  const vPool = shuffle(vCandidates.length ? vCandidates : VOCAB_SETS.filter(s=>s.level===levelKey && s.category==='vocab'));
+  const vSet = vPool[0];
+  if(vSet) test.askedVocabSetIds.push(vSet.id);
+  const gQs = gPicks.map(g=>placementBuildGrammarQ(g, primaryGoal));
+  const vQ = vSet ? placementBuildVocabQ(vSet) : null;
+  test.queue = vQ ? [gQs[0], vQ, gQs[1]].filter(Boolean) : gQs;
+  test.qIndex = 0; test.answered = false; test.selected = null; test.tierCorrect = 0;
+}
+/* Simple CAT-lite step rule: pass a tier (>=2/3 correct) -> move up a level,
+   fail it -> move down. Stop once we hit a level boundary (nothing further to
+   test) or revisit a level already tested (the result has converged/oscillated
+   around a boundary), or after 15 questions regardless. */
+function placementDecideNext(test){
+  const dir = test.tierCorrect>=2 ? 1 : -1;
+  const nextTier = Math.max(0, Math.min(LEVELS.length-1, test.tierIdx+dir));
+  const clamped = nextTier === test.tierIdx;
+  const revisit = test.tiersVisited.includes(nextTier);
+  return {nextTier, stop: clamped || revisit || test.totalAsked>=15};
+}
+function finishPlacementTest(test){
+  state.diag.level = LEVELS[Math.max(test.highestPassIdx, 0)];
+  const gAcc = test.grammarTotal ? test.grammarCorrect/test.grammarTotal : 1;
+  const vAcc = test.vocabTotal ? test.vocabCorrect/test.vocabTotal : 1;
+  let derived = null;
+  if(gAcc <= vAcc - 0.15) derived = 'grammar';
+  else if(vAcc <= gAcc - 0.15) derived = 'vocab';
+  state.diag.priorityArea = derived; // null -> renderDiagPriority still asks
+  state.diag.step = 2;
+  save(); render(); pushHistoryEntry();
+}
 function renderDiagLevel(){
+  let test = state.diag.test;
+  if(!test){
+    test = state.diag.test = initPlacementTest();
+    loadTierQueue(test, (state.diag.goals && state.diag.goals[0]) || null);
+    save();
+  }
+  const q = test.queue[test.qIndex];
   return `<div class="fade-in">
-    ${diagQHead(2, L('How would you describe your English level?','İngilizce seviyeni nasıl tarif edersin?','سطح انگلیسی‌ات را چطور توصیف می‌کنی؟'))}
-      <div class="opt-list" style="margin-top:18px;">
-        ${LEVEL_OPTIONS.map(o=>`
-          <button class="opt" data-action="diag-level" data-value="${o.value}">
-            <span class="opt-ic" style="font-weight:800; color:var(--cat-diag);">${o.value}</span>
-            <span class="opt-main">${esc(L(o.label.en,o.label.tr,o.label.fa))}</span>
-          </button>`).join('')}
+    ${diagQHead(2, L('Quick level check','Hızlı seviye kontrolü','بررسی سریع سطح'))}
+      <div class="row" style="gap:5px; margin:14px 0 10px;">
+        ${test.queue.map((_,i)=>`<i style="flex:1; height:4px; border-radius:2px; background:${i<test.qIndex?'var(--cat-diag)':(i===test.qIndex?'var(--accent-strong)':'var(--border-soft)')};"></i>`).join('')}
       </div>
+      <span class="pill" style="background:var(--cat-diag-soft); color:var(--cat-diag); margin-bottom:10px; display:inline-block;">${LEVELS[test.tierIdx]}</span>
+      <div class="quiz-prompt" dir="ltr">${esc(q.prompt)}</div>
+      ${q.choices.map((opt,i)=>{
+        let cls = 'quiz-opt';
+        if(test.answered){
+          if(opt===q.correct) cls += ' correct';
+          else if(i===test.selected) cls += ' wrong';
+        }
+        return `<button class="${cls}" dir="ltr" ${test.answered?'disabled':''} data-action="diag-test-answer" data-i="${i}">${esc(opt)}</button>`;
+      }).join('')}
+      ${test.answered ? `<button class="btn btn-primary" style="margin-top:16px;" data-action="diag-test-next">${L('Continue','Devam et','ادامه')}</button>` : ''}
     </div>
   </div>`;
 }
@@ -4234,8 +4421,8 @@ function renderDashboard(){
   if(showIntro){ p.dashboardIntroShown = true; save(); }
   const introSparkles = showIntro ? '<span class="sparkle sparkle-1"></span><span class="sparkle sparkle-2"></span><span class="sparkle sparkle-3"></span>' : '';
   const heroCat = (p.goals && p.goals.length && GOALS_META[p.goals[0]]) ? GOALS_META[p.goals[0]].cat : 'diag';
-  const roadmapForRing = buildRoadmap(p);
-  const roadmapDoneForRing = roadmapForRing.filter((_,i)=>state.progress.roadmapChecked[i]).length;
+  const roadmapForRing = currentRoadmap();
+  const roadmapDoneForRing = roadmapForRing.filter(it=>isRoadmapNodeDone(it)).length;
   const roadmapPercent = roadmapForRing.length ? Math.round(roadmapDoneForRing/roadmapForRing.length*100) : 0;
   return `<div class="fade-in">
     ${topbar(true)}
@@ -4325,29 +4512,28 @@ function renderDashboard(){
 }
 function renderDiagReview(){
   const p = state.profile, arch = ARCHETYPES[p.motivationTag];
-  const roadmap = buildRoadmap(p);
+  const roadmap = currentRoadmap();
   const TYPE_META = {
     grammar:{ic:ICONS.dumbbell, c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
     vocab:{ic:ICONS.cards, c:'voc', label:L('Vocabulary','Kelime','واژگان')},
     slang:{ic:ICONS.cards, c:'diag', label:L('Slang','Argo','اصطلاحات')},
     session:{ic:ICONS.chat, c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')}
   };
-  const rc = state.progress.roadmapChecked;
-  const doneCount = roadmap.filter((_,i)=>rc[i]).length;
+  const doneCount = roadmap.filter(it=>isRoadmapNodeDone(it)).length;
   const allDone = doneCount === roadmap.length;
-  const currentIndex = roadmap.findIndex((_,i)=>!rc[i]);
+  const currentIndex = roadmap.findIndex(it=>!isRoadmapNodeDone(it));
 
   function pinFn(idx, isCurrent){
-    const item = roadmap[idx], m = TYPE_META[item.type], checked = !!rc[idx];
+    const item = roadmap[idx], m = TYPE_META[item.type], checked = isRoadmapNodeDone(item);
     const color = 'var(--cat-'+m.c+')';
-    return `<button class="${isCurrent?'roadmap-pin-current':''}" data-action="toggle-roadmap-item" data-idx="${idx}" aria-label="${L('Mark done','Tamamlandı say','علامت‌زدن به‌عنوان انجام‌شده')}" style="position:relative; width:38px; height:38px; border-radius:50%; background:${checked?color:'var(--bg-elevated)'}; border:3px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 9px -2px rgba(0,0,0,.28); cursor:pointer; padding:0;">
+    return `<button class="${isCurrent?'roadmap-pin-current':''}" data-action="toggle-roadmap-item" data-id="${roadmapNodeId(item)}" aria-label="${L('Mark done','Tamamlandı say','علامت‌زدن به‌عنوان انجام‌شده')}" style="position:relative; width:38px; height:38px; border-radius:50%; background:${checked?color:'var(--bg-elevated)'}; border:3px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 9px -2px rgba(0,0,0,.28); cursor:pointer; padding:0;">
       <span style="width:16px; height:16px; display:flex; align-items:center; justify-content:center; color:${checked?'#fff':color};">${checked?ICONS.check:m.ic}</span>
       <span style="position:absolute; top:-5px; right:-5px; width:16px; height:16px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); font-size:8.5px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,.25);">${idx+1}</span>
     </button>`;
   }
 
   function cardFn(idx, isLeft){
-    const item = roadmap[idx], m = TYPE_META[item.type], checked = !!rc[idx];
+    const item = roadmap[idx], m = TYPE_META[item.type], checked = isRoadmapNodeDone(item);
     const isSession = item.type === 'session';
     const isCurrent = idx === currentIndex;
     const color = 'var(--cat-'+m.c+')';
@@ -4400,7 +4586,7 @@ function renderDiagReview(){
 }
 function renderSessionPrep(idx){
   const p = state.profile;
-  const roadmap = buildRoadmap(p);
+  const roadmap = currentRoadmap();
   const item = roadmap[idx];
   if(!item || item.type!=='session' || !item.session) return renderNotFound();
   const s = item.session;
@@ -6409,6 +6595,9 @@ const HANDLERS = {
       const data = doc.data();
       state.profile = Object.assign({}, freshState().profile, data.profile);
       state.progress = Object.assign({}, freshState().progress, data.progress);
+      state.roadmap = data.roadmap || null;
+      ensureRoadmap();
+      migrateRoadmapChecked();
       save();
       go('dashboard');
     }).catch(()=>{
@@ -6430,8 +6619,43 @@ const HANDLERS = {
     if(!state.diag.goals || !state.diag.goals.length) return;
     state.diag.step = 1; save(); render(); pushHistoryEntry();
   },
-  'diag-level'(el){ state.diag.level = el.dataset.value; state.diag.step = 2; save(); render(); pushHistoryEntry(); },
-  'diag-learner'(el){ state.diag.learnerType = el.dataset.value; state.diag.step = 3; save(); render(); pushHistoryEntry(); },
+  'diag-test-answer'(el){
+    const test = state.diag.test;
+    if(!test || test.answered) return;
+    const i = Number(el.dataset.i);
+    const q = test.queue[test.qIndex];
+    test.answered = true; test.selected = i;
+    const isCorrect = q.choices[i] === q.correct;
+    if(isCorrect) test.tierCorrect++;
+    if(q.kind==='grammar'){ test.grammarTotal++; if(isCorrect) test.grammarCorrect++; }
+    else { test.vocabTotal++; if(isCorrect) test.vocabCorrect++; }
+    test.totalAsked++;
+    save(); render();
+  },
+  'diag-test-next'(){
+    const test = state.diag.test;
+    if(!test) return;
+    if(test.qIndex+1 < test.queue.length){
+      test.qIndex++; test.answered = false; test.selected = null;
+      save(); render(); pushHistoryEntry();
+      return;
+    }
+    test.tiersVisited.push(test.tierIdx);
+    if(test.tierCorrect>=2) test.highestPassIdx = Math.max(test.highestPassIdx, test.tierIdx);
+    const {nextTier, stop} = placementDecideNext(test);
+    if(stop){ finishPlacementTest(test); return; }
+    test.tierIdx = nextTier;
+    loadTierQueue(test, state.diag.goals[0]);
+    save(); render(); pushHistoryEntry();
+  },
+  'diag-learner'(el){
+    state.diag.learnerType = el.dataset.value;
+    // priorityArea is only pre-filled here when the placement test measured a
+    // clear grammar/vocab gap (see finishPlacementTest) — otherwise fall through
+    // to the self-report priority step, same as before the test existed.
+    state.diag.step = state.diag.priorityArea ? 4 : 3;
+    save(); render(); pushHistoryEntry();
+  },
   'diag-priority'(el){ state.diag.priorityArea = el.dataset.value; state.diag.step = 4; save(); render(); pushHistoryEntry(); },
   'unlock-submit'(){
     const nameEl = document.getElementById('unlock-name');
@@ -6447,12 +6671,18 @@ const HANDLERS = {
       level:d.level, levelStage:1, learnerType:d.learnerType, priorityArea:d.priorityArea, completedDiagnostic:true, dashboardIntroShown:false,
       recoveryCode: generateRecoveryCode()
     };
+    // Generate-once-then-mutate: this is the moment the roadmap is born, so it's
+    // the one point where a fresh buildRoadmap() call is correct — from here on,
+    // everything reads the persisted state.roadmap via currentRoadmap() instead
+    // of recomputing live (see regenerateRoadmap() comment above).
+    regenerateRoadmap();
     save();
     go('dashboard');
   },
   'retake-diagnostic'(){
-    state.diag = {step:0, goals:[], level:null, learnerType:null, priorityArea:null};
+    state.diag = {step:0, goals:[], level:null, learnerType:null, priorityArea:null, test:null};
     state.profile.completedDiagnostic = false;
+    state.roadmap = null;
     save();
     go('diagnostic-intro');
   },
@@ -6460,11 +6690,11 @@ const HANDLERS = {
     go('course-view', {courseId: el.dataset.courseId});
   },
   'toggle-roadmap-item'(el){
-    const idx = el.dataset.idx;
+    const id = el.dataset.id;
     const rc = state.progress.roadmapChecked;
-    rc[idx] = !rc[idx];
-    const roadmap = buildRoadmap(state.profile);
-    const allDone = roadmap.every((_,i)=>rc[i]);
+    rc[id] = !rc[id];
+    const roadmap = currentRoadmap();
+    const allDone = roadmap.every(it=>isRoadmapNodeDone(it));
     if(allDone){
       if(state.profile.levelStage === 2){
         const li = LEVELS.indexOf(state.profile.level);
@@ -6473,7 +6703,9 @@ const HANDLERS = {
       } else {
         state.profile.levelStage = 2;
       }
-      state.progress.roadmapChecked = {};
+      // New level/stage means new content to pull from — this is a genuine
+      // regeneration point (see regenerateRoadmap() comment), not a live recompute.
+      regenerateRoadmap();
     }
     save(); render();
   },
@@ -6518,6 +6750,7 @@ const HANDLERS = {
     if(i>-1) goals.splice(i,1);
     else if(goals.length<3) goals.push(key);
     if(goals.length) state.profile.motivationTag = goals[0];
+    mergeRoadmapForGoalChange();
     save(); render();
   },
   'studio-pick-mode'(el){
@@ -8013,6 +8246,8 @@ if(location.hash === '#admin'){
   setTimeout(()=>{ if(!adminAuthResolved) renderAdminPage(); }, 4000);
 } else {
   if(state.profile.completedDiagnostic && state.view === 'diagnostic-intro'){ state.view = 'dashboard'; }
+  ensureRoadmap();
+  migrateRoadmapChecked();
   if(state.profile.completedDiagnostic && markDailyVisit()){ save(); }
   const fallbackRecoveryCode = (!loadedFromStorage && !state.profile.completedDiagnostic) ? getRecoveryCookie() : null;
   if(fallbackRecoveryCode && typeof firebase !== 'undefined'){
@@ -8036,6 +8271,9 @@ if(location.hash === '#admin'){
       settled = true;
       state.profile = Object.assign({}, freshState().profile, data.profile);
       state.progress = Object.assign({}, freshState().progress, data.progress);
+      state.roadmap = data.roadmap || null;
+      ensureRoadmap();
+      migrateRoadmapChecked();
       state.view = state.profile.completedDiagnostic ? 'dashboard' : 'diagnostic-intro';
       state.viewParams = {};
       save();
