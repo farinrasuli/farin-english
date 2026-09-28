@@ -12,7 +12,7 @@ Follows the technical migration (`DOMAIN-MIGRATION-SEO.md`) — that covered the
 - Structured data already mature: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, `FAQPage` — most competitors in this space have none of this.
 - Metadata (titles, descriptions) already differentiated per page and intent-aware, not generic "learn English" copy.
 - Positioning already correct: goal-based personalization (VIP roadmap, 100 Doors, FE App, Student Club), not a generic course — this is a real differentiator worth leaning into harder in content, not just the homepage.
-- Technical foundation now solid: `thefeschool.com` live, HTTPS, `robots.txt`/`sitemap.xml` correct, canonical URLs consistent.
+- Technical foundation now solid: `thefeschool.com` live, `robots.txt`/`sitemap.xml` correct, canonical URLs consistent. **HTTPS (checked 2026-09-20):** works for visitors, but via Cloudflare, not GitHub Pages. The GitHub Pages certificate is still stuck at `new` and "Enforce HTTPS" is off (the GitHub support ticket of 2026-09-19 was auto-closed, free accounts get no human support). Since 2026-09-19 the Cloudflare orange-cloud proxy + SSL mode Full + Always Use HTTPS serve the site: `https://thefeschool.com/` returns 200 with a valid Let's Encrypt certificate (issued 2026-09-17, expires 2026-12-16, auto-renewed by Cloudflare), `http://` and `www` both 301 to `https://thefeschool.com/`. Do not switch the DNS records back to grey (DNS-only) unless GitHub's own certificate shows `approved`, or HTTPS breaks.
 
 **Gap, and it's the single biggest lever available:** zero content exists for informational/educational search intent. Every page today is a service/commercial page. Someone typing "İngilizce konuşma pratiği nasıl yapılır?" into Google has nothing on `thefeschool.com` to find — that's the single largest missed opportunity, because informational searches vastly outnumber commercial ones and are how most people discover a tutor before they're ready to buy.
 
@@ -82,6 +82,15 @@ Six articles, cadence of roughly one every 2 weeks, each following the brief's o
 
 Each article: 800–1,200 words, real answer first (not buried under intro fluff), one relevant internal link, one soft CTA at the end (not mid-article), written in the site's existing direct/warm Turkish voice — not translated-from-English AI copy, which Google's own guidance now actively deprioritizes ("helpful content" system).
 
+**Published 2026-09-28 — 2 more articles**, per the autocomplete-based keyword check in `site/keyword-research/README.md` (Trello card LDcyi5y3):
+
+| # | Title | Target keyword | Internal link to |
+|---|---|---|---|
+| 7 | Online İngilizce Özel Ders Fiyatları (2026): Ne Kadar Olmalı, Neye Bakmalı? | online İngilizce özel ders fiyatları | `/english.html#paketler` (only references FEschool's own already-published prices, no invented figures) |
+| 8 | İş İngilizcesi Mülakat Soruları ve Nasıl Cevaplanır | iş İngilizcesi mülakat soruları | `/is-ingilizcesi.html#kapsam` |
+
+Also applied the same pass's "cheap wins": retitled/led article #3 around "İngilizce anlıyorum ama konuşamıyorum" (the actual query, not "çekiniyorum"), added "çalışma programı" wording to article #2, added a ChatGPT/AI-practice section to article #1.
+
 ---
 
 ## 5. Structured data to add
@@ -127,7 +136,7 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 
 ## 9. Phased roadmap
 
-- **Phase 1 (done)**: technical foundation — domain, HTTPS, sitemap/robots, structured-data audit.
+- **Phase 1 (done)**: technical foundation — domain, HTTPS (via Cloudflare proxy, see §1), sitemap/robots, structured-data audit.
 - **Phase 2 (next, low effort)**: `WebSite`/`BreadcrumbList` schema additions (§5); privacy-policy title fix (carried over from the migration blueprint).
 - **Phase 3**: build `/blog/` structure (one template, matching site design) + publish articles 1–2 from §4.
 - **Phase 4**: Google Business Profile (needs you) + GSC query monitoring to see which of articles 1–2 are gaining traction before writing 3–6.
