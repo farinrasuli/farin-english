@@ -3137,9 +3137,9 @@ let loadedFromStorage = false;
 function freshState(){
   return {
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
-    profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
+    profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, topics:[], learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
     progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], completedGames:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0, usedSpeakingTopics:[]},
-    diag:{step:0, goals:[], level:null, learnerType:null, priorityArea:null, test:null},
+    diag:{step:0, goals:[], level:null, topics:[], learnerType:null, priorityArea:null, test:null},
     roadmap:null,
     quiz:null, studentPanelCache:null
   };
@@ -3180,6 +3180,7 @@ function load(){
     if(merged.profile.recoveryCode===undefined) merged.profile.recoveryCode = null;
     if(merged.profile.wantsContact===undefined) merged.profile.wantsContact = false;
     if(merged.profile.contactPhone===undefined) merged.profile.contactPhone = '';
+    if(!merged.profile.topics) merged.profile.topics = [];
     if(!merged.profile.goals || !merged.profile.goals.length){
       merged.profile.goals = merged.profile.motivationTag ? [merged.profile.motivationTag] : [];
     }
@@ -4194,7 +4195,7 @@ function sectionHeadNoBack(title, sub){
 }
 
 /* ============================= RENDER: DIAGNOSTIC ============================= */
-const DIAG_TOTAL_STEPS = 5;
+const DIAG_TOTAL_STEPS = 6;
 function renderDiagIntro(){
   if(state.viewParams && state.viewParams.recovering){
     return `<div class="fade-in">
@@ -4240,9 +4241,10 @@ function renderDiagStep(){
   const step = state.diag.step;
   if(step===0) return renderDiagMotivation();
   if(step===1) return renderDiagLevel();
-  if(step===2) return renderDiagLearner();
-  if(step===3) return renderDiagPriority();
-  if(step===4) return renderDiagUnlock();
+  if(step===2) return renderDiagTopics();
+  if(step===3) return renderDiagLearner();
+  if(step===4) return renderDiagPriority();
+  if(step===5) return renderDiagUnlock();
   return renderDashboard();
 }
 function diagQHead(n, title){
@@ -4372,9 +4374,48 @@ function renderDiagLevel(){
     </div>
   </div>`;
 }
+// Favorite-topics onboarding question (2026-09-30, Trello ltUBeo1B, Farin:
+// "its nice to have 10 topics in the first questions asked what are your
+// fave topics? ... based on that they will have the reading/story sections
+// and all of them be very interesting"). Sits right after the level question
+// (step 2), same opt-list/pick-up-to-3 pattern as the motivation/goals step.
+// Saved onto profile.topics; used by story selection (see topicSortedStories()
+// near STORY_LIBRARY) to prioritize stories tagged with a chosen topic.
+const TOPIC_OPTIONS = [
+  {value:'sport', icon:'dumbbell', label:{en:'Sport',tr:'Spor',fa:'ورزش'}},
+  {value:'art', icon:'pen', label:{en:'Art & Design',tr:'Sanat ve Tasarım',fa:'هنر و طراحی'}},
+  {value:'science', icon:'search', label:{en:'Science',tr:'Bilim',fa:'علم'}},
+  {value:'history', icon:'book', label:{en:'History',tr:'Tarih',fa:'تاریخ'}},
+  {value:'technology', icon:'gear', label:{en:'Technology',tr:'Teknoloji',fa:'فناوری'}},
+  {value:'music', icon:'headphones', label:{en:'Music',tr:'Müzik',fa:'موسیقی'}},
+  {value:'food', icon:null, emoji:'🍲', label:{en:'Food & Cooking',tr:'Yemek ve Mutfak',fa:'غذا و آشپزی'}},
+  {value:'nature', icon:'mountain', label:{en:'Nature & Animals',tr:'Doğa ve Hayvanlar',fa:'طبیعت و حیوانات'}},
+  {value:'movies', icon:'clapper', label:{en:'Movies & TV',tr:'Film ve Dizi',fa:'فیلم و سریال'}},
+  {value:'business', icon:'suitcase', label:{en:'Business & Money',tr:'İş ve Para',fa:'کسب‌وکار و پول'}}
+];
+function renderDiagTopics(){
+  const sel = state.diag.topics || [];
+  return `<div class="fade-in">
+    ${diagQHead(3, L('What are your favorite topics? Pick up to 3.','En sevdiğin konular neler? En fazla 3 seç.',' موضوعات مورد علاقه‌ات چیه؟ حداکثر ۳ مورد انتخاب کن.'))}
+      <div class="opt-list" style="margin-top:18px;">
+        ${TOPIC_OPTIONS.map(o=>{
+          const isSel = sel.includes(o.value);
+          const atCap = sel.length>=3 && !isSel;
+          return `
+          <button class="opt ${isSel?'selected':''}" data-action="diag-topics-toggle" data-value="${o.value}" ${atCap?'disabled':''} style="${atCap?'opacity:.4;':''}">
+            <span class="opt-ic">${o.icon ? ICONS[o.icon] : o.emoji}</span>
+            <span class="opt-main">${esc(L(o.label.en,o.label.tr,o.label.fa))}</span>
+            ${isSel ? `<span style="margin-left:auto; flex-shrink:0; color:var(--accent-strong);">${ICONS.check}</span>` : ''}
+          </button>`;
+        }).join('')}
+      </div>
+      <button class="btn btn-primary" style="margin-top:18px; ${sel.length?'':'opacity:.4;'}" data-action="diag-topics-continue" ${sel.length?'':'disabled'}>${L('Continue','Devam et','ادامه')}</button>
+    </div>
+  </div>`;
+}
 function renderDiagLearner(){
   return `<div class="fade-in">
-    ${diagQHead(3, L('When you get something wrong, what helps most?','Bir şeyi yanlış yaptığında sana en çok ne yardımcı olur?','وقتی چیزی را اشتباه می‌کنی، چه چیزی بیشتر کمکت می‌کند؟'))}
+    ${diagQHead(4, L('When you get something wrong, what helps most?','Bir şeyi yanlış yaptığında sana en çok ne yardımcı olur?','وقتی چیزی را اشتباه می‌کنی، چه چیزی بیشتر کمکت می‌کند؟'))}
       <div class="opt-list" style="margin-top:18px;">
         ${LEARNER_OPTIONS.map(o=>`
           <button class="opt" data-action="diag-learner" data-value="${o.value}">
@@ -4387,7 +4428,7 @@ function renderDiagLearner(){
 }
 function renderDiagPriority(){
   return `<div class="fade-in">
-    ${diagQHead(4, L('What trips you up the most?','Seni en çok ne zorluyor?','بیشتر چه چیزی گیرت می‌اندازد؟'))}
+    ${diagQHead(5, L('What trips you up the most?','Seni en çok ne zorluyor?','بیشتر چه چیزی گیرت می‌اندازد؟'))}
       <div class="opt-list" style="margin-top:18px;">
         ${PRIORITY_OPTIONS.map(o=>`
           <button class="opt" data-action="diag-priority" data-value="${o.value}">
@@ -4400,7 +4441,7 @@ function renderDiagPriority(){
 function renderDiagUnlock(){
   const showErr = state.viewParams && state.viewParams.showError;
   return `<div class="fade-in">
-    ${diagProgressBar(5, DIAG_TOTAL_STEPS)}
+    ${diagProgressBar(6, DIAG_TOTAL_STEPS)}
     <div class="screen">
       <button class="back" style="margin-top:14px;" data-action="back">${ICONS.back} ${L('Back','Geri','برگشت')}</button>
       <div class="row between" style="margin-top:6px;">
@@ -6437,6 +6478,78 @@ function renderNotFound(){
 }
 
 /* ============================= RENDER: STORY LIBRARY ============================= */
+// Favorite-topics story personalization (2026-09-30, Trello ltUBeo1B part 2,
+// Farin: "based on that they will have the reading/story sections and all of
+// them be very interesting"). A separate id->topics lookup rather than a
+// field on every STORY_LIBRARY entry, so it's easy to review/extend without
+// touching that large array. First-pass tagging is from TITLES only (not a
+// full-text read of all 75 stories) — covers the clear cases; untagged
+// stories are never hidden, they just don't get the "for you" boost/badge.
+// Full-coverage tagging (or genuinely topic-authored short stories, per part
+// 3 of the same card) is a real content task, flagged separately rather than
+// rushed here — see Trello comment on ltUBeo1B.
+const STORY_TOPICS = {
+  'story-A1-Fiction-2': ['nature'],
+  'story-A1-Adventure-1': ['nature','sport'],
+  'story-A1-Adventure-2': ['nature'],
+  'story-A1-Adventure-3': ['nature'],
+  'story-A1-Documentary-1': ['nature','science'],
+  'story-A1-Documentary-2': ['nature','science'],
+  'story-A1-Documentary-3': ['nature','science'],
+  'story-A2-Fiction-1': ['sport'],
+  'story-A2-Adventure-1': ['nature'],
+  'story-A2-Adventure-2': ['nature'],
+  'story-A2-Adventure-3': ['nature','sport'],
+  'story-A2-Romance-3': ['music'],
+  'story-A2-Documentary-1': ['nature','science'],
+  'story-A2-Documentary-2': ['nature','science'],
+  'story-A2-Documentary-3': ['science','technology'],
+  'story-B1-Adventure-1': ['nature','sport'],
+  'story-B1-Adventure-2': ['nature'],
+  'story-B1-Adventure-3': ['nature','sport'],
+  'story-B1-Romance-3': ['art','music'],
+  'story-B1-Documentary-1': ['nature','science'],
+  'story-B1-Documentary-2': ['science','technology'],
+  'story-B1-Documentary-3': ['nature','science'],
+  'story-B2-Fiction-2': ['history'],
+  'story-B2-Fiction-3': ['art'],
+  'story-B2-Adventure-1': ['nature','sport'],
+  'story-B2-Adventure-2': ['nature','history'],
+  'story-B2-Adventure-3': ['nature'],
+  'story-B2-Romance-1': ['art'],
+  'story-B2-Thriller-1': ['art'],
+  'story-B2-Thriller-2': ['technology','history'],
+  'story-B2-Thriller-3': ['art','technology'],
+  'story-B2-Documentary-1': ['science','nature'],
+  'story-B2-Documentary-2': ['science','technology'],
+  'story-B2-Documentary-3': ['history'],
+  'story-C1-Fiction-3': ['history'],
+  'story-C1-Adventure-1': ['history','sport'],
+  'story-C1-Adventure-2': ['nature','sport'],
+  'story-C1-Adventure-3': ['nature','history'],
+  'story-C1-Romance-2': ['art'],
+  'story-C1-Romance-3': ['music','history'],
+  'story-C1-Thriller-1': ['technology'],
+  'story-C1-Documentary-1': ['history'],
+  'story-C1-Documentary-2': ['science','nature','history'],
+  'story-C1-Documentary-3': ['science']
+};
+function storyTopicMatch(story, favoriteTopics){
+  if(!favoriteTopics || !favoriteTopics.length) return false;
+  const tags = STORY_TOPICS[story.id];
+  return !!(tags && tags.some(t=>favoriteTopics.includes(t)));
+}
+// Topic-matched stories float to the top of their genre/level list (stable
+// sort — everything else keeps its original relative order), so a learner's
+// chosen favorite topics visibly shape which stories they see first.
+function sortStoriesByTopic(stories, favoriteTopics){
+  if(!favoriteTopics || !favoriteTopics.length) return stories;
+  return stories.slice().sort((a,b)=>{
+    const am = storyTopicMatch(a, favoriteTopics) ? 1 : 0;
+    const bm = storyTopicMatch(b, favoriteTopics) ? 1 : 0;
+    return bm - am;
+  });
+}
 const GENRE_ORDER = ['Fiction','Adventure','Romance','Thriller','Documentary'];
 const GENRE_BANNER_TEXT = {
   Fiction: {title:{en:'Get lost in a story', tr:'Bir hikayede kaybol', fa:'در یک داستان گم شو'}, sub:{en:'New words come alive when you see them in a real story.', tr:'Yeni kelimeler gerçek bir hikayede gördüğünde canlanır.', fa:'کلمات جدید وقتی در یک داستان واقعی می‌بینی‌شان، زنده می‌شوند.'}},
@@ -6448,7 +6561,8 @@ const GENRE_BANNER_TEXT = {
 function renderStoryList(){
   const level = state.viewParams.level || state.profile.level;
   const genre = GENRE_ORDER.includes(state.viewParams.genre) ? state.viewParams.genre : GENRE_ORDER[0];
-  const stories = STORY_LIBRARY.filter(s=>s.level===level && s.genre===genre);
+  const favoriteTopics = state.profile.topics || [];
+  const stories = sortStoriesByTopic(STORY_LIBRARY.filter(s=>s.level===level && s.genre===genre), favoriteTopics);
   const gl = GENRE_LABEL[genre];
   const bt = GENRE_BANNER_TEXT[genre];
   const doneCount = stories.filter(s=>state.progress.completedStories.includes(s.id)).length;
@@ -6477,9 +6591,13 @@ function renderStoryList(){
       <div class="stack" style="gap:8px;">
         ${stories.map(s=>{
           const done = state.progress.completedStories.includes(s.id);
+          const forYou = storyTopicMatch(s, favoriteTopics);
           return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
             <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
-            <div class="item-body"><div class="item-title">${esc(L(s.title.en,s.title.tr))}</div></div>
+            <div class="item-body">
+              <div class="item-title">${esc(L(s.title.en,s.title.tr))}</div>
+              ${forYou ? `<span class="pill" style="background:var(--accent-soft); color:var(--accent-strong); margin-top:4px;">${ICONS.star} ${L('For you','Sana özel','مخصوص تو')}</span>` : ''}
+            </div>
             ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
           </button>`;
         }).join('')}
@@ -6499,13 +6617,16 @@ function renderStoryDetail(id){
         <button class="icon-btn" data-action="toggle-story-music" aria-label="${L('Toggle background music','Arka plan müziğini aç/kapat','روشن/خاموش کردن موسیقی پس‌زمینه')}">${storyMusicMuted ? ICONS.soundOff : ICONS.soundOn}</button>
       </div>
       <div class="card-flat" dir="ltr" style="line-height:1.7; font-size:15px;">${paragraphs}</div>
-      <div class="row" style="gap:7px; align-items:center; margin:20px 0 8px;">
-        <span class="item-ic" style="background:var(--cat-voc-soft); color:var(--cat-voc); flex:0 0 auto; width:26px; height:26px;">${ICONS.cards}</span>
-        <h3 class="display" style="font-size:14px;">${L('New words','Yeni kelimeler','کلمات جدید')}</h3>
-      </div>
-      <div class="card-flat" dir="ltr" style="background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);">
-        ${s.vocab.map((v,idx)=>{ const gloss = LANG==='fa' ? v.fa : v.tr; return `<div class="phrase-row"><div class="row" style="gap:8px; align-items:center;"><span style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--bg-elevated); color:var(--cat-voc); font-size:10.5px; font-weight:800; flex:0 0 auto;">${idx+1}</span><div class="phrase-term" style="color:var(--cat-voc);">${esc(v.word)}</div></div><div class="phrase-mean" style="margin-top:2px;">${v.en?esc(v.en):''}${gloss?' — '+esc(gloss):''}</div></div>`; }).join('')}
-      </div>
+      <!-- Removed the separate "New words" list-with-translations block
+           (2026-09-30, Trello ltUBeo1B, Farin: "the words highlighted so the
+           user can see their meaning by tapping on it, no need to have that
+           under again") — the highlighted words in the paragraph above
+           (highlightStoryVocab()) already tap-to-reveal via the existing
+           .vocab-hl/show-word-meaning tooltip mechanism, so the vocab list
+           duplicated the same info a second time. A short hint replaces it
+           so the interaction is still discoverable now that there's no
+           visible list of words to tip users off. -->
+      ${s.vocab && s.vocab.length ? `<p style="font-size:11.5px; color:var(--ink-faint); text-align:center; margin:10px 0 0;">${L('Tap any highlighted word to see its meaning.','Anlamını görmek için vurgulanan bir kelimeye dokun.','برای دیدن معنی، روی کلمه هایلایت‌شده ضربه بزن.')}</p>` : ''}
       ${s.grammarFocus ? `
       <div class="row" style="gap:7px; align-items:center; margin:20px 0 8px;">
         <span class="item-ic" style="background:var(--cat-gram-soft); color:var(--cat-gram); flex:0 0 auto; width:26px; height:26px;">${ICONS.dumbbell}</span>
@@ -7242,15 +7363,25 @@ const HANDLERS = {
   // straight from the self-reported LEVEL_OPTIONS choice and moves on to the
   // learner-type step, exactly like every other diag-* step.
   'diag-level'(el){ state.diag.level = el.dataset.value; state.diag.step = 2; save(); render(); pushHistoryEntry(); },
+  'diag-topics-toggle'(el){
+    if(el.disabled) return;
+    const v = el.dataset.value;
+    const topics = state.diag.topics || (state.diag.topics = []);
+    const i = topics.indexOf(v);
+    if(i>-1) topics.splice(i,1);
+    else if(topics.length < 3) topics.push(v);
+    save(); render();
+  },
+  'diag-topics-continue'(){ state.diag.step = 3; save(); render(); pushHistoryEntry(); },
   'diag-learner'(el){
     state.diag.learnerType = el.dataset.value;
     // priorityArea is never pre-filled now that onboarding's level step is a
     // self-report again (not the placement test) — always fall through to the
     // self-report priority step, same as before the test ever existed.
-    state.diag.step = state.diag.priorityArea ? 4 : 3;
+    state.diag.step = state.diag.priorityArea ? 5 : 4;
     save(); render(); pushHistoryEntry();
   },
-  'diag-priority'(el){ state.diag.priorityArea = el.dataset.value; state.diag.step = 4; save(); render(); pushHistoryEntry(); },
+  'diag-priority'(el){ state.diag.priorityArea = el.dataset.value; state.diag.step = 5; save(); render(); pushHistoryEntry(); },
   'unlock-submit'(){
     const nameEl = document.getElementById('unlock-name');
     const name = (nameEl && nameEl.value || '').trim();
@@ -7262,7 +7393,7 @@ const HANDLERS = {
     const d = state.diag;
     state.profile = {
       name, motivationTag:d.goals[0], goals:d.goals.slice(), archetype:ARCHETYPES[d.goals[0]].name.en,
-      level:d.level, levelStage:1, learnerType:d.learnerType, priorityArea:d.priorityArea, completedDiagnostic:true, dashboardIntroShown:false,
+      level:d.level, levelStage:1, topics:(d.topics||[]).slice(), learnerType:d.learnerType, priorityArea:d.priorityArea, completedDiagnostic:true, dashboardIntroShown:false,
       recoveryCode: generateRecoveryCode()
     };
     // Generate-once-then-mutate: this is the moment the roadmap is born, so it's
@@ -7275,7 +7406,7 @@ const HANDLERS = {
     showSplash();
   },
   'retake-diagnostic'(){
-    state.diag = {step:0, goals:[], level:null, learnerType:null, priorityArea:null, test:null};
+    state.diag = {step:0, goals:[], level:null, topics:[], learnerType:null, priorityArea:null, test:null};
     state.profile.completedDiagnostic = false;
     state.roadmap = null;
     save();
