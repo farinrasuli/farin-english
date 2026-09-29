@@ -7609,6 +7609,78 @@ function applyCourseCompletion(student){
   });
   return courses;
 }
+/* Club course auto-fill (added 2026-09-29, Farin's request): admin-side equivalent of
+   buildRoadmap()'s goal-aware content selection, producing real *sessions* (Club's own
+   grammar/vocab/speaking shape - not the general roadmap's node types, which Club doesn't
+   use) so a freshly-created empty course (from applyCourseCompletion or "+ Add Course")
+   doesn't have to be typed from scratch. Purely a form-state helper: returns plain roadmap
+   items for the caller to append and Farin to review/edit/reorder before the real Save
+   button writes anything to Firestore - same as the existing "+ Add session" button. */
+function makeRoadmapItemId(){ return 'rm'+Date.now()+'-'+Math.random().toString(36).slice(2); }
+function generateClubCourseSessions(student, level){
+  const baseLevel = level.replace('.2','');
+  const stage = level.endsWith('.2') ? 2 : 1;
+  const goals = studentGoalKeys(student).length ? studentGoalKeys(student) : ['everyday'];
+  const matchesGoal = arr => {
+    const buckets = goals.map(()=>[]);
+    arr.forEach(x=>{
+      const gi = x.goals ? goals.findIndex(gk=>x.goals.includes(gk)) : -1;
+      if(gi>-1) buckets[gi].push(x);
+    });
+    const out = [];
+    for(let i=0; buckets.some(b=>i<b.length); i++) buckets.forEach(b=>{ if(i<b.length) out.push(b[i]); });
+    return out;
+  };
+  const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===baseLevel);
+  const gPoolGoal = gPoolAll.filter(g=>g.goalVariant && goals.some(gk=>g.goalVariant[gk]));
+  const gPoolOrdered = gPoolGoal.length ? gPoolGoal : gPoolAll;
+  const gHalf = Math.ceil(gPoolOrdered.length/2);
+  const gStageSlice = stage===1 ? gPoolOrdered.slice(0, gHalf) : gPoolOrdered.slice(gHalf);
+  const gPool = gStageSlice.length ? gStageSlice : gPoolOrdered;
+  const vPoolAll = VOCAB_SETS.filter(s=>s.level===baseLevel && s.category==='vocab');
+  const vPoolGoal = matchesGoal(vPoolAll);
+  const vPool = vPoolGoal.length ? vPoolGoal : vPoolAll;
+  const items = [];
+  const usedSpeakingIds = [];
+  let gi = 0, vi = 0, turn = 0;
+  const blankItem = (title, type) => ({id: makeRoadmapItemId(), date:'', title, type, focus:'', homework:'', tips:'', done:false});
+  const pushGrammar = () => {
+    if(!gPool.length) return false;
+    const g = gPool[gi % gPool.length]; gi++;
+    // Always English, regardless of the shared LANG toggle - that's a student-facing
+    // preference, irrelevant to Farin's own admin-authoring workflow (every real Club
+    // session title in LESSON-ENGINE.md's log is English).
+    items.push(blankItem('Grammar: '+g.title, 'grammar'));
+    return true;
+  };
+  const pushVocab = () => {
+    if(!vPool.length) return false;
+    const v = vPool[vi % vPool.length]; vi++;
+    items.push(blankItem('Vocabulary: '+v.title.en, 'vocab'));
+    return true;
+  };
+  const pushSpeaking = () => {
+    const primary = goals[turn % goals.length]; turn++;
+    const levelKey = baseLevel==='A1' ? 'A2' : baseLevel;
+    const pool = (SPEAKING_TOPICS[primary] && SPEAKING_TOPICS[primary][levelKey]) || (SPEAKING_TOPICS.everyday && SPEAKING_TOPICS.everyday[levelKey]) || (SPEAKING_TOPICS.everyday && SPEAKING_TOPICS.everyday.A2) || [];
+    if(!pool.length) return false;
+    const candidates = pool.filter(t=>!usedSpeakingIds.includes(t.id));
+    const topic = (candidates.length ? candidates : pool)[0];
+    usedSpeakingIds.push(topic.id);
+    items.push(blankItem('Live speaking session: '+topic.topic.en, 'speaking'));
+    return true;
+  };
+  // Default 10-session mix: grammar-led (how Club courses have actually been authored so
+  // far, per LESSON-ENGINE.md's session log) with 2 vocab and 2 live speaking sessions
+  // spread through it, not blocked at the end. A starting point Farin edits/reorders/
+  // retitles freely before Save - not meant to be the final word on any course.
+  const plan = ['grammar','grammar','vocab','grammar','speaking','grammar','vocab','grammar','speaking','grammar'];
+  const pushers = {grammar:pushGrammar, vocab:pushVocab, speaking:pushSpeaking};
+  plan.forEach(kind=>{
+    if(!pushers[kind]()) { if(!pushGrammar()) pushVocab(); }
+  });
+  return items;
+}
 function harvestHomeworkFromDOM(){
   return Array.from(document.querySelectorAll('#homework-items-list .homework-item-row')).map(row=>({
     id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
@@ -7996,6 +8068,9 @@ function renderAdminStudentsTab(){
         <span style="font-size:12.5px; font-weight:700;">Course ${activeCourse.number} — ${esc(activeCourse.level)} <span style="font-weight:400; color:var(--ink-faint);">(${courseStatusLabel(activeCourse.status)})</span></span>
         <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${courseDone}/${(activeCourse.sessionIds||[]).length}</span>
       </div>` : ''}
+      ${activeCourse && !(activeCourse.sessionIds||[]).length ? `
+      <button type="button" class="btn btn-primary btn-sm" style="width:100%; margin-bottom:12px;" data-admin-action="generate-course-sessions">✨ Generate 10 sessions for this course</button>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-8px 0 12px;">Picks grammar/vocab/speaking topics for ${esc(activeCourse.level)} from the student's goals — review, edit, reorder or delete any of them below before saving.</p>` : ''}
       ${activeCourse && activeCourse.status==='completed' ? renderCourseReportAdmin(activeCourse) : ''}
       <div id="roadmap-items-list" style="margin-bottom:8px;">
         ${visibleRoadmap.map((r,idx)=>`
@@ -8322,6 +8397,18 @@ function bindAdminActions(root){
         courses.push(course);
         adminActiveCourseId = course.id;
         adminAddingCourse = false;
+        renderAdminPage();
+      } else if(action === 'generate-course-sessions'){
+        const s = adminEditingStudent;
+        const courses = Array.isArray(s.courses) ? s.courses : [];
+        const course = courses.find(c=>c.id===adminActiveCourseId);
+        if(!course) return;
+        s.roadmap = harvestRoadmapFromDOM();
+        s.homework = harvestHomeworkFromDOM();
+        const newItems = generateClubCourseSessions(s, course.level);
+        s.roadmap = s.roadmap.concat(newItems);
+        if(!Array.isArray(course.sessionIds)) course.sessionIds = [];
+        newItems.forEach(it=>course.sessionIds.push(it.id));
         renderAdminPage();
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
