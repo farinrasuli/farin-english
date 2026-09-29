@@ -3755,17 +3755,12 @@ function buildRoadmap(profile){
   // of every other one; talkers get more live sessions; immersives get slang earlier and lean on
   // the session's cultural note. See per-branch comments below for where each hooks in.
   const vocabEvery = profile.learnerType==='driller' ? 1 : 2;
-  const sessionLink = (topicText) => whatsappLink(L(
-    "Hi! I'm "+profile.name+". I'd like to book a speaking session"+(topicText?' on "'+topicText+'"':'')+".",
-    'Merhaba! Ben '+profile.name+'. '+(topicText?'"'+topicText+'" konulu ':'')+'bir konuşma seansı ayırtmak istiyorum.',
-    'سلام! من '+profile.name+' هستم. می‌خواهم یک جلسه مکالمه'+(topicText?' درباره «'+topicText+'»':'')+' رزرو کنم.'
-  )+leadInfoSuffixBasic(profile));
-  const pushSession = () => {
-    const session = pickSpeakingTopic(profile, sessionSeed++);
-    const topicText = L(session.topic.en, session.topic.tr, session.topic.fa);
-    items.push({type:'session', refId:session.id, goal:session.goal, session, waLink:sessionLink(topicText),
-      title:L('Live speaking session','Canlı konuşma seansı','جلسه زنده مکالمه')+': '+topicText});
-  };
+  // Live teacher-booked sessions (WhatsApp) are a Club (private/in-class student)
+  // concept only, managed by the teacher on the admin side - see entities.md and
+  // the pinned Roadmap 2.0 scope card. General self-serve users' roadmap is
+  // practice/games/learning only, so this generator never produces 'session' items
+  // (removed 2026-09-29, was pushSession()/sessionLink() - see git history for the
+  // previous behavior if a live-session concept for general users is reconsidered).
   // Roadmap 2.0 Phase 2: story/writing/speaking-practice as roadmap node types.
   // Story: STORY_LIBRARY isn't goal-tagged yet (see backlog card nFVCPAce), so
   // selection is level-only for now — prefers a story the student hasn't read,
@@ -3836,10 +3831,7 @@ function buildRoadmap(profile){
       pushStory();
     }
     if(i === Math.max(Math.floor(gSlice.length/2)-1, 0)){
-      // A self-practice speaking round right before the live session — warms up
-      // exactly the skill the session is about to test, no teacher waiting on it.
       pushPractice('speaking');
-      pushSession();
     }
   });
   if(slPool.length){
@@ -3855,11 +3847,11 @@ function buildRoadmap(profile){
   // One game per stage, alternating type by stage — across a full level (stage 1
   // + stage 2) a student meets both Word Rush and Listen & Type at least once.
   pushGame(stage===1 ? 'match' : 'dictation');
-  // Talkers (and anyone who said listening/speaking is their weak spot) get an extra live rep.
+  // Talkers (and anyone who said listening/speaking is their weak spot) get an extra
+  // self-practice speaking rep, now that the live-session version of this is gone.
   if((profile.learnerType==='talker' || profile.priorityArea==='listening') && stage===1){
-    pushSession();
+    pushPractice('speaking');
   }
-  pushSession();
   // Some content (vocab/slang especially, via the vi/sli modulo wraparound above,
   // and drillers deliberately repeat vocab more) can legitimately appear twice in
   // one roadmap — repetition is the point for a driller. That's fine for display,
