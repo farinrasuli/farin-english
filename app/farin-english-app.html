@@ -374,6 +374,17 @@
   .roadmap-here-badge{animation:roadmap-here-bounce 1.6s ease-in-out infinite;}
   @keyframes roadmap-here-bounce{0%,100%{transform:translateY(0);} 50%{transform:translateY(-3px);}}
 
+  /* ---- roadmap path: color, motion (2026-09-29, Farin: "use colors... give it some
+     motion, better UX") ---- */
+  .roadmap-path-draw{animation:roadmap-path-fade .7s ease-out backwards;}
+  @keyframes roadmap-path-fade{from{opacity:0;} to{opacity:1;}}
+  .roadmap-pin-enter{animation:roadmap-pin-enter .45s cubic-bezier(.34,1.56,.64,1) backwards;}
+  @keyframes roadmap-pin-enter{from{opacity:0; transform:translate(-50%,-50%) scale(.4);} to{opacity:1; transform:translate(-50%,-50%) scale(1);}}
+  .roadmap-card-enter{animation:roadmap-card-enter .45s ease-out backwards;}
+  @keyframes roadmap-card-enter{from{opacity:0; transform:translateY(-50%) translateX(var(--card-enter-x));} to{opacity:1; transform:translateY(-50%) translateX(0);}}
+  .roadmap-char-portrait{animation:roadmap-char-bob 3s ease-in-out infinite;}
+  @keyframes roadmap-char-bob{0%,100%{transform:translateY(0) rotate(-2deg);} 50%{transform:translateY(-5px) rotate(2deg);}}
+
   /* ---- bottom nav ---- */
   .bottomnav{position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:var(--bg-elevated); border-top:1px solid var(--border); display:flex; padding:8px 8px calc(8px + env(safe-area-inset-bottom,0)); gap:4px; z-index:20;}
   .nav-btn{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; background:none; border:none; color:var(--ink-faint); padding:8px 4px; border-radius:14px; font-size:10.5px; font-weight:700;}
@@ -4402,25 +4413,6 @@ function statRow(pr){
     </button>
   </div>`;
 }
-/* Dashboard-only replacement for the old sessions+streak+club stat row (2026-09-29,
-   Farin: streak already shows in the header, sessions counter was redundant, and
-   "join the Student Club" should just be a direct WhatsApp message instead of a nav
-   destination). The full statRow() above is untouched and still used on the separate
-   Profile screen - only the dashboard changes. Reuses the same WhatsApp styling/
-   fallback as the card this replaces (deleted from the bottom of the dashboard). */
-function homeWhatsappCard(p, showIntro, introSparkles){
-  return `<div class="whatsapp-card${showIntro ? ' intro-glow' : ''}" style="margin-top:16px;">
-    ${introSparkles}
-    <div class="row between">
-      <div>
-        <h3 class="display" style="font-size:14.5px;">${L('Ready for a real teacher?','Gerçek bir öğretmene hazır mısın?','آماده یک معلم واقعی هستی؟')}</h3>
-        <p style="font-size:12.5px; color:var(--ink-soft); margin-top:3px;">${L('Join the Student Club — just a message away.','Öğrenci Kulübüne katıl — sadece bir mesaj uzaklıkta.','به باشگاه دانش‌آموزان بپیوند — فقط یک پیام باهات فاصله داره.')}</p>
-      </div>
-      <a class="btn btn-whatsapp btn-sm" target="_top" rel="noopener" href="${whatsappLink(L("Hi! I'm "+p.name+", using the Farin English app. I'd like to join the Student Club.","Merhaba! Ben "+p.name+", Farin English uygulamasını kullanıyorum. Öğrenci Kulübüne katılmak istiyorum.","سلام! من "+p.name+" هستم و از اپ Farin English استفاده می‌کنم. می‌خواهم به باشگاه دانش‌آموزان بپیوندم.")+leadInfoSuffix(p))}">${ICONS.whatsapp}</a>
-    </div>
-    ${whatsappFallback()}
-  </div>`;
-}
 const ARCHETYPE_COLOR = {travel:'var(--cat-story)', career:'var(--clay-orange)', exam:'var(--cat-diag)', everyday:'var(--cat-lis)', immigration:'var(--cat-voc)'};
 function profileHeaderCard(p){
   const arch = ARCHETYPES[p.motivationTag];
@@ -4519,8 +4511,15 @@ function renderProfile(){
 /* ============================= GREETING BANNER ============================= */
 const PALETTE_COLORS = ['#7c5cfc','#ff9500','#00bfa6','#ff3d8f','#4c6fff','#ffc22e'];
 /* Winding "our roadmap" path: a claymation-style S-curve with alternating left/right pin+card stops. */
-function windingRoadmap(count, itemHeight, currentIndex, pinFn, cardFn, startLabel, startMediaHtml, endLabel, endMediaHtml){
+// themeColor (2026-09-29, Farin: "use colors... bring out the character based on
+// theirs") colors the connecting path itself instead of a flat neutral gray - callers
+// pass the learner's own archetype color (see ARCHETYPE_COLOR) so the whole path reads
+// as personal, not generic. Pins/cards fade+pop in with a staggered delay per index for
+// motion; the path itself fades in on load. All motion is CSS-only (no measured SVG
+// path length needed), so it's robust across browsers without a post-render JS hook.
+function windingRoadmap(count, itemHeight, currentIndex, pinFn, cardFn, startLabel, startMediaHtml, endLabel, endMediaHtml, themeColor){
   if(!count) return '';
+  const color = themeColor || 'var(--accent)';
   const topPad = 74, botPad = 108;
   const H = topPad + Math.max(0,count-1)*itemHeight + botPad;
   const leftX = 24, rightX = 76;
@@ -4536,21 +4535,22 @@ function windingRoadmap(count, itemHeight, currentIndex, pinFn, cardFn, startLab
   const rows = pts.map((pt,i)=>{
     const isLeft = pt.x < 50;
     const isCurrent = i === currentIndex;
+    const delay = Math.min(i*55, 650);
     return `
     ${isCurrent ? `<div class="roadmap-here-badge pill" style="position:absolute; ${isLeft?`left:calc(${pt.x}% - 10px);`:`right:calc(${100-pt.x}% - 10px);`} top:${pt.y-40}px; background:var(--accent); color:var(--accent-ink); font-size:9px; white-space:nowrap; box-shadow:var(--shadow); z-index:2;">${L("You're here","Buradasın","اینجایی")}</div>` : ''}
-    <div style="position:absolute; left:${pt.x}%; top:${pt.y}px; transform:translate(-50%,-50%); z-index:1;">${pinFn(i, isCurrent)}</div>
-    <div style="position:absolute; top:${pt.y}px; ${isLeft?`left:calc(${pt.x}% + 26px); right:6%;`:`right:calc(${100-pt.x}% + 26px); left:6%;`} transform:translateY(-50%); text-align:${isLeft?'left':'right'};">${cardFn(i, isLeft)}</div>`;
+    <div class="roadmap-pin-enter" style="position:absolute; left:${pt.x}%; top:${pt.y}px; transform:translate(-50%,-50%); z-index:1; animation-delay:${delay}ms;">${pinFn(i, isCurrent)}</div>
+    <div class="roadmap-card-enter" style="position:absolute; top:${pt.y}px; ${isLeft?`left:calc(${pt.x}% + 26px); right:6%;`:`right:calc(${100-pt.x}% + 26px); left:6%;`} transform:translateY(-50%); text-align:${isLeft?'left':'right'}; --card-enter-x:${isLeft?'-8px':'8px'}; animation-delay:${delay+40}ms;">${cardFn(i, isLeft)}</div>`;
   }).join('');
   return `<div style="position:relative; width:100%; height:${H}px;">
     <svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
-      <path d="${d}" fill="none" stroke="var(--border)" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 10" vector-effect="non-scaling-stroke"/>
+      <path class="roadmap-path-draw" d="${d}" fill="none" stroke="${color}" stroke-opacity=".45" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 11" vector-effect="non-scaling-stroke"/>
     </svg>
-    <div style="position:absolute; left:${pts[0].x}%; top:0; transform:translateX(-50%); text-align:center; width:100px; margin-left:-50px;">
+    <div class="roadmap-path-draw" style="position:absolute; left:${pts[0].x}%; top:0; transform:translateX(-50%); text-align:center; width:100px; margin-left:-50px;">
       ${startMediaHtml}
       <div style="font-size:9.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; margin-top:2px;">${esc(startLabel)}</div>
     </div>
     ${rows}
-    <div style="position:absolute; left:${last.x}%; top:${H-100}px; transform:translateX(-50%); text-align:center; width:140px; margin-left:-70px;">
+    <div class="roadmap-path-draw" style="position:absolute; left:${last.x}%; top:${H-100}px; transform:translateX(-50%); text-align:center; width:140px; margin-left:-70px; animation-delay:${Math.min(count*55,650)+80}ms;">
       ${endMediaHtml}
       <div style="font-size:9.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.05em; margin-top:2px;">${esc(endLabel)}</div>
     </div>
@@ -4608,7 +4608,6 @@ function renderDashboard(){
   const dueCount = dueItems().length;
   const showIntro = !p.dashboardIntroShown;
   if(showIntro){ p.dashboardIntroShown = true; save(); }
-  const introSparkles = showIntro ? '<span class="sparkle sparkle-1"></span><span class="sparkle sparkle-2"></span><span class="sparkle sparkle-3"></span>' : '';
   const heroCat = (p.goals && p.goals.length && GOALS_META[p.goals[0]]) ? GOALS_META[p.goals[0]].cat : 'diag';
   const roadmapForRing = currentRoadmap();
   const roadmapDoneForRing = roadmapForRing.filter(it=>isRoadmapNodeDone(it)).length;
@@ -4640,8 +4639,6 @@ function renderDashboard(){
         </div>
       </button>
 
-      ${homeWhatsappCard(p, showIntro, introSparkles)}
-
       <h2 class="display" style="font-size:16px; margin:22px 0 12px;">${L("Let's keep training","Hadi antrenmana devam",'بیا تمرین را ادامه بدیم')}</h2>
       ${renderRoadmapCard(p)}
     </div>
@@ -4655,6 +4652,13 @@ function renderDashboard(){
 // old Stories/Studio tabs.
 function renderRoadmapCard(p){
   const roadmap = currentRoadmap();
+  // "Bring out the character based on theirs" (Farin, 2026-09-29): reuse the existing
+  // named-archetype system (ARCHETYPES/ARCHETYPE_COLOR/char-*.png portraits, already
+  // used on the Profile screen) to theme the whole path in the learner's own color and
+  // put their own character at the start of it, instead of a generic clay figure.
+  const charKey = (p.motivationTag && ARCHETYPES[p.motivationTag]) ? p.motivationTag : 'everyday';
+  const arch = ARCHETYPES[charKey];
+  const archColor = ARCHETYPE_COLOR[charKey] || 'var(--accent)';
   const TYPE_META = {
     grammar:{ic:ICONS.dumbbell, c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
     vocab:{ic:ICONS.cards, c:'voc', label:L('Vocabulary','Kelime','واژگان')},
@@ -4701,9 +4705,9 @@ function renderRoadmapCard(p){
       dataAttrs = 'data-id="'+roadmapNodeId(item)+'"';
       ariaLabel = L('Mark done','Tamamlandı say','علامت‌زدن به‌عنوان انجام‌شده');
     }
-    return `<button class="${isCurrent?'roadmap-pin-current':''}" ${action?('data-action="'+action+'"'):'disabled'} ${dataAttrs} aria-label="${ariaLabel}" style="position:relative; width:38px; height:38px; border-radius:50%; background:${checked?color:'var(--bg-elevated)'}; border:3px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 9px -2px rgba(0,0,0,.28); cursor:${action?'pointer':'default'}; padding:0;">
-      <span style="width:16px; height:16px; display:flex; align-items:center; justify-content:center; color:${checked?'#fff':color};">${checked?ICONS.check:m.ic}</span>
-      <span style="position:absolute; top:-5px; right:-5px; width:16px; height:16px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); font-size:8.5px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,.25);">${idx+1}</span>
+    return `<button class="${isCurrent?'roadmap-pin-current':''}" ${action?('data-action="'+action+'"'):'disabled'} ${dataAttrs} aria-label="${ariaLabel}" style="position:relative; width:44px; height:44px; border-radius:50%; background:${checked?`linear-gradient(150deg, ${color}, ${color})`:'var(--bg-elevated)'}; border:3px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:${checked?`0 5px 12px -2px ${color}88, inset 0 2px 3px rgba(255,255,255,.35)`:'0 4px 9px -2px rgba(0,0,0,.28)'}; cursor:${action?'pointer':'default'}; padding:0;">
+      <span style="width:19px; height:19px; display:flex; align-items:center; justify-content:center; color:${checked?'#fff':color};">${checked?ICONS.check:m.ic}</span>
+      <span style="position:absolute; top:-5px; right:-5px; width:17px; height:17px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,.25);">${idx+1}</span>
     </button>`;
   }
 
@@ -4737,30 +4741,33 @@ function renderRoadmapCard(p){
       studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="vocab-set-intro" data-id="'+item.refId+'" data-goal="'+(item.goal||'')+'" data-cat="'+cat+'" style="display:block; width:100%; text-align:start; padding:10px 12px;">';
       studyCloseTag = '</button>';
     }
-    return `<div style="display:inline-block; max-width:100%; background:var(--bg-sunken); border-radius:14px; border:1.5px solid ${isCurrent?'var(--accent)':(checked?color+'55':(isGame?color+'55':'var(--border-soft)'))}; box-shadow:0 2px 6px -2px rgba(0,0,0,.12); overflow:hidden; text-align:${isLeft?'left':'right'};">
+    // Card background is tinted by the node's own category color (soft, ~8% alpha) instead
+    // of a flat neutral, so the path reads colorfully at a glance, not just via the small
+    // pin icon; the current node gets a stronger tint to stand out further.
+    return `<div style="display:inline-block; max-width:100%; background:${isCurrent?color+'22':color+'10'}; border-radius:14px; border:1.5px solid ${isCurrent?'var(--accent)':(checked?color+'55':(isGame?color+'55':color+'30'))}; box-shadow:0 2px 6px -2px rgba(0,0,0,.12); overflow:hidden; text-align:${isLeft?'left':'right'};">
       ${studyOpenTag}
-        <div style="font-size:9.5px; font-weight:800; color:${(isSession||isGame)?color:'var(--ink-faint)'}; text-transform:uppercase; letter-spacing:.03em;">${isGame?'⚡ ':''}${esc(subtitle)}</div>
+        <div style="font-size:9.5px; font-weight:800; color:${(isSession||isGame)?color:color}; text-transform:uppercase; letter-spacing:.03em; opacity:${(isSession||isGame)?1:.85};">${isGame?'⚡ ':''}${esc(subtitle)}</div>
         <div style="font-weight:800; font-size:13px; margin-top:2px; color:var(--ink); ${checked?'text-decoration:line-through; opacity:.6;':''}">${esc(item.title)}</div>
       ${studyCloseTag}
     </div>`;
   }
 
-  const startMedia = `<img src="roadmap-start-clay.png" alt="" style="width:56px; height:56px; object-fit:contain; filter:drop-shadow(0 6px 8px rgba(0,0,0,.25));">`;
+  const startMedia = `<img src="char-${charKey}.png" alt="" class="roadmap-char-portrait" style="width:64px; height:64px; object-fit:contain; filter:drop-shadow(0 6px 10px ${archColor}55);">`;
   const endMedia = `<img src="roadmap-goal-clay.png" alt="" style="width:${allDone?96:80}px; height:${allDone?96:80}px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(0,0,0,.28));">`;
 
   return `
-      <div class="card-flat" style="margin-bottom:14px;">
+      <div class="card-flat" style="margin-bottom:14px; background:linear-gradient(135deg, ${archColor}18, var(--bg-elevated) 65%);">
         <div class="row between" style="align-items:center;">
           <div>
             <div style="font-weight:700; font-size:14px;">${esc(displayLevel(p))} ${L('roadmap','yol haritası','نقشه راه')}</div>
             <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">${L('Check everything off to reach','Hepsini işaretle ve şuraya ulaş:','همه را علامت بزن تا برسی به')} ${esc(nextDisplayLevel(p))}</div>
           </div>
-          <div class="num" style="font-weight:800; font-size:15px; color:var(--cat-lis);">${doneCount}/${roadmap.length}</div>
+          <div class="num" style="font-weight:800; font-size:15px; color:${archColor};">${doneCount}/${roadmap.length}</div>
         </div>
-        <div class="progress-track" style="margin-top:10px;"><div class="progress-fill" style="width:${(doneCount/roadmap.length)*100}%; background:var(--cat-lis);"></div></div>
+        <div class="progress-track" style="margin-top:10px;"><div class="progress-fill" style="width:${(doneCount/roadmap.length)*100}%; background:${archColor};"></div></div>
       </div>
       <div class="card-flat" style="position:relative; overflow:hidden; padding:16px 10px;">
-        ${windingRoadmap(roadmap.length, 116, currentIndex, pinFn, cardFn, L('Start','Başla','شروع'), startMedia, allDone ? L("You've made it!",'Başardın!','موفق شدی!') : nextDisplayLevel(p), endMedia)}
+        ${windingRoadmap(roadmap.length, 116, currentIndex, pinFn, cardFn, L(arch.name.en,arch.name.tr,arch.name.fa), startMedia, allDone ? L("You've made it!",'Başardın!','موفق شدی!') : nextDisplayLevel(p), endMedia, archColor)}
       </div>
       ${allDone ? `
       <button class="btn" style="margin-top:18px; width:100%; justify-content:center; background:var(--clay-orange); color:#fff; border:none;" data-action="advance-roadmap-level">${L('Go to the next level','Bir sonraki seviyeye geç','برو به سطح بعدی')}</button>` : `
