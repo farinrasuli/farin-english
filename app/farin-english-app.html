@@ -124,6 +124,22 @@
   .sparkle-3{top:1px; right:13px; width:5px; height:5px; animation-delay:1.2s;}
   @keyframes sparkle-twinkle{0%,100%{opacity:0; transform:scale(0) rotate(0deg);} 50%{opacity:1; transform:scale(1) rotate(25deg);}}
 
+  /* ---- splash / logo breathing moment (2026-09-30, Farin: "when the app
+     opens first we have a breath in motion of FE logo also having sparkly
+     motion around, and after the app logs in") — a brief, non-blocking
+     overlay: the real app underneath is already rendering normally, this
+     just fades out on top of it. Reuses the existing .sparkle/@sparkle-
+     twinkle stars (see above) rather than a new animation system; the FE
+     logo itself (icon-512.png) already has sparkle art baked in, these add
+     extra live motion around it. Sparkle color is set explicitly (brand
+     purple/orange) since the splash sits on the warm-cream --bg, where the
+     default white .sparkle color used on colored cards wouldn't show. */
+  .splash-overlay{position:fixed; inset:0; z-index:999; display:flex; align-items:center; justify-content:center; background:var(--diorama-bg), var(--bg); opacity:1; transition:opacity .5s ease; pointer-events:none;}
+  .splash-overlay.hide{opacity:0;}
+  .splash-logo-wrap{position:relative; width:140px; height:140px; display:flex; align-items:center; justify-content:center;}
+  .splash-logo-wrap img{width:118px; height:118px; object-fit:contain; animation:splash-breathe 2.4s ease-in-out infinite; filter:drop-shadow(0 10px 16px rgba(124,104,214,.28));}
+  @keyframes splash-breathe{0%,100%{transform:scale(1);} 50%{transform:scale(1.08);}}
+
   .eyebrow{font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-faint);}
   .display{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-weight:700; letter-spacing:-.02em;}
   .num{font-variant-numeric:tabular-nums; font-family:'Plus Jakarta Sans',-apple-system,sans-serif; font-weight:800;}
@@ -4691,6 +4707,28 @@ function miniSparkles(){
     <span class="sparkle" style="top:16px; right:9px; left:auto; width:4px; height:4px; animation-delay:.6s;"></span>
     <span class="sparkle" style="bottom:9px; left:14px; width:4px; height:4px; animation-delay:1.2s;"></span>`;
 }
+/* Splash/logo breathing moment (2026-09-30, Trello NpMrU2Mw) — see the
+   .splash-overlay CSS comment above .sparkle-twinkle for the full context.
+   Appends a brief overlay on top of whatever already rendered, fades it out
+   shortly after, then removes it — never delays or blocks the real render()/
+   go() calls that already ran. Called once on cold app open (see INIT below)
+   and again right as onboarding/restore hands off into the dashboard. */
+function showSplash(){
+  try{
+    const wrap = document.createElement('div');
+    wrap.className = 'splash-overlay';
+    wrap.innerHTML = `<div class="splash-logo-wrap">
+      <span class="sparkle" style="top:4px; left:6px; color:var(--clay-orange-deep); animation-delay:0s;"></span>
+      <span class="sparkle" style="bottom:10px; right:2px; left:auto; width:6px; height:6px; color:var(--clay-lavender-deep); animation-delay:.5s;"></span>
+      <span class="sparkle" style="top:22px; right:-6px; left:auto; width:5px; height:5px; color:var(--clay-orange-deep); animation-delay:1s;"></span>
+      <span class="sparkle" style="bottom:-4px; left:22px; width:5px; height:5px; color:var(--clay-lavender-deep); animation-delay:1.4s;"></span>
+      <img src="icon-512.png" alt="Farin English">
+    </div>`;
+    document.body.appendChild(wrap);
+    setTimeout(()=>{ wrap.classList.add('hide'); }, 1100);
+    setTimeout(()=>{ wrap.remove(); }, 1650);
+  }catch(e){}
+}
 function storyBannerMedia(genre){
   const gl = GENRE_LABEL[genre] || GENRE_LABEL.Fiction;
   return `<img class="clay-banner-illustration" style="width:208px; height:208px;" src="${gl.poster}" alt="" loading="lazy">`;
@@ -7144,6 +7182,7 @@ const HANDLERS = {
       migrateRoadmapChecked();
       save();
       go('dashboard');
+      showSplash();
     }).catch(()=>{
       state.viewParams = {code, error:true};
       render();
@@ -7233,6 +7272,7 @@ const HANDLERS = {
     regenerateRoadmap();
     save();
     go('dashboard');
+    showSplash();
   },
   'retake-diagnostic'(){
     state.diag = {step:0, goals:[], level:null, learnerType:null, priorityArea:null, test:null};
@@ -8868,6 +8908,10 @@ if(location.hash === '#admin'){
   } else {
     render();
   }
+  // Splash/logo breathing moment (Trello NpMrU2Mw) — fires once per cold app
+  // open, right after the real first screen has already rendered underneath
+  // it (see showSplash()'s comment above miniSparkles()).
+  showSplash();
   if(state.view === 'student-panel' && studentPanelData && studentPanelData.code && typeof firebase !== 'undefined'){
     firebase.firestore().collection('studentPanels').doc(studentPanelData.code).get().then(doc=>{
       if(doc.exists){
