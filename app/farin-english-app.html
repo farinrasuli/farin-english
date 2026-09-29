@@ -4685,14 +4685,26 @@ function renderRoadmapCard(p){
   const charKey = (p.motivationTag && ARCHETYPES[p.motivationTag]) ? p.motivationTag : 'everyday';
   const arch = ARCHETYPES[charKey];
   const archColor = ARCHETYPE_COLOR[charKey] || 'var(--accent)';
+  // Moodboard feedback (2026-09-29, Farin: "the floated book icon... use the
+  // icons we had before and are already in the folder on pc"): story/session/
+  // speaking now use the app's own real clay-style PNG badge icons (icon-story.png,
+  // icon-speaking.png — already sitting next to this file, previously unused
+  // since the tile-based dashboard they were made for was replaced) instead of
+  // the generic inline SVG glyphs, rendered inside the exact same seam-badge
+  // circle. grammar/vocab/slang/writing/game keep their inline ICONS glyph —
+  // no matching real asset exists for those in this folder (the site/'s
+  // icon-book/icon-trophy/icon-gradcap/icon-controller/icon-mappin/icon-speech
+  // are a visually different, ornate bronze-medal style made for the website,
+  // not this app's soft clay look, so they were deliberately left out — see
+  // Trello card Xm6mSRaC comment for the full note to Farin on this).
   const TYPE_META = {
     grammar:{ic:ICONS.dumbbell, c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
     vocab:{ic:ICONS.cards, c:'voc', label:L('Vocabulary','Kelime','واژگان')},
     slang:{ic:ICONS.cards, c:'diag', label:L('Slang','Argo','اصطلاحات')},
-    session:{ic:ICONS.chat, c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
-    story:{ic:ICONS.book, c:'story', label:L('Story','Hikaye','داستان')},
+    session:{ic:ICONS.chat, img:'icon-speaking.png', c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
+    story:{ic:ICONS.book, img:'icon-story.png', c:'story', label:L('Story','Hikaye','داستان')},
     writing:{ic:ICONS.pen, c:'gram', label:L('Writing practice','Yazma pratiği','تمرین نوشتن')},
-    speaking:{ic:ICONS.mic, c:'lis', label:L('Speaking practice','Konuşma pratiği','تمرین صحبت‌کردن')},
+    speaking:{ic:ICONS.mic, img:'icon-speaking.png', c:'lis', label:L('Speaking practice','Konuşma pratiği','تمرین صحبت‌کردن')},
     // Roadmap 2.0 Phase 3 (ShmcBt3T): bolt icon + gold "review" color are used
     // nowhere else on the roadmap, and the "GAME" label prefix reads clearly
     // regardless of color perception — the combination is deliberately the
@@ -4747,7 +4759,7 @@ function renderRoadmapCard(p){
     const glowStrong = `color-mix(in srgb, ${color} 60%, transparent)`;
     const doneGlow = `color-mix(in srgb, ${color} 55%, transparent)`;
     return `<button class="rm2-seam-ic ${isCurrent?'roadmap-pin-current':''}" ${action?('data-action="'+action+'"'):'disabled'} ${dataAttrs} aria-label="${ariaLabel}" style="width:60px; height:60px; border-radius:50%; background:${checked?`linear-gradient(150deg, ${color}, ${color})`:'var(--bg-elevated)'}; border:${isCurrent?'5px':'4px'} solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:${isCurrent?`0 0 0 4px ${glowRing}, 0 8px 18px -4px ${glowStrong}`:(checked?`0 6px 14px -3px ${doneGlow}, inset 0 2px 3px rgba(255,255,255,.35)`:'0 5px 12px -3px rgba(0,0,0,.25)')}; cursor:${action?'pointer':'default'}; padding:0;">
-      <span style="width:25px; height:25px; display:flex; align-items:center; justify-content:center; color:${checked?'#fff':color};">${checked?ICONS.check:m.ic}</span>
+      <span style="width:${m.img&&!checked?'34px':'25px'}; height:${m.img&&!checked?'34px':'25px'}; display:flex; align-items:center; justify-content:center; color:${checked?'#fff':color};">${checked?ICONS.check:(m.img?`<img src="${m.img}" alt="" style="width:100%; height:100%; object-fit:contain;">`:m.ic)}</span>
       <span style="position:absolute; top:-6px; right:-6px; width:19px; height:19px; border-radius:50%; background:var(--ink); color:var(--bg-elevated); font-size:9.5px; font-weight:800; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 4px rgba(0,0,0,.25);">${idx+1}</span>
     </button>`;
   }
@@ -4975,6 +4987,7 @@ function renderStudentClub(){
     ${sectionHeadNoBack(L('Student Club','Öğrenci Kulübü','باشگاه دانش‌آموزان'), L('Your VIP corner — check your progress or join the club.','Senin VIP köşen — ilerlemeni kontrol et ya da kulübe katıl.','گوشه ویژه تو — پیشرفتت را ببین یا به باشگاه بپیوند.'))}
     <div class="screen" style="padding-top:0;">
       <button class="tile-featured" data-action="nav" data-view="student-club-login" style="background:var(--cat-diag); margin-bottom:12px;">
+        ${claySparkles()}
         <div class="row between" style="align-items:flex-start;">
           <div>
             <div class="hero-eyebrow">${L("I'm a student","Ben bir öğrenciyim",'من دانش‌آموز هستم')}</div>
@@ -4985,6 +4998,7 @@ function renderStudentClub(){
         </div>
       </button>
       <button class="tile-featured" data-action="nav" data-view="student-club-join" style="background:var(--clay-orange);">
+        ${claySparkles()}
         <div class="row between" style="align-items:flex-start;">
           <div>
             <div class="hero-eyebrow">${L('New here','Yeni misin','تازه اومدی')}</div>
@@ -5095,7 +5109,7 @@ function renderCourseJourney(courses, roadmap){
   <div style="margin-top:12px;">
     <div class="eyebrow" style="margin-bottom:10px;">${L('My FEschool Journey','FEschool Yolculuğum','سفر من در FEschool')}</div>
     <div class="stack" style="gap:10px;">
-      ${sorted.map(c=>{
+      ${sorted.map((c,idx)=>{
         const ids = c.sessionIds||[];
         const done = ids.filter(id=>{ const r = roadmap.find(x=>x.id===id); return r && r.done; }).length;
         const pct = ids.length ? Math.round(done/ids.length*100) : 0;
@@ -5107,7 +5121,19 @@ function renderCourseJourney(courses, roadmap){
           : `background:${isCompleted?'var(--bg-sunken)':'var(--bg-elevated)'}; border:1.5px solid var(--border-soft); border-radius:18px; padding:14px 16px;`;
         const titleColor = isActive ? '#fff' : 'var(--ink)';
         const subColor = isActive ? 'rgba(255,255,255,.85)' : 'var(--ink-faint)';
+        // Moodboard feedback (2026-09-29, Farin: reuse the "floated book icon"
+        // pattern elsewhere): the exact same seam-badge technique from the
+        // roadmap — a round icon straddling the boundary between the two cards
+        // it sits between (.rm2-seam/.rm2-seam-ic, reused as-is, no new CSS) —
+        // marks the hand-off into the active course with the real icon-goals.png
+        // clay badge instead of a plain gap.
+        // NB: not reusing the .rm2-seam-ic CSS class's -30px offset here — that
+        // value was tuned for the roadmap's zero-gap card stack. This list uses
+        // a 10px .stack gap instead, so the badge gets its own smaller, tuned
+        // offset to straddle this narrower seam the same way.
+        const seam = (isActive && idx>0) ? `<div class="rm2-seam"><span style="position:relative; top:-16px; width:44px; height:44px; border-radius:50%; background:var(--bg-elevated); border:4px solid var(--cat-diag); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 14px -3px color-mix(in srgb, var(--cat-diag) 55%, transparent);"><img src="icon-goals.png" alt="" style="width:26px; height:26px; object-fit:contain;"></span></div>` : '';
         return `
+        ${seam}
         <div>
         <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" style="text-align:left; width:100%; cursor:pointer; display:block; font:inherit; color:inherit; position:relative; overflow:hidden; ${cardStyle}">
           ${isActive ? `<span class="sparkle" style="top:10px; left:16px;"></span><span class="sparkle" style="top:22px; right:20px; left:auto; width:5px; height:5px; animation-delay:.6s;"></span>` : ''}
