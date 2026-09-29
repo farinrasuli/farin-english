@@ -103,7 +103,7 @@
     font-family:'Plus Jakarta Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     line-height:1.45; -webkit-font-smoothing:antialiased;
   }
-  #app{max-width:480px; margin:0 auto; min-height:100vh; background:var(--diorama-bg), var(--bg); background-attachment:fixed; position:relative; padding-bottom:84px;}
+  #app{max-width:480px; margin:0 auto; min-height:100vh; background:var(--diorama-bg), var(--bg); background-attachment:fixed; position:relative; padding-bottom:98px;}
   @media (min-width:481px){
     body{background:var(--diorama-bg), var(--bg-sunken);}
     #app{min-height:100dvh; box-shadow:var(--shadow); border-left:1px solid var(--border); border-right:1px solid var(--border);}
@@ -245,7 +245,7 @@
   .stat-box{display:flex; align-items:center; gap:8px; background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:22px; padding:9px 8px; box-shadow:var(--clay-shadow-soft);}
   .stat-box-ic{flex:0 0 auto; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
   .stat-box-ic svg{width:15px; height:15px;}
-  .stat-num{font-size:15px; font-weight:800; line-height:1.15;}
+  .stat-num{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:19px; font-weight:700; line-height:1.1; letter-spacing:-.01em;}
   .stat-lab{font-size:9.5px; color:var(--ink-faint); font-weight:700; text-transform:uppercase; letter-spacing:.02em; margin-top:1px;}
   .stat-box-club{position:relative; overflow:hidden; border:none; cursor:pointer; text-align:start; background:linear-gradient(135deg,#8a5cf7,#ff4fa3); box-shadow:0 6px 16px -8px rgba(138,92,247,.6);}
   .stat-box-club .stat-box-ic{background:rgba(255,255,255,.28); color:#fff;}
@@ -411,9 +411,15 @@
   @keyframes rm2-card-enter{from{opacity:0; transform:translateY(12px);} to{opacity:1; transform:translateY(0);}}
 
   /* ---- bottom nav ---- */
-  .bottomnav{position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:var(--bg-elevated); border-top:1px solid var(--border); display:flex; padding:8px 8px calc(8px + env(safe-area-inset-bottom,0)); gap:4px; z-index:20;}
-  .nav-btn{flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; background:none; border:none; color:var(--ink-faint); padding:8px 4px; border-radius:14px; font-size:10.5px; font-weight:700;}
-  .nav-btn.active{color:var(--accent);}
+  /* App-wide visual reskin (2026-09-29, Farin's moodboard: "floating pill-style
+     bottom nav with the active tab getting a filled/circular contrast treatment").
+     Was a flush, full-width flat bar with a hairline top border; now a rounded
+     capsule floating clear of the screen edge (margin + radius:999px + clay
+     shadow, same recipe as .icon-btn/.card-flat elevation), and the active item
+     gets a solid accent-filled pill behind it instead of just a color change. */
+  .bottomnav{position:fixed; bottom:calc(14px + env(safe-area-inset-bottom,0)); left:50%; transform:translateX(-50%); width:calc(100% - 32px); max-width:448px; background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:999px; display:flex; padding:7px; gap:4px; box-shadow:var(--clay-shadow); z-index:20;}
+  .nav-btn{flex:1; display:flex; flex-direction:column; align-items:center; gap:2px; background:none; border:none; color:var(--ink-faint); padding:8px 4px; border-radius:999px; font-size:10.5px; font-weight:700; transition:background .15s ease, color .15s ease, transform .15s ease;}
+  .nav-btn.active{color:#fff; background:var(--accent); box-shadow:inset 0 1.5px 2px rgba(255,255,255,.4), inset 0 -4px 7px -3px rgba(0,0,0,.2), 0 6px 14px -7px rgba(232,92,59,.6); transform:translateY(-1px);}
 
   /* ---- persistent home button (non-bottom-nav screens) ---- */
   .home-fab-wrap{position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; height:0; pointer-events:none; z-index:25;}
@@ -4215,15 +4221,21 @@ function renderDiagMotivation(){
     </div>
   </div>`;
 }
-/* ---- Placement test (Roadmap 2.0 Phase 1): replaces the old self-reported
-   LEVEL_OPTIONS radio with a short adaptive test that MEASURES level and, when
-   the result is clear, the weak skill (priorityArea) too — see the design
-   posted on fltvNY7R. Question bank reuses existing content (GRAMMAR_ITEMS'
-   MCQ-ready blanks, VOCAB_SETS cards) rather than new authored content. A
-   listening/reading-comprehension question type was deliberately left out of
-   this pass (would preempt STORY_LIBRARY goal/level wiring, card nFVCPAce) —
-   priorityArea still falls back to the old self-report step (renderDiagPriority)
-   whenever the test can't tell grammar and vocab apart. */
+/* ---- Placement test engine (Roadmap 2.0 Phase 1): originally replaced the old
+   self-reported LEVEL_OPTIONS radio in the ONBOARDING flow with a short adaptive
+   test that MEASURES level and, when the result is clear, the weak skill
+   (priorityArea) too. Question bank reuses existing content (GRAMMAR_ITEMS'
+   MCQ-ready blanks, VOCAB_SETS cards) rather than new authored content.
+   2026-09-29 (Farin): "I don't want the grammar test in the questions test, the
+   previous question of what is your level was better" — onboarding's own level
+   step (renderDiagLevel, below) has been reverted to the old self-report
+   LEVEL_OPTIONS radio (see diagQHead(2,...) and the 'diag-level' handler). This
+   engine (initPlacementTest/loadTierQueue/placementDecideNext/
+   finishPlacementTest) is KEPT AS-IS because the admin panel's own "admin-run
+   placement test" feature (renderAdminPlacementTest, adminPlacementTest,
+   admin-test-answer/admin-test-next — a separate, later feature a teacher runs
+   on a student's behalf) still depends on it. Only the onboarding entry point
+   changed; this engine is otherwise untouched. */
 function initPlacementTest(){
   return {
     tierIdx: 1, // start at A2 (LEVELS[1]) — a lighter first impression than A1
@@ -4286,30 +4298,23 @@ function finishPlacementTest(test){
   state.diag.step = 2;
   save(); render(); pushHistoryEntry();
 }
+// Reverted to the old self-report level question (2026-09-29, Farin: "I don't
+// want the grammar test in the questions test, the previous question of what is
+// your level was better") — this is the exact pre-Roadmap-2.0 implementation
+// (LEVEL_OPTIONS + 'diag-level' handler, restored from git history at 179a67f^),
+// swapped back in for the short-lived adaptive placement test. Sets
+// state.diag.level directly, same field unlock-submit/buildRoadmap already read
+// before and still read now — no downstream change needed.
 function renderDiagLevel(){
-  let test = state.diag.test;
-  if(!test){
-    test = state.diag.test = initPlacementTest();
-    loadTierQueue(test, (state.diag.goals && state.diag.goals[0]) || null);
-    save();
-  }
-  const q = test.queue[test.qIndex];
   return `<div class="fade-in">
-    ${diagQHead(2, L('Quick level check','Hızlı seviye kontrolü','بررسی سریع سطح'))}
-      <div class="row" style="gap:5px; margin:14px 0 10px;">
-        ${test.queue.map((_,i)=>`<i style="flex:1; height:4px; border-radius:2px; background:${i<test.qIndex?'var(--cat-diag)':(i===test.qIndex?'var(--accent-strong)':'var(--border-soft)')};"></i>`).join('')}
+    ${diagQHead(2, L('How would you describe your English level?','İngilizce seviyeni nasıl tarif edersin?','سطح انگلیسی‌ات را چطور توصیف می‌کنی؟'))}
+      <div class="opt-list" style="margin-top:18px;">
+        ${LEVEL_OPTIONS.map(o=>`
+          <button class="opt" data-action="diag-level" data-value="${o.value}">
+            <span class="opt-ic" style="font-weight:800; color:var(--cat-diag);">${o.value}</span>
+            <span class="opt-main">${esc(L(o.label.en,o.label.tr,o.label.fa))}</span>
+          </button>`).join('')}
       </div>
-      <span class="pill" style="background:var(--cat-diag-soft); color:var(--cat-diag); margin-bottom:10px; display:inline-block;">${LEVELS[test.tierIdx]}</span>
-      <div class="quiz-prompt" dir="ltr">${esc(q.prompt)}</div>
-      ${q.choices.map((opt,i)=>{
-        let cls = 'quiz-opt';
-        if(test.answered){
-          if(opt===q.correct) cls += ' correct';
-          else if(i===test.selected) cls += ' wrong';
-        }
-        return `<button class="${cls}" dir="ltr" ${test.answered?'disabled':''} data-action="diag-test-answer" data-i="${i}">${esc(opt)}</button>`;
-      }).join('')}
-      ${test.answered ? `<button class="btn btn-primary" style="margin-top:16px;" data-action="diag-test-next">${L('Continue','Devam et','ادامه')}</button>` : ''}
     </div>
   </div>`;
 }
@@ -4497,30 +4502,41 @@ function renderReviewHome(){
 }
 function renderProfile(){
   const p = state.profile, pr = state.progress;
+  const earnedBadgeCount = BADGES.filter(b=>pr.badgesEarnedAt[b.id]).length;
   return `<div class="fade-in">
     ${sectionHead(L('Your Profile','Profilin','پروفایل تو'), L('Your plan, your progress, your bragging rights.','Planın, ilerlemen ve övünme hakların.','برنامه‌ات، پیشرفتت و افتخاراتت.'), 'dashboard')}
     <div class="screen" style="padding-top:0;">
       ${profileHeaderCard(p)}
 
-      <h3 class="display" style="font-size:14px; margin:20px 0 10px;">${L('Your trophy case','Ödül dolabın','ویترین افتخارات تو')}</h3>
+      <div style="margin-top:20px;">${statRow(pr)}</div>
+
+      <div class="row between" style="align-items:baseline; margin:22px 0 10px;">
+        <h3 class="display" style="font-size:14px; margin:0;">${L('Your trophy case','Ödül dolabın','ویترین افتخارات تو')}</h3>
+        <span class="num" style="font-family:'Fredoka',sans-serif; font-size:15px; color:var(--ink-soft);">${earnedBadgeCount}<span style="color:var(--ink-faint); font-weight:600;">/${BADGES.length}</span></span>
+      </div>
       <div class="badge-grid">
         ${BADGES.map(b=>{
           const earned = !!pr.badgesEarnedAt[b.id];
           const bc = badgeColor(b.id);
           const icStyle = earned ? `background:${bc.bg}; color:#fff;` : `background:var(--bg-sunken); color:var(--ink-faint);`;
-          return `<div class="badge-cell ${earned?'':'locked'}">
+          // Trophy case tint (2026-09-29 moodboard pass): earned cells now carry a
+          // soft tint of their own badge color (same color-mix recipe as the
+          // roadmap's upcoming-node fill) instead of a flat white card, so the
+          // grid reads as colorful progress rather than a uniform locked/unlocked
+          // checklist — locked cells stay muted gray, untouched.
+          const cellStyle = earned ? `background:color-mix(in srgb, ${bc.bg} 14%, var(--bg-elevated)); border-color:color-mix(in srgb, ${bc.bg} 30%, transparent);` : '';
+          return `<div class="badge-cell ${earned?'':'locked'}" style="${cellStyle}">
             <span class="badge-ic" style="${icStyle}">${ICONS[b.icon]}</span>
             <span class="badge-name">${esc(L(b.title.en,b.title.tr))}</span>
           </div>`;
         }).join('')}
       </div>
 
-      <div style="margin-top:20px;">${statRow(pr)}</div>
-
-      <button class="card-flat" data-action="nav" data-view="studio-lab" style="margin-top:16px; width:100%; display:flex; justify-content:space-between; align-items:center; gap:10px; text-align:start; cursor:pointer;">
-        <div>
-          <div style="font-weight:700; font-size:14px;">${L('Studio Lab','Stüdyo Lab','آزمایشگاه استودیو')}</div>
-          <div style="font-size:12px; color:var(--ink-soft);">${(pr.writingRoundsDone||0)+(pr.speakingRoundsDone||0)+' '+L('rounds completed','tur tamamlandı','دور تکمیل‌شده')}</div>
+      <button class="item-row" data-action="nav" data-view="studio-lab" style="margin-top:20px; cursor:pointer;">
+        <span class="item-ic" style="background:var(--clay-sky); color:#fff;">${ICONS.mic}</span>
+        <div class="item-body">
+          <div class="item-title">${L('Studio Lab','Stüdyo Lab','آزمایشگاه استودیو')}</div>
+          <div class="item-sub">${(pr.writingRoundsDone||0)+(pr.speakingRoundsDone||0)+' '+L('rounds completed','tur tamamlandı','دور تکمیل‌شده')}</div>
         </div>
         <span class="chevron">${ICONS.chev}</span>
       </button>
@@ -5065,28 +5081,47 @@ function courseStatusLabelL(status){
 }
 // "My FEschool Journey" — one card per course, clickable, reusing the existing
 // .progress-track/.progress-fill bar already used for the level-progress card above it.
+// Moodboard pass (2026-09-29, Farin: reference had a giant colored "current course"
+// hero card + smaller list cards, not uniform rows). The active course becomes an
+// oversized solid-color hero (same current-node recipe as the roadmap: full-strength
+// brand color, radial highlight, sparkles, huge % number in Fredoka); completed/
+// upcoming courses collapse into small compact rows so the hierarchy reads at a
+// glance instead of a flat list of identical boxes. Kept the plain (non-card-flat)
+// wrapper so each course card can carry its own distinct treatment rather than
+// nesting colorful cards inside another card.
 function renderCourseJourney(courses, roadmap){
   const sorted = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0));
   return `
-  <div class="card-flat" style="margin-top:12px;">
-    <div class="eyebrow">${L('My FEschool Journey','FEschool Yolculuğum','سفر من در FEschool')}</div>
-    <div class="stack" style="gap:10px; margin-top:12px;">
+  <div style="margin-top:12px;">
+    <div class="eyebrow" style="margin-bottom:10px;">${L('My FEschool Journey','FEschool Yolculuğum','سفر من در FEschool')}</div>
+    <div class="stack" style="gap:10px;">
       ${sorted.map(c=>{
         const ids = c.sessionIds||[];
         const done = ids.filter(id=>{ const r = roadmap.find(x=>x.id===id); return r && r.done; }).length;
         const pct = ids.length ? Math.round(done/ids.length*100) : 0;
         const report = courseReportUrl(c);
+        const isActive = c.status==='active';
+        const isCompleted = c.status==='completed';
+        const cardStyle = isActive
+          ? `background:radial-gradient(circle at 16% 8%, rgba(255,255,255,.4), transparent 55%), linear-gradient(150deg, var(--cat-diag), color-mix(in srgb, var(--cat-diag) 78%, #000 18%)); border:none; border-radius:26px; padding:20px 18px; box-shadow:0 18px 34px -14px color-mix(in srgb, var(--cat-diag) 55%, transparent);`
+          : `background:${isCompleted?'var(--bg-sunken)':'var(--bg-elevated)'}; border:1.5px solid var(--border-soft); border-radius:18px; padding:14px 16px;`;
+        const titleColor = isActive ? '#fff' : 'var(--ink)';
+        const subColor = isActive ? 'rgba(255,255,255,.85)' : 'var(--ink-faint)';
         return `
         <div>
-        <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" class="item-row" style="text-align:left; width:100%; cursor:pointer; border:1.5px solid var(--border-soft); border-radius:14px;">
-          <div class="item-body">
-            <div class="row between" style="align-items:center;">
-              <div class="item-title">Course ${c.number} — ${esc(c.level)}</div>
-              <span style="font-size:11px; font-weight:800; color:var(--ink-faint);">${courseStatusLabelL(c.status)}</span>
+        <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" style="text-align:left; width:100%; cursor:pointer; display:block; font:inherit; color:inherit; position:relative; overflow:hidden; ${cardStyle}">
+          ${isActive ? `<span class="sparkle" style="top:10px; left:16px;"></span><span class="sparkle" style="top:22px; right:20px; left:auto; width:5px; height:5px; animation-delay:.6s;"></span>` : ''}
+          <div class="row between" style="align-items:${isActive?'flex-start':'center'};">
+            <div style="min-width:0;">
+              <div style="font-size:${isActive?'11px':'10.5px'}; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:${subColor};">${courseStatusLabelL(c.status)}</div>
+              <div class="display" style="font-size:${isActive?'18px':'14.5px'}; margin-top:3px; color:${titleColor};">Course ${c.number} — ${esc(c.level)}</div>
             </div>
-            <div class="progress-track" style="margin-top:8px;"><div class="progress-fill" style="width:${pct}%; background:${c.status==='completed'?'var(--success)':'var(--cat-diag)'};"></div></div>
-            <div style="font-size:11px; color:var(--ink-faint); margin-top:6px;">${done}/${ids.length} ${L('sessions','seans','جلسه')}</div>
+            ${isActive
+              ? `<div class="num" style="font-size:26px; font-weight:800; color:#fff; flex:0 0 auto;">${pct}%</div>`
+              : (isCompleted ? `<span style="color:var(--success); flex:0 0 auto;">${ICONS.check}</span>` : `<span class="chevron" style="flex:0 0 auto;">${ICONS.chev}</span>`)}
           </div>
+          <div class="progress-track" style="margin-top:${isActive?'14px':'8px'}; background:${isActive?'rgba(255,255,255,.28)':'var(--bg-sunken)'};"><div class="progress-fill" style="width:${pct}%; background:${isActive?'#fff':(isCompleted?'var(--success)':'var(--cat-diag)')};"></div></div>
+          <div style="font-size:11px; color:${subColor}; margin-top:6px; font-weight:${isActive?700:600};">${done}/${ids.length} ${L('sessions','seans','جلسه')}</div>
         </button>
         ${report ? `<a href="${esc(report)}" target="_blank" rel="noopener" class="btn btn-ghost btn-sm" style="margin-top:6px; width:100%; text-align:center; box-sizing:border-box;">📄 ${L('Course report','Kurs raporu','گزارش دوره')}</a>` : ''}
         </div>`;
@@ -5173,8 +5208,11 @@ function renderStudentPanel(){
       ${stage.idx>=0 ? `
       <div class="card-flat" style="margin-top:16px; border-left:4px solid var(--cat-diag);">
         <div class="row between" style="align-items:center;">
-          <div class="eyebrow">${L('Level progress','Seviye ilerlemesi','پیشرفت سطح')}</div>
-          <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${stage.sessions}/10 ${L('sessions','seans','جلسه')}</span>
+          <div style="display:flex; align-items:center; gap:9px;">
+            <span style="width:28px; height:28px; border-radius:50%; background:var(--cat-diag-soft); color:var(--cat-diag); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.dumbbell}</span>
+            <div class="eyebrow" style="margin:0;">${L('Level progress','Seviye ilerlemesi','پیشرفت سطح')}</div>
+          </div>
+          <span class="display" style="font-size:20px; color:var(--cat-diag);">${stage.sessions}<span style="font-size:13px; color:var(--ink-faint); font-family:'Plus Jakarta Sans',sans-serif; font-weight:700;">/10</span></span>
         </div>
         <div class="progress-track" style="margin-top:10px;"><div class="progress-fill" style="width:${stage.sessions*10}%; background:var(--cat-diag);"></div></div>
         <p style="font-size:12px; color:var(--ink-faint); margin-top:8px;">${stage.next
@@ -5212,9 +5250,12 @@ function renderStudentPanel(){
       </div>` : '')}
 
       ${homework.length ? `
-      <div class="card-flat" style="margin-top:12px;">
-        <div class="eyebrow">${L('Homework','Ödev','تکلیف')}</div>
-        <div class="stack" style="gap:12px; margin-top:10px;">
+      <div class="card-flat" style="margin-top:12px; border-left:4px solid var(--cat-gram);">
+        <div style="display:flex; align-items:center; gap:9px;">
+          <span style="width:28px; height:28px; border-radius:50%; background:var(--cat-gram-soft); color:var(--cat-gram); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.pen}</span>
+          <div class="eyebrow" style="margin:0;">${L('Homework','Ödev','تکلیف')}</div>
+        </div>
+        <div class="stack" style="gap:12px; margin-top:12px;">
           ${homework.map((h,i)=>`
           <div style="${i<homework.length-1?'border-bottom:1px solid var(--border-soft); padding-bottom:12px;':''}">
             <div class="row between" style="align-items:flex-start; gap:8px;">
@@ -7005,6 +7046,13 @@ const HANDLERS = {
     if(!state.diag.goals || !state.diag.goals.length) return;
     state.diag.step = 1; save(); render(); pushHistoryEntry();
   },
+  // 'diag-test-answer'/'diag-test-next' below are now unreachable from onboarding
+  // (renderDiagLevel no longer renders a data-action="diag-test-answer"/
+  // "diag-test-next" button, and no longer sets state.diag.test) — kept in place,
+  // untouched, only because they share the exact same shape as the admin panel's
+  // 'admin-test-answer'/'admin-test-next' handlers below and document the
+  // engine's question-answering contract. See the comment above
+  // initPlacementTest() for the full 2026-09-29 context.
   'diag-test-answer'(el){
     const test = state.diag.test;
     if(!test || test.answered) return;
@@ -7034,11 +7082,15 @@ const HANDLERS = {
     loadTierQueue(test, state.diag.goals[0]);
     save(); render(); pushHistoryEntry();
   },
+  // Restored (2026-09-29) — see renderDiagLevel's comment. Sets state.diag.level
+  // straight from the self-reported LEVEL_OPTIONS choice and moves on to the
+  // learner-type step, exactly like every other diag-* step.
+  'diag-level'(el){ state.diag.level = el.dataset.value; state.diag.step = 2; save(); render(); pushHistoryEntry(); },
   'diag-learner'(el){
     state.diag.learnerType = el.dataset.value;
-    // priorityArea is only pre-filled here when the placement test measured a
-    // clear grammar/vocab gap (see finishPlacementTest) — otherwise fall through
-    // to the self-report priority step, same as before the test existed.
+    // priorityArea is never pre-filled now that onboarding's level step is a
+    // self-report again (not the placement test) — always fall through to the
+    // self-report priority step, same as before the test ever existed.
     state.diag.step = state.diag.priorityArea ? 4 : 3;
     save(); render(); pushHistoryEntry();
   },
