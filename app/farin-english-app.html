@@ -7617,12 +7617,27 @@ function applyCourseCompletion(student){
    use) so a freshly-created empty course (from applyCourseCompletion or "+ Add Course")
    doesn't have to be typed from scratch. Purely a form-state helper: returns plain roadmap
    items for the caller to append and Farin to review/edit/reorder before the real Save
-   button writes anything to Firestore - same as the existing "+ Add session" button. */
+   button writes anything to Firestore - same as the existing "+ Add session" button.
+   Genuinely specific to the one student passed in: level+stage set the content pool, goals
+   set which grammar/vocab/speaking variants win, learnerType shifts the type mix (see
+   sessionPlanForLearnerType below), and focusAreas gets written onto every generated
+   session's `focus` field as a steer for whoever writes the actual lesson. */
 function makeRoadmapItemId(){ return 'rm'+Date.now()+'-'+Math.random().toString(36).slice(2); }
+// Same three learner types buildRoadmap() reacts to for general users, reapplied at Club's
+// coarser session granularity: a driller gets an extra vocab-repetition session, a talker
+// gets an extra speaking session, in both cases traded for one grammar slot. Analyst/
+// immersive/unset keep the grammar-led default (grammar explanations already suit an
+// analyst; immersive has no Club-side equivalent of slang/story to lean on instead).
+function sessionPlanForLearnerType(learnerType){
+  if(learnerType==='talker') return ['grammar','grammar','vocab','grammar','speaking','grammar','vocab','grammar','speaking','speaking'];
+  if(learnerType==='driller') return ['grammar','grammar','vocab','grammar','speaking','grammar','vocab','vocab','grammar','speaking'];
+  return ['grammar','grammar','vocab','grammar','speaking','grammar','vocab','grammar','speaking','grammar'];
+}
 function generateClubCourseSessions(student, level){
   const baseLevel = level.replace('.2','');
   const stage = level.endsWith('.2') ? 2 : 1;
   const goals = studentGoalKeys(student).length ? studentGoalKeys(student) : ['everyday'];
+  const focusHint = (Array.isArray(student.focusAreas) && student.focusAreas.length) ? 'Focus on: '+focusAreasText(student.focusAreas) : '';
   const matchesGoal = arr => {
     const buckets = goals.map(()=>[]);
     arr.forEach(x=>{
@@ -7645,7 +7660,7 @@ function generateClubCourseSessions(student, level){
   const items = [];
   const usedSpeakingIds = [];
   let gi = 0, vi = 0, turn = 0;
-  const blankItem = (title, type) => ({id: makeRoadmapItemId(), date:'', title, type, focus:'', homework:'', tips:'', done:false});
+  const blankItem = (title, type) => ({id: makeRoadmapItemId(), date:'', title, type, focus:focusHint, homework:'', tips:'', done:false});
   const pushGrammar = () => {
     if(!gPool.length) return false;
     const g = gPool[gi % gPool.length]; gi++;
@@ -7672,11 +7687,11 @@ function generateClubCourseSessions(student, level){
     items.push(blankItem('Live speaking session: '+topic.topic.en, 'speaking'));
     return true;
   };
-  // Default 10-session mix: grammar-led (how Club courses have actually been authored so
-  // far, per LESSON-ENGINE.md's session log) with 2 vocab and 2 live speaking sessions
-  // spread through it, not blocked at the end. A starting point Farin edits/reorders/
-  // retitles freely before Save - not meant to be the final word on any course.
-  const plan = ['grammar','grammar','vocab','grammar','speaking','grammar','vocab','grammar','speaking','grammar'];
+  // 10-session mix, shaped by learner type (see sessionPlanForLearnerType above) - grammar-
+  // led by default, matching how Club courses have actually been authored so far per
+  // LESSON-ENGINE.md's session log. A starting point Farin edits/reorders/retitles freely
+  // before Save - not meant to be the final word on any course.
+  const plan = sessionPlanForLearnerType(student.learnerType);
   const pushers = {grammar:pushGrammar, vocab:pushVocab, speaking:pushSpeaking};
   plan.forEach(kind=>{
     if(!pushers[kind]()) { if(!pushGrammar()) pushVocab(); }
@@ -7684,60 +7699,18 @@ function generateClubCourseSessions(student, level){
   return items;
 }
 function harvestHomeworkFromDOM(){
-  return Array.from(document.querySelectorAll('#homework-items-list .homework-item-row')).map(row=>({
+  const container = document.getElementById('homework-items-list');
+  // The Homework section's own UI was removed (2026-09-29, Farin's request) - if it isn't
+  // rendered, pass the student's existing homework array through unchanged instead of
+  // silently wiping it to [] the next time any other admin action triggers a harvest+Save.
+  if(!container) return (adminEditingStudent && adminEditingStudent.homework) || [];
+  return Array.from(container.querySelectorAll('.homework-item-row')).map(row=>({
     id: row.dataset.id || (Date.now()+'-'+Math.random().toString(36).slice(2)),
     date: row.querySelector('.homework-item-date').value,
     title: row.querySelector('.homework-item-title').value,
     links: row.querySelector('.homework-item-links').value
   }));
 }
-const PROGRESS_TEMPLATES = {
-  excelling: "You're on fire this stage! Flying through everything, and it's really sticking. So proud of you!",
-  steady: "Lovely, steady progress. A little bit each time really adds up. Keep going, you're doing great!",
-  'needs-practice': "Things have slowed a little. That's okay! A bit more practice between sessions will help a lot.",
-  comeback: "What a comeback! You took a short break, and you're back stronger than before. I love to see it.",
-  'new-start': "Just getting started, and your energy is wonderful. We're building great foundations together.",
-  plateau: "We've been in the same spot for a bit. Totally normal! Let's mix things up next time to keep it fun.",
-  'almost-there': "So close to finishing this stage! Just a little more, and we're there. You can do it!",
-  inconsistent: "Let's try to practice a little more often. Even a few minutes between sessions makes a real difference. You've got this!"
-};
-const PERFORMANCE_TEMPLATES = {
-  'strong-speaking': "Your speaking is really shining! Confident, clear, and lovely to listen to.",
-  'strong-writing': "Your grammar and writing are excellent. Clean, careful, and thoughtful work.",
-  'needs-grammar': "Let's give grammar a bit more love, especially verb tenses. You'll get there, step by step!",
-  'needs-vocab': "Let's grow your vocabulary a little more. Try reading or watching something new each week.",
-  'strong-listening': "You're a wonderful listener! You pick up meaning and tone so naturally.",
-  'needs-speaking': "Let's build your speaking confidence together. The more you talk, the easier it gets. I believe in you!",
-  'needs-listening': "Let's practice listening a bit more, especially fast, natural speech. You're closer than you think!",
-  'well-rounded': "You're doing wonderfully across the board — speaking, writing, listening, all strong. I'm so proud of you!"
-};
-const GOAL_PERFORMANCE_RESULTS = {
-  travel: [
-    "Can confidently order food, ask for directions, and handle everyday travel situations.",
-    "Understands airport, hotel, and transport announcements without trouble.",
-    "Comfortable making small talk with locals while traveling."
-  ],
-  career: [
-    "Ready to handle a real job interview in English.",
-    "Writes clear, professional emails to colleagues and clients.",
-    "Presents ideas confidently in meetings now."
-  ],
-  exam: [
-    "On track to pass the target exam at this pace.",
-    "Strong grasp of the grammar points the exam tests most.",
-    "Needs more timed practice to build exam-day confidence."
-  ],
-  everyday: [
-    "Handles daily conversations with confidence — shopping, chatting, casual calls.",
-    "Understands most everyday spoken English without needing repetition.",
-    "Comfortable sharing opinions in casual conversation now."
-  ],
-  immigration: [
-    "Ready for everyday life abroad — appointments, forms, phone calls.",
-    "Comfortable communicating with officials, doctors, and landlords.",
-    "Building the vocabulary needed to settle into a new country."
-  ]
-};
 const GOAL_LABELS = {travel:'Travel', career:'Career', exam:'Exam', everyday:'Everyday life', immigration:'Immigration'};
 // A student record keeps up to 3 goals in `goals`; `goal` mirrors the first one for older code paths.
 function studentGoalKeys(s){
@@ -7761,9 +7734,37 @@ function studentGoalsText(s){
   if(names.length<=1) return names[0]||'';
   return names.slice(0,-1).join(', ')+' and '+names[names.length-1];
 }
-/* ---- Teacher Personalization Layer (2026-09-16): per-student admin-only observations that give
-   future lesson-writing sessions more context. Lightweight data+UI only — no automated weighting,
-   see english app/LESSON-ENGINE.md for how a human/Claude session should read these by hand. ---- */
+/* Learning character + Focus areas (added 2026-09-29, replacing the old free-text
+   Personalization/Homework/Notes sections): a lean, editable/deletable pair of inputs
+   that feed straight into generateClubCourseSessions(), same spirit as Goals above -
+   reuses the general app's LEARNER_OPTIONS/PERSONALIZATION_FOCUS_AREAS data rather than
+   inventing a parallel taxonomy. Character is single-select (like a course toggle),
+   Focus areas is multi-select up to 5 (like Goals' cap of 3, just a bit roomier since
+   these are meant to be real areas to work on, not a ranked top pick). */
+function renderCharacterChips(current){
+  return LEARNER_OPTIONS.map(o=>{
+    const active = current===o.value;
+    return `<button type="button" class="btn btn-sm ${active?'btn-primary':'btn-ghost'}" data-admin-action="set-student-character" data-value="${o.value}">${esc(o.label.en)}</button>`;
+  }).join('');
+}
+function characterLabel(value){
+  const o = LEARNER_OPTIONS.find(x=>x.value===value);
+  return o ? o.label.en : '';
+}
+function renderFocusChips(current){
+  const sel = Array.isArray(current) ? current : [];
+  return PERSONALIZATION_FOCUS_AREAS.map(f=>{
+    const i = sel.indexOf(f.key);
+    return `<button type="button" class="btn btn-sm ${i>-1?'btn-primary':'btn-ghost'}" data-admin-action="toggle-student-focus" data-key="${f.key}">${i>-1?`<b>${i+1}</b> · `:''}${esc(f.label)}</button>`;
+  }).join('');
+}
+function focusAreasText(areas){
+  const sel = Array.isArray(areas) ? areas : [];
+  return sel.map(k=>{ const f = PERSONALIZATION_FOCUS_AREAS.find(x=>x.key===k); return f ? f.label : k; }).join(', ');
+}
+// Reused by the Focus areas section above (renderFocusChips/focusAreasText) - originally
+// the Teacher Personalization Layer's focus-area taxonomy (removed 2026-09-29 along with
+// that layer's observation/priority/status apparatus), kept as the shared vocabulary.
 const PERSONALIZATION_FOCUS_AREAS = [
   {key:'pronunciation', label:'Pronunciation'},
   {key:'vocabulary', label:'Vocabulary'},
@@ -7780,108 +7781,6 @@ const PERSONALIZATION_FOCUS_AREAS = [
   {key:'comprehension', label:'Comprehension'},
   {key:'cultural-communication', label:'Cultural Communication'}
 ];
-const PERSONALIZATION_PRIORITY_LABELS = {normal:'Normal', important:'Important', high:'High Priority'};
-const PERSONALIZATION_STATUS_LABELS = {active:'Active', improving:'Improving', maintained:'Maintained', resolved:'Resolved'};
-function personalizationFocusLabel(key){
-  const f = PERSONALIZATION_FOCUS_AREAS.find(x=>x.key===key);
-  return f ? f.label : key;
-}
-function personalizationSummary(observations){
-  if(!observations.length) return 'No notes yet';
-  const active = observations.filter(o=>o.status!=='resolved');
-  if(!active.length) return observations.length+' note(s) — all resolved';
-  return active.length+' active note(s)';
-}
-function renderPersonalizationActiveSummary(observations){
-  const active = observations.filter(o=>o.status!=='resolved').slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  if(!active.length) return '';
-  return `<div style="background:var(--success-soft,#e4f4ea); border-radius:12px; padding:10px 12px; margin:10px 0; font-size:12.5px;">
-    <div style="font-weight:800; color:var(--success); margin-bottom:6px;">✓ Personalization active</div>
-    ${active.slice(0,3).map(o=>`<div style="margin-bottom:4px;">
-      <span style="font-weight:700;">${esc(PERSONALIZATION_PRIORITY_LABELS[o.priority]||'Normal')}</span>${(o.focusAreas||[]).length ? ' · '+esc(o.focusAreas.map(personalizationFocusLabel).join(', ')) : ''}
-    </div>`).join('')}
-  </div>`;
-}
-function renderPersonalizationHistory(observations){
-  if(!observations.length) return `<p style="font-size:12px; color:var(--ink-faint);">No observations saved yet.</p>`;
-  const sorted = observations.slice().sort((a,b)=>(b.createdAt||0)-(a.createdAt||0));
-  return sorted.map(o=>{
-    const date = o.createdAt ? new Date(o.createdAt).toLocaleDateString() : '';
-    const focusLabels = (o.focusAreas||[]).map(personalizationFocusLabel).join(', ');
-    return `<div style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
-      <div class="row between" style="align-items:center; margin-bottom:4px;">
-        <span style="font-size:11px; font-weight:800; color:var(--ink-faint);">${esc(date)}</span>
-        <span class="pill" style="background:var(--bg-sunken); font-size:10.5px;">${esc(PERSONALIZATION_STATUS_LABELS[o.status]||'Active')}</span>
-      </div>
-      <div style="font-size:11.5px; color:var(--ink-soft); margin-bottom:4px;">${focusLabels ? '🎯 '+esc(focusLabels)+' · ' : ''}${esc(PERSONALIZATION_PRIORITY_LABELS[o.priority]||'Normal')}</div>
-      ${o.note ? `<div style="font-size:13px; white-space:pre-wrap;">${esc(o.note)}</div>` : ''}
-      ${o.teacherInstructions ? `<div style="font-size:11.5px; color:var(--ink-faint); margin-top:4px;"><i>Instructions: ${esc(o.teacherInstructions)}</i></div>` : ''}
-    </div>`;
-  }).join('');
-}
-function harvestPersonalizationFormFromDOM(){
-  const noteEl = document.getElementById('personalization-form-note');
-  const instrEl = document.getElementById('personalization-form-instructions');
-  const priorityEl = document.getElementById('personalization-form-priority');
-  const statusEl = document.getElementById('personalization-form-status');
-  const focusAreas = Array.from(document.querySelectorAll('.personalization-focus-checkbox:checked')).map(c=>c.value);
-  return {
-    note: noteEl ? noteEl.value.trim() : '',
-    teacherInstructions: instrEl ? instrEl.value.trim() : '',
-    priority: priorityEl ? priorityEl.value : 'normal',
-    status: statusEl ? statusEl.value : 'active',
-    focusAreas
-  };
-}
-function saveStudentPersonalization(){
-  const s = adminEditingStudent;
-  if(!s) return;
-  const course = s.course === 'es' ? 'es' : 'en';
-  const coll = STUDENT_COLLECTION[course];
-  const codeEl = document.getElementById('student-form-code');
-  const code = (s.isNew ? (codeEl && codeEl.value || '') : s.code).trim().toUpperCase().replace(/\s+/g,'');
-  if(!code){
-    adminStudentError = 'Enter a pass / username above first, then save a learning note.';
-    renderAdminPage();
-    return;
-  }
-  const form = harvestPersonalizationFormFromDOM();
-  if(!form.note && !form.teacherInstructions && !form.focusAreas.length){
-    adminStudentError = 'Add an observation, a focus area, or an instruction before saving a learning note.';
-    renderAdminPage();
-    return;
-  }
-  const now = Date.now();
-  const entry = {
-    id: 'obs'+now+'-'+Math.random().toString(36).slice(2),
-    focusAreas: form.focusAreas,
-    priority: form.priority,
-    status: form.status,
-    note: form.note,
-    teacherInstructions: form.teacherInstructions,
-    createdAt: now,
-    updatedAt: now
-  };
-  // Scoped write: only touches the personalization field (via merge), never the roadmap array —
-  // deliberately doesn't go through harvestRoadmapFromDOM/saveAdminStudent's full-form rewrite, so
-  // this can't fall into the same stale-tab-overwrite bug class documented for roadmap saves.
-  const existing = (s.personalization && Array.isArray(s.personalization.observations)) ? s.personalization.observations : [];
-  const observations = existing.concat([entry]);
-  adminStudentError = '';
-  firebase.firestore().collection(coll).doc(code).set({personalization:{observations}, updatedAt: now}, {merge:true}).then(()=>{
-    adminEditingStudent.personalization = {observations};
-    adminEditingStudent.code = code;
-    const noteEl = document.getElementById('personalization-form-note');
-    const instrEl = document.getElementById('personalization-form-instructions');
-    if(noteEl) noteEl.value = '';
-    if(instrEl) instrEl.value = '';
-    adminStudentInfo = 'Learning note saved.';
-    renderAdminPage();
-  }).catch(err=>{
-    adminStudentError = err.message || String(err);
-    renderAdminPage();
-  });
-}
 function saveRoadmapItemTeacherNote(itemId){
   const s = adminEditingStudent;
   if(!s || !itemId) return;
@@ -7921,11 +7820,6 @@ function saveRoadmapItemTeacherNote(itemId){
     adminStudentError = err.message || String(err);
     renderAdminPage();
   });
-}
-function quickFillPills(action, templates){
-  return `<div class="row" style="gap:6px; flex-wrap:wrap; margin-bottom:10px;">
-    ${Object.keys(templates).map(key=>`<button type="button" class="pill" data-admin-action="${action}" data-key="${key}" style="background:var(--bg-sunken); color:var(--ink-soft); cursor:pointer; border:none; font-family:inherit;">${key.replace(/-/g,' ')}</button>`).join('')}
-  </div>`;
 }
 /* Admin-run placement test (added 2026-09-29, Farin's request): when adding/editing a
    Club student, Farin can take the same adaptive placement test himself - reuses the
@@ -8034,9 +7928,6 @@ function renderAdminStudentsTab(){
     const s = adminEditingStudent;
     const levelOpts = [''].concat(LEVEL_STAGES).map(l=>`<option value="${l}" ${s.level===l?'selected':''}>${l||'—'}</option>`).join('');
     const roadmap = Array.isArray(s.roadmap) ? s.roadmap : [];
-    const homework = Array.isArray(s.homework) ? s.homework : [];
-    const personalizationObservations = (s.personalization && Array.isArray(s.personalization.observations)) ? s.personalization.observations : [];
-    const objectives = Array.isArray(s.objectives) ? s.objectives : ['','',''];
     if(!Array.isArray(s.goals)) s.goals = studentGoalKeys(s);
     const courses = Array.isArray(s.courses) ? s.courses : [];
     const activeCourse = courses.find(c=>c.id===adminActiveCourseId) || null;
@@ -8170,86 +8061,18 @@ function renderAdminStudentsTab(){
       ` : ''}
 
       ${adminStudentTab==='info' ? `
-      ${studentSectionRow('personalization','🎯','Teacher’s Learning Notes', personalizationSummary(personalizationObservations))}
-      ${studentSectionOpen('personalization')}
-      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 10px;">Admin-only observations to give future lesson-writing sessions more context. Never shown to the student. Doesn’t change the roadmap topic itself.</p>
-      <label class="field-label">Observation</label>
-      <textarea id="personalization-form-note" rows="3" placeholder="e.g. Needs more focus on pronunciation of th sounds..." style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); font-family:inherit;"></textarea>
-      <div style="height:10px;"></div>
-      <label class="field-label">Focus areas</label>
-      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
-        ${PERSONALIZATION_FOCUS_AREAS.map(f=>`<label style="display:flex; align-items:center; gap:5px; border:1.5px solid var(--border); border-radius:20px; padding:6px 10px; font-size:12px; cursor:pointer;">
-          <input type="checkbox" class="personalization-focus-checkbox" value="${f.key}" style="width:14px; height:14px; flex:0 0 auto;">${esc(f.label)}
-        </label>`).join('')}
-      </div>
-      <label class="field-label">Priority</label>
-      <select id="personalization-form-priority" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">
-        ${Object.keys(PERSONALIZATION_PRIORITY_LABELS).map(k=>`<option value="${k}" ${k==='normal'?'selected':''}>${esc(PERSONALIZATION_PRIORITY_LABELS[k])}</option>`).join('')}
-      </select>
-      <label class="field-label">Teacher instructions <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(optional — specific delivery notes)</span></label>
-      <textarea id="personalization-form-instructions" rows="2" placeholder="e.g. Correct pronunciation after the student finishes speaking, not during." style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); font-family:inherit;"></textarea>
-      <div style="height:10px;"></div>
-      <label class="field-label">Status</label>
-      <select id="personalization-form-status" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:14px;">
-        ${Object.keys(PERSONALIZATION_STATUS_LABELS).map(k=>`<option value="${k}" ${k==='active'?'selected':''}>${esc(PERSONALIZATION_STATUS_LABELS[k])}</option>`).join('')}
-      </select>
-      <button type="button" class="btn btn-primary btn-sm" style="width:100%;" data-admin-action="save-personalization">💾 Save learning note</button>
-      ${renderPersonalizationActiveSummary(personalizationObservations)}
-      <div style="margin-top:16px;">
-        <div style="font-size:10.5px; font-weight:800; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;">History</div>
-        ${renderPersonalizationHistory(personalizationObservations)}
-      </div>
+      ${studentSectionRow('character','🧠','Learning character', s.learnerType ? characterLabel(s.learnerType) : 'Not set yet')}
+      ${studentSectionOpen('character')}
+      <label class="field-label">How do they learn best?</label>
+      <div id="student-character-chips" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;">${renderCharacterChips(s.learnerType)}</div>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 4px;">Shapes the mix of generated sessions - e.g. a driller gets an extra vocab-practice session, a talker gets an extra speaking session.</p>
       ${studentSectionClose()}
 
-      ${studentSectionRow('homework','📝','Homework', homework.length+' item(s)')}
-      ${studentSectionOpen('homework')}
-      <div id="homework-items-list" style="margin-bottom:8px;">
-        ${homework.map((h,idx)=>`
-        <div class="homework-item-row" data-id="${esc(h.id)}" style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
-          <div class="row" style="gap:8px; margin-bottom:8px;">
-            <input type="date" class="homework-item-date" value="${esc(h.date||'')}" style="flex:0 0 auto; box-sizing:border-box; padding:9px 10px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink);">
-            <input type="text" class="homework-item-title" value="${esc(h.title||'')}" placeholder="Homework title" style="flex:1; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-          </div>
-          <textarea class="homework-item-links" rows="2" placeholder="Extra links (one per line) — video, file, etc." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:10px; border:1.5px solid var(--border); font-size:13px; background:var(--bg-elevated); color:var(--ink); font-family:inherit; margin-bottom:8px;">${esc(h.links||'')}</textarea>
-          <button data-admin-action="delete-homework-item" data-idx="${idx}" class="btn btn-ghost btn-sm">Delete</button>
-        </div>`).join('')}
-      </div>
-      <div class="row" style="gap:8px; margin-bottom:14px;">
-        <button class="btn btn-ghost btn-sm" data-admin-action="add-homework-item">+ Add homework</button>
-        <button class="btn btn-ghost btn-sm" data-admin-action="suggest-homework">✨ Suggest from roadmap</button>
-      </div>
-      ${studentSectionClose()}
-
-      ${studentSectionRow('notes','💬','Notes', 'Progress, performance, objectives')}
-      ${studentSectionOpen('notes')}
-      <div style="display:flex; align-items:center; gap:9px; margin-bottom:10px;">
-        <span style="width:26px; height:26px; border-radius:50%; background:var(--cat-lis-soft); color:var(--cat-lis); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.compass}</span>
-        <span style="font-weight:800; font-size:13.5px;">Progress</span>
-      </div>
-      <button type="button" class="btn btn-ghost btn-sm" data-admin-action="auto-progress-note" style="margin-bottom:8px;">🪄 Auto-write from data</button>
-      ${quickFillPills('quick-progress', PROGRESS_TEMPLATES)}
-      ${studentFormField('student-form-progress', '', s.progressNote, 'textarea')}
-
-      <div style="display:flex; align-items:center; gap:9px; margin:6px 0 10px;">
-        <span style="width:26px; height:26px; border-radius:50%; background:var(--accent-soft); color:var(--clay-orange); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.star}</span>
-        <span style="font-weight:800; font-size:13.5px;">Performance</span>
-      </div>
-      ${quickFillPills('quick-performance', PERFORMANCE_TEMPLATES)}
-      ${studentFormField('student-form-performance', '', s.performanceNote, 'textarea')}
-
-      <div style="display:flex; align-items:center; gap:9px; margin:6px 0 4px;">
-        <span style="width:26px; height:26px; border-radius:50%; background:var(--cat-voc-soft); color:var(--cat-voc); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">🎯</span>
-        <span style="font-weight:800; font-size:13.5px;">Objectives</span>
-      </div>
-      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 10px;">Three concrete, goal-based results — set the goals in the Goals section, then fill each one (objective 1 from goal 1, 2 from goal 2, 3 from goal 3).</p>
-      ${[0,1,2].map(i=>`
-      <div style="border:1.5px solid var(--border); border-radius:12px; padding:10px; margin-bottom:8px;">
-        <div class="row between" style="align-items:center; margin-bottom:6px;">
-          <span style="font-size:10.5px; font-weight:800; color:var(--cat-voc); text-transform:uppercase; letter-spacing:.04em;">Objective ${i+1}</span>
-          <button type="button" class="btn btn-ghost btn-sm" data-admin-action="fill-objective" data-idx="${i}" style="padding:5px 10px; font-size:11.5px;">✨ Fill from goal</button>
-        </div>
-        <input type="text" id="student-form-objective-${i}" value="${esc((objectives[i]||''))}" placeholder="e.g. Ready to handle a real job interview in English." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:9px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
-      </div>`).join('')}
+      ${studentSectionRow('focus','🎯','Focus areas', (s.focusAreas&&s.focusAreas.length) ? focusAreasText(s.focusAreas) : 'Not set yet')}
+      ${studentSectionOpen('focus')}
+      <label class="field-label">What should sessions focus on? <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(pick up to 5)</span></label>
+      <div id="student-focus-chips" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px;">${renderFocusChips(s.focusAreas)}</div>
+      <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 4px;">Written into each generated session's Focus field as a steer for whoever writes the lesson.</p>
       ${studentSectionClose()}
       ` : ''}
 
@@ -8374,7 +8197,7 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = 'basics';
-        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', goals:[], goalNotes:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
+        adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', goals:[], goalNotes:'', learnerType:'', focusAreas:[], sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
         adminActiveCourseId = null;
         adminAddingCourse = false;
         adminStudentTab = 'info';
@@ -8392,14 +8215,14 @@ function bindAdminActions(root){
         adminStudentError = '';
         adminStudentInfo = '';
         adminStudentOpenSection = null;
-        adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}}, s);
+        adminEditingStudent = Object.assign({isNew:false, goal:'', learnerType:'', focusAreas:[], sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}}, s);
         adminAddingCourse = false;
         adminStudentTab = 'info';
         adminPlacementTest = null;
         const justSynthesized = ensureStudentCourses(adminEditingStudent);
         if(justSynthesized && adminEditingStudent.courses.length){
-          // Persist the one-time migration so it never has to be recomputed — scoped write,
-          // same pattern as saveStudentPersonalization, doesn't touch roadmap/anything else.
+          // Persist the one-time migration so it never has to be recomputed — a scoped write
+          // that only touches `courses`, not the roadmap or anything else.
           firebase.firestore().collection(STUDENT_COLLECTION[adminEditingStudent.course==='es'?'es':'en'])
             .doc(adminEditingStudent.code)
             .set({courses: adminEditingStudent.courses, updatedAt: Date.now()}, {merge:true})
@@ -8516,16 +8339,6 @@ function bindAdminActions(root){
         adminEditingStudent.homework = harvestHomeworkFromDOM();
         removeSessionIdFromCourses(removeId);
         renderAdminPage();
-      } else if(action === 'add-homework-item'){
-        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
-        adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date:'', title:'', links:''});
-        renderAdminPage();
-      } else if(action === 'delete-homework-item'){
-        adminEditingStudent.roadmap = harvestRoadmapFromDOM();
-        adminEditingStudent.homework = harvestHomeworkFromDOM();
-        adminEditingStudent.homework.splice(Number(el.dataset.idx), 1);
-        renderAdminPage();
       } else if(action === 'suggest-roadmap'){
         const levelEl = document.getElementById('student-form-level');
         const baseLevel = (levelEl.value || '').replace('.2','');
@@ -8562,14 +8375,6 @@ function bindAdminActions(root){
         parsed.forEach(p=>addSessionIdToActiveCourse(p.id));
         adminStudentInfo = 'Added '+parsed.length+' session(s) from the pasted text.';
         renderAdminPage();
-      } else if(action === 'quick-progress'){
-        const ta = document.getElementById('student-form-progress');
-        const text = PROGRESS_TEMPLATES[el.dataset.key];
-        if(ta && text) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
-      } else if(action === 'quick-performance'){
-        const ta = document.getElementById('student-form-performance');
-        const text = PERFORMANCE_TEMPLATES[el.dataset.key];
-        if(ta && text) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
       } else if(action === 'toggle-student-goal'){
         // Updates the chips in place (no full re-render) so nothing typed in other fields is lost.
         const s = adminEditingStudent;
@@ -8585,22 +8390,21 @@ function bindAdminActions(root){
         if(chips) chips.innerHTML = renderStudentGoalChips(s.goals);
         const msgEl = document.getElementById('student-goal-msg');
         if(msgEl) msgEl.textContent = msg || goalsHelpText(s.goals);
-      } else if(action === 'fill-objective'){
-        const goals = studentGoalKeys(adminEditingStudent);
-        const idx = Number(el.dataset.idx);
-        // objective 1 from goal 1, 2 from goal 2, 3 from goal 3 (wraps if fewer goals are set)
-        const goal = goals.length ? goals[idx % goals.length] : '';
-        if(!goal){
-          adminStudentError = 'Pick at least one goal in the Goals section first to fill objectives.';
-          renderAdminPage();
-          return;
-        }
-        const results = GOAL_PERFORMANCE_RESULTS[goal];
-        const text = results && results[idx];
-        if(text){
-          const inp = document.getElementById('student-form-objective-'+idx);
-          if(inp) inp.value = text;
-        }
+      } else if(action === 'set-student-character'){
+        // Same in-place-patch pattern as toggle-student-goal above.
+        const s = adminEditingStudent;
+        s.learnerType = el.dataset.value;
+        const chips = document.getElementById('student-character-chips');
+        if(chips) chips.innerHTML = renderCharacterChips(s.learnerType);
+      } else if(action === 'toggle-student-focus'){
+        const s = adminEditingStudent;
+        if(!Array.isArray(s.focusAreas)) s.focusAreas = [];
+        const key = el.dataset.key;
+        const at = s.focusAreas.indexOf(key);
+        if(at>-1) s.focusAreas.splice(at,1);
+        else if(s.focusAreas.length<5) s.focusAreas.push(key);
+        const chips = document.getElementById('student-focus-chips');
+        if(chips) chips.innerHTML = renderFocusChips(s.focusAreas);
       } else if(action === 'increment-session'){
         const levelEl = document.getElementById('student-form-level');
         const sessEl = document.getElementById('student-form-sessions');
@@ -8611,32 +8415,6 @@ function bindAdminActions(root){
           else sessions = 10;
         }
         sessEl.value = sessions;
-      } else if(action === 'auto-progress-note'){
-        const levelEl = document.getElementById('student-form-level');
-        const sessEl = document.getElementById('student-form-sessions');
-        const nameEl = document.getElementById('student-form-name');
-        const roadmap = harvestRoadmapFromDOM();
-        adminEditingStudent.roadmap = roadmap;
-        adminEditingStudent.homework = harvestHomeworkFromDOM();
-        const doneCount = roadmap.filter(r=>r.done).length;
-        const nextItems = roadmap.filter(r=>!r.done && r.title && r.title.trim()).slice(0,2).map(r=>r.title.trim());
-        const level = levelEl.value || 'an unset level';
-        const sessions = sessEl.value || 0;
-        const name = (nameEl.value || '').trim() || 'This student';
-        let text = name+' is currently at '+level+' with '+sessions+'/10 sessions completed in this stage.';
-        if(roadmap.length) text += ' Roadmap: '+doneCount+'/'+roadmap.length+' items done.';
-        if(nextItems.length) text += ' Next up: '+nextItems.join(', ')+'.';
-        const ta = document.getElementById('student-form-progress');
-        if(ta) ta.value = (ta.value.trim() ? ta.value.trim()+'\n\n' : '') + text;
-      } else if(action === 'suggest-homework'){
-        const roadmap = harvestRoadmapFromDOM();
-        const homework = harvestHomeworkFromDOM();
-        const next = roadmap.find(r=>!r.done && r.title && r.title.trim());
-        const today = new Date().toISOString().slice(0,10);
-        homework.push({id: Date.now()+'-'+Math.random().toString(36).slice(2), date: today, title: next ? 'Review: '+next.title.trim() : '', links:''});
-        adminEditingStudent.roadmap = roadmap;
-        adminEditingStudent.homework = homework;
-        renderAdminPage();
       } else if(action === 'cancel-edit-student'){
         adminEditingStudent = null;
         adminStudentError = '';
@@ -8649,8 +8427,6 @@ function bindAdminActions(root){
         renderAdminPage();
       } else if(action === 'save-student'){
         saveAdminStudent();
-      } else if(action === 'save-personalization'){
-        saveStudentPersonalization();
       } else if(action === 'save-course-report'){
         const inp = document.getElementById('course-report-url');
         const url = inp ? inp.value.trim() : '';
@@ -8725,12 +8501,18 @@ function saveAdminStudent(){
   const goalNotesEl = document.getElementById('student-form-goal-notes');
   const goalNotes = goalNotesEl ? goalNotesEl.value.trim() : (s.goalNotes || '');
   const sessionsInStage = Math.max(0, Math.min(10, Number(document.getElementById('student-form-sessions').value)||0));
-  const progressNote = document.getElementById('student-form-progress').value;
-  const performanceNote = document.getElementById('student-form-performance').value;
+  // Progress/Performance/Objectives lost their editing UI (2026-09-29, Farin's request,
+  // same as Homework above) - fall back to whatever was already there instead of wiping it.
+  const progressEl = document.getElementById('student-form-progress');
+  const progressNote = progressEl ? progressEl.value : (s.progressNote || '');
+  const performanceEl = document.getElementById('student-form-performance');
+  const performanceNote = performanceEl ? performanceEl.value : (s.performanceNote || '');
   const objectives = [0,1,2].map(i=>{
     const inp = document.getElementById('student-form-objective-'+i);
-    return inp ? inp.value : '';
+    return inp ? inp.value : ((s.objectives && s.objectives[i]) || '');
   });
+  const learnerType = s.learnerType || '';
+  const focusAreas = Array.isArray(s.focusAreas) ? s.focusAreas : [];
   const roadmap = harvestRoadmapFromDOM();
   const homework = harvestHomeworkFromDOM();
   adminEditingStudent.roadmap = roadmap;
@@ -8749,7 +8531,7 @@ function saveAdminStudent(){
   renderAdminPage();
   const finish = ()=>{
     firebase.firestore().collection(coll).doc(code).set({
-      name, whatsapp, package: pkg, freezeUntil, level, goal, goals, goalNotes, sessionsInStage, progressNote, performanceNote, objectives, roadmap, homework, courses, updatedAt: Date.now()
+      name, whatsapp, package: pkg, freezeUntil, level, goal, goals, goalNotes, sessionsInStage, progressNote, performanceNote, objectives, learnerType, focusAreas, roadmap, homework, courses, updatedAt: Date.now()
     }, {merge:true}).then(()=>{
       adminSavingStudent = false;
       adminEditingStudent = null;
