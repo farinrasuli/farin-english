@@ -268,6 +268,17 @@
   .badge-cell.locked{opacity:.45; box-shadow:none;}
   .badge-cell .badge-ic{width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:inset 0 2px 3px rgba(255,255,255,.4), inset 0 -6px 10px -4px rgba(0,0,0,.18);}
   .badge-cell .badge-name{font-size:10.5px; font-weight:700; line-height:1.25;}
+  /* Earned trophy-case cells (2026-09-29, Farin: the "sparkly button" recipe —
+     solid brand color + radial highlight + sparkle stars — must be the actual
+     standard on earned cards, not just a color-mix tint). Same recipe as
+     .character-card/.goal-card/the roadmap current-step card: full-strength
+     badge color fill, a radial highlight + diagonal shine via ::before, white
+     text/icon, and the app's existing .sparkle/@sparkle-twinkle stars
+     (miniSparkles(), a smaller-footprint variant of claySparkles()). */
+  .badge-cell.earned{position:relative; overflow:hidden; border:none; color:#fff; box-shadow:var(--clay-shadow); background-image:radial-gradient(circle at 22% 10%, rgba(255,255,255,.45), transparent 52%);}
+  .badge-cell.earned::before{content:''; position:absolute; top:-45%; left:-30%; width:75%; height:220%; background:linear-gradient(120deg, rgba(255,255,255,.35), rgba(255,255,255,0) 65%); transform:rotate(-16deg); pointer-events:none;}
+  .badge-cell.earned .badge-name{color:#fff;}
+  .badge-cell.earned .sparkle{color:#fff;}
 
   /* ---- list rows ---- */
   .item-row{display:flex; align-items:center; gap:13px; padding:15px 16px; border-radius:24px; border:1px solid var(--border-soft); background:var(--bg-elevated); width:100%; text-align:start; box-shadow:var(--clay-shadow-soft); transition:box-shadow .08s ease, transform .08s ease;}
@@ -4528,14 +4539,16 @@ function renderProfile(){
         ${BADGES.map(b=>{
           const earned = !!pr.badgesEarnedAt[b.id];
           const bc = badgeColor(b.id);
-          const icStyle = earned ? `background:${bc.bg}; color:#fff;` : `background:var(--bg-sunken); color:var(--ink-faint);`;
-          // Trophy case tint (2026-09-29 moodboard pass): earned cells now carry a
-          // soft tint of their own badge color (same color-mix recipe as the
-          // roadmap's upcoming-node fill) instead of a flat white card, so the
-          // grid reads as colorful progress rather than a uniform locked/unlocked
-          // checklist — locked cells stay muted gray, untouched.
-          const cellStyle = earned ? `background:color-mix(in srgb, ${bc.bg} 14%, var(--bg-elevated)); border-color:color-mix(in srgb, ${bc.bg} 30%, transparent);` : '';
-          return `<div class="badge-cell ${earned?'':'locked'}" style="${cellStyle}">
+          // Trophy case (2026-09-29, Farin: apply the FULL sparkly-card recipe to
+          // earned cells, not just a tint) — earned cells are now a solid,
+          // full-strength fill of their own badge color (same recipe as
+          // .character-card/.goal-card), with a translucent-white icon chip
+          // (same convention as goal-card/tile-featured-ic's icon-on-solid-color
+          // treatment) and sparkle stars. Locked cells stay muted gray, untouched.
+          const icStyle = earned ? `background:rgba(255,255,255,.26); color:#fff;` : `background:var(--bg-sunken); color:var(--ink-faint);`;
+          const cellStyle = earned ? `background:${bc.bg};` : '';
+          return `<div class="badge-cell ${earned?'earned':'locked'}" style="${cellStyle}">
+            ${earned ? miniSparkles() : ''}
             <span class="badge-ic" style="${icStyle}">${ICONS[b.icon]}</span>
             <span class="badge-name">${esc(L(b.title.en,b.title.tr))}</span>
           </div>`;
@@ -4632,6 +4645,15 @@ function claySparkles(){
   return `<span class="sparkle" style="top:14px; left:18px; animation-delay:0s;"></span>
     <span class="sparkle" style="top:42px; left:98px; width:5px; height:5px; animation-delay:.6s;"></span>
     <span class="sparkle" style="top:76px; left:36px; width:5px; height:5px; animation-delay:1.2s;"></span>`;
+}
+// Same recipe as claySparkles(), tuned smaller/tighter for small card footprints
+// (badge-cell, ~90x100px) — 2026-09-29 trophy-case fix, Farin: apply the full
+// sparkly-card recipe (solid color + radial highlight + sparkle stars), not
+// just a color tint.
+function miniSparkles(){
+  return `<span class="sparkle" style="top:7px; left:9px; width:5px; height:5px; animation-delay:0s;"></span>
+    <span class="sparkle" style="top:16px; right:9px; left:auto; width:4px; height:4px; animation-delay:.6s;"></span>
+    <span class="sparkle" style="bottom:9px; left:14px; width:4px; height:4px; animation-delay:1.2s;"></span>`;
 }
 function storyBannerMedia(genre){
   const gl = GENRE_LABEL[genre] || GENRE_LABEL.Fiction;
@@ -5153,7 +5175,7 @@ function renderCourseJourney(courses, roadmap){
         ${seam}
         <div>
         <button type="button" data-action="open-course" data-course-id="${esc(c.id)}" style="text-align:left; width:100%; cursor:pointer; display:block; font:inherit; color:inherit; position:relative; overflow:hidden; ${cardStyle}">
-          ${isActive ? `<span class="sparkle" style="top:10px; left:16px;"></span><span class="sparkle" style="top:22px; right:20px; left:auto; width:5px; height:5px; animation-delay:.6s;"></span>` : ''}
+          ${isActive ? `<span class="sparkle" style="top:10px; left:16px; color:#fff;"></span><span class="sparkle" style="top:22px; right:20px; left:auto; width:5px; height:5px; animation-delay:.6s; color:#fff;"></span>` : ''}
           <div class="row between" style="align-items:${isActive?'flex-start':'center'};">
             <div style="min-width:0;">
               <div style="font-size:${isActive?'11px':'10.5px'}; font-weight:800; text-transform:uppercase; letter-spacing:.04em; color:${subColor};">${courseStatusLabelL(c.status)}</div>
