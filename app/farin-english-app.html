@@ -3801,6 +3801,56 @@ function markSpeakingTopicUsed(topicId){
   }
   save();
 }
+/* Linked YouTube/podcast session type (2026-09-30, Trello yEgfxsWL, Farin:
+   "i want some sessions also be a link to a youtube video or a podcast
+   (which are allowed to be used)"). Hard constraint from the card itself:
+   only rights-cleared sources (Creative Commons, official partners, or
+   content Farin owns) — NOT arbitrary YouTube links. That vetted source list
+   doesn't exist yet, so this array is intentionally EMPTY: the shell (this
+   schema, TYPE_META.media below, renderMediaSession(), the 'media-session'
+   route, manual-toggle completion via the existing roadmapChecked mechanism)
+   is built and ready, but no
+   fabricated/guessed content was added — filed a `me` card asking Farin for
+   the actual source list. Because this array is empty, buildRoadmap() below
+   never produces a 'media' node yet — zero risk of showing unlicensed
+   content to a real learner. Once real entries exist here, wiring them into
+   roadmap selection (same pattern as pickSpeakingTopic/STORY_TOPICS) is the
+   remaining step.
+   Schema per entry: {id, level, goal, kind:'youtube'|'podcast',
+   title:{en,tr,fa}, sourceUrl, videoId (youtube only), durationMin,
+   discussionQuestions:[{en,tr,fa}], vocab:[{word,en,tr,fa}]} */
+const MEDIA_LIBRARY = [];
+function renderMediaSession(id){
+  const m = MEDIA_LIBRARY.find(x=>x.id===id);
+  if(!m) return renderNotFound();
+  // Manual toggle via the same state.progress.roadmapChecked mechanism the
+  // roadmap card itself uses for session/writing/speaking (roadmapNodeId()) —
+  // no separate progress array, consistent with those other manual-only types.
+  const roadmapId = roadmapNodeId({type:'media', refId:m.id});
+  const done = !!(state.progress.roadmapChecked && state.progress.roadmapChecked[roadmapId]);
+  const embed = m.kind==='youtube' && m.videoId
+    ? `<div style="position:relative; width:100%; padding-top:56.25%; border-radius:20px; overflow:hidden; background:#000;"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.videoId)}" title="${esc(L(m.title.en,m.title.tr,m.title.fa))}" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+    : `<a class="btn btn-primary" href="${esc(m.sourceUrl)}" target="_blank" rel="noopener">${L('Listen to the podcast','Podcasti dinle','گوش‌دادن به پادکست')} ↗</a>`;
+  return `<div class="fade-in">
+    ${sectionHead(L(m.title.en,m.title.tr,m.title.fa), (m.goal && GOALS_META[m.goal] ? goalMetaLabel(m.goal)+' · ' : '')+(m.durationMin?m.durationMin+' '+L('min','dk','دقیقه'):''))}
+    <div class="screen" style="padding-top:0;">
+      ${embed}
+      ${m.discussionQuestions && m.discussionQuestions.length ? `
+      <div class="card-flat" style="margin-top:16px;">
+        <div class="eyebrow" style="color:var(--cat-story);">${L('Discussion questions','Tartışma soruları','سؤالات بحث')}</div>
+        <ol style="margin:8px 0 0; padding-inline-start:18px;">
+          ${m.discussionQuestions.map(q=>`<li style="font-size:14px; line-height:1.6; margin-top:6px;">${esc(L(q.en,q.tr,q.fa))}</li>`).join('')}
+        </ol>
+      </div>` : ''}
+      ${m.vocab && m.vocab.length ? `
+      <div class="card-flat" style="margin-top:14px; background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);">
+        <div class="eyebrow" style="color:var(--cat-voc);">${L('New words','Yeni kelimeler','کلمات جدید')}</div>
+        ${m.vocab.map(v=>`<div class="phrase-row"><div class="phrase-term" style="color:var(--cat-voc);">${esc(v.word)}</div><div class="phrase-mean">${esc(L(v.en,v.tr,v.fa))}</div></div>`).join('')}
+      </div>` : ''}
+      <button class="btn ${done?'btn-ghost':'btn-primary'}" style="margin-top:16px;" data-action="toggle-roadmap-item" data-id="${roadmapId}">${done ? L('Marked as watched ✓','İzlendi olarak işaretlendi ✓','علامت‌زده به‌عنوان دیده‌شده ✓') : L('Mark as watched','İzlendi olarak işaretle','علامت‌زدن به‌عنوان دیده‌شده')}</button>
+    </div>
+  </div>`;
+}
 function buildRoadmap(profile){
   const goals = profileGoalKeys(profile);
   const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===profile.level);
@@ -4859,7 +4909,12 @@ function renderRoadmapCard(p){
     // chosen so this is the loudest, most distinct node on the roadmap. Now
     // uses the real icon-controller.png (Farin's ask) but keeps the same
     // gold "review" color/border so it's still the most distinct node.
-    game:{ic:ICONS.bolt, img:'icon-controller.png', c:'review', label:L('GAME','OYUN','بازی')}
+    game:{ic:ICONS.bolt, img:'icon-controller.png', c:'review', label:L('GAME','OYUN','بازی')},
+    // Linked YouTube/podcast session type (Trello yEgfxsWL) — MEDIA_LIBRARY is
+    // currently empty (see its own comment), so buildRoadmap() never actually
+    // produces a 'media' node yet; this entry just means the seam badge/card
+    // render correctly the moment real, rights-cleared content is added.
+    media:{ic:ICONS.play, c:'story', label:L('Watch or listen','İzle veya dinle','تماشا یا گوش‌کن')}
   };
   const doneCount = roadmap.filter(it=>isRoadmapNodeDone(it)).length;
   const allDone = doneCount === roadmap.length;
@@ -4945,6 +5000,9 @@ function renderRoadmapCard(p){
       studyCloseTag = '</button>';
     } else if(isGame){
       studyOpenTag = '<button class="roadmap-study" data-action="start-game" data-set-id="'+(item.setId||'')+'" data-kind="'+(item.gameKind||'')+'" data-ref-id="'+item.refId+'" data-goal="'+(item.goal||'')+'" style="'+studyStyle+'">';
+      studyCloseTag = '</button>';
+    } else if(item.type==='media'){
+      studyOpenTag = '<button class="roadmap-study" data-action="nav" data-view="media-session" data-id="'+item.refId+'" style="'+studyStyle+'">';
       studyCloseTag = '</button>';
     } else {
       const cat = item.type==='slang' ? 'slang' : 'vocab';
@@ -6924,6 +6982,7 @@ const screens = {
   'not-found': renderNotFound,
   'story-list': renderStoryList,
   'story-detail': ()=>renderStoryDetail(state.viewParams.id),
+  'media-session': ()=>renderMediaSession(state.viewParams.id),
   'quiz': ()=> state.quiz.index < state.quiz.questions.length ? renderQuiz() : renderQuizResults()
 };
 
