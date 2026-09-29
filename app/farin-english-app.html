@@ -397,6 +397,14 @@
   .rm2-node-current::before{content:''; position:absolute; top:-65%; left:-45%; width:32%; height:240%; background:linear-gradient(120deg, transparent, rgba(255,255,255,.75), transparent); transform:rotate(16deg); animation:rm2-shine 2.7s ease-in-out infinite; pointer-events:none;}
   @keyframes rm2-shine{0%{left:-45%;} 55%,100%{left:135%;}}
   .rm2-node-done{filter:saturate(.55); opacity:.75;}
+  /* Follow-up polish (2026-09-29, Farin: "sparkly not just shiny", "colors so dull",
+     "font also dull... like the profile square but my brand colors"). Current-step
+     card now fills with the full-strength brand/category color (same recipe as
+     .character-card on Profile: solid color + white text) instead of the muted
+     "-soft" pastel token, and gets actual twinkling sparkle stars on top of the
+     existing shine sweep — reuses the app's existing .sparkle/@sparkle-twinkle
+     (see profileHeaderCard/.character-card) rather than inventing a new effect. */
+  .rm2-node-current .sparkle{color:#fff;}
   .rm2-seam-enter{animation:rm2-seam-enter .45s cubic-bezier(.34,1.56,.64,1) backwards;}
   @keyframes rm2-seam-enter{from{opacity:0; transform:scale(.5);} to{opacity:1; transform:scale(1);}}
   .rm2-card-enter{animation:rm2-card-enter .4s ease-out backwards;}
@@ -4734,7 +4742,6 @@ function renderRoadmapCard(p){
     const isGame = item.type === 'game';
     const isCurrent = idx === currentIndex;
     const color = 'var(--cat-'+m.c+')';
-    const soft = 'var(--cat-'+m.c+'-soft)';
     const subtitle = isSession
       ? L('Recommended — see prep, then message on WhatsApp',"Önerilir — önce hazırlığa bak, sonra WhatsApp'tan mesaj at",'پیشنهادی — اول آماده‌سازی را ببین، بعد در واتس‌اپ پیام بده')
       : ((item.goal && GOALS_META[item.goal]) ? goalMetaLabel(item.goal)+' · '+m.label : m.label);
@@ -4762,32 +4769,58 @@ function renderRoadmapCard(p){
     }
     // Roadmap 2.0 redesign (2026-09-29, Farin): "each section bigger, filled with a
     // pastel color... if the user is in that step, that one is shiny... no more
-    // curve, cards under cards in different colors". Each node is now one big block
-    // filled with its category's existing pastel "-soft" token (done nodes go flat
-    // gray via .rm2-node-done so completion reads at a glance); the current node
-    // adds .rm2-node-current, which layers a stronger ring/glow + an animated
-    // diagonal shine sweep (see CSS above .rm2-track) so it's unmistakably "the one
-    // you're on" without needing a separate floating "you're here" pill.
+    // curve, cards under cards in different colors". Each node is one big block
+    // (done nodes go flat gray via .rm2-node-done so completion reads at a glance);
+    // the current node adds .rm2-node-current, which layers a stronger ring/glow +
+    // an animated diagonal shine sweep (see CSS above .rm2-track) so it's
+    // unmistakably "the one you're on" without needing a separate floating
+    // "you're here" pill.
+    // Follow-up polish (2026-09-29, Farin: "colors so dull... look at the profile
+    // square, I want like that but my brand colors" + "font also dull"): the
+    // "profile square" turned out to be .character-card on the Profile screen
+    // (profileHeaderCard) — a full-strength brand/category color fill with white
+    // text + a radial highlight + sparkle stars, NOT the muted "-soft" pastel
+    // tokens this roadmap used before. Reusing that exact recipe here: upcoming
+    // cards get a bolder color-mix tint (more saturated than the old "-soft"
+    // token), the current card gets the full solid brand color, and titles switch
+    // to the app's existing Fredoka "display" treatment (same font used for hero
+    // headings like the profile name) instead of the default body font.
     const cls = 'rm2-node' + (isCurrent ? ' rm2-node-current' : '') + (checked ? ' rm2-node-done' : '');
-    const bg = checked ? 'var(--bg-sunken)' : soft;
+    const upcomingBg = `color-mix(in srgb, ${color} 32%, var(--bg-elevated))`;
+    const currentBg = `radial-gradient(circle at 16% 8%, rgba(255,255,255,.4), transparent 55%), linear-gradient(150deg, ${color}, color-mix(in srgb, ${color} 78%, #000 18%))`;
+    const bg = checked ? 'var(--bg-sunken)' : (isCurrent ? currentBg : upcomingBg);
     const borderW = isCurrent ? '2.5px' : '1.5px';
     // NB: color is a var(--cat-x) reference — see the color-mix() note in pinFn above,
     // same fix applies here (a plain `color+'70'` hex-alpha suffix on a var() is
     // invalid CSS and silently drops the whole border-color/box-shadow declaration).
-    const borderColor = isCurrent ? color : (checked ? 'var(--border-soft)' : `color-mix(in srgb, ${color} 45%, transparent)`);
+    const borderColor = isCurrent ? 'rgba(255,255,255,.55)' : (checked ? 'var(--border-soft)' : `color-mix(in srgb, ${color} 45%, transparent)`);
     const shadow = isCurrent
-      ? `0 0 0 3px color-mix(in srgb, ${color} 20%, transparent), 0 16px 30px -12px color-mix(in srgb, ${color} 45%, transparent)`
+      ? `0 0 0 3px color-mix(in srgb, ${color} 28%, transparent), 0 18px 34px -12px color-mix(in srgb, ${color} 55%, transparent)`
       : '0 3px 10px -4px rgba(20,51,46,.16)';
+    const subtitleColor = isCurrent ? 'rgba(255,255,255,.92)' : color;
+    const titleColor = isCurrent ? '#fff' : 'var(--ink)';
+    const chevColor = isCurrent ? 'rgba(255,255,255,.92)' : color;
+    const titleFont = `font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:700; font-size:18.5px; letter-spacing:-.01em;`;
+    // Sparkle stars (task 1: "sparkly, not just shiny") — layered on top of the
+    // existing shine sweep, current-step card only, reusing the app's existing
+    // .sparkle/@sparkle-twinkle keyframes (see profileHeaderCard/.character-card)
+    // rather than a new effect.
+    const sparkles = isCurrent && !checked ? `
+        <span class="sparkle" style="top:10px; left:16px; animation-delay:0s;"></span>
+        <span class="sparkle" style="top:22px; right:22px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
+        <span class="sparkle" style="bottom:16px; right:44px; left:auto; width:5px; height:5px; animation-delay:1s;"></span>
+        <span class="sparkle" style="bottom:22px; left:38px; width:4px; height:4px; animation-delay:1.4s;"></span>` : '';
     return `<div class="${cls}" style="border-radius:26px; padding:34px 20px 30px; background:${bg}; border:${borderW} solid ${borderColor}; box-shadow:${shadow};">
+      ${sparkles}
       ${studyOpenTag}
         <div class="row between" style="align-items:flex-start; gap:10px;">
           <div style="min-width:0;">
-            <div style="font-size:10.5px; font-weight:800; color:${color}; text-transform:uppercase; letter-spacing:.04em;">${isGame?'⚡ ':''}${esc(subtitle)}</div>
-            <div style="font-weight:800; font-size:17px; margin-top:5px; color:var(--ink); line-height:1.3; ${checked?'text-decoration:line-through; opacity:.62;':''}">${esc(item.title)}</div>
+            <div style="font-size:11px; font-weight:900; color:${subtitleColor}; text-transform:uppercase; letter-spacing:.05em;">${isGame?'⚡ ':''}${esc(subtitle)}</div>
+            <div style="${titleFont} margin-top:6px; color:${titleColor}; line-height:1.28; ${checked?'text-decoration:line-through; opacity:.62;':''}">${esc(item.title)}</div>
           </div>
-          <span style="flex:0 0 auto; margin-top:3px; color:${color}; opacity:${checked?1:.65};">${checked?ICONS.check:ICONS.chev}</span>
+          <span style="flex:0 0 auto; margin-top:3px; color:${chevColor}; opacity:${checked?1:.65};">${checked?ICONS.check:ICONS.chev}</span>
         </div>
-        ${isCurrent && !checked ? `<div class="pill" style="margin-top:14px; background:${color}; color:#fff;">${L("You're here","Buradasın","اینجایی")}</div>` : ''}
+        ${isCurrent && !checked ? `<div class="pill" style="margin-top:14px; background:#fff; color:${color}; font-weight:900; text-transform:uppercase; letter-spacing:.03em; box-shadow:0 4px 10px -3px rgba(0,0,0,.3);">${L("You're here","Buradasın","اینجایی")}</div>` : ''}
       ${studyCloseTag}
     </div>`;
   }
@@ -5266,31 +5299,38 @@ function tabLabel(tab){
     culture: L('Culture Guide','Kültür Rehberi','راهنمای فرهنگی')
   }[tab];
 }
+// Goals tap now always edits (2026-09-29, Farin: "tapping the goal section
+// shouldn't launch practice/a lesson anymore — it should let the user change
+// their goal"). Previously a card only toggled selection while a separate
+// "Edit my goals" mode was on; otherwise tapping drilled into goal-levels ->
+// goal-level-detail (grammar/vocab/slang practice content) — that browse path
+// is removed here. Every tap now directly adds/removes the goal via the
+// existing toggle-profile-goal handler (same one the old edit-mode used), so
+// this screen is a straightforward goal picker with no separate edit toggle.
+// goal-levels/goal-level-detail (renderGoalLevels/renderGoalLevelDetail below)
+// have no other entry point in the app and are now orphaned — left in place
+// rather than deleted, since removing them wasn't asked for.
 function renderGoalsList(){
-  const editing = !!state.viewParams.editingGoals;
   const p = state.profile;
   return `<div class="fade-in">
     ${topbar(false)}
-    ${sectionHeadNoBack(L('Goals','Hedefler','اهداف'), editing
-      ? L('Pick up to 3 goals — all of them shape your Roadmap, lessons and practice.','En fazla 3 hedef seç — hepsi Yol Haritanı, derslerini ve alıştırmalarını şekillendirir.','حداکثر ۳ هدف انتخاب کن — همه آن‌ها نقشه راه، درس‌ها و تمرین‌هایت را شکل می‌دهند.')
-      : L('Pick a goal to see grammar, vocabulary, and slang built around it.','Etrafında dilbilgisi, kelime ve argo oluşturulmuş bir hedef seç.','هدفی را انتخاب کن تا گرامر، واژگان و اصطلاحات ساخته‌شده برای آن را ببینی.'))}
+    ${sectionHeadNoBack(L('Goals','Hedefler','اهداف'), L('Pick up to 3 goals — all of them shape your Roadmap, lessons and practice.','En fazla 3 hedef seç — hepsi Yol Haritanı, derslerini ve alıştırmalarını şekillendirir.','حداکثر ۳ هدف انتخاب کن — همه آن‌ها نقشه راه، درس‌ها و تمرین‌هایت را شکل می‌دهند.'))}
     <div class="screen" style="padding-top:0;">
       <div class="stack" style="gap:10px;">
         ${GOAL_ORDER.map(key=>{
           const g = GOALS_META[key];
           const active = p.goals.includes(key);
-          const atCap = editing && !active && p.goals.length>=3;
-          return `<button class="item-row goal-card ${active?'goal-active':''}" data-action="${editing?'toggle-profile-goal':'nav'}" data-view="goal-levels" data-goal="${key}" ${atCap?'disabled':''} style="background:var(--cat-${g.cat}); ${atCap?'opacity:.4;':''}">
+          const atCap = !active && p.goals.length>=3;
+          return `<button class="item-row goal-card ${active?'goal-active':''}" data-action="toggle-profile-goal" data-goal="${key}" ${atCap?'disabled':''} style="background:var(--cat-${g.cat}); ${atCap?'opacity:.4;':''}">
             ${claySparkles()}
             <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[g.icon]}</span>
             <div class="item-body">
               <div class="item-title">${esc(goalMetaLabel(key))}</div>
             </div>
-            ${active ? `<span class="pill badge-gold">${ICONS.check}</span>` : (editing ? '' : `<span class="chevron" style="color:rgba(255,255,255,.85);">${ICONS.chev}</span>`)}
+            ${active ? `<span class="pill badge-gold">${ICONS.check}</span>` : ''}
           </button>`;
         }).join('')}
       </div>
-      <button class="btn btn-ghost" style="margin-top:14px; width:100%;" data-action="toggle-edit-goals">${editing ? L('Done','Bitti','تمام') : L('Edit my goals','Hedeflerimi düzenle','ویرایش هدف‌هایم')}</button>
     </div>
   </div>`;
 }
@@ -7086,7 +7126,6 @@ const HANDLERS = {
   'set-cat'(el){ state.viewParams.cat = el.dataset.cat; save(); render(); },
   'set-goal-tab'(el){ state.viewParams.tab = el.dataset.tab; save(); render(); },
   'set-story-genre'(el){ state.viewParams.genre = el.dataset.genre; save(); render(); },
-  'toggle-edit-goals'(){ state.viewParams.editingGoals = !state.viewParams.editingGoals; render(); },
   'toggle-profile-goal'(el){
     const key = el.dataset.goal;
     const goals = state.profile.goals;
