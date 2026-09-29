@@ -4547,9 +4547,28 @@ function renderProfile(){
           // treatment) and sparkle stars. Locked cells stay muted gray, untouched.
           const icStyle = earned ? `background:rgba(255,255,255,.26); color:#fff;` : `background:var(--bg-sunken); color:var(--ink-faint);`;
           const cellStyle = earned ? `background:${bc.bg};` : '';
+          // Real icon assets (2026-09-29, Farin: "YES I WANT THAT DESIGN" — use the
+          // real medal-style PNGs from site/assets, now copied into app/). Every
+          // EARNED badge shows the real icon-trophy.png medal (achievement = trophy,
+          // same image for all types, same pattern most badge/achievement UIs use —
+          // the per-type glyph still does its job on the locked cells right next to
+          // it). Locked book/story-themed badges (Bookworm/Avid Reader/Story
+          // Master) show the real icon-book.png, and locked game badges
+          // (Game On/Arcade Regular) show the real icon-controller.png, instead
+          // of their inline SVG glyphs — extending real-asset usage to this
+          // screen too.
+          // Real-asset icons render at native size with no synthetic circle-chip
+          // background (they're already self-contained medal/badge art); every
+          // other badge keeps the existing inline-SVG-in-a-colored-circle chip.
+          const lockedRealIcon = {book:'icon-book.png', bolt:'icon-controller.png'}[b.icon];
+          const iconContent = earned
+            ? `<img src="icon-trophy.png" alt="" style="width:46px; height:46px; object-fit:contain;">`
+            : (lockedRealIcon
+                ? `<img src="${lockedRealIcon}" alt="" style="width:44px; height:44px; object-fit:contain;">`
+                : `<span class="badge-ic" style="${icStyle}">${ICONS[b.icon]}</span>`);
           return `<div class="badge-cell ${earned?'earned':'locked'}" style="${cellStyle}">
             ${earned ? miniSparkles() : ''}
-            <span class="badge-ic" style="${icStyle}">${ICONS[b.icon]}</span>
+            ${iconContent}
             <span class="badge-name">${esc(L(b.title.en,b.title.tr))}</span>
           </div>`;
         }).join('')}
@@ -4726,23 +4745,25 @@ function renderRoadmapCard(p){
   // circle. grammar/vocab/slang/writing/game keep their inline ICONS glyph —
   // no matching real asset exists for those in this folder (the site/'s
   // icon-book/icon-trophy/icon-gradcap/icon-controller/icon-mappin/icon-speech
-  // are a visually different, ornate bronze-medal style made for the website,
-  // not this app's soft clay look, so they were deliberately left out — see
-  // Trello card Xm6mSRaC comment for the full note to Farin on this).
+  // originally looked like a different, ornate bronze-medal style vs. this
+  // app's soft clay look, so a first pass left them out — Farin overrode that
+  // call explicitly ("YES I WANT THAT DESIGN... bias toward using them"), so
+  // game now also uses the real icon-controller.png, and the live-session type
+  // uses icon-speech.png (distinct from Studio's own icon-speaking.png, which
+  // stays on the 'speaking' practice type below) — see Trello Xm6mSRaC.
   const TYPE_META = {
     grammar:{ic:ICONS.dumbbell, c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
     vocab:{ic:ICONS.cards, c:'voc', label:L('Vocabulary','Kelime','واژگان')},
     slang:{ic:ICONS.cards, c:'diag', label:L('Slang','Argo','اصطلاحات')},
-    session:{ic:ICONS.chat, img:'icon-speaking.png', c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
+    session:{ic:ICONS.chat, img:'icon-speech.png', c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
     story:{ic:ICONS.book, img:'icon-story.png', c:'story', label:L('Story','Hikaye','داستان')},
     writing:{ic:ICONS.pen, c:'gram', label:L('Writing practice','Yazma pratiği','تمرین نوشتن')},
     speaking:{ic:ICONS.mic, img:'icon-speaking.png', c:'lis', label:L('Speaking practice','Konuşma pratiği','تمرین صحبت‌کردن')},
-    // Roadmap 2.0 Phase 3 (ShmcBt3T): bolt icon + gold "review" color are used
-    // nowhere else on the roadmap, and the "GAME" label prefix reads clearly
-    // regardless of color perception — the combination is deliberately the
-    // loudest, most distinct node on the roadmap, compensating for there being
-    // no separate Games tab to browse.
-    game:{ic:ICONS.bolt, c:'review', label:L('GAME','OYUN','بازی')}
+    // Roadmap 2.0 Phase 3 (ShmcBt3T): bolt icon + gold "review" color were
+    // chosen so this is the loudest, most distinct node on the roadmap. Now
+    // uses the real icon-controller.png (Farin's ask) but keeps the same
+    // gold "review" color/border so it's still the most distinct node.
+    game:{ic:ICONS.bolt, img:'icon-controller.png', c:'review', label:L('GAME','OYUN','بازی')}
   };
   const doneCount = roadmap.filter(it=>isRoadmapNodeDone(it)).length;
   const allDone = doneCount === roadmap.length;
@@ -4887,7 +4908,7 @@ function renderRoadmapCard(p){
           </div>
           <span style="flex:0 0 auto; margin-top:3px; color:${chevColor}; opacity:${checked?1:.65};">${checked?ICONS.check:ICONS.chev}</span>
         </div>
-        ${isCurrent && !checked ? `<div class="pill" style="margin-top:14px; background:#fff; color:${color}; font-weight:900; text-transform:uppercase; letter-spacing:.03em; box-shadow:0 4px 10px -3px rgba(0,0,0,.3);">${L("You're here","Buradasın","اینجایی")}</div>` : ''}
+        ${isCurrent && !checked ? `<div class="pill" style="margin-top:14px; background:#fff; color:${color}; font-weight:900; text-transform:uppercase; letter-spacing:.03em; box-shadow:0 4px 10px -3px rgba(0,0,0,.3);"><img src="icon-mappin.png" alt="" style="width:15px; height:15px; object-fit:contain;">${L("You're here","Buradasın","اینجایی")}</div>` : ''}
       ${studyCloseTag}
     </div>`;
   }
@@ -4910,7 +4931,7 @@ function renderRoadmapCard(p){
         ${stackedRoadmap(roadmap.length, pinFn, cardFn, L(arch.name.en,arch.name.tr,arch.name.fa), startMedia, allDone ? L("You've made it!",'Başardın!','موفق شدی!') : nextDisplayLevel(p), endMedia)}
       </div>
       ${allDone ? `
-      <button class="btn" style="margin-top:18px; width:100%; justify-content:center; background:var(--clay-orange); color:#fff; border:none;" data-action="advance-roadmap-level">${L('Go to the next level','Bir sonraki seviyeye geç','برو به سطح بعدی')}</button>` : `
+      <button class="btn" style="margin-top:18px; width:100%; justify-content:center; background:var(--clay-orange); color:#fff; border:none;" data-action="advance-roadmap-level"><img src="icon-gradcap.png" alt="" style="width:22px; height:22px; object-fit:contain;">${L('Go to the next level','Bir sonraki seviyeye geç','برو به سطح بعدی')}</button>` : `
       <button class="btn" disabled style="margin-top:18px; width:100%; justify-content:center; background:var(--bg-sunken); color:var(--ink-faint); border:1.5px solid var(--border-soft); cursor:default;">${L('Finish everything above to unlock the next level','Bir sonraki seviyeyi açmak için yukarıdakilerin hepsini bitir','برای باز کردن سطح بعدی، همه موارد بالا را تمام کن')}</button>`}
       <button class="btn btn-ghost" style="margin-top:10px;" data-action="retake-diagnostic">${L('Redo my diagnostic','Testimi yeniden yap','دوباره انجام‌دادن آزمون')}</button>`;
 }
@@ -5090,7 +5111,7 @@ function renderRoadmapTimeline(items){
       <div class="${isCurrent?'roadmap-pin-current':''}" style="position:absolute; left:0; top:-1px; width:30px; height:30px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:${r.done?color:'var(--bg-elevated)'}; border:2.5px solid ${color}; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 6px -1px rgba(0,0,0,.22);">
         <span style="transform:rotate(45deg); color:${r.done?'#fff':color}; font-size:11px; font-weight:800;">${r.done?ICONS.check:String(i+1).padStart(2,'0')}</span>
       </div>
-      ${isCurrent ? `<span class="roadmap-here-badge pill" style="position:absolute; left:36px; top:-14px; background:var(--accent); color:var(--accent-ink); font-size:9.5px; white-space:nowrap; box-shadow:var(--shadow); z-index:1;">${L("You're here","Buradasın","اینجایی")}</span>` : ''}
+      ${isCurrent ? `<span class="roadmap-here-badge pill" style="position:absolute; left:36px; top:-14px; background:var(--accent); color:var(--accent-ink); font-size:9.5px; white-space:nowrap; box-shadow:var(--shadow); z-index:1;"><img src="icon-mappin.png" alt="" style="width:12px; height:12px; object-fit:contain; vertical-align:-1px;">${L("You're here","Buradasın","اینجایی")}</span>` : ''}
       <div style="background:var(--bg-sunken); border-radius:16px; padding:12px 14px; border:1.5px solid ${isCurrent?'var(--accent)':(r.done?color+'66':'var(--border-soft)')};">
         ${r.date ? `<div style="font-size:10px; color:var(--ink-faint); font-weight:800; text-transform:uppercase; letter-spacing:.03em;">${esc(r.date)}</div>` : ''}
         <div style="font-weight:800; font-size:14.5px; margin-top:2px; color:${color}; ${r.done?'text-decoration:line-through; opacity:.6;':''}">${esc(r.title||r.label||'')}</div>
@@ -5274,7 +5295,7 @@ function renderStudentPanel(){
       <div class="card-flat" style="margin-top:16px; border-left:4px solid var(--cat-diag);">
         <div class="row between" style="align-items:center;">
           <div style="display:flex; align-items:center; gap:9px;">
-            <span style="width:28px; height:28px; border-radius:50%; background:var(--cat-diag-soft); color:var(--cat-diag); display:flex; align-items:center; justify-content:center; flex:0 0 auto;">${ICONS.dumbbell}</span>
+            <img src="icon-gradcap.png" alt="" style="width:30px; height:30px; object-fit:contain; flex:0 0 auto;">
             <div class="eyebrow" style="margin:0;">${L('Level progress','Seviye ilerlemesi','پیشرفت سطح')}</div>
           </div>
           <span class="display" style="font-size:20px; color:var(--cat-diag);">${stage.sessions}<span style="font-size:13px; color:var(--ink-faint); font-family:'Plus Jakarta Sans',sans-serif; font-weight:700;">/10</span></span>
