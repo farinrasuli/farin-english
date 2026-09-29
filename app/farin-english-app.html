@@ -7374,6 +7374,8 @@ let adminResetStatus = '';
 let adminStudentOpenSection = null;
 let adminActiveCourseId = null;
 let adminAddingCourse = false;
+let adminPlacementTest = null;
+let adminStudentTab = 'info';
 function studentSectionRow(key, icon, label, summary){
   const open = adminStudentOpenSection === key;
   return `<button type="button" class="item-row" data-admin-action="toggle-student-section" data-section="${key}" style="margin-bottom:0; ${open?'border-radius:14px 14px 0 0;':''}">
@@ -7925,6 +7927,37 @@ function quickFillPills(action, templates){
     ${Object.keys(templates).map(key=>`<button type="button" class="pill" data-admin-action="${action}" data-key="${key}" style="background:var(--bg-sunken); color:var(--ink-soft); cursor:pointer; border:none; font-family:inherit;">${key.replace(/-/g,' ')}</button>`).join('')}
   </div>`;
 }
+/* Admin-run placement test (added 2026-09-29, Farin's request): when adding/editing a
+   Club student, Farin can take the same adaptive placement test himself - reuses the
+   exact question-building/scoring engine from the general onboarding test
+   (initPlacementTest/loadTierQueue/placementDecideNext are already state-agnostic, take
+   a `test` object rather than reading global state, so no duplication needed here) - but
+   targets adminEditingStudent.level instead of state.diag.level, and skips priorityArea/
+   learnerType entirely since Club student docs don't have those fields. Form-state only,
+   same as everything else in this admin form - nothing saves until Farin's own Save. */
+function renderAdminPlacementTest(test){
+  const q = test.queue[test.qIndex];
+  if(!q) return '';
+  return `<div style="border:1.5px dashed var(--border); border-radius:12px; padding:12px; margin-bottom:14px;">
+    <div class="row" style="gap:5px; margin-bottom:10px;">
+      ${test.queue.map((_,i)=>`<i style="flex:1; height:4px; border-radius:2px; background:${i<test.qIndex?'var(--cat-diag)':(i===test.qIndex?'var(--accent-strong)':'var(--border-soft)')};"></i>`).join('')}
+    </div>
+    <span class="pill" style="background:var(--cat-diag-soft); color:var(--cat-diag); margin-bottom:10px; display:inline-block;">${LEVELS[test.tierIdx]}</span>
+    <div class="quiz-prompt" dir="ltr" style="margin-bottom:8px;">${esc(q.prompt)}</div>
+    ${q.choices.map((opt,i)=>{
+      let cls = 'quiz-opt';
+      if(test.answered){
+        if(opt===q.correct) cls += ' correct';
+        else if(i===test.selected) cls += ' wrong';
+      }
+      return `<button type="button" class="${cls}" dir="ltr" ${test.answered?'disabled':''} data-admin-action="admin-test-answer" data-i="${i}">${esc(opt)}</button>`;
+    }).join('')}
+    <div class="row" style="gap:8px; margin-top:10px;">
+      ${test.answered ? `<button type="button" class="btn btn-primary btn-sm" style="flex:1;" data-admin-action="admin-test-next">Continue</button>` : ''}
+      <button type="button" class="btn btn-ghost btn-sm" style="flex:1;" data-admin-action="cancel-admin-placement-test">Cancel</button>
+    </div>
+  </div>`;
+}
 function renderCourseChips(courses, activeId){
   const chips = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0)).map(c=>{
     const icon = c.status==='completed' ? '✓' : c.status==='active' ? '●' : c.status==='locked' ? '🔒' : c.status==='archived' ? '📦' : '○';
@@ -8017,6 +8050,11 @@ function renderAdminStudentsTab(){
           <div style="font-size:11.5px; color:var(--ink-faint);">${adminCourseLabel(s.course)} · pass: ${esc(s.code||'—')}</div>
         </div>
       </div>
+      <div class="row" style="gap:8px; margin-bottom:12px;">
+        <button type="button" class="btn btn-sm ${adminStudentTab==='roadmap'?'btn-primary':'btn-ghost'}" style="flex:1;" data-admin-action="admin-student-tab" data-tab="roadmap">🗺️ Roadmap</button>
+        <button type="button" class="btn btn-sm ${adminStudentTab==='info'?'btn-primary':'btn-ghost'}" style="flex:1;" data-admin-action="admin-student-tab" data-tab="info">👤 Student Info</button>
+      </div>
+      ${adminStudentTab==='info' ? `
       ${studentSectionRow('basics','📋','Basics', s.whatsapp?'WhatsApp on file':'No WhatsApp number yet')}
       ${studentSectionOpen('basics')}
       <label class="field-label">Course</label>
@@ -8045,6 +8083,8 @@ function renderAdminStudentsTab(){
       ${studentSectionOpen('level')}
       <label class="field-label">Level / stage <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(${adminCourseLabel(s.course)} course)</span></label>
       <select id="student-form-level" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink); margin-bottom:10px;">${levelOpts}</select>
+      ${adminPlacementTest ? renderAdminPlacementTest(adminPlacementTest) : `
+      <button type="button" class="btn btn-ghost btn-sm" style="width:100%; margin-bottom:14px;" data-admin-action="start-admin-placement-test">🧪 Not sure? Take the placement test for them</button>`}
       <label class="field-label">Sessions in this stage (0–10)</label>
       <div class="row" style="gap:8px; margin-bottom:14px; align-items:center;">
         <input id="student-form-sessions" type="number" min="0" max="10" value="${esc(s.sessionsInStage!==undefined?s.sessionsInStage:0)}" style="flex:1; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
@@ -8058,7 +8098,9 @@ function renderAdminStudentsTab(){
       <label class="field-label">Freeze <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0;">(leave blank if active)</span></label>
       <input id="student-form-freeze" type="text" value="${esc(s.freezeUntil||'')}" placeholder="e.g. Paused until October" style="width:100%; box-sizing:border-box; padding:11px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
       ${studentSectionClose()}
+      ` : ''}
 
+      ${adminStudentTab==='roadmap' ? `
       ${studentSectionRow('roadmap','🗺️','Roadmap', roadmap.filter(r=>r.done).length+'/'+roadmap.length+' sessions done')}
       ${studentSectionOpen('roadmap')}
       ${courses.length ? renderCourseChips(courses, adminActiveCourseId) : `<p style="font-size:11.5px; color:var(--ink-faint); margin:-2px 0 10px;">No courses yet — add sessions below, or tap "+ Add Course" once one exists.</p>`}
@@ -8125,7 +8167,9 @@ function renderAdminStudentsTab(){
         <button class="btn btn-ghost btn-sm" data-admin-action="parse-roadmap-paste">📋 Add pasted sessions</button>
       </div>
       ${studentSectionClose()}
+      ` : ''}
 
+      ${adminStudentTab==='info' ? `
       ${studentSectionRow('personalization','🎯','Teacher’s Learning Notes', personalizationSummary(personalizationObservations))}
       ${studentSectionOpen('personalization')}
       <p style="font-size:11px; color:var(--ink-faint); margin:-2px 0 10px;">Admin-only observations to give future lesson-writing sessions more context. Never shown to the student. Doesn’t change the roadmap topic itself.</p>
@@ -8207,6 +8251,7 @@ function renderAdminStudentsTab(){
         <input type="text" id="student-form-objective-${i}" value="${esc((objectives[i]||''))}" placeholder="e.g. Ready to handle a real job interview in English." style="width:100%; box-sizing:border-box; padding:9px 12px; border-radius:9px; border:1.5px solid var(--border); font-size:13.5px; background:var(--bg-elevated); color:var(--ink);">
       </div>`).join('')}
       ${studentSectionClose()}
+      ` : ''}
 
       ${adminStudentError ? `<p style="color:var(--error); font-size:13px; margin-bottom:10px;">${esc(adminStudentError)}</p>` : ''}
       ${adminStudentInfo ? `<p style="color:var(--success); font-size:13px; margin-bottom:10px;">${esc(adminStudentInfo)}</p>` : ''}
@@ -8332,6 +8377,8 @@ function bindAdminActions(root){
         adminEditingStudent = {isNew:true, course:'en', code:'', name:'', level:'', goal:'', goals:[], goalNotes:'', sessionsInStage:0, progressNote:'', performanceNote:'', objectives:['','',''], roadmap:[], courses:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}};
         adminActiveCourseId = null;
         adminAddingCourse = false;
+        adminStudentTab = 'info';
+        adminPlacementTest = null;
         renderAdminPage();
       } else if(action === 'set-student-course'){
         adminEditingStudent.course = el.dataset.course;
@@ -8347,6 +8394,8 @@ function bindAdminActions(root){
         adminStudentOpenSection = null;
         adminEditingStudent = Object.assign({isNew:false, goal:'', sessionsInStage:0, objectives:['','',''], roadmap:[], homework:[], whatsapp:'', package:8, freezeUntil:'', personalization:{observations:[]}}, s);
         adminAddingCourse = false;
+        adminStudentTab = 'info';
+        adminPlacementTest = null;
         const justSynthesized = ensureStudentCourses(adminEditingStudent);
         if(justSynthesized && adminEditingStudent.courses.length){
           // Persist the one-time migration so it never has to be recomputed — scoped write,
@@ -8409,6 +8458,50 @@ function bindAdminActions(root){
         s.roadmap = s.roadmap.concat(newItems);
         if(!Array.isArray(course.sessionIds)) course.sessionIds = [];
         newItems.forEach(it=>course.sessionIds.push(it.id));
+        renderAdminPage();
+      } else if(action === 'start-admin-placement-test'){
+        adminPlacementTest = initPlacementTest();
+        loadTierQueue(adminPlacementTest, (adminEditingStudent.goals && adminEditingStudent.goals[0]) || null);
+        renderAdminPage();
+      } else if(action === 'admin-test-answer'){
+        const test = adminPlacementTest;
+        if(!test || test.answered) return;
+        const i = Number(el.dataset.i);
+        const q = test.queue[test.qIndex];
+        test.answered = true; test.selected = i;
+        const isCorrect = q.choices[i] === q.correct;
+        if(isCorrect) test.tierCorrect++;
+        if(q.kind==='grammar'){ test.grammarTotal++; if(isCorrect) test.grammarCorrect++; }
+        else { test.vocabTotal++; if(isCorrect) test.vocabCorrect++; }
+        test.totalAsked++;
+        renderAdminPage();
+      } else if(action === 'admin-test-next'){
+        const test = adminPlacementTest;
+        if(!test) return;
+        if(test.qIndex+1 < test.queue.length){
+          test.qIndex++; test.answered = false; test.selected = null;
+          renderAdminPage();
+          return;
+        }
+        test.tiersVisited.push(test.tierIdx);
+        if(test.tierCorrect>=2) test.highestPassIdx = Math.max(test.highestPassIdx, test.tierIdx);
+        const {nextTier, stop} = placementDecideNext(test);
+        if(stop){
+          // Only level - Club student docs have no priorityArea/learnerType fields, unlike
+          // the general onboarding test this engine was originally built for.
+          adminEditingStudent.level = LEVELS[Math.max(test.highestPassIdx, 0)];
+          adminPlacementTest = null;
+          renderAdminPage();
+          return;
+        }
+        test.tierIdx = nextTier;
+        loadTierQueue(test, (adminEditingStudent.goals && adminEditingStudent.goals[0]) || null);
+        renderAdminPage();
+      } else if(action === 'cancel-admin-placement-test'){
+        adminPlacementTest = null;
+        renderAdminPage();
+      } else if(action === 'admin-student-tab'){
+        adminStudentTab = el.dataset.tab;
         renderAdminPage();
       } else if(action === 'add-roadmap-item'){
         adminEditingStudent.roadmap = harvestRoadmapFromDOM();
@@ -8551,6 +8644,8 @@ function bindAdminActions(root){
         adminStudentOpenSection = null;
         adminActiveCourseId = null;
         adminAddingCourse = false;
+        adminStudentTab = 'info';
+        adminPlacementTest = null;
         renderAdminPage();
       } else if(action === 'save-student'){
         saveAdminStudent();
