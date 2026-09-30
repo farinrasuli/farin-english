@@ -169,7 +169,7 @@
   @keyframes badge-pulse{0%,100%{transform:scale(1);} 50%{transform:scale(1.02);}}
   @keyframes badge-shine-sweep{0%{left:-60%;} 55%{left:130%;} 100%{left:130%;}}
   .card-name{background:radial-gradient(circle at 88% -14%, rgba(255,255,255,.6), transparent 55%), linear-gradient(135deg, var(--cat-diag-soft) 0%, var(--bg-elevated) 145%); border-color:var(--cat-diag-soft);}
-  .greeting-banner{position:relative; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--accent-soft); color:var(--accent-strong); border-radius:var(--radius); padding:15px 16px; font-weight:800; font-size:17px; margin-bottom:14px;}
+  .greeting-banner{position:relative; display:flex; align-items:center; justify-content:center; text-align:center; background:var(--accent); color:#fff; border-radius:var(--radius); padding:15px 16px; font-weight:800; font-size:17px; margin-bottom:14px; box-shadow:0 10px 20px -10px rgba(232,92,59,.5);}
   .greeting-banner .sparkle-1{top:6px; right:10%;}
   .greeting-banner .sparkle-2{bottom:8px; left:8%; width:5px; height:5px;}
   .greeting-banner .sparkle-3{top:40%; right:22%; width:5px; height:5px;}
@@ -4216,14 +4216,21 @@ function topbar(showGear, showSpanishLink){
   </div>`;
 }
 function bottomNav(){
+  // 3D icon sweep (2026-09-30, 3rd-round Farin feedback: "I liked the 3D
+  // icon design ... you did nothing" — go wide, not just badge cells). The
+  // Goals tab has a direct, precise 3D asset match (icon-goals.png, the
+  // clay target/bullseye) — swapped in. Home/Club have no matching 3D asset
+  // (no "house" or "people/community" render in the set) so they keep their
+  // inline ICONS glyph — noted as an asset gap rather than silently left
+  // as-is, see the report on Trello Xm6mSRaC.
   const items = [
     {v:'dashboard', ic:ICONS.home, label:L('Home','Ana Sayfa','خانه')},
-    {v:'goals-list', ic:ICONS.compass, label:L('Goals','Hedefler','اهداف')},
+    {v:'goals-list', img:'icon-goals.png', label:L('Goals','Hedefler','اهداف')},
     {v:'student-club', ic:ICONS.users, label:L('Club','Kulüp','باشگاه')}
   ];
   return `<nav class="bottomnav">${items.map(it=>`
     <button class="nav-btn ${state.view===it.v?'active':''}" data-action="nav" data-view="${it.v}">
-      ${it.ic}<span>${it.label}</span>
+      ${it.img ? `<img src="${it.img}" alt="" style="width:24px; height:24px; object-fit:contain;">` : it.ic}<span>${it.label}</span>
     </button>`).join('')}</nav>`;
 }
 function sectionHead(title, sub){
@@ -4577,9 +4584,12 @@ function progressRing(percent, color, trackColor, size, strokeWidth){
   </div>`;
 }
 function statRow(pr){
+  // Bold-color stat boxes (2026-09-30, 3rd-round Farin feedback) — Sessions/
+  // Streak now match the Club box's already-solid treatment instead of a
+  // white card + soft-tint icon chip.
   return `<div class="stat-row">
-    <div class="stat-box"><span class="stat-box-ic" style="background:var(--cat-review-soft); color:var(--cat-review);">${ICONS.flame}</span><div><div class="stat-num">${pr.sessionsExplored}</div><div class="stat-lab">${L('Sessions','Seans','جلسات')}</div></div></div>
-    <div class="stat-box"><span class="stat-box-ic" style="background:var(--cat-lis-soft); color:var(--cat-lis);">${ICONS.flame}</span><div><div class="stat-num">${pr.streak}</div><div class="stat-lab">${L('Day streak','Gün serisi','روزهای متوالی')}</div></div></div>
+    <div class="stat-box" style="background:var(--cat-review); border:none;"><span class="stat-box-ic" style="background:rgba(255,255,255,.26); color:#fff;">${ICONS.flame}</span><div><div class="stat-num" style="color:#fff;">${pr.sessionsExplored}</div><div class="stat-lab" style="color:rgba(255,255,255,.82);">${L('Sessions','Seans','جلسات')}</div></div></div>
+    <div class="stat-box" style="background:var(--cat-lis); border:none;"><span class="stat-box-ic" style="background:rgba(255,255,255,.26); color:#fff;">${ICONS.flame}</span><div><div class="stat-num" style="color:#fff;">${pr.streak}</div><div class="stat-lab" style="color:rgba(255,255,255,.82);">${L('Day streak','Gün serisi','روزهای متوالی')}</div></div></div>
     <button class="stat-box stat-box-club" data-action="nav" data-view="student-club">
       <span class="sparkle" style="top:5px; right:7px; left:auto; width:5px; height:5px;"></span>
       <span class="sparkle" style="bottom:5px; left:9px; width:4px; height:4px; animation-delay:.7s;"></span>
@@ -6285,12 +6295,17 @@ function renderGrammarList(){
       <div class="stack" style="gap:8px;">
         ${items.map(t=>{
           const done = state.progress.completedTraps.includes(t.id);
-          return `<button class="item-row" data-action="nav" data-view="grammar-trap" data-id="${t.id}">
-            <span class="item-ic" style="background:var(--cat-gram-soft); color:var(--cat-gram);">${ICONS.dumbbell}</span>
+          // Bold-color list cards (2026-09-30, 3rd-round Farin feedback: "colors
+          // are still dull" — most screens still defaulted to plain white rows
+          // with a soft-tinted icon chip; flipping the whole row to a solid
+          // category-color fill, same recipe as goal-card/the roadmap current
+          // node, so browsing lists read as vivid as the hero cards do).
+          return `<button class="item-row" data-action="nav" data-view="grammar-trap" data-id="${t.id}" style="background:var(--cat-gram); border:none; color:#fff; position:relative; overflow:hidden; box-shadow:var(--clay-shadow-soft);">
+            <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.dumbbell}</span>
             <div class="item-body">
-              <div class="item-title">${esc(grammarTitle(t))}</div>
+              <div class="item-title" style="color:#fff;">${esc(grammarTitle(t))}</div>
             </div>
-            ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+            ${done ? `<span class="pill" style="background:rgba(255,255,255,.9); color:var(--cat-gram);">${ICONS.check}</span>` : `<span class="chevron" style="color:rgba(255,255,255,.85);">${ICONS.chev}</span>`}
           </button>`;
         }).join('')}
       </div>
@@ -6310,12 +6325,19 @@ function renderGrammarTrap(id){
   return `<div class="fade-in">
     ${sectionHead('', '')}
     <div class="screen" style="padding-top:0;">
-      <div class="tip-card" style="position:relative; overflow:hidden; background:var(--cat-gram-soft); border-radius:26px; padding:22px 20px 24px;">
-        <div class="eyebrow" style="color:var(--cat-gram);">${L('TIP','İPUCU','نکته')}</div>
-        <h1 class="display" style="font-size:24px; margin-top:8px; line-height:1.3; color:var(--ink);">${esc(grammarTitle(t))}</h1>
+      <div class="tip-card" style="position:relative; overflow:hidden; background:radial-gradient(circle at 16% 8%, rgba(255,255,255,.35), transparent 55%), linear-gradient(150deg, var(--cat-gram), color-mix(in srgb, var(--cat-gram) 78%, #000 18%)); border-radius:26px; padding:22px 20px 20px; box-shadow:0 16px 30px -14px color-mix(in srgb, var(--cat-gram) 55%, transparent);">
+        <div class="eyebrow" style="color:rgba(255,255,255,.85);">${L('TIP','İPUCU','نکته')}</div>
+        <h1 class="display" style="font-size:24px; margin-top:8px; line-height:1.3; color:#fff;">${esc(grammarTitle(t))}</h1>
         ${(() => { const st = structureExplanation(L(t.exp.en,t.exp.tr,t.exp.fa)); return `
-        ${st.hook ? `<p style="margin-top:16px; font-size:15px; line-height:1.65; color:var(--ink);">${esc(st.hook)}</p>` : ''}
-        <div style="margin-top:16px; background:var(--bg-elevated); border-radius:16px; padding:13px 14px; display:flex; gap:11px; align-items:flex-start;">
+        ${st.hook ? `<p style="margin-top:16px; font-size:15px; line-height:1.65; color:rgba(255,255,255,.95);">${esc(st.hook)}</p>` : ''}
+        <!-- The colored band above is the "header"; everything below (reading
+             text/table/tip generated by shared helpers that assume dark-on-
+             light) sits in a nested white panel so it stays readable — same
+             split the SELIF culture card avoided needing only because all of
+             its text was custom-authored for a solid background; this one
+             reuses generic renderLessonText()/formsTable markup instead. -->
+        <div style="margin-top:16px; background:var(--bg-elevated); border-radius:18px; padding:14px 14px 6px;">
+        <div style="background:var(--bg-sunken); border-radius:16px; padding:13px 14px; display:flex; gap:11px; align-items:flex-start;">
           <button type="button" class="icon-btn" data-action="speak-sentence" data-text="${esc(right)}" style="flex:0 0 auto; background:var(--cat-gram-soft); color:var(--cat-gram); border-radius:50%; width:34px; height:34px; display:flex; align-items:center; justify-content:center; border:none;">${ICONS.soundOn}</button>
           <div style="min-width:0;">
             <div style="font-weight:700; font-size:15px; line-height:1.5; padding-top:5px;" dir="ltr">${glossify(right)}</div>
@@ -6334,10 +6356,11 @@ function renderGrammarTrap(id){
             </tbody>
           </table>
         </div>` : ''}
-        ${st.tip ? `<div style="margin-top:16px; padding:12px 14px; border-radius:14px; background:var(--bg-elevated); display:flex; gap:10px; align-items:flex-start;">
+        ${st.tip ? `<div style="margin:16px 0 8px; padding:12px 14px; border-radius:14px; background:var(--bg-sunken); display:flex; gap:10px; align-items:flex-start;">
           <span style="display:inline-flex; align-items:center; justify-content:center; width:26px; height:26px; border-radius:50%; background:var(--cat-gram-soft); flex:0 0 auto; font-size:13px;">💡</span>
           <div style="font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.5; padding-top:3px;">${esc(st.tip)}</div>
-        </div>` : ''}`; })()}
+        </div>` : ''}
+        </div>`; })()}
       </div>
 
       <div class="row" style="gap:7px; align-items:center; margin:22px 0 10px;">
@@ -6386,13 +6409,16 @@ function renderVocabList(){
       <div class="stack" style="gap:8px;">
         ${sets.map(s=>{
           const done = state.progress.completedVocabSets.includes(s.id);
-          return `<button class="item-row" data-action="nav" data-view="vocab-set-intro" data-id="${s.id}">
-            <span class="item-ic" style="background:var(--cat-voc-soft); color:var(--cat-voc);">${ICONS.cards}</span>
+          // Bold-color list cards (2026-09-30, 3rd-round Farin feedback), same
+          // recipe as the grammar list right above.
+          const setColor = cat==='slang' ? 'var(--cat-diag)' : 'var(--cat-voc)';
+          return `<button class="item-row" data-action="nav" data-view="vocab-set-intro" data-id="${s.id}" style="background:${setColor}; border:none; color:#fff; position:relative; overflow:hidden; box-shadow:var(--clay-shadow-soft);">
+            <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS.cards}</span>
             <div class="item-body">
-              <div class="item-title">${esc(setTitle(s))}</div>
-              <div class="item-sub">${s.cards.length} ${L('words','kelime','کلمه')}</div>
+              <div class="item-title" style="color:#fff;">${esc(setTitle(s))}</div>
+              <div class="item-sub" style="color:rgba(255,255,255,.82);">${s.cards.length} ${L('words','kelime','کلمه')}</div>
             </div>
-            ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+            ${done ? `<span class="pill" style="background:rgba(255,255,255,.9); color:${setColor};">${ICONS.check}</span>` : `<span class="chevron" style="color:rgba(255,255,255,.85);">${ICONS.chev}</span>`}
           </button>`;
         }).join('')}
       </div>
@@ -6650,13 +6676,14 @@ function renderStoryList(){
         ${stories.map(s=>{
           const done = state.progress.completedStories.includes(s.id);
           const forYou = storyTopicMatch(s, favoriteTopics);
-          return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}">
-            <span class="item-ic" style="background:var(--cat-${gl.cat}-soft); color:var(--cat-${gl.cat});">${ICONS[gl.ic]}</span>
+          // Bold-color list cards (2026-09-30, 3rd-round Farin feedback).
+          return `<button class="item-row" data-action="nav" data-view="story-detail" data-id="${s.id}" style="background:var(--cat-${gl.cat}); border:none; color:#fff; position:relative; overflow:hidden; box-shadow:var(--clay-shadow-soft);">
+            <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[gl.ic]}</span>
             <div class="item-body">
-              <div class="item-title">${esc(L(s.title.en,s.title.tr))}</div>
-              ${forYou ? `<span class="pill" style="background:var(--accent-soft); color:var(--accent-strong); margin-top:4px;">${ICONS.star} ${L('For you','Sana özel','مخصوص تو')}</span>` : ''}
+              <div class="item-title" style="color:#fff;">${esc(L(s.title.en,s.title.tr))}</div>
+              ${forYou ? `<span class="pill" style="background:#fff; color:var(--cat-${gl.cat}); margin-top:4px; font-weight:800;">${ICONS.star} ${L('For you','Sana özel','مخصوص تو')}</span>` : ''}
             </div>
-            ${done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+            ${done ? `<span class="pill" style="background:rgba(255,255,255,.9); color:var(--cat-${gl.cat});">${ICONS.check}</span>` : `<span class="chevron" style="color:rgba(255,255,255,.85);">${ICONS.chev}</span>`}
           </button>`;
         }).join('')}
       </div>
