@@ -3804,22 +3804,149 @@ function markSpeakingTopicUsed(topicId){
 /* Linked YouTube/podcast session type (2026-09-30, Trello yEgfxsWL, Farin:
    "i want some sessions also be a link to a youtube video or a podcast
    (which are allowed to be used)"). Hard constraint from the card itself:
-   only rights-cleared sources (Creative Commons, official partners, or
-   content Farin owns) — NOT arbitrary YouTube links. That vetted source list
-   doesn't exist yet, so this array is intentionally EMPTY: the shell (this
-   schema, TYPE_META.media below, renderMediaSession(), the 'media-session'
-   route, manual-toggle completion via the existing roadmapChecked mechanism)
-   is built and ready, but no
-   fabricated/guessed content was added — filed a `me` card asking Farin for
-   the actual source list. Because this array is empty, buildRoadmap() below
-   never produces a 'media' node yet — zero risk of showing unlicensed
-   content to a real learner. Once real entries exist here, wiring them into
-   roadmap selection (same pattern as pickSpeakingTopic/STORY_TOPICS) is the
-   remaining step.
-   Schema per entry: {id, level, goal, kind:'youtube'|'podcast',
-   title:{en,tr,fa}, sourceUrl, videoId (youtube only), durationMin,
-   discussionQuestions:[{en,tr,fa}], vocab:[{word,en,tr,fa}]} */
-const MEDIA_LIBRARY = [];
+   only rights-cleared sources — NOT arbitrary YouTube links.
+   2026-09-30 follow-up: a source list was researched (25 candidates — BBC
+   Learning English "6 Minute Grammar"/"6 Minute English" for grammar points
+   + the podcast, TED-Ed/Vox/TED Podcasts for the 10 favorite-topics from
+   ltUBeo1B). Every YouTube id was verified via the oEmbed endpoint
+   (https://www.youtube.com/oembed?url=...&format=json) before being added
+   here — a 200 response + the returned title/author matching what was
+   requested confirms the video is real, public, and embeddable; nothing
+   that failed that check was added. All 23 YouTube ids + the 1 podcast
+   passed; 24/25 shipped (the podcast is a single "explore the show" entry,
+   not per-episode, since individual episode pages weren't cross-verified).
+   Schema per entry: {id, level, topic (TOPIC_OPTIONS value, optional —
+   lets story-style personalization eventually weight media the same way
+   sortStoriesByTopic() does for stories), goal (optional), kind:
+   'youtube'|'podcast', title:{en,tr,fa}, sourceUrl, videoId (youtube only),
+   durationMin, discussionQuestions:[{en,tr,fa}], vocab:[{word,en,tr}]}
+   (fa omitted throughout — L()'s fa param falls back to en when omitted,
+   see L()'s own definition — en/tr are both always provided). */
+const MEDIA_LIBRARY = [
+  // ---- Grammar (BBC Learning English "6 Minute Grammar", ~6 min each) ----
+  {id:'media-g-presentsimple', level:'A2', kind:'youtube', videoId:'xFsYrTIndhI', durationMin:6,
+   title:{en:'Present Simple vs Present Continuous',tr:'Geniş Zaman ve Şimdiki Zaman'},
+   discussionQuestions:[{en:'What is one habit you do every day? Use the present simple.',tr:'Her gün yaptığın bir alışkanlık nedir? Geniş zaman kullan.'},
+     {en:'What are you doing right now, at this exact moment? Use the present continuous.',tr:'Şu anda, tam olarak bu anda ne yapıyorsun? Şimdiki zaman kullan.'}],
+   vocab:[{word:'habit', en:'something you do regularly', tr:'alışkanlık'},{word:'routine', en:'a fixed sequence of daily actions', tr:'rutin'},{word:'right now', en:'at this exact moment', tr:'şu anda'}]},
+  {id:'media-g-pastsimple', level:'A2', kind:'youtube', videoId:'PgsG98vByiw', durationMin:6,
+   title:{en:'The Past Simple Tense',tr:'Geçmiş Zaman'},
+   discussionQuestions:[{en:'What did you do yesterday evening?',tr:'Dün akşam ne yaptın?'},
+     {en:'Tell me about a trip you took last year — where did you go?',tr:'Geçen yıl yaptığın bir seyahatten bahset — nereye gittin?'}],
+   vocab:[{word:'yesterday', en:'the day before today', tr:'dün'},{word:'ago', en:'used for a time in the past (e.g. "two years ago")', tr:'önce'},{word:'irregular verb', en:'a verb that doesn\'t follow the normal -ed pattern in the past', tr:'düzensiz fiil'}]},
+  {id:'media-g-presentperfect', level:'B1', kind:'youtube', videoId:'jwmKjgwlMk8', durationMin:6,
+   title:{en:'Present Perfect and Past Simple',tr:'Şimdiki Zamanda Bitmiş Geçmiş ve Geçmiş Zaman'},
+   discussionQuestions:[{en:'Name three countries you have visited. Now pick one and say when you went.',tr:'Ziyaret ettiğin üç ülkeyi say. Sonra birini seç ve ne zaman gittiğini söyle.'},
+     {en:'What is something you have never done, but would like to try?',tr:'Hiç yapmadığın ama denemek istediğin bir şey nedir?'}],
+   vocab:[{word:'experience', en:'something that has happened to you at some point in your life', tr:'deneyim'},{word:'so far', en:'up until now', tr:'şimdiye kadar'},{word:'time word', en:'a word like "yesterday" or "already" that signals which tense to use', tr:'zaman sözcüğü'}]},
+  {id:'media-g-havetomust', level:'B1', kind:'youtube', videoId:'HUXXgVElADg', durationMin:6,
+   title:{en:"'Have To' and 'Must'",tr:"'Have To' ve 'Must'"},
+   discussionQuestions:[{en:'What is one rule you have to follow at work or school?',tr:'İşte ya da okulda uymak zorunda olduğun bir kural nedir?'},
+     {en:'Is there a difference between "you must do this" and "you have to do this" in your own language?',tr:'Kendi dilinde "bunu yapmalısın" ile "bunu yapmak zorundasın" arasında bir fark var mı?'}],
+   vocab:[{word:'obligation', en:'something you are required to do', tr:'zorunluluk'},{word:'permission', en:'being allowed to do something', tr:'izin'},{word:'strict', en:'demanding that rules be obeyed exactly', tr:'katı, sıkı'}]},
+  {id:'media-g-comparatives', level:'A2', kind:'youtube', videoId:'FAhpT7BH7GE', durationMin:6,
+   title:{en:'Comparatives and Superlatives',tr:'Karşılaştırma ve Üstünlük Sıfatları'},
+   discussionQuestions:[{en:'Compare two cities you know — which is bigger, more expensive, more beautiful?',tr:'Bildiğin iki şehri karşılaştır — hangisi daha büyük, daha pahalı, daha güzel?'},
+     {en:'What is the best film you have ever seen? Why is it the best?',tr:'İzlediğin en iyi film hangisi? Neden en iyisi?'}],
+   vocab:[{word:'comparative', en:'a form used to compare two things (e.g. "bigger")', tr:'karşılaştırma sıfatı'},{word:'superlative', en:'a form used for the extreme of a group (e.g. "the biggest")', tr:'üstünlük sıfatı'},{word:'irregular', en:'not following the standard pattern', tr:'düzensiz'}]},
+  {id:'media-g-firstconditional', level:'B1', kind:'youtube', videoId:'8VETylIxyhw', durationMin:6,
+   title:{en:'The First Conditional',tr:'Birinci Koşul Cümlesi'},
+   discussionQuestions:[{en:'Finish this sentence: "If it rains tomorrow, I will..."',tr:'Cümleyi tamamla: "Yarın yağmur yağarsa, ben..."'},
+     {en:'What will you do if you pass this level of English?',tr:'Bu İngilizce seviyesini geçersen ne yapacaksın?'}],
+   vocab:[{word:'condition', en:'a situation that must be true for something else to happen', tr:'koşul, şart'},{word:'likely', en:'probable, expected to happen', tr:'muhtemel'},{word:'result clause', en:'the part of the sentence that says what will happen', tr:'sonuç cümleciği'}]},
+  {id:'media-g-passive', level:'B2', kind:'youtube', videoId:'nI5zaB6QL-o', durationMin:6,
+   title:{en:'Present and Past Passives',tr:'Şimdiki ve Geçmiş Zaman Edilgen Çatı'},
+   discussionQuestions:[{en:'Name something that is made in your country (e.g. "Cars are made here").',tr:'Ülkende üretilen bir şey söyle (örn. "Burada araba üretilir").'},
+     {en:'Describe something that was built a long time ago near where you live.',tr:'Yaşadığın yerin yakınında uzun zaman önce inşa edilmiş bir şeyi anlat.'}],
+   vocab:[{word:'passive voice', en:'a sentence form where the focus is on the action, not who did it', tr:'edilgen çatı'},{word:'by + agent', en:'the phrase that names who did the action in a passive sentence', tr:'fail eki'},{word:'focus', en:'the main point of attention', tr:'odak'}]},
+  {id:'media-g-future', level:'B1', kind:'youtube', videoId:'jcAX1RtKq3U', durationMin:6,
+   title:{en:'Talking About the Future',tr:'Gelecek Zamandan Bahsetmek'},
+   discussionQuestions:[{en:'What are your plans for next weekend?',tr:'Önümüzdeki hafta sonu için planların neler?'},
+     {en:'Make a prediction: what do you think English learning apps will look like in 10 years?',tr:'Bir tahminde bulun: sence 10 yıl sonra İngilizce öğrenme uygulamaları nasıl olacak?'}],
+   vocab:[{word:'plan', en:'something you have already decided to do', tr:'plan'},{word:'prediction', en:'a guess about what will happen', tr:'tahmin'},{word:'intention', en:'what you intend/mean to do', tr:'niyet'}]},
+  {id:'media-g-questions', level:'A1', kind:'youtube', videoId:'j9b1CNN_rFU', durationMin:6,
+   title:{en:'Asking Questions',tr:'Soru Sormak'},
+   discussionQuestions:[{en:'Ask your teacher or a friend three questions about their weekend.',tr:'Öğretmenine ya da bir arkadaşına hafta sonu hakkında üç soru sor.'},
+     {en:'What question do you wish more people asked you?',tr:'Daha çok kişinin sana sormasını istediğin soru nedir?'}],
+   vocab:[{word:'question word', en:'a word like "what/where/why" that starts a question', tr:'soru sözcüğü'},{word:'auxiliary verb', en:'a helping verb like "do/does/did" used to form questions', tr:'yardımcı fiil'},{word:'word order', en:'the order words appear in a sentence', tr:'sözcük dizilimi'}]},
+  {id:'media-g-articles', level:'A1', kind:'youtube', videoId:'Cc5i5jnqM4g', durationMin:8,
+   title:{en:'Articles — a, an & the',tr:"'a', 'an' ve 'the' Kullanımı"},
+   discussionQuestions:[{en:'Describe your room — what is in it? ("There is a bed. The bed is...")',tr:'Odanı tarif et — içinde ne var? ("Bir yatak var. Yatak...")'},
+     {en:'When do you use "a/an" instead of "the"? Give one example of each.',tr:'"a/an" ile "the" ne zaman kullanılır? Her biri için bir örnek ver.'}],
+   vocab:[{word:'article', en:'the words a, an, and the', tr:'tanımlık, harf-i tarif'},{word:'specific', en:'a particular one, not just any', tr:'belirli'},{word:'general', en:'not specific — any one of a group', tr:'genel'}]},
+  // ---- Favorite-topics videos (TED-Ed/Vox/TED Podcasts, authentic native-speed content) ----
+  {id:'media-t-sport', level:'B2', topic:'sport', kind:'youtube', videoId:'m57cimnJ7fc', durationMin:5,
+   title:{en:'Football Physics: The "Impossible" Free Kick',tr:'Futbol Fiziği: "İmkansız" Frikik'},
+   discussionQuestions:[{en:'Have you ever played or watched a sport where physics seemed to matter? Describe it.',tr:'Fiziğin önemli göründüğü bir spor hiç oynadın ya da izledin mi? Anlat.'},
+     {en:'Explain in your own words why the ball curves.',tr:'Topun neden eğri gittiğini kendi cümlelerinle açıkla.'}],
+   vocab:[{word:'curve', en:'to bend in a smooth line', tr:'eğri çizmek'},{word:'spin', en:'to turn quickly around a central point', tr:'dönüş, efekt'},{word:'trajectory', en:'the path an object follows through the air', tr:'yörünge'}]},
+  {id:'media-t-art1', level:'B2', topic:'art', kind:'youtube', videoId:'PMerSm2ToFY', durationMin:5,
+   title:{en:'The Math Behind Van Gogh\'s "Starry Night"',tr:'Van Gogh\'un "Yıldızlı Gece" Tablosunun Ardındaki Matematik'},
+   discussionQuestions:[{en:'What is your favorite painting, and what do you feel when you look at it?',tr:'En sevdiğin tablo hangisi ve ona baktığında ne hissediyorsun?'},
+     {en:'Did you know math and art were connected before this video? What surprised you?',tr:'Bu videodan önce matematik ve sanatın bağlantılı olduğunu biliyor muydun? Seni ne şaşırttı?'}],
+   vocab:[{word:'turbulence', en:'irregular, swirling movement (of a fluid or air)', tr:'türbülans, çalkantı'},{word:'brushstroke', en:'a single mark made by a paintbrush', tr:'fırça darbesi'},{word:'swirl', en:'to move in a twisting, circular pattern', tr:'girdap gibi dönmek'}]},
+  {id:'media-t-art2', level:'B2', topic:'art', kind:'youtube', videoId:'pg1NpMmPv48', durationMin:5,
+   title:{en:'The Complex Geometry of Islamic Design',tr:'İslami Tasarımın Karmaşık Geometrisi'},
+   discussionQuestions:[{en:'What patterns or designs are common in art from your own country?',tr:'Kendi ülkenin sanatında hangi desenler ya da tasarımlar yaygın?'},
+     {en:'Why do you think geometric patterns were so important in this design tradition?',tr:'Sence bu tasarım geleneğinde geometrik desenler neden bu kadar önemliydi?'}],
+   vocab:[{word:'geometric', en:'made of lines, circles, and shapes', tr:'geometrik'},{word:'symmetry', en:'when both halves of something match exactly', tr:'simetri'},{word:'pattern', en:'a repeated design', tr:'desen, örüntü'}]},
+  {id:'media-t-science', level:'B1', topic:'science', kind:'youtube', videoId:'2W85Dwxx218', durationMin:5,
+   title:{en:'Why Do We Dream?',tr:'Neden Rüya Görürüz?'},
+   discussionQuestions:[{en:'Describe an interesting dream you remember.',tr:'Hatırladığın ilgi çekici bir rüyayı anlat.'},
+     {en:'What is one theory about dreaming mentioned in the video? Do you agree with it?',tr:'Videoda bahsedilen rüya teorilerinden biri nedir? Ona katılıyor musun?'}],
+   vocab:[{word:'REM sleep', en:'the sleep stage when most dreaming happens (Rapid Eye Movement)', tr:'REM uykusu'},{word:'theory', en:'an idea that explains why something happens', tr:'teori, kuram'},{word:'subconscious', en:'the part of the mind you\'re not actively aware of', tr:'bilinçaltı'}]},
+  {id:'media-t-history', level:'B1', topic:'history', kind:'youtube', videoId:'Jsj-hDW9bS8', durationMin:5,
+   title:{en:'The History of the World According to Cats',tr:'Kedilere Göre Dünya Tarihi'},
+   discussionQuestions:[{en:'What is a historical fact you find surprising or funny?',tr:'Şaşırtıcı ya da komik bulduğun bir tarihi gerçek nedir?'},
+     {en:'Do people in your country keep cats or dogs as pets more? Why do you think that is?',tr:'Ülkende insanlar daha çok kedi mi köpek mi besler? Sence nedeni ne?'}],
+   vocab:[{word:'domesticate', en:'to tame an animal so it can live with humans', tr:'evcilleştirmek'},{word:'ancient', en:'from a very long time ago', tr:'antik, kadim'},{word:'civilization', en:'a large, organized society', tr:'medeniyet'}]},
+  {id:'media-t-technology', level:'B2', topic:'technology', kind:'youtube', videoId:'TNQsmPf24go', durationMin:7,
+   title:{en:'How Does the Internet Work?',tr:'İnternet Nasıl Çalışır?'},
+   discussionQuestions:[{en:'How many hours a day do you spend online? What do you use it for most?',tr:'Günde kaç saat internette vakit geçiriyorsun? En çok ne için kullanıyorsun?'},
+     {en:'Name one new word from this video and explain what it means in your own words.',tr:'Bu videodan yeni bir kelime seç ve kendi cümlelerinle ne anlama geldiğini açıkla.'}],
+   vocab:[{word:'server', en:'a computer that stores and sends data to other computers', tr:'sunucu'},{word:'data', en:'information stored or sent by computers', tr:'veri'},{word:'network', en:'a group of connected computers or devices', tr:'ağ'}]},
+  {id:'media-t-music', level:'B2', topic:'music', kind:'youtube', videoId:'1lo8EomDrwA', durationMin:5,
+   title:{en:'Why We Love Repetition in Music',tr:'Müzikte Tekrarı Neden Severiz'},
+   discussionQuestions:[{en:'What is a song that gets stuck in your head? Why do you think it does?',tr:'Kafanda takılı kalan bir şarkı var mı? Sence nedeni ne?'},
+     {en:'Do you prefer music with a lot of repetition, or music that keeps changing? Why?',tr:'Çok tekrar içeren müziği mi yoksa sürekli değişen müziği mi tercih edersin? Neden?'}],
+   vocab:[{word:'repetition', en:'saying or playing something again and again', tr:'tekrar'},{word:'melody', en:'a sequence of musical notes that makes a tune', tr:'melodi'},{word:'catchy', en:'easy to remember and pleasant to hear', tr:'akılda kalıcı'}]},
+  {id:'media-t-food', level:'B1', topic:'food', kind:'youtube', videoId:'1sISguPDlhY', durationMin:5,
+   title:{en:'How the Food You Eat Affects Your Gut',tr:'Yediğin Yiyecekler Bağırsağını Nasıl Etkiler'},
+   discussionQuestions:[{en:'What is a healthy food you eat regularly?',tr:'Düzenli yediğin sağlıklı bir yiyecek nedir?'},
+     {en:'Did anything in this video surprise you or change how you think about food?',tr:'Bu videoda seni şaşırtan ya da yiyecek hakkındaki düşünceni değiştiren bir şey var mıydı?'}],
+   vocab:[{word:'digest', en:'to break down food in your body', tr:'sindirmek'},{word:'bacteria', en:'tiny living organisms, some good for digestion', tr:'bakteri'},{word:'nutrient', en:'a substance in food that helps you grow and stay healthy', tr:'besin öğesi'}]},
+  {id:'media-t-nature1', level:'B1', topic:'nature', kind:'youtube', videoId:'eOmF0c6Plnc', durationMin:8,
+   title:{en:'How Animal Senses Reveal the World Around Us',tr:'Hayvan Duyuları Etrafımızdaki Dünyayı Nasıl Ortaya Çıkarır'},
+   discussionQuestions:[{en:'If you could have one animal\'s sense (smell, sight, hearing), which would you choose and why?',tr:'Bir hayvanın duyusuna (koku, görme, işitme) sahip olabilseydin hangisini seçerdin, neden?'},
+     {en:'What animal in this video surprised you the most?',tr:'Bu videodaki hangi hayvan seni en çok şaşırttı?'}],
+   vocab:[{word:'sense', en:'a way of perceiving the world (sight, smell, hearing, etc.)', tr:'duyu'},{word:'perceive', en:'to become aware of something through the senses', tr:'algılamak'},{word:'environment', en:'the natural world around a living thing', tr:'çevre'}]},
+  {id:'media-t-nature2', level:'B1', topic:'nature', kind:'youtube', videoId:'lSXNqsOoURg', durationMin:5,
+   title:{en:'Why Elephants Never Forget',tr:'Filler Neden Hiçbir Şeyi Unutmaz'},
+   discussionQuestions:[{en:'What is something you will never forget?',tr:'Asla unutmayacağın bir şey nedir?'},
+     {en:'Why is memory so important for elephants living in the wild, according to the video?',tr:'Videoya göre hafıza, doğada yaşayan filler için neden bu kadar önemli?'}],
+   vocab:[{word:'memory', en:'the ability to remember things', tr:'hafıza'},{word:'herd', en:'a group of animals that live together', tr:'sürü'},{word:'instinct', en:'a natural behavior an animal is born with', tr:'içgüdü'}]},
+  {id:'media-t-movies', level:'B1', topic:'movies', kind:'youtube', videoId:'dq-3JfRrgRM', durationMin:5,
+   title:{en:'Animation Basics: Homemade Special Effects',tr:'Animasyon Temelleri: Ev Yapımı Özel Efektler'},
+   discussionQuestions:[{en:'What is your favorite movie with special effects?',tr:'Özel efektleri olan en sevdiğin film hangisi?'},
+     {en:'Would you like to try making your own short video with simple effects like these? Why or why not?',tr:'Bunun gibi basit efektlerle kendi kısa videonu yapmayı ister miydin? Neden?'}],
+   vocab:[{word:'special effects', en:'visual tricks used to create scenes that aren\'t real', tr:'özel efektler'},{word:'frame', en:'a single still image in a video', tr:'kare'},{word:'illusion', en:'something that looks real but isn\'t', tr:'yanılsama, illüzyon'}]},
+  {id:'media-t-business1', level:'B2', topic:'business', goal:'career', kind:'youtube', videoId:'XNu5ppFZbHo', durationMin:5,
+   title:{en:'What Gives a Dollar Bill Its Value?',tr:'Bir Dolar Banknotuna Değerini Ne Verir?'},
+   discussionQuestions:[{en:'What gives money its value, in your own words?',tr:'Kendi cümlelerinle, paraya değerini ne verir?'},
+     {en:'Has the value of money in your country changed a lot in your lifetime? How?',tr:'Ülkendeki paranın değeri hayatın boyunca çok değişti mi? Nasıl?'}],
+   vocab:[{word:'currency', en:'the money used in a particular country', tr:'para birimi'},{word:'trust', en:'belief that something is reliable', tr:'güven'},{word:'inflation', en:'when prices rise and money buys less over time', tr:'enflasyon'}]},
+  {id:'media-t-business2', level:'B2', topic:'business', goal:'career', kind:'youtube', videoId:'p7HKvqRI_Bo', durationMin:5,
+   title:{en:'How Does the Stock Market Work?',tr:'Borsa Nasıl Çalışır?'},
+   discussionQuestions:[{en:'Have you ever invested money, or would you like to someday? Why or why not?',tr:'Hiç para yatırdın mı ya da bir gün yatırmak ister misin? Neden?'},
+     {en:'Explain in your own words what a "share" of a company is.',tr:'Bir şirketin "hissesi"nin ne olduğunu kendi cümlelerinle açıkla.'}],
+   vocab:[{word:'share', en:'a small part of ownership in a company', tr:'hisse senedi'},{word:'invest', en:'to put money into something hoping to make more money later', tr:'yatırım yapmak'},{word:'risk', en:'the chance of losing money or something valuable', tr:'risk'}]},
+  // ---- Podcast (BBC Learning English "6 Minute English" — official free home, transcripts + worksheets, no signup) ----
+  {id:'media-podcast-bbc6min', level:'B1', kind:'podcast', sourceUrl:'https://www.bbc.co.uk/learningenglish/english/features/6-minute-english', durationMin:6,
+   title:{en:'BBC 6 Minute English (any episode)',tr:'BBC 6 Dakikada İngilizce (herhangi bir bölüm)'},
+   discussionQuestions:[{en:'Pick any episode on the page — what was the topic, in one sentence?',tr:'Sayfadan herhangi bir bölüm seç — konusu tek cümleyle neydi?'},
+     {en:'What is one new word or phrase you learned from the episode you listened to?',tr:'Dinlediğin bölümden öğrendiğin yeni bir kelime ya da ifade nedir?'}],
+   vocab:[{word:'episode', en:'one part of a podcast or show series', tr:'bölüm'},{word:'transcript', en:'the written text of everything spoken in an audio/video', tr:'metin dökümü'}]}
+];
 function renderMediaSession(id){
   const m = MEDIA_LIBRARY.find(x=>x.id===id);
   if(!m) return renderNotFound();
