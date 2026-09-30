@@ -5032,13 +5032,23 @@ function renderRoadmapCard(p){
   // game now also uses the real icon-controller.png, and the live-session type
   // uses icon-speech.png (distinct from Studio's own icon-speaking.png, which
   // stays on the 'speaking' practice type below) — see Trello Xm6mSRaC.
+  // 2026-09-30, Farin: "in some card related put the proper icon like the studio
+  // icon, or the book icon and others" — every type now carries a real 3D asset
+  // (`img`), shown big inside the card as well as in the seam badge. Note the set
+  // mixes two art styles: soft clay (icon-story/icon-speaking/icon-review/
+  // studio-icon-cutout) and ornate bronze-medal (icon-book/icon-gradcap/
+  // icon-speech/icon-controller). There is no clay asset for grammar/vocab/slang,
+  // so full one-style consistency isn't possible with what exists today — flagged
+  // for Farin rather than silently leaving those three on flat SVG.
   const TYPE_META = {
-    grammar:{ic:ICONS.dumbbell, c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
-    vocab:{ic:ICONS.cards, c:'voc', label:L('Vocabulary','Kelime','واژگان')},
-    slang:{ic:ICONS.cards, c:'diag', label:L('Slang','Argo','اصطلاحات')},
-    session:{ic:ICONS.chat, img:'icon-speech.png', c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
+    grammar:{ic:ICONS.dumbbell, img:'icon-gradcap.png', c:'gram', label:L('Grammar','Dilbilgisi','گرامر')},
+    vocab:{ic:ICONS.cards, img:'icon-book.png', c:'voc', label:L('Vocabulary','Kelime','واژگان')},
+    slang:{ic:ICONS.cards, img:'icon-speech.png', c:'diag', label:L('Slang','Argo','اصطلاحات')},
+    // icon-review.png is a clock — it reads as "a scheduled session", which fits
+    // the live speaking session better than it fit slang.
+    session:{ic:ICONS.chat, img:'icon-review.png', c:'lis', label:L('Speaking session','Konuşma seansı','جلسه مکالمه')},
     story:{ic:ICONS.book, img:'icon-story.png', c:'story', label:L('Story','Hikaye','داستان')},
-    writing:{ic:ICONS.pen, c:'gram', label:L('Writing practice','Yazma pratiği','تمرین نوشتن')},
+    writing:{ic:ICONS.pen, img:'studio-icon-cutout.png', c:'gram', label:L('Writing practice','Yazma pratiği','تمرین نوشتن')},
     speaking:{ic:ICONS.mic, img:'icon-speaking.png', c:'lis', label:L('Speaking practice','Konuşma pratiği','تمرین صحبت‌کردن')},
     // Roadmap 2.0 Phase 3 (ShmcBt3T): bolt icon + gold "review" color were
     // chosen so this is the loudest, most distinct node on the roadmap. Now
@@ -5176,9 +5186,13 @@ function renderRoadmapCard(p){
     // radial-highlight wash made it read lighter than its solid-color neighbours.
     // It's distinguished instead by depth (gradient), the outer glow ring, the
     // shine sweep, the scale pulse and the "You're here" pill.
+    // 2026-09-30, Farin: "the boxes are too sharp in color make their opacity to
+    // 85%" — the fill is softened to 85% alpha rather than the element's own
+    // opacity, so the white title text, sparkles and icon all stay at full strength.
+    const soft = `color-mix(in srgb, ${color} 85%, transparent)`;
     const bg = isCurrent
-      ? `linear-gradient(150deg, ${color}, color-mix(in srgb, ${color} 74%, #000 26%))`
-      : color;
+      ? `linear-gradient(150deg, ${soft}, color-mix(in srgb, color-mix(in srgb, ${color} 74%, #000 26%) 85%, transparent))`
+      : soft;
     // NB: color is a var(--cat-x) reference — see the color-mix() note in pinFn above,
     // same fix applies here (a plain `color+'70'` hex-alpha suffix on a var() is
     // invalid CSS and silently drops the whole border-color/box-shadow declaration).
@@ -5196,13 +5210,24 @@ function renderRoadmapCard(p){
         <span class="sparkle" style="top:22px; right:22px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
         <span class="sparkle" style="bottom:16px; right:44px; left:auto; width:5px; height:5px; animation-delay:1s;"></span>
         <span class="sparkle" style="bottom:22px; left:38px; width:4px; height:4px; animation-delay:1.4s;"></span>`;
-    return `<div class="${cls}" style="border-radius:26px; padding:34px 20px 30px; background:${bg}; border:none; box-shadow:${shadow}; color:#fff;">
+    // Big type icon inside the card (2026-09-30, Farin: "in some card related put
+    // the proper icon like the studio icon, or the book icon"). Absolutely
+    // positioned so it can overhang the roomier padding without pushing the text
+    // block around; the title column reserves space for it via padding-inline-end.
+    const cardIcon = m.img
+      ? `<img src="${m.img}" alt="" style="position:absolute; inset-inline-end:12px; bottom:14px; width:76px; height:76px; object-fit:contain; pointer-events:none; filter:drop-shadow(0 6px 12px rgba(0,0,0,.28)); ${checked?'opacity:.5;':''}">`
+      : '';
+    return `<div class="${cls}" style="border-radius:30px; padding:40px 24px 42px; min-height:132px; background:${bg}; border:none; box-shadow:${shadow}; color:#fff;">
       ${sparkles}
+      ${cardIcon}
       ${studyOpenTag}
         <div class="row between" style="align-items:flex-start; gap:10px;">
           <div style="min-width:0;">
             <div style="font-size:11px; font-weight:900; color:${subtitleColor}; text-transform:uppercase; letter-spacing:.05em;">${isGame?'⚡ ':''}${subtitleHtml}</div>
-            <div style="${titleFont} margin-top:6px; color:${titleColor}; line-height:1.28; ${checked?'text-decoration:line-through; opacity:.62;':''}">${esc(item.title)}</div>
+            <!-- only the title clears the bottom-corner icon; the subtitle above it
+                 sits clear of the icon already, so reserving space there just made
+                 short labels wrap for no reason. -->
+            <div style="${titleFont} margin-top:8px; color:${titleColor}; line-height:1.28; padding-inline-end:${m.img?'74px':'0'}; ${checked?'text-decoration:line-through; opacity:.62;':''}">${esc(item.title)}</div>
           </div>
           <span style="flex:0 0 auto; margin-top:3px; color:${chevColor}; opacity:${checked?1:.65};">${checked?ICONS.check:ICONS.chev}</span>
         </div>
@@ -5211,8 +5236,10 @@ function renderRoadmapCard(p){
     </div>`;
   }
 
-  const startMedia = `<img src="char-${charKey}.png" alt="" class="roadmap-char-portrait" style="width:64px; height:64px; object-fit:contain; filter:drop-shadow(0 6px 10px ${archColor}55);">`;
-  const endMedia = `<img src="roadmap-goal-clay.png" alt="" style="width:${allDone?96:80}px; height:${allDone?96:80}px; object-fit:contain; filter:drop-shadow(0 8px 10px rgba(0,0,0,.28));">`;
+  // Character scaled up (2026-09-30, Farin: "make the character bigger"); the goal
+  // marker at the far end grows with it so the two bookends stay in proportion.
+  const startMedia = `<img src="char-${charKey}.png" alt="" class="roadmap-char-portrait" style="width:118px; height:118px; object-fit:contain; filter:drop-shadow(0 10px 16px ${archColor}55);">`;
+  const endMedia = `<img src="roadmap-goal-clay.png" alt="" style="width:${allDone?128:112}px; height:${allDone?128:112}px; object-fit:contain; filter:drop-shadow(0 10px 14px rgba(0,0,0,.28));">`;
 
   return `
       <div class="card-flat" style="margin-bottom:14px; background:linear-gradient(135deg, ${archColor}18, var(--bg-elevated) 65%);">
