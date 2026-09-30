@@ -4343,16 +4343,14 @@ function topbar(showGear, showSpanishLink){
   </div>`;
 }
 function bottomNav(){
-  // 3D icon sweep (2026-09-30, 3rd-round Farin feedback: "I liked the 3D
-  // icon design ... you did nothing" — go wide, not just badge cells). The
-  // Goals tab has a direct, precise 3D asset match (icon-goals.png, the
-  // clay target/bullseye) — swapped in. Home/Club have no matching 3D asset
-  // (no "house" or "people/community" render in the set) so they keep their
-  // inline ICONS glyph — noted as an asset gap rather than silently left
-  // as-is, see the report on Trello Xm6mSRaC.
+  // The nav bar stays one consistent icon style (2026-09-30, Farin: "if Club and
+  // Home icons are in one way you should not change the Goals icon"). A 3D
+  // icon-goals.png swap here was reverted — there's no matching 3D asset for
+  // "house" or "people/community", so a 3D Goals tab made the bar inconsistent.
+  // Revisit only if the whole set gets 3D assets.
   const items = [
     {v:'dashboard', ic:ICONS.home, label:L('Home','Ana Sayfa','خانه')},
-    {v:'goals-list', img:'icon-goals.png', label:L('Goals','Hedefler','اهداف')},
+    {v:'goals-list', ic:ICONS.compass, label:L('Goals','Hedefler','اهداف')},
     {v:'student-club', ic:ICONS.users, label:L('Club','Kulüp','باشگاه')}
   ];
   return `<nav class="bottomnav">${items.map(it=>`
@@ -5165,31 +5163,40 @@ function renderRoadmapCard(p){
     // to the app's existing Fredoka "display" treatment (same font used for hero
     // headings like the profile name) instead of the default body font.
     const cls = 'rm2-node' + (isCurrent ? ' rm2-node-current' : '') + (checked ? ' rm2-node-done' : '');
-    const upcomingBg = `color-mix(in srgb, ${color} 32%, var(--bg-elevated))`;
-    const currentBg = `radial-gradient(circle at 16% 8%, rgba(255,255,255,.4), transparent 55%), linear-gradient(150deg, ${color}, color-mix(in srgb, ${color} 78%, #000 18%))`;
-    const bg = checked ? 'var(--bg-sunken)' : (isCurrent ? currentBg : upcomingBg);
-    const borderW = isCurrent ? '2.5px' : '1.5px';
+    // 2026-09-30, Farin (3rd correction, emphatic): "DO YOU SEE THE COLORS AND GOAL
+    // TABS? I WANT THOSE COLORS AND SPARKLE IN THE ROADMAP TOO". The Goals screen's
+    // .goal-card is the reference: a FULL-STRENGTH var(--cat-x) fill + white text +
+    // var(--clay-shadow) + claySparkles() on EVERY card, not a pale tint with the
+    // bold treatment reserved for one active card. That reservation was the whole
+    // "still dull" problem — most roadmap cards were a 32% color-mix wash. Every
+    // card now gets the goal-card recipe; the current one is distinguished by the
+    // extra shine sweep + inset white ring (mirroring .goal-card.goal-active)
+    // rather than by being the only colored one.
+    // The current card must be the MOST vivid, not the palest — an earlier white
+    // radial-highlight wash made it read lighter than its solid-color neighbours.
+    // It's distinguished instead by depth (gradient), the outer glow ring, the
+    // shine sweep, the scale pulse and the "You're here" pill.
+    const bg = isCurrent
+      ? `linear-gradient(150deg, ${color}, color-mix(in srgb, ${color} 74%, #000 26%))`
+      : color;
     // NB: color is a var(--cat-x) reference — see the color-mix() note in pinFn above,
     // same fix applies here (a plain `color+'70'` hex-alpha suffix on a var() is
     // invalid CSS and silently drops the whole border-color/box-shadow declaration).
-    const borderColor = isCurrent ? 'rgba(255,255,255,.55)' : (checked ? 'var(--border-soft)' : `color-mix(in srgb, ${color} 45%, transparent)`);
     const shadow = isCurrent
-      ? `0 0 0 3px color-mix(in srgb, ${color} 28%, transparent), 0 18px 34px -12px color-mix(in srgb, ${color} 55%, transparent)`
-      : '0 3px 10px -4px rgba(20,51,46,.16)';
-    const subtitleColor = isCurrent ? 'rgba(255,255,255,.92)' : color;
-    const titleColor = isCurrent ? '#fff' : 'var(--ink)';
-    const chevColor = isCurrent ? 'rgba(255,255,255,.92)' : color;
-    const titleFont = `font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:700; font-size:18.5px; letter-spacing:-.01em;`;
-    // Sparkle stars (task 1: "sparkly, not just shiny") — layered on top of the
-    // existing shine sweep, current-step card only, reusing the app's existing
-    // .sparkle/@sparkle-twinkle keyframes (see profileHeaderCard/.character-card)
-    // rather than a new effect.
-    const sparkles = isCurrent && !checked ? `
+      ? `var(--clay-shadow), 0 0 0 3px rgba(255,255,255,.55) inset, 0 18px 34px -12px color-mix(in srgb, ${color} 55%, transparent)`
+      : 'var(--clay-shadow)';
+    const subtitleColor = 'rgba(255,255,255,.92)';
+    const titleColor = '#fff';
+    const chevColor = 'rgba(255,255,255,.92)';
+    const titleFont = `font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:800; font-size:18.5px; letter-spacing:-.01em;`;
+    // Sparkles on every card now (see the block comment above), reusing the same
+    // .sparkle/@sparkle-twinkle stars the goal cards use via claySparkles().
+    const sparkles = checked ? '' : `
         <span class="sparkle" style="top:10px; left:16px; animation-delay:0s;"></span>
         <span class="sparkle" style="top:22px; right:22px; left:auto; width:6px; height:6px; animation-delay:.5s;"></span>
         <span class="sparkle" style="bottom:16px; right:44px; left:auto; width:5px; height:5px; animation-delay:1s;"></span>
-        <span class="sparkle" style="bottom:22px; left:38px; width:4px; height:4px; animation-delay:1.4s;"></span>` : '';
-    return `<div class="${cls}" style="border-radius:26px; padding:34px 20px 30px; background:${bg}; border:${borderW} solid ${borderColor}; box-shadow:${shadow};">
+        <span class="sparkle" style="bottom:22px; left:38px; width:4px; height:4px; animation-delay:1.4s;"></span>`;
+    return `<div class="${cls}" style="border-radius:26px; padding:34px 20px 30px; background:${bg}; border:none; box-shadow:${shadow}; color:#fff;">
       ${sparkles}
       ${studyOpenTag}
         <div class="row between" style="align-items:flex-start; gap:10px;">
