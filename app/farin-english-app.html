@@ -8292,6 +8292,9 @@ const HANDLERS = {
         return;
       }
       const data = doc.data();
+      // Spanish-app backups share the 'progress' collection (tagged app:'es') —
+      // never restore one into the English app.
+      if(data.app === 'es'){ state.viewParams = {code, error:true}; render(); return; }
       state.profile = Object.assign({}, freshState().profile, data.profile);
       state.progress = Object.assign({}, freshState().progress, data.progress);
       state.roadmap = data.roadmap || null;
@@ -10158,6 +10161,7 @@ if(location.hash === '#admin'){
       if(settled) return;
       if(!doc.exists){ giveUp(); return; }
       const data = doc.data();
+      if(data.app === 'es'){ giveUp(); return; }
       settled = true;
       state.profile = Object.assign({}, freshState().profile, data.profile);
       state.progress = Object.assign({}, freshState().progress, data.progress);
