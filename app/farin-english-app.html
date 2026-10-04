@@ -3410,7 +3410,7 @@ function freshState(){
   return {
     view:'diagnostic-intro', viewParams:{}, lang:'tr',
     profile:{name:'', motivationTag:null, goals:[], archetype:null, level:null, levelStage:1, topics:[], learnerType:null, priorityArea:null, completedDiagnostic:false, dashboardIntroShown:false, recoveryCode:null, wantsContact:false, contactPhone:''},
-    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], completedGames:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0, usedSpeakingTopics:[], xp:0, perfectGameRounds:0, souvenirs:[], gameBests:{}, roadmapGolden:null, lastWords:{}},
+    progress:{sessionsExplored:0, streak:0, lastActiveDate:null, completedTraps:[], completedVocabSets:[], completedScenes:[], completedStories:[], completedGames:[], srs:{}, badgesEarnedAt:{}, reviewsCompleted:0, roadmapChecked:{}, dailyTasksDate:null, dailyTasksChecked:{}, writingRoundsDone:0, speakingRoundsDone:0, usedSpeakingTopics:[], xp:0, perfectGameRounds:0, souvenirs:[], gameBests:{}, roadmapGolden:null, lastWords:{}, mediaWatched:[]},
     diag:{step:0, goals:[], level:null, topics:[], learnerType:null, priorityArea:null, test:null},
     roadmap:null,
     quiz:null, studentPanelCache:null
@@ -3452,6 +3452,7 @@ function load(){
     if(!merged.progress.gameBests) merged.progress.gameBests = {};
     if(merged.progress.roadmapGolden===undefined) merged.progress.roadmapGolden = null;
     if(!merged.progress.lastWords) merged.progress.lastWords = {};
+    if(!Array.isArray(merged.progress.mediaWatched)) merged.progress.mediaWatched = [];
     if(merged.profile.levelStage===undefined) merged.profile.levelStage = 1;
     if(!merged.progress.dailyTasksChecked) merged.progress.dailyTasksChecked = {};
     if(merged.progress.dailyTasksDate===undefined) merged.progress.dailyTasksDate = null;
@@ -4673,8 +4674,10 @@ function markSpeakingTopicUsed(topicId){
    sortStoriesByTopic() does for stories), goal (optional), kind:
    'youtube'|'podcast', title:{en,tr,fa}, sourceUrl, videoId (youtube only),
    durationMin, discussionQuestions:[{en,tr,fa}], vocab:[{word,en,tr}]}
-   (fa omitted throughout — L()'s fa param falls back to en when omitted,
-   see L()'s own definition — en/tr are both always provided). */
+   (fa omitted in these first 24 — L()'s fa param falls back to en when omitted,
+   see L()'s own definition — en/tr are both always provided). The 2026-10-04
+   additions below (MEDIA_EN_ADDITIONS) carry fa and a `channel` credit; the
+   roadmap's "Watch or listen" node picks from the combined list. */
 const MEDIA_LIBRARY = [
   // ---- Grammar (BBC Learning English "6 Minute Grammar", ~6 min each) ----
   {id:'media-g-presentsimple', level:'A2', kind:'youtube', videoId:'xFsYrTIndhI', durationMin:6,
@@ -4800,6 +4803,176 @@ const MEDIA_LIBRARY = [
      {en:'What is one new word or phrase you learned from the episode you listened to?',tr:'Dinlediğin bölümden öğrendiğin yeni bir kelime ya da ifade nedir?'}],
    vocab:[{word:'episode', en:'one part of a podcast or show series', tr:'bölüm'},{word:'transcript', en:'the written text of everything spoken in an audio/video', tr:'metin dökümü'}]}
 ];
+/* 2026-10-04 (Trello 96gUMgAB, Farin: "sessions that links to videos and podcast
+   related to that roadmap"): 31 more entries so every level x goal has at least one
+   item for the roadmap's "Watch or listen" node (see pickRoadmapMedia()). Spec,
+   coverage table and the per-id verification log (oEmbed via noembed + watch-page
+   playableInEmbed) live in Claude/specs/media/README.md. These add `channel`
+   (credit line shown on the media screen) and fill in fa. kind:'podcast' + videoId
+   = the official YouTube upload of a podcast episode; it is embedded like a video. */
+const MEDIA_EN_ADDITIONS = [
+  // ================= A1 =================
+  {id:'media-en-a1-travel-talk', level:'A1', goal:'travel', kind:'youtube', videoId:'JgB6-RWnV9M', durationMin:5, channel:'BBC Learning English',
+   title:{en:'Talking About Travel (Real Easy English)',tr:'Seyahat Hakkında Konuşmak (Real Easy English)',fa:'صحبت درباره سفر (Real Easy English)'},
+   discussionQuestions:[{en:'How do you usually travel: by bus, car, train or bike?',tr:'Genelde nasıl yolculuk edersin: otobüsle, arabayla, trenle mi bisikletle mi?',fa:'معمولاً چطور سفر می‌کنی: با اتوبوس، ماشین، قطار یا دوچرخه؟'},
+     {en:'Where do you want to go next? Say one city and why.',tr:'Bir sonraki seyahatinde nereye gitmek istiyorsun? Bir şehir söyle ve nedenini anlat.',fa:'دفعهٔ بعد می‌خواهی کجا بروی؟ یک شهر بگو و دلیلش را.'}],
+   vocab:[{word:'journey',en:'a trip from one place to another',tr:'yolculuk',fa:'سفر، مسیر'},{word:'by train',en:'using a train to travel',tr:'trenle',fa:'با قطار'},{word:'ticket',en:'a paper or code that lets you travel',tr:'bilet',fa:'بلیت'}]},
+  {id:'media-en-a1-travel-directions', level:'A1', goal:'travel', kind:'youtube', videoId:'SHXPpsIJTb0', durationMin:4, channel:'BBC Learning English',
+   title:{en:'Asking for and Giving Directions',tr:'Yol Sormak ve Yol Tarif Etmek',fa:'پرسیدن و نشان‌دادن آدرس'},
+   discussionQuestions:[{en:'How do you get from your home to the nearest shop? Use "turn left / turn right / go straight on".',tr:'Evinden en yakın markete nasıl gidilir? "sola dön / sağa dön / düz git" kullan.',fa:'از خانه‌ات تا نزدیک‌ترین مغازه چطور می‌روی؟ از «به چپ بپیچ / به راست بپیچ / مستقیم برو» استفاده کن.'},
+     {en:'Ask a polite question to find the train station.',tr:'Tren istasyonunu bulmak için kibar bir soru sor.',fa:'یک سؤال مؤدبانه بپرس تا ایستگاه قطار را پیدا کنی.'}],
+   vocab:[{word:'turn left',en:'go to the left',tr:'sola dön',fa:'به چپ بپیچ'},{word:'go straight on',en:'continue forward, do not turn',tr:'düz devam et',fa:'مستقیم برو'},{word:'opposite',en:'on the other side, facing something',tr:'karşısında',fa:'روبه‌روی'}]},
+  {id:'media-en-a1-career-jobs', level:'A1', goal:'career', topic:'business', kind:'youtube', videoId:'qHWtJtRSYjc', durationMin:6, channel:'BBC Learning English',
+   title:{en:'Talking About Jobs (Real Easy English)',tr:'Meslekler Hakkında Konuşmak (Real Easy English)',fa:'صحبت درباره شغل‌ها (Real Easy English)'},
+   discussionQuestions:[{en:'What is your job, or what job do you want? Say it in one sentence.',tr:'Mesleğin ne ya da hangi işi yapmak istiyorsun? Tek cümleyle söyle.',fa:'شغلت چیست یا چه شغلی می‌خواهی؟ در یک جمله بگو.'},
+     {en:'What do you like about your job or your studies?',tr:'İşinde ya da okulunda neyi seviyorsun?',fa:'چه چیزی را در کار یا درست دوست داری؟'}],
+   vocab:[{word:'job',en:'the work you do to earn money',tr:'iş, meslek',fa:'شغل'},{word:'office',en:'a room or building where people work at desks',tr:'ofis',fa:'دفتر کار'},{word:'colleague',en:'a person you work with',tr:'iş arkadaşı',fa:'همکار'}]},
+  {id:'media-en-a1-exam-speakingtips', level:'A1', goal:'exam', kind:'youtube', videoId:'jNmwNB3xFr8', durationMin:3, channel:'British Council LearnEnglish Teens',
+   title:{en:'Five Tips for Your Speaking Exam',tr:'Konuşma Sınavı İçin Beş İpucu',fa:'پنج نکته برای آزمون مکالمه'},
+   discussionQuestions:[{en:'Which tip from the video is the most useful for you? Why?',tr:'Videodaki hangi ipucu senin için en faydalı? Neden?',fa:'کدام نکتهٔ ویدیو برای تو مفیدتر است؟ چرا؟'},
+     {en:'What can you say if you do not understand the examiner\'s question?',tr:'Sınav görevlisinin sorusunu anlamazsan ne diyebilirsin?',fa:'اگر سؤال ممتحن را نفهمی، چه می‌توانی بگویی؟'}],
+   vocab:[{word:'examiner',en:'the person who listens and gives you a score',tr:'sınav görevlisi',fa:'ممتحن'},{word:'Could you repeat that?',en:'a polite way to ask someone to say it again',tr:'Tekrar eder misiniz?',fa:'ممکن است تکرار کنید؟'},{word:'nervous',en:'a little afraid or worried',tr:'gergin',fa:'مضطرب'}]},
+  {id:'media-en-a1-everyday-introduce', level:'A1', goal:'everyday', kind:'youtube', videoId:'I_tRSrPru94', durationMin:3, channel:'BBC Learning English',
+   title:{en:'How to Introduce Yourself',tr:'Kendini Nasıl Tanıtırsın',fa:'چطور خودت را معرفی کنی'},
+   discussionQuestions:[{en:'Introduce yourself in three sentences: name, city, one thing you like.',tr:'Kendini üç cümleyle tanıt: adın, şehrin, sevdiğin bir şey.',fa:'خودت را در سه جمله معرفی کن: اسم، شهر، و یک چیزی که دوست داری.'},
+     {en:'What do you say when you meet someone new?',tr:'Yeni biriyle tanıştığında ne söylersin?',fa:'وقتی با کسی آشنا می‌شوی چه می‌گویی؟'}],
+   vocab:[{word:'Nice to meet you',en:'what you say when you meet someone for the first time',tr:'Tanıştığımıza memnun oldum',fa:'از آشنایی‌ات خوشوقتم'},{word:'I\'m from...',en:'used to say your country or city',tr:'...den geliyorum / ...lıyım',fa:'من اهل ... هستم'},{word:'surname',en:'your family name',tr:'soyadı',fa:'نام خانوادگی'}]},
+  {id:'media-en-a1-everyday-routines', level:'A1', goal:'everyday', kind:'youtube', videoId:'sJ7sRSK2in4', durationMin:6, channel:'BBC Learning English',
+   title:{en:'Talking About Routines (Real Easy English)',tr:'Günlük Rutinler Hakkında Konuşmak (Real Easy English)',fa:'صحبت دربارهٔ برنامهٔ روزانه (Real Easy English)'},
+   discussionQuestions:[{en:'What time do you get up? What do you do first?',tr:'Kaçta kalkarsın? İlk ne yaparsın?',fa:'ساعت چند بیدار می‌شوی؟ اول چه کار می‌کنی؟'},
+     {en:'Describe your evening in three short sentences.',tr:'Akşamını üç kısa cümleyle anlat.',fa:'عصرت را در سه جملهٔ کوتاه توصیف کن.'}],
+   vocab:[{word:'get up',en:'leave your bed in the morning',tr:'kalkmak',fa:'از خواب بلند شدن'},{word:'usually',en:'most of the time',tr:'genellikle',fa:'معمولاً'},{word:'have breakfast',en:'eat the morning meal',tr:'kahvaltı yapmak',fa:'صبحانه خوردن'}]},
+  {id:'media-en-a1-immigration-wherefrom', level:'A1', goal:'immigration', kind:'youtube', videoId:'31y2Bq1RYQA', durationMin:5, channel:'BBC Learning English',
+   title:{en:'Saying Where You\'re From',tr:'Nereli Olduğunu Söylemek',fa:'گفتن اینکه اهل کجایی'},
+   discussionQuestions:[{en:'Where are you from, and where do you live now?',tr:'Nerelisin ve şimdi nerede yaşıyorsun?',fa:'اهل کجایی و الان کجا زندگی می‌کنی؟'},
+     {en:'Say one thing you like about your home town.',tr:'Memleketinle ilgili sevdiğin bir şeyi söyle.',fa:'یک چیزی که دربارهٔ شهر زادگاهت دوست داری بگو.'}],
+   vocab:[{word:'home town',en:'the town or city where you grew up',tr:'memleket',fa:'شهر زادگاه'},{word:'originally',en:'at the beginning; where you first came from',tr:'aslen',fa:'در اصل'},{word:'live',en:'have your home in a place',tr:'yaşamak, oturmak',fa:'زندگی کردن'}]},
+  // ================= A2 =================
+  {id:'media-en-a2-travel-holidays', level:'A2', goal:'travel', kind:'youtube', videoId:'N2StxicQois', durationMin:6, channel:'BBC Learning English',
+   title:{en:'Talking About Holidays (Real Easy English)',tr:'Tatiller Hakkında Konuşmak (Real Easy English)',fa:'صحبت دربارهٔ تعطیلات (Real Easy English)'},
+   discussionQuestions:[{en:'Tell me about your last holiday. Where did you go and what did you do?',tr:'Son tatilini anlat. Nereye gittin ve ne yaptın?',fa:'از آخرین تعطیلاتت بگو. کجا رفتی و چه کار کردی؟'},
+     {en:'Do you prefer a beach holiday or a city holiday? Why?',tr:'Deniz tatilini mi şehir tatilini mi tercih edersin? Neden?',fa:'تعطیلات کنار دریا را ترجیح می‌دهی یا سفر شهری؟ چرا؟'}],
+   vocab:[{word:'go on holiday',en:'travel somewhere for a rest (UK); "go on vacation" in the US',tr:'tatile gitmek',fa:'به تعطیلات رفتن'},{word:'sightseeing',en:'visiting famous places as a tourist',tr:'gezip görme',fa:'گشت‌وگذار و دیدن جاهای دیدنی'},{word:'relaxing',en:'calm and making you feel rested',tr:'dinlendirici',fa:'آرامش‌بخش'}]},
+  {id:'media-en-a2-career-meetings', level:'A2', goal:'career', topic:'business', kind:'youtube', videoId:'TL61VKkme14', durationMin:6, channel:'BBC Learning English',
+   title:{en:'Talking About Meetings (Real Easy English)',tr:'Toplantılar Hakkında Konuşmak (Real Easy English)',fa:'صحبت دربارهٔ جلسه‌ها (Real Easy English)'},
+   discussionQuestions:[{en:'How many meetings do you have in a week (at work or school)? Are they useful?',tr:'Haftada kaç toplantın oluyor (işte ya da okulda)? Faydalı mı?',fa:'در هفته چند جلسه داری (سر کار یا مدرسه)؟ مفید هستند؟'},
+     {en:'Do you prefer online meetings or face-to-face meetings? Why?',tr:'Online toplantıları mı yüz yüze toplantıları mı tercih edersin? Neden?',fa:'جلسهٔ آنلاین را ترجیح می‌دهی یا حضوری؟ چرا؟'}],
+   vocab:[{word:'meeting',en:'when people come together to discuss something',tr:'toplantı',fa:'جلسه'},{word:'agenda',en:'the list of topics for a meeting',tr:'gündem',fa:'دستور جلسه'},{word:'face-to-face',en:'in the same room, not online',tr:'yüz yüze',fa:'حضوری، رودررو'}]},
+  {id:'media-en-a2-exam-key', level:'A2', goal:'exam', kind:'youtube', videoId:'AdcrRrU2lXc', durationMin:8, channel:'English with Cambridge',
+   title:{en:'A2 Key Speaking Test: Rashid and Gonca',tr:'A2 Key Konuşma Sınavı: Rashid ve Gonca',fa:'آزمون مکالمهٔ A2 Key: رشید و گونجا'},
+   discussionQuestions:[{en:'Answer one examiner question from the video yourself, in two or three sentences.',tr:'Videodaki sınav görevlisi sorularından birini kendin iki üç cümleyle cevapla.',fa:'یکی از سؤال‌های ممتحن در ویدیو را خودت در دو سه جمله جواب بده.'},
+     {en:'What did the candidates do well? What would you do differently?',tr:'Adaylar neyi iyi yaptı? Sen neyi farklı yapardın?',fa:'داوطلب‌ها چه کاری را خوب انجام دادند؟ تو چه کاری را متفاوت انجام می‌دادی؟'}],
+   vocab:[{word:'candidate',en:'a person taking an exam',tr:'aday',fa:'داوطلب'},{word:'partner',en:'the other person you talk with in the test',tr:'eş, partner',fa:'هم‌گروه، پارتنر'},{word:'What about you?',en:'a phrase to pass the question to your partner',tr:'Peki ya sen?',fa:'تو چطور؟'}]},
+  {id:'media-en-a2-everyday-weekend', level:'A2', goal:'everyday', kind:'youtube', videoId:'kTf0V4HyFtM', durationMin:5, channel:'BBC Learning English',
+   title:{en:'Talk About What You Did Last Weekend',tr:'Geçen Hafta Sonu Ne Yaptığını Anlat',fa:'از کارهایی که آخر هفتهٔ گذشته کردی بگو'},
+   discussionQuestions:[{en:'What did you do last weekend? Use three past simple verbs.',tr:'Geçen hafta sonu ne yaptın? Üç geçmiş zaman fiili kullan.',fa:'آخر هفتهٔ گذشته چه کار کردی؟ از سه فعل گذشتهٔ ساده استفاده کن.'},
+     {en:'Ask a friend: "How was your weekend?" What might they answer?',tr:'Bir arkadaşına sor: "Hafta sonun nasıldı?" Ne cevap verebilir?',fa:'از یک دوست بپرس: «آخر هفته‌ات چطور بود؟» ممکن است چه جوابی بدهد؟'}],
+   vocab:[{word:'How was your weekend?',en:'a friendly question on Monday',tr:'Hafta sonun nasıldı?',fa:'آخر هفته‌ات چطور بود؟'},{word:'stay in',en:'stay at home, not go out',tr:'evde kalmak',fa:'در خانه ماندن'},{word:'catch up with',en:'meet someone and talk about recent news',tr:'biriyle hasret gidermek, sohbet etmek',fa:'دیدار و گپ زدن با کسی بعد از مدتی'}]},
+  {id:'media-en-a2-immigration-doctor', level:'A2', goal:'immigration', kind:'youtube', videoId:'IoSLM2s3i0Q', durationMin:10, channel:'BBC Learning English',
+   title:{en:'The Vocabulary Show: At the Doctor\'s',tr:'Kelime Şovu: Doktorda',fa:'برنامهٔ واژگان: در مطب دکتر'},
+   discussionQuestions:[{en:'Imagine you feel ill in a new country. What do you say when you call the doctor\'s surgery?',tr:'Yeni bir ülkede hasta olduğunu düşün. Doktora telefon ettiğinde ne söylersin?',fa:'تصور کن در یک کشور جدید بیمار شده‌ای. وقتی به مطب زنگ می‌زنی چه می‌گویی؟'},
+     {en:'Describe a time you had a cold or the flu. How did you feel?',tr:'Nezle ya da grip olduğun bir zamanı anlat. Nasıl hissettin?',fa:'زمانی که سرماخوردگی یا آنفولانزا داشتی را توصیف کن. چه حسی داشتی؟'}],
+   vocab:[{word:'appointment',en:'a fixed time to see a doctor',tr:'randevu',fa:'نوبت، وقت ملاقات'},{word:'prescription',en:'a doctor\'s written order for medicine',tr:'reçete',fa:'نسخه'},{word:'symptom',en:'a sign of illness, e.g. a cough or fever',tr:'belirti',fa:'علامت بیماری'}]},
+  // ================= B1 =================
+  {id:'media-en-b1-travel-tourism', level:'B1', goal:'travel', kind:'podcast', videoId:'UhR-Bn4UII0', sourceUrl:'https://www.youtube.com/watch?v=UhR-Bn4UII0', durationMin:7, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'Is Tourism Harmful? (6 Minute English)',tr:'Turizm Zararlı mı? (6 Dakikada İngilizce)',fa:'آیا گردشگری مضر است؟ (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'Is there a place in your country with too many tourists? What problems does it cause?',tr:'Ülkende çok fazla turist olan bir yer var mı? Ne gibi sorunlara yol açıyor?',fa:'آیا در کشورت جایی هست که گردشگر زیادی دارد؟ چه مشکلاتی ایجاد می‌کند؟'},
+     {en:'How can you be a more responsible tourist?',tr:'Nasıl daha sorumlu bir turist olabilirsin?',fa:'چطور می‌توانی گردشگر مسئولیت‌پذیرتری باشی؟'}],
+   vocab:[{word:'overtourism',en:'when too many visitors damage a place',tr:'aşırı turizm',fa:'گردشگری بیش از حد'},{word:'local',en:'a person who lives in the area',tr:'yerli, yöre halkı',fa:'اهل محل'},{word:'impact',en:'a strong effect',tr:'etki',fa:'تأثیر'}]},
+  {id:'media-en-b1-career-interview', level:'B1', goal:'career', topic:'business', kind:'youtube', videoId:'KN2jyw6D1ak', durationMin:5, channel:'BBC Learning English (English at Work)',
+   title:{en:'How to Prepare for an Interview (English at Work)',tr:'İş Görüşmesine Nasıl Hazırlanılır (English at Work)',fa:'چطور برای مصاحبهٔ کاری آماده شویم (English at Work)'},
+   discussionQuestions:[{en:'How do you prepare for a job interview? Name three things you do.',tr:'Bir iş görüşmesine nasıl hazırlanırsın? Yaptığın üç şeyi say.',fa:'چطور برای مصاحبهٔ کاری آماده می‌شوی؟ سه کاری که انجام می‌دهی را نام ببر.'},
+     {en:'Answer this: "Tell me about yourself." (one minute)',tr:'Şunu cevapla: "Bana kendinizden bahsedin." (bir dakika)',fa:'به این جواب بده: «از خودتان بگویید.» (یک دقیقه)'}],
+   vocab:[{word:'strength',en:'something you are good at',tr:'güçlü yön',fa:'نقطهٔ قوت'},{word:'experience',en:'skills and knowledge from past work',tr:'deneyim',fa:'تجربه'},{word:'shortlist',en:'a small list of the best candidates',tr:'kısa liste',fa:'فهرست نهایی نامزدها'}]},
+  {id:'media-en-b1-exam-ieltsintro', level:'B1', goal:'exam', kind:'youtube', videoId:'Wuxt-NzrHLk', durationMin:12, channel:'TakeIELTS Official',
+   title:{en:'IELTS Speaking: Introduction Questions',tr:'IELTS Konuşma: Giriş Soruları',fa:'آیلتس اسپیکینگ: سؤال‌های بخش معرفی'},
+   discussionQuestions:[{en:'Answer like in IELTS Part 1: "Do you work or are you a student?" Add a reason or an example.',tr:'IELTS 1. bölümdeki gibi cevapla: "Çalışıyor musunuz yoksa öğrenci misiniz?" Bir neden ya da örnek ekle.',fa:'مثل بخش ۱ آیلتس جواب بده: «کار می‌کنید یا دانشجو هستید؟» یک دلیل یا مثال اضافه کن.'},
+     {en:'Why is a one-word answer a bad idea in the speaking test?',tr:'Konuşma sınavında tek kelimelik cevap neden kötü bir fikir?',fa:'چرا جواب یک‌کلمه‌ای در آزمون اسپیکینگ ایدهٔ بدی است؟'}],
+   vocab:[{word:'extend your answer',en:'add details, reasons or examples',tr:'cevabını genişletmek',fa:'جوابت را گسترش بدهی'},{word:'fluency',en:'speaking smoothly without long pauses',tr:'akıcılık',fa:'روانی'},{word:'familiar topic',en:'a subject you know well, like home or work',tr:'tanıdık konu',fa:'موضوع آشنا'}]},
+  {id:'media-en-b1-everyday-wakeupcall', level:'B1', goal:'everyday', kind:'podcast', videoId:'LLI4JWe7yGg', sourceUrl:'https://www.youtube.com/watch?v=LLI4JWe7yGg', durationMin:3, channel:'BBC Learning English (The English We Speak)',
+   title:{en:'"A Wake-up Call" (The English We Speak)',tr:'"A Wake-up Call" (The English We Speak)',fa:'«A Wake-up Call» (The English We Speak)'},
+   discussionQuestions:[{en:'Have you ever had a wake-up call? What made you change something in your life?',tr:'Hiç seni uyandıran bir olay yaşadın mı? Hayatında bir şeyi değiştirmene ne sebep oldu?',fa:'تا حالا اتفاقی برایت زنگ خطر بوده؟ چه چیزی باعث شد چیزی را در زندگی‌ات تغییر بدهی؟'},
+     {en:'Make your own sentence with "a wake-up call".',tr:'"a wake-up call" ile kendi cümleni kur.',fa:'با «a wake-up call» یک جملهٔ خودت بساز.'}],
+   vocab:[{word:'a wake-up call',en:'an event that makes you realise you must change something',tr:'uyarı niteliğinde olay, ders',fa:'زنگ خطر، تلنگر'},{word:'realise',en:'suddenly understand something',tr:'farkına varmak',fa:'متوجه شدن'},{word:'habit',en:'something you do regularly',tr:'alışkanlık',fa:'عادت'}]},
+  {id:'media-en-b1-immigration-learnlanguage', level:'B1', goal:'immigration', kind:'podcast', videoId:'wkjSBC-_bDA', sourceUrl:'https://www.youtube.com/watch?v=wkjSBC-_bDA', durationMin:6, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'How Do You Learn to Speak a Language? (6 Minute English)',tr:'Bir Dili Konuşmayı Nasıl Öğrenirsin? (6 Dakikada İngilizce)',fa:'چطور صحبت‌کردن به یک زبان را یاد می‌گیری؟ (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'If you moved to an English-speaking country, how would you practise speaking every day?',tr:'İngilizce konuşulan bir ülkeye taşınsan, her gün konuşmayı nasıl pratik ederdin?',fa:'اگر به یک کشور انگلیسی‌زبان مهاجرت می‌کردی، هر روز چطور صحبت‌کردن را تمرین می‌کردی؟'},
+     {en:'What is the hardest part of speaking a new language for you?',tr:'Senin için yeni bir dili konuşmanın en zor kısmı ne?',fa:'برای تو سخت‌ترین بخش صحبت‌کردن به یک زبان جدید چیست؟'}],
+   vocab:[{word:'native speaker',en:'a person who learned the language as a child',tr:'anadili konuşan kişi',fa:'گویشور بومی'},{word:'immerse yourself',en:'surround yourself completely with something',tr:'kendini bir şeye tamamen vermek',fa:'غرق شدن در چیزی'},{word:'confidence',en:'feeling sure of yourself',tr:'özgüven',fa:'اعتمادبه‌نفس'}]},
+  // ================= B2 =================
+  {id:'media-en-b2-travel-ecotourism', level:'B2', goal:'travel', topic:'nature', kind:'podcast', videoId:'b_LkRYYefv0', sourceUrl:'https://www.youtube.com/watch?v=b_LkRYYefv0', durationMin:6, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'Ecotourism: Good or Bad? (6 Minute English)',tr:'Ekoturizm: İyi mi Kötü mü? (6 Dakikada İngilizce)',fa:'اکوتوریسم: خوب یا بد؟ (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'Would you pay more for a holiday that protects nature? Why or why not?',tr:'Doğayı koruyan bir tatil için daha fazla öder miydin? Neden?',fa:'حاضری برای سفری که از طبیعت محافظت می‌کند پول بیشتری بدهی؟ چرا؟'},
+     {en:'Can tourism ever be completely "green"? Give one argument for and one against.',tr:'Turizm hiç tamamen "yeşil" olabilir mi? Bir lehte, bir aleyhte argüman ver.',fa:'آیا گردشگری می‌تواند کاملاً «سبز» باشد؟ یک دلیل موافق و یک دلیل مخالف بیاور.'}],
+   vocab:[{word:'sustainable',en:'able to continue without harming the environment',tr:'sürdürülebilir',fa:'پایدار'},{word:'carbon footprint',en:'the amount of CO2 your activities produce',tr:'karbon ayak izi',fa:'ردپای کربن'},{word:'greenwashing',en:'pretending to be environmentally friendly',tr:'yeşil aklama',fa:'سبزشویی'}]},
+  {id:'media-en-b2-career-futurework', level:'B2', goal:'career', topic:'business', kind:'podcast', videoId:'s1HxJVusR2w', sourceUrl:'https://www.youtube.com/watch?v=s1HxJVusR2w', durationMin:6, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'What Is the Future of Work? (6 Minute English)',tr:'İşin Geleceği Ne? (6 Dakikada İngilizce)',fa:'آیندهٔ کار چیست؟ (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'How do you think your job (or the job you want) will change in ten years?',tr:'Sence işin (ya da istediğin iş) on yıl içinde nasıl değişecek?',fa:'فکر می‌کنی شغلت (یا شغلی که می‌خواهی) در ده سال آینده چطور تغییر می‌کند؟'},
+     {en:'Would you rather work from home, in an office, or a mix? Justify your choice.',tr:'Evden mi, ofisten mi yoksa karma mı çalışmayı tercih edersin? Seçimini gerekçelendir.',fa:'ترجیح می‌دهی از خانه کار کنی، در دفتر، یا ترکیبی؟ انتخابت را توجیه کن.'}],
+   vocab:[{word:'remote working',en:'working from home or anywhere outside the office',tr:'uzaktan çalışma',fa:'دورکاری'},{word:'automation',en:'machines or software doing work people used to do',tr:'otomasyon',fa:'خودکارسازی'},{word:'hybrid',en:'a mix of two things, e.g. office and home',tr:'hibrit, karma',fa:'ترکیبی'}]},
+  {id:'media-en-b2-career-treasure', level:'B2', goal:'career', kind:'youtube', videoId:'eIho2S0ZahI', durationMin:10, channel:'TED',
+   title:{en:'How to Speak So That People Want to Listen (Julian Treasure)',tr:'İnsanların Dinlemek İstediği Gibi Konuşmak (Julian Treasure)',fa:'چطور طوری حرف بزنیم که مردم بخواهند گوش کنند (جولیان ترژر)'},
+   discussionQuestions:[{en:'Which of the "seven deadly sins" of speaking do you notice most in other people?',tr:'Konuşmanın "yedi ölümcül günahından" hangisini başkalarında en çok fark ediyorsun?',fa:'کدام یک از «هفت گناه کبیرهٔ» صحبت‌کردن را بیشتر در دیگران می‌بینی؟'},
+     {en:'Give a 30-second self-introduction for a job interview, using his tips on voice and tone.',tr:'Onun ses ve ton ipuçlarını kullanarak iş görüşmesi için 30 saniyelik bir tanıtım yap.',fa:'با استفاده از نکته‌های او دربارهٔ صدا و لحن، یک معرفی ۳۰ ثانیه‌ای برای مصاحبهٔ کاری انجام بده.'}],
+   vocab:[{word:'gossip',en:'talking about other people behind their backs',tr:'dedikodu',fa:'غیبت، شایعه'},{word:'tone',en:'the feeling your voice expresses',tr:'ses tonu',fa:'لحن'},{word:'authenticity',en:'being real and true to yourself',tr:'samimiyet, sahicilik',fa:'اصالت، صداقت'}]},
+  {id:'media-en-b2-exam-ieltspart2', level:'B2', goal:'exam', kind:'youtube', videoId:'u0BuspOplJw', durationMin:10, channel:'TakeIELTS Official',
+   title:{en:'IELTS Speaking Part 2 Tips',tr:'IELTS Konuşma 2. Bölüm İpuçları',fa:'نکته‌های بخش ۲ آیلتس اسپیکینگ'},
+   discussionQuestions:[{en:'Practise: "Describe a place you would like to visit." Plan for one minute, then speak for two.',tr:'Pratik yap: "Ziyaret etmek istediğin bir yeri anlat." Bir dakika plan yap, sonra iki dakika konuş.',fa:'تمرین کن: «جایی را که دوست داری ببینی توصیف کن.» یک دقیقه برنامه‌ریزی کن، بعد دو دقیقه صحبت کن.'},
+     {en:'What will you write in your one minute of notes? Keywords or full sentences? Why?',tr:'Bir dakikalık notlarına ne yazacaksın? Anahtar kelimeler mi tam cümleler mi? Neden?',fa:'در یک دقیقه یادداشت چه می‌نویسی؟ کلمات کلیدی یا جمله‌های کامل؟ چرا؟'}],
+   vocab:[{word:'cue card',en:'the card with the Part 2 topic and prompts',tr:'konu kartı',fa:'کارت موضوع'},{word:'long turn',en:'speaking alone for 1-2 minutes',tr:'uzun konuşma bölümü',fa:'نوبت صحبت طولانی'},{word:'coherence',en:'ideas connected clearly and logically',tr:'tutarlılık',fa:'انسجام'}]},
+  {id:'media-en-b2-everyday-notgonnalie', level:'B2', goal:'everyday', kind:'podcast', videoId:'qUAOipD_eME', sourceUrl:'https://www.youtube.com/watch?v=qUAOipD_eME', durationMin:3, channel:'BBC Learning English (The English We Speak)',
+   title:{en:'"Not Gonna Lie" (The English We Speak)',tr:'"Not Gonna Lie" (The English We Speak)',fa:'«Not Gonna Lie» (The English We Speak)'},
+   discussionQuestions:[{en:'Finish this honestly: "Not gonna lie, I really..."',tr:'Bunu dürüstçe tamamla: "Not gonna lie, I really..."',fa:'این را صادقانه کامل کن: «Not gonna lie, I really...»'},
+     {en:'Where would you use this phrase, and where would it sound too informal?',tr:'Bu ifadeyi nerede kullanırdın, nerede fazla gayriresmi kaçar?',fa:'این عبارت را کجا به کار می‌بری و کجا خیلی غیررسمی به نظر می‌رسد؟'}],
+   vocab:[{word:'not gonna lie (NGL)',en:'informal: "to be honest", used before an opinion or confession',tr:'yalan yok, açıkçası',fa:'دروغ چرا، راستش'},{word:'informal',en:'relaxed, used with friends',tr:'gayriresmi',fa:'غیررسمی'},{word:'admit',en:'say that something is true, often reluctantly',tr:'itiraf etmek',fa:'اعتراف کردن'}]},
+  {id:'media-en-b2-everyday-doingnothing', level:'B2', goal:'everyday', kind:'podcast', videoId:'Y681hXWwhQY', sourceUrl:'https://www.youtube.com/watch?v=Y681hXWwhQY', durationMin:6, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'The Benefits of Doing Nothing (6 Minute English)',tr:'Hiçbir Şey Yapmamanın Faydaları (6 Dakikada İngilizce)',fa:'فواید هیچ کاری نکردن (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'When did you last do absolutely nothing? How did it feel?',tr:'En son ne zaman kesinlikle hiçbir şey yapmadın? Nasıl hissettirdi?',fa:'آخرین بار کی واقعاً هیچ کاری نکردی؟ چه حسی داشت؟'},
+     {en:'Is being busy a sign of success in your culture? Do you agree with that idea?',tr:'Kendi kültüründe meşgul olmak başarı işareti mi? Bu fikre katılıyor musun?',fa:'در فرهنگ تو سرشلوغ‌بودن نشانهٔ موفقیت است؟ با این ایده موافقی؟'}],
+   vocab:[{word:'unwind',en:'relax after stress or work',tr:'gevşemek, rahatlamak',fa:'رفع خستگی کردن'},{word:'burnout',en:'extreme tiredness caused by too much work',tr:'tükenmişlik',fa:'فرسودگی شغلی'},{word:'daydream',en:'have pleasant thoughts while awake',tr:'hayal kurmak',fa:'خیال‌پردازی کردن'}]},
+  {id:'media-en-b2-immigration-citizen', level:'B2', goal:'immigration', kind:'podcast', videoId:'vNQUAtFQf9A', sourceUrl:'https://www.youtube.com/watch?v=vNQUAtFQf9A', durationMin:6, channel:'BBC Learning English (6 Minute English)',
+   title:{en:'What Makes a Good Citizen? (6 Minute English)',tr:'İyi Bir Vatandaşı Ne Yapar? (6 Dakikada İngilizce)',fa:'چه چیزی یک شهروند خوب می‌سازد؟ (۶ دقیقه انگلیسی)'},
+   discussionQuestions:[{en:'What responsibilities does a new resident have in a new country?',tr:'Yeni bir ülkeye gelen birinin ne gibi sorumlulukları vardır?',fa:'یک ساکن تازه‌وارد در کشور جدید چه مسئولیت‌هایی دارد؟'},
+     {en:'Should citizenship tests check language, history, or values? Explain your view.',tr:'Vatandaşlık sınavları dili mi, tarihi mi, değerleri mi ölçmeli? Görüşünü açıkla.',fa:'آزمون‌های شهروندی باید زبان را بسنجند، تاریخ را یا ارزش‌ها را؟ نظرت را توضیح بده.'}],
+   vocab:[{word:'citizenship',en:'being a legal member of a country',tr:'vatandaşlık',fa:'شهروندی، تابعیت'},{word:'community',en:'the people living in one area',tr:'topluluk',fa:'جامعه، اجتماع محلی'},{word:'contribute',en:'give something useful to a group',tr:'katkıda bulunmak',fa:'سهم داشتن، کمک کردن'}]},
+  // ================= C1 =================
+  {id:'media-en-c1-travel-iyer-podcast', level:'C1', goal:'travel', kind:'podcast', videoId:'nJAe2-rqjf8', sourceUrl:'https://www.youtube.com/watch?v=nJAe2-rqjf8', durationMin:21, channel:'TED Podcasts (TED Talks Daily)',
+   title:{en:'The Meaning of Home and the Joy of Traveling (Pico Iyer)',tr:'Evin Anlamı ve Seyahat Etmenin Keyfi (Pico Iyer)',fa:'معنای خانه و لذت سفر (پیکو آیر)'},
+   discussionQuestions:[{en:'Iyer suggests travel can teach us more about home. Has a trip ever changed how you see your own country?',tr:'Iyer, seyahatin bize ev hakkında daha çok şey öğretebileceğini söylüyor. Bir seyahat kendi ülkene bakışını hiç değiştirdi mi?',fa:'آیر می‌گوید سفر می‌تواند دربارهٔ خانه بیشتر به ما بیاموزد. آیا سفری تا حالا نگاهت به کشور خودت را عوض کرده؟'},
+     {en:'Is it possible to "travel" without leaving your city? How?',tr:'Şehrinden ayrılmadan "seyahat etmek" mümkün mü? Nasıl?',fa:'آیا می‌شود بدون ترک شهرت «سفر» کرد؟ چطور؟'}],
+   vocab:[{word:'rootless',en:'without a strong connection to one place',tr:'köksüz',fa:'بی‌ریشه'},{word:'perspective',en:'a particular way of seeing things',tr:'bakış açısı',fa:'دیدگاه'},{word:'wanderlust',en:'a strong desire to travel',tr:'gezme tutkusu',fa:'شوق سفر'}]},
+  {id:'media-en-c1-career-sinek', level:'C1', goal:'career', topic:'business', kind:'youtube', videoId:'qp0HIF3SfI4', durationMin:19, channel:'TED',
+   title:{en:'How Great Leaders Inspire Action (Simon Sinek)',tr:'Büyük Liderler Nasıl Harekete Geçirir (Simon Sinek)',fa:'رهبران بزرگ چگونه الهام‌بخش عمل می‌شوند (سایمون سینک)'},
+   discussionQuestions:[{en:'Explain the "golden circle" (why, how, what) in your own words, then apply it to a company you admire.',tr:'"Altın çember"i (neden, nasıl, ne) kendi sözlerinle açıkla, sonra hayran olduğun bir şirkete uygula.',fa:'«دایرهٔ طلایی» (چرا، چگونه، چه) را با کلمات خودت توضیح بده و بعد آن را روی شرکتی که تحسینش می‌کنی پیاده کن.'},
+     {en:'What is your own "why" at work or in your studies?',tr:'İşte ya da eğitiminde senin kendi "neden"in nedir?',fa:'«چرا»ی خودت در کار یا تحصیل چیست؟'}],
+   vocab:[{word:'inspire',en:'make someone want to do something',tr:'ilham vermek',fa:'الهام بخشیدن'},{word:'loyalty',en:'continued support for a person or brand',tr:'sadakat',fa:'وفاداری'},{word:'early adopter',en:'one of the first people to use a new product',tr:'erken benimseyen',fa:'پذیرندهٔ اولیه'}]},
+  {id:'media-en-c1-exam-idpfluency', level:'C1', goal:'exam', kind:'youtube', videoId:'XwgskILvIfU', durationMin:3, channel:'IELTS by IDP',
+   title:{en:'IELTS Speaking: Band 7 vs Band 8, Fluency and Coherence',tr:'IELTS Konuşma: Band 7 ve Band 8, Akıcılık ve Tutarlılık',fa:'آیلتس اسپیکینگ: نمرهٔ ۷ در برابر ۸، روانی و انسجام'},
+   discussionQuestions:[{en:'What exactly separates a Band 7 answer from a Band 8 answer, according to the video?',tr:'Videoya göre Band 7 cevabını Band 8 cevabından tam olarak ne ayırıyor?',fa:'طبق ویدیو، دقیقاً چه چیزی جواب نمرهٔ ۷ را از نمرهٔ ۸ جدا می‌کند؟'},
+     {en:'Record a one-minute answer to "Is technology making us less social?" and check your linking words.',tr:'"Teknoloji bizi daha az sosyal mi yapıyor?" sorusuna bir dakikalık cevap kaydet ve bağlaçlarını kontrol et.',fa:'یک جواب یک‌دقیقه‌ای به «آیا فناوری ما را کمتر اجتماعی می‌کند؟» ضبط کن و کلمات ربطت را بررسی کن.'}],
+   vocab:[{word:'hesitation',en:'pausing because you are unsure',tr:'tereddüt',fa:'مکث، تردید'},{word:'discourse marker',en:'a phrase that organises speech, e.g. "on the other hand"',tr:'söylem belirleyici',fa:'نشانگر گفتمان'},{word:'self-correction',en:'fixing your own mistake while speaking',tr:'kendini düzeltme',fa:'خوداصلاحی'}]},
+  {id:'media-en-c1-exam-cae', level:'C1', goal:'exam', kind:'youtube', videoId:'5nGESyDgmdw', durationMin:15, channel:'English with Cambridge',
+   title:{en:'C1 Advanced Speaking Test: Raphael and Maude',tr:'C1 Advanced Konuşma Sınavı: Raphael ve Maude',fa:'آزمون مکالمهٔ C1 Advanced: رافائل و مود'},
+   discussionQuestions:[{en:'Which candidate managed the discussion better, and how? Give specific examples.',tr:'Hangi aday tartışmayı daha iyi yönetti ve nasıl? Somut örnekler ver.',fa:'کدام داوطلب بحث را بهتر مدیریت کرد و چگونه؟ مثال‌های مشخص بزن.'},
+     {en:'Pick one discussion question from the test and answer it, agreeing and disagreeing politely.',tr:'Sınavdan bir tartışma sorusu seç ve kibarca katılıp karşı çıkarak cevapla.',fa:'یک سؤال بحث از آزمون انتخاب کن و با موافقت و مخالفت مؤدبانه جواب بده.'}],
+   vocab:[{word:'speculate',en:'guess about possible causes or results',tr:'tahmin yürütmek',fa:'گمانه‌زنی کردن'},{word:'reach a decision',en:'agree on a final choice',tr:'karara varmak',fa:'به تصمیم رسیدن'},{word:'That\'s a fair point, but...',en:'a polite way to disagree',tr:'Haklı bir nokta, ama...',fa:'نکتهٔ منصفانه‌ای است، اما...'}]},
+  {id:'media-en-c1-everyday-procrastinator', level:'C1', goal:'everyday', kind:'youtube', videoId:'arj7oStGLkU', durationMin:14, channel:'TED',
+   title:{en:'Inside the Mind of a Master Procrastinator (Tim Urban)',tr:'Usta Bir Erteleyicinin Zihninin İçi (Tim Urban)',fa:'درون ذهن یک استاد اهمال‌کاری (تیم اربن)'},
+   discussionQuestions:[{en:'Describe your own "Instant Gratification Monkey". When does it take control?',tr:'Kendi "Anlık Haz Maymunu"nu anlat. Kontrolü ne zaman ele geçiriyor?',fa:'«میمون لذت آنی» خودت را توصیف کن. کِی کنترل را به دست می‌گیرد؟'},
+     {en:'Urban says deadlines do not exist for many life goals. What is one goal with no deadline that you keep postponing?',tr:'Urban, birçok hayat hedefinin son tarihi olmadığını söylüyor. Sürekli ertelediğin, son tarihi olmayan bir hedefin ne?',fa:'اربن می‌گوید بسیاری از هدف‌های زندگی ضرب‌الاجل ندارند. یک هدف بی‌ضرب‌الاجل که مدام عقب می‌اندازی چیست؟'}],
+   vocab:[{word:'procrastinate',en:'delay doing something you should do',tr:'ertelemek',fa:'اهمال‌کاری کردن، عقب انداختن'},{word:'instant gratification',en:'wanting pleasure immediately',tr:'anlık haz',fa:'لذت آنی'},{word:'deadline',en:'the latest time to finish something',tr:'son teslim tarihi',fa:'مهلت، ضرب‌الاجل'}]},
+  {id:'media-en-c1-immigration-iyer-home', level:'C1', goal:'immigration', kind:'youtube', videoId:'3m6dV7Xo3Vc', durationMin:14, channel:'TED',
+   title:{en:'Where Is Home? (Pico Iyer)',tr:'Ev Neresi? (Pico Iyer)',fa:'خانه کجاست؟ (پیکو آیر)'},
+   discussionQuestions:[{en:'Iyer says home is less about soil and more about soul. Where is "home" for you, and has that changed?',tr:'Iyer, evin topraktan çok ruhla ilgili olduğunu söylüyor. Senin için "ev" neresi ve bu değişti mi?',fa:'آیر می‌گوید خانه بیشتر به روح مربوط است تا خاک. «خانه» برای تو کجاست و آیا تغییر کرده؟'},
+     {en:'What do people gain and lose when they live between two cultures?',tr:'İki kültür arasında yaşayan insanlar ne kazanır ve ne kaybeder?',fa:'آدم‌هایی که بین دو فرهنگ زندگی می‌کنند چه به دست می‌آورند و چه از دست می‌دهند؟'}],
+   vocab:[{word:'belong',en:'feel that you are part of a place or group',tr:'ait olmak',fa:'تعلق داشتن'},{word:'displaced',en:'forced or moved away from your home',tr:'yerinden edilmiş',fa:'آواره، جابه‌جاشده'},{word:'multicultural',en:'including people of many cultures',tr:'çok kültürlü',fa:'چندفرهنگی'}]},
+  {id:'media-en-c1-immigration-singlestory', level:'C1', goal:'immigration', kind:'youtube', videoId:'D9Ihs241zeg', durationMin:19, channel:'TED',
+   title:{en:'The Danger of a Single Story (Chimamanda Ngozi Adichie)',tr:'Tek Bir Hikayenin Tehlikesi (Chimamanda Ngozi Adichie)',fa:'خطر یک روایت واحد (چیماماندا انگوزی آدیچی)'},
+   discussionQuestions:[{en:'What "single story" do people abroad often believe about your country? How would you correct it?',tr:'Yurt dışındaki insanlar ülken hakkında genelde hangi "tek hikayeye" inanıyor? Bunu nasıl düzeltirdin?',fa:'مردم خارج از کشور معمولاً چه «روایت واحدی» دربارهٔ کشورت باور دارند؟ چطور اصلاحش می‌کنی؟'},
+     {en:'Have you ever had a single story about another group of people, and then changed your mind?',tr:'Hiç başka bir insan grubu hakkında tek bir hikayeye inandığın ve sonra fikrini değiştirdiğin oldu mu?',fa:'تا حالا دربارهٔ گروه دیگری از مردم یک روایت واحد در ذهنت داشته‌ای و بعد نظرت عوض شده؟'}],
+   vocab:[{word:'stereotype',en:'a fixed, oversimplified idea about a group',tr:'kalıp yargı, klişe',fa:'کلیشه، قالب ذهنی'},{word:'misconception',en:'a wrong belief based on poor understanding',tr:'yanlış kanı',fa:'برداشت نادرست'},{word:'dignity',en:'being worthy of respect',tr:'onur, haysiyet',fa:'کرامت'}]}
+];
+MEDIA_LIBRARY.push(...MEDIA_EN_ADDITIONS);
 function renderMediaSession(id){
   const m = MEDIA_LIBRARY.find(x=>x.id===id);
   if(!m) return renderNotFound();
@@ -4808,18 +4981,28 @@ function renderMediaSession(id){
   // no separate progress array, consistent with those other manual-only types.
   const roadmapId = roadmapNodeId({type:'media', refId:m.id});
   const done = !!(state.progress.roadmapChecked && state.progress.roadmapChecked[roadmapId]);
-  const embed = m.kind==='youtube' && m.videoId
+  // 2026-10-04 (96gUMgAB): any entry with a videoId is embedded, podcasts included
+  // (their official YouTube uploads); a podcast without one keeps the link button.
+  const isPodcast = m.kind === 'podcast';
+  const embed = m.videoId
     ? `<div style="position:relative; width:100%; padding-top:56.25%; border-radius:20px; overflow:hidden; background:#000;"><iframe src="https://www.youtube-nocookie.com/embed/${esc(m.videoId)}" title="${esc(L(m.title.en,m.title.tr,m.title.fa))}" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
     : `<a class="btn btn-primary" href="${esc(m.sourceUrl)}" target="_blank" rel="noopener">${L('Listen to the podcast','Podcasti dinle','گوش‌دادن به پادکست')} ↗</a>`;
+  const credit = m.channel ? `<div style="margin-top:8px; font-size:12px; color:var(--ink-faint);">${L('Source','Kaynak','منبع')}: ${esc(m.channel)}</div>` : '';
   return `<div class="fade-in">
     ${sectionHead(L(m.title.en,m.title.tr,m.title.fa), (m.goal && GOALS_META[m.goal] ? goalMetaLabel(m.goal)+' · ' : '')+(m.durationMin?m.durationMin+' '+L('min','dk','دقیقه'):''))}
     <div class="screen" style="padding-top:0;">
       ${embed}
+      ${credit}
       ${m.discussionQuestions && m.discussionQuestions.length ? `
       <div class="card-flat" style="margin-top:16px;">
         <div class="eyebrow" style="color:var(--cat-story);">${L('Discussion questions','Tartışma soruları','سؤالات بحث')}</div>
         <ol style="margin:8px 0 0; padding-inline-start:18px;">
-          ${m.discussionQuestions.map(q=>`<li style="font-size:14px; line-height:1.6; margin-top:6px;">${esc(L(q.en,q.tr,q.fa))}</li>`).join('')}
+          ${m.discussionQuestions.map(q=>{
+            // the question in English (the language being learned) first, like stories;
+            // the learner's own language as a small gloss under it
+            const gloss = LANG !== 'en' ? L(q.en,q.tr,q.fa) : '';
+            return `<li style="font-size:14px; line-height:1.6; margin-top:6px;">${esc(q.en)}${gloss && gloss !== q.en ? `<div style="font-size:12px; color:var(--ink-faint); line-height:1.4;">${esc(gloss)}</div>` : ''}</li>`;
+          }).join('')}
         </ol>
       </div>` : ''}
       ${m.vocab && m.vocab.length ? `
@@ -4827,9 +5010,86 @@ function renderMediaSession(id){
         <div class="eyebrow" style="color:var(--cat-voc);">${L('New words','Yeni kelimeler','کلمات جدید')}</div>
         ${m.vocab.map(v=>`<div class="phrase-row"><div class="phrase-term" style="color:var(--cat-voc);">${esc(v.word)}</div><div class="phrase-mean">${esc(L(v.en,v.tr,v.fa))}</div></div>`).join('')}
       </div>` : ''}
-      <button class="btn ${done?'btn-ghost':'btn-primary'}" style="margin-top:16px;" data-action="toggle-roadmap-item" data-id="${roadmapId}">${done ? L('Marked as watched ✓','İzlendi olarak işaretlendi ✓','علامت‌زده به‌عنوان دیده‌شده ✓') : L('Mark as watched','İzlendi olarak işaretle','علامت‌زدن به‌عنوان دیده‌شده')}</button>
+      <button class="btn ${done?'btn-ghost':'btn-primary'}" style="margin-top:16px;" data-action="toggle-roadmap-item" data-id="${roadmapId}">${isPodcast
+        ? (done ? L('Marked as listened ✓','Dinlendi olarak işaretlendi ✓','علامت‌زده به‌عنوان شنیده‌شده ✓') : L('Mark as listened','Dinlendi olarak işaretle','علامت‌زدن به‌عنوان شنیده‌شده'))
+        : (done ? L('Marked as watched ✓','İzlendi olarak işaretlendi ✓','علامت‌زده به‌عنوان دیده‌شده ✓') : L('Mark as watched','İzlendi olarak işaretle','علامت‌زدن به‌عنوان دیده‌شده'))}</button>
     </div>
   </div>`;
+}
+/* Roadmap "Watch or listen" node (2026-10-04, Trello 96gUMgAB; rule from
+   Claude/specs/media/README.md). One media node per stage, right after the story
+   node (stage midpoint if there is no story). Ranking inside the learner's level:
+   their goals (+100 for goal 1, -10 for each later goal), favourite topics (+20),
+   already watched (-1000). Stage 1 takes the top item; stage 2 takes the best item
+   other than stage 1's (a tie prefers the other kind: a podcast after a video and
+   the other way round), so the two stages never repeat. When the level has nothing,
+   it falls back one level down; otherwise there is no media node.
+   "Watched" = progress.mediaWatched (kept by toggle-roadmap-item; it survives the
+   roadmapChecked reset at a stage advance) plus any media node checked right now. */
+function mediaWatchedIds(){
+  const pr = state.progress || {}, rc = pr.roadmapChecked || {};
+  const s = new Set(Array.isArray(pr.mediaWatched) ? pr.mediaWatched : []);
+  Object.keys(rc).forEach(k=>{ if(rc[k] && k.indexOf('media:') === 0) s.add(k.slice(6).split('#')[0]); });
+  return s;
+}
+function pickRoadmapMedia(profile, stage){
+  if(!MEDIA_LIBRARY.length || !profile || !profile.level) return null;
+  const goals = profileGoalKeys(profile);
+  const topics = profile.topics || [];
+  const watched = mediaWatchedIds();
+  const li = LEVELS.indexOf(profile.level);
+  const levels = [profile.level].concat(li > 0 ? [LEVELS[li-1]] : []);
+  const score = (m, useWatched) =>
+    (m.goal && goals.includes(m.goal) ? 100 - 10*goals.indexOf(m.goal) : 0)
+    + (m.topic && topics.includes(m.topic) ? 20 : 0)
+    - (useWatched && watched.has(m.id) ? 1000 : 0);
+  const pick = (exclude, useWatched, preferKind) => {
+    for(const lv of levels){
+      const pool = MEDIA_LIBRARY.filter(m=>m.level===lv && !exclude.includes(m.id));
+      if(!pool.length) continue;
+      const sc = pool.map(m=>score(m, useWatched));
+      const top = Math.max.apply(null, sc);
+      const ties = pool.filter((m,i)=>sc[i]===top);
+      return (preferKind && ties.find(m=>m.kind===preferKind)) || ties[0];
+    }
+    return null;
+  };
+  if(stage !== 2) return pick([], true, null);
+  // what stage 1 of this level offered (its watched mark ignored: by stage 2 it usually is)
+  const s1 = pick([], false, null);
+  return pick(s1 ? [s1.id] : [], true, s1 ? (s1.kind === 'podcast' ? 'youtube' : 'podcast') : null);
+}
+// The node's goal label is the item's goal only when it is one of the learner's
+// goals (a topic pick tagged with another goal would show a goal they never chose).
+function mediaRoadmapNode(profile, m, primaryGoal){
+  const goals = profileGoalKeys(profile);
+  return {type:'media', refId:m.id, goal:(m.goal && goals.includes(m.goal)) ? m.goal : (primaryGoal || goals[0] || null),
+    title:L('Watch or listen','İzle veya dinle','تماشا یا گوش‌کن')+': '+L(m.title.en, m.title.tr, m.title.fa)};
+}
+/* Saved roadmaps from before media nodes existed (and goal-edit merges): adds the
+   stage's media node right after the story node, but only where it can't disturb
+   anything. It is skipped when the roadmap already has a media node, when every
+   node is done (the learner is on "Go to the next level"), or when any node at or
+   after the insertion point is already done (the learner is past that point; the
+   next stage brings its own media node). Nothing is removed or re-keyed: node ids
+   are type:refId, so roadmapChecked, souvenirs and the golden node (matched by
+   nodeId; its goldenIdx is moved along) all stay attached to the same nodes. */
+function ensureRoadmapMedia(){
+  const rm = state.roadmap;
+  if(!rm || !rm.length || !state.profile || !state.profile.completedDiagnostic) return false;
+  if(rm.some(n=>n.type==='media')) return false;
+  if(rm.every(n=>isRoadmapNodeDone(n))) return false;
+  const pick = pickRoadmapMedia(state.profile, state.profile.levelStage===2 ? 2 : 1);
+  if(!pick) return false;
+  const si = rm.findIndex(n=>n.type==='story');
+  const sp = rm.findIndex(n=>n.type==='speaking');
+  const at = si >= 0 ? si+1 : (sp >= 0 ? sp+1 : Math.floor(rm.length/2));
+  if(rm.slice(at).some(n=>isRoadmapNodeDone(n))) return false;
+  rm.splice(at, 0, mediaRoadmapNode(state.profile, pick, si >= 0 ? rm[si].goal : null));
+  rm.forEach((n,i)=>{ n.n = i+1; });
+  const g = state.progress && state.progress.roadmapGolden;
+  if(g && g.nodeId){ const gi = rm.findIndex(n=>roadmapNodeId(n)===g.nodeId); if(gi > -1) g.goldenIdx = gi; }
+  return true;
 }
 function buildRoadmap(profile){
   const goals = profileGoalKeys(profile);
@@ -4895,10 +5155,16 @@ function buildRoadmap(profile){
   const storyPick = storyPoolAll.length
     ? (storyPoolAll.find(s=>!(state.progress && state.progress.completedStories && state.progress.completedStories.includes(s.id))) || storyPoolAll[0])
     : null;
+  // "Watch or listen" goes right after the story (see pickRoadmapMedia()).
+  const mediaPick = pickRoadmapMedia(profile, stage);
+  const pushMedia = () => {
+    if(mediaPick && !items.some(it=>it.type==='media')) items.push(mediaRoadmapNode(profile, mediaPick, primaryGoal));
+  };
   const pushStory = () => {
     if(!storyPick) return;
     items.push({type:'story', refId:storyPick.id, goal:primaryGoal,
       title:L('Story','Hikaye','داستان')+': '+L(storyPick.title.en, storyPick.title.tr)});
+    pushMedia();
   };
   // Writing/speaking practice (Studio Lab self-practice rounds — distinct from the
   // live teacher 'session' type above). These aren't catalog content with a fixed
@@ -5022,6 +5288,12 @@ function buildRoadmap(profile){
   // the other "done" too. Tag repeats with an occurrence number (kept OFF refId,
   // which content lookups still need untouched) so roadmapNodeId() can tell them
   // apart while both still open the exact same underlying content.
+  // No story at this level: the media node sits at the stage midpoint, after the
+  // speaking practice (which lands mid-stage), away from both game slots.
+  if(mediaPick && !items.some(it=>it.type==='media')){
+    const sp = items.findIndex(it=>it.type==='speaking');
+    items.splice(sp >= 0 ? sp+1 : Math.floor(items.length/2), 0, mediaRoadmapNode(profile, mediaPick, primaryGoal));
+  }
   const seenNodeKeys = {};
   items.forEach(it=>{
     const baseKey = it.type+':'+it.refId;
@@ -5107,7 +5379,8 @@ function migrateRoadmapChecked(){
   if(!numericKeys.length) return;
   if(!state.profile || !state.profile.completedDiagnostic) return;
   try{
-    const roadmap = buildRoadmap(state.profile);
+    // media nodes (2026-10-04) didn't exist when index keys were written
+    const roadmap = buildRoadmap(state.profile).filter(n=>n.type!=='media');
     numericKeys.forEach(k=>{
       const idx = Number(k);
       if(rc[k] && roadmap[idx]) rc[roadmapNodeId(roadmap[idx])] = true;
@@ -5173,7 +5446,11 @@ function ensureRoadmap(){
   if(state.profile && state.profile.completedDiagnostic && (!state.roadmap || !state.roadmap.length)){
     try{ state.roadmap = buildRoadmap(state.profile); }catch(e){}
   }
+  // roadmaps saved before media nodes existed get theirs (see ensureRoadmapMedia)
+  let mediaAdded = false;
+  if(state.profile && state.profile.completedDiagnostic){ try{ mediaAdded = ensureRoadmapMedia(); }catch(e){} }
   if(state.profile && state.profile.completedDiagnostic){ try{ awardSouvenirs(null); }catch(e){} }
+  return mediaAdded;
 }
 /* Non-destructive goal-edit regeneration (FVF5wbT2). Unlike regenerateRoadmap(),
    this MUTATES state.roadmap in place instead of replacing it wholesale:
@@ -5209,8 +5486,10 @@ function mergeRoadmapForGoalChange(){
   let target;
   try{ target = buildRoadmap(state.profile); }catch(e){ return; }
   const keptIds = new Set(kept.map(roadmapNodeId));
-  const newNodes = target.filter(it=>!keptIds.has(roadmapNodeId(it)) && !(legacyGames && it.type==='game'));
+  // media: never appended at the end; ensureRoadmapMedia() puts it after the story
+  const newNodes = target.filter(it=>!keptIds.has(roadmapNodeId(it)) && !(legacyGames && it.type==='game') && it.type!=='media');
   state.roadmap = kept.concat(newNodes).map((it,idx)=>Object.assign({}, it, {n:idx+1}));
+  try{ ensureRoadmapMedia(); }catch(e){}
 }
 
 /* ============================= CHARACTER BUBBLES ============================= */
@@ -5445,6 +5724,13 @@ function souvenirContent(node, ctx){
     // LXD answer 9: the card's flip side keeps one piece of the round's language.
     const keep = ctx.round ? gameKeep(kind, ctx.round) : null;
     if(keep) out.keep = keep;
+  } else if(t === 'media'){
+    const m = MEDIA_LIBRARY.find(x=>x.id===node.refId);
+    if(m && m.vocab && m.vocab.length){
+      const v = m.vocab[Math.floor(Math.random()*m.vocab.length)];
+      out.text = v.word;
+      out.meaning = {en:v.en, tr:v.tr, fa:v.fa, es:v.es};
+    }
   } else if(t === 'session'){
     out.label = 'session';
   }
@@ -6774,10 +7060,9 @@ function renderRoadmapCard(p){
     // uses the real icon-controller.png (Farin's ask) but keeps the same
     // gold "review" color/border so it's still the most distinct node.
     game:{ic:ICONS.bolt, c:'review', label:L('GAME','OYUN','بازی')},
-    // Linked YouTube/podcast session type (Trello yEgfxsWL) — MEDIA_LIBRARY is
-    // currently empty (see its own comment), so buildRoadmap() never actually
-    // produces a 'media' node yet; this entry just means the seam badge/card
-    // render correctly the moment real, rights-cleared content is added.
+    // Linked YouTube/podcast session type (Trello yEgfxsWL). Since 2026-10-04
+    // (96gUMgAB) buildRoadmap() adds one per stage, right after the story node,
+    // picked from MEDIA_LIBRARY by pickRoadmapMedia().
     media:{ic:ICONS.play, c:'story', label:L('Watch or listen','İzle veya dinle','تماشا یا گوش‌کن')}
   };
   const doneCount = roadmap.filter(it=>isRoadmapNodeDone(it)).length;
@@ -10600,6 +10885,15 @@ const HANDLERS = {
     const id = el.dataset.id;
     const rc = state.progress.roadmapChecked;
     rc[id] = !rc[id];
+    // watched videos/podcasts are remembered past the stage reset of roadmapChecked,
+    // so pickRoadmapMedia() never offers them again (96gUMgAB)
+    if(id.indexOf('media:') === 0){
+      const mid = id.slice(6).split('#')[0];
+      const mw = Array.isArray(state.progress.mediaWatched) ? state.progress.mediaWatched : (state.progress.mediaWatched = []);
+      const at = mw.indexOf(mid);
+      if(rc[id] && at < 0) mw.push(mid);
+      else if(!rc[id] && at > -1) mw.splice(at, 1);
+    }
     // Gamification v2: checking a node off earns its souvenir (once — unchecking keeps it).
     let fresh = [], node = null;
     if(rc[id]){
@@ -12529,8 +12823,9 @@ if(location.hash === '#admin'){
   setTimeout(()=>{ if(!adminAuthResolved) renderAdminPage(); }, 4000);
 } else {
   if(state.profile.completedDiagnostic && state.view === 'diagnostic-intro'){ state.view = 'dashboard'; }
-  ensureRoadmap();
+  const roadmapMediaAdded = ensureRoadmap();
   migrateRoadmapChecked();
+  if(roadmapMediaAdded) save();
   detectComeback();
   if(state.profile.completedDiagnostic){ rollWeeks(); }
   if(state.profile.completedDiagnostic && markDailyVisit()){ save(); }
