@@ -12163,6 +12163,8 @@ function courseUnitSteps(cid, uid){
   return out;
 }
 function courseUnitProgress(cid, uid){ const s = courseUnitSteps(cid, uid); return {done:s.filter(x=>x.done).length, total:s.length}; }
+  const cc = courseGet(cid);
+  if(cc && cc.tracks && cc.tracks.length && !cc.tracks.includes('B1')) return cc.tracks[0];
 function courseOpenStep(cid, uid, type){
   const c = courseGet(cid); if(!c) return;
   if(!courseUnitAccess(c, uid)){ go('course-gate', {cid, uid}); return; }
@@ -12197,19 +12199,19 @@ function coursesDashTile(){
   </button>`;
 }
 function courseCardHtml(c){
-  const live = c.status === 'live';
+  const live = c.status === 'live', open = live || c.status === 'shell';
   const total = c.modules.reduce((n,m)=>n+m.units.length, 0);
   const doneUnits = c.modules.reduce((n,m)=>n+m.units.filter(u=>{ const p = courseUnitProgress(c.id, u.id); return p.total && p.done===p.total; }).length, 0);
   const pill = live ? `<span class="pill" style="background:#fff; color:var(--clay-lavender-deep); font-weight:900;">${L('Free sample unit','Ücretsiz örnek ünite','واحد نمونه رایگان')}</span>`
                     : `<span class="pill" style="background:rgba(255,255,255,.3); color:#fff;">${L('Coming soon','Yakında','به‌زودی')}</span>`;
-  return `<button class="item-row goal-card" data-action="course-open" data-view="${live?'course-detail':'course-gate'}" data-cid="${c.id}" style="background:var(--cat-${c.cat}); border:none; color:#fff; align-items:flex-start; ${live?'':'opacity:.82;'}">
+  return `<button class="item-row goal-card" data-action="course-open" data-view="${open?'course-detail':'course-gate'}" data-cid="${c.id}" style="background:var(--cat-${c.cat}); border:none; color:#fff; align-items:flex-start; ${live?'':'opacity:.82;'}">
     ${claySparkles()}
     <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[c.icon]}</span>
     <div class="item-body">
       <div class="item-title" style="color:#fff;">${esc(cl(c.title))}</div>
       <div style="font-size:12.5px; line-height:1.4; margin-top:3px; color:rgba(255,255,255,.95);">${esc(cl(c.promise))}</div>
       <div class="row" style="gap:8px; margin-top:9px; flex-wrap:wrap; align-items:center;">${pill}
-        ${live ? `<span class="pill" style="background:rgba(255,255,255,.24); color:#fff;">${doneUnits}/${total} ${L('units','ünite','واحد')}</span>` : ''}
+        ${open && total ? `<span class="pill" style="background:rgba(255,255,255,.24); color:#fff;">${doneUnits}/${total} ${L('units','ünite','واحد')}</span>` : ''}
       </div>
     </div>
     <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
@@ -12257,7 +12259,7 @@ function renderCourseDetail(cid){
         ${c.story ? `<p style="margin:10px 0 0; font-size:12.5px; opacity:.92;">${esc(c.story.character)} · ${esc(c.story.company)}</p>` : ''}
       </div>
       ${(c.tracks||[]).length ? `<div class="tab-row" style="margin-bottom:6px;">${c.tracks.map(t=>`<button class="tab-btn ${track===t?'active':''}" data-action="course-track" data-cid="${c.id}" data-track="${t}">${t} ${L('track','parkuru','مسیر')}</button>`).join('')}</div>
-      <p style="font-size:12px; color:var(--ink-faint); margin:0 0 6px;">${track==='B1' ? L('B1 track: more frames and model texts.','B1 parkuru: daha fazla kalıp ve örnek metin.','مسیر B1: الگو و متن نمونه بیشتر.') : L('B2 track: frames removed after the model.','B2 parkuru: örnekten sonra kalıplar kalkar.','مسیر B2: بعد از نمونه، الگوها حذف می‌شوند.')}</p>` : ''}
+      ${(c.tracks||[]).includes('B1') ? `<p style="font-size:12px; color:var(--ink-faint); margin:0 0 6px;">${track==='B1' ? L('B1 track: more frames and model texts.','B1 parkuru: daha fazla kalıp ve örnek metin.','مسیر B1: الگو و متن نمونه بیشتر.') : L('B2 track: frames removed after the model.','B2 parkuru: örnekten sonra kalıplar kalkar.','مسیر B2: بعد از نمونه، الگوها حذف می‌شوند.')}</p>` : ''}` : ''}
       ${c.modules.map((m,mi)=>`
         <div class="eyebrow" style="margin:16px 0 8px;">${L('Module','Modül','ماژول')} ${mi+1} · ${esc(cl(m.title))}</div>
         <div class="stack" style="gap:8px;">
