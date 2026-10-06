@@ -3068,6 +3068,479 @@ const VOCAB_SETS = [
    {word:'sign here', sentence:'Please sign here, at the bottom.', meaning:{en:'An instruction to write your signature in a specific place.',tr:'burayı imzalayın.',fa:'اینجا را امضا کنید'}}]}
 ];
 
+/* Teaching redesign phase 1, S4: A1-A2 vocab additions (farin-lxd, Claude/specs/lxd-phase1-content/en-vocab-A1-A2.js). Per set a
+   useTask {prompt, frame, model}; per card (keyed by the card's previous headword) accept[] (typed answers that count),
+   gap (the exact text to blank when the sentence inflects the headword), and base-form/Spain-standard headword,
+   sentence, note or meaning fixes. replaceCards swaps a whole set's cards. accept/useTask are data only until the
+   typed-recall and Use steps land (phase 2); gap is used by the flashcards, the quiz and the Shuffle now. */
+const VOCAB_PHASE1_A1A2 = {
+ "v-A1-1":{
+  useTask:{prompt:{en:"Introduce yourself to a new classmate in 2 sentences. Use 2 phrases from this set.", tr:"Yeni bir sınıf arkadaşına 2 cümleyle kendini tanıt. Bu setten 2 ifade kullan.", fa:"خودت را در ۲ جمله به یک هم‌کلاسی جدید معرفی کن. از ۲ عبارت این مجموعه استفاده کن."}, frame:"Hi! My name is ... . Nice to meet you. I am from ... .", model:"Hi! My name is Deniz. Nice to meet you, I am from Ankara."},
+  cards:{
+   Hi:{accept:["hi"]},
+   "nice to meet you":{accept:["nice to meet you"]},
+   "my name is":{accept:["my name is"]},
+   "How are you":{accept:["how are you"]},
+   goodbye:{accept:["goodbye"]},
+   "this is":{accept:["this is"]},
+   "Where are you from":{accept:["where are you from"]},
+   "Pleased to meet you":{accept:["pleased to meet you"]},
+   "good morning":{accept:["good morning"]},
+   "take care":{accept:["take care"]}
+  }
+ },
+ "v-A1-2":{
+  useTask:{prompt:{en:"Write 2 sentences about people in your family. Use 2 words from this set.", tr:"Ailendeki insanlar hakkında 2 cümle yaz. Bu setten 2 kelime kullan.", fa:"درباره اعضای خانواده‌ات ۲ جمله بنویس. از ۲ کلمه این مجموعه استفاده کن."}, frame:"My ... is a ... . I have ... .", model:"My mother is a nurse. I have two cousins who live in Izmir."},
+  cards:{
+   mother:{accept:["mother"]},
+   sibling:{accept:["sibling"]},
+   spouse:{accept:["spouse"]},
+   father:{accept:["father"]},
+   grandparents:{accept:["grandparents"]},
+   daughter:{accept:["daughter"]},
+   son:{accept:["son"]},
+   cousin:{accept:["cousin"]},
+   aunt:{accept:["aunt"]},
+   uncle:{accept:["uncle"]}
+  }
+ },
+ "v-A1-3":{
+  useTask:{prompt:{en:"Write 2 sentences about things you own. Use a number or colour phrase from this set.", tr:"Sahip olduğun şeyler hakkında 2 cümle yaz. Bu setten bir sayı ya da renk ifadesi kullan.", fa:"درباره چیزهایی که داری ۲ جمله بنویس. از یک عدد یا عبارت رنگ این مجموعه استفاده کن."}, frame:"My favorite color is ... . I have ... .", model:"My favorite color is dark blue. I have a few books on my desk."},
+  cards:{
+   "favorite color":{accept:["favorite color"]},
+   "how many":{accept:["how many"]},
+   "a couple of":{accept:["a couple of"]},
+   first:{accept:["first"]},
+   "a few":{accept:["a few"]},
+   dozen:{accept:["dozen"]},
+   "favorite number":{accept:["favorite number"]},
+   "dark blue":{accept:["dark blue"]},
+   "light green":{accept:["light green"]},
+   "how old":{accept:["how old"]}
+  }
+ },
+ "v-A1-4":{
+  useTask:{prompt:{en:"You are in a café. Write 2 sentences to order and to say what you do not like.", tr:"Bir kafedesin. Sipariş vermek ve neyi sevmediğini söylemek için 2 cümle yaz.", fa:"در یک کافه هستی. برای سفارش دادن و گفتن چیزی که دوست نداری ۲ جمله بنویس."}, frame:"I'd like ... , please. I don't like ... .", model:"I'd like a glass of water, please. I don't like spicy food."},
+  cards:{
+   "I'd like":{accept:["i'd like","i would like"]},
+   "I don't like":{accept:["i don't like","i do not like"]},
+   hungry:{accept:["hungry"]},
+   thirsty:{accept:["thirsty"]},
+   delicious:{accept:["delicious"]},
+   "a glass of":{accept:["a glass of"]},
+   "without sugar":{accept:["without sugar"]},
+   full:{accept:["full"]},
+   "a piece of":{accept:["a piece of"]},
+   "What would you like":{accept:["what would you like"]}
+  }
+ },
+ "v-A1-5":{
+  useTask:{prompt:{en:"Write 2 sentences about your normal day. Use 2 phrases from this set.", tr:"Normal gününle ilgili 2 cümle yaz. Bu setten 2 ifade kullan.", fa:"۲ جمله درباره یک روز معمولی‌ات بنویس. از ۲ عبارت این مجموعه استفاده کن."}, frame:"I usually ... at ... . Then I ... .", model:"I usually wake up at seven. Then I have breakfast with my family."},
+  replaceCards:[
+   {word:"wake up", sentence:"I wake up at seven every morning.", accept:["wake up"], meaning:{en:"To stop sleeping.", tr:"uyanmak", fa:"بیدار شدن"}},
+   {
+    word:"get up",
+    sentence:"I get up ten minutes after my alarm.",
+    accept:["get up"],
+    meaning:{en:"To get out of bed.", tr:"yataktan kalkmak", fa:"از رختخواب بلند شدن"},
+    note:{en:"Wake up = open your eyes. Get up = leave the bed.", tr:"Wake up = gözünü açmak. Get up = yataktan çıkmak.", fa:"Wake up یعنی چشم باز کردن. Get up یعنی از تخت بیرون آمدن."}
+   },
+   {
+    word:"have breakfast",
+    sentence:"We have breakfast at eight.",
+    accept:["have breakfast"],
+    meaning:{en:"To eat the first meal of the day.", tr:"kahvaltı yapmak", fa:"صبحانه خوردن"},
+    note:{en:"Say \"have breakfast\", not \"eat a breakfast\".", tr:"\"have breakfast\" de, \"eat a breakfast\" deme.", fa:"بگو «have breakfast»، نه «eat a breakfast»."}
+   },
+   {
+    word:"take a shower",
+    sentence:"He takes a shower before work.",
+    gap:"takes a shower",
+    accept:["take a shower","takes a shower"],
+    meaning:{en:"To wash your body under running water.", tr:"duş almak", fa:"دوش گرفتن"}
+   },
+   {word:"get dressed", sentence:"I get dressed quickly in the morning.", accept:["get dressed"], meaning:{en:"To put on your clothes.", tr:"giyinmek", fa:"لباس پوشیدن"}},
+   {
+    word:"go to work",
+    sentence:"She goes to work by bus.",
+    gap:"goes to work",
+    accept:["go to work","goes to work"],
+    meaning:{en:"To travel to your job.", tr:"işe gitmek", fa:"سر کار رفتن"},
+    note:{en:"No \"the\": go to work, go to school, go home.", tr:"\"the\" yok: go to work, go to school, go home.", fa:"بدون «the»: go to work، go to school، go home."}
+   },
+   {
+    word:"come home",
+    sentence:"My dad comes home at six.",
+    gap:"comes home",
+    accept:["come home","comes home"],
+    meaning:{en:"To arrive back at your house.", tr:"eve gelmek", fa:"به خانه آمدن"},
+    note:{en:"No \"to\": come home, not come to home.", tr:"\"to\" yok: come home, come to home değil.", fa:"بدون «to»: come home، نه come to home."}
+   },
+   {word:"cook dinner", sentence:"I cook dinner for my family on Fridays.", accept:["cook dinner"], meaning:{en:"To make the evening meal.", tr:"akşam yemeği pişirmek", fa:"شام درست کردن"}},
+   {
+    word:"brush your teeth",
+    sentence:"I brush my teeth twice a day.",
+    gap:"brush my teeth",
+    accept:["brush your teeth","brush my teeth"],
+    meaning:{en:"To clean your teeth.", tr:"dişlerini fırçalamak", fa:"مسواک زدن"}
+   },
+   {word:"go to bed", sentence:"We usually go to bed at eleven.", accept:["go to bed"], meaning:{en:"To get into bed to sleep.", tr:"yatmak", fa:"به رختخواب رفتن"}}
+  ]
+ },
+ "v-A1-6":{
+  useTask:{prompt:{en:"You are in a shop. Write 2 sentences to the seller. Use 2 phrases from this set.", tr:"Bir dükkandasın. Satıcıya 2 cümle yaz. Bu setten 2 ifade kullan.", fa:"در یک مغازه‌ای. برای فروشنده ۲ جمله بنویس. از ۲ عبارت این مجموعه استفاده کن."}, frame:"Excuse me, how much ... ? Can I ... ?", model:"Excuse me, how much is this jacket? Can I try it on?"},
+  cards:{
+   "how much":{accept:["how much"]},
+   expensive:{accept:["expensive"]},
+   size:{accept:["size"]},
+   "cash or card":{accept:["cash or card"]},
+   discount:{accept:["discount"]},
+   "try it on":{accept:["try it on"]},
+   "too small":{accept:["too small"]},
+   "a bit cheaper":{accept:["a bit cheaper"]},
+   "I'll take it":{accept:["i'll take it","i will take it"]},
+   "just looking":{accept:["just looking"]}
+  }
+ },
+ "v-A1-7":{
+  useTask:{prompt:{en:"Write 2 sentences about when you do something. Use a time phrase from this set.", tr:"Bir şeyi ne zaman yaptığın hakkında 2 cümle yaz. Bu setten bir zaman ifadesi kullan.", fa:"درباره زمان انجام کاری ۲ جمله بنویس. از یک عبارت زمان این مجموعه استفاده کن."}, frame:"My ... starts at ... in the morning. I am never ... .", model:"My class starts at half past eight in the morning. I am never late."},
+  cards:{
+   "o'clock":{accept:["o'clock"]},
+   "half past":{accept:["half past"]},
+   "quarter to":{accept:["quarter to"]},
+   "What time is it":{accept:["what time is it"]},
+   "in the morning":{accept:["in the morning"]},
+   "in the afternoon":{accept:["in the afternoon"]},
+   "at night":{accept:["at night"]},
+   early:{accept:["early"]},
+   late:{accept:["late"]},
+   "on time":{accept:["on time"]}
+  }
+ },
+ "v-A1-8":{
+  useTask:{prompt:{en:"Describe the weather today in 2 sentences.", tr:"Bugünkü havayı 2 cümleyle anlat.", fa:"آب‌وهوای امروز را در ۲ جمله توصیف کن."}, frame:"It is ... today. It is also ... .", model:"It is cloudy today, but it is not cold. It is a bit windy."},
+  cards:{
+   sunny:{accept:["sunny"]},
+   rainy:{accept:["rainy"]},
+   freezing:{accept:["freezing"]},
+   cloudy:{accept:["cloudy"]},
+   windy:{accept:["windy"]},
+   snowing:{accept:["snowing"]},
+   hot:{accept:["hot"]},
+   cool:{accept:["cool"]},
+   "What's the weather like":{accept:["what's the weather like","what is the weather like"]},
+   "a storm":{accept:["a storm"]}
+  }
+ },
+ "v-A1-9":{
+  useTask:{prompt:{en:"Give directions to a visitor: from your home to a shop. Use 2 phrases from this set.", tr:"Bir ziyaretçiye yol tarif et: evinden bir dükkana. Bu setten 2 ifade kullan.", fa:"به یک مهمان آدرس بده: از خانه‌ات تا یک مغازه. از ۲ عبارت این مجموعه استفاده کن."}, frame:"Turn ... at ... . The ... is next to ... .", model:"Turn left at the corner. The bakery is next to the bank."},
+  cards:{
+   "turn left":{accept:["turn left"]},
+   "straight ahead":{accept:["straight ahead"]},
+   near:{accept:["near"]},
+   "turn right":{accept:["turn right"]},
+   "across from":{accept:["across from"]},
+   "next to":{accept:["next to"]},
+   far:{accept:["far"]},
+   "on the corner":{accept:["on the corner"]},
+   behind:{accept:["behind"]},
+   "how do I get to":{accept:["how do i get to"]}
+  }
+ },
+ "v-A1-10":{
+  useTask:{prompt:{en:"Describe 2 things in your room and where they are.", tr:"Odandaki 2 şeyi ve nerede olduklarını anlat.", fa:"۲ چیز در اتاقت را توصیف کن و بگو کجا هستند."}, frame:"There is a ... next to ... . My ... is ... .", model:"There is a lamp next to my bed. My keys are on the shelf."},
+  cards:{
+   chair:{accept:["chair"]},
+   fridge:{accept:["fridge"]},
+   "remote control":{accept:["remote control"]},
+   table:{accept:["table"]},
+   lamp:{accept:["lamp"]},
+   bed:{accept:["bed"]},
+   mirror:{accept:["mirror"]},
+   shelf:{accept:["shelf"]},
+   curtains:{accept:["curtains"]},
+   key:{accept:["key"]}
+  }
+ },
+ "v-A2-1":{
+  useTask:{prompt:{en:"You bought something that does not work. Explain the problem in 2 sentences and ask for a solution.", tr:"Çalışmayan bir şey aldın. Sorunu 2 cümleyle anlat ve çözüm iste.", fa:"چیزی خریده‌ای که کار نمی‌کند. مشکل را در ۲ جمله توضیح بده و راه‌حل بخواه."}, frame:"I bought ... last week, but it is ... . Can I ... ?", model:"I bought this blender last week, but it is faulty. Can I get a refund?"},
+  cards:{
+   receipt:{accept:["receipt"]},
+   refund:{accept:["refund"]},
+   "try on":{accept:["try on"]},
+   checkout:{accept:["checkout"]},
+   exchange:{accept:["exchange"]},
+   "on sale":{accept:["on sale"]},
+   warranty:{accept:["warranty"]},
+   faulty:{accept:["faulty"]},
+   "customer service":{accept:["customer service"]},
+   "store credit":{accept:["store credit"]}
+  }
+ },
+ "v-A2-2":{
+  useTask:{prompt:{en:"Order a meal in 2 sentences. Use 2 phrases from this set.", tr:"2 cümleyle yemek siparişi ver. Bu setten 2 ifade kullan.", fa:"در ۲ جمله غذا سفارش بده. از ۲ عبارت این مجموعه استفاده کن."}, frame:"Could I see ... ? I'll have ... .", model:"Could I see the menu, please? I'll have the grilled chicken."},
+  cards:{
+   "Could I see the menu":{accept:["could i see the menu"]},
+   "I'll have":{accept:["i'll have","i will have"]},
+   "Could we get the bill":{accept:["could we get the bill"]},
+   "Are you ready to order":{accept:["are you ready to order"]},
+   "What do you recommend":{accept:["what do you recommend"]},
+   "Is this spicy":{sentence:"Is this spicy, or is it mild?", accept:["is this spicy"]},
+   "a table for two":{accept:["a table for two"]},
+   "to go":{accept:["to go"]},
+   "Everything was great":{accept:["everything was great"]},
+   "split the bill":{accept:["split the bill"]}
+  }
+ },
+ "v-A2-3":{
+  useTask:{prompt:{en:"Call a clinic: describe your problem and book a visit. 2 sentences.", tr:"Bir kliniği ara: sorununu anlat ve randevu al. 2 cümle.", fa:"با یک درمانگاه تماس بگیر: مشکلت را بگو و وقت بگیر. ۲ جمله."}, frame:"I have ... . I'd like to ... .", model:"I have a sore throat and a headache. I'd like to book an appointment for Monday."},
+  cards:{
+   appointment:{accept:["appointment"]},
+   symptoms:{accept:["symptoms"]},
+   prescription:{accept:["prescription"]},
+   checkup:{accept:["checkup"]},
+   "sore throat":{accept:["sore throat"]},
+   headache:{accept:["headache"]},
+   "allergic to":{accept:["allergic to"]},
+   painkiller:{accept:["painkiller"]},
+   "get better soon":{accept:["get better soon"]},
+   "book an appointment":{accept:["book an appointment"]}
+  }
+ },
+ "v-A2-4":{
+  useTask:{prompt:{en:"You are at a station. Ask for a ticket and ask about the service. 2 sentences.", tr:"Bir istasyondasın. Bilet iste ve seferler hakkında sor. 2 cümle.", fa:"در ایستگاه هستی. بلیت بخواه و درباره سرویس بپرس. ۲ جمله."}, frame:"One ... ticket to ... , please. How often ... ?", model:"One round trip ticket to Ankara, please. How often does it run?"},
+  cards:{
+   platform:{accept:["platform"]},
+   "one-way ticket":{accept:["one-way ticket"]},
+   "How often does it run":{accept:["how often does it run"]},
+   "round trip":{accept:["round trip"]},
+   "get off":{accept:["get off"]},
+   delayed:{accept:["delayed"]},
+   "catch the bus":{accept:["catch the bus"]},
+   "change trains":{accept:["change trains"]},
+   fare:{accept:["fare"]},
+   "traffic jam":{accept:["traffic jam"]}
+  }
+ },
+ "v-A2-5":{
+  useTask:{prompt:{en:"Write 2 sentences about what you do in your free time. Use 2 phrases from this set.", tr:"Boş zamanında ne yaptığın hakkında 2 cümle yaz. Bu setten 2 ifade kullan.", fa:"درباره کارهایی که در وقت آزاد می‌کنی ۲ جمله بنویس. از ۲ عبارت این مجموعه استفاده کن."}, frame:"In my free time, I ... . I'm into ... .", model:"In my free time, I read or paint. I'm into hiking these days."},
+  cards:{
+   "I'm into":{accept:["i'm into","i am into"]},
+   "in my free time":{accept:["in my free time"]},
+   "I've never tried":{accept:["i've never tried","i have never tried"]},
+   "take up":{accept:["take up"]},
+   "good at":{accept:["good at"]},
+   "spend time":{accept:["spend time"]},
+   "a fan of":{gap:"a big fan of", accept:["a fan of","a big fan of"]},
+   practice:{accept:["practice"]},
+   collect:{accept:["collect"]},
+   "bores me":{accept:["bores me"]}
+  }
+ },
+ "v-A2-6":{
+  useTask:{prompt:{en:"Describe a person you know in 2 sentences. Use 2 words from this set.", tr:"Tanıdığın birini 2 cümleyle tarif et. Bu setten 2 kelime kullan.", fa:"یک نفر را که می‌شناسی در ۲ جمله توصیف کن. از ۲ کلمه این مجموعه استفاده کن."}, frame:"My ... is ... and ... . He / She ... .", model:"My brother is tall and friendly. He takes after our father."},
+  cards:{
+   tall:{accept:["tall"]},
+   friendly:{accept:["friendly"]},
+   "looks like":{word:"look like", gap:"looks like", accept:["look like","looks like"]},
+   short:{accept:["short"]},
+   "curly hair":{sentence:"He has curly hair and a short beard.", accept:["curly hair"]},
+   "in his thirties":{accept:["in his thirties"]},
+   easygoing:{accept:["easygoing"]},
+   hardworking:{accept:["hardworking"]},
+   "takes after":{word:"take after", gap:"takes after", accept:["take after","takes after"], note:{en:"Take after = be similar to a parent or older relative.", tr:"Take after = bir ebeveyne ya da büyüğe benzemek.", fa:"take after یعنی شبیه پدر، مادر یا بزرگ‌ترها بودن."}},
+   "well-dressed":{accept:["well-dressed"]}
+  }
+ },
+ "v-A2-7":{
+  useTask:{prompt:{en:"Write 2 sentences about your job or the job you want. Use 2 phrases from this set.", tr:"İşin ya da istediğin iş hakkında 2 cümle yaz. Bu setten 2 ifade kullan.", fa:"درباره شغلت یا شغلی که می‌خواهی ۲ جمله بنویس. از ۲ عبارت این مجموعه استفاده کن."}, frame:"I work as ... . I'm in charge of ... .", model:"I work as a graphic designer. I'm in charge of the marketing team."},
+  cards:{
+   "What do you do":{accept:["what do you do"]},
+   "I work as":{accept:["i work as"]},
+   "self-employed":{accept:["self-employed"]},
+   coworker:{accept:["coworker"]},
+   "part-time":{accept:["part-time"]},
+   promotion:{accept:["promotion"]},
+   "in charge of":{accept:["in charge of"]},
+   "apply for a job":{accept:["apply for a job"]},
+   "get fired":{gap:"got fired", accept:["get fired","got fired"]},
+   "day off":{accept:["day off"]}
+  }
+ },
+ "v-A2-8":{
+  useTask:{prompt:{en:"Invite a friend and suggest a time. 2 sentences.", tr:"Bir arkadaşını davet et ve bir saat öner. 2 cümle.", fa:"یک دوست را دعوت کن و ساعتی پیشنهاد بده. ۲ جمله."}, frame:"Are you free on ... ? Let's meet at ... .", model:"Are you free on Saturday afternoon? Let's meet at the café around six."},
+  cards:{
+   "Are you free":{accept:["are you free"]},
+   "Let's meet at":{accept:["let's meet at","let us meet at"]},
+   "Can we reschedule":{accept:["can we reschedule"]},
+   "What time works for you":{accept:["what time works for you"]},
+   "I might be late":{accept:["i might be late"]},
+   cancel:{accept:["cancel"]},
+   confirm:{accept:["confirm"]},
+   "I'm busy that day":{accept:["i'm busy that day","i am busy that day"]},
+   "count me in":{accept:["count me in"]},
+   "make it":{accept:["make it"]}
+  }
+ },
+ "v-A2-9":{
+  useTask:{prompt:{en:"You need help in a new city. Ask for help in 2 sentences.", tr:"Yeni bir şehirde yardıma ihtiyacın var. 2 cümleyle yardım iste.", fa:"در یک شهر جدید به کمک نیاز داری. در ۲ جمله کمک بخواه."}, frame:"Excuse me, I ... . Could you ... ?", model:"Excuse me, I'm lost. Could you show me the way to the station?"},
+  cards:{
+   "I'm lost":{accept:["i'm lost","i am lost"]},
+   "Could you show me":{accept:["could you show me"]},
+   "I don't understand":{accept:["i don't understand","i do not understand"]},
+   "Can you help me with":{accept:["can you help me with"]},
+   "Is there a":{accept:["is there a"]},
+   "I need assistance":{accept:["i need assistance"]},
+   "What does this mean":{sentence:"What does this mean? I cannot read the sign.", accept:["what does this mean"]},
+   "Could you repeat that":{accept:["could you repeat that"]},
+   "point me in the direction of":{accept:["point me in the direction of"]},
+   "I appreciate it":{sentence:"Thank you for your help, I appreciate it.", accept:["i appreciate it"]}
+  }
+ },
+ "v-A2-10":{
+  useTask:{prompt:{en:"Describe your home in 2 sentences. Use 2 phrases from this set.", tr:"Evini 2 cümleyle anlat. Bu setten 2 ifade kullan.", fa:"خانه‌ات را در ۲ جمله توصیف کن. از ۲ عبارت این مجموعه استفاده کن."}, frame:"My ... is on the ... . It has ... .", model:"My apartment is on the second floor. It has a small balcony and a lot of natural light."},
+  cards:{
+   "second floor":{accept:["second floor"]},
+   spacious:{accept:["spacious"]},
+   "two-bedroom flat":{accept:["two-bedroom flat"]},
+   "ground floor":{accept:["ground floor"]},
+   balcony:{accept:["balcony"]},
+   furnished:{accept:["furnished"]},
+   "move in":{accept:["move in"]},
+   neighborhood:{accept:["neighborhood"]},
+   "natural light":{accept:["natural light"]},
+   "a short walk from":{accept:["a short walk from"]}
+  }
+ },
+ "slang-A1":{
+  useTask:{prompt:{en:"Reply to a friend in 2 sentences. Use 2 slang phrases from this set.", tr:"Bir arkadaşına 2 cümleyle cevap ver. Bu setten 2 argo ifade kullan.", fa:"به یک دوست در ۲ جمله جواب بده. از ۲ اصطلاح غیررسمی این مجموعه استفاده کن."}, frame:"Hey! ... . See ya!", model:"Hey! No worries, sounds good. See ya tomorrow!"},
+  cards:{
+   Hey:{accept:["hey"]},
+   "what's up":{accept:["what's up","what is up"]},
+   "see ya":{accept:["see ya"]},
+   "no worries":{accept:["no worries"]},
+   "sure thing":{accept:["sure thing"]},
+   "my bad":{accept:["my bad"]},
+   "sounds good":{accept:["sounds good"]},
+   "take it easy":{accept:["take it easy"]},
+   "catch you later":{accept:["catch you later"]},
+   "no biggie":{accept:["no biggie"]}
+  }
+ },
+ "slang-A2":{
+  useTask:{prompt:{en:"Text a friend after a long day. 2 sentences, 2 slang phrases from this set.", tr:"Uzun bir günün ardından bir arkadaşına mesaj yaz. 2 cümle, bu setten 2 argo ifade.", fa:"بعد از یک روز طولانی برای یک دوست پیام بنویس. ۲ جمله، ۲ اصطلاح غیررسمی این مجموعه."}, frame:"I'm ... . Let's ... .", model:"I'm beat after work. Let's hang out this weekend, my treat!"},
+  cards:{
+   "I'm beat":{accept:["i'm beat","i am beat"]},
+   "heading out":{word:"head out", gap:"heading out", accept:["head out","heading out"]},
+   "that's a pain":{accept:["that's a pain","that is a pain"]},
+   "no way":{accept:["no way"]},
+   "my treat":{accept:["my treat"]},
+   "let's hang out":{accept:["let's hang out","let us hang out"]},
+   "chill out":{accept:["chill out"]},
+   "grab a bite":{accept:["grab a bite"]},
+   "I'm down":{accept:["i'm down","i am down"]},
+   "keep in touch":{accept:["keep in touch"]}
+  }
+ },
+ "v-career-A1-1":{
+  useTask:{prompt:{en:"Describe your workplace in 2 sentences. Use 2 words from this set.", tr:"İş yerini 2 cümleyle anlat. Bu setten 2 kelime kullan.", fa:"محل کارت را در ۲ جمله توصیف کن. از ۲ کلمه این مجموعه استفاده کن."}, frame:"I work in ... . I have a ... at ... .", model:"My office is small. I have a meeting with my boss at ten."},
+  cards:{
+   office:{accept:["office"]},
+   colleague:{accept:["colleague"]},
+   boss:{accept:["boss"]},
+   meeting:{accept:["meeting"]},
+   email:{accept:["email"]},
+   desk:{accept:["desk"]},
+   break:{accept:["break"]},
+   schedule:{accept:["schedule"]},
+   badge:{accept:["badge"]},
+   salary:{accept:["salary"]}
+  }
+ },
+ "slang-career-A1":{
+  useTask:{prompt:{en:"Write 2 sentences about your work day. Use 2 office expressions from this set.", tr:"İş gününle ilgili 2 cümle yaz. Bu setten 2 ofis ifadesi kullan.", fa:"درباره روز کاری‌ات ۲ جمله بنویس. از ۲ عبارت اداری این مجموعه استفاده کن."}, frame:"I ... at ... . Just a heads up, ... .", model:"I clock in at nine and I clock out at five. Just a heads up, I have a day off tomorrow."},
+  cards:{
+   "clock in":{accept:["clock in"]},
+   "clock out":{accept:["clock out"]},
+   "day off":{accept:["day off"]},
+   "on a break":{accept:["on a break"]},
+   "catch up":{accept:["catch up"]},
+   "heads up":{accept:["heads up"]},
+   "run late":{gap:"running late", accept:["run late","running late"]},
+   "team player":{accept:["team player"]}
+  }
+ },
+ "slang-career-A2":{
+  useTask:{prompt:{en:"Write a short message to a colleague. 2 sentences, 2 expressions from this set.", tr:"Bir iş arkadaşına kısa bir mesaj yaz. 2 cümle, bu setten 2 ifade.", fa:"برای یک همکار پیام کوتاهی بنویس. ۲ جمله، ۲ عبارت از این مجموعه."}, frame:"Let's ... tomorrow. I want to make sure ... .", model:"Let's touch base tomorrow. I want to make sure we are on the same page."},
+  cards:{
+   "get the ball rolling":{accept:["get the ball rolling"]},
+   "touch base":{accept:["touch base"]},
+   "on the same page":{accept:["on the same page"]},
+   "step up":{gap:"stepped up", accept:["step up","stepped up"]},
+   "wrap up":{accept:["wrap up"]},
+   "in the loop":{accept:["in the loop"]},
+   "cut corners":{accept:["cut corners"]},
+   swamped:{accept:["swamped"]}
+  }
+ },
+ "v-exam-A1-1":{
+  useTask:{prompt:{en:"Write 2 sentences about how you study for a test. Use 2 words from this set.", tr:"Bir sınava nasıl çalıştığın hakkında 2 cümle yaz. Bu setten 2 kelime kullan.", fa:"درباره اینکه چطور برای یک آزمون درس می‌خوانی ۲ جمله بنویس. از ۲ کلمه این مجموعه استفاده کن."}, frame:"I study ... . I hope I ... the test.", model:"I study every evening. I hope I pass the test and get a good score."},
+  cards:{
+   test:{accept:["test"]},
+   question:{accept:["question"]},
+   answer:{accept:["answer"]},
+   correct:{accept:["correct"]},
+   mistake:{accept:["mistake"]},
+   pass:{accept:["pass"]},
+   fail:{accept:["fail"]},
+   score:{accept:["score"]},
+   practice:{accept:["practice"]},
+   study:{accept:["study"]}
+  }
+ },
+ "v-exam-A2-1":{
+  useTask:{prompt:{en:"Write 2 sentences about getting ready for an exam. Use 2 phrases from this set.", tr:"Bir sınava hazırlanmak hakkında 2 cümle yaz. Bu setten 2 ifade kullan.", fa:"درباره آماده شدن برای یک آزمون ۲ جمله بنویس. از ۲ عبارت این مجموعه استفاده کن."}, frame:"I need to ... before ... . I will bring ... .", model:"I need to register for the exam before the deadline. I will bring my ID card to the exam hall."},
+  cards:{
+   register:{accept:["register"]},
+   "exam hall":{accept:["exam hall"]},
+   "time limit":{accept:["time limit"]},
+   "multiple choice":{accept:["multiple choice"]},
+   instructions:{accept:["instructions"]},
+   "ID card":{accept:["id card"]},
+   section:{accept:["section"]},
+   retake:{accept:["retake"]},
+   result:{accept:["result"]},
+   deadline:{accept:["deadline"]}
+  }
+ },
+ "v-immigration-A1-1":{
+  useTask:{prompt:{en:"You are at an office in a new country. Write 2 sentences. Use 2 words from this set.", tr:"Yeni bir ülkede bir ofistesin. 2 cümle yaz. Bu setten 2 kelime kullan.", fa:"در یک اداره در کشور جدید هستی. ۲ جمله بنویس. از ۲ کلمه این مجموعه استفاده کن."}, frame:"I have an ... at ... . Here is my ... .", model:"I have an appointment at ten. Here is my identification and my address."},
+  cards:{
+   "passport control":{accept:["passport control"]},
+   "arrival card":{accept:["arrival card"]},
+   customs:{accept:["customs"]},
+   luggage:{accept:["luggage"]},
+   address:{accept:["address"]},
+   "phone number":{accept:["phone number"]},
+   identification:{accept:["identification"]},
+   appointment:{accept:["appointment"]},
+   form:{accept:["form"]},
+   "sign here":{accept:["sign here"]}
+  }
+ }
+};
+Object.keys(VOCAB_PHASE1_A1A2).forEach(id=>{
+  const set = VOCAB_SETS.find(x=>x.id===id); if(!set) return;
+  const m = VOCAB_PHASE1_A1A2[id];
+  if(m.useTask) set.useTask = m.useTask;
+  if(m.replaceCards){ set.cards = m.replaceCards; return; }
+  set.cards.forEach(c=>{
+    const u = m.cards && m.cards[c.word]; if(!u) return;
+    if(u.meaning) c.meaning = Object.assign({}, c.meaning, u.meaning);
+    ['accept','gap','sentence','note','word'].forEach(k=>{ if(u[k] !== undefined) c[k] = u[k]; });
+  });
+});
+
 /* ============================= GOALS: 4th-tab content (IELTS Exam Strategy, Immigration Culture Guide) ============================= */
 const IELTS_STRATEGY = [
   {icon:'chat', title:{en:'Speaking — Extend Every Answer', tr:'Konuşma — Her Cevabı Genişlet', fa:'مکالمه — هر پاسخ را گسترش بده'},
@@ -5049,7 +5522,7 @@ function srsGrammarQ(item, field, goal){
 }
 function srsVocabQ(set, card){
   const meaning = L(card.meaning.en, card.meaning.tr, card.meaning.fa, card.meaning.es) || card.meaning.en || '';
-  const re = new RegExp(reEsc(card.word), 'i');
+  const re = new RegExp(reEsc(cardGap(card)), 'i');
   const others = shuffle(set.cards.filter(c=>c.word.toLowerCase() !== card.word.toLowerCase())).slice(0, 3).map(c=>c.word);
   const opts = shuffle([card.word].concat(others));
   const inSentence = card.sentence && re.test(card.sentence);
@@ -5182,6 +5655,8 @@ function errorWatchHits(text, item){
   });
   return out;
 }
+// S4: the text to mark/blank in a card's sentence — the inflected `gap` when the sentence does not use the headword as is.
+function cardGap(c){ return (c && c.gap) || c.word; }
 function highlightWord(sentence, word, meaning){
   const re = new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
   const m = sentence.match(re);
@@ -11243,7 +11718,7 @@ function renderVocabSetIntro(id){
               ${ttsButton(c.sentence || c.word, '')}
             </div>
             <div class="phrase-mean" style="margin-top:2px;">${esc(L(c.meaning.en,c.meaning.tr,c.meaning.fa))}</div>
-            <div class="phrase-example">${highlightWord(c.sentence, c.word)}</div>
+            <div class="phrase-example">${highlightWord(c.sentence, cardGap(c))}</div>
             ${c.note ? `<div class="flash-note row" style="margin-top:4px; align-items:flex-start; gap:6px;"><span style="flex:0 0 auto; color:var(--ink-faint);">${ICONS.warn}</span><span style="font-size:12px; color:var(--ink-soft);">${esc(L(c.note.en,c.note.tr,c.note.fa))}</span></div>` : ''}
           </div>
         `).join('')}
@@ -11271,7 +11746,7 @@ function renderVocabSet(id, cardIndex){
         <div class="flash-face" style="background:${soft};">
           ${state.viewParams.flipped ? `
             <div class="flash-hint">${L('Example','Örnek','مثال','Ejemplo')}</div>
-            <div class="flash-sentence" dir="ltr">${highlightWord(card.sentence, card.word, L(card.meaning.en, card.meaning.tr, card.meaning.fa, card.meaning.es))}</div>
+            <div class="flash-sentence" dir="ltr">${highlightWord(card.sentence, cardGap(card), L(card.meaning.en, card.meaning.tr, card.meaning.fa, card.meaning.es))}</div>
             ${ttsButton(card.sentence || card.word, 'on-card')}
             ${card.meaning ? `<div class="flash-hint" style="margin-top:10px;">${L('Meaning','Anlam','معنی','Significado')}</div><div class="flash-sentence" dir="ltr">${esc(card.meaning.en)}${local ? ' — '+esc(local) : ''}</div>` : ''}
             ${card.note ? `<div class="flash-note row" dir="ltr" style="align-items:flex-start; gap:7px;"><span style="flex:0 0 auto; margin-top:1px;">${ICONS.warn}</span><span>${esc(L(card.note.en,card.note.tr,card.note.fa,card.note.es))}</span></div>` : ''}
@@ -11699,7 +12174,7 @@ function grammarQuizQuestions(item){
 function vocabQuizQuestions(s){
   const sibling = VOCAB_SETS_FREE.filter(x=>x.level===s.level && x.category===s.category).flatMap(x=>x.cards);
   const blankOf = (c) => {
-    const re = new RegExp(c.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
+    const re = new RegExp(cardGap(c).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
     return c.sentence.replace(re, '_____');
   };
   const whyOf = (c) => L(
