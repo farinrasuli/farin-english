@@ -650,6 +650,18 @@
   .flash-dots i.active{background:var(--accent); width:16px; border-radius:3px;}
   .flash-nav{display:flex; gap:10px; margin-top:16px;}
 
+  /* Teaching redesign S3: grammar page context dialogue (Meet + Notice). */
+  .gc-card{margin-bottom:14px; padding-bottom:10px;}
+  .gc-line{display:flex; gap:9px; align-items:flex-start; padding:9px 0; border-bottom:1px solid var(--border-soft);}
+  .gc-line:last-of-type{border-bottom:none;}
+  .gc-who{flex:0 0 auto; width:24px; height:24px; border-radius:50%; background:var(--cat-gram-soft); color:var(--cat-gram); font-size:11px; font-weight:800; display:inline-flex; align-items:center; justify-content:center; margin-top:2px;}
+  .gc-body{flex:1 1 auto; min-width:0;}
+  .gc-text{font-size:15px; line-height:1.6; font-weight:600; color:var(--ink);}
+  .gc-tr{font-size:12.5px; color:var(--ink-faint); margin-top:2px; line-height:1.45;}
+  .gc-w{cursor:pointer; border-radius:6px; padding:0 2px; transition:background .18s, color .18s;}
+  .gc-w.lit{background:var(--cat-gram-soft); color:var(--cat-gram); font-weight:800; box-shadow:0 0 0 1.5px var(--cat-gram-soft);}
+  .gc-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:10px; font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+  .gc-show{padding:6px 12px; font-size:12.5px; flex:0 0 auto;}
   .phrase-row{display:flex; flex-direction:column; gap:3px; padding:12px 0; border-bottom:1px solid var(--border-soft);}
   .phrase-row:last-child{border-bottom:none;}
   .phrase-term{font-weight:800; font-size:16px; letter-spacing:-.01em;}
@@ -1674,6 +1686,455 @@ const GRAMMAR_ITEMS = [
   goalVariant:{career:{wrong:'He said he will finish the audit.', right:'He said he would finish the audit.', blank:{sentence:'She said she ___ send it by Friday, but it never arrived.', word:'could', distractors:['can','will']},
     wrong2:'She said she can start next week.', right2:'She said she could start next week.', blank2:{sentence:'He said he ___ attend the conference, but he cancelled.', word:'would', distractors:['will','can']}}}}
 ];
+
+/* Teaching redesign phase 1 (LXD content, 2026-10-06, Trello oLGTmULW / lxd HGzvWmE6). The A1-A2 grammar
+   items get a context dialogue (Meet + Notice), practice[8] in the S3 order (fill, fill, meaning, fix, build,
+   type, type, type), errorWatch rules and a yourTurn frame — written by farin-lxd (Claude/specs/lxd-phase1-content/en-grammar-A1-A2.js).
+   Merged onto the BASE items at load, not into goalVariant. build/type items are data only until the quiz
+   engine gets those question types (phase 2, item 12); yourTurn is data only until the Use step (phase 2, item 13). */
+const GRAMMAR_PRACTICE_A1A2 = {
+ "g-A1-1":{
+  context:{lines:[
+    {who:"A", text:"Hi! I am Mia. What is your name?", tr:"Merhaba! Ben Mia. Adın ne?", fa:"سلام! من میا هستم. اسمت چیست؟"},
+    {who:"B", text:"I am Ali. This is my sister. She is a doctor.", tr:"Ben Ali. Bu kız kardeşim. O doktor.", fa:"من علی هستم. این خواهرم است. او دکتر است."},
+    {who:"A", text:"Nice to meet you. Are you from Turkey?", tr:"Tanıştığımıza memnun oldum. Türkiyeli misiniz?", fa:"از آشنایی خوشوقتم. اهل ترکیه هستید؟"},
+    {who:"B", text:"Yes, we are from Izmir.", tr:"Evet, biz İzmirliyiz.", fa:"بله، ما اهل ازمیر هستیم."}
+   ], targets:["am","is","are"]},
+  practice:[
+   {type:"fill", sentence:"My brother ___ a teacher.", word:"is", distractors:["am","are","be"]},
+   {type:"fill", sentence:"You ___ very kind.", word:"are", distractors:["is","am","be"]},
+   {type:"meaning", prompt:"\"They are at home.\" Who is at home?", options:["More than one person.","One person.","Only me."], correct:0},
+   {type:"fix", wrong:"My name Ali.", right:"My name is Ali.", distractors:["My name am Ali.","My name are Ali."]},
+   {type:"build", words:["We","are","happy","today"], answer:"We are happy today."},
+   {type:"type", sentence:"I ___ twenty-five years old.", accept:["am"], hint:{en:"I always goes with am.", tr:"I her zaman am ile gelir.", fa:"I همیشه با am می‌آید."}},
+   {type:"type", sentence:"Ayşe and Can ___ my friends.", accept:["are"], hint:{en:"Ayşe and Can = they (more than one) → are.", tr:"Ayşe ve Can = they (birden fazla) → are.", fa:"Ayşe و Can یعنی they (بیش از یکی) → are."}},
+   {type:"type", sentence:"Istanbul ___ a big city.", accept:["is"], hint:{en:"Istanbul = it (one thing) → is.", tr:"Istanbul = it (tek şey) → is.", fa:"Istanbul یعنی it (یک چیز) → is."}}
+  ],
+  errorWatch:[
+   {find:["i is","i are","you is","you am","he am","he are","she am","she are","it am","it are","we is","we am","they is","they am"], fix:{en:"Match the verb to the subject: I am, he / she / it is, you / we / they are.", tr:"Fiili özneye uydur: I am, he / she / it is, you / we / they are.", fa:"فعل را با فاعل هماهنگ کن: I am، he / she / it is، you / we / they are."}}
+  ],
+  yourTurn:{prompt:{en:"Write two short sentences about yourself: your name and where you are from.", tr:"Kendin hakkında iki kısa cümle yaz: adın ve nereli olduğun.", fa:"درباره خودت دو جمله کوتاه بنویس: اسمت و اهل کجا هستی."}, model:"I am Deniz. I am from Ankara.", selfCheck:{en:"Look at your verbs. Did you write am after I?", tr:"Fiillerine bak. I'dan sonra am yazdın mı?", fa:"به فعل‌هایت نگاه کن. بعد از I از am استفاده کردی؟"}}
+ },
+ "g-A1-2":{
+  context:{lines:[
+    {who:"A", text:"Who is that man?", tr:"Şu adam kim?", fa:"آن مرد کیست؟"},
+    {who:"B", text:"He is my boss. She is his assistant.", tr:"O benim patronum. O da onun asistanı.", fa:"او رئیس من است. او هم دستیارش است."},
+    {who:"A", text:"And we? Are we late?", tr:"Peki biz? Geç mi kaldık?", fa:"و ما؟ دیر کرده‌ایم؟"},
+    {who:"B", text:"No, they are early. We are on time.", tr:"Hayır, onlar erken geldi. Biz tam zamanındayız.", fa:"نه، آن‌ها زود آمده‌اند. ما سر وقت هستیم."}
+   ], targets:["He","She","we","they","We"]},
+  practice:[
+   {type:"fill", sentence:"My sister is a nurse. ___ works at night.", word:"She", distractors:["He","They","It"]},
+   {type:"fill", sentence:"Ali and I are friends. ___ play football together.", word:"We", distractors:["They","He","You"]},
+   {type:"meaning", prompt:"\"They live in Izmir.\" How many people live in Izmir?", options:["More than one.","Only one man.","Only one woman."], correct:0},
+   {type:"fix", wrong:"Is very tall.", right:"He is very tall.", distractors:["Her is very tall.","Him is very tall."]},
+   {type:"build", words:["They","are","my","neighbors"], answer:"They are my neighbors."},
+   {type:"type", sentence:"My mother is at home. ___ is cooking.", accept:["she"], hint:{en:"One woman → she.", tr:"Bir kadın → she.", fa:"یک زن → she."}},
+   {type:"type", sentence:"The phone is new. ___ is very fast.", accept:["it"], hint:{en:"A thing (not a person) → it.", tr:"Bir şey (kişi değil) → it.", fa:"یک چیز (نه آدم) → it."}},
+   {type:"type", sentence:"Ayşe and Can are students. ___ study English.", accept:["they"], hint:{en:"Two people → they.", tr:"İki kişi → they.", fa:"دو نفر → they."}}
+  ],
+  errorWatch:[
+   {find:["him is","her is","him are","her are","them are","us are"], fix:{en:"Use subject pronouns before the verb: he is, she is, they are (not him is, her is).", tr:"Fiilden önce özne zamiri kullan: he is, she is, they are (him is, her is değil).", fa:"قبل از فعل ضمیر فاعلی بگذار: he is، she is، they are (نه him is یا her is)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about two people you know. Start each with he, she or they.", tr:"Tanıdığın iki kişi hakkında iki cümle yaz. Her birine he, she ya da they ile başla.", fa:"درباره دو نفر که می‌شناسی دو جمله بنویس. هر جمله را با he، she یا they شروع کن."}, model:"She is my friend. They are my cousins.", selfCheck:{en:"Does each sentence start with a subject word?", tr:"Her cümle bir özne kelimesiyle başlıyor mu?", fa:"آیا هر جمله با یک فاعل شروع می‌شود؟"}}
+ },
+ "g-A1-3":{
+  context:{lines:[
+    {who:"A", text:"Who is in the photo?", tr:"Fotoğrafta kimler var?", fa:"در عکس چه کسانی هستند؟"},
+    {who:"B", text:"Two women, three men and five children. They are my family.", tr:"İki kadın, üç erkek ve beş çocuk. Onlar benim ailem.", fa:"دو زن، سه مرد و پنج بچه. آن‌ها خانواده من هستند."},
+    {who:"A", text:"Wow, that is a big family! Do you have pets?", tr:"Vay, ne büyük bir aile! Evcil hayvanın var mı?", fa:"وای، چه خانواده بزرگی! حیوان خانگی داری؟"},
+    {who:"B", text:"Yes, two dogs and three cats.", tr:"Evet, iki köpek ve üç kedi.", fa:"بله، دو سگ و سه گربه."}
+   ], targets:["women","men","children","dogs","cats"]},
+  practice:[
+   {type:"fill", sentence:"I have three ___ at school.", word:"children", distractors:["childs","childrens","child"]},
+   {type:"fill", sentence:"She washes the ___ after dinner.", word:"dishes", distractors:["dishs","dish","dishies"]},
+   {type:"meaning", prompt:"Which sentence is about only one person?", options:["A man is at the door.","Men are at the door.","Two men are at the door."], correct:0},
+   {type:"fix", wrong:"There are two womans here.", right:"There are two women here.", distractors:["There are two womens here.","There are two woman here."]},
+   {type:"build", words:["Three","men","and","two","women","work","here"], answer:"Three men and two women work here."},
+   {type:"type", sentence:"My two ___ (child) are at school.", accept:["children"], hint:{en:"Irregular: child → children.", tr:"Düzensiz: child → children.", fa:"بی‌قاعده: child → children."}},
+   {type:"type", sentence:"I need two ___ (box) for the books.", accept:["boxes"], hint:{en:"After -x, -s, -sh, -ch add -es.", tr:"-x, -s, -sh, -ch sonrasında -es eklenir.", fa:"بعد از -x، -s، -sh، -ch باید -es اضافه کرد."}},
+   {type:"type", sentence:"There are many ___ (city) in Turkey.", accept:["cities"], hint:{en:"Consonant + y becomes -ies: city → cities.", tr:"Sessiz harf + y, -ies olur: city → cities.", fa:"حرف بی‌صدا + y تبدیل به -ies می‌شود: city → cities."}}
+  ],
+  errorWatch:[
+   {find:["childs","mans","womans","childrens","foots","tooths","two man","three man","two woman","three woman","two child","three child"], fix:{en:"Some plurals are irregular: child → children, man → men, woman → women, foot → feet, tooth → teeth.", tr:"Bazı çoğullar düzensizdir: child → children, man → men, woman → women, foot → feet, tooth → teeth.", fa:"بعضی جمع‌ها بی‌قاعده‌اند: child → children، man → men، woman → women، foot → feet، tooth → teeth."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your family or friends. Use a number and a plural noun in each.", tr:"Ailen ya da arkadaşların hakkında iki cümle yaz. Her cümlede bir sayı ve çoğul isim kullan.", fa:"درباره خانواده یا دوستانت دو جمله بنویس. در هر جمله یک عدد و یک اسم جمع بگذار."}, model:"I have two sisters and three cousins. My friends are nice people.", selfCheck:{en:"Look at your plural nouns. Is any of them irregular (children, men, women)?", tr:"Çoğul isimlerine bak. Düzensiz olan var mı (children, men, women)?", fa:"به اسم‌های جمعت نگاه کن. آیا بی‌قاعده‌ای هست (children، men، women)؟"}}
+ },
+ "g-A1-4":{
+  context:{lines:[
+    {who:"A", text:"Is this your bag?", tr:"Bu senin çantan mı?", fa:"این کیف توست؟"},
+    {who:"B", text:"Yes, this is my bag. And these are my keys.", tr:"Evet, bu benim çantam. Bunlar da anahtarlarım.", fa:"بله، این کیف من است. و این‌ها کلیدهای من هستند."},
+    {who:"A", text:"Are those your shoes over there?", tr:"Şuradakiler senin ayakkabıların mı?", fa:"آن‌هایی که آنجاست کفش‌های توست؟"},
+    {who:"B", text:"No, those are my brother's shoes. That is his jacket too.", tr:"Hayır, onlar kardeşimin ayakkabıları. Şu da onun montu.", fa:"نه، آن‌ها کفش‌های برادرم هستند. آن هم کت اوست."}
+   ], targets:["this","these","those","That"]},
+  practice:[
+   {type:"fill", sentence:"___ is my coffee, here in my hand.", word:"This", distractors:["These","Those","That"]},
+   {type:"fill", sentence:"___ are my glasses, on my nose.", word:"These", distractors:["This","That","Those"]},
+   {type:"meaning", prompt:"\"Those are my books.\" Where are the books?", options:["Far from me, and there are several.","Near me, and there is one.","Near me, and there are several."], correct:0},
+   {type:"fix", wrong:"This are my friends.", right:"These are my friends.", distractors:["This is my friends.","These is my friends."]},
+   {type:"build", words:["That","is","my","house","over","there"], answer:"That is my house over there."},
+   {type:"type", sentence:"___ are my sisters, over there on the bench.", accept:["those"], hint:{en:"Far + more than one → those.", tr:"Uzak + birden fazla → those.", fa:"دور + بیش از یکی → those."}},
+   {type:"type", sentence:"___ is my phone, here in my hand.", accept:["this"], hint:{en:"Near + one → this.", tr:"Yakın + tek → this.", fa:"نزدیک + یکی → this."}},
+   {type:"type", sentence:"Are ___ your shoes, here by my feet?", accept:["these"], hint:{en:"Near + more than one → these.", tr:"Yakın + birden fazla → these.", fa:"نزدیک + بیش از یکی → these."}}
+  ],
+  errorWatch:[
+   {find:["this are","that are","these is","those is"], fix:{en:"One thing: this / that + is. More than one: these / those + are.", tr:"Tek şey: this / that + is. Birden fazla: these / those + are.", fa:"یک چیز: this / that + is. بیش از یکی: these / those + are."}}
+  ],
+  yourTurn:{prompt:{en:"Look around you. Write one sentence about something near you and one about something far from you.", tr:"Etrafına bak. Yakınındaki bir şey için bir cümle, uzağındaki bir şey için bir cümle yaz.", fa:"به اطرافت نگاه کن. یک جمله درباره چیزی نزدیک و یک جمله درباره چیزی دور بنویس."}, model:"This is my cup. Those are my neighbors' windows.", selfCheck:{en:"Near = this / these. Far = that / those. Does your verb match (is / are)?", tr:"Yakın = this / these. Uzak = that / those. Fiilin uyuyor mu (is / are)?", fa:"نزدیک = this / these. دور = that / those. فعلت (is / are) هماهنگ است؟"}}
+ },
+ "g-A1-5":{
+  context:{lines:[
+    {who:"A", text:"What does your sister do?", tr:"Kız kardeşin ne iş yapıyor?", fa:"خواهرت چه کار می‌کند؟"},
+    {who:"B", text:"She works in a hospital. She starts at seven.", tr:"Hastanede çalışıyor. Yedide başlıyor.", fa:"در بیمارستان کار می‌کند. ساعت هفت شروع می‌کند."},
+    {who:"A", text:"And your brother?", tr:"Ya erkek kardeşin?", fa:"برادرت چطور؟"},
+    {who:"B", text:"He teaches English. He loves it!", tr:"İngilizce öğretiyor. Bayılıyor!", fa:"انگلیسی درس می‌دهد. عاشقش است!"}
+   ], targets:["works","starts","teaches","loves"]},
+  practice:[
+   {type:"fill", sentence:"My brother ___ up at six every day.", word:"gets", distractors:["get","getting","is get"]},
+   {type:"fill", sentence:"We ___ breakfast at eight.", word:"have", distractors:["has","having","haves"]},
+   {type:"meaning", prompt:"\"She takes a shower every morning.\" What does this tell us?", options:["It is her habit.","She is in the shower now.","She took a shower yesterday."], correct:0},
+   {type:"fix", wrong:"My father go to work by car.", right:"My father goes to work by car.", distractors:["My father going to work by car.","My father is go to work by car."]},
+   {type:"build", words:["She","watches","TV","after","dinner"], answer:"She watches TV after dinner."},
+   {type:"type", sentence:"He ___ (study) English at night.", accept:["studies"], hint:{en:"Consonant + y becomes -ies: study → studies.", tr:"Sessiz harf + y, -ies olur: study → studies.", fa:"حرف بی‌صدا + y تبدیل به -ies می‌شود: study → studies."}},
+   {type:"type", sentence:"Ayşe ___ (finish) work at five.", accept:["finishes"], hint:{en:"After -sh, -ch, -s, -x add -es.", tr:"-sh, -ch, -s, -x sonrasında -es eklenir.", fa:"بعد از -sh، -ch، -s، -x باید -es اضافه کرد."}},
+   {type:"type", sentence:"My friends ___ (live) in Izmir.", accept:["live"], hint:{en:"\"My friends\" = they. No -s.", tr:"\"My friends\" = they. -s yok.", fa:"«My friends» یعنی they. بدون -s."}}
+  ],
+  errorWatch:[
+   {find:["he go","she go","it go","he have","she have","he do","she do","he like","she like","he work","she work","he live","she live","he want","she want"], fix:{en:"With he / she / it, the verb takes -s: he goes, she has, he does, she likes.", tr:"he / she / it ile fiil -s alır: he goes, she has, he does, she likes.", fa:"با he / she / it فعل -s می‌گیرد: he goes، she has، he does، she likes."}}
+  ],
+  yourTurn:{prompt:{en:"Write one sentence about someone you know and their day.", tr:"Tanıdığın birini ve gününü anlatan bir cümle yaz.", fa:"یک جمله درباره کسی که می‌شناسی و روزش بنویس."}, model:"My mother wakes up at six and makes tea.", selfCheck:{en:"Look at your verb. Does it end in -s?", tr:"Fiiline bak. Sonunda -s var mı?", fa:"به فعلت نگاه کن. آخرش -s دارد؟"}}
+ },
+ "g-A1-6":{
+  context:{lines:[
+    {who:"A", text:"Is this your phone?", tr:"Bu senin telefonun mu?", fa:"این تلفن توست؟"},
+    {who:"B", text:"No, my phone is black. This is her phone.", tr:"Hayır, benim telefonum siyah. Bu onun telefonu.", fa:"نه، تلفن من سیاه است. این تلفن اوست."},
+    {who:"A", text:"Are those their keys?", tr:"Şunlar onların anahtarları mı?", fa:"آن‌ها کلیدهای آن‌هاست؟"},
+    {who:"B", text:"No, those are our keys. His keys are in the car.", tr:"Hayır, onlar bizim anahtarlarımız. Onun anahtarları arabada.", fa:"نه، آن‌ها کلیدهای ماست. کلیدهای او در ماشین است."}
+   ], targets:["your","my","her","their","our","His"]},
+  practice:[
+   {type:"fill", sentence:"I love ___ job.", word:"my", distractors:["me","mine","I"]},
+   {type:"fill", sentence:"Anna and Tom love ___ new flat.", word:"their", distractors:["them","they","theirs"]},
+   {type:"meaning", prompt:"\"This is her book.\" Whose book is it?", options:["A woman's book.","A man's book.","My book."], correct:0},
+   {type:"fix", wrong:"She loves she dog.", right:"She loves her dog.", distractors:["She loves hers dog.","She loves he dog."]},
+   {type:"build", words:["Our","teacher","is","very","kind"], answer:"Our teacher is very kind."},
+   {type:"type", sentence:"What is ___ (you) name?", accept:["your"], hint:{en:"you → your (it goes before the noun).", tr:"you → your (isimden önce gelir).", fa:"you ← your (قبل از اسم می‌آید)."}},
+   {type:"type", sentence:"He lives with ___ (he) parents.", accept:["his"], hint:{en:"he → his.", tr:"he → his.", fa:"he ← his."}},
+   {type:"type", sentence:"We love ___ (we) city.", accept:["our"], hint:{en:"we → our.", tr:"we → our.", fa:"we ← our."}}
+  ],
+  errorWatch:[
+   {find:["me name","me phone","me car","me mother","me father","you name","you phone","you car","he name","she name","he car","she car","they car"], fix:{en:"Before a noun, use my, your, his, her, our, their (not me, you, he, she, they).", tr:"İsimden önce my, your, his, her, our, their kullan (me, you, he, she, they değil).", fa:"قبل از اسم از my، your، his، her، our، their استفاده کن (نه me، you، he، she، they)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your family or your home. Use my in one and his, her or their in the other.", tr:"Ailen ya da evin hakkında iki cümle yaz. Birinde my, diğerinde his, her ya da their kullan.", fa:"درباره خانواده یا خانه‌ات دو جمله بنویس. در یکی از my و در دیگری از his، her یا their استفاده کن."}, model:"My mother is a nurse. Her hospital is near our house.", selfCheck:{en:"Does each small word (my, her, their...) match the owner?", tr:"Her küçük kelime (my, her, their...) sahibine uyuyor mu?", fa:"آیا هر کلمه کوچک (my، her، their...) با صاحبش هماهنگ است؟"}}
+ },
+ "g-A1-7":{
+  context:{lines:[
+    {who:"A", text:"Is there a bank near here?", tr:"Buraya yakın bir banka var mı?", fa:"این نزدیکی بانک هست؟"},
+    {who:"B", text:"Yes, there is a bank next to the park. There are two cafés too.", tr:"Evet, parkın yanında bir banka var. İki kafe de var.", fa:"بله، کنار پارک یک بانک هست. دو کافه هم هست."},
+    {who:"A", text:"Are there any shops?", tr:"Dükkan var mı?", fa:"مغازه هم هست؟"},
+    {who:"B", text:"Not many, but there is a big market.", tr:"Pek yok ama büyük bir pazar var.", fa:"زیاد نه، ولی یک بازار بزرگ هست."}
+   ], targets:["Is","there","is","Are","are"]},
+  practice:[
+   {type:"fill", sentence:"___ a park near my house.", word:"There is", distractors:["There are","It is","They are"]},
+   {type:"fill", sentence:"___ three chairs in the room.", word:"There are", distractors:["There is","It are","They is"]},
+   {type:"meaning", prompt:"\"Is there a bus stop near here?\" What does the speaker want to know?", options:["If a bus stop exists near here.","Where the bus goes.","What time the bus comes."], correct:0},
+   {type:"fix", wrong:"There is two cats in the garden.", right:"There are two cats in the garden.", distractors:["It is two cats in the garden.","There be two cats in the garden."]},
+   {type:"build", words:["Is","there","a","pharmacy","near","here"], answer:"Is there a pharmacy near here?"},
+   {type:"type", sentence:"___ a problem with my phone.", accept:["there is","there's"], hint:{en:"One problem → there is.", tr:"Tek sorun → there is.", fa:"یک مشکل ← there is."}},
+   {type:"type", sentence:"___ many people at the station today.", accept:["there are"], hint:{en:"Many people → there are.", tr:"Çok kişi → there are.", fa:"افراد زیاد ← there are."}},
+   {type:"type", sentence:"Is ___ a toilet here?", accept:["there"], hint:{en:"To ask if something exists: Is there...?", tr:"Bir şeyin var olup olmadığını sormak için: Is there...?", fa:"برای پرسیدن وجود چیزی: Is there...?"}}
+  ],
+  errorWatch:[
+   {find:["there is many","there is two","there is three","there is four","there is five","there is people"], fix:{en:"One thing: there is. More than one: there are (there are two cats, there are many people).", tr:"Tek şey: there is. Birden fazla: there are (there are two cats, there are many people).", fa:"یک چیز: there is. بیش از یکی: there are (there are two cats، there are many people)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your street or your city. Say what there is and what there are.", tr:"Sokağın ya da şehrin hakkında iki cümle yaz. Neler olduğunu there is ve there are ile söyle.", fa:"درباره خیابان یا شهرت دو جمله بنویس. با there is و there are بگو چه چیزهایی هست."}, model:"There is a big park near my house. There are two small shops on my street.", selfCheck:{en:"One thing = there is. More than one = there are. Check each sentence.", tr:"Tek şey = there is. Birden fazla = there are. Her cümleyi kontrol et.", fa:"یک چیز = there is. بیش از یکی = there are. هر جمله را بررسی کن."}}
+ },
+ "g-A1-8":{
+  context:{lines:[
+    {who:"A", text:"Where are my keys?", tr:"Anahtarlarım nerede?", fa:"کلیدهایم کجاست؟"},
+    {who:"B", text:"They are on the table, next to the lamp.", tr:"Masanın üstünde, lambanın yanında.", fa:"روی میز است، کنار چراغ."},
+    {who:"A", text:"I only see my glasses. Are they in the bag?", tr:"Sadece gözlüğümü görüyorum. Çantanın içinde mi?", fa:"فقط عینکم را می‌بینم. توی کیف است؟"},
+    {who:"B", text:"No. Look under the sofa! Your bag is behind the door.", tr:"Hayır. Kanepenin altına bak! Çantan da kapının arkasında.", fa:"نه. زیر مبل را نگاه کن! کیفت هم پشت در است."}
+   ], targets:["on","next","in","under","behind"]},
+  practice:[
+   {type:"fill", sentence:"The shoes are ___ the table, on the floor.", word:"under", distractors:["on","at","to"]},
+   {type:"fill", sentence:"She lives ___ a small flat.", word:"in", distractors:["on","at","under"]},
+   {type:"meaning", prompt:"\"The bank is next to the school.\" Where is the bank?", options:["Beside the school.","Inside the school.","Far from the school."], correct:0},
+   {type:"fix", wrong:"The book is in the table.", right:"The book is on the table.", distractors:["The book is on table.","The book is on in the table."]},
+   {type:"build", words:["The","dog","is","behind","the","door"], answer:"The dog is behind the door."},
+   {type:"type", sentence:"The keys are ___ my bag. (inside)", accept:["in"], hint:{en:"Inside a space: in.", tr:"Bir alanın içinde: in.", fa:"داخل یک فضا: in."}},
+   {type:"type", sentence:"My phone is ___ the table. (on the surface)", accept:["on"], hint:{en:"Touching the top of a surface: on.", tr:"Bir yüzeyin üstünde, temas halinde: on.", fa:"روی سطح و در تماس با آن: on."}},
+   {type:"type", sentence:"He sits ___ me in class. (beside)", accept:["next to","beside"], hint:{en:"Side by side: next to.", tr:"Yan yana: next to.", fa:"کنار هم: next to."}}
+  ],
+  errorWatch:[
+   {find:["in the table","in the sofa","in the floor"], fix:{en:"Use on for a surface: on the table, on the sofa, on the floor. Use in for inside a space: in the bag, in the room.", tr:"Yüzey için on kullan: on the table, on the sofa, on the floor. Bir alanın içi için in: in the bag, in the room.", fa:"برای سطح از on استفاده کن: on the table، on the sofa، on the floor. برای داخل یک فضا in: in the bag، in the room."}}
+  ],
+  yourTurn:{prompt:{en:"Look around your room. Write two sentences about where two things are.", tr:"Odana bak. İki şeyin nerede olduğunu anlatan iki cümle yaz.", fa:"به اتاقت نگاه کن. درباره اینکه دو چیز کجا هستند دو جمله بنویس."}, model:"My phone is on the bed. My shoes are under the table.", selfCheck:{en:"Check your small word (in, on, under, next to). Does it match where the thing really is?", tr:"Küçük kelimene bak (in, on, under, next to). Eşyanın gerçek yerine uyuyor mu?", fa:"کلمه کوچکت را بررسی کن (in، on، under، next to). با جای واقعی چیز می‌خواند؟"}}
+ },
+ "g-A1-9":{
+  context:{lines:[
+    {who:"A", text:"What do you do?", tr:"Ne iş yapıyorsun?", fa:"چه کاره‌ای؟"},
+    {who:"B", text:"I am a teacher. My wife is an engineer.", tr:"Öğretmenim. Eşim mühendis.", fa:"من معلم هستم. همسرم مهندس است."},
+    {who:"A", text:"Do you have a car?", tr:"Arabanız var mı?", fa:"ماشین داری؟"},
+    {who:"B", text:"No, but I have an old bike and a new phone.", tr:"Hayır, ama eski bir bisikletim ve yeni bir telefonum var.", fa:"نه، ولی یک دوچرخه قدیمی و یک تلفن جدید دارم."}
+   ], targets:["a","an"]},
+  practice:[
+   {type:"fill", sentence:"She is ___ engineer.", word:"an", distractors:["a","these","two"]},
+   {type:"fill", sentence:"I have ___ cat.", word:"a", distractors:["an","these","two"]},
+   {type:"meaning", prompt:"\"She is a teacher.\" What does \"a\" tell us?", options:["One teacher, not named yet.","Many teachers.","A teacher you both know."], correct:0},
+   {type:"fix", wrong:"He is honest man.", right:"He is an honest man.", distractors:["He is a honest man.","He is honest a man."]},
+   {type:"build", words:["I","need","an","umbrella","today"], answer:"I need an umbrella today."},
+   {type:"type", sentence:"She has ___ orange in her bag.", accept:["an"], hint:{en:"Orange starts with a vowel sound → an.", tr:"Orange ünlü sesle başlar → an.", fa:"Orange با صدای مصوت شروع می‌شود → an."}},
+   {type:"type", sentence:"He is ___ university student.", accept:["a"], hint:{en:"University starts with the sound \"you\" (a consonant sound) → a.", tr:"University \"yu\" sesiyle (ünsüz ses) başlar → a.", fa:"University با صدای «یو» (صدای بی‌صدا) شروع می‌شود → a."}},
+   {type:"type", sentence:"We wait for ___ hour.", accept:["an"], hint:{en:"The h in hour is silent, so the word starts with a vowel sound → an.", tr:"Hour'daki h okunmaz, kelime ünlü sesle başlar → an.", fa:"h در hour خوانده نمی‌شود، پس کلمه با مصوت شروع می‌شود → an."}}
+  ],
+  errorWatch:[
+   {find:["a apple","a orange","a egg","a umbrella","a hour","a engineer","a office","a email","a idea","an teacher","an car","an book","an university","a honest","an house"], fix:{en:"Look at the SOUND, not the letter: an apple, an hour, an honest man; a university, a house, a car.", tr:"Harfe değil SESE bak: an apple, an hour, an honest man; a university, a house, a car.", fa:"به صدا نگاه کن، نه به حرف: an apple، an hour، an honest man؛ a university، a house، a car."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences: one about your job or studies, and one about something you have. Use a or an.", tr:"İki cümle yaz: biri işin ya da okulun hakkında, biri sahip olduğun bir şey hakkında. a ya da an kullan.", fa:"دو جمله بنویس: یکی درباره کار یا درست و یکی درباره چیزی که داری. از a یا an استفاده کن."}, model:"I am a student. I have an old laptop.", selfCheck:{en:"Look at the word after a / an. Does it start with a vowel sound? Then you need an.", tr:"a / an'dan sonraki kelimeye bak. Ünlü sesle başlıyor mu? O zaman an gerekir.", fa:"به کلمه بعد از a / an نگاه کن. با صدای مصوت شروع می‌شود؟ پس an لازم است."}}
+ },
+ "g-A1-10":{
+  context:{lines:[
+    {who:"A", text:"Where are you from?", tr:"Nerelisin?", fa:"اهل کجایی؟"},
+    {who:"B", text:"From Izmir. What do you do?", tr:"İzmir'den. Sen ne iş yapıyorsun?", fa:"از ازمیر. تو چه کار می‌کنی؟"},
+    {who:"A", text:"I am a nurse. What time is it?", tr:"Hemşireyim. Saat kaç?", fa:"پرستارم. ساعت چند است؟"},
+    {who:"B", text:"It is five o'clock. Are you late?", tr:"Saat beş. Geç mi kaldın?", fa:"ساعت پنج است. دیر کرده‌ای؟"}
+   ], targets:["Where","What","Are"]},
+  practice:[
+   {type:"fill", sentence:"___ is your birthday? It is in May.", word:"When", distractors:["Where","Who","How many"]},
+   {type:"fill", sentence:"___ is your teacher from?", word:"Where", distractors:["Who","When","Why"]},
+   {type:"meaning", prompt:"\"Who is she?\" What do we want to know?", options:["Her name or how we know her.","Where she is.","What time she comes."], correct:0},
+   {type:"fix", wrong:"Where you live?", right:"Where do you live?", distractors:["Where you do live?","Where lives you?"]},
+   {type:"build", words:["What","time","does","the","class","start"], answer:"What time does the class start?"},
+   {type:"type", sentence:"___ are you? I am fine, thanks.", accept:["how"], hint:{en:"To ask about a state or feeling: How?", tr:"Durum ya da his sormak için: How?", fa:"برای پرسیدن حال و حالت: How؟"}},
+   {type:"type", sentence:"___ is your birthday? It is in May.", accept:["when"], hint:{en:"To ask about time or a date: When?", tr:"Zaman ya da tarih sormak için: When?", fa:"برای پرسیدن زمان یا تاریخ: When؟"}},
+   {type:"type", sentence:"___ do you live? In Ankara.", accept:["where"], hint:{en:"To ask about a place: Where?", tr:"Yer sormak için: Where?", fa:"برای پرسیدن مکان: Where؟"}}
+  ],
+  errorWatch:[
+   {find:["do you are","do you is","does she is","does he is","what is you","where is you","how is you","where are he","where are she","what are he","what are she"], fix:{en:"Question order: question word, then the helper verb, then the subject. Where are you? Where do you live? What time is it?", tr:"Soru sırası: soru kelimesi, sonra yardımcı fiil, sonra özne. Where are you? Where do you live? What time is it?", fa:"ترتیب سؤال: کلمه پرسشی، بعد فعل کمکی، بعد فاعل. Where are you؟ Where do you live؟ What time is it؟"}}
+  ],
+  yourTurn:{prompt:{en:"You meet a new friend. Write two questions to ask them.", tr:"Yeni bir arkadaşla tanışıyorsun. Ona sormak için iki soru yaz.", fa:"با یک دوست جدید آشنا می‌شوی. دو سؤال برای پرسیدن از او بنویس."}, model:"Where do you live? What do you do?", selfCheck:{en:"Check the order: question word, then the helper verb (do / are / is), then the subject.", tr:"Sırayı kontrol et: soru kelimesi, sonra yardımcı fiil (do / are / is), sonra özne.", fa:"ترتیب را بررسی کن: کلمه پرسشی، بعد فعل کمکی (do / are / is)، بعد فاعل."}}
+ },
+ "g-A2-1":{
+  context:{lines:[
+    {who:"A", text:"How was your weekend?", tr:"Hafta sonun nasıldı?", fa:"آخر هفته‌ات چطور بود؟"},
+    {who:"B", text:"Great! I visited my aunt and we cooked dinner together.", tr:"Harikaydı! Teyzemi ziyaret ettim ve birlikte akşam yemeği pişirdik.", fa:"عالی بود! به خاله‌ام سر زدم و با هم شام پختیم."},
+    {who:"A", text:"Nice. Did you go out?", tr:"Güzel. Dışarı çıktınız mı?", fa:"خوب. بیرون هم رفتید؟"},
+    {who:"B", text:"Yes, we went to the cinema and watched a funny film.", tr:"Evet, sinemaya gittik ve komik bir film izledik.", fa:"بله، رفتیم سینما و یک فیلم خنده‌دار دیدیم."}
+   ], targets:["visited","cooked","went","watched"]},
+  practice:[
+   {type:"fill", sentence:"Yesterday I ___ my grandmother.", word:"visited", distractors:["visit","visiting","visits"]},
+   {type:"fill", sentence:"We ___ pizza last night.", word:"ate", distractors:["eated","eat","eating"]},
+   {type:"meaning", prompt:"\"I lived in Izmir for five years.\" Do I live in Izmir now?", options:["Probably not, it is finished.","Yes, I still live there.","I will live there next year."], correct:0},
+   {type:"fix", wrong:"She buyed a new bag yesterday.", right:"She bought a new bag yesterday.", distractors:["She buy a new bag yesterday.","She buys a new bag yesterday."]},
+   {type:"build", words:["Did","you","see","the","film","last","night"], answer:"Did you see the film last night?"},
+   {type:"type", sentence:"I ___ (go) to the market yesterday.", accept:["went"], hint:{en:"Irregular: go → went.", tr:"Düzensiz: go → went.", fa:"بی‌قاعده: go ← went."}},
+   {type:"type", sentence:"They ___ (play) football last Sunday.", accept:["played"], hint:{en:"Regular verbs add -ed: play → played.", tr:"Düzenli fiiller -ed alır: play → played.", fa:"فعل‌های باقاعده -ed می‌گیرند: play ← played."}},
+   {type:"type", sentence:"We ___ (have) a great time in Rome.", accept:["had"], hint:{en:"Irregular: have → had.", tr:"Düzensiz: have → had.", fa:"بی‌قاعده: have ← had."}}
+  ],
+  errorWatch:[
+   {find:["goed","buyed","eated","comed","maked","taked","haved","gived","writed","did went","did saw","did ate","did came","did had"], fix:{en:"Irregular verbs have their own past form: go → went, buy → bought, eat → ate, have → had. After did, use the base verb: did you go?", tr:"Düzensiz fiillerin kendi geçmiş biçimi vardır: go → went, buy → bought, eat → ate, have → had. did'den sonra yalın fiil kullan: did you go?", fa:"فعل‌های بی‌قاعده شکل گذشته خودشان را دارند: go ← went، buy ← bought، eat ← ate، have ← had. بعد از did فعل ساده بیاور: did you go؟"}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about what you did yesterday or last weekend.", tr:"Dün ya da geçen hafta sonu ne yaptığını anlatan iki cümle yaz.", fa:"درباره کاری که دیروز یا آخر هفته گذشته کردی دو جمله بنویس."}, model:"Yesterday I met my friend and we had lunch.", selfCheck:{en:"Look at each verb. Is it in the past? Irregular: go → went, have → had, eat → ate.", tr:"Her fiile bak. Geçmiş zamanda mı? Düzensiz: go → went, have → had, eat → ate.", fa:"به هر فعل نگاه کن. گذشته است؟ بی‌قاعده: go ← went، have ← had، eat ← ate."}}
+ },
+ "g-A2-2":{
+  context:{lines:[
+    {who:"A", text:"What are you going to do this weekend?", tr:"Bu hafta sonu ne yapacaksın?", fa:"آخر این هفته می‌خواهی چه کار کنی؟"},
+    {who:"B", text:"I am going to visit my parents. My brother is going to come too.", tr:"Anne babamı ziyaret edeceğim. Kardeşim de gelecek.", fa:"می‌خواهم به پدر و مادرم سر بزنم. برادرم هم می‌آید."},
+    {who:"A", text:"Are you going to cook?", tr:"Yemek mi yapacaksınız?", fa:"می‌خواهید آشپزی کنید؟"},
+    {who:"B", text:"No, we are going to eat in a restaurant.", tr:"Hayır, restoranda yiyeceğiz.", fa:"نه، می‌خواهیم در رستوران غذا بخوریم."}
+   ], targets:["going","am","is","are"]},
+  practice:[
+   {type:"fill", sentence:"I ___ to call my mother tonight.", word:"am going", distractors:["go","will","going"]},
+   {type:"fill", sentence:"She ___ to start a new job.", word:"is going", distractors:["going","are going","am going"]},
+   {type:"meaning", prompt:"Look at the dark clouds! \"It is going to rain.\" What does this tell us?", options:["We can see signs that rain is coming.","It rained already.","It is raining now."], correct:0},
+   {type:"fix", wrong:"She going to call you.", right:"She is going to call you.", distractors:["She go to call you.","She is go to call you."]},
+   {type:"build", words:["We","are","going","to","travel","next","month"], answer:"We are going to travel next month."},
+   {type:"type", sentence:"They ___ going to buy a house.", accept:["are"], hint:{en:"They → are going to.", tr:"They → are going to.", fa:"They ← are going to."}},
+   {type:"type", sentence:"I ___ going to study tonight.", accept:["am"], hint:{en:"I → am going to.", tr:"I → am going to.", fa:"I ← am going to."}},
+   {type:"type", sentence:"He is going to ___ (visit) his friend.", accept:["visit"], hint:{en:"After going to, use the base verb: visit (no -s, no -ing).", tr:"going to'dan sonra yalın fiil kullan: visit (-s ve -ing yok).", fa:"بعد از going to فعل ساده بیاور: visit (بدون -s و -ing)."}}
+  ],
+  errorWatch:[
+   {find:["going to goes","going to went","going to visited","going to calls","going to is","going to are","going to am","will going to"], fix:{en:"Use am / is / are + going to + the base verb: I am going to visit, she is going to call.", tr:"am / is / are + going to + yalın fiil kullan: I am going to visit, she is going to call.", fa:"از am / is / are + going to + فعل ساده استفاده کن: I am going to visit، she is going to call."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your plans for next weekend.", tr:"Gelecek hafta sonu planların hakkında iki cümle yaz.", fa:"درباره برنامه‌هایت برای آخر هفته آینده دو جمله بنویس."}, model:"I am going to visit my friend. We are going to cook together.", selfCheck:{en:"Check each sentence: am / is / are + going to + the base verb.", tr:"Her cümleyi kontrol et: am / is / are + going to + yalın fiil.", fa:"هر جمله را بررسی کن: am / is / are + going to + فعل ساده."}}
+ },
+ "g-A2-3":{
+  context:{lines:[
+    {who:"A", text:"Which phone is better?", tr:"Hangi telefon daha iyi?", fa:"کدام تلفن بهتر است؟"},
+    {who:"B", text:"This one is cheaper, but that one is faster.", tr:"Bu daha ucuz ama şu daha hızlı.", fa:"این ارزان‌تر است، ولی آن سریع‌تر است."},
+    {who:"A", text:"Which one is bigger?", tr:"Hangisi daha büyük?", fa:"کدام بزرگ‌تر است؟"},
+    {who:"B", text:"That one is bigger, but it is heavier too.", tr:"Şu daha büyük ama daha ağır da.", fa:"آن بزرگ‌تر است، ولی سنگین‌تر هم هست."}
+   ], targets:["better","cheaper","faster","bigger","heavier"]},
+  practice:[
+   {type:"fill", sentence:"My brother is ___ than me.", word:"taller", distractors:["more tall","tallest","most tall"]},
+   {type:"fill", sentence:"This exercise is ___ than that one.", word:"more difficult", distractors:["difficulter","most difficult","more difficulter"]},
+   {type:"meaning", prompt:"\"Ali is taller than Can.\" Who is taller?", options:["Ali.","Can.","They are the same."], correct:0},
+   {type:"fix", wrong:"This bag is more cheap than that one.", right:"This bag is cheaper than that one.", distractors:["This bag is more cheaper than that one.","This bag is cheap than that one."]},
+   {type:"build", words:["My","car","is","older","than","your","car"], answer:"My car is older than your car."},
+   {type:"type", sentence:"Winter is ___ (cold) than autumn.", accept:["colder"], hint:{en:"Short adjective: add -er.", tr:"Kısa sıfat: -er ekle.", fa:"صفت کوتاه: -er اضافه کن."}},
+   {type:"type", sentence:"This book is ___ (interesting) than that one.", accept:["more interesting"], hint:{en:"Long adjective: more + adjective.", tr:"Uzun sıfat: more + sıfat.", fa:"صفت بلند: more + صفت."}},
+   {type:"type", sentence:"Her house is ___ (big) than mine.", accept:["bigger"], hint:{en:"One short vowel + one consonant: double the consonant. big → bigger.", tr:"Tek kısa ünlü + tek ünsüz: ünsüz ikilenir. big → bigger.", fa:"یک مصوت کوتاه + یک صامت: صامت دو برابر می‌شود. big ← bigger."}}
+  ],
+  errorWatch:[
+   {find:["more better","more bigger","more faster","more cheaper","more easier","more taller","more older","gooder","badder","more expensiver"], fix:{en:"Use -er OR more, never both: taller, more expensive. Irregular: good → better, bad → worse.", tr:"-er YA DA more kullan, ikisini birden değil: taller, more expensive. Düzensiz: good → better, bad → worse.", fa:"یا -er یا more، نه هر دو: taller، more expensive. بی‌قاعده: good ← better، bad ← worse."}}
+  ],
+  yourTurn:{prompt:{en:"Compare two people, places or things you know. Write two sentences with than.", tr:"Tanıdığın iki kişiyi, yeri ya da şeyi karşılaştır. than ile iki cümle yaz.", fa:"دو نفر، مکان یا چیزی که می‌شناسی را مقایسه کن. دو جمله با than بنویس."}, model:"My city is bigger than my village. My sister is funnier than me.", selfCheck:{en:"Short word: -er. Long word: more. Did you write than?", tr:"Kısa kelime: -er. Uzun kelime: more. than yazdın mı?", fa:"کلمه کوتاه: -er. کلمه بلند: more. آیا than نوشتی؟"}}
+ },
+ "g-A2-4":{
+  context:{lines:[
+    {who:"A", text:"What is the best restaurant in your city?", tr:"Şehrindeki en iyi restoran hangisi?", fa:"بهترین رستوران شهر شما کدام است؟"},
+    {who:"B", text:"I think Lale is the best. It is also the most famous.", tr:"Bence Lale en iyisi. Aynı zamanda en ünlüsü.", fa:"به نظرم لاله بهترین است. معروف‌ترین هم هست."},
+    {who:"A", text:"Is it the cheapest too?", tr:"En ucuzu da o mu?", fa:"ارزان‌ترین هم هست؟"},
+    {who:"B", text:"No, it is the most expensive, but the food is the tastiest.", tr:"Hayır, en pahalısı ama yemekler en lezzetlisi.", fa:"نه، گران‌ترین است، ولی غذایش خوشمزه‌ترین است."}
+   ], targets:["best","most","cheapest","tastiest"]},
+  practice:[
+   {type:"fill", sentence:"Mount Ararat is ___ mountain in Turkey.", word:"the highest", distractors:["higher","the most high","highest"]},
+   {type:"fill", sentence:"This is ___ film I know.", word:"the funniest", distractors:["funnier","the funny","funniest"]},
+   {type:"meaning", prompt:"\"She is the tallest in her class.\" What does this mean?", options:["Nobody in the class is taller than her.","She is taller than one friend.","She is tall, but not the tallest."], correct:0},
+   {type:"fix", wrong:"It is most expensive hotel in town.", right:"It is the most expensive hotel in town.", distractors:["It is more expensive hotel in town.","It is the more expensive hotel in town."]},
+   {type:"build", words:["He","is","the","fastest","runner","in","the","team"], answer:"He is the fastest runner in the team."},
+   {type:"type", sentence:"January is the ___ (cold) month.", accept:["coldest"], hint:{en:"Short adjective: the + -est.", tr:"Kısa sıfat: the + -est.", fa:"صفت کوتاه: the + est-"}},
+   {type:"type", sentence:"This is the ___ (good) day of my life.", accept:["best"], hint:{en:"Irregular: good → better → best.", tr:"Düzensiz: good → better → best.", fa:"بی‌قاعده: good ← better ← best."}},
+   {type:"type", sentence:"She is the ___ (beautiful) girl here.", accept:["most beautiful"], hint:{en:"Long adjective: the most + adjective.", tr:"Uzun sıfat: the most + sıfat.", fa:"صفت بلند: the most + صفت."}}
+  ],
+  errorWatch:[
+   {find:["the most big","the most cheap","the most fast","the most tall","most best","most biggest","most fastest","the goodest","the baddest"], fix:{en:"Short adjective: the + -est (the biggest). Long adjective: the most + adjective (the most famous). Irregular: the best, the worst.", tr:"Kısa sıfat: the + -est (the biggest). Uzun sıfat: the most + sıfat (the most famous). Düzensiz: the best, the worst.", fa:"صفت کوتاه: the biggest. صفت بلند: the most + صفت (the most famous). بی‌قاعده: the best، the worst."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about the best, biggest or most interesting things in your life.", tr:"Hayatındaki en iyi, en büyük ya da en ilginç şeyler hakkında iki cümle yaz.", fa:"درباره بهترین، بزرگ‌ترین یا جالب‌ترین چیزها در زندگی‌ات دو جمله بنویس."}, model:"My mother is the kindest person I know. Izmir is the most beautiful city in Turkey.", selfCheck:{en:"Did you write the before the superlative? Short word: -est. Long word: most.", tr:"En üstünlük sıfatından önce the yazdın mı? Kısa kelime: -est. Uzun kelime: most.", fa:"قبل از صفت عالی the نوشتی؟ کلمه کوتاه: est-. کلمه بلند: most."}}
+ },
+ "g-A2-5":{
+  context:{lines:[
+    {who:"A", text:"Do we have any milk?", tr:"Hiç sütümüz var mı?", fa:"شیر داریم؟"},
+    {who:"B", text:"Yes, there is some in the fridge. But we don't have any bread.", tr:"Evet, buzdolabında biraz var. Ama hiç ekmeğimiz yok.", fa:"بله، کمی در یخچال هست. ولی نان نداریم."},
+    {who:"A", text:"OK. I need some bread and some eggs.", tr:"Tamam. Biraz ekmek ve birkaç yumurta almam lazım.", fa:"باشه. کمی نان و چند تا تخم‌مرغ لازم دارم."},
+    {who:"B", text:"Do you need any help?", tr:"Yardıma ihtiyacın var mı?", fa:"کمک می‌خواهی؟"}
+   ], targets:["any","some"]},
+  practice:[
+   {type:"fill", sentence:"There is ___ milk in the fridge.", word:"some", distractors:["any","a","an"]},
+   {type:"fill", sentence:"We don't have ___ eggs.", word:"any", distractors:["some","a","an"]},
+   {type:"meaning", prompt:"\"Would you like some tea?\" What is the speaker doing?", options:["Offering tea.","Complaining about tea.","Asking about last week."], correct:0},
+   {type:"fix", wrong:"I don't have some time.", right:"I don't have any time.", distractors:["I don't have a time.","I not have any time."]},
+   {type:"build", words:["Is","there","any","sugar","in","the","kitchen"], answer:"Is there any sugar in the kitchen?"},
+   {type:"type", sentence:"I'd like ___ water, please.", accept:["some"], hint:{en:"Offers and requests with yes-answers: some.", tr:"Teklif ve istek cümlelerinde: some.", fa:"در پیشنهاد و درخواست: some."}},
+   {type:"type", sentence:"We don't have ___ bread.", accept:["any"], hint:{en:"Negative sentence: any.", tr:"Olumsuz cümle: any.", fa:"جمله منفی: any."}},
+   {type:"type", sentence:"Are there ___ shops near here?", accept:["any"], hint:{en:"Question: any.", tr:"Soru cümlesi: any.", fa:"جمله پرسشی: any."}}
+  ],
+  errorWatch:[
+   {find:["no any","dont have some"], fix:{en:"Some goes in yes-sentences and offers (I have some milk). Any goes in no-sentences and questions (I don't have any milk. Do you have any milk?).", tr:"Some olumlu cümlelerde ve tekliflerde kullanılır (I have some milk). Any olumsuz cümle ve sorularda kullanılır (I don't have any milk. Do you have any milk?).", fa:"some در جمله‌های مثبت و پیشنهاد می‌آید (I have some milk). any در جمله‌های منفی و پرسشی می‌آید (I don't have any milk. Do you have any milk?)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your bag or your kitchen. Use some in one and any in the other.", tr:"Çantan ya da mutfağın hakkında iki cümle yaz. Birinde some, diğerinde any kullan.", fa:"درباره کیف یا آشپزخانه‌ات دو جمله بنویس. در یکی some و در دیگری any بگذار."}, model:"I have some apples in my bag. I don't have any water.", selfCheck:{en:"Some = yes-sentences and offers. Any = no-sentences and questions. Check each one.", tr:"Some = olumlu cümle ve teklif. Any = olumsuz cümle ve soru. Her birini kontrol et.", fa:"some = جمله مثبت و پیشنهاد. any = جمله منفی و پرسشی. هر کدام را بررسی کن."}}
+ },
+ "g-A2-6":{
+  context:{lines:[
+    {who:"A", text:"Can you swim?", tr:"Yüzebiliyor musun?", fa:"شنا بلدی؟"},
+    {who:"B", text:"Yes, I can. I could swim when I was five.", tr:"Evet, yüzebiliyorum. Beş yaşındayken yüzebiliyordum.", fa:"بله، بلدم. وقتی پنج ساله بودم شنا بلد بودم."},
+    {who:"A", text:"I couldn't swim until I was ten. Can you teach me?", tr:"Ben on yaşıma kadar yüzemiyordum. Bana öğretebilir misin?", fa:"من تا ده سالگی شنا بلد نبودم. می‌توانی به من یاد بدهی؟"},
+    {who:"B", text:"Of course! Can you come on Saturday?", tr:"Tabii! Cumartesi gelebilir misin?", fa:"البته! شنبه می‌توانی بیایی؟"}
+   ], targets:["Can","can","could","couldn't"]},
+  practice:[
+   {type:"fill", sentence:"She ___ speak three languages.", word:"can", distractors:["cans","can to","is can"]},
+   {type:"fill", sentence:"When I was a child, I ___ ride a bike.", word:"could", distractors:["can","am able","cans"]},
+   {type:"meaning", prompt:"\"Can you open the window?\" What is the speaker doing?", options:["Asking for help.","Telling a story.","Saying no."], correct:0},
+   {type:"fix", wrong:"He can to cook very well.", right:"He can cook very well.", distractors:["He cans cook very well.","He can cooks very well."]},
+   {type:"build", words:["Can","you","help","me","with","this","bag"], answer:"Can you help me with this bag?"},
+   {type:"type", sentence:"I ___ speak French when I was young, but I forgot it.", accept:["could"], hint:{en:"Ability in the past: could.", tr:"Geçmişteki yetenek: could.", fa:"توانایی در گذشته: could."}},
+   {type:"type", sentence:"___ you pass me the salt, please?", accept:["can","could"], hint:{en:"A polite request: Can you...? / Could you...?", tr:"Kibar rica: Can you...? / Could you...?", fa:"درخواست مؤدبانه: Can you...؟ / Could you...؟"}},
+   {type:"type", sentence:"She is only ten, so she ___ drive a car.", accept:["can't","cannot","cant"], hint:{en:"Not able to: can't.", tr:"Yapamamak: can't.", fa:"نمی‌تواند: can't."}}
+  ],
+  errorWatch:[
+   {find:["can to","could to","can goes","can plays","can speaks","can swims","can cooks","can drives","can sings","can swimming","can speaking"], fix:{en:"After can / could, use the base verb: she can swim (no to, no -s, no -ing).", tr:"can / could'dan sonra yalın fiil kullan: she can swim (to, -s, -ing yok).", fa:"بعد از can / could فعل ساده بیاور: she can swim (بدون to، -s، -ing)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences: one about something you can do now, and one about something you could do as a child.", tr:"İki cümle yaz: biri şimdi yapabildiğin bir şey, biri çocukken yapabildiğin bir şey hakkında.", fa:"دو جمله بنویس: یکی درباره کاری که الان می‌توانی بکنی و یکی درباره کاری که در کودکی می‌توانستی بکنی."}, model:"I can cook Turkish food. I could climb trees when I was ten.", selfCheck:{en:"After can / could, is the verb in its base form (no to, no -s)?", tr:"can / could'dan sonra fiil yalın halde mi (to ve -s yok)?", fa:"بعد از can / could فعل به شکل ساده است (بدون to و -s)؟"}}
+ },
+ "g-A2-7":{
+  context:{lines:[
+    {who:"A", text:"Do you always eat breakfast?", tr:"Her zaman kahvaltı eder misin?", fa:"همیشه صبحانه می‌خوری؟"},
+    {who:"B", text:"No, I usually skip it. I often just drink coffee.", tr:"Hayır, genelde atlarım. Çoğu zaman sadece kahve içerim.", fa:"نه، معمولاً حذفش می‌کنم. اغلب فقط قهوه می‌نوشم."},
+    {who:"A", text:"I never skip breakfast. I am always hungry in the morning!", tr:"Ben asla kahvaltıyı atlamam. Sabahları hep açım!", fa:"من هرگز صبحانه را حذف نمی‌کنم. صبح‌ها همیشه گرسنه‌ام!"},
+    {who:"B", text:"I am sometimes hungry at eleven, but I am never late for work.", tr:"Ben bazen on birde acıkırım ama işe asla geç kalmam.", fa:"من گاهی ساعت یازده گرسنه می‌شوم، ولی هرگز دیر سر کار نمی‌روم."}
+   ], targets:["always","usually","often","never","sometimes"]},
+  practice:[
+   {type:"fill", sentence:"I ___ walk to work.", word:"sometimes", distractors:["am sometimes","walk sometimes","sometimes am"]},
+   {type:"fill", sentence:"She ___ late for class.", word:"is never", distractors:["never is","is not never","does never"]},
+   {type:"meaning", prompt:"\"I never eat meat.\" How often do I eat meat?", options:["Zero times.","Sometimes.","Every day."], correct:0},
+   {type:"fix", wrong:"I always am tired on Mondays.", right:"I am always tired on Mondays.", distractors:["I always are tired on Mondays.","I always be tired on Mondays."]},
+   {type:"build", words:["She","usually","goes","to","bed","at","eleven"], answer:"She usually goes to bed at eleven."},
+   {type:"type", sentence:"I ___ drink coffee in the morning. (every day)", accept:["always"], hint:{en:"Every day = always.", tr:"Her gün = always.", fa:"هر روز = always."}},
+   {type:"type", sentence:"We are ___ late. (zero times)", accept:["never"], hint:{en:"Zero times = never. After am / is / are, the word comes after the verb.", tr:"Hiç = never. am / is / are'dan sonra gelir.", fa:"هرگز = never. بعد از am / is / are می‌آید."}},
+   {type:"type", sentence:"She ___ plays tennis. (some weeks yes, some weeks no)", accept:["sometimes"], hint:{en:"Not every time = sometimes.", tr:"Her zaman değil = sometimes.", fa:"نه همیشه = sometimes."}}
+  ],
+  errorWatch:[
+   {find:["i always am","i never am","i usually am","i often am","i sometimes am","she always is","she never is","he always is","he never is","you always are","you never are","they always are","they never are","we always are","we never are"], fix:{en:"With am / is / are, the frequency word goes after: I am always late. With other verbs, it goes before: I always walk.", tr:"am / is / are ile sıklık zarfı sonra gelir: I am always late. Diğer fiillerle önce gelir: I always walk.", fa:"با am / is / are قید تکرار بعد از فعل می‌آید: I am always late. با فعل‌های دیگر قبل از آن می‌آید: I always walk."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about your habits. Use two different words from: always, usually, often, sometimes, never.", tr:"Alışkanlıkların hakkında iki cümle yaz. Şunlardan iki farklı kelime kullan: always, usually, often, sometimes, never.", fa:"درباره عادت‌هایت دو جمله بنویس. دو کلمه متفاوت از این‌ها بگذار: always، usually، often، sometimes، never."}, model:"I usually wake up at seven. I am never late for work.", selfCheck:{en:"With am / is / are, the word goes after it. With other verbs, it goes before. Check both sentences.", tr:"am / is / are ile kelime sonra gelir. Diğer fiillerle önce gelir. İki cümleyi de kontrol et.", fa:"با am / is / are کلمه بعد از آن می‌آید. با فعل‌های دیگر قبل از آن. هر دو جمله را بررسی کن."}}
+ },
+ "g-A2-8":{
+  context:{lines:[
+    {who:"A", text:"Where are you? What are you doing?", tr:"Neredesin? Ne yapıyorsun?", fa:"کجایی؟ چه کار می‌کنی؟"},
+    {who:"B", text:"I am sitting in a café. I am waiting for Ali.", tr:"Bir kafede oturuyorum. Ali'yi bekliyorum.", fa:"توی یک کافه نشسته‌ام. منتظر علی هستم."},
+    {who:"A", text:"Is he coming?", tr:"Geliyor mu?", fa:"دارد می‌آید؟"},
+    {who:"B", text:"Yes! Look, it is raining and he is running to the door.", tr:"Evet! Bak, yağmur yağıyor ve kapıya koşuyor.", fa:"بله! ببین، باران می‌بارد و او دارد به طرف در می‌دود."}
+   ], targets:["sitting","waiting","coming","raining","running"]},
+  practice:[
+   {type:"fill", sentence:"Be quiet! The baby ___.", word:"is sleeping", distractors:["sleeps","sleep","is sleep"]},
+   {type:"fill", sentence:"What ___ you doing right now?", word:"are", distractors:["do","is","does"]},
+   {type:"meaning", prompt:"\"I am studying English this month.\" What does this tell us?", options:["It is something I do around now, not forever.","It is a permanent fact.","It finished yesterday."], correct:0},
+   {type:"fix", wrong:"She is wait for the bus.", right:"She is waiting for the bus.", distractors:["She is waits for the bus.","She waiting for the bus."]},
+   {type:"build", words:["I","am","not","watching","TV","now"], answer:"I am not watching TV now."},
+   {type:"type", sentence:"He ___ (run) in the park now.", accept:["is running"], hint:{en:"is + verb-ing. Short vowel + one consonant: double it (run → running).", tr:"is + fiil-ing. Kısa ünlü + tek ünsüz: ünsüz ikilenir (run → running).", fa:"is + فعل-ing. مصوت کوتاه + یک صامت: صامت دو برابر می‌شود (run ← running)."}},
+   {type:"type", sentence:"We ___ (have) lunch right now.", accept:["are having"], hint:{en:"are + verb-ing. Drop the e: have → having.", tr:"are + fiil-ing. e düşer: have → having.", fa:"are + فعل-ing. e حذف می‌شود: have ← having."}},
+   {type:"type", sentence:"Look! It ___ (snow).", accept:["is snowing"], hint:{en:"it → is + verb-ing.", tr:"it → is + fiil-ing.", fa:"it ← is + فعل-ing."}}
+  ],
+  errorWatch:[
+   {find:["i am go","i am eat","i am work","i am study","i am play","he is go","she is go","he is work","she is work","they are go","they are work","we are go","we are work","it is rain"], fix:{en:"For an action happening now, use am / is / are + verb-ing: I am working, she is going.", tr:"Şu anda olan bir eylem için am / is / are + fiil-ing kullan: I am working, she is going.", fa:"برای کاری که همین الان انجام می‌شود از am / is / are + فعل-ing استفاده کن: I am working، she is going."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about what you and someone near you are doing right now.", tr:"Şu anda senin ve yakınındaki birinin ne yaptığını anlatan iki cümle yaz.", fa:"درباره کاری که الان تو و کسی نزدیکت انجام می‌دهید دو جمله بنویس."}, model:"I am writing in English. My cat is sleeping on the sofa.", selfCheck:{en:"Check each verb: am / is / are + verb-ing. Does it have both parts?", tr:"Her fiili kontrol et: am / is / are + fiil-ing. İki parça da var mı?", fa:"هر فعل را بررسی کن: am / is / are + فعل-ing. هر دو بخش را دارد؟"}}
+ },
+ "g-A2-9":{
+  context:{lines:[
+    {who:"A", text:"Do you know Sara and Tom?", tr:"Sara ile Tom'u tanıyor musun?", fa:"سارا و تام را می‌شناسی؟"},
+    {who:"B", text:"Yes, I see them every day. I like her a lot.", tr:"Evet, onları her gün görüyorum. Onu çok seviyorum.", fa:"بله، هر روز آن‌ها را می‌بینم. او را خیلی دوست دارم."},
+    {who:"A", text:"Can you give him this book? And please call me tonight.", tr:"Bu kitabı ona verir misin? Bir de bu akşam beni ara lütfen.", fa:"این کتاب را به او می‌دهی؟ و امشب لطفاً با من تماس بگیر."},
+    {who:"B", text:"OK, I will give it to him. I will call you at eight.", tr:"Tamam, ona veririm. Seni sekizde ararım.", fa:"باشه، به او می‌دهم. ساعت هشت به تو زنگ می‌زنم."}
+   ], targets:["them","her","him","me","you"]},
+  practice:[
+   {type:"fill", sentence:"Can you help ___ with my bag?", word:"me", distractors:["I","my","mine"]},
+   {type:"fill", sentence:"I know Sara. I see ___ every day.", word:"her", distractors:["she","hers","herself"]},
+   {type:"meaning", prompt:"\"Give it to them.\" Who gets it?", options:["More than one person.","One woman.","Me."], correct:0},
+   {type:"fix", wrong:"Tell he the news.", right:"Tell him the news.", distractors:["Tell his the news.","Tell himself the news."]},
+   {type:"build", words:["Please","call","us","after","dinner"], answer:"Please call us after dinner."},
+   {type:"type", sentence:"I love my parents. I visit ___ every weekend.", accept:["them"], hint:{en:"my parents = they → them (after the verb).", tr:"my parents = they → them (fiilden sonra).", fa:"my parents یعنی they ← them (بعد از فعل)."}},
+   {type:"type", sentence:"This is Ali. Can you call ___?", accept:["him"], hint:{en:"Ali = he → him (after the verb).", tr:"Ali = he → him (fiilden sonra).", fa:"Ali یعنی he ← him (بعد از فعل)."}},
+   {type:"type", sentence:"We are your friends. Call ___ if you need help.", accept:["us"], hint:{en:"we → us (after the verb).", tr:"we → us (fiilden sonra).", fa:"we ← us (بعد از فعل)."}}
+  ],
+  errorWatch:[
+   {find:["to she","to he","to they","with she","with he","with they","give she","give he","give they","help she","help he","help they","call she","call he","call they"], fix:{en:"After a verb or after to / for / with, use me, you, him, her, us, them (not I, he, she, we, they).", tr:"Fiilden sonra ya da to / for / with'ten sonra me, you, him, her, us, them kullan (I, he, she, we, they değil).", fa:"بعد از فعل یا بعد از to / for / with از me، you، him، her، us، them استفاده کن (نه I، he، she، we، they)."}}
+  ],
+  yourTurn:{prompt:{en:"Write two sentences about people you know. Use him, her, them, me or us.", tr:"Tanıdığın insanlar hakkında iki cümle yaz. him, her, them, me ya da us kullan.", fa:"درباره آدم‌هایی که می‌شناسی دو جمله بنویس. از him، her، them، me یا us استفاده کن."}, model:"I see my cousins every week. I always call them on Sunday.", selfCheck:{en:"After the verb, did you use him, her, them, me, us (not he, she, they, I)?", tr:"Fiilden sonra him, her, them, me, us kullandın mı (he, she, they, I değil)?", fa:"بعد از فعل him، her، them، me، us گذاشتی (نه he، she، they، I)؟"}}
+ },
+ "g-A2-10":{
+  context:{lines:[
+    {who:"A", text:"Excuse me, how do I get to the station?", tr:"Affedersiniz, istasyona nasıl gidebilirim?", fa:"ببخشید، به ایستگاه چطور می‌توانم بروم؟"},
+    {who:"B", text:"Go straight, then turn left. Don't turn right at the bank.", tr:"Düz gidin, sonra sola dönün. Bankada sağa dönmeyin.", fa:"مستقیم بروید و بعد به چپ بپیچید. کنار بانک به راست نپیچید."},
+    {who:"A", text:"Is it far?", tr:"Uzak mı?", fa:"دور است؟"},
+    {who:"B", text:"No. Walk for five minutes and cross the bridge. Be careful!", tr:"Hayır. Beş dakika yürüyün ve köprüyü geçin. Dikkatli olun!", fa:"نه. پنج دقیقه راه بروید و از پل رد شوید. مواظب باشید!"}
+   ], targets:["Go","turn","Walk","cross","Be"]},
+  practice:[
+   {type:"fill", sentence:"___ the door, please. It is cold.", word:"Close", distractors:["Closing","To close","Closes"]},
+   {type:"fill", sentence:"___ be late for class!", word:"Don't", distractors:["Not","No","Does not"]},
+   {type:"meaning", prompt:"\"Don't touch the stove!\" What is the speaker doing?", options:["Giving a warning.","Asking a question.","Telling a story."], correct:0},
+   {type:"fix", wrong:"Please to sit down.", right:"Please sit down.", distractors:["Please sits down.","Please sitting down."]},
+   {type:"build", words:["Turn","right","at","the","traffic","light"], answer:"Turn right at the traffic light."},
+   {type:"type", sentence:"___ your books on page ten. (open)", accept:["open"], hint:{en:"A command uses the base verb: open.", tr:"Emir cümlesi yalın fiil kullanır: open.", fa:"جمله امری فعل ساده می‌گیرد: open."}},
+   {type:"type", sentence:"___ careful! The floor is wet. (be)", accept:["be"], hint:{en:"The base form of am / is / are is be.", tr:"am / is / are'ın yalın hali be'dir.", fa:"شکل ساده am / is / are می‌شود be."}},
+   {type:"type", sentence:"___ worry. Everything is fine.", accept:["don't","do not","dont"], hint:{en:"To say no to a command: Don't + base verb.", tr:"Emri olumsuz yapmak için: Don't + yalın fiil.", fa:"برای منفی کردن امر: Don't + فعل ساده."}}
+  ],
+  errorWatch:[
+   {find:["please to","do not to","dont to"], fix:{en:"A command uses the base verb, with no to and no -s: Sit down. For no, use Don't + base verb: Don't run.", tr:"Emir cümlesi yalın fiil kullanır, to ve -s olmadan: Sit down. Olumsuz için Don't + yalın fiil: Don't run.", fa:"جمله امری فعل ساده می‌گیرد، بدون to و -s: Sit down. برای منفی Don't + فعل ساده: Don't run."}}
+  ],
+  yourTurn:{prompt:{en:"You have a visitor in your city. Write two instructions for them. Use Don't in one.", tr:"Şehrine bir misafir geldi. Ona iki talimat yaz. Birinde Don't kullan.", fa:"یک مهمان به شهرت آمده است. دو دستور برایش بنویس. در یکی از Don't استفاده کن."}, model:"Take the bus to the center. Don't forget your ticket.", selfCheck:{en:"Does each command start with the base verb? Did you use Don't for the negative one?", tr:"Her emir yalın fiille başlıyor mu? Olumsuz için Don't kullandın mı?", fa:"هر دستور با فعل ساده شروع می‌شود؟ برای منفی از Don't استفاده کردی؟"}}
+ }
+};
+Object.keys(GRAMMAR_PRACTICE_A1A2).forEach(id=>{ const it = GRAMMAR_ITEMS.find(g=>g.id===id); if(it) Object.assign(it, GRAMMAR_PRACTICE_A1A2[id]); });
 
 /* ============================= VOCAB + SLANG (55 sets, A1-C1) ============================= */
 const VOCAB_SETS = [
@@ -4538,6 +4999,28 @@ function structureExplanation(text){
 }
 function tapMark(word, meaning){
   return meaning ? `<mark class="vocab-hl" data-action="show-word-meaning" data-word="${esc(word)}" data-meaning="${esc(meaning)}">${esc(word)}</mark>` : '<b>'+esc(word)+'</b>';
+}
+/* Teaching redesign S3: error watch for free writing. Whole-word, case-insensitive phrase match against an item's
+   errorWatch rules; a match is skipped when any of the 3 words before it is on the skip list (so "Does she have"
+   is not flagged). Never blocks: the caller shows "Check this: ..." with the rule's fix line. */
+const ERROR_WATCH_SKIP = ['do','does','did',"don't","doesn't","didn't",'can',"can't",'will',"won't",'should','must','to'];
+function errorWatchHits(text, item){
+  const out = [];
+  if(!text || !item || !item.errorWatch) return out;
+  const low = String(text).toLowerCase().replace(/[’‘]/g, "'").replace(/\s+/g, ' ');
+  item.errorWatch.forEach(rule=>{
+    (rule.find || []).forEach(phrase=>{
+      const re = new RegExp("(^|[^\\p{L}\\p{N}'])" + reEsc(String(phrase).toLowerCase()) + "(?![\\p{L}\\p{N}])", 'gu');
+      let m;
+      while((m = re.exec(low))){
+        const before = low.slice(0, m.index + m[1].length).split(/[^\p{L}\p{N}']+/u).filter(Boolean).slice(-3);
+        const skip = ERROR_WATCH_SKIP.some(s=>s.includes(' ') ? (' ' + before.join(' ') + ' ').includes(' ' + s + ' ') : before.includes(s));
+        if(!skip && !out.some(h=>h.phrase === phrase)) out.push({phrase, fix:rule.fix});
+        if(!m[0].length) re.lastIndex++;
+      }
+    });
+  });
+  return out;
 }
 function highlightWord(sentence, word, meaning){
   const re = new RegExp(word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
@@ -8995,7 +9478,7 @@ function buildPracticeRound(goal, level, difficulty){
     // Grammar: the item completed most recently on this roadmap, else a random one of the level.
     const lastG = stageDoneIds('grammar', state.progress.completedTraps).map(id=>gPoolAll.find(x=>x.id===id)).find(Boolean);
     const gItem = lastG || gSource[Math.floor(Math.random()*gSource.length)];
-    grammar = {title: grammarTitle(gItem), markerWord: gItem.blank.word, exp: L(gItem.exp.en, gItem.exp.tr, gItem.exp.fa)};
+    grammar = {id: gItem.id, title: grammarTitle(gItem), markerWord: gItem.blank.word, exp: L(gItem.exp.en, gItem.exp.tr, gItem.exp.fa)};
   }
   let slang = null;
   if(difficulty === 'difficult' && slCards.length){
@@ -9070,6 +9553,9 @@ function checkPracticeAnswer(round, text){
   const sc = clean.split(/[.!?]+/).map(s=>s.trim()).filter(Boolean).length;
   const lengthOk = wc >= round.minWords && sc >= round.minSentences;
   const grammarSpotted = round.grammar ? grammarUsedInContext(clean, round.grammar.markerWord) : null;
+  // S3 error watch on the round's grammar item (rounds saved before the item id was stored have none).
+  const ewItem = round.grammar && round.grammar.id ? GRAMMAR_ITEMS.find(g=>g.id===round.grammar.id) : null;
+  const errorWatch = ewItem ? errorWatchHits(clean, ewItem) : [];
   const slangSpotted = round.slang ? lower.includes(round.slang.word.toLowerCase()) : null;
   const extraKnownWords = round.words.map(w=>w.word).concat(round.grammar?[round.grammar.markerWord]:[]).concat(round.slang?[round.slang.word]:[]);
   const realCheck = checkTextLooksReal(clean, extraKnownWords.join(' ').split(/\s+/));
@@ -9090,7 +9576,7 @@ function checkPracticeAnswer(round, text){
   if(!looksReal) score = Math.min(score, 15);
   else if(!hasStructure) score = Math.min(score, 40);
 
-  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, slangSpotted, looksReal, hasStructure, score, passed: score>=60 && looksReal && hasStructure};
+  return {wordsHit, wordsMissed, wc, sc, lengthOk, grammarSpotted, errorWatch, slangSpotted, looksReal, hasStructure, score, passed: score>=60 && looksReal && hasStructure};
 }
 function practiceFeedback(result, round){
   const lines = [];
@@ -9134,6 +9620,8 @@ function practiceFeedback(result, round){
     )});
   }
   if(round.grammar){
+    // S3 error watch: "Check this" with the item's fix line. Never blocks, never scores.
+    (result.errorWatch || []).slice(0, 2).forEach(h=>lines.push({ok:false, text: L('Check this: ','Şuna bak: ','این را بررسی کن: ','Revisa esto: ') + '"' + h.phrase + '" — ' + trLine(h.fix)}));
     if(result.grammarSpotted){
       lines.push({ok:true, text: L(
         `Try using "${round.grammar.title}" in a full sentence. Check that it follows the rule.`,
@@ -10419,6 +10907,39 @@ function renderGrammarList(){
     </div>
   </div>`;
 }
+/* Teaching redesign S3, Meet + Notice: the item's context dialogue at the top of the grammar page. Each line
+   has a play button; at A1-A2 a Turkish/Farsi UI shows the translation under the line. "Tap the words that
+   show the rule": a target token lights up in the grammar colour, a wrong tap only shakes; after 2 taps or
+   "Show me" every target lights up. No score. Tap state lives in viewParams.notice (gone on navigation). */
+function grammarContextHtml(t){
+  const c = t.context;
+  if(!c || !c.lines || !c.lines.length) return '';
+  const n = state.viewParams.notice || {lit:[], taps:0, all:false};
+  const targets = c.targets || [];
+  const all = n.all || n.taps >= 2;
+  const showTr = (t.level === 'A1' || t.level === 'A2') && (LANG === 'tr' || LANG === 'fa');
+  const core = w => w.replace(/^[^\p{L}\p{N}']+|[^\p{L}\p{N}']+$/gu, '');
+  const word = (w, li, wi) => {
+    const isT = targets.includes(core(w));
+    const lit = isT && (all || n.lit.includes(li + ':' + wi));
+    return `<span class="gc-w${lit ? ' lit' : ''}" data-action="notice-tap" data-li="${li}" data-wi="${wi}" data-t="${isT ? 1 : 0}">${esc(w)}</span>`;
+  };
+  return `<div class="card-flat gc-card">
+    <div class="eyebrow" style="color:var(--cat-gram);">${L('Hear it first','Önce dinle','اول بشنو','Escúchalo primero')}</div>
+    ${c.lines.map((ln, li)=>`<div class="gc-line" dir="ltr">
+      <span class="gc-who">${esc(ln.who || '')}</span>
+      <div class="gc-body">
+        <div class="gc-text">${String(ln.text || '').split(/(\s+)/).map((w, wi)=>(!w || /^\s+$/.test(w)) ? w : word(w, li, wi)).join('')}</div>
+        ${showTr && (ln.tr || ln.fa) ? `<div class="gc-tr" dir="auto">${esc(L('', ln.tr, ln.fa) || '')}</div>` : ''}
+      </div>
+      ${ttsButton(ln.text || '', '')}
+    </div>`).join('')}
+    <div class="gc-foot">
+      <span>${all ? L('These are the words that show the rule.','Kuralı gösteren kelimeler bunlar.','این‌ها کلمه‌هایی هستند که قاعده را نشان می‌دهند.','Estas son las palabras que muestran la regla.') : L('Tap the words that show the rule.','Kuralı gösteren kelimelere dokun.','روی کلمه‌هایی بزن که قاعده را نشان می‌دهند.','Toca las palabras que muestran la regla.')}</span>
+      ${all ? '' : `<button type="button" class="btn btn-ghost gc-show" data-action="notice-show">${L('Show me','Göster','نشانم بده','Muéstramelo')}</button>`}
+    </div>
+  </div>`;
+}
 function renderGrammarTrap(id){
   const t = GRAMMAR_ITEMS.find(x=>x.id===id);
   if(!t) return renderNotFound();
@@ -10432,6 +10953,7 @@ function renderGrammarTrap(id){
   return `<div class="fade-in">
     ${sectionHead('', '')}
     <div class="screen" style="padding-top:0;">
+      ${grammarContextHtml(t)}
       <div class="tip-card" style="position:relative; overflow:hidden; background:radial-gradient(circle at 16% 8%, rgba(255,255,255,.35), transparent 55%), linear-gradient(150deg, var(--cat-gram), color-mix(in srgb, var(--cat-gram) 78%, #000 18%)); border-radius:26px; padding:22px 20px 20px; box-shadow:0 16px 30px -14px color-mix(in srgb, var(--cat-gram) 55%, transparent);">
         <div class="eyebrow" style="color:rgba(255,255,255,.85);">${L('TIP','İPUCU','نکته')}</div>
         <h1 class="display" style="font-size:24px; margin-top:8px; line-height:1.3; color:#fff;">${esc(grammarTitle(t))}</h1>
@@ -10983,8 +11505,10 @@ function grammarQuizQuestions(item){
       if(!p) return;
       if(p.type === 'fill' && goodBlank(p)) out.fill.push(mk(p.sentence, p.word, uniq(p.distractors), fillIn(p.sentence, p.word), o=>dwText(p.distractorWhy, o), p.translation));
       else if(p.type === 'meaning' && p.options && p.options.length >= 3){
-        const right = p.options[p.correct || 0];
-        { const mq = mk(p.prompt, right, p.options.filter((o,i)=>i !== (p.correct || 0)), p.prompt, null, p.translation); mq.answerText = right; out.meaning.push(mq); }
+        // Spanish meaning items carry {en,tr,fa} prompts and options (the learner reads them in their UI language); English ones are strings.
+        const txt = x => (x && typeof x === 'object') ? (L(x.en, x.tr, x.fa, x.es) || x.en) : x;
+        const ci = p.correct || 0, opts = p.options.map(txt), prompt = txt(p.prompt);
+        { const mq = mk(prompt, opts[ci], opts.filter((o,i)=>i !== ci), prompt, null, p.translation); mq.answerText = opts[ci]; out.meaning.push(mq); }
       }
       else if(p.type === 'fix' && p.right && p.distractors && p.distractors.length >= 2) out.fix.push(mk(fixLabel + '\n"' + p.wrong + '"', p.right, uniq(p.distractors), p.right, null, p.translation));
     });
@@ -11004,12 +11528,12 @@ function grammarQuizQuestions(item){
     return out;
   };
   let qs = fromPractice();
-  if(qs.length < 6){
+  if(qs.length < 8){
+    // Practice items always make the cut; the interim generator only fills the remaining slots.
     const have = new Set(qs.map(q=>q.key + '|' + q.prompt));
-    qs = qs.concat(shuffle(interim()).filter(q=>!have.has(q.key + '|' + q.prompt)));
-    qs = spread(qs);
-  } else qs = spread(qs);
-  return qs.slice(0, 8);
+    qs = qs.concat(shuffle(interim()).filter(q=>!have.has(q.key + '|' + q.prompt))).slice(0, 8);
+  }
+  return spread(qs).slice(0, 8);
 }
 function vocabQuizQuestions(s){
   const sibling = VOCAB_SETS_FREE.filter(x=>x.level===s.level && x.category===s.category).flatMap(x=>x.cards);
@@ -13016,6 +13540,19 @@ const HANDLERS = {
   'flip-card'(){ state.viewParams.flipped = !state.viewParams.flipped; sfx('flip'); render(); },
   'vocab-next'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i+1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
   'vocab-prev'(el){ const i = +el.dataset.i; go('vocab-set', {id: el.dataset.id, cardIndex: i-1, flipped:false, level:state.viewParams.level, cat:state.viewParams.cat, goal:state.viewParams.goal}); },
+  // Teaching redesign S3, Notice step on the grammar page (see grammarContextHtml).
+  'notice-tap'(el){
+    const n = state.viewParams.notice || (state.viewParams.notice = {lit:[], taps:0, all:false});
+    if(n.all || n.taps >= 2) return;
+    n.taps++;
+    if(el.dataset.t === '1'){ n.lit.push(el.dataset.li + ':' + el.dataset.wi); render(); return; }
+    anim(el, [{transform:'translateX(0)'},{transform:'translateX(-4px)'},{transform:'translateX(4px)'},{transform:'translateX(0)'}], {duration:240});
+    if(n.taps >= 2) setTimeout(render, 260);
+  },
+  'notice-show'(){
+    const n = state.viewParams.notice || (state.viewParams.notice = {lit:[], taps:0, all:false});
+    n.all = true; render();
+  },
   'start-grammar-quiz'(el){
     const t = GRAMMAR_ITEMS.find(x=>x.id===el.dataset.id);
     const goal = state.viewParams.goal;
