@@ -2135,6 +2135,166 @@ const GRAMMAR_PRACTICE_A1A2 = {
  }
 };
 Object.keys(GRAMMAR_PRACTICE_A1A2).forEach(id=>{ const it = GRAMMAR_ITEMS.find(g=>g.id===id); if(it) Object.assign(it, GRAMMAR_PRACTICE_A1A2[id]); });
+/* Teaching redesign phase 1, X6: distractorWhy for the A1-A2 grammar items (farin-lxd, Claude/specs/lxd-phase1-content/en-distractorWhy-A1-A2.js).
+   Item-level map: wrong-option text -> {en,tr,fa}. Looked up on a first miss by the tapped option's text (the same
+   strings are used by the base blanks and every goalVariant blank); a per-blank blank.distractorWhy still wins. */
+const GRAMMAR_DISTRACTOR_WHY_A1A2 = {
+ "g-A1-1":{
+  am:{en:"\"am\" only goes with I. For one person or thing (he, she, it) use \"is\".", tr:"\"am\" sadece I ile kullanılır. Tek kişi ya da şey için (he, she, it) \"is\" kullan.", fa:"«am» فقط با I می‌آید. برای یک نفر یا یک چیز (he، she، it) از «is» استفاده کن."},
+  are:{en:"\"are\" goes with you, we, they. For one person or thing (he, she, it) use \"is\".", tr:"\"are\", you, we, they ile kullanılır. Tek kişi ya da şey için (he, she, it) \"is\" kullan.", fa:"«are» با you، we، they می‌آید. برای یک نفر یا یک چیز (he، she، it) از «is» استفاده کن."},
+  is:{en:"\"is\" is for one person or thing (he, she, it). \"We\" and \"they\" take \"are\".", tr:"\"is\" tek kişi ya da şey içindir (he, she, it). \"We\" ve \"they\" ile \"are\" kullanılır.", fa:"«is» برای یک نفر یا یک چیز است (he، she، it). با «we» و «they» باید «are» بیاید."}
+ },
+ "g-A1-2":{
+  Him:{en:"\"Him\" comes after a verb (I saw him). To start a sentence about a man, use \"He\".", tr:"\"Him\" fiilden sonra gelir (I saw him). Bir erkek hakkında cümleye başlamak için \"He\" kullan.", fa:"«Him» بعد از فعل می‌آید (I saw him). برای شروع جمله درباره یک مرد از «He» استفاده کن."},
+  His:{en:"\"His\" shows ownership (his bag). It cannot be the subject. Use \"He\".", tr:"\"His\" sahipliği gösterir (his bag). Özne olamaz. \"He\" kullan.", fa:"«His» مالکیت را نشان می‌دهد (his bag). فاعل نمی‌شود. از «He» استفاده کن."},
+  Her:{en:"\"Her\" comes after a verb or before a noun. To start a sentence about a woman, use \"She\".", tr:"\"Her\" fiilden sonra ya da isimden önce gelir. Bir kadın hakkında cümleye başlamak için \"She\" kullan.", fa:"«Her» بعد از فعل یا قبل از اسم می‌آید. برای شروع جمله درباره یک زن از «She» استفاده کن."},
+  Hers:{en:"\"Hers\" shows ownership (the bag is hers). It cannot be the subject. Use \"She\".", tr:"\"Hers\" sahipliği gösterir (the bag is hers). Özne olamaz. \"She\" kullan.", fa:"«Hers» مالکیت را نشان می‌دهد (the bag is hers). فاعل نمی‌شود. از «She» استفاده کن."}
+ },
+ "g-A1-3":{
+  persons:{en:"\"Persons\" is very formal. In everyday English the plural of person is \"people\".", tr:"\"Persons\" çok resmidir. Günlük İngilizcede person'ın çoğulu \"people\"dır.", fa:"«persons» خیلی رسمی است. در انگلیسی روزمره جمع person می‌شود «people»."},
+  peoples:{en:"\"People\" is already plural. Do not add -s.", tr:"\"People\" zaten çoğuldur. -s ekleme.", fa:"«people» خودش جمع است. -s اضافه نکن."},
+  watchs:{en:"After -ch, -sh, -s, -x we add -es: watches.", tr:"-ch, -sh, -s, -x sonrasında -es eklenir: watches.", fa:"بعد از -ch، -sh، -s، -x باید -es اضافه کرد: watches."},
+  watch:{en:"\"Two\" means more than one, so the noun needs a plural ending.", tr:"\"Two\" birden fazla demektir, bu yüzden isim çoğul olmalı.", fa:"«two» یعنی بیش از یکی، پس اسم باید جمع باشد."},
+  boxs:{en:"After -x we add -es: boxes.", tr:"-x sonrasında -es eklenir: boxes.", fa:"بعد از -x باید -es اضافه کرد: boxes."},
+  box:{en:"\"Two\" means more than one, so the noun needs a plural ending.", tr:"\"Two\" birden fazla demektir, bu yüzden isim çoğul olmalı.", fa:"«two» یعنی بیش از یکی، پس اسم باید جمع باشد."}
+ },
+ "g-A1-4":{
+  This:{en:"\"This\" is for ONE thing that is near. Count the things and check the verb (is / are).", tr:"\"This\" yakındaki TEK bir şey içindir. Şeyleri say ve fiile bak (is / are).", fa:"«This» برای یک چیز نزدیک است. تعداد را بشمار و فعل را ببین (is / are)."},
+  That:{en:"\"That\" is for ONE thing that is far. Check the number and the distance.", tr:"\"That\" uzaktaki TEK bir şey içindir. Sayıya ve uzaklığa bak.", fa:"«That» برای یک چیز دور است. تعداد و فاصله را بررسی کن."},
+  These:{en:"\"These\" is for MORE THAN ONE thing that is near. The verb \"is\" means just one thing.", tr:"\"These\" yakındaki BİRDEN FAZLA şey içindir. \"is\" fiili tek bir şey demektir.", fa:"«These» برای چند چیز نزدیک است. فعل «is» یعنی فقط یک چیز."}
+ },
+ "g-A1-5":{
+  drink:{en:"With he / she / it (or one name or thing) the verb takes -s: drinks.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: drinks.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: drinks."},
+  drinking:{en:"-ing alone is not a full present verb. Use the simple present: drinks.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: drinks.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: drinks."},
+  teach:{en:"With he / she / it (or one name or thing) the verb takes -s: teaches.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: teaches.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: teaches."},
+  teaching:{en:"-ing alone is not a full present verb. Use the simple present: teaches.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: teaches.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: teaches."},
+  send:{en:"With he / she / it (or one name or thing) the verb takes -s: sends.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: sends.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: sends."},
+  sending:{en:"-ing alone is not a full present verb. Use the simple present: sends.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: sends.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: sends."},
+  manage:{en:"With he / she / it (or one name or thing) the verb takes -s: manages.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: manages.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: manages."},
+  managing:{en:"-ing alone is not a full present verb. Use the simple present: manages.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: manages.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: manages."},
+  leave:{en:"With he / she / it (or one name or thing) the verb takes -s: leaves.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: leaves.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: leaves."},
+  leaving:{en:"-ing alone is not a full present verb. Use the simple present: leaves.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: leaves.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: leaves."},
+  show:{en:"With he / she / it (or one name or thing) the verb takes -s: shows.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: shows.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: shows."},
+  showing:{en:"-ing alone is not a full present verb. Use the simple present: shows.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: shows.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: shows."},
+  explain:{en:"With he / she / it (or one name or thing) the verb takes -s: explains.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: explains.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: explains."},
+  explaining:{en:"-ing alone is not a full present verb. Use the simple present: explains.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: explains.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: explains."},
+  check:{en:"With he / she / it (or one name or thing) the verb takes -s: checks.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: checks.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: checks."},
+  checking:{en:"-ing alone is not a full present verb. Use the simple present: checks.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: checks.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: checks."},
+  bring:{en:"With he / she / it (or one name or thing) the verb takes -s: brings.", tr:"he / she / it (ya da tek bir isim) ile fiil -s alır: brings.", fa:"با he / she / it (یا یک اسم مفرد) فعل -s می‌گیرد: brings."},
+  bringing:{en:"-ing alone is not a full present verb. Use the simple present: brings.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: brings.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: brings."},
+  cooks:{en:"\"We\" does not take -s. Use the plain verb: cook.", tr:"\"We\" ile -s kullanılmaz. Yalın fiili kullan: cook.", fa:"با «We» نباید -s بیاید. فعل ساده بگذار: cook."},
+  cooking:{en:"-ing alone is not a full present verb. Use the simple present: cook.", tr:"Tek başına -ing tam bir geniş zaman fiili değildir. Geniş zamanı kullan: cook.", fa:"-ing به تنهایی فعل حال ساده نیست. حال ساده بگذار: cook."}
+ },
+ "g-A1-6":{
+  you:{en:"\"you\" is a subject word. Before a noun use \"your\".", tr:"\"you\" bir özne zamiridir. İsimden önce \"your\" kullan.", fa:"«you» ضمیر فاعلی است. قبل از اسم «your» بگذار."},
+  yours:{en:"\"yours\" stands alone (it is yours). Before a noun use \"your\".", tr:"\"yours\" tek başına kullanılır (it is yours). İsimden önce \"your\" kullan.", fa:"«yours» تنها می‌آید (it is yours). قبل از اسم «your» بگذار."},
+  us:{en:"\"us\" is an object word (call us). Before a noun use \"our\".", tr:"\"us\" bir nesne zamiridir (call us). İsimden önce \"our\" kullan.", fa:"«us» ضمیر مفعولی است (call us). قبل از اسم «our» بگذار."},
+  we:{en:"\"we\" is a subject word (we love). Before a noun use \"our\".", tr:"\"we\" bir özne zamiridir (we love). İsimden önce \"our\" kullan.", fa:"«we» ضمیر فاعلی است (we love). قبل از اسم «our» بگذار."}
+ },
+ "g-A1-7":{
+  "There is":{en:"\"There is\" is for ONE thing. For more than one use \"There are\".", tr:"\"There is\" TEK bir şey içindir. Birden fazla için \"There are\" kullan.", fa:"«There is» برای یک چیز است. برای بیش از یکی «There are» بگذار."},
+  "There are":{en:"\"There are\" is for MORE THAN ONE thing. For one thing use \"There is\".", tr:"\"There are\" BİRDEN FAZLA şey içindir. Tek şey için \"There is\" kullan.", fa:"«There are» برای بیش از یک چیز است. برای یک چیز «There is» بگذار."},
+  "It is":{en:"\"It is\" talks about something already named (It is cold). To say something exists, use \"There is / are\".", tr:"\"It is\" adı geçen bir şey hakkında konuşur (It is cold). Bir şeyin var olduğunu söylemek için \"There is / are\" kullan.", fa:"«It is» درباره چیزی است که قبلاً نام برده شده (It is cold). برای گفتن وجود چیزی «There is / are» بگذار."}
+ },
+ "g-A1-8":{
+  at:{en:"\"at\" is for a point (at the door). It does not say something is below another thing.", tr:"\"at\" bir noktayı gösterir (at the door). Bir şeyin başka bir şeyin altında olduğunu söylemez.", fa:"«at» برای یک نقطه است (at the door). نمی‌گوید چیزی زیر چیز دیگر است."},
+  to:{en:"\"to\" shows movement toward a place, not where something is.", tr:"\"to\" bir yere doğru hareketi gösterir, bir şeyin nerede olduğunu değil.", fa:"«to» حرکت به سمت یک مکان را نشان می‌دهد، نه جای یک چیز را."},
+  in:{en:"\"in\" means inside something. \"Next to\" means beside it.", tr:"\"in\" bir şeyin içinde demektir. \"Next to\" yanında demektir.", fa:"«in» یعنی داخل چیزی. «next to» یعنی کنار آن."},
+  on:{en:"\"on\" means touching the top of something. \"Next to\" means beside it.", tr:"\"on\" bir şeyin üstünde, temas halinde demektir. \"Next to\" yanında demektir.", fa:"«on» یعنی روی چیزی و در تماس با آن. «next to» یعنی کنار آن."}
+ },
+ "g-A1-9":{
+  a:{en:"\"a\" is for a consonant sound. Before a vowel sound (umbrella, update) use \"an\".", tr:"\"a\" ünsüz sesten önce gelir. Ünlü sesten önce (umbrella, update) \"an\" kullan.", fa:"«a» قبل از صدای بی‌صدا می‌آید. قبل از صدای مصوت (umbrella، update) «an» بگذار."},
+  these:{en:"\"these\" is plural (these dogs). With one thing use \"a\" or \"an\".", tr:"\"these\" çoğuldur (these dogs). Tek şeyle \"a\" ya da \"an\" kullan.", fa:"«these» جمع است (these dogs). با یک چیز «a» یا «an» بگذار."},
+  an:{en:"\"an\" is for a vowel sound. \"Dog\" and \"meeting\" start with a consonant sound, so use \"a\".", tr:"\"an\" ünlü ses içindir. \"Dog\" ve \"meeting\" ünsüz sesle başlar, bu yüzden \"a\" kullan.", fa:"«an» برای صدای مصوت است. «dog» و «meeting» با صدای بی‌صدا شروع می‌شوند، پس «a» بگذار."}
+ },
+ "g-A1-10":{
+  Where:{en:"\"Where\" asks about a place. Check what the answer must be: a place, a person, a time?", tr:"\"Where\" yer sorar. Cevabın ne olması gerektiğine bak: yer mi, kişi mi, zaman mı?", fa:"«Where» درباره مکان می‌پرسد. ببین جواب باید چه باشد: مکان، شخص یا زمان؟"},
+  Who:{en:"\"Who\" asks about a person. Check what the answer must be.", tr:"\"Who\" kişi sorar. Cevabın ne olması gerektiğine bak.", fa:"«Who» درباره شخص می‌پرسد. ببین جواب باید چه باشد."},
+  When:{en:"\"When\" asks about time. Check what the answer must be.", tr:"\"When\" zaman sorar. Cevabın ne olması gerektiğine bak.", fa:"«When» درباره زمان می‌پرسد. ببین جواب باید چه باشد."},
+  Why:{en:"\"Why\" asks for a reason. Check what the answer must be.", tr:"\"Why\" neden sorar. Cevabın ne olması gerektiğine bak.", fa:"«Why» دلیل می‌پرسد. ببین جواب باید چه باشد."},
+  What:{en:"\"What\" asks about a thing or information. Check if the answer is a place, a person or a time.", tr:"\"What\" bir şey ya da bilgi sorar. Cevabın yer, kişi ya da zaman olup olmadığına bak.", fa:"«What» درباره یک چیز یا اطلاعات می‌پرسد. ببین جواب مکان، شخص یا زمان است."},
+  "How much":{en:"\"How much\" is for things you cannot count (water, money). Questions can be counted: how many.", tr:"\"How much\" sayılamayan şeyler içindir (water, money). Sorular sayılabilir: how many.", fa:"«How much» برای چیزهای نشمردنی است (water، money). سؤال‌ها شمردنی هستند: how many."},
+  "How long":{en:"\"How long\" asks about time or length. To count questions, use \"how many\".", tr:"\"How long\" süre ya da uzunluk sorar. Soruları saymak için \"how many\" kullan.", fa:"«How long» درباره مدت یا طول می‌پرسد. برای شمارش سؤال‌ها «how many» بگذار."}
+ },
+ "g-A2-1":{
+  watch:{en:"\"watch\" is the present form. For a finished past action use the past form: watched.", tr:"\"watch\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: watched.", fa:"«watch» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: watched."},
+  watching:{en:"\"watching\" alone is not a past verb. Use the past form: watched.", tr:"\"watching\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: watched.", fa:"«watching» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: watched."},
+  sign:{en:"\"sign\" is the present form. For a finished past action use the past form: signed.", tr:"\"sign\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: signed.", fa:"«sign» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: signed."},
+  signing:{en:"\"signing\" alone is not a past verb. Use the past form: signed.", tr:"\"signing\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: signed.", fa:"«signing» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: signed."},
+  miss:{en:"\"miss\" is the present form. For a finished past action use the past form: missed.", tr:"\"miss\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: missed.", fa:"«miss» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: missed."},
+  missing:{en:"\"missing\" alone is not a past verb. Use the past form: missed.", tr:"\"missing\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: missed.", fa:"«missing» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: missed."},
+  finish:{en:"\"finish\" is the present form. For a finished past action use the past form: finished.", tr:"\"finish\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: finished.", fa:"«finish» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: finished."},
+  finishing:{en:"\"finishing\" alone is not a past verb. Use the past form: finished.", tr:"\"finishing\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: finished.", fa:"«finishing» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: finished."},
+  receive:{en:"\"receive\" is the present form. For a finished past action use the past form: received.", tr:"\"receive\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: received.", fa:"«receive» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: received."},
+  receiving:{en:"\"receiving\" alone is not a past verb. Use the past form: received.", tr:"\"receiving\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: received.", fa:"«receiving» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: received."},
+  submit:{en:"\"submit\" is the present form. For a finished past action use the past form: submitted.", tr:"\"submit\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: submitted.", fa:"«submit» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: submitted."},
+  submitting:{en:"\"submitting\" alone is not a past verb. Use the past form: submitted.", tr:"\"submitting\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: submitted.", fa:"«submitting» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: submitted."},
+  order:{en:"\"order\" is the present form. For a finished past action use the past form: ordered.", tr:"\"order\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: ordered.", fa:"«order» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: ordered."},
+  ordering:{en:"\"ordering\" alone is not a past verb. Use the past form: ordered.", tr:"\"ordering\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: ordered.", fa:"«ordering» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: ordered."},
+  meet:{en:"\"meet\" is the present form. For a finished past action use the past form: met.", tr:"\"meet\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: met.", fa:"«meet» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: met."},
+  meeting:{en:"\"meeting\" alone is not a past verb. Use the past form: met.", tr:"\"meeting\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: met.", fa:"«meeting» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: met."},
+  fly:{en:"\"fly\" is the present form. For a finished past action use the past form: flew.", tr:"\"fly\" şimdiki biçimdir. Bitmiş bir geçmiş eylem için geçmiş biçimi kullan: flew.", fa:"«fly» شکل حال است. برای کار تمام‌شده در گذشته شکل گذشته بگذار: flew."},
+  flying:{en:"\"flying\" alone is not a past verb. Use the past form: flew.", tr:"\"flying\" tek başına geçmiş zaman fiili değildir. Geçmiş biçimi kullan: flew.", fa:"«flying» به تنهایی فعل گذشته نیست. شکل گذشته بگذار: flew."},
+  flied:{en:"Fly is irregular: the past is flew, not flied.", tr:"Fly düzensizdir: geçmiş biçimi flew, flied değil.", fa:"fly بی‌قاعده است: گذشته‌اش flew است، نه flied."},
+  meeted:{en:"Meet is irregular: the past is met, not meeted.", tr:"Meet düzensizdir: geçmiş biçimi met, meeted değil.", fa:"meet بی‌قاعده است: گذشته‌اش met است، نه meeted."}
+ },
+ "g-A2-2":{
+  go:{en:"\"go\" alone is the present. For plans use am / is / are + going to.", tr:"\"go\" tek başına şimdiki biçimdir. Planlar için am / is / are + going to kullan.", fa:"«go» به تنهایی زمان حال است. برای برنامه‌ها am / is / are + going to بگذار."},
+  will:{en:"\"will\" is not followed by \"to\". The sentence already has \"to\", so use am / is / are going.", tr:"\"will\" ardından \"to\" almaz. Cümlede zaten \"to\" var, o yüzden am / is / are going kullan.", fa:"بعد از «will» کلمه «to» نمی‌آید. جمله از قبل «to» دارد، پس am / is / are going بگذار."},
+  going:{en:"\"going\" needs am / is / are before it.", tr:"\"going\" öncesinde am / is / are ister.", fa:"«going» قبل از خودش به am / is / are نیاز دارد."}
+ },
+ "g-A2-3":{
+  "more big":{en:"\"big\" is a short adjective, so add -er: bigger. Do not use \"more\".", tr:"\"big\" kısa bir sıfattır, -er ekle: bigger. \"more\" kullanma.", fa:"«big» صفت کوتاه است، -er اضافه کن: bigger. «more» نگذار."},
+  "more hard":{en:"\"hard\" is a short adjective, so add -er: harder. Do not use \"more\".", tr:"\"hard\" kısa bir sıfattır, -er ekle: harder. \"more\" kullanma.", fa:"«hard» صفت کوتاه است، -er اضافه کن: harder. «more» نگذار."},
+  biggest:{en:"\"biggest\" is for the top of a group. With \"than\" use bigger.", tr:"\"biggest\" bir grubun en üstü içindir. \"than\" ile bigger kullan.", fa:"«biggest» برای بالاترین در یک گروه است. با «than» از bigger استفاده کن."},
+  hardest:{en:"\"hardest\" is for the top of a group. With \"than\" use harder.", tr:"\"hardest\" bir grubun en üstü içindir. \"than\" ile harder kullan.", fa:"«hardest» برای بالاترین در یک گروه است. با «than» از harder استفاده کن."}
+ },
+ "g-A2-4":{
+  "the better":{en:"\"Better\" compares two things. For the top of a group use \"the best\".", tr:"\"Better\" iki şeyi karşılaştırır. Bir grubun en iyisi için \"the best\" kullan.", fa:"«better» دو چیز را مقایسه می‌کند. برای بهترین در یک گروه «the best» بگذار."},
+  best:{en:"\"best\" needs \"the\" before it: the best.", tr:"\"best\" öncesinde \"the\" ister: the best.", fa:"«best» قبل از خودش «the» می‌خواهد: the best."},
+  faster:{en:"\"faster\" compares two things. For the top of a group use \"the fastest\".", tr:"\"faster\" iki şeyi karşılaştırır. Bir grubun en hızlısı için \"the fastest\" kullan.", fa:"«faster» دو چیز را مقایسه می‌کند. برای سریع‌ترین در یک گروه «the fastest» بگذار."},
+  fastest:{en:"\"fastest\" needs \"the\" before it: the fastest.", tr:"\"fastest\" öncesinde \"the\" ister: the fastest.", fa:"«fastest» قبل از خودش «the» می‌خواهد: the fastest."}
+ },
+ "g-A2-5":{
+  some:{en:"\"some\" is for yes-sentences and offers. This sentence is negative or a question: use \"any\".", tr:"\"some\" olumlu cümleler ve teklifler içindir. Bu cümle olumsuz ya da soru: \"any\" kullan.", fa:"«some» برای جمله‌های مثبت و پیشنهاد است. این جمله منفی یا پرسشی است: «any» بگذار."},
+  no:{en:"\"no\" cannot follow \"don't\" (that is a double negative). Use \"any\".", tr:"\"no\", \"don't\" ardından gelmez (çifte olumsuzluk olur). \"any\" kullan.", fa:"«no» بعد از «don't» نمی‌آید (منفی دوگانه می‌شود). «any» بگذار."},
+  any:{en:"\"any\" is for no-sentences and questions. This is a yes-sentence: use \"some\".", tr:"\"any\" olumsuz cümleler ve sorular içindir. Bu olumlu bir cümle: \"some\" kullan.", fa:"«any» برای جمله‌های منفی و پرسشی است. این جمله مثبت است: «some» بگذار."},
+  a:{en:"\"help\" cannot take \"a\" here. For an unspecified amount use \"some\".", tr:"\"help\" burada \"a\" almaz. Belirsiz miktar için \"some\" kullan.", fa:"«help» اینجا «a» نمی‌گیرد. برای مقدار نامشخص «some» بگذار."}
+ },
+ "g-A2-6":{
+  can:{en:"\"can\" is the present. The sentence says \"when I was...\" (past), so use \"could\".", tr:"\"can\" şimdiki zamandır. Cümle \"when I was...\" (geçmiş) diyor, o yüzden \"could\" kullan.", fa:"«can» زمان حال است. جمله «when I was...» (گذشته) دارد، پس «could» بگذار."},
+  "can't":{en:"\"can't\" means not able. Here the person WAS able, so use \"could\".", tr:"\"can't\" yapamamak demektir. Burada kişi yapabiliyordu, o yüzden \"could\" kullan.", fa:"«can't» یعنی نمی‌توانست. اینجا شخص می‌توانست، پس «could» بگذار."},
+  Are:{en:"\"Are\" is a form of \"be\". To ask for help or ability, start with \"Can\".", tr:"\"Are\", \"be\" fiilinin bir biçimidir. Yardım ya da yetenek sormak için \"Can\" ile başla.", fa:"«Are» شکلی از «be» است. برای درخواست کمک یا پرسیدن توانایی با «Can» شروع کن."},
+  Does:{en:"\"Does\" needs a base verb after the subject. To ask for help, start with \"Can\".", tr:"\"Does\" öznenin ardından yalın fiil ister. Yardım istemek için \"Can\" ile başla.", fa:"«Does» بعد از فاعل فعل ساده می‌خواهد. برای درخواست کمک با «Can» شروع کن."}
+ },
+ "g-A2-7":{
+  "usually is":{en:"The word goes before a normal verb (usually drinks), not next to \"is\".", tr:"Bu kelime normal bir fiilden önce gelir (usually drinks), \"is\" yanına değil.", fa:"این کلمه قبل از فعل معمولی می‌آید (usually drinks)، نه کنار «is»."},
+  "is usually":{en:"With a normal verb, the word goes before it (usually drinks). \"is\" is not needed.", tr:"Normal fiille bu kelime fiilden önce gelir (usually drinks). \"is\" gerekmez.", fa:"با فعل معمولی این کلمه قبل از فعل می‌آید (usually drinks). «is» لازم نیست."},
+  "am never":{en:"\"never\" goes before a normal verb (I never eat). \"am\" is not needed.", tr:"\"never\" normal bir fiilden önce gelir (I never eat). \"am\" gerekmez.", fa:"«never» قبل از فعل معمولی می‌آید (I never eat). «am» لازم نیست."},
+  "never am":{en:"\"never\" goes before a normal verb (I never eat). \"am\" is not needed.", tr:"\"never\" normal bir fiilden önce gelir (I never eat). \"am\" gerekmez.", fa:"«never» قبل از فعل معمولی می‌آید (I never eat). «am» لازم نیست."}
+ },
+ "g-A2-8":{
+  rains:{en:"\"Look!\" means it is happening now. Use is + verb-ing: is raining.", tr:"\"Look!\" şu anda olduğunu gösterir. is + fiil-ing kullan: is raining.", fa:"«Look!» یعنی همین الان دارد اتفاق می‌افتد. از is + فعل-ing استفاده کن: is raining."},
+  rain:{en:"\"Look!\" means it is happening now. Use is + verb-ing: is raining.", tr:"\"Look!\" şu anda olduğunu gösterir. is + fiil-ing kullan: is raining.", fa:"«Look!» یعنی همین الان دارد اتفاق می‌افتد. از is + فعل-ing استفاده کن: is raining."},
+  calls:{en:"\"Look!\" means it is happening now. Use is + verb-ing: is calling.", tr:"\"Look!\" şu anda olduğunu gösterir. is + fiil-ing kullan: is calling.", fa:"«Look!» یعنی همین الان دارد اتفاق می‌افتد. از is + فعل-ing استفاده کن: is calling."},
+  call:{en:"\"Look!\" means it is happening now. Use is + verb-ing: is calling.", tr:"\"Look!\" şu anda olduğunu gösterir. is + fiil-ing kullan: is calling.", fa:"«Look!» یعنی همین الان دارد اتفاق می‌افتد. از is + فعل-ing استفاده کن: is calling."},
+  do:{en:"With \"you\" and an -ing verb, the helper is \"are\": Why are you...?", tr:"\"you\" ve -ing'li fiille yardımcı fiil \"are\" olur: Why are you...?", fa:"با «you» و فعل -ing، فعل کمکی «are» است: Why are you...؟"},
+  is:{en:"\"is\" goes with he, she, it. With \"you\" use \"are\".", tr:"\"is\" he, she, it ile kullanılır. \"you\" ile \"are\" kullan.", fa:"«is» با he، she، it می‌آید. با «you» از «are» استفاده کن."}
+ },
+ "g-A2-9":{
+  I:{en:"\"I\" is a subject word. After a verb use \"me\".", tr:"\"I\" bir özne zamiridir. Fiilden sonra \"me\" kullan.", fa:"«I» ضمیر فاعلی است. بعد از فعل «me» بگذار."},
+  my:{en:"\"my\" goes before a noun (my bag). After a verb use \"me\".", tr:"\"my\" isimden önce gelir (my bag). Fiilden sonra \"me\" kullan.", fa:"«my» قبل از اسم می‌آید (my bag). بعد از فعل «me» بگذار."},
+  he:{en:"\"he\" is a subject word. After a verb use \"him\".", tr:"\"he\" bir özne zamiridir. Fiilden sonra \"him\" kullan.", fa:"«he» ضمیر فاعلی است. بعد از فعل «him» بگذار."},
+  his:{en:"\"his\" goes before a noun (his bag). After a verb use \"him\".", tr:"\"his\" isimden önce gelir (his bag). Fiilden sonra \"him\" kullan.", fa:"«his» قبل از اسم می‌آید (his bag). بعد از فعل «him» بگذار."}
+ },
+ "g-A2-10":{
+  Not:{en:"\"Not\" alone does not make a command. Use \"Don't\" + verb.", tr:"\"Not\" tek başına emir yapmaz. \"Don't\" + fiil kullan.", fa:"«Not» به تنهایی جمله امری نمی‌سازد. «Don't» + فعل بگذار."},
+  No:{en:"\"No\" is an answer word. To say \"do not\" in a command, use \"Don't\".", tr:"\"No\" bir cevap kelimesidir. Emirde \"yapma\" demek için \"Don't\" kullan.", fa:"«No» کلمه پاسخ است. برای نهی در جمله امری «Don't» بگذار."},
+  Locking:{en:"A command uses the base verb: Lock.", tr:"Emir cümlesi yalın fiil kullanır: Lock.", fa:"جمله امری فعل ساده می‌گیرد: Lock."},
+  "To lock":{en:"No \"to\" in a command. Use the base verb: Lock.", tr:"Emirde \"to\" yoktur. Yalın fiili kullan: Lock.", fa:"در جمله امری «to» نمی‌آید. فعل ساده بگذار: Lock."}
+ }
+};
+Object.keys(GRAMMAR_DISTRACTOR_WHY_A1A2).forEach(id=>{ const it = GRAMMAR_ITEMS.find(g=>g.id===id); if(it) it.distractorWhy = GRAMMAR_DISTRACTOR_WHY_A1A2[id]; });
 
 /* ============================= VOCAB + SLANG (55 sets, A1-C1) ============================= */
 const VOCAB_SETS = [
@@ -11474,7 +11634,8 @@ function grammarQuizQuestions(item){
   const pickLabel = L('Which sentence is correct?','Hangi cümle doğru?','کدام جمله درست است؟','¿Qué oración es correcta?');
   const fixLabel = L('Fix the mistake. Which sentence is right?','Hatayı düzelt. Hangi cümle doğru?','اشتباه را درست کن. کدام جمله درست است؟','Corrige el error. ¿Qué oración es correcta?');
   const norm = s => String(s||'').toLowerCase().replace(/\s+/g,' ').trim();
-  const dwText = (map, k) => { const d = map && map[k]; if(!d) return undefined; return typeof d === 'string' ? d : L(d.en, d.tr, d.fa, d.es); };
+  // X6 hint after a first miss: the blank's own distractorWhy, else the item-level map (same option strings in every blank).
+  const dwText = (map, k) => { const d = (map && map[k]) || (item.distractorWhy && item.distractorWhy[k]); if(!d) return undefined; return typeof d === 'string' ? d : L(d.en, d.tr, d.fa, d.es); };
   const mk = (prompt, right, wrongs, key, hintFor, tr) => {
     const opts = shuffle([right].concat(wrongs));
     const q = {prompt, options:opts, correct:opts.indexOf(right), why, key:norm(key), answerText:String(key)};
