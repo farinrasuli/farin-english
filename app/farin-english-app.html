@@ -391,6 +391,12 @@
   .between{justify-content:space-between;}
 
   .card{background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:var(--radius); padding:18px; box-shadow:var(--clay-shadow-soft);}
+  .cj-part{padding:10px 16px; border-radius:999px; border:2px solid var(--border); background:var(--bg-elevated); color:var(--ink); font-weight:800; font-size:14px; box-shadow:var(--clay-shadow-soft); cursor:pointer;}
+  .cj-part.wide{border-radius:18px; width:100%; text-align:start; font-weight:600; line-height:1.4;}
+  .cj-part.on{border-color:var(--clay-lavender-deep); background:var(--cat-diag-soft);}
+  .cj-part.ok{border-color:var(--clay-sage-deep); background:var(--cat-voc-soft); color:var(--ink);}
+  .cj-part.bad{border-color:var(--clay-coral-deep); background:var(--cat-lis-soft); color:var(--ink);}
+  .cj-part.miss{border-color:var(--clay-orange-deep); background:var(--cat-gram-soft); color:var(--ink); border-style:dashed;}
   .card-flat{background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:var(--radius); padding:16px; box-shadow:var(--clay-shadow-soft);}
   .badge-unlock-shine{position:relative; overflow:hidden; box-shadow:var(--glow-badge), var(--shadow); animation:badge-pulse 1.6s ease-in-out infinite;}
   .badge-unlock-shine::after{content:''; position:absolute; top:-60%; left:-60%; width:35%; height:220%; background:linear-gradient(120deg, transparent, rgba(255,255,255,.8), transparent); transform:rotate(22deg); animation:badge-shine-sweep 2.2s ease-in-out infinite; pointer-events:none;}
@@ -1056,11 +1062,16 @@ const GOALS_META = {
 };
 const GOAL_ORDER = ['career','travel','exam','immigration','everyday'];
 const LEVEL_OPTIONS = [
-  {value:'A1', label:{en:'I know a few words and phrases', tr:'Birkaç kelime ve kalıp biliyorum', fa:'چند کلمه و عبارت بلدم'}},
-  {value:'A2', label:{en:'I can have very basic conversations', tr:'Çok temel sohbetler yapabilirim', fa:'می‌توانم مکالمه‌های خیلی ساده داشته باشم'}},
-  {value:'B1', label:{en:'I can talk about familiar topics', tr:'Bildiğim konularda konuşabilirim', fa:'می‌توانم درباره موضوعات آشنا صحبت کنم'}},
-  {value:'B2', label:{en:'I can discuss most topics comfortably', tr:'Çoğu konuyu rahatça tartışabilirim', fa:'می‌توانم راحت درباره بیشتر موضوعات صحبت کنم'}},
-  {value:'C1', label:{en:"I'm fluent but want to sound more natural", tr:'Akıcıyım ama daha doğal konuşmak istiyorum', fa:'روان صحبت می‌کنم ولی می‌خواهم طبیعی‌تر باشم'}}
+  {value:'A1', label:{en:"I know a few words and phrases", tr:"Birkaç kelime ve kalıp biliyorum", fa:"چند کلمه و عبارت بلدم"},
+   sub:{en:"I can say hello and my name, not much more.", tr:"Merhaba diyip adımı söyleyebiliyorum, fazlası değil.", fa:"می‌توانم سلام کنم و اسمم را بگویم، نه بیشتر."}},
+  {value:'A2', label:{en:"I can handle simple everyday situations", tr:"Basit günlük durumların üstesinden gelebiliyorum", fa:"از پس موقعیت‌های ساده روزمره برمی‌آیم"},
+   sub:{en:"Order food, ask the way, talk about my family.", tr:"Yemek sipariş etmek, yol sormak, ailemden bahsetmek.", fa:"غذا سفارش بدهم، آدرس بپرسم، درباره خانواده‌ام بگویم."}},
+  {value:'B1', label:{en:"I can talk about familiar topics and my experiences", tr:"Bildiğim konular ve deneyimlerim hakkında konuşabiliyorum", fa:"می‌توانم درباره موضوعات آشنا و تجربه‌هایم صحبت کنم"},
+   sub:{en:"I get by when I travel, but I make mistakes and search for words.", tr:"Seyahatte idare ediyorum ama hata yapıyor, kelime arıyorum.", fa:"در سفر از پسش برمی‌آیم، ولی اشتباه می‌کنم و دنبال کلمه می‌گردم."}},
+  {value:'B2', label:{en:"I can discuss most topics comfortably", tr:"Çoğu konuyu rahatça tartışabiliyorum", fa:"می‌توانم راحت درباره بیشتر موضوعات بحث کنم"},
+   sub:{en:"I can explain my opinion and follow films with subtitles.", tr:"Fikrimi açıklayabiliyor, altyazılı filmleri takip edebiliyorum.", fa:"می‌توانم نظرم را توضیح بدهم و فیلم را با زیرنویس دنبال کنم."}},
+  {value:'C1', label:{en:"I'm fluent but want to sound more natural", tr:"Akıcıyım ama daha doğal konuşmak istiyorum", fa:"روان صحبت می‌کنم ولی می‌خواهم طبیعی‌تر باشم"},
+   sub:{en:"I want nuance, idioms and a professional tone.", tr:"İnce farklar, deyimler ve profesyonel bir ton istiyorum.", fa:"ظرافت، اصطلاحات و لحن حرفه‌ای می‌خواهم."}}
 ];
 const LEARNER_OPTIONS = [
   {value:'analyst', icon:'search', label:{en:'Seeing the rule explained clearly', tr:'Kuralın açıkça anlatılmasını görmek', fa:'دیدن قانون با توضیح واضح'},
@@ -2406,6 +2417,7 @@ const GENRE_LABEL = {
   Adventure:{en:'Adventure', tr:'Macera', ic:'mountain', cat:'gram', bannerColor:'#ffd9a8', video:'story-adventure.mp4', poster:'story-adventure-cutout.png'},
   Romance:{en:'Romance', tr:'Romantik', ic:'heart', cat:'lis', bannerColor:'#ffc2dc', video:'story-romance.mp4', poster:'story-romance-cutout.png'},
   Thriller:{en:'Thriller', tr:'Gerilim', ic:'bolt', cat:'diag', bannerColor:'#d7ccff', video:'story-thriller.mp4', poster:'story-thriller-cutout.png'},
+  Workplace:{en:'Workplace', tr:'İş Hayatı', ic:'career', cat:'diag', bannerColor:'#d7ccff', video:'story-thriller.mp4', poster:'story-thriller-cutout.png'},
   Documentary:{en:'Documentary', tr:'Belgesel', ic:'clapper', cat:'review', bannerColor:'#ffe28a', video:'story-documentary.mp4', poster:'story-documentary-cutout.png'}
 };
 const STORY_LIBRARY = [
@@ -3299,6 +3311,162 @@ const STORY_LIBRARY = [
  writingPractice:{prompt:'Write 200-250 words: "Explain how modern telescopes help scientists understand the history of the universe." Include: Why light takes time to travel. How telescopes observe distant galaxies. What scientists have learned from these observations. Why astronomy remains important today.'},
  message:{en:'Every star we see is more than a point of light—it is a messenger from the past. By studying the universe with curiosity and evidence, we not only uncover the history of the cosmos but also deepen our understanding of our own place within it.'}}
 ];
+
+/* ============================= PAID COURSES: DATA (Trello B5O9MOM8) =============================
+   Spec: Claude/specs/lxd-special-courses-2026-10-04.md section 6. Course content reuses the
+   free arrays' shapes with two extra fields, `course` and `unit`. Every free pool
+   (roadmap, goal browse, placement, games) reads the *_FREE arrays below, never the full
+   arrays, so paid items never leak into the free path. Lookups by id still use the full arrays. */
+const COURSE_EXTRA = {speaking:[], judge:[], writing:[], perspective:[]};
+GRAMMAR_ITEMS.push({id:'c-hr-3-2-g', level:'B1', course:'hr', unit:'hr-3-2', title:'Questions about past experience', titleTr:'Geçmiş deneyim soruları',
+ exp:{en:"A behavioural question asks about one real, finished moment, so the story is in the past simple: \"Tell me about a time when you solved a conflict.\" Not \"have solved\": the question points to one specific time, and specific finished times take the past simple. The second trap is the polite form. Once you start with \"Can you tell me...\" or \"Could you explain...\", the rest of the sentence goes back to normal statement order: \"Can you tell me what you did next?\", never \"what did you do next?\". The polite opener has already done the asking. Quick test: cover the opener. If what is left sounds like a normal sentence (\"what you did next\"), it's right.",
+     tr:"Davranışsal bir soru gerçek ve bitmiş tek bir anı sorar, bu yüzden hikâye past simple ile anlatılır: \"Tell me about a time when you solved a conflict.\" \"Have solved\" değil, çünkü soru belirli tek bir zamanı gösterir. İkinci tuzak nazik soru kalıbıdır. Türkçede soru zaten fiilin içindedir (\"ne yaptığını anlatır mısın?\") ve kelime sırası değişmez. İngilizcede ise \"Can you tell me...\" ile başladıktan sonra cümlenin geri kalanı düz cümle sırasına döner: \"Can you tell me what you did next?\", asla \"what did you do next?\" değil. Kısa test: baştaki kalıbı kapat; kalan kısım normal bir cümle gibi okunuyorsa (\"what you did next\") doğrudur.",
+     fa:"سؤال رفتاری درباره‌ی یک لحظه‌ی واقعی و تمام‌شده است، پس داستان با گذشته‌ی ساده گفته می‌شود: \"Tell me about a time when you solved a conflict.\" نه \"have solved\"، چون سؤال به یک زمان مشخص اشاره می‌کند. تله‌ی دوم شکل مؤدبانه است. در فارسی ترتیب کلمات در سؤال عوض نمی‌شود («می‌شه بگی بعدش چی کار کردی؟»). در انگلیسی وقتی با \"Can you tell me...\" شروع می‌کنی، بقیه‌ی جمله به ترتیب جمله‌ی خبری برمی‌گردد: \"Can you tell me what you did next?\"، نه \"what did you do next?\". آزمون سریع: شروع مؤدبانه را بپوشان؛ اگر بقیه مثل یک جمله‌ی معمولی بود (\"what you did next\")، درست است."},
+ formsTable:{headers:{en:['Purpose','Pattern'], tr:['Amaç','Kalıp'], fa:['هدف','الگو']},
+   rows:[['Open the story','Tell me about a time when you + past simple'],['Get the action','What exactly did you do?'],['Get the result','What was the result?'],['Polite version','Can you tell me what you did / why you decided ...?']]},
+ wrong:'Tell me about a time when you have solved a conflict.', right:'Tell me about a time when you solved a conflict.',
+ blank:{sentence:'Tell me about a time when you ___ a difficult customer.', word:'handled', distractors:['handle','are handling']},
+ wrong2:'Can you tell me what did you do next?', right2:'Can you tell me what you did next?',
+ blank2:{sentence:'Could you tell me ___ the team?', word:'why you left', distractors:['why did you leave','why left you']}});
+VOCAB_SETS.push({id:'c-hr-3-2-v', level:'B1', category:'vocab', course:'hr', unit:'hr-3-2', goals:['career'], title:{en:'Interview Evidence', tr:'Mülakatta Kanıt', fa:'شواهد در مصاحبه'}, cards:[
+ {word:'competency', sentence:'Teamwork is one of the five competencies for this role.', meaning:{en:'A skill or behaviour the job needs.',tr:'yetkinlik.',fa:'شایستگی'}},
+ {word:'behavioural question', sentence:'Start each behavioural question with "Tell me about a time".', meaning:{en:'A question about what someone really did in the past.',tr:'davranışsal soru.',fa:'سؤال رفتاری'}},
+ {word:'follow-up question', sentence:'Her follow-up question showed he had not led the project.', meaning:{en:'A second question that asks for more detail.',tr:'takip sorusu.',fa:'سؤال تکمیلی'}},
+ {word:'evidence', sentence:'We need evidence, not opinions, in the interview notes.', meaning:{en:'Facts that show something is true.',tr:'kanıt.',fa:'شاهد، مدرک'}},
+ {word:'outcome', sentence:'What was the outcome of your decision?', meaning:{en:'The final result of an action.',tr:'sonuç.',fa:'نتیجه'}},
+ {word:'take ownership', sentence:'Good candidates take ownership of their mistakes.', meaning:{en:'To accept that something is your responsibility.',tr:'sorumluluk almak, sahiplenmek.',fa:'مسئولیت پذیرفتن'}},
+ {word:'under pressure', sentence:'How do you work under pressure?', meaning:{en:'When there is stress, little time or high stakes.',tr:'baskı altında.',fa:'تحت فشار'}},
+ {word:'stakeholder', sentence:'He kept every stakeholder updated during the move.', meaning:{en:'A person affected by or interested in a project.',tr:'paydaş.',fa:'ذی‌نفع'}},
+ {word:'walk me through', sentence:'Walk me through what happened that day.', meaning:{en:'Explain something step by step.',tr:'adım adım anlat.',fa:'قدم به قدم توضیح بده'}},
+ {word:'red flag', sentence:'Blaming every past manager is a red flag.', meaning:{en:'A warning sign that something may be wrong.',tr:'tehlike işareti.',fa:'زنگ خطر'}}]});
+STORY_LIBRARY.push({id:'c-hr-3-2-s', level:'B1', genre:'Workplace', course:'hr', unit:'hr-3-2', title:{en:'The Perfect Answer', tr:'Mükemmel Cevap', fa:'جواب بی‌نقص'},
+ text:"Deniz arrived ten minutes early. He wore a new blue shirt and held his phone in both hands, like it might run away.\n\nLeyla smiled and opened her notes. \"Thanks for coming in, Deniz. Today I'm going to ask you about real situations from your past jobs. There are no trick questions. I just want to hear what you actually did.\"\n\n\"Of course,\" Deniz said.\n\n\"Tell me about a time when you had a problem with a delivery deadline.\"\n\nDeniz answered quickly. \"In my last company we always worked under pressure. We were a great team. We planned everything carefully and we never missed a deadline.\"\n\nIt was a nice answer. It was also empty. Leyla wrote one word in her notes: we.\n\n\"That sounds like a strong team,\" she said. \"Can you walk me through one specific delivery? What exactly did you do?\"\n\nDeniz stopped. For a second he looked at the window. Then he spoke more slowly.\n\n\"Last March, a truck broke down near Izmit with medicine for three hospitals. My manager was on holiday. I called two other drivers, I asked the warehouse to repack the boxes into a smaller van, and I phoned each hospital myself to give them a new time.\"\n\n\"And what was the outcome?\"\n\n\"Two hospitals got everything on time. One was four hours late.\" He paused. \"I told them the truth before they had to ask. They still work with us.\"\n\nLeyla stopped writing for a moment. That was the answer. Not perfect, but real: a situation, his actions, a result, and he took ownership of the late one.\n\nAfter he left, Omar called from Dubai. \"So? Is he good?\"\n\n\"His first answer was a script,\" Leyla said. \"His second answer was evidence.\"\n\nOn the bus home, Deniz kept replaying the moment he looked at the window. Had he said too much about the late hospital? He had no idea that it was the best thing he said all day.",
+ vocab:[{word:'trick question', en:'A question made to catch you out.', tr:'tuzak soru', fa:'سؤال انحرافی'},{word:'deadline', en:'The latest time something must be done.', tr:'son teslim tarihi', fa:'مهلت'},{word:'empty', en:'Here: without real content or detail.', tr:'içi boş', fa:'توخالی'},{word:'specific', en:'Clear and exact, about one thing.', tr:'belirli, somut', fa:'مشخص'},{word:'break down', en:'To stop working (a machine or vehicle).', tr:'arıza yapmak, bozulmak', fa:'خراب شدن'},{word:'repack', en:'To pack again in a different way.', tr:'yeniden paketlemek', fa:'دوباره بسته‌بندی کردن'},{word:'script', en:'Here: words prepared and repeated, not real.', tr:'ezber metin', fa:'متن از پیش حفظ‌شده'},{word:'replay', en:'To go over something again in your mind.', tr:'kafasında tekrar tekrar düşünmek', fa:'دوباره در ذهن مرور کردن'}],
+ quiz:[{prompt:"Why did Leyla write the word \"we\" in her notes?", options:["Deniz talked about the team, not his own actions","Deniz forgot the team's name","She wanted to hire the whole team"], correct:0},
+       {prompt:"Which follow-up question asks for the result?", options:["What was the outcome?","Can you walk me through it?","Thanks for coming in."], correct:0},
+       {prompt:"Choose the correct polite question.", options:["Can you tell me what you did?","Can you tell me what did you do?","Can you tell me what you do did?"], correct:0},
+       {prompt:"How did Deniz probably feel on the bus?", options:["Unsure, because he told her about the late delivery","Angry with Leyla","Sure that he had failed the test on purpose"], correct:0}]});
+COURSE_EXTRA.speaking.push({id:'hr-3-2', course:'hr', unit:'hr-3-2', topic:{en:'Asking Behavioural Questions',tr:'Davranışsal Sorular Sormak',fa:'پرسیدن سؤال‌های رفتاری'},
+ warmup:{en:'Think of a great colleague. What did they once do that showed it?',tr:'Harika bir iş arkadaşını düşün. Bunu gösteren, bir zamanlar yaptığı şey neydi?',fa:'به یک همکار عالی فکر کن. یک بار چه کاری کرد که این را نشان داد؟'},
+ questions:[{en:'Ask the candidate about a time they missed a deadline.',tr:'Adaya bir son teslim tarihini kaçırdığı bir zamanı sor.',fa:'از داوطلب درباره‌ی زمانی بپرس که یک مهلت را از دست داد.'},
+   {en:'Ask about a time they disagreed with a manager.',tr:'Bir yöneticiyle aynı fikirde olmadığı bir zamanı sor.',fa:'درباره‌ی زمانی بپرس که با یک مدیر مخالف بود.'},
+   {en:'Ask about a time they had to learn something new very fast.',tr:'Çok hızlı yeni bir şey öğrenmek zorunda kaldığı bir zamanı sor.',fa:'درباره‌ی زمانی بپرس که مجبور شد چیزی را خیلی سریع یاد بگیرد.'},
+   {en:'Ask about a mistake they made at work.',tr:'İşte yaptığı bir hatayı sor.',fa:'درباره‌ی اشتباهی که در کار کرد بپرس.'}],
+ followups:[{en:'The answer you hear is all "we". Ask a follow-up that gets "I".',tr:'Duyduğun cevap hep "biz" diyor. "Ben" cevabı getirecek bir takip sorusu sor.',fa:'جوابی که می‌شنوی همه‌اش «ما» است. یک سؤال تکمیلی بپرس که «من» را بیرون بکشد.'}],
+ expressions:[{phrase:'Tell me about a time when...', meaning:{en:'The standard opener for a behavioural question.',tr:'Davranışsal sorunun standart girişi.',fa:'شروع استاندارد سؤال رفتاری'}},
+   {phrase:'What exactly did you do?', meaning:{en:'Moves from the team to the person.',tr:'Takımdan kişiye geçer.',fa:'از تیم به خود فرد می‌رسد'}},
+   {phrase:'What was the outcome?', meaning:{en:'Asks for the result, the R in STAR.',tr:'Sonucu sorar, STAR\'daki R.',fa:'نتیجه را می‌پرسد، حرف R در STAR'}}],
+ culture:{en:'In many UK and US interviews, "I" is expected when you describe your own work, and too much "we" can hide what you did. Candidates from cultures where talking about yourself feels like boasting often say "we" out of modesty. A good interviewer knows this and simply asks again, kindly.',tr:'Birçok İngiliz ve Amerikan mülakatında kendi işini anlatırken "ben" demen beklenir; fazla "biz" ne yaptığını gizleyebilir. Kendinden bahsetmenin övünmek gibi algılandığı kültürlerden gelen adaylar alçakgönüllülükten "biz" der. İyi bir mülakatçı bunu bilir ve nazikçe yeniden sorar.',fa:'در بسیاری از مصاحبه‌های بریتانیا و آمریکا انتظار می‌رود وقتی کار خودت را توضیح می‌دهی بگویی «من»، و «ما»ی زیاد کار خودت را پنهان می‌کند. داوطلب‌هایی که از فرهنگ‌هایی می‌آیند که حرف زدن از خود را خودستایی می‌دانند، از روی فروتنی «ما» می‌گویند. یک مصاحبه‌گر خوب این را می‌داند و با مهربانی دوباره می‌پرسد.'}});
+COURSE_EXTRA.judge.push({id:'c-hr-3-2-j', course:'hr', unit:'hr-3-2', type:'judge', parts:['Situation','Task','Action','Result'],
+ items:[
+  {answer:"In my last job we had a lot of angry customers, but our team was very good at calming them down.", present:['Situation'], fix:{en:'No action by the speaker and no result. Ask: "What exactly did you do?"',tr:'Konuşanın eylemi ve sonuç yok. Sor: "What exactly did you do?"',fa:'نه کار خود گوینده هست نه نتیجه. بپرس: "What exactly did you do?"'}},
+  {answer:"A client was unhappy with a late shipment. I had to keep the account. I called him the same day, explained the delay and offered free express delivery. He renewed his contract a month later.", present:['Situation','Task','Action','Result'], fix:null},
+  {answer:"Our system crashed during payroll week, so I stayed late and checked every salary by hand.", present:['Situation','Action'], fix:{en:'Good action, but no result. Ask: "What was the outcome?"',tr:'Eylem iyi ama sonuç yok. Sor: "What was the outcome?"',fa:'کار خوب است ولی نتیجه ندارد. بپرس: "What was the outcome?"'}}]});
+COURSE_EXTRA.writing.push({id:'c-hr-3-2-w', course:'hr', unit:'hr-3-2', type:'writing', difficulty:'medium',
+ prompt:{en:"Write Leyla's interview notes on Deniz's second answer (the truck story) for Omar. Facts only: situation, his actions, the result, and one line of evaluation.",
+         tr:"Leyla'nın, Deniz'in ikinci cevabıyla (kamyon hikâyesi) ilgili Omar için yazdığı mülakat notlarını yaz. Sadece gerçekler: durum, yaptıkları, sonuç ve tek satır değerlendirme.",
+         fa:"یادداشت‌های مصاحبه‌ی لیلا درباره‌ی جواب دوم دنیز (داستان کامیون) را برای عمر بنویس. فقط واقعیت‌ها: موقعیت، کارهایی که کرد، نتیجه و یک خط ارزیابی."},
+ model:"Q2 (deadline problem). Situation: March, truck broke down with medicine for 3 hospitals; manager away. Actions: he called 2 drivers, had boxes repacked into a van, phoned each hospital with a new time. Result: 2 of 3 on time, 1 four hours late; client kept. Evaluation: clear evidence of ownership and calm problem-solving under pressure.",
+ frame:"Q2 (deadline problem). Situation: ___. Actions: he ___, he ___ and he ___. Result: ___. Evaluation: clear evidence of ___.",
+ words:[{word:'evidence'},{word:'outcome'},{word:'under pressure'}], minWords:45, minSentences:4,
+ rubric:['Task done: S, A, R and evaluation all present','Organised: one label per part','Language: past simple for actions; no opinions in the fact lines','Tone: neutral and fair, no judgement words like "lazy" or "amazing"']});
+COURSE_EXTRA.perspective.push({id:'c-hr-3-2-p', course:'hr', unit:'hr-3-2', type:'perspective',
+ prompt:{en:"You are Deniz on the bus home. Write 2-3 sentences in first person: what are you worried about, and what do you wish you had said?",
+  tr:"Eve giden otobüsteki Deniz'sin. Birinci tekil şahısla 2-3 cümle yaz: neden endişelisin ve keşke ne söyleseydim diyorsun?",
+  fa:"تو دنیز هستی در اتوبوس برگشت به خانه. با اول‌شخص ۲ یا ۳ جمله بنویس: نگران چه هستی و آرزو داشتی چه می‌گفتی؟"}});
+const GRAMMAR_ITEMS_FREE = GRAMMAR_ITEMS.filter(x=>!x.course);
+const VOCAB_SETS_FREE = VOCAB_SETS.filter(x=>!x.course);
+const STORY_LIBRARY_FREE = STORY_LIBRARY.filter(x=>!x.course);
+/* COURSES: fixed order, no generated sequencing. `status:'live'` courses open; `'soon'` are cards only.
+   `freeUnits` is the free sample (spec 7.2). `premiumGate` is a placeholder: no billing exists yet. */
+const COURSES = [];
+const _U = (id,en,tr,cEn,cTr,sess)=>({id, title:{en,tr}, cando:{en:cEn,tr:cTr}, sessions:sess});
+const _S3 = [['review','story','grammar'],['vocab','game'],['speaking','writing','perspective','exit']];
+COURSES.push({
+  id: 'hr', entry: 'B1', tracks: ['B1', 'B2'], weeks: 12, sessionMinutes: [20, 25],
+  title: { en: 'HR & Business English', tr: 'İK ve İş İngilizcesi', fa: 'انگلیسی منابع انسانی و کسب‌وکار' },
+  promise: {
+    en: 'Do 24 real HR tasks in English: interviews, job ads, feedback talks, policy emails and meetings.',
+    tr: 'İK\'nın 24 gerçek görevini İngilizce yap: mülakat, iş ilanı, geri bildirim görüşmesi, politika e-postası ve toplantılar.',
+    fa: 'بیست‌وچهار کار واقعی منابع انسانی را به انگلیسی انجام بده: مصاحبه، آگهی استخدام، گفتگوی بازخورد، ایمیل سیاست‌ها و جلسه‌ها.'
+  },
+  story: { character: 'Leyla Karimi', company: 'Atlas Logistics', cast: ['Omar', 'Ms Clarke', 'Deniz', 'Arash'] },
+  modules: [
+    {
+      id: 'hr-m1', weeks: [1, 2],
+      title: { en: 'Working in English', tr: 'İngilizce ile çalışmak', fa: 'کار کردن به انگلیسی' },
+      units: [
+        { id: 'hr-1-1', title: { en: 'My role, my team', tr: 'Görevim, ekibim', fa: 'نقش من، تیم من' },
+          cando: { en: 'I can describe my own role and the work of the HR team.', tr: 'Kendi görevimi ve İK ekibinin işini anlatabilirim.', fa: 'می‌توانم نقش خودم و کار تیم منابع انسانی را توضیح بدهم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['speaking', 'writing', 'perspective', 'exit']] },
+        { id: 'hr-1-2', title: { en: 'Emails that get answers', tr: 'Cevap alan e-postalar', fa: 'ایمیل‌هایی که جواب می‌گیرند' },
+          cando: { en: 'I can write a clear, polite request and a reply.', tr: 'Açık ve kibar bir rica ile bir yanıt yazabilirim.', fa: 'می‌توانم یک درخواست روشن و مؤدبانه و یک پاسخ بنویسم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['writing', 'speaking', 'perspective', 'exit']] },
+        { id: 'hr-1-3', title: { en: 'Calls and video meetings', tr: 'Telefon ve görüntülü görüşmeler', fa: 'تماس‌ها و جلسه‌های ویدیویی' },
+          cando: { en: 'I can check, clarify, spell names and confirm numbers and dates.', tr: 'Teyit edebilir, açıklık isteyebilir, isim hecelleyebilir, sayı ve tarihleri doğrulayabilirim.', fa: 'می‌توانم تأیید بگیرم، توضیح بخواهم، نام‌ها را هجی کنم و اعداد و تاریخ‌ها را تأیید کنم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['speaking', 'writing', 'perspective', 'exit']] },
+        { id: 'hr-1-4', title: { en: 'Small talk and rapport', tr: 'Sohbet ve yakınlık kurmak', fa: 'گپ کوتاه و ایجاد صمیمیت' },
+          cando: { en: 'I can start and end small talk with people from different cultures.', tr: 'Farklı kültürlerden insanlarla sohbeti başlatıp bitirebilirim.', fa: 'می‌توانم گپ کوتاه با افراد فرهنگ‌های مختلف را شروع و تمام کنم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['speaking', 'writing', 'perspective', 'exit']] }
+      ],
+      checkpoint: { id: 'hr-cp-1', title: { en: 'Checkpoint 1: Intro to Ms Clarke', tr: 'Kontrol 1: Ms Clarke\'a tanışma', fa: 'ایستگاه ۱: معرفی به خانم کلارک' }, sessions: [['exit'], ['writing', 'speaking', 'perspective']] }
+    },
+    {
+      id: 'hr-m2', weeks: [3, 4],
+      title: { en: 'Recruitment', tr: 'İşe alım', fa: 'استخدام' },
+      units: [
+        { id: 'hr-2-1', title: { en: 'Job descriptions', tr: 'İş tanımları', fa: 'شرح شغل' },
+          cando: { en: 'I can turn a manager\'s notes into a job description and person specification.', tr: 'Bir yöneticinin notlarını iş tanımına ve aday profiline çevirebilirim.', fa: 'می‌توانم یادداشت‌های یک مدیر را به شرح شغل و مشخصات فرد مورد نظر تبدیل کنم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['writing', 'speaking', 'perspective', 'exit']] },
+        { id: 'hr-2-2', title: { en: 'Job ads that attract', tr: 'Çekici iş ilanları', fa: 'آگهی‌های استخدام جذاب' },
+          cando: { en: 'I can write an inclusive, attractive job ad.', tr: 'Kapsayıcı ve çekici bir iş ilanı yazabilirim.', fa: 'می‌توانم یک آگهی استخدام فراگیر و جذاب بنویسم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['judge', 'writing', 'perspective', 'exit']] },
+        { id: 'hr-2-3', title: { en: 'Screening calls', tr: 'Ön eleme görüşmeleri', fa: 'تماس‌های غربالگری' },
+          cando: { en: 'I can run a 5-question phone screen and take notes.', tr: '5 soruluk bir telefon ön elemesi yapıp not alabilirim.', fa: 'می‌توانم یک غربالگری تلفنی پنج‌سؤالی انجام بدهم و یادداشت بردارم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['speaking', 'writing', 'perspective', 'exit']] },
+        { id: 'hr-2-4', title: { en: 'Shortlist and report', tr: 'Kısa liste ve rapor', fa: 'فهرست کوتاه و گزارش' },
+          cando: { en: 'I can compare candidates with evidence in a shortlist email.', tr: 'Adayları kanıtlarla karşılaştıran bir kısa liste e-postası yazabilirim.', fa: 'می‌توانم در یک ایمیل فهرست کوتاه، داوطلبان را با شواهد مقایسه کنم.' },
+          sessions: [['review', 'story', 'grammar'], ['vocab', 'game'], ['writing', 'speaking', 'perspective', 'exit']] }
+      ],
+      checkpoint: { id: 'hr-cp-2', title: { en: 'Checkpoint 2: Job ad + shortlist', tr: 'Kontrol 2: İlan + kısa liste', fa: 'ایستگاه ۲: آگهی + فهرست کوتاه' }, sessions: [['exit'], ['writing', 'perspective']] }
+    }
+  ]
+});
+Object.assign(COURSES[0], {
+  status:'live', cat:'diag', icon:'career', freeUnits:['hr-3-2'],
+  modules: COURSES[0].modules.concat([
+    {id:'hr-m3', weeks:[5,6], title:{en:'Selection and interviews', tr:'Seçme ve mülakatlar'}, units:[
+      _U('hr-3-1','Opening the interview','Mülakatı açmak','I can welcome a candidate, build rapport and explain the process.','Adayı karşılayabilir, yakınlık kurabilir ve süreci açıklayabilirim.',_S3),
+      _U('hr-3-2','Behavioural questions','Davranışsal sorular','I can ask behavioural (STAR) questions and follow up for evidence.','Davranışsal (STAR) sorular sorabilir ve kanıt için takip sorusu sorabilirim.',[['review','story','grammar'],['vocab','game'],['speaking','judge','writing','perspective','exit']]),
+      _U('hr-3-3','Notes and evaluation','Notlar ve değerlendirme','I can write objective interview notes and a recommendation.','Nesnel mülakat notları ve bir öneri yazabilirim.',_S3),
+      _U('hr-3-4','Offers and rejections','Teklifler ve ret mesajları','I can make an offer by phone and write a kind, clear rejection.','Telefonla teklif yapabilir, nazik ve net bir ret mesajı yazabilirim.',_S3)],
+     checkpoint:{id:'hr-cp-3', title:{en:'Checkpoint 3: Mini interview + rejection email', tr:'Kontrol 3: Mini mülakat + ret e-postası'}, sessions:[['exit'],['writing','speaking','perspective']]}},
+    {id:'hr-m4', weeks:[7,8], title:{en:'Onboarding and employee relations', tr:'Uyum ve çalışan ilişkileri'}, units:[
+      _U('hr-4-1','Policies in plain English','Politikalar sade İngilizce ile','I can explain contract terms and a policy simply.','Sözleşme şartlarını ve bir politikayı sade biçimde açıklayabilirim.',_S3),
+      _U('hr-4-2','Onboarding week','İlk hafta','I can plan and present a first-week schedule.','İlk hafta programını planlayıp sunabilirim.',_S3),
+      _U('hr-4-3','Hearing a complaint','Şikâyeti dinlemek','I can listen, summarise back and agree next steps.','Dinleyebilir, özetleyebilir ve sonraki adımlar üzerinde anlaşabilirim.',_S3),
+      _U('hr-4-4','Difficult conversations','Zor görüşmeler','I can raise lateness or conduct calmly and fairly.','Gecikme veya davranış konusunu sakin ve adil biçimde açabilirim.',_S3)],
+     checkpoint:{id:'hr-cp-4', title:{en:'Checkpoint 4: Policy + complaint summary', tr:'Kontrol 4: Politika + şikâyet özeti'}, sessions:[['exit'],['writing','speaking','perspective']]}},
+    {id:'hr-m5', weeks:[9,10], title:{en:'Performance and development', tr:'Performans ve gelişim'}, units:[
+      _U('hr-5-1','Goals that work','İşe yarayan hedefler','I can turn vague goals into specific, measurable ones.','Belirsiz hedefleri somut ve ölçülebilir hedeflere çevirebilirim.',_S3),
+      _U('hr-5-2','Feedback that helps','İşe yarayan geri bildirim','I can give specific, behaviour-based feedback.','Somut ve davranışa dayalı geri bildirim verebilirim.',_S3),
+      _U('hr-5-3','The appraisal meeting','Değerlendirme toplantısı','I can run a 5-step appraisal meeting.','5 adımlı bir değerlendirme toplantısı yürütebilirim.',_S3),
+      _U('hr-5-4','Development plans','Gelişim planları','I can recommend training and write a development plan.','Eğitim önerebilir ve bir gelişim planı yazabilirim.',_S3)],
+     checkpoint:{id:'hr-cp-5', title:{en:'Checkpoint 5: Feedback + development plan', tr:'Kontrol 5: Geri bildirim + gelişim planı'}, sessions:[['exit'],['writing','speaking','perspective']]}},
+    {id:'hr-m6', weeks:[11,12], title:{en:'Reward, change and leading', tr:'Ödül, değişim ve liderlik'}, units:[
+      _U('hr-6-1','Explaining a package','Paketi açıklamak','I can explain pay and benefits with numbers.','Maaş ve yan hakları rakamlarla açıklayabilirim.',_S3),
+      _U('hr-6-2','Negotiating an offer','Teklif pazarlığı','I can negotiate salary and terms on both sides.','Maaş ve şartları iki taraf için de pazarlık edebilirim.',_S3),
+      _U('hr-6-3','Meetings and HR data','Toplantılar ve İK verisi','I can lead a short meeting and present turnover data.','Kısa bir toplantı yönetebilir ve işten ayrılma verisini sunabilirim.',_S3),
+      _U('hr-6-4','Change and exits','Değişim ve ayrılışlar','I can announce a change and run an exit interview.','Bir değişikliği duyurabilir ve çıkış görüşmesi yapabilirim.',_S3)],
+     final:{id:'hr-final', title:{en:'Final project: Run a hiring cycle', tr:'Final projesi: Bir işe alım döngüsü yürüt'}}}
+  ])
+});
+COURSES.push({id:'travel', status:'soon', cat:'voc', icon:'travel', entry:'A2', weeks:8, modules:[], freeUnits:[],
+  title:{en:'Travel English', tr:'Seyahat İngilizcesi'},
+  promise:{en:'Handle the 15 core trip situations, from booking to complaints.', tr:'Rezervasyondan şikâyete 15 temel seyahat durumunu rahatça yönet.'}});
+COURSES.push({id:'ielts', status:'soon', cat:'gram', icon:'exam', entry:'B1', weeks:12, modules:[], freeUnits:[],
+  title:{en:'IELTS Preparation', tr:'IELTS Hazırlık'},
+  promise:{en:'Master the test format and the 8 marking criteria, with timed mock tests.', tr:'Sınav formatında ve 8 puanlama ölçütünde ustalaş; süreli deneme sınavlarıyla.'}});
 
 /* ============================= BADGES ============================= */
 const BADGES = [
@@ -6339,7 +6507,7 @@ function renderDiagLevel(){
         ${LEVEL_OPTIONS.map(o=>`
           <button class="opt" data-action="diag-level" data-value="${o.value}">
             <span class="opt-ic" style="font-weight:800; color:var(--cat-diag);">${o.value}</span>
-            <span class="opt-main">${esc(L(o.label.en,o.label.tr,o.label.fa))}</span>
+            <span class="opt-main">${esc(L(o.label.en,o.label.tr,o.label.fa))}<small style="display:block; margin-top:3px; font-weight:600; font-size:12.5px; color:var(--ink-soft); line-height:1.4;">${esc(L(o.sub.en,o.sub.tr,o.sub.fa))}</small></span>
           </button>`).join('')}
       </div>
     </div>
@@ -6775,6 +6943,7 @@ function renderDashboard(){
         </div>
       </button>
 
+      ${coursesDashTile()}
       <h2 class="display" style="font-size:16px; margin:22px 0 12px;">${L("Let's keep training","Hadi antrenmana devam",'بیا تمرین را ادامه بدیم')}</h2>
       ${renderRoadmapCard(p)}
     </div>
@@ -11857,6 +12026,441 @@ const HANDLERS = {
   'back'(){ try{ history.back(); }catch(e){ goBack(); } }
 };
 
+
+/* ============================= PAID COURSES: ENGINE + SCREENS (Trello B5O9MOM8) =============================
+   Views: courses-home, course-detail, course-unit, course-step, course-gate.
+   Node types here: review, story, grammar, vocab, game (reuse the free viewers), plus the new
+   speaking, judge, writing, perspective, exit. `mock` and `branch` are reserved stubs.
+   Premium gate is a PLACEHOLDER: there is no billing. Only course.freeUnits open today. */
+const COURSE_TYPE_META = {
+  review:{en:'Spaced review', tr:'Aralıklı tekrar', cat:'review', ic:'repeat'},
+  story:{en:'Story episode', tr:'Hikaye bölümü', cat:'story', ic:'book'},
+  grammar:{en:'Grammar', tr:'Dilbilgisi', cat:'gram', ic:'dumbbell'},
+  vocab:{en:'Words', tr:'Kelimeler', cat:'voc', ic:'cards'},
+  game:{en:'Word Rush', tr:'Kelime Yarışı', cat:'review', ic:'play'},
+  speaking:{en:'Speaking task', tr:'Konuşma görevi', cat:'lis', ic:'mic'},
+  judge:{en:'Spot the parts', tr:'Parçaları bul', cat:'diag', ic:'search'},
+  writing:{en:'Writing task', tr:'Yazma görevi', cat:'gram', ic:'pen'},
+  perspective:{en:'Step into their shoes', tr:'Onun yerine geç', cat:'lis', ic:'heart'},
+  exit:{en:'Exit check', tr:'Çıkış kontrolü', cat:'story', ic:'check'},
+  mock:{en:'Mock test', tr:'Deneme sınavı', cat:'diag', ic:'exam'},
+  branch:{en:'Branching scene', tr:'Dallanan sahne', cat:'lis', ic:'chat'}
+};
+const COURSE_SESSION_NAMES = [{en:'Learn', tr:'Öğren', fa:'یاد بگیر'}, {en:'Practise', tr:'Alıştır', fa:'تمرین کن'}, {en:'Do', tr:'Yap', fa:'انجام بده'}];
+const courseUi = {judge:null, exit:null, wres:null};
+function cl(o){ return o ? L(o.en, o.tr, o.fa) : ''; }
+function courseGet(id){ return COURSES.find(c=>c.id===id) || null; }
+function courseFindUnit(cid, uid){
+  const c = courseGet(cid); if(!c) return null;
+  for(const m of c.modules){
+    const u = m.units.find(x=>x.id===uid) || (m.checkpoint && m.checkpoint.id===uid ? m.checkpoint : null);
+    if(u) return {c, m, u};
+  }
+  return null;
+}
+function courseUnitItems(uid){
+  const ofUnit = x=>x.course && x.unit===uid;
+  return {
+    grammar:GRAMMAR_ITEMS.find(ofUnit), vocab:VOCAB_SETS.find(ofUnit), story:STORY_LIBRARY.find(ofUnit),
+    speaking:COURSE_EXTRA.speaking.find(ofUnit), judge:COURSE_EXTRA.judge.find(ofUnit),
+    writing:COURSE_EXTRA.writing.find(ofUnit), perspective:COURSE_EXTRA.perspective.find(ofUnit)
+  };
+}
+function courseUnitReady(uid){ const it = courseUnitItems(uid); return Object.keys(it).some(k=>!!it[k]); }
+function courseProg(cid){
+  const pr = state.progress;
+  if(!pr.courses) pr.courses = {};
+  if(!pr.courses[cid]) pr.courses[cid] = {done:{}, answers:{}, scores:{}};
+  const cp = pr.courses[cid];
+  if(!cp.done) cp.done = {}; if(!cp.answers) cp.answers = {}; if(!cp.scores) cp.scores = {};
+  return cp;
+}
+// courseTrack: one per-learner field per course ('B1'/'B2' for HR). Default from the placement level.
+function courseTrack(cid){
+  const pr = state.progress;
+  const t = pr.courseTrack && pr.courseTrack[cid];
+  if(t) return t;
+  return (state.profile && ['B2','C1','C2'].includes(state.profile.level)) ? 'B2' : 'B1';
+}
+function courseUnitAccess(c, uid){ return (c.freeUnits || []).includes(uid) || !!(state.progress && state.progress.premium === true); }
+function courseGameRef(uid){ return 'c-'+uid+'-match'; }
+// Steps of one unit that actually have content today (a step with no item is skipped, never an empty screen).
+function courseStepsAvailable(uid, type){
+  const it = courseUnitItems(uid);
+  if(type==='review') return true;
+  if(type==='exit') return !!(it.grammar || it.judge);
+  if(type==='game') return !!it.vocab;
+  return !!it[type];
+}
+function courseUnitCourse(uid){ return COURSES.find(c=>c.modules.some(m=>m.units.some(u=>u.id===uid))) || null; }
+function courseStepDone(uid, type){
+  const pr = state.progress, it = courseUnitItems(uid);
+  if(type==='story') return !!(it.story && (pr.completedStories||[]).includes(it.story.id));
+  if(type==='grammar') return !!(it.grammar && (pr.completedTraps||[]).includes(it.grammar.id));
+  if(type==='vocab') return !!(it.vocab && (pr.completedVocabSets||[]).includes(it.vocab.id));
+  if(type==='game') return (pr.completedGames||[]).includes(courseGameRef(uid));
+  const cid = (courseUnitCourse(uid) || {}).id;
+  return !!(cid && courseProg(cid).done[uid+':'+type]);
+}
+function courseMarkDone(cid, uid, type){ courseProg(cid).done[uid+':'+type] = Date.now(); markActivity(); save(); }
+function courseUnitSteps(cid, uid){
+  const f = courseFindUnit(cid, uid); if(!f || !f.u.sessions) return [];
+  const out = [];
+  f.u.sessions.forEach((sess,si)=>sess.forEach(t=>{ if(courseStepsAvailable(uid,t)) out.push({si, type:t, done:courseStepDone(uid,t)}); }));
+  return out;
+}
+function courseUnitProgress(cid, uid){ const s = courseUnitSteps(cid, uid); return {done:s.filter(x=>x.done).length, total:s.length}; }
+function courseOpenStep(cid, uid, type){
+  const c = courseGet(cid); if(!c) return;
+  if(!courseUnitAccess(c, uid)){ go('course-gate', {cid, uid}); return; }
+  const it = courseUnitItems(uid);
+  if(type==='story' && it.story) return go('story-detail', {id:it.story.id, level:it.story.level});
+  if(type==='grammar' && it.grammar) return go('grammar-trap', {id:it.grammar.id, level:it.grammar.level});
+  if(type==='vocab' && it.vocab) return go('vocab-set-intro', {id:it.vocab.id, level:it.vocab.level, cat:'vocab'});
+  if(type==='game' && it.vocab) return HANDLERS['start-game']({dataset:{kind:'match', setId:it.vocab.id, refId:courseGameRef(uid), goal:''}});
+  if(type==='review'){ courseMarkDone(cid, uid, 'review'); return go('review-home', {}); }
+  if(type==='judge') courseUi.judge = {uid, i:0, sel:[], checked:false, right:0, total:0};
+  if(type==='exit') courseUi.exit = null;
+  courseUi.wres = null;
+  go('course-step', {cid, uid, type});
+}
+const COURSE_LOCK_SVG = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const COURSE_HERO_BG = 'background-color:var(--clay-lavender-deep); background-image:radial-gradient(circle at 88% -18%, rgba(255,255,255,.5), transparent 55%), linear-gradient(135deg, var(--clay-lavender), var(--clay-lavender-deep));';
+
+/* ---------- entry point + course list ---------- */
+function coursesDashTile(){
+  return `<button class="hero-card" data-action="nav" data-view="courses-home" style="${COURSE_HERO_BG} margin-top:12px; padding:16px 18px;">
+    ${claySparkles()}
+    <div class="row between" style="align-items:center; gap:12px;">
+      <div class="row" style="gap:12px; align-items:center; min-width:0;">
+        <span class="item-ic" style="background:rgba(255,255,255,.26); color:#fff; flex:0 0 auto;">${ICONS.career}</span>
+        <div style="min-width:0;">
+          <div class="display" style="font-size:19px; color:#fff;">${L('Courses','Kurslar','دوره‌ها')}</div>
+          <div style="font-size:12.5px; font-weight:700; color:rgba(255,255,255,.92);">${L('HR & Business English, Travel, IELTS','İK ve İş İngilizcesi, Seyahat, IELTS','انگلیسی منابع انسانی، سفر، آیلتس')}</div>
+        </div>
+      </div>
+      <span style="color:#fff;">${ICONS.chev}</span>
+    </div>
+  </button>`;
+}
+function courseCardHtml(c){
+  const live = c.status === 'live';
+  const total = c.modules.reduce((n,m)=>n+m.units.length, 0);
+  const doneUnits = c.modules.reduce((n,m)=>n+m.units.filter(u=>{ const p = courseUnitProgress(c.id, u.id); return p.total && p.done===p.total; }).length, 0);
+  const pill = live ? `<span class="pill" style="background:#fff; color:var(--clay-lavender-deep); font-weight:900;">${L('Free sample unit','Ücretsiz örnek ünite','واحد نمونه رایگان')}</span>`
+                    : `<span class="pill" style="background:rgba(255,255,255,.3); color:#fff;">${L('Coming soon','Yakında','به‌زودی')}</span>`;
+  return `<button class="item-row goal-card" data-action="course-open" data-view="${live?'course-detail':'course-gate'}" data-cid="${c.id}" style="background:var(--cat-${c.cat}); border:none; color:#fff; align-items:flex-start; ${live?'':'opacity:.82;'}">
+    ${claySparkles()}
+    <span class="item-ic" style="background:rgba(255,255,255,.24); color:#fff;">${ICONS[c.icon]}</span>
+    <div class="item-body">
+      <div class="item-title" style="color:#fff;">${esc(cl(c.title))}</div>
+      <div style="font-size:12.5px; line-height:1.4; margin-top:3px; color:rgba(255,255,255,.95);">${esc(cl(c.promise))}</div>
+      <div class="row" style="gap:8px; margin-top:9px; flex-wrap:wrap; align-items:center;">${pill}
+        ${live ? `<span class="pill" style="background:rgba(255,255,255,.24); color:#fff;">${doneUnits}/${total} ${L('units','ünite','واحد')}</span>` : ''}
+      </div>
+    </div>
+    <span class="chevron" style="color:#fff;">${ICONS.chev}</span>
+  </button>`;
+}
+function renderCoursesHome(){
+  return `<div class="fade-in">
+    ${topbar(false)}
+    ${sectionHeadNoBack(L('Courses','Kurslar','دوره‌ها'), L('Focused courses for one real-life goal. Your free Roadmap is never touched.','Tek bir gerçek hayat hedefi için odaklı kurslar. Ücretsiz Yol Haritan hiç değişmez.','دوره‌های متمرکز برای یک هدف واقعی. نقشه راه رایگان تو دست نمی‌خورد.'))}
+    <div class="screen" style="padding-top:0;">
+      <div class="stack" style="gap:12px;">${COURSES.map(courseCardHtml).join('')}</div>
+    </div>
+  </div>`;
+}
+
+/* ---------- course detail ---------- */
+function courseUnitRowHtml(c, u, isCheckpoint){
+  const ready = !isCheckpoint && courseUnitReady(u.id);
+  const free = (c.freeUnits||[]).includes(u.id);
+  const p = ready ? courseUnitProgress(c.id, u.id) : {done:0,total:0};
+  const done = ready && p.total && p.done===p.total;
+  const tail = done ? `<span class="pill badge-done">${ICONS.check}</span>`
+    : !ready ? `<span class="pill" style="background:var(--border-soft); color:var(--ink-faint);">${L('Soon','Yakında','به‌زودی')}</span>`
+    : free ? `<span class="pill badge-gold">${L('Free','Ücretsiz','رایگان')}</span>`
+    : `<span style="color:var(--ink-faint); display:inline-flex;">${COURSE_LOCK_SVG}</span>`;
+  const tint = isCheckpoint ? 'review' : (c.cat||'diag');
+  const act = ready ? `data-action="course-open" data-view="course-unit" data-cid="${c.id}" data-uid="${u.id}"` : 'disabled';
+  return `<button class="item-row" ${act} style="${ready?'':'opacity:.6;'}">
+    <span class="item-ic" style="background:var(--cat-${tint}-soft); color:var(--cat-${tint});">${isCheckpoint ? ICONS.star : ICONS[c.icon]}</span>
+    <div class="item-body"><div class="item-title">${esc(cl(u.title))}</div>${u.cando ? `<div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">${esc(cl(u.cando))}</div>` : ''}
+      ${ready && p.total ? `<div style="font-size:11.5px; color:var(--ink-faint); margin-top:3px;">${p.done}/${p.total}</div>` : ''}</div>
+    ${tail}
+  </button>`;
+}
+function renderCourseDetail(cid){
+  const c = courseGet(cid); if(!c) return renderNotFound();
+  const track = courseTrack(cid);
+  return `<div class="fade-in">
+    ${sectionHead(cl(c.title), L('Entry level','Giriş seviyesi','سطح ورود')+' '+c.entry+' · '+c.weeks+' '+L('weeks','hafta','هفته'))}
+    <div class="screen" style="padding-top:0;">
+      <div class="hero-card" style="${COURSE_HERO_BG} margin-bottom:14px; cursor:default;">
+        ${claySparkles()}
+        <div class="hero-eyebrow">${L('What you will do','Neler yapacaksın','چه کارهایی می‌کنی')}</div>
+        <p style="margin:6px 0 0; font-size:15px; font-weight:700; line-height:1.4;">${esc(cl(c.promise))}</p>
+        ${c.story ? `<p style="margin:10px 0 0; font-size:12.5px; opacity:.92;">${esc(c.story.character)} · ${esc(c.story.company)}</p>` : ''}
+      </div>
+      ${(c.tracks||[]).length ? `<div class="tab-row" style="margin-bottom:6px;">${c.tracks.map(t=>`<button class="tab-btn ${track===t?'active':''}" data-action="course-track" data-cid="${c.id}" data-track="${t}">${t} ${L('track','parkuru','مسیر')}</button>`).join('')}</div>
+      <p style="font-size:12px; color:var(--ink-faint); margin:0 0 6px;">${track==='B1' ? L('B1 track: more frames and model texts.','B1 parkuru: daha fazla kalıp ve örnek metin.','مسیر B1: الگو و متن نمونه بیشتر.') : L('B2 track: frames removed after the model.','B2 parkuru: örnekten sonra kalıplar kalkar.','مسیر B2: بعد از نمونه، الگوها حذف می‌شوند.')}</p>` : ''}
+      ${c.modules.map((m,mi)=>`
+        <div class="eyebrow" style="margin:16px 0 8px;">${L('Module','Modül','ماژول')} ${mi+1} · ${esc(cl(m.title))}</div>
+        <div class="stack" style="gap:8px;">
+          ${m.units.map(u=>courseUnitRowHtml(c, u, false)).join('')}
+          ${m.checkpoint ? courseUnitRowHtml(c, m.checkpoint, true) : ''}
+        </div>`).join('')}
+      ${coursePremiumNote(c)}
+    </div>
+  </div>`;
+}
+function courseWaLink(c){ return whatsappLink('Hi Farin! I would like to know when the '+c.title.en+' course opens.'); }
+function coursePremiumNote(c){
+  return `<div class="card-flat" style="margin-top:18px; background:var(--cat-diag-soft); border-color:var(--cat-diag-soft);">
+    <div class="eyebrow" style="color:var(--cat-diag);">${L('Full course','Tam kurs','دوره کامل')}</div>
+    <p style="font-size:13px; margin:4px 0 10px;">${L('The sample unit is free. The full course is on its way.','Örnek ünite ücretsiz. Tam kurs yolda.','واحد نمونه رایگان است. دوره کامل در راه است.')}</p>
+    <a class="btn btn-ghost" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد خبر بده')}</a>
+  </div>`;
+}
+function renderCourseGate(){
+  const vp = state.viewParams || {}, c = courseGet(vp.cid);
+  const soon = !c || c.status !== 'live';
+  return `<div class="fade-in">
+    ${sectionHead(c ? cl(c.title) : L('Courses','Kurslar','دوره‌ها'), soon ? L('Coming soon','Yakında','به‌زودی') : L('Premium course','Premium kurs','دوره ویژه'))}
+    <div class="screen" style="padding-top:0;">
+      <div class="hero-card" style="${COURSE_HERO_BG} cursor:default; text-align:center;">
+        ${claySparkles()}
+        <div style="display:inline-flex; width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.26); align-items:center; justify-content:center; color:#fff;">${COURSE_LOCK_SVG}</div>
+        <h2 class="display" style="font-size:20px; margin:10px 0 6px;">${soon ? L('This course is being built','Bu kurs hazırlanıyor','این دوره در حال ساخت است') : L('This unit is part of the full course','Bu ünite tam kursun parçası','این واحد بخشی از دوره کامل است')}</h2>
+        <p style="font-size:13.5px; margin:0; opacity:.95;">${soon ? L('Leave a message and Farin will tell you when it opens.','Mesaj bırak, açılınca Farin haber versin.','پیام بگذار تا Farin وقتی باز شد خبر بدهد.') : L('Purchases are not open yet. Try the free sample unit meanwhile.','Satın alma henüz açık değil. Bu arada ücretsiz örnek üniteyi dene.','خرید هنوز باز نیست. فعلاً واحد نمونه رایگان را امتحان کن.')}</p>
+      </div>
+      <div class="stack" style="gap:10px; margin-top:14px;">
+        ${c ? `<a class="btn btn-primary" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد خبر بده')}</a>` : ''}
+        <button class="btn btn-ghost" data-action="nav" data-view="courses-home">${L('Back to courses','Kurslara dön','بازگشت به دوره‌ها')}</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- unit screen ---------- */
+function renderCourseUnit(cid, uid){
+  const f = courseFindUnit(cid, uid); if(!f) return renderNotFound();
+  const {c, u} = f, it = courseUnitItems(uid), steps = courseUnitSteps(cid, uid);
+  const left = steps.filter(s=>!s.done).length;
+  const rowFor = s=>{
+    const m = COURSE_TYPE_META[s.type] || COURSE_TYPE_META.exit;
+    let tail = '';
+    if(s.type==='story' && it.story) tail = cl(it.story.title);
+    else if(s.type==='grammar' && it.grammar) tail = grammarTitle(it.grammar);
+    else if(s.type==='vocab' && it.vocab) tail = setTitle(it.vocab);
+    else if(s.type==='speaking' && it.speaking) tail = cl(it.speaking.topic);
+    return `<button class="item-row" data-action="course-step" data-cid="${cid}" data-uid="${uid}" data-type="${s.type}">
+      <span class="item-ic" style="background:var(--cat-${m.cat}-soft); color:var(--cat-${m.cat});">${ICONS[m.ic]}</span>
+      <div class="item-body"><div class="item-title">${esc(L(m.en, m.tr))}</div>${tail ? `<div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">${esc(tail)}</div>` : ''}</div>
+      ${s.done ? `<span class="pill badge-done">${ICONS.check}</span>` : `<span class="chevron">${ICONS.chev}</span>`}
+    </button>`;
+  };
+  return `<div class="fade-in">
+    ${sectionHead(cl(u.title), cl(c.title))}
+    <div class="screen" style="padding-top:0;">
+      <div class="card-flat" style="margin-bottom:14px; background:var(--cat-diag-soft); border-color:var(--cat-diag-soft);">
+        <div class="eyebrow" style="color:var(--cat-diag);">${L('By the end of this unit','Bu ünitenin sonunda','در پایان این واحد')}</div>
+        <p style="margin:4px 0 0; font-size:14px; font-weight:700;">${esc(cl(u.cando))}</p>
+      </div>
+      ${left===0 && steps.length ? `<div class="card-flat badge-unlock-shine" style="margin-bottom:14px; text-align:center; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="display" style="font-size:17px;">${L('Unit complete!','Ünite tamamlandı!','واحد تمام شد!')}</div></div>` : ''}
+      ${[0,1,2].map(si=>{
+        const ss = steps.filter(s=>s.si===si); if(!ss.length) return '';
+        return `<div class="eyebrow" style="margin:14px 0 8px;">${L('Session','Oturum','جلسه')} ${si+1} · ${esc(cl(COURSE_SESSION_NAMES[si]))}</div><div class="stack" style="gap:8px;">${ss.map(rowFor).join('')}</div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+/* ---------- step screens ---------- */
+function courseStepShell(cid, uid, type, inner){
+  const m = COURSE_TYPE_META[type] || COURSE_TYPE_META.exit, f = courseFindUnit(cid, uid);
+  return `<div class="fade-in">
+    ${sectionHead(L(m.en, m.tr), f ? cl(f.u.title) : '')}
+    <div class="screen" style="padding-top:0;">${inner}</div>
+  </div>`;
+}
+function renderCourseStep(){
+  const vp = state.viewParams || {}, cid = vp.cid, uid = vp.uid, type = vp.type;
+  const it = courseUnitItems(uid);
+  const doneBtn = (label)=>`<button class="btn btn-primary" style="margin-top:14px;" data-action="course-mark-done" data-cid="${cid}" data-uid="${uid}" data-type="${type}">${label}</button>`;
+  if(type==='speaking' && it.speaking){
+    const sp = it.speaking;
+    return courseStepShell(cid, uid, type, `
+      <h2 class="display" style="font-size:18px; margin:0 0 10px;">${esc(cl(sp.topic))}</h2>
+      <div class="card-flat"><div class="eyebrow">${L('Warm-up','Isınma','گرم کردن')}</div><p style="margin:4px 0 0;">${esc(cl(sp.warmup))}</p></div>
+      <div class="eyebrow" style="margin:14px 0 8px;">${L('You are the interviewer. Ask:','Mülakatçı sensin. Sor:','تو مصاحبه‌گر هستی. بپرس:')}</div>
+      <div class="stack" style="gap:8px;">${sp.questions.map((q,i)=>`<div class="card-flat"><b>${i+1}.</b> ${esc(cl(q))}</div>`).join('')}
+        ${(sp.followups||[]).map(q=>`<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${L('Follow-up','Takip sorusu','سؤال تکمیلی')}</div>${esc(cl(q))}</div>`).join('')}</div>
+      <div class="eyebrow" style="margin:14px 0 8px;">${L('Useful phrases','Faydalı kalıplar','عبارت‌های مفید')}</div>
+      <div class="stack" style="gap:8px;">${(sp.expressions||[]).map(e=>`<div class="card-flat"><div class="row between" style="align-items:center;"><b dir="ltr">${esc(e.phrase)}</b>${ttsButton(e.phrase)}</div><div style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">${esc(cl(e.meaning))}</div></div>`).join('')}</div>
+      ${sp.culture ? `<div class="card-flat" style="margin-top:14px; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="eyebrow">${L('Culture note','Kültür notu','نکته فرهنگی')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(sp.culture))}</p></div>` : ''}
+      <p style="font-size:12px; color:var(--ink-faint); margin-top:12px;">${L('Say your answers out loud: 90 seconds, then 60, then 45. Recorded answers and teacher feedback come with the full course.','Cevaplarını yüksek sesle söyle: 90 saniye, sonra 60, sonra 45. Kayıtlı cevaplar ve öğretmen geri bildirimi tam kursla gelir.','پاسخ‌هایت را بلند بگو: ۹۰ ثانیه، بعد ۶۰ و بعد ۴۵. ضبط پاسخ و بازخورد معلم با دوره کامل می‌آید.')}</p>
+      ${doneBtn(L("I've practised it","Pratik yaptım",'تمرین کردم'))}`);
+  }
+  if(type==='judge' && it.judge) return courseStepShell(cid, uid, type, renderCourseJudge(cid, uid, it.judge));
+  if(type==='writing' && it.writing) return courseStepShell(cid, uid, type, renderCourseWriting(cid, uid, it.writing));
+  if(type==='perspective' && it.perspective) return courseStepShell(cid, uid, type, renderCoursePerspective(cid, uid, it.perspective));
+  if(type==='exit') return courseStepShell(cid, uid, type, renderCourseExit(cid, uid, it));
+  // mock / branch and anything unbuilt: a clear stub, never a blank screen.
+  return courseStepShell(cid, uid, type, `<div class="card-flat" style="text-align:center;"><h2 class="display" style="font-size:18px;">${L('Coming soon','Yakında','به‌زودی')}</h2><p style="color:var(--ink-soft);">${L('This part of the course is not built yet.','Kursun bu bölümü henüz hazır değil.','این بخش دوره هنوز ساخته نشده است.')}</p></div>`);
+}
+
+/* judge: tap which parts are present */
+function renderCourseJudge(cid, uid, j){
+  let st = courseUi.judge;
+  if(!st || st.uid !== uid) st = courseUi.judge = {uid, i:0, sel:[], checked:false, right:0, total:0};
+  if(st.i >= j.items.length){
+    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${L('Nicely spotted!','İyi yakaladın!','عالی تشخیص دادی!')}</h2>
+      <p>${st.right}/${st.total} ${L('parts judged correctly','parça doğru değerlendirildi','بخش درست تشخیص داده شد')}</p>
+      <button class="btn btn-primary" data-action="course-judge-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+  }
+  const item = j.items[st.i];
+  return `<div class="eyebrow">${st.i+1} / ${j.items.length}</div>
+    <div class="card-flat" dir="ltr" style="margin:8px 0 12px; font-size:15.5px; line-height:1.6;">${esc(item.answer)}</div>
+    <p style="font-size:13px; color:var(--ink-soft); margin:0 0 8px;">${L('Tap each part you can find in this answer.','Bu cevapta bulduğun her parçaya dokun.','هر بخشی که در این پاسخ می‌بینی را لمس کن.')}</p>
+    <div class="row" style="gap:8px; flex-wrap:wrap;">${j.parts.map(p=>{
+      const on = st.sel.includes(p), pres = item.present.includes(p);
+      let cls = on ? ' on' : '';
+      if(st.checked) cls = pres ? (on ? ' ok' : ' miss') : (on ? ' bad' : '');
+      return `<button class="cj-part${cls}" data-action="course-judge-toggle" data-part="${esc(p)}" ${st.checked?'disabled':''}>${esc(p)}</button>`;
+    }).join('')}</div>
+    ${st.checked ? (item.fix ? `<div class="card-flat" style="margin-top:12px; background:var(--cat-gram-soft); border-color:var(--cat-gram-soft);"><div class="eyebrow">${L('Missing','Eksik','کم است')}: ${esc(j.parts.filter(p=>!item.present.includes(p)).join(', '))}</div><p style="margin:4px 0 0;" dir="ltr">${esc(cl(item.fix))}</p></div>`
+        : `<div class="card-flat" style="margin-top:12px; background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);"><b>${L('A complete answer. All four parts are there.','Eksiksiz bir cevap. Dört parça da var.','پاسخ کامل. هر چهار بخش هست.')}</b></div>`)
+      : ''}
+    <button class="btn btn-primary" style="margin-top:14px;" data-action="${st.checked?'course-judge-next':'course-judge-check'}">${st.checked ? L('Next','Sonraki','بعدی') : L('Check','Kontrol et','بررسی')}</button>`;
+}
+
+/* writing: model, frame (B1 only), textarea, check */
+function renderCourseWriting(cid, uid, w){
+  const track = courseTrack(cid), cp = courseProg(cid), key = uid+':writing';
+  const saved = (cp.answers[key] && cp.answers[key].text) || '';
+  const res = courseUi.wres;
+  const showModelFirst = track==='B1' || !!res;
+  return `<div class="card-flat"><p style="margin:0; font-size:14.5px; font-weight:700;">${esc(cl(w.prompt))}</p></div>
+    ${showModelFirst ? `<div class="card-flat" dir="ltr" style="margin-top:10px; background:var(--cat-story-soft); border-color:var(--cat-story-soft);"><div class="eyebrow" style="color:var(--cat-story);">${L('Model','Örnek','نمونه')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(w.model)}</p></div>` : ''}
+    ${track==='B1' && w.frame ? `<div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${L('Frame','Kalıp','الگو')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(w.frame)}</p></div>` : ''}
+    <textarea id="cw-text" class="game-input" dir="ltr" rows="7" style="margin-top:12px; font-weight:500; min-height:150px;" placeholder="${esc(L('Write here','Buraya yaz','اینجا بنویس'))}">${esc(saved)}</textarea>
+    <p style="font-size:12px; color:var(--ink-faint); margin:6px 0 0;">${L('Use','Kullan','استفاده کن')}: ${w.words.map(x=>esc(x.word)).join(', ')} · ${w.minWords}+ ${L('words','kelime','کلمه')}</p>
+    ${res ? `<div class="card-flat" style="margin-top:12px; background:${res.lengthOk && !res.wordsMissed.length ? 'var(--cat-voc-soft)' : 'var(--cat-gram-soft)'}; border-color:transparent;">
+      <p style="margin:0; font-size:13.5px;">${res.wc} ${L('words','kelime','کلمه')} · ${res.sc} ${L('sentences','cümle','جمله')}${res.wordsMissed.length ? ' · '+L('Not used yet','Henüz kullanılmadı','هنوز استفاده نشده')+': '+esc(res.wordsMissed.join(', ')) : ''}</p>
+      ${!res.lengthOk ? `<p style="margin:6px 0 0; font-size:13px;">${L('A little longer, please: at least '+w.minWords+' words and '+w.minSentences+' sentences.','Biraz daha uzun yaz: en az '+w.minWords+' kelime ve '+w.minSentences+' cümle.','کمی بلندتر بنویس: دست‌کم '+w.minWords+' کلمه و '+w.minSentences+' جمله.')}</p>` : ''}</div>` : ''}
+    <div class="card-flat" style="margin-top:12px;"><div class="eyebrow">${L('Check it yourself','Kendin kontrol et','خودت بررسی کن')}</div>
+      <ul style="margin:6px 0 0; padding-inline-start:18px; font-size:13px; color:var(--ink-soft);">${w.rubric.map(r=>`<li style="margin-bottom:4px;" dir="ltr">${esc(r)}</li>`).join('')}</ul></div>
+    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-write-check" data-cid="${cid}" data-uid="${uid}">${L('Check and save','Kontrol et ve kaydet','بررسی و ذخیره')}</button>`;
+}
+function renderCoursePerspective(cid, uid, p){
+  const cp = courseProg(cid), key = uid+':perspective';
+  const saved = (cp.answers[key] && cp.answers[key].text) || '';
+  return `<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${L('Not scored','Puansız','بدون نمره')}</div>
+      <p style="margin:4px 0 0; font-size:15px; font-weight:700;">${esc(cl(p.prompt))}</p></div>
+    <textarea id="cw-text" class="game-input" dir="ltr" rows="5" style="margin-top:12px; font-weight:500; min-height:120px;" placeholder="I ...">${esc(saved)}</textarea>
+    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-persp-save" data-cid="${cid}" data-uid="${uid}">${L('Save to my journal','Günlüğüme kaydet','ذخیره در دفترچه')}</button>`;
+}
+
+/* exit check: 2 grammar blanks + 1 STAR item. The 3 spaced items from earlier units join once those units are published (stub). */
+function courseExitQuestions(it){
+  const qs = [];
+  const mk = (sentence, word, distractors)=>{ const opts = shuffle([word].concat(distractors)); return {prompt:sentence, options:opts, correct:opts.indexOf(word)}; };
+  if(it.grammar){
+    if(it.grammar.blank) qs.push(mk(it.grammar.blank.sentence, it.grammar.blank.word, it.grammar.blank.distractors));
+    if(it.grammar.blank2) qs.push(mk(it.grammar.blank2.sentence, it.grammar.blank2.word, it.grammar.blank2.distractors));
+  }
+  if(it.judge && it.judge.items && it.judge.items.length){
+    const item = it.judge.items[0], full = it.judge.parts.every(p=>item.present.includes(p));
+    const opts = [L('Complete','Eksiksiz','کامل'), L('Something is missing','Bir şey eksik','چیزی کم است')];
+    qs.push({prompt:'"'+item.answer+'"', options:opts, correct: full ? 0 : 1, note:L('Is this answer STAR-complete?','Bu cevap STAR bakımından eksiksiz mi?','آیا این پاسخ از نظر STAR کامل است؟')});
+  }
+  return qs;
+}
+function renderCourseExit(cid, uid, it){
+  let st = courseUi.exit;
+  if(!st || st.uid !== uid) st = courseUi.exit = {uid, qs:courseExitQuestions(it), i:0, picked:null, right:0};
+  if(!st.qs.length) return `<div class="card-flat">${L('Nothing to check yet.','Henüz kontrol edilecek bir şey yok.','هنوز چیزی برای بررسی نیست.')}</div>`;
+  if(st.i >= st.qs.length){
+    const secure = st.right >= st.qs.length - 1;
+    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${secure ? L('Secure!','Sağlam!','مطمئن!') : L('Almost there','Az kaldı','نزدیک است')}</h2>
+      <p>${st.right}/${st.qs.length}</p>
+      <p style="font-size:12.5px; color:var(--ink-faint);">${L('Questions that slipped come back in the next units.','Kaçan sorular sonraki ünitelerde geri gelir.','سؤال‌هایی که اشتباه شد در واحدهای بعدی برمی‌گردند.')}</p>
+      <button class="btn btn-primary" data-action="course-exit-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+  }
+  const q = st.qs[st.i];
+  return `<div class="eyebrow">${st.i+1} / ${st.qs.length}</div>
+    ${q.note ? `<p style="font-size:13px; color:var(--ink-soft); margin:6px 0 0;">${esc(q.note)}</p>` : ''}
+    <div class="card-flat" dir="ltr" style="margin:8px 0 12px; font-size:16px; line-height:1.5;">${esc(q.prompt)}</div>
+    <div class="stack" style="gap:8px;">${q.options.map((o,i)=>{
+      const cls = st.picked===null ? '' : (i===q.correct ? ' ok' : (i===st.picked ? ' bad' : ''));
+      return `<button class="cj-part wide${cls}" data-action="course-exit-pick" data-i="${i}" ${st.picked!==null?'disabled':''}>${esc(o)}</button>`;
+    }).join('')}</div>
+    ${st.picked!==null ? `<button class="btn btn-primary" style="margin-top:14px;" data-action="course-exit-next">${L('Next','Sonraki','بعدی')}</button>` : ''}`;
+}
+
+/* ---------- handlers ---------- */
+Object.assign(HANDLERS, {
+  'course-open'(el){ go(el.dataset.view, {cid:el.dataset.cid, uid:el.dataset.uid}); },
+  'course-track'(el){
+    const pr = state.progress; if(!pr.courseTrack) pr.courseTrack = {};
+    pr.courseTrack[el.dataset.cid] = el.dataset.track; save(); render();
+  },
+  'course-step'(el){ courseOpenStep(el.dataset.cid, el.dataset.uid, el.dataset.type); },
+  'course-mark-done'(el){ courseMarkDone(el.dataset.cid, el.dataset.uid, el.dataset.type); goBack(); },
+  'course-judge-toggle'(el){
+    const st = courseUi.judge; if(!st || st.checked) return;
+    const i = st.sel.indexOf(el.dataset.part); if(i>=0) st.sel.splice(i,1); else st.sel.push(el.dataset.part);
+    render();
+  },
+  'course-judge-check'(){
+    const st = courseUi.judge; if(!st) return;
+    const j = courseUnitItems(st.uid).judge, item = j.items[st.i];
+    j.parts.forEach(p=>{ st.total++; if(st.sel.includes(p) === item.present.includes(p)) st.right++; });
+    st.checked = true; render();
+  },
+  'course-judge-next'(){ const st = courseUi.judge; if(!st) return; st.i++; st.sel = []; st.checked = false; render(); },
+  'course-judge-finish'(el){
+    const st = courseUi.judge;
+    if(st) courseProg(el.dataset.cid).scores[el.dataset.uid+':judge'] = {right:st.right, total:st.total};
+    courseMarkDone(el.dataset.cid, el.dataset.uid, 'judge'); goBack();
+  },
+  'course-write-check'(el){
+    const w = courseUnitItems(el.dataset.uid).writing, ta = document.getElementById('cw-text');
+    const text = ta ? ta.value : '';
+    const res = checkPracticeAnswer({words:w.words, minWords:w.minWords, minSentences:w.minSentences, difficulty:'easy'}, text);
+    courseProg(el.dataset.cid).answers[el.dataset.uid+':writing'] = {text, date:todayISO()};
+    courseUi.wres = res;
+    if(res.lengthOk && res.looksReal) courseMarkDone(el.dataset.cid, el.dataset.uid, 'writing'); else save();
+    render();
+  },
+  'course-persp-save'(el){
+    const ta = document.getElementById('cw-text'), text = ta ? ta.value.trim() : '';
+    if(text.split(/\s+/).filter(Boolean).length < 5){ if(ta) ta.focus(); return; }
+    courseProg(el.dataset.cid).answers[el.dataset.uid+':perspective'] = {text, date:todayISO()};
+    courseMarkDone(el.dataset.cid, el.dataset.uid, 'perspective'); goBack();
+  },
+  'course-exit-pick'(el){
+    const st = courseUi.exit; if(!st || st.picked!==null) return;
+    st.picked = parseInt(el.dataset.i, 10);
+    if(st.picked === st.qs[st.i].correct) st.right++;
+    render();
+  },
+  'course-exit-next'(){ const st = courseUi.exit; if(!st) return; st.i++; st.picked = null; render(); },
+  'course-exit-finish'(el){
+    const st = courseUi.exit;
+    if(st) courseProg(el.dataset.cid).scores[el.dataset.uid+':exit'] = {right:st.right, total:st.qs.length};
+    courseMarkDone(el.dataset.cid, el.dataset.uid, 'exit'); goBack();
+  }
+});
+Object.assign(screens, {
+  'courses-home': renderCoursesHome,
+  'course-detail': ()=>renderCourseDetail(state.viewParams.cid),
+  'course-unit': ()=>renderCourseUnit(state.viewParams.cid, state.viewParams.uid),
+  'course-step': renderCourseStep,
+  'course-gate': renderCourseGate
+});
 /* ============================= ADMIN PAGE (hidden, reachable via #admin) ============================= */
 function waLinkTo(phone, message){
   const clean = String(phone||'').replace(/[^\d]/g, '');
