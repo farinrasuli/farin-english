@@ -3305,23 +3305,23 @@ const BADGES = [
   {id:'first-steps', icon:'star', title:{en:'First Steps', tr:'İlk Adımlar'}, desc:{en:'Complete your first quiz round.', tr:'İlk turunu tamamla.'},
    check:(st)=> st.progress.completedTraps.length + st.progress.completedVocabSets.length + st.progress.completedStories.length > 0},
   {id:'grammar-10', icon:'dumbbell', title:{en:'Grammar Novice', tr:'Dilbilgisi Çırağı'}, desc:{en:'Complete 10 Grammar Gym rounds.', tr:'10 Dilbilgisi Salonu turunu tamamla.'},
-   check:(st)=> st.progress.completedTraps.length >= 10},
+   check:(st)=> st.progress.completedTraps.filter(id=>!/^c-/.test(id)).length >= 10},
   {id:'grammar-25', icon:'dumbbell', title:{en:'Grammar Adept', tr:'Dilbilgisi Ustası'}, desc:{en:'Complete 25 Grammar Gym rounds.', tr:'25 Dilbilgisi Salonu turunu tamamla.'},
-   check:(st)=> st.progress.completedTraps.length >= 25},
+   check:(st)=> st.progress.completedTraps.filter(id=>!/^c-/.test(id)).length >= 25},
   {id:'grammar-all', icon:'dumbbell', title:{en:'Grammar Master', tr:'Dilbilgisi Efendisi'}, desc:{en:'Complete every Grammar Gym round.', tr:'Tüm Dilbilgisi Salonu turlarını tamamla.'},
-   check:(st)=> st.progress.completedTraps.length >= GRAMMAR_ITEMS.length},
+   check:(st)=> st.progress.completedTraps.filter(id=>!/^c-/.test(id)).length >= GRAMMAR_ITEMS_FREE.length},
   {id:'vocab-10', icon:'cards', title:{en:'Word Collector', tr:'Kelime Koleksiyoncusu'}, desc:{en:'Complete 10 Word Play sets.', tr:'10 Kelime Oyunu setini tamamla.'},
-   check:(st)=> st.progress.completedVocabSets.length >= 10},
+   check:(st)=> st.progress.completedVocabSets.filter(id=>!/^c-/.test(id)).length >= 10},
   {id:'vocab-25', icon:'cards', title:{en:'Word Hoarder', tr:'Kelime Biriktiricisi'}, desc:{en:'Complete 25 Word Play sets.', tr:'25 Kelime Oyunu setini tamamla.'},
-   check:(st)=> st.progress.completedVocabSets.length >= 25},
+   check:(st)=> st.progress.completedVocabSets.filter(id=>!/^c-/.test(id)).length >= 25},
   {id:'vocab-all', icon:'cards', title:{en:'Vocabulary Master', tr:'Kelime Efendisi'}, desc:{en:'Complete every Word Play set.', tr:'Tüm Kelime Oyunu setlerini tamamla.'},
-   check:(st)=> st.progress.completedVocabSets.length >= VOCAB_SETS.length},
+   check:(st)=> st.progress.completedVocabSets.filter(id=>!/^c-/.test(id)).length >= VOCAB_SETS_FREE.length},
   {id:'stories-5', icon:'book', title:{en:'Bookworm', tr:'Kitap Kurdu'}, desc:{en:'Finish 5 stories.', tr:'5 hikaye bitir.'},
-   check:(st)=> st.progress.completedStories.length >= 5},
+   check:(st)=> st.progress.completedStories.filter(id=>!/^c-/.test(id)).length >= 5},
   {id:'stories-25', icon:'book', title:{en:'Avid Reader', tr:'Hevesli Okur'}, desc:{en:'Finish 25 stories.', tr:'25 hikaye bitir.'},
-   check:(st)=> st.progress.completedStories.length >= 25},
+   check:(st)=> st.progress.completedStories.filter(id=>!/^c-/.test(id)).length >= 25},
   {id:'stories-all', icon:'book', title:{en:'Story Master', tr:'Hikaye Efendisi'}, desc:{en:'Finish every story in the library.', tr:'Kütüphanedeki tüm hikayeleri bitir.'},
-   check:(st)=> st.progress.completedStories.length >= STORY_LIBRARY.length},
+   check:(st)=> st.progress.completedStories.filter(id=>!/^c-/.test(id)).length >= STORY_LIBRARY_FREE.length},
   {id:'streak-7', icon:'flame', title:{en:'One Week Streak', tr:'Bir Haftalık Seri'}, desc:{en:'Keep a 7-day streak going.', tr:'7 günlük bir seri sürdür.'},
    check:(st)=> st.progress.streak >= 7},
   {id:'streak-30', icon:'flame', title:{en:'One Month Streak', tr:'Bir Aylık Seri'}, desc:{en:'Keep a 30-day streak going.', tr:'30 günlük bir seri sürdür.'},
@@ -3330,12 +3330,12 @@ const BADGES = [
    check:(st)=>{
      const lvl = st.profile.level;
      if(!lvl) return false;
-     const gTotal = GRAMMAR_ITEMS.filter(g=>g.level===lvl).length;
-     const vTotal = VOCAB_SETS.filter(s=>s.level===lvl).length;
-     const sTotal = STORY_LIBRARY.filter(s=>s.level===lvl).length;
-     const gDone = st.progress.completedTraps.filter(id=>{const g=GRAMMAR_ITEMS.find(x=>x.id===id); return g&&g.level===lvl;}).length;
-     const vDone = st.progress.completedVocabSets.filter(id=>{const s=VOCAB_SETS.find(x=>x.id===id); return s&&s.level===lvl;}).length;
-     const sDone = st.progress.completedStories.filter(id=>{const s=STORY_LIBRARY.find(x=>x.id===id); return s&&s.level===lvl;}).length;
+     const gTotal = GRAMMAR_ITEMS_FREE.filter(g=>g.level===lvl).length;
+     const vTotal = VOCAB_SETS_FREE.filter(s=>s.level===lvl).length;
+     const sTotal = STORY_LIBRARY_FREE.filter(s=>s.level===lvl).length;
+     const gDone = st.progress.completedTraps.filter(id=>{const g=GRAMMAR_ITEMS.find(x=>x.id===id); return g&&!g.course&&g.level===lvl;}).length;
+     const vDone = st.progress.completedVocabSets.filter(id=>{const s=VOCAB_SETS.find(x=>x.id===id); return s&&!s.course&&s.level===lvl;}).length;
+     const sDone = st.progress.completedStories.filter(id=>{const s=STORY_LIBRARY.find(x=>x.id===id); return s&&!s.course&&s.level===lvl;}).length;
      return gTotal>0 && vTotal>0 && sTotal>0 && gDone>=gTotal && vDone>=vTotal && sDone>=sTotal;
    }},
   {id:'reviewer', icon:'repeat', title:{en:'Spaced Repetition Fan', tr:'Aralıklı Tekrar Hayranı'}, desc:{en:'Complete 5 Review rounds.', tr:'5 Tekrar turunu tamamla.'},
@@ -4221,7 +4221,7 @@ function highlightWord(sentence, word, meaning){
 let VOCAB_GLOSSARY = null;
 function buildVocabGlossary(){
   const map = {};
-  VOCAB_SETS.forEach(set=>{
+  VOCAB_SETS_FREE.forEach(set=>{
     set.cards.forEach(c=>{
       const key = c.word.toLowerCase();
       if(!map[key]) map[key] = L(c.meaning.en, c.meaning.tr, c.meaning.fa);
@@ -5135,9 +5135,9 @@ function ensureRoadmapMedia(){
 }
 function buildRoadmap(profile){
   const goals = profileGoalKeys(profile);
-  const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===profile.level);
-  const vPoolAll = VOCAB_SETS.filter(s=>s.level===profile.level && s.category==='vocab');
-  const slPoolAll = VOCAB_SETS.filter(s=>s.level===profile.level && s.category==='slang');
+  const gPoolAll = GRAMMAR_ITEMS_FREE.filter(g=>g.level===profile.level);
+  const vPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===profile.level && s.category==='vocab');
+  const slPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===profile.level && s.category==='slang');
   // Sets tagged for any of the student's goals, interleaved goal-by-goal (goal 1, goal 2, goal 3,
   // goal 1, ...) so a 3-goal student meets every goal early instead of exhausting the first one.
   const matchesGoal = arr => {
@@ -5193,7 +5193,7 @@ function buildRoadmap(profile){
   // Story: STORY_LIBRARY isn't goal-tagged yet (see backlog card nFVCPAce), so
   // selection is level-only for now — prefers a story the student hasn't read,
   // falls back to a completed one if every story at this level is done.
-  const storyPoolAll = STORY_LIBRARY.filter(s=>s.level===profile.level);
+  const storyPoolAll = STORY_LIBRARY_FREE.filter(s=>s.level===profile.level);
   const storyPick = storyPoolAll.length
     ? (storyPoolAll.find(s=>!(state.progress && state.progress.completedStories && state.progress.completedStories.includes(s.id))) || storyPoolAll[0])
     : null;
@@ -6288,11 +6288,11 @@ function placementBuildVocabQ(setObj){
 }
 function loadTierQueue(test, primaryGoal){
   const levelKey = LEVELS[test.tierIdx];
-  const gPool = shuffle(GRAMMAR_ITEMS.filter(g=>g.level===levelKey && !test.askedGrammarIds.includes(g.id)));
+  const gPool = shuffle(GRAMMAR_ITEMS_FREE.filter(g=>g.level===levelKey && !test.askedGrammarIds.includes(g.id)));
   const gPicks = gPool.slice(0,2);
   gPicks.forEach(g=>test.askedGrammarIds.push(g.id));
-  const vCandidates = VOCAB_SETS.filter(s=>s.level===levelKey && s.category==='vocab' && !test.askedVocabSetIds.includes(s.id));
-  const vPool = shuffle(vCandidates.length ? vCandidates : VOCAB_SETS.filter(s=>s.level===levelKey && s.category==='vocab'));
+  const vCandidates = VOCAB_SETS_FREE.filter(s=>s.level===levelKey && s.category==='vocab' && !test.askedVocabSetIds.includes(s.id));
+  const vPool = shuffle(vCandidates.length ? vCandidates : VOCAB_SETS_FREE.filter(s=>s.level===levelKey && s.category==='vocab'));
   const vSet = vPool[0];
   if(vSet) test.askedVocabSetIds.push(vSet.id);
   const gQs = gPicks.map(g=>placementBuildGrammarQ(g, primaryGoal));
@@ -7925,11 +7925,11 @@ function renderGoalLevels(goal){
 function renderGoalLevelDetail(goal, level){
   const g = GOALS_META[goal];
   const tab = g.tabs.includes(state.viewParams.tab) ? state.viewParams.tab : 'grammar';
-  const gItems = GRAMMAR_ITEMS.filter(x=>x.level===level);
-  const vTagged = VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab' && s.goals.includes(goal));
-  const vShown = vTagged.length ? vTagged : VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab');
-  const slTagged = VOCAB_SETS.filter(s=>s.level===level && s.category==='slang' && s.goals.includes(goal));
-  const slShown = slTagged.length ? slTagged : VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
+  const gItems = GRAMMAR_ITEMS_FREE.filter(x=>x.level===level);
+  const vTagged = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='vocab' && s.goals.includes(goal));
+  const vShown = vTagged.length ? vTagged : VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='vocab');
+  const slTagged = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='slang' && s.goals.includes(goal));
+  const slShown = slTagged.length ? slTagged : VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='slang');
   const setRow = (s, ic, tint) => {
     const done = state.progress.completedVocabSets.includes(s.id);
     return `<button class="item-row" data-action="nav" data-view="vocab-set-intro" data-id="${s.id}" data-goal="${goal}">
@@ -8072,19 +8072,34 @@ const PRACTICE_TOPICS = {
     ]
   }
 };
+/* Teaching redesign phase 1, item 8 (B6): writing and speaking practise what the learner just
+   studied. stageDoneIds() = the ids of this roadmap's nodes of a kind that are completed,
+   newest first (order of completion). */
+function stageDoneIds(nodeType, completedIds){
+  const inRoadmap = currentRoadmap().filter(n=>n.type === nodeType).map(n=>n.refId);
+  return (completedIds || []).slice().reverse().filter((id, i, a)=>inRoadmap.includes(id) && a.indexOf(id) === i);
+}
 /* goal is one goal key, or 'all' to draw on every goal the learner chose. */
 function buildPracticeRound(goal, level, difficulty){
   const goalKeys = goal==='all' ? profileGoalKeys(state.profile) : [goal];
   if(!goalKeys.length) goalKeys.push('everyday');
-  const vPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='vocab');
-  const slPoolAll = VOCAB_SETS.filter(s=>s.level===level && s.category==='slang');
-  const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===level);
+  const vPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='vocab');
+  const slPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='slang');
+  const gPoolAll = GRAMMAR_ITEMS_FREE.filter(g=>g.level===level);
   const vTagged = vPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
   const slTagged = slPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
   const vSets = vTagged.length ? vTagged : vPoolAll;
   const slSets = slTagged.length ? slTagged : slPoolAll;
   const flattenCards = sets => sets.reduce((acc,s)=>acc.concat(s.cards), []);
-  const vCards = flattenCards(vSets);
+  // Words: from the vocab sets completed on this stage's roadmap, newest set first (a second set
+  // is added until there are about 6 cards to choose from). No completed set yet: the level pool.
+  const stageSets = stageDoneIds('vocab', state.progress.completedVocabSets).map(id=>VOCAB_SETS.find(x=>x.id===id)).filter(x=>x && x.category === 'vocab');
+  let vCards = flattenCards(vSets);
+  if(stageSets.length){
+    const pool = [];
+    for(const st of stageSets){ st.cards.forEach(c=>pool.push(c)); if(pool.length >= 6) break; }
+    if(pool.length) vCards = pool;
+  }
   const slCards = flattenCards(slSets);
   const pick = (arr, n) => {
     const pool = arr.slice(), out = [];
@@ -8102,7 +8117,9 @@ function buildPracticeRound(goal, level, difficulty){
   if(difficulty !== 'easy' && gPoolAll.length){
     const withVariant = gPoolAll.filter(g=>g.goalVariant && goalKeys.some(gk=>g.goalVariant[gk]));
     const gSource = withVariant.length ? withVariant : gPoolAll;
-    const gItem = gSource[Math.floor(Math.random()*gSource.length)];
+    // Grammar: the item completed most recently on this roadmap, else a random one of the level.
+    const lastG = stageDoneIds('grammar', state.progress.completedTraps).map(id=>gPoolAll.find(x=>x.id===id)).find(Boolean);
+    const gItem = lastG || gSource[Math.floor(Math.random()*gSource.length)];
     grammar = {title: grammarTitle(gItem), markerWord: gItem.blank.word, exp: L(gItem.exp.en, gItem.exp.tr, gItem.exp.fa)};
   }
   let slang = null;
@@ -8244,9 +8261,9 @@ function practiceFeedback(result, round){
   if(round.grammar){
     if(result.grammarSpotted){
       lines.push({ok:true, text: L(
-        `Nice — you used "${round.grammar.title}".`,
-        `Harika — "${round.grammar.title}" yapısını kullandın.`,
-        `عالی — از «${round.grammar.title}» استفاده کردی.`
+        `Try using "${round.grammar.title}" in a full sentence. Check that it follows the rule.`,
+        `"${round.grammar.title}" yapısını tam bir cümlede kullanmayı dene. Kurala uyduğundan emin ol.`,
+        `سعی کن از «${round.grammar.title}» در یک جمله کامل استفاده کنی. مطمئن شو با قاعده می‌خواند.`
       )});
     } else {
       lines.push({ok:false, text: L(
@@ -8529,7 +8546,7 @@ function blankListed(list, itemId, field, variant){
 // Grammar items the learner has finished (all levels when level is null).
 function completedGrammarItems(level){
   const done = (state.progress && state.progress.completedTraps) || [];
-  return GRAMMAR_ITEMS.filter(g=>done.includes(g.id) && (!level || g.level===level));
+  return GRAMMAR_ITEMS_FREE.filter(g=>done.includes(g.id) && (!level || g.level===level));
 }
 // Every fill-in blank of the given items, in the learner's goal variant where one exists.
 function grammarBlankCandidates(profile, items){
@@ -8568,7 +8585,7 @@ function buildTrapRound(profile, n){
 function fallbackGameSet(minCards){
   const lvl = state.profile.level, done = state.progress.completedVocabSets || [];
   const ok = s => s && s.cards.length >= (minCards || 2);
-  const pool = VOCAB_SETS.filter(s=>s.level===lvl && s.category==='vocab' && ok(s));
+  const pool = VOCAB_SETS_FREE.filter(s=>s.level===lvl && s.category==='vocab' && ok(s));
   const fromRoadmap = currentRoadmap().filter(n=>n.type==='vocab').map(n=>VOCAB_SETS.find(s=>s.id===n.refId)).filter(ok);
   return pool.find(s=>done.includes(s.id)) || fromRoadmap[0] || pool[0] || VOCAB_SETS.find(ok) || null;
 }
@@ -9088,7 +9105,7 @@ function levelChips(current){
 }
 function renderGrammarList(){
   const level = state.viewParams.level || state.profile.level;
-  const items = GRAMMAR_ITEMS.filter(g=>g.level===level);
+  const items = GRAMMAR_ITEMS_FREE.filter(g=>g.level===level);
   return `<div class="fade-in">
     ${topbar(false)}
     ${sectionHeadNoBack(L('Grammar Gym','Dilbilgisi Salonu','باشگاه گرامر'), L('Short, punchy rounds targeting the exact traps that trip up Turkish speakers.','Türklerin tam olarak takıldığı tuzaklara odaklanan kısa ve etkili turlar.','تمرین‌های کوتاه و پرقدرت که دقیقاً روی تله‌های رایج تمرکز دارند.'))}
@@ -9201,7 +9218,7 @@ function vocabTabs(cat){
 function renderVocabList(){
   const level = state.viewParams.level || state.profile.level;
   const cat = state.viewParams.cat || 'vocab';
-  const sets = VOCAB_SETS.filter(s=>s.level===level && s.category===cat);
+  const sets = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category===cat);
   return `<div class="fade-in">
     ${topbar(false)}
     ${sectionHeadNoBack(L('Word Play','Kelime Oyunu','بازی با کلمات'), L('Flip through real sentences, then see what actually stuck.','Gerçek cümlelere göz at, sonra gerçekten aklında kalanı test et.','جمله‌های واقعی را ورق بزن، بعد ببین چی یادت مونده.'))}
@@ -9462,7 +9479,7 @@ function renderStoryList(){
   const level = state.viewParams.level || state.profile.level;
   const genre = GENRE_ORDER.includes(state.viewParams.genre) ? state.viewParams.genre : GENRE_ORDER[0];
   const favoriteTopics = state.profile.topics || [];
-  const stories = sortStoriesByTopic(STORY_LIBRARY.filter(s=>s.level===level && s.genre===genre), favoriteTopics);
+  const stories = sortStoriesByTopic(STORY_LIBRARY_FREE.filter(s=>s.level===level && s.genre===genre), favoriteTopics);
   const gl = GENRE_LABEL[genre];
   const bt = GENRE_BANNER_TEXT[genre];
   const doneCount = stories.filter(s=>state.progress.completedStories.includes(s.id)).length;
@@ -9704,7 +9721,7 @@ function grammarQuizQuestions(item){
   return qs.slice(0, 8);
 }
 function vocabQuizQuestions(s){
-  const sibling = VOCAB_SETS.filter(x=>x.level===s.level && x.category===s.category).flatMap(x=>x.cards);
+  const sibling = VOCAB_SETS_FREE.filter(x=>x.level===s.level && x.category===s.category).flatMap(x=>x.cards);
   const blankOf = (c) => {
     const re = new RegExp(c.word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i');
     return c.sentence.replace(re, '_____');
@@ -12137,13 +12154,13 @@ function generateClubCourseSessions(student, level){
     for(let i=0; buckets.some(b=>i<b.length); i++) buckets.forEach(b=>{ if(i<b.length) out.push(b[i]); });
     return out;
   };
-  const gPoolAll = GRAMMAR_ITEMS.filter(g=>g.level===baseLevel);
+  const gPoolAll = GRAMMAR_ITEMS_FREE.filter(g=>g.level===baseLevel);
   const gPoolGoal = gPoolAll.filter(g=>g.goalVariant && goals.some(gk=>g.goalVariant[gk]));
   const gPoolOrdered = gPoolGoal.length ? gPoolGoal : gPoolAll;
   const gHalf = Math.ceil(gPoolOrdered.length/2);
   const gStageSlice = stage===1 ? gPoolOrdered.slice(0, gHalf) : gPoolOrdered.slice(gHalf);
   const gPool = gStageSlice.length ? gStageSlice : gPoolOrdered;
-  const vPoolAll = VOCAB_SETS.filter(s=>s.level===baseLevel && s.category==='vocab');
+  const vPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===baseLevel && s.category==='vocab');
   const vPoolGoal = matchesGoal(vPoolAll);
   const vPool = vPoolGoal.length ? vPoolGoal : vPoolAll;
   const items = [];
@@ -12845,7 +12862,7 @@ function bindAdminActions(root){
         }
         const existing = harvestRoadmapFromDOM();
         const existingTitles = new Set(existing.map(r=>(r.title||'').trim().toLowerCase()));
-        const suggestions = GRAMMAR_ITEMS.filter(g=>g.level===baseLevel).map(g=>g.title)
+        const suggestions = GRAMMAR_ITEMS_FREE.filter(g=>g.level===baseLevel).map(g=>g.title)
           .filter(t=>!existingTitles.has(t.trim().toLowerCase()))
           .map(t=>({id: Date.now()+'-'+Math.random().toString(36).slice(2)+'-'+t, date:'', title:t, homework:'', tips:'', done:false}));
         adminEditingStudent.roadmap = existing.concat(suggestions);
