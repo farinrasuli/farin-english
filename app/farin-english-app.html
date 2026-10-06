@@ -12163,6 +12163,8 @@ function courseTrack(cid){
   const pr = state.progress;
   const t = pr.courseTrack && pr.courseTrack[cid];
   if(t) return t;
+  const cc = courseGet(cid);
+  if(cc && cc.tracks && cc.tracks.length && !cc.tracks.includes('B1')) return cc.tracks[0];
   return (state.profile && ['B2','C1','C2'].includes(state.profile.level)) ? 'B2' : 'B1';
 }
 // Placeholder gate, no billing. coursePreview (set by ?coursePreview=1 on the URL) lets the team open every unit to review content.
@@ -12195,8 +12197,6 @@ function courseUnitSteps(cid, uid){
   return out;
 }
 function courseUnitProgress(cid, uid){ const s = courseUnitSteps(cid, uid); return {done:s.filter(x=>x.done).length, total:s.length}; }
-  const cc = courseGet(cid);
-  if(cc && cc.tracks && cc.tracks.length && !cc.tracks.includes('B1')) return cc.tracks[0];
 function courseOpenStep(cid, uid, type){
   const c = courseGet(cid); if(!c) return;
   if(!courseUnitAccess(c, uid)){ go('course-gate', {cid, uid}); return; }
