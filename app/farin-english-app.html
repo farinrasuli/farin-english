@@ -10007,10 +10007,10 @@ function renderRoadmapTimeline(items){
 }
 function courseStatusLabelL(status){
   return {
-    upcoming: L('Upcoming','Yaklaşan','پیش‌رو'),
-    active: L('Current course','Şu anki kurs','دوره فعلی'),
+    upcoming: L('Upcoming','Yaklaşan','پیش رو'),
+    active: L('Current course','Şu anki kurs','دوره‌ی فعلی'),
     completed: L('Completed','Tamamlandı','تکمیل‌شده'),
-    locked: L('Locked','Kilitli','قفل‌شده'),
+    locked: L('Locked','Kilitli','قفل'),
     archived: L('Archived','Arşivlendi','بایگانی‌شده')
   }[status] || status;
 }
@@ -10028,7 +10028,7 @@ function renderCourseJourney(courses, roadmap){
   const sorted = courses.slice().sort((a,b)=>(a.order||a.number||0)-(b.order||b.number||0));
   return `
   <div style="margin-top:12px;">
-    <div class="eyebrow" style="margin-bottom:10px;">${L('My FEschool Journey','FEschool Yolculuğum','سفر من در FEschool')}</div>
+    <div class="eyebrow" style="margin-bottom:10px;">${L('My FEschool Journey','FEschool Yolculuğum','مسیر من در FEschool')}</div>
     <div class="stack" style="gap:10px;">
       ${sorted.map((c,idx)=>{
         const ids = c.sessionIds||[];
@@ -10092,17 +10092,17 @@ function renderCourseView(courseId){
       ${courseReportUrl(course) ? `
       <div class="card-flat" style="margin-top:12px; border-left:4px solid var(--success); background:var(--cat-diag-soft);">
         <div class="eyebrow">${L('Course report','Kurs raporu','گزارش دوره')}</div>
-        <p style="font-size:13.5px; margin-top:4px;">${L('Everything you learned in this course, in one page.','Bu kursta öğrendiğin her şey tek sayfada.','هر چیزی که در این دوره یاد گرفتی، در یک صفحه.')}</p>
-        <a href="${esc(courseReportUrl(course))}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">📄 ${L('Open your course report','Kurs raporunu aç','باز کردن گزارش دوره')}</a>
+        <p style="font-size:13.5px; margin-top:4px;">${L('Everything you learned in this course, in one page.','Bu kursta öğrendiğin her şey tek sayfada.','همه‌ی آموخته‌های این دوره، در یک صفحه.')}</p>
+        <a href="${esc(courseReportUrl(course))}" target="_blank" rel="noopener" class="btn btn-primary btn-sm" style="margin-top:10px;">📄 ${L('Open your course report','Kurs raporunu aç','مشاهده‌ی گزارش دوره')}</a>
       </div>` : ''}
       ${items.length ? `
       <div class="card-flat" style="margin-top:12px; position:relative; overflow:hidden;">
         <div class="row between" style="align-items:center;">
-          <div class="eyebrow">${L('Sessions','Seanslar','جلسات')}</div>
+          <div class="eyebrow">${L('Sessions','Seanslar','جلسه‌ها')}</div>
           <span style="font-size:12px; font-weight:700; color:var(--ink-soft);">${done}/${items.length}</span>
         </div>
         ${renderRoadmapTimeline(items)}
-      </div>` : `<p style="color:var(--ink-faint); font-size:13px; margin-top:16px;">${L('No sessions in this course yet.','Bu kursta henüz seans yok.','هنوز جلسه‌ای در این دوره نیست.')}</p>`}
+      </div>` : `<p style="color:var(--ink-faint); font-size:13px; margin-top:16px;">${L('No sessions in this course yet.','Bu kursta henüz seans yok.','هنوز جلسه‌ای برای این دوره ثبت نشده است.')}</p>`}
     </div>
   </div>`;
 }
@@ -15975,24 +15975,24 @@ const HANDLERS = {
    the final project screen. `mock` is a reserved stub.
    Premium gate is a PLACEHOLDER: there is no billing. Only course.freeUnits open today. */
 const COURSE_TYPE_META = {
-  review:{en:'Spaced review', tr:'Aralıklı tekrar', cat:'review', ic:'repeat'},
-  story:{en:'Story episode', tr:'Hikaye bölümü', cat:'story', ic:'book'},
-  grammar:{en:'Grammar', tr:'Dilbilgisi', cat:'gram', ic:'dumbbell'},
-  vocab:{en:'Words', tr:'Kelimeler', cat:'voc', ic:'cards'},
-  game:{en:'Word Rush', tr:'Kelime Yarışı', cat:'review', ic:'play'},
-  speaking:{en:'Speaking task', tr:'Konuşma görevi', cat:'lis', ic:'mic'},
-  judge:{en:'Spot the parts', tr:'Parçaları bul', cat:'diag', ic:'search'},
-  writing:{en:'Writing task', tr:'Yazma görevi', cat:'gram', ic:'pen'},
-  perspective:{en:'Step into their shoes', tr:'Onun yerine geç', cat:'lis', ic:'heart'},
-  exit:{en:'Exit check', tr:'Çıkış kontrolü', cat:'story', ic:'check'},
-  mock:{en:'Mock test', tr:'Deneme sınavı', cat:'diag', ic:'exam'},
-  branch:{en:'Branching scene', tr:'Dallanan sahne', fa:'صحنه‌ی چندمسیره', cat:'lis', ic:'chat'},
-  b2:{en:'B2 grammar', tr:'B2 dilbilgisi', fa:'گرامر B2', cat:'gram', ic:'dumbbell'},
+  review:{en:'Spaced review', tr:'Aralıklı tekrar', fa:'مرور فاصله‌دار', cat:'review', ic:'repeat'},
+  story:{en:'Story episode', tr:'Hikaye bölümü', fa:'قسمت داستان', cat:'story', ic:'book'},
+  grammar:{en:'Grammar', tr:'Dilbilgisi', fa:'گرامر', cat:'gram', ic:'dumbbell'},
+  vocab:{en:'Words', tr:'Kelimeler', fa:'واژه‌ها', cat:'voc', ic:'cards'},
+  game:{en:'Word Rush', tr:'Kelime Yarışı', fa:'مسابقه‌ی واژه‌ها', cat:'review', ic:'play'},
+  speaking:{en:'Speaking task', tr:'Konuşma görevi', fa:'تمرین گفتاری', cat:'lis', ic:'mic'},
+  judge:{en:'Spot the parts', tr:'Parçaları bul', fa:'پیدا کردن بخش‌ها', cat:'diag', ic:'search'},
+  writing:{en:'Writing task', tr:'Yazma görevi', fa:'تمرین نوشتاری', cat:'gram', ic:'pen'},
+  perspective:{en:'Step into their shoes', tr:'Onun yerine geç', fa:'خودتان را جای او بگذارید', cat:'lis', ic:'heart'},
+  exit:{en:'Exit check', tr:'Çıkış kontrolü', fa:'سنجش پایان واحد', cat:'story', ic:'check'},
+  mock:{en:'Mock test', tr:'Deneme sınavı', fa:'آزمون آزمایشی', cat:'diag', ic:'exam'},
+  branch:{en:'Branching scene', tr:'Dallanan sahne', fa:'گفتگوی چندمسیره', cat:'lis', ic:'chat'},
+  b2:{en:'B2 grammar', tr:'B2 dilbilgisi', fa:'گرامر سطح B2', cat:'gram', ic:'dumbbell'},
   trap:{en:'Trap Dash', tr:'Tuzak Kaçışı', fa:'فرار از تله‌ها', cat:'gram', ic:'bolt'},
   project:{en:'Final project', tr:'Final projesi', fa:'پروژه‌ی پایانی', cat:'diag', ic:'star'}
 };
-const COURSE_SESSION_NAMES = [{en:'Learn', tr:'Öğren', fa:'یاد بگیر'}, {en:'Practise', tr:'Alıştır', fa:'تمرین کن'}, {en:'Do', tr:'Yap', fa:'انجام بده'}];
-const COURSE_CP_SESSION_NAMES = [{en:'Check', tr:'Kontrol et', fa:'بررسی کن'}, {en:'Show it', tr:'Göster', fa:'نشان بده'}];
+const COURSE_SESSION_NAMES = [{en:'Learn', tr:'Öğren', fa:'یادگیری'}, {en:'Practise', tr:'Alıştır', fa:'تمرین'}, {en:'Do', tr:'Yap', fa:'به کار بستن'}];
+const COURSE_CP_SESSION_NAMES = [{en:'Check', tr:'Kontrol et', fa:'سنجش'}, {en:'Show it', tr:'Göster', fa:'نشان دادن مهارت'}];
 const courseUi = {judge:null, exit:null, wres:null, review:null, branch:null, fres:null, star:null};
 function cl(o){ return o ? L(o.en, o.tr, o.fa) : ''; }
 function courseGet(id){ return COURSES.find(c=>c.id===id) || null; }
@@ -16191,7 +16191,7 @@ function coursesDashTile(){
         <span class="item-ic" style="background:rgba(255,255,255,.26); color:#fff; flex:0 0 auto;">${ICONS.users}</span>
         <div style="min-width:0;">
           <div class="display" style="font-size:19px; color:#fff;">${L('Courses','Kurslar','دوره‌ها')}</div>
-          <div style="font-size:12.5px; font-weight:700; color:rgba(255,255,255,.92);">${L('HR & Business English, Travel, IELTS','İK ve İş İngilizcesi, Seyahat, IELTS','انگلیسی منابع انسانی، سفر، آیلتس')}</div>
+          <div style="font-size:12.5px; font-weight:700; color:rgba(255,255,255,.92);">${L('HR & Business English, Travel, IELTS','İK ve İş İngilizcesi, Seyahat, IELTS','انگلیسی منابع انسانی و کسب‌وکار، سفر، آیلتس')}</div>
         </div>
       </div>
       <span style="color:#fff;">${ICONS.chev}</span>
@@ -16202,7 +16202,7 @@ function courseCardHtml(c){
   const live = c.status === 'live', open = live || c.status === 'shell';
   const total = c.modules.reduce((n,m)=>n+m.units.length, 0);
   const doneUnits = c.modules.reduce((n,m)=>n+m.units.filter(u=>{ const p = courseUnitProgress(c.id, u.id); return p.total && p.done===p.total; }).length, 0);
-  const pill = live ? `<span class="pill" style="background:#fff; color:var(--clay-lavender-deep); font-weight:900;">${L('Free sample unit','Ücretsiz örnek ünite','واحد نمونه رایگان')}</span>`
+  const pill = live ? `<span class="pill" style="background:#fff; color:var(--clay-lavender-deep); font-weight:900;">${L('Free sample unit','Ücretsiz örnek ünite','واحد نمونه‌ی رایگان')}</span>`
                     : `<span class="pill" style="background:rgba(255,255,255,.3); color:#fff;">${L('Coming soon','Yakında','به‌زودی')}</span>`;
   return `<button class="item-row goal-card" data-action="course-open" data-view="${open?'course-detail':'course-gate'}" data-cid="${c.id}" style="background:var(--cat-${c.cat}); border:none; color:#fff; align-items:flex-start; ${live?'':'opacity:.82;'}">
     ${claySparkles()}
@@ -16220,7 +16220,7 @@ function courseCardHtml(c){
 function renderCoursesHome(){
   return `<div class="fade-in">
     ${topbar(false)}
-    ${sectionHeadNoBack(L('Courses','Kurslar','دوره‌ها'), L('Focused courses for one real-life goal. Your free Roadmap is never touched.','Tek bir gerçek hayat hedefi için odaklı kurslar. Ücretsiz Yol Haritan hiç değişmez.','دوره‌های متمرکز برای یک هدف واقعی. نقشه راه رایگان تو دست نمی‌خورد.'))}
+    ${sectionHeadNoBack(L('Courses','Kurslar','دوره‌ها'), L('Focused courses for one real-life goal. Your free Roadmap is never touched.','Tek bir gerçek hayat hedefi için odaklı kurslar. Ücretsiz Yol Haritan hiç değişmez.','دوره‌هایی متمرکز برای یک هدف مشخص در زندگی واقعی. نقشه‌ی راه رایگان شما دست‌نخورده می‌ماند.'))}
     <div class="screen" style="padding-top:0;">
       <div class="stack" style="gap:12px;">${COURSES.map(courseCardHtml).join('')}</div>
     </div>
@@ -16250,18 +16250,18 @@ function renderCourseDetail(cid){
   const c = courseGet(cid); if(!c) return renderNotFound();
   const track = courseTrack(cid);
   return `<div class="fade-in">
-    ${sectionHead(cl(c.title), L('Entry level','Giriş seviyesi','سطح ورود')+' '+c.entry+' · '+c.weeks+' '+L('weeks','hafta','هفته'))}
+    ${sectionHead(cl(c.title), L('Entry level','Giriş seviyesi','سطح ورودی')+' '+c.entry+' · '+c.weeks+' '+L('weeks','hafta','هفته'))}
     <div class="screen" style="padding-top:0;">
       <div class="hero-card" style="${COURSE_HERO_BG} margin-bottom:14px; cursor:default;">
         ${claySparkles()}
-        <div class="hero-eyebrow">${L('What you will do','Neler yapacaksın','چه کارهایی می‌کنی')}</div>
+        <div class="hero-eyebrow">${L('What you will do','Neler yapacaksın','در این دوره چه می‌کنید')}</div>
         <p style="margin:6px 0 0; font-size:15px; font-weight:700; line-height:1.4;">${esc(cl(c.promise))}</p>
         ${c.story ? `<p style="margin:10px 0 0; font-size:12.5px; opacity:.92;">${esc(c.story.character)} · ${esc(c.story.company)}</p>` : ''}
       </div>
       ${(c.tracks||[]).length ? `<div class="tab-row" style="margin-bottom:6px;">${c.tracks.map(t=>`<button class="tab-btn ${track===t?'active':''}" data-action="course-track" data-cid="${c.id}" data-track="${t}">${t} ${L('track','parkuru','مسیر')}</button>`).join('')}</div>
-      ${(c.tracks||[]).includes('B1') ? `<p style="font-size:12px; color:var(--ink-faint); margin:0 0 6px;">${track==='B1' ? L('B1 track: more frames and model texts.','B1 parkuru: daha fazla kalıp ve örnek metin.','مسیر B1: الگو و متن نمونه بیشتر.') : L('B2 track: one extra grammar point per unit, one extra requirement in each task, and no frames after the model.','B2 parkuru: her ünitede bir ek dilbilgisi konusu, her görevde bir ek şart ve örnekten sonra kalıp yok.','مسیر B2: در هر واحد یک نکته‌ی گرامری بیشتر، در هر کار یک شرط اضافه و بعد از نمونه، بدون الگو.')}</p>` : ''}` : ''}
+      ${(c.tracks||[]).includes('B1') ? `<p style="font-size:12px; color:var(--ink-faint); margin:0 0 6px;">${track==='B1' ? L('B1 track: more frames and model texts.','B1 parkuru: daha fazla kalıp ve örnek metin.','مسیر B1: قالب‌های جمله و متن‌های نمونه‌ی بیشتر.') : L('B2 track: one extra grammar point per unit, one extra requirement in each task, and no frames after the model.','B2 parkuru: her ünitede bir ek dilbilgisi konusu, her görevde bir ek şart ve örnekten sonra kalıp yok.','مسیر B2: در هر واحد یک نکته‌ی دستوری بیشتر، در هر تمرین یک شرط اضافه، و بعد از متن نمونه دیگر قالب آماده‌ای در کار نیست.')}</p>` : ''}` : ''}
       ${c.modules.map((m,mi)=>`
-        <div class="eyebrow" style="margin:16px 0 8px;">${L('Module','Modül','ماژول')} ${mi+1} · ${esc(cl(m.title))}</div>
+        <div class="eyebrow" style="margin:16px 0 8px;">${L('Module','Modül','فصل')} ${mi+1} · ${esc(cl(m.title))}</div>
         <div class="stack" style="gap:8px;">
           ${m.units.map(u=>courseUnitRowHtml(c, u, false)).join('')}
           ${m.checkpoint ? courseUnitRowHtml(c, m.checkpoint, true) : ''}
@@ -16274,25 +16274,25 @@ function renderCourseDetail(cid){
 function courseWaLink(c){ return whatsappLink('Hi Farin! I would like to know when the '+c.title.en+' course opens.'); }
 function coursePremiumNote(c){
   return `<div class="card-flat" style="margin-top:18px; background:var(--cat-diag-soft); border-color:var(--cat-diag-soft);">
-    <div class="eyebrow" style="color:var(--cat-diag);">${L('Full course','Tam kurs','دوره کامل')}</div>
-    <p style="font-size:13px; margin:4px 0 10px;">${L('The sample unit is free. The full course is on its way.','Örnek ünite ücretsiz. Tam kurs yolda.','واحد نمونه رایگان است. دوره کامل در راه است.')}</p>
-    <a class="btn btn-ghost" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد خبر بده')}</a>
+    <div class="eyebrow" style="color:var(--cat-diag);">${L('Full course','Tam kurs','دوره‌ی کامل')}</div>
+    <p style="font-size:13px; margin:4px 0 10px;">${L('The sample unit is free. The full course is on its way.','Örnek ünite ücretsiz. Tam kurs yolda.','واحد نمونه رایگان است. دوره‌ی کامل به‌زودی می‌رسد.')}</p>
+    <a class="btn btn-ghost" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد، خبرم کنید')}</a>
   </div>`;
 }
 function renderCourseGate(){
   const vp = state.viewParams || {}, c = courseGet(vp.cid);
   const soon = !c || c.status !== 'live';
   return `<div class="fade-in">
-    ${sectionHead(c ? cl(c.title) : L('Courses','Kurslar','دوره‌ها'), soon ? L('Coming soon','Yakında','به‌زودی') : L('Premium course','Premium kurs','دوره ویژه'))}
+    ${sectionHead(c ? cl(c.title) : L('Courses','Kurslar','دوره‌ها'), soon ? L('Coming soon','Yakında','به‌زودی') : L('Premium course','Premium kurs','دوره‌ی ویژه'))}
     <div class="screen" style="padding-top:0;">
       <div class="hero-card" style="${COURSE_HERO_BG} cursor:default; text-align:center;">
         ${claySparkles()}
         <div style="display:inline-flex; width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,.26); align-items:center; justify-content:center; color:#fff;">${COURSE_LOCK_SVG}</div>
-        <h2 class="display" style="font-size:20px; margin:10px 0 6px;">${soon ? L('This course is being built','Bu kurs hazırlanıyor','این دوره در حال ساخت است') : L('This unit is part of the full course','Bu ünite tam kursun parçası','این واحد بخشی از دوره کامل است')}</h2>
-        <p style="font-size:13.5px; margin:0; opacity:.95;">${soon ? L('Leave a message and Farin will tell you when it opens.','Mesaj bırak, açılınca Farin haber versin.','پیام بگذار تا Farin وقتی باز شد خبر بدهد.') : L('Purchases are not open yet. Try the free sample unit meanwhile.','Satın alma henüz açık değil. Bu arada ücretsiz örnek üniteyi dene.','خرید هنوز باز نیست. فعلاً واحد نمونه رایگان را امتحان کن.')}</p>
+        <h2 class="display" style="font-size:20px; margin:10px 0 6px;">${soon ? L('This course is being built','Bu kurs hazırlanıyor','این دوره در حال آماده‌سازی است') : L('This unit is part of the full course','Bu ünite tam kursun parçası','این واحد بخشی از دوره‌ی کامل است')}</h2>
+        <p style="font-size:13.5px; margin:0; opacity:.95;">${soon ? L('Leave a message and Farin will tell you when it opens.','Mesaj bırak, açılınca Farin haber versin.','پیام بگذارید تا Farin وقتی دوره باز شد خبرتان کند.') : L('Purchases are not open yet. Try the free sample unit meanwhile.','Satın alma henüz açık değil. Bu arada ücretsiz örnek üniteyi dene.','امکان خرید هنوز فعال نشده است. تا آن موقع، واحد نمونه‌ی رایگان را امتحان کنید.')}</p>
       </div>
       <div class="stack" style="gap:10px; margin-top:14px;">
-        ${c ? `<a class="btn btn-primary" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد خبر بده')}</a>` : ''}
+        ${c ? `<a class="btn btn-primary" target="_blank" rel="noopener" href="${esc(courseWaLink(c))}">${ICONS.whatsapp} ${L('Tell me when it opens','Açılınca haber ver','وقتی باز شد، خبرم کنید')}</a>` : ''}
         <button class="btn btn-ghost" data-action="nav" data-view="courses-home">${L('Back to courses','Kurslara dön','بازگشت به دوره‌ها')}</button>
       </div>
     </div>
@@ -16310,9 +16310,9 @@ function renderCourseUnit(cid, uid){
   const sessNames = isCp ? COURSE_CP_SESSION_NAMES : COURSE_SESSION_NAMES;
   const topCard = !isCp ? `<div class="eyebrow" style="color:var(--cat-diag);">${L('By the end of this unit','Bu ünitenin sonunda','در پایان این واحد')}</div>
         <p style="margin:4px 0 0; font-size:14px; font-weight:700;">${esc(cl(u.cando))}</p>`
-    : `<div class="eyebrow" style="color:var(--cat-diag);">${L('This checkpoint covers','Bu kontrolün kapsadığı üniteler','این ایستگاه این واحدها را پوشش می‌دهد')}</div>
+    : `<div class="eyebrow" style="color:var(--cat-diag);">${L('This checkpoint covers','Bu kontrolün kapsadığı üniteler','این ایستگاه ارزیابی شامل این واحدهاست')}</div>
         <p style="margin:4px 0 0; font-size:14px; font-weight:700;">${esc(((cpMeta && cpMeta.covers) || []).map(id=>{ const x = courseFindUnit(cid, id); return x ? cl(x.u.title) : ''; }).filter(Boolean).join(' · '))}</p>
-        <p style="margin:6px 0 0; font-size:12.5px; color:var(--ink-soft);">${L('Check your writing against the list yourself. Teacher marking comes with the full course.','Yazını listeye göre kendin kontrol et. Öğretmen değerlendirmesi tam kursla gelir.','نوشته‌ات را خودت با فهرست بررسی کن. نمره‌دهی معلم با دوره کامل می‌آید.')}</p>`;
+        <p style="margin:6px 0 0; font-size:12.5px; color:var(--ink-soft);">${L('Check your writing against the list yourself. Teacher marking comes with the full course.','Yazını listeye göre kendin kontrol et. Öğretmen değerlendirmesi tam kursla gelir.','نوشته‌تان را خودتان با این فهرست بسنجید. تصحیح معلم در دوره‌ی کامل ارائه می‌شود.')}</p>`;
   const rowFor = s=>{
     const m = COURSE_TYPE_META[s.type] || COURSE_TYPE_META.exit;
     let tail = '';
@@ -16334,7 +16334,7 @@ function renderCourseUnit(cid, uid){
       <div class="card-flat" style="margin-bottom:14px; background:var(--cat-diag-soft); border-color:var(--cat-diag-soft);">
         ${topCard}
       </div>
-      ${left===0 && steps.length ? `<div class="card-flat badge-unlock-shine" style="margin-bottom:14px; text-align:center; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="display" style="font-size:17px;">${isCp ? L('Checkpoint complete!','Kontrol tamamlandı!','ایستگاه تمام شد!') : L('Unit complete!','Ünite tamamlandı!','واحد تمام شد!')}</div></div>` : ''}
+      ${left===0 && steps.length ? `<div class="card-flat badge-unlock-shine" style="margin-bottom:14px; text-align:center; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="display" style="font-size:17px;">${isCp ? L('Checkpoint complete!','Kontrol tamamlandı!','ایستگاه ارزیابی را تمام کردید!') : L('Unit complete!','Ünite tamamlandı!','این واحد را تمام کردید!')}</div></div>` : ''}
       ${[0,1,2].map(si=>{
         const ss = steps.filter(s=>s.si===si); if(!ss.length) return '';
         return `<div class="eyebrow" style="margin:14px 0 8px;">${L('Session','Oturum','جلسه')} ${si+1} · ${esc(cl(sessNames[si]))}</div><div class="stack" style="gap:8px;">${ss.map(rowFor).join('')}</div>`;
@@ -16356,14 +16356,14 @@ function courseStepShell(cid, uid, type, inner){
 function courseSpeakingHeading(sp){
   if(sp.heading) return cl(sp.heading);
   const qs = sp.questions || [];
-  if(qs.length && qs.every(q=>/\?["'”’)]*\s*$/.test(String(q.en||'')))) return L('Answer out loud:','Yüksek sesle cevap ver:','بلند جواب بده:');
-  return L('Your tasks:','Görevlerin:','کارهای تو:');
+  if(qs.length && qs.every(q=>/\?["'”’)]*\s*$/.test(String(q.en||'')))) return L('Answer out loud:','Yüksek sesle cevap ver:','با صدای بلند جواب دهید:');
+  return L('Your tasks:','Görevlerin:','تمرین‌های شما:');
 }
 // B2 track: the b2 item's extra requirement under the writing and speaking prompts.
 function courseUseInHtml(cid, uid){
   const b2 = courseB2(cid, uid);
   if(!b2 || !b2.useIn) return '';
-  return `<div class="card-flat" style="margin-top:10px; background:var(--cat-gram-soft); border-color:var(--cat-gram-soft);"><div class="eyebrow" style="color:var(--cat-gram);">${L('B2 extra','B2 ek şartı','شرط اضافه‌ی B2')} · ${esc(grammarTitle(b2))}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(b2.useIn))}</p></div>`;
+  return `<div class="card-flat" style="margin-top:10px; background:var(--cat-gram-soft); border-color:var(--cat-gram-soft);"><div class="eyebrow" style="color:var(--cat-gram);">${L('B2 extra','B2 ek şartı','شرط اضافه‌ی مسیر B2')} · ${esc(grammarTitle(b2))}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(b2.useIn))}</p></div>`;
 }
 function renderCourseStep(){
   const vp = state.viewParams || {}, cid = vp.cid, uid = vp.uid, type = vp.type;
@@ -16376,12 +16376,12 @@ function renderCourseStep(){
       <div class="card-flat"><div class="eyebrow">${L('Warm-up','Isınma','گرم کردن')}</div><p style="margin:4px 0 0;">${esc(cl(sp.warmup))}</p></div>
       <div class="eyebrow" style="margin:14px 0 8px;">${esc(courseSpeakingHeading(sp))}</div>
       <div class="stack" style="gap:8px;">${sp.questions.map((q,i)=>`<div class="card-flat"><b>${i+1}.</b> ${esc(cl(q))}</div>`).join('')}
-        ${(sp.followups||[]).map(q=>`<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${L('Follow-up','Takip sorusu','سؤال تکمیلی')}</div>${esc(cl(q))}</div>`).join('')}</div>
+        ${(sp.followups||[]).map(q=>`<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${L('Follow-up','Takip sorusu','تمرین تکمیلی')}</div>${esc(cl(q))}</div>`).join('')}</div>
       ${courseUseInHtml(cid, uid)}
       <div class="eyebrow" style="margin:14px 0 8px;">${L('Useful phrases','Faydalı kalıplar','عبارت‌های مفید')}</div>
       <div class="stack" style="gap:8px;">${(sp.expressions||[]).map(e=>`<div class="card-flat"><div class="row between" style="align-items:center;"><b dir="ltr">${esc(e.phrase)}</b>${ttsButton(e.phrase)}</div><div style="font-size:12.5px; color:var(--ink-soft); margin-top:2px;">${esc(cl(e.meaning))}</div></div>`).join('')}</div>
-      ${sp.culture ? `<div class="card-flat" style="margin-top:14px; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="eyebrow">${L('Culture note','Kültür notu','نکته فرهنگی')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(sp.culture))}</p></div>` : ''}
-      <p style="font-size:12px; color:var(--ink-faint); margin-top:12px;">${L('Say your answers out loud: 90 seconds, then 60, then 45. Recorded answers and teacher feedback come with the full course.','Cevaplarını yüksek sesle söyle: 90 saniye, sonra 60, sonra 45. Kayıtlı cevaplar ve öğretmen geri bildirimi tam kursla gelir.','پاسخ‌هایت را بلند بگو: ۹۰ ثانیه، بعد ۶۰ و بعد ۴۵. ضبط پاسخ و بازخورد معلم با دوره کامل می‌آید.')}</p>
+      ${sp.culture ? `<div class="card-flat" style="margin-top:14px; background:var(--cat-review-soft); border-color:var(--cat-review-soft);"><div class="eyebrow">${L('Culture note','Kültür notu','نکته‌ی فرهنگی')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(sp.culture))}</p></div>` : ''}
+      <p style="font-size:12px; color:var(--ink-faint); margin-top:12px;">${L('Say your answers out loud: 90 seconds, then 60, then 45. Recorded answers and teacher feedback come with the full course.','Cevaplarını yüksek sesle söyle: 90 saniye, sonra 60, sonra 45. Kayıtlı cevaplar ve öğretmen geri bildirimi tam kursla gelir.','پاسخ‌هایتان را با صدای بلند بگویید: یک بار در ۹۰ ثانیه، بعد ۶۰ و بعد ۴۵ ثانیه. ضبط پاسخ و بازخورد معلم در دوره‌ی کامل ارائه می‌شود.')}</p>
       ${doneBtn(L("I've practised it","Pratik yaptım",'تمرین کردم'))}`);
   }
   if(type==='judge' && it.judge) return courseStepShell(cid, uid, type, renderCourseJudge(cid, uid, it.judge));
@@ -16391,7 +16391,7 @@ function renderCourseStep(){
   if(type==='perspective' && it.perspective) return courseStepShell(cid, uid, type, renderCoursePerspective(cid, uid, it.perspective));
   if(type==='exit') return courseStepShell(cid, uid, type, renderCourseExit(cid, uid, it));
   // mock / branch and anything unbuilt: a clear stub, never a blank screen.
-  return courseStepShell(cid, uid, type, `<div class="card-flat" style="text-align:center;"><h2 class="display" style="font-size:18px;">${L('Coming soon','Yakında','به‌زودی')}</h2><p style="color:var(--ink-soft);">${L('This part of the course is not built yet.','Kursun bu bölümü henüz hazır değil.','این بخش دوره هنوز ساخته نشده است.')}</p></div>`);
+  return courseStepShell(cid, uid, type, `<div class="card-flat" style="text-align:center;"><h2 class="display" style="font-size:18px;">${L('Coming soon','Yakında','به‌زودی')}</h2><p style="color:var(--ink-soft);">${L('This part of the course is not built yet.','Kursun bu bölümü henüz hazır değil.','این بخش از دوره هنوز آماده نشده است.')}</p></div>`);
 }
 
 /* judge: tap which parts are present */
@@ -16399,22 +16399,22 @@ function renderCourseJudge(cid, uid, j){
   let st = courseUi.judge;
   if(!st || st.uid !== uid) st = courseUi.judge = {uid, i:0, sel:[], checked:false, right:0, total:0};
   if(st.i >= j.items.length){
-    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${L('Nicely spotted!','İyi yakaladın!','عالی تشخیص دادی!')}</h2>
+    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${L('Nicely spotted!','İyi yakaladın!','آفرین، خوب تشخیص دادید!')}</h2>
       <p>${st.right}/${st.total} ${L('judged correctly','doğru değerlendirildi','درست تشخیص داده شد')}</p>
-      <button class="btn btn-primary" data-action="course-judge-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+      <button class="btn btn-primary" data-action="course-judge-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','پایان')}</button></div>`;
   }
   const item = j.items[st.i];
   return `<div class="eyebrow">${st.i+1} / ${j.items.length}</div>
     <div class="card-flat" dir="ltr" style="margin:8px 0 12px; font-size:15.5px; line-height:1.6;">${esc(item.answer)}</div>
-    <p style="font-size:13px; color:var(--ink-soft); margin:0 0 8px;">${j.instruction ? cl(j.instruction) : L('Tap each part you can find in this answer.','Bu cevapta bulduğun her parçaya dokun.','هر بخشی که در این پاسخ می‌بینی را لمس کن.')}</p>
+    <p style="font-size:13px; color:var(--ink-soft); margin:0 0 8px;">${j.instruction ? cl(j.instruction) : L('Tap each part you can find in this answer.','Bu cevapta bulduğun her parçaya dokun.','هر بخشی را که در این پاسخ می‌بینید لمس کنید.')}</p>
     <div class="row" style="gap:8px; flex-wrap:wrap;">${j.parts.map(p=>{
       const on = st.sel.includes(p), pres = item.present.includes(p);
       let cls = on ? ' on' : '';
       if(st.checked) cls = pres ? (on ? ' ok' : ' miss') : (on ? ' bad' : '');
       return `<button class="cj-part${cls}" data-action="course-judge-toggle" data-part="${esc(p)}" ${st.checked?'disabled':''}>${esc(p)}</button>`;
     }).join('')}</div>
-    ${st.checked ? (item.fix ? `<div class="card-flat" style="margin-top:12px; background:var(--cat-gram-soft); border-color:var(--cat-gram-soft);">${j.parts[0]==='Situation' ? `<div class="eyebrow">${L('Missing','Eksik','کم است')}: ${esc(j.parts.filter(p=>!item.present.includes(p)).join(', '))}</div>` : ''}<p style="margin:4px 0 0;" dir="ltr">${esc(cl(item.fix))}</p></div>`
-        : `<div class="card-flat" style="margin-top:12px; background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);"><b>${j.parts[0]==='Situation' ? L('A complete answer. All four parts are there.','Eksiksiz bir cevap. Dört parça da var.','پاسخ کامل. هر چهار بخش هست.') : L('Nothing to fix in this line.','Bu satırda düzeltilecek bir şey yok.','در این خط چیزی برای اصلاح نیست.')}</b></div>`)
+    ${st.checked ? (item.fix ? `<div class="card-flat" style="margin-top:12px; background:var(--cat-gram-soft); border-color:var(--cat-gram-soft);">${j.parts[0]==='Situation' ? `<div class="eyebrow">${L('Missing','Eksik','جاافتاده')}: ${esc(j.parts.filter(p=>!item.present.includes(p)).join(', '))}</div>` : ''}<p style="margin:4px 0 0;" dir="auto">${esc(cl(item.fix))}</p></div>`
+        : `<div class="card-flat" style="margin-top:12px; background:var(--cat-voc-soft); border-color:var(--cat-voc-soft);"><b>${j.parts[0]==='Situation' ? L('A complete answer. All four parts are there.','Eksiksiz bir cevap. Dört parça da var.','پاسخی کامل؛ هر چهار بخش در آن هست.') : L('Nothing to fix in this line.','Bu satırda düzeltilecek bir şey yok.','این خط نیازی به اصلاح ندارد.')}</b></div>`)
       : ''}
     <button class="btn btn-primary" style="margin-top:14px;" data-action="${st.checked?'course-judge-next':'course-judge-check'}">${st.checked ? L('Next','Sonraki','بعدی') : L('Check','Kontrol et','بررسی')}</button>`;
 }
@@ -16425,9 +16425,9 @@ function renderCourseJudge(cid, uid, j){
    again; otherwise they move on. `end` shows the outcome. Unscored; retries per node
    are saved for the teacher. */
 const COURSE_TONE = {
-  good:{bg:'var(--cat-voc-soft)', fg:'var(--cat-voc)', en:'Good move', tr:'İyi hamle', fa:'حرکت خوب'},
-  ok:{bg:'var(--cat-review-soft)', fg:'var(--cat-review)', en:'It works, but...', tr:'Olur, ama...', fa:'جواب می‌دهد، اما...'},
-  poor:{bg:'var(--cat-gram-soft)', fg:'var(--cat-gram)', en:'That did not land', tr:'Bu iyi gitmedi', fa:'این خوب پیش نرفت'}
+  good:{bg:'var(--cat-voc-soft)', fg:'var(--cat-voc)', en:'Good move', tr:'İyi hamle', fa:'انتخاب خوب'},
+  ok:{bg:'var(--cat-review-soft)', fg:'var(--cat-review)', en:'It works, but...', tr:'Olur, ama...', fa:'بد نیست، اما...'},
+  poor:{bg:'var(--cat-gram-soft)', fg:'var(--cat-gram)', en:'That did not land', tr:'Bu iyi gitmedi', fa:'این جواب نداد'}
 };
 function renderCourseBranch(cid, uid, b){
   let st = courseUi.branch;
@@ -16436,24 +16436,24 @@ function renderCourseBranch(cid, uid, b){
   const head = `<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${esc(cl(b.title))}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(b.setting))}</p></div>`;
   if(node.end){
     const tries = Object.keys(st.retries).reduce((n,k)=>n+st.retries[k], 0);
-    return `${head}<div class="card-flat badge-unlock-shine" style="margin-top:12px; text-align:center;"><h2 class="display" style="font-size:19px;">${L('Scene complete','Sahne tamamlandı','صحنه تمام شد')}</h2>
+    return `${head}<div class="card-flat badge-unlock-shine" style="margin-top:12px; text-align:center;"><h2 class="display" style="font-size:19px;">${L('Scene complete','Sahne tamamlandı','گفتگو به پایان رسید')}</h2>
       <p style="margin:6px 0 0; font-size:14px;">${esc(cl(node.outcome))}</p>
-      ${tries ? `<p style="font-size:12.5px; color:var(--ink-faint); margin:8px 0 0;">${L('Second tries: ','İkinci denemeler: ','تلاش دوباره: ')}${tries}</p>` : ''}
-      <button class="btn btn-primary" style="margin-top:12px;" data-action="course-branch-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+      ${tries ? `<p style="font-size:12.5px; color:var(--ink-faint); margin:8px 0 0;">${L('Second tries: ','İkinci denemeler: ','تعداد تلاش‌های دوباره: ')}${tries}</p>` : ''}
+      <button class="btn btn-primary" style="margin-top:12px;" data-action="course-branch-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','پایان')}</button></div>`;
   }
   if(!st.order[st.node]) st.order[st.node] = shuffle(node.choices.map((_,i)=>i));
   const line = `<div class="card-flat" dir="ltr" style="margin-top:12px;"><div class="eyebrow">${esc(node.speaker || '')}</div><p style="margin:4px 0 0; font-size:15.5px; line-height:1.5;">${esc(node.line || '')}</p></div>`;
   if(st.picked === null){
     return `${head}${line}
-      <p style="font-size:13px; color:var(--ink-soft); margin:12px 0 8px;">${L('What do you say?','Ne dersin?','چه می‌گویی؟')}</p>
+      <p style="font-size:13px; color:var(--ink-soft); margin:12px 0 8px;">${L('What do you say?','Ne dersin?','چه می‌گویید؟')}</p>
       <div class="stack" style="gap:8px;">${st.order[st.node].map(i=>`<button class="cj-part wide" dir="ltr" data-action="course-branch-pick" data-i="${i}">${esc(node.choices[i].text)}</button>`).join('')}</div>`;
   }
   const ch = node.choices[st.picked], tone = COURSE_TONE[ch.tone] || COURSE_TONE.ok, again = ch.next === st.node;
   return `${head}${line}
-    <div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${L('You','Sen','تو')}</div><p style="margin:4px 0 0; font-size:14.5px;">${esc(ch.text)}</p></div>
+    <div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${L('You','Sen','شما')}</div><p style="margin:4px 0 0; font-size:14.5px;">${esc(ch.text)}</p></div>
     <div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${esc(node.speaker || '')}</div><p style="margin:4px 0 0; font-size:14.5px;">${esc(ch.reply || '')}</p></div>
     <div class="card-flat" style="margin-top:10px; background:${tone.bg}; border-color:transparent;"><div class="eyebrow" style="color:${tone.fg};">${L(tone.en, tone.tr, tone.fa)}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(cl(ch.feedback))}</p></div>
-    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-branch-next">${again ? L('Try again','Tekrar dene','دوباره امتحان کن') : L('Continue','Devam','ادامه')}</button>`;
+    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-branch-next">${again ? L('Try again','Tekrar dene','دوباره امتحان کنید') : L('Continue','Devam','ادامه')}</button>`;
 }
 
 /* review: up to 3 earlier exit items (courseReviewPicks), same look as the exit check. */
@@ -16462,10 +16462,10 @@ function renderCourseReview(cid, uid){
   if(!st || st.uid !== uid) st = courseUi.review = {uid, cid, qs:courseReviewPicks(cid, uid).map(p=>courseQ(p.item, p.key)), i:0, picked:null, right:0};
   if(!st.qs.length) return `<div class="card-flat">${L('Nothing to review yet.','Henüz tekrar edilecek bir şey yok.','هنوز چیزی برای مرور نیست.')}</div>`;
   if(st.i >= st.qs.length){
-    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${L('Warmed up!','Isındın!','گرم شدی!')}</h2>
+    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${L('Warmed up!','Isındın!','حسابی گرم شدید!')}</h2>
       <p>${st.right}/${st.qs.length}</p>
-      <p style="font-size:12.5px; color:var(--ink-faint);">${L('Missed items come back sooner; the ones you know wait longer.','Kaçırdıkların daha erken, bildiklerin daha geç geri gelir.','موردهایی که اشتباه شد زودتر برمی‌گردند و آن‌هایی که بلدی دیرتر.')}</p>
-      <button class="btn btn-primary" data-action="course-review-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+      <p style="font-size:12.5px; color:var(--ink-faint);">${L('Missed items come back sooner; the ones you know wait longer.','Kaçırdıkların daha erken, bildiklerin daha geç geri gelir.','مواردی که اشتباه کردید زودتر دوباره می‌آیند و آن‌هایی که بلدید، دیرتر.')}</p>
+      <button class="btn btn-primary" data-action="course-review-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','پایان')}</button></div>`;
   }
   const q = st.qs[st.i], fu = q.from ? courseFindUnit(cid, q.from) : null;
   return `<div class="eyebrow">${st.i+1} / ${st.qs.length}${fu ? ' · '+esc(cl(fu.u.title)) : ''}</div>
@@ -16488,14 +16488,14 @@ function renderCourseWriting(cid, uid, w){
   return `<div class="card-flat"><p style="margin:0; font-size:14.5px; font-weight:700;">${esc(cl(w.prompt))}</p></div>
     ${courseUseInHtml(cid, uid)}
     ${showModelFirst ? `<div class="card-flat" dir="ltr" style="margin-top:10px; background:var(--cat-story-soft); border-color:var(--cat-story-soft);"><div class="eyebrow" style="color:var(--cat-story);">${L('Model','Örnek','نمونه')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(w.model)}</p></div>` : ''}
-    ${track==='B1' && w.frame ? `<div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${L('Frame','Kalıp','الگو')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(w.frame)}</p></div>` : ''}
-    <textarea id="cw-text" class="game-input" dir="ltr" rows="7" style="margin-top:12px; font-weight:500; min-height:150px;" placeholder="${esc(L('Write here','Buraya yaz','اینجا بنویس'))}">${esc(saved)}</textarea>
-    <p style="font-size:12px; color:var(--ink-faint); margin:6px 0 0;">${L('Use','Kullan','استفاده کن')}: ${w.words.map(x=>esc(x.word)).join(', ')} · ${w.minWords}+ ${L('words','kelime','کلمه')}</p>
+    ${track==='B1' && w.frame ? `<div class="card-flat" dir="ltr" style="margin-top:10px;"><div class="eyebrow">${L('Frame','Kalıp','قالب جمله')}</div><p style="margin:4px 0 0; font-size:13.5px;">${esc(w.frame)}</p></div>` : ''}
+    <textarea id="cw-text" class="game-input" dir="ltr" rows="7" style="margin-top:12px; font-weight:500; min-height:150px;" placeholder="${esc(L('Write here','Buraya yaz','اینجا بنویسید'))}">${esc(saved)}</textarea>
+    <p style="font-size:12px; color:var(--ink-faint); margin:6px 0 0;">${L('Use','Kullan','از این‌ها استفاده کنید')}: ${w.words.map(x=>esc(x.word)).join(', ')} · ${w.minWords}+ ${L('words','kelime','کلمه')}</p>
     ${res ? `<div class="card-flat" style="margin-top:12px; background:${res.lengthOk && !res.wordsMissed.length ? 'var(--cat-voc-soft)' : 'var(--cat-gram-soft)'}; border-color:transparent;">
       <p style="margin:0; font-size:13.5px;">${res.wc} ${L('words','kelime','کلمه')} · ${res.sc} ${L('sentences','cümle','جمله')}${res.wordsMissed.length ? ' · '+L('Not used yet','Henüz kullanılmadı','هنوز استفاده نشده')+': '+esc(res.wordsMissed.join(', ')) : ''}</p>
-      ${!res.lengthOk ? `<p style="margin:6px 0 0; font-size:13px;">${L('A little longer, please: at least '+w.minWords+' words and '+w.minSentences+' sentences.','Biraz daha uzun yaz: en az '+w.minWords+' kelime ve '+w.minSentences+' cümle.','کمی بلندتر بنویس: دست‌کم '+w.minWords+' کلمه و '+w.minSentences+' جمله.')}</p>` : ''}</div>` : ''}
-    <div class="card-flat" style="margin-top:12px;"><div class="eyebrow">${L('Check it yourself','Kendin kontrol et','خودت بررسی کن')}</div>
-      <ul style="margin:6px 0 0; padding-inline-start:18px; font-size:13px; color:var(--ink-soft);">${w.rubric.map(r=>`<li style="margin-bottom:4px;" dir="ltr">${esc(r)}${b2 && b2.useIn && /^Language\b/i.test(r) ? ` <b>+ B2 extra (above)</b>` : ''}</li>`).join('')}</ul></div>
+      ${!res.lengthOk ? `<p style="margin:6px 0 0; font-size:13px;">${L('A little longer, please: at least '+w.minWords+' words and '+w.minSentences+' sentences.','Biraz daha uzun yaz: en az '+w.minWords+' kelime ve '+w.minSentences+' cümle.','کمی بیشتر بنویسید: دست‌کم '+w.minWords+' کلمه و '+w.minSentences+' جمله.')}</p>` : ''}</div>` : ''}
+    <div class="card-flat" style="margin-top:12px;"><div class="eyebrow">${L('Check it yourself','Kendin kontrol et','خودتان بسنجید')}</div>
+      <ul style="margin:6px 0 0; padding-inline-start:18px; font-size:13px; color:var(--ink-soft);">${w.rubric.map(r=>`<li style="margin-bottom:4px;" dir="ltr">${esc(r)}${b2 && b2.useIn && /^Language\b/i.test(r) ? ` <b>+ ${L('B2 extra (above)','B2 ek şartı (yukarıda)','شرط اضافه‌ی B2 (بالای صفحه)')}</b>` : ''}</li>`).join('')}</ul></div>
     <button class="btn btn-primary" style="margin-top:14px;" data-action="course-write-check" data-cid="${cid}" data-uid="${uid}">${L('Check and save','Kontrol et ve kaydet','بررسی و ذخیره')}</button>`;
 }
 function renderCoursePerspective(cid, uid, p){
@@ -16504,7 +16504,7 @@ function renderCoursePerspective(cid, uid, p){
   return `<div class="card-flat" style="background:var(--cat-lis-soft); border-color:var(--cat-lis-soft);"><div class="eyebrow" style="color:var(--cat-lis);">${L('Not scored','Puansız','بدون نمره')}</div>
       <p style="margin:4px 0 0; font-size:15px; font-weight:700;">${esc(cl(p.prompt))}</p></div>
     <textarea id="cw-text" class="game-input" dir="ltr" rows="5" style="margin-top:12px; font-weight:500; min-height:120px;" placeholder="I ...">${esc(saved)}</textarea>
-    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-persp-save" data-cid="${cid}" data-uid="${uid}">${L('Save to my journal','Günlüğüme kaydet','ذخیره در دفترچه')}</button>`;
+    <button class="btn btn-primary" style="margin-top:14px;" data-action="course-persp-save" data-cid="${cid}" data-uid="${uid}">${L('Save to my journal','Günlüğüme kaydet','ذخیره در دفترچه‌ی من')}</button>`;
 }
 
 /* exit check: 2 grammar blanks + 1 STAR item. The 3 spaced items from earlier units join once those units are published (stub). */
@@ -16534,10 +16534,10 @@ function renderCourseExit(cid, uid, it){
   if(!st.qs.length) return `<div class="card-flat">${L('Nothing to check yet.','Henüz kontrol edilecek bir şey yok.','هنوز چیزی برای بررسی نیست.')}</div>`;
   if(st.i >= st.qs.length){
     const secure = st.right >= st.qs.length - 1;
-    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${secure ? L('Secure!','Sağlam!','مطمئن!') : L('Almost there','Az kaldı','نزدیک است')}</h2>
+    return `<div class="card-flat badge-unlock-shine" style="text-align:center;"><h2 class="display" style="font-size:19px;">${secure ? L('Secure!','Sağlam!','تسلط کامل!') : L('Almost there','Az kaldı','کم مانده!')}</h2>
       <p>${st.right}/${st.qs.length}</p>
-      <p style="font-size:12.5px; color:var(--ink-faint);">${L('Questions that slipped come back in the next units.','Kaçan sorular sonraki ünitelerde geri gelir.','سؤال‌هایی که اشتباه شد در واحدهای بعدی برمی‌گردند.')}</p>
-      <button class="btn btn-primary" data-action="course-exit-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','تمام')}</button></div>`;
+      <p style="font-size:12.5px; color:var(--ink-faint);">${L('Questions that slipped come back in the next units.','Kaçan sorular sonraki ünitelerde geri gelir.','سؤال‌هایی که اشتباه جواب دادید، در واحدهای بعدی دوباره می‌آیند.')}</p>
+      <button class="btn btn-primary" data-action="course-exit-finish" data-cid="${cid}" data-uid="${uid}">${L('Done','Bitti','پایان')}</button></div>`;
   }
   const q = st.qs[st.i];
   return `<div class="eyebrow">${st.i+1} / ${st.qs.length}</div>
@@ -16575,11 +16575,11 @@ function courseFinalRowHtml(c){
     <button class="item-row" ${act} style="${unlocked ? '' : 'opacity:.7;'}">
       <span class="item-ic" style="background:var(--cat-diag-soft); color:var(--cat-diag);">${ICONS.star}</span>
       <div class="item-body"><div class="item-title">${esc(cl(pd.title))}</div>
-        <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">${unlocked ? passed+'/'+pd.parts.length+' '+L('parts passed','bölüm geçildi','بخش قبول شده') : L('Opens after ','Şundan sonra açılır: ','باز می‌شود بعد از ')+esc(after ? cl(after.u.title) : c.final.unlockAfter)}</div></div>
+        <div style="font-size:12px; color:var(--ink-soft); margin-top:2px;">${unlocked ? passed+'/'+pd.parts.length+' '+L('parts passed','bölüm geçildi','بخش قبول‌شده') : L('Opens after ','Şundan sonra açılır: ','باز می‌شود پس از: ')+esc(after ? cl(after.u.title) : c.final.unlockAfter)}</div></div>
       ${tail}
     </button>`;
 }
-const COURSE_SCORE_HINT = {en:'0 not there · 1 partly · 2 mostly · 3 fully', tr:'0 yok · 1 kısmen · 2 büyük ölçüde · 3 tamamen', fa:'۰ نیست · ۱ تا حدی · ۲ بیشترش · ۳ کامل'};
+const COURSE_SCORE_HINT = {en:'0 not there · 1 partly · 2 mostly · 3 fully', tr:'0 yok · 1 kısmen · 2 büyük ölçüde · 3 tamamen', fa:'۰ اصلاً · ۱ تا حدی · ۲ بیشتر موارد · ۳ کامل'};
 function renderCourseFinal(){
   const vp = state.viewParams || {}, c = courseGet(vp.cid), pd = courseFinalData(c);
   if(!c || !pd) return renderNotFound();
@@ -16594,17 +16594,17 @@ function courseFinalHomeHtml(c, pd){
   const v = pd.defaultVacancy || {}, passed = courseFinalPassed(c.id, pd), all = passed===pd.parts.length;
   const list = (label, arr)=>arr && arr.length ? `<div style="font-size:13px; margin-top:6px;"><b>${label}:</b> ${esc(arr.join('; '))}</div>` : '';
   return `<div class="hero-card" style="${COURSE_HERO_BG} cursor:default;">${claySparkles()}
-      <div class="hero-eyebrow">${L('Your brief','Görevin','شرح کار تو')}</div>
+      <div class="hero-eyebrow">${L('Your brief','Görevin','شرح پروژه')}</div>
       <p style="margin:6px 0 0; font-size:14px; line-height:1.45;">${esc(cl(pd.brief))}</p></div>
-    ${v.title ? `<div class="card-flat" dir="ltr" style="margin-top:12px;"><div class="eyebrow">${L('Default vacancy','Varsayılan pozisyon','موقعیت پیش‌فرض')}</div>
+    ${v.title ? `<div class="card-flat" dir="ltr" style="margin-top:12px;"><div class="eyebrow">${L('Default vacancy','Varsayılan pozisyon','موقعیت شغلی نمونه')}</div>
       <div style="font-weight:800; margin-top:4px;">${esc(v.title)}</div>
       ${list('Duties', v.duties)}${list('Essential', v.essential)}${list('Desirable', v.desirable)}${list('Finalists', v.finalists)}</div>` : ''}
     <div class="card-flat" style="margin-top:12px; background:var(--cat-diag-soft); border-color:var(--cat-diag-soft);">
       <div class="eyebrow" style="color:var(--cat-diag);">${L('Self-check','Kendini değerlendir','خودارزیابی')}</div>
-      <p style="margin:4px 0 0; font-size:13px;">${L('You score each part yourself against the rubric. There is no teacher marking in the app.','Her bölümü rubriğe göre kendin puanlarsın. Uygulamada öğretmen değerlendirmesi yok.','هر بخش را خودت با جدول معیارها نمره می‌دهی. در اپ نمره‌دهی معلم وجود ندارد.')}</p>
+      <p style="margin:4px 0 0; font-size:13px;">${L('You score each part yourself against the rubric. There is no teacher marking in the app.','Her bölümü rubriğe göre kendin puanlarsın. Uygulamada öğretmen değerlendirmesi yok.','به هر بخش خودتان و بر اساس جدول معیارها نمره می‌دهید. در اپ، تصحیح معلم وجود ندارد.')}</p>
       <p style="margin:6px 0 0; font-size:13px; font-weight:700;">${esc(cl(pd.passRule))}</p>
       <ul dir="ltr" style="margin:6px 0 0; padding-inline-start:18px; font-size:12.5px; color:var(--ink-soft);">${pd.rubric.map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>
-    <div class="eyebrow" style="margin:16px 0 8px;">${passed}/${pd.parts.length} ${L('parts passed','bölüm geçildi','بخش قبول شده')}</div>
+    <div class="eyebrow" style="margin:16px 0 8px;">${passed}/${pd.parts.length} ${L('parts passed','bölüm geçildi','بخش قبول‌شده')}</div>
     <div class="stack" style="gap:8px;">${pd.parts.map(p=>{
       const a = courseFinalPart(c.id, p.id), m = COURSE_TYPE_META[p.mode] || COURSE_TYPE_META.writing;
       const tail = a.passed ? `<span class="pill badge-done">${ICONS.check}</span>` : (a.date ? `<span class="pill" style="background:var(--cat-gram-soft); color:var(--cat-gram);">${L('Revise','Gözden geçir','بازبینی')}</span>` : `<span class="chevron">${ICONS.chev}</span>`);
@@ -16616,10 +16616,10 @@ function courseFinalHomeHtml(c, pd){
 }
 function courseCertificateHtml(c, pd, all){
   const cert = pd.certificate || {};
-  if(!all) return `<div class="card-flat" style="margin-top:16px; text-align:center; color:var(--ink-soft);">${COURSE_LOCK_SVG} ${L('Pass all '+pd.parts.length+' parts to get your certificate.','Sertifikanı almak için '+pd.parts.length+' bölümün hepsini geç.','برای گرفتن گواهی، هر '+pd.parts.length+' بخش را قبول شو.')}</div>`;
+  if(!all) return `<div class="card-flat" style="margin-top:16px; text-align:center; color:var(--ink-soft);">${COURSE_LOCK_SVG} ${L('Pass all '+pd.parts.length+' parts to get your certificate.','Sertifikanı almak için '+pd.parts.length+' bölümün hepsini geç.','برای دریافت گواهی‌نامه، باید در هر '+pd.parts.length+' بخش قبول شوید.')}</div>`;
   const when = courseProg(c.id).done[pd.id+':project'];
   return `<div class="card-flat badge-unlock-shine" style="margin-top:16px; text-align:center; border:2px solid var(--cat-diag);">
-    <div class="eyebrow" style="color:var(--cat-diag);">${L('Certificate','Sertifika','گواهی')}</div>
+    <div class="eyebrow" style="color:var(--cat-diag);">${L('Certificate','Sertifika','گواهی‌نامه')}</div>
     <h2 class="display" style="font-size:20px; margin:8px 0 4px;">${esc(cl(cert.title))}</h2>
     ${state.profile && state.profile.name ? `<div style="font-weight:800; font-size:16px;">${esc(state.profile.name)}</div>` : ''}
     ${when ? `<div style="font-size:12px; color:var(--ink-faint);">${esc(localDateStr(new Date(when)))}</div>` : ''}
@@ -16638,20 +16638,20 @@ function courseFinalPartHtml(c, pd, p){
       ${ss.answers.map((ans,ai)=>`<div class="card-flat" style="margin-top:10px;"><div class="eyebrow">${esc(ans.who)}</div><p dir="ltr" style="margin:4px 0 8px; font-size:14px; line-height:1.5;">${esc(ans.text)}</p>
         <div class="row" style="gap:8px; flex-wrap:wrap;">${ss.parts.map(x=>{ const on = st.sel[ai].includes(x), pres = ans.present.includes(x); let cls = on ? ' on' : ''; if(st.checked[ai]) cls = pres ? (on ? ' ok' : ' miss') : (on ? ' bad' : '');
           return `<button class="cj-part${cls}" data-action="course-final-star" data-a="${ai}" data-x="${esc(x)}" ${st.checked[ai]?'disabled':''}>${esc(x)}</button>`; }).join('')}</div>
-        ${st.checked[ai] ? `<p style="margin:8px 0 0; font-size:13px;">${ans.present.length===ss.parts.length ? L('A complete answer. All four parts are there.','Eksiksiz bir cevap. Dört parça da var.','پاسخ کامل. هر چهار بخش هست.') : L('Missing','Eksik','کم است')+': '+esc(ss.parts.filter(x=>!ans.present.includes(x)).join(', '))}</p>`
+        ${st.checked[ai] ? `<p style="margin:8px 0 0; font-size:13px;">${ans.present.length===ss.parts.length ? L('A complete answer. All four parts are there.','Eksiksiz bir cevap. Dört parça da var.','پاسخی کامل؛ هر چهار بخش در آن هست.') : L('Missing','Eksik','جاافتاده')+': '+esc(ss.parts.filter(x=>!ans.present.includes(x)).join(', '))}</p>`
           : `<button class="btn btn-ghost" style="margin-top:8px;" data-action="course-final-star-check" data-a="${ai}">${L('Check','Kontrol et','بررسی')}</button>`}</div>`).join('')}`;
   }
   return `<div class="card-flat"><p style="margin:0; font-size:14.5px; font-weight:700;">${esc(cl(p.prompt))}</p></div>
-    ${review ? `<div style="margin-top:10px; font-size:12.5px; color:var(--ink-soft);">${L('Review first:','Önce tekrar et:','اول مرور کن:')} ${review}</div>` : ''}
-    ${p.model ? `<details class="card-flat" style="margin-top:10px; background:var(--cat-story-soft); border-color:var(--cat-story-soft);"><summary style="cursor:pointer; font-weight:800; color:var(--cat-story);">${L('Show an example','Bir örnek göster','یک نمونه نشان بده')}</summary><p dir="ltr" style="margin:6px 0 0; font-size:13.5px;">${esc(p.model)}</p></details>` : ''}
+    ${review ? `<div style="margin-top:10px; font-size:12.5px; color:var(--ink-soft);">${L('Review first:','Önce tekrar et:','پیش از شروع، این‌ها را مرور کنید:')} ${review}</div>` : ''}
+    ${p.model ? `<details class="card-flat" style="margin-top:10px; background:var(--cat-story-soft); border-color:var(--cat-story-soft);"><summary style="cursor:pointer; font-weight:800; color:var(--cat-story);">${L('Show an example','Bir örnek göster','دیدن یک نمونه')}</summary><p dir="ltr" style="margin:6px 0 0; font-size:13.5px;">${esc(p.model)}</p></details>` : ''}
     ${star}
-    ${p.mode==='speaking' ? `<p style="font-size:12.5px; color:var(--ink-soft); margin:12px 0 0;">${L('Write your questions here, then say them out loud and record yourself on your phone.','Sorularını buraya yaz, sonra yüksek sesle söyle ve telefonunla kaydet.','سؤال‌هایت را اینجا بنویس، بعد بلند بگو و با گوشی‌ات ضبط کن.')}</p>` : ''}
-    <textarea id="cw-text" class="game-input" dir="ltr" rows="8" style="margin-top:12px; font-weight:500; min-height:170px;" placeholder="${esc(L('Write here','Buraya yaz','اینجا بنویس'))}">${esc(a.text || '')}</textarea>
+    ${p.mode==='speaking' ? `<p style="font-size:12.5px; color:var(--ink-soft); margin:12px 0 0;">${L('Write your questions here, then say them out loud and record yourself on your phone.','Sorularını buraya yaz, sonra yüksek sesle söyle ve telefonunla kaydet.','سؤال‌هایتان را اینجا بنویسید، بعد آن‌ها را با صدای بلند بگویید و با گوشی‌تان ضبط کنید.')}</p>` : ''}
+    <textarea id="cw-text" class="game-input" dir="ltr" rows="8" style="margin-top:12px; font-weight:500; min-height:170px;" placeholder="${esc(L('Write here','Buraya yaz','اینجا بنویسید'))}">${esc(a.text || '')}</textarea>
     <p style="font-size:12px; color:var(--ink-faint); margin:6px 0 0;">${p.minWords}+ ${L('words','kelime','کلمه')}</p>
-    <div class="card-flat" style="margin-top:12px;"><div class="eyebrow">${L('Score yourself','Kendini puanla','به خودت نمره بده')}</div>
+    <div class="card-flat" style="margin-top:12px;"><div class="eyebrow">${L('Score yourself','Kendini puanla','به خودتان نمره دهید')}</div>
       <p style="margin:4px 0 8px; font-size:12px; color:var(--ink-faint);">${esc(cl(COURSE_SCORE_HINT))}</p>
       ${pd.rubric.map((r,ri)=>`<div style="margin-bottom:10px;"><div dir="ltr" style="font-size:13px; margin-bottom:5px;">${esc(r)}</div><div class="row" style="gap:6px;">${[0,1,2,3].map(v=>`<button class="cj-part${scores[ri]===v ? (v>=2 ? ' ok' : ' bad') : ''}" data-action="course-final-score" data-c="${ri}" data-v="${v}">${v}</button>`).join('')}</div></div>`).join('')}</div>
-    ${res ? `<div class="card-flat" style="margin-top:12px; background:${res.passed ? 'var(--cat-voc-soft)' : 'var(--cat-gram-soft)'}; border-color:transparent;"><p style="margin:0; font-size:13.5px;">${res.wc} ${L('words','kelime','کلمه')} · ${res.passed ? L('Part passed. Well done!','Bölüm geçildi. Tebrikler!','این بخش قبول شد. آفرین!') : res.missing ? L('Score every line of the rubric first.','Önce rubriğin her satırını puanla.','اول به هر خط جدول نمره بده.') : res.short ? L('A little longer, please: at least '+p.minWords+' words.','Biraz daha uzun yaz: en az '+p.minWords+' kelime.','کمی بلندتر بنویس: دست‌کم '+p.minWords+' کلمه.') : L('Not yet: every line needs 2 or more. Revise, then score again.','Henüz değil: her satır 2 veya üstü olmalı. Düzelt ve yeniden puanla.','هنوز نه: هر خط باید ۲ یا بیشتر باشد. بازبینی کن و دوباره نمره بده.')}</p></div>` : ''}
+    ${res ? `<div class="card-flat" style="margin-top:12px; background:${res.passed ? 'var(--cat-voc-soft)' : 'var(--cat-gram-soft)'}; border-color:transparent;"><p style="margin:0; font-size:13.5px;">${res.wc} ${L('words','kelime','کلمه')} · ${res.passed ? L('Part passed. Well done!','Bölüm geçildi. Tebrikler!','این بخش را قبول شدید. آفرین!') : res.missing ? L('Score every line of the rubric first.','Önce rubriğin her satırını puanla.','اول به همه‌ی ردیف‌های جدول نمره دهید.') : res.short ? L('A little longer, please: at least '+p.minWords+' words.','Biraz daha uzun yaz: en az '+p.minWords+' kelime.','کمی بیشتر بنویسید: دست‌کم '+p.minWords+' کلمه.') : L('Not yet: every line needs 2 or more. Revise, then score again.','Henüz değil: her satır 2 veya üstü olmalı. Düzelt ve yeniden puanla.','هنوز نه: نمره‌ی هر ردیف باید ۲ یا بیشتر باشد. متن را بازبینی کنید و دوباره نمره دهید.')}</p></div>` : ''}
     <button class="btn btn-primary" style="margin-top:14px;" data-action="course-final-save" data-cid="${c.id}" data-part="${p.id}">${L('Check and save','Kontrol et ve kaydet','بررسی و ذخیره')}</button>`;
 }
 
