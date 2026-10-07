@@ -1020,3 +1020,14 @@ body.v4 .plan:nth-child(2) .plan-head{ background-color:var(--v-blue); }
 body.v4 .plan:nth-child(3) .plan-head{ background-color:var(--v-coral); }
 body.v4 .plan:nth-child(4) .plan-head{ background-color:var(--v-purple); }
 @media (max-width:600px){ .v-goal:last-child:nth-child(odd){ grid-column:1/-1; } }
+
+/* Student Club strip above the package cards (Farin, me LO6PjZ9H, 2026-10-07) */
+.v-club{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; max-width:880px; margin:0 auto 34px; }
+.v-club > div{ border-radius:22px; padding:18px 20px; background:var(--surface-solid); box-shadow:inset 0 0 0 2px var(--surface-border), 0 6px 0 var(--surface-border); }
+.v-club h3{ font-size:1.08rem; margin:0 0 4px; color:var(--ink); }
+.v-club p{ margin:0; color:var(--ink-soft); font-weight:600; font-size:.95rem; line-height:1.45; }
+.v-club > div:nth-child(2){ box-shadow:inset 0 0 0 2px var(--v-coral, var(--primary)), 0 6px 0 var(--surface-border); }
+body.v4 .v-club-pk{ display:block; text-align:center; margin:0 0 16px; }
+body.v4 .plan.has-badge .plan-head{ padding-right:112px; }
+body.v4 .plan-badge{ z-index:2; }
+@media (max-width:760px){ .v-club{ grid-template-columns:1fr; gap:10px; } }
