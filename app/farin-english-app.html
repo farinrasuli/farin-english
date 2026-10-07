@@ -19102,6 +19102,9 @@ if(location.hash === '#admin'){
 try{
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('farin-sw.js', { scope: 'farin-english-app.html' }).catch(function(){});
+    // Android app (TWA) still starts at the old /farin-english/app/ address: farin-root-sw.js (farinrasuli.github.io repo)
+    // redirects it here on the phone, so the app opens offline. Retire with the next TWA build (Trello z7fuctuz).
+    if(location.hostname === 'farinrasuli.github.io') navigator.serviceWorker.register('/farin-root-sw.js', { scope: '/' }).catch(function(){});
   }
 }catch(e){}
 
