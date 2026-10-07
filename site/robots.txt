@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+# Internal working docs (strategy, keyword research, handoffs) are deployed with
+# the site folder but are not meant for search results.
+Disallow: /*.md$
+Disallow: /keyword-research/
 
 Sitemap: https://thefeschool.com/sitemap.xml
