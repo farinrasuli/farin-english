@@ -7,21 +7,27 @@
    top so nothing further down this file can stop it from registering.
    No-op if the Google tag hasn't loaded (blocked, offline, etc). */
 (function(){
+  /* 2026-10-07 app-first redesign: app links fire app_open (lang: en/es, location:
+     the nearest data-loc or section id) and the APK link fires apk_download, beside
+     the existing whatsapp_click / email_click. */
   document.addEventListener('click', function(e){
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a || typeof window.gtag !== 'function') return;
     var href = a.getAttribute('href') || '';
-    var name = null;
+    var name = null, extra = {};
+    var locEl = a.closest('[data-loc]');
+    var secEl = a.closest('section[id], header, footer, .topbar');
+    var loc = locEl ? locEl.getAttribute('data-loc') : (secEl ? (secEl.id || secEl.tagName.toLowerCase()) : 'page');
     if (href.indexOf('wa.me/') !== -1) name = 'whatsapp_click';
     else if (href.indexOf('mailto:') === 0) name = 'email_click';
-    else if (href.indexOf('farin-english.apk') !== -1) name = 'app_apk_click';
-    else if (href.indexOf('farin-english-app') !== -1 && href.indexOf('privacy-policy') === -1) name = 'app_web_click';
+    else if (href.indexOf('farin-english.apk') !== -1) { name = 'apk_download'; extra.location = loc; }
+    else if ((href.indexOf('farin-english-app') !== -1 || href.indexOf('farin-spanish-app') !== -1) && href.indexOf('privacy-policy') === -1) {
+      name = 'app_open'; extra.lang = href.indexOf('farin-spanish') !== -1 ? 'es' : 'en'; extra.location = loc;
+    }
     if (!name) return;
-    window.gtag('event', name, {
-      page_path: location.pathname,
-      link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60),
-      transport_type: 'beacon'
-    });
+    var params = { page_path: location.pathname, link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), transport_type: 'beacon' };
+    for (var k in extra) params[k] = extra[k];
+    window.gtag('event', name, params);
   }, true);
 })();
 
@@ -402,9 +408,13 @@ if (storyEl && LANG && LANG.story){
         (node.tip ? '<div class="story-tip">'+node.tip+'</div>' : '');
 
     if (node.end){
+      /* 2026-10-07: pages that set LANG.appUrl send the learner on into the app */
+      var endCta = LANG.appUrl
+        ? '<a class="v-btn v-btn-coral v-btn-sm" data-loc="scene" href="'+LANG.appUrl+'">Devamı uygulamada →</a>'
+        : '<a class="btn btn-cta" target="_blank" rel="noopener" href="'+waLink(storyMsg)+'">Gerçek Derste Bunu Konuşalım</a>';
       html += '<div class="cta-row">'+
         '<button type="button" class="btn btn-ghost" id="storyReplay">Tekrar Oyna</button>'+
-        '<a class="btn btn-cta" target="_blank" rel="noopener" href="'+waLink(storyMsg)+'">Gerçek Derste Bunu Konuşalım</a>'+
+        endCta+
       '</div></div>';
     } else {
       html += '<div class="story-choices">'+
