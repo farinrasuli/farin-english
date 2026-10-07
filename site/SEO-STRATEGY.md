@@ -26,7 +26,7 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 
 | Page | Primary keyword | Secondary keywords | Intent | Audience |
 |---|---|---|---|---|
-| `/` (home) | kişiye özel dil eğitimi | online dil okulu, hedefe göre dil öğrenme | Commercial/brand | Broad — anyone comparing dil eğitimi options |
+| `/` (home) | ~~kişiye özel dil eğitimi~~ → **İngilizce öğrenme uygulaması** (see §2b) | ücretsiz İngilizce öğrenme uygulaması, oyunla İngilizce öğrenme | Commercial/brand | App-first since 2026-10-07 |
 | `/english.html` | online İngilizce özel ders | kişiye özel İngilizce, konuşma odaklı İngilizce | Commercial | Ready to book, comparing tutors |
 | `/spanish.html` | online İspanyolca özel ders | kişiye özel İspanyolca dersi | Commercial | Smaller volume, same intent as English |
 | `/german.html` | online Almanca özel ders | Almanca özel ders | Commercial | Smallest volume — keep as-is, low investment |
@@ -50,6 +50,18 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 | Speaking anxiety | İngilizce konuşurken çekiniyorum ne yapmalıyım | `/english.html`, Student Club angle |
 
 These are **directional clusters**, not volume-verified keywords — I don't have a real keyword-volume tool from here. Before committing real writing time, run these through Google Keyword Planner, Ubersuggest, or similar (free tiers exist) to confirm volume and see what Google's own "People also ask" surfaces for each — 20 minutes of real research per cluster, cheap insurance against writing for a keyword nobody searches.
+
+### 2b. Keyword map v2: app-first repositioning (2026-10-07)
+
+The site now leads with the app (best learning techniques, games, personalization). Google autocomplete for Türkiye, pulled 2026-10-07, gives demand signals only, not volumes:
+
+- **Home `/` now owns "İngilizce öğrenme uygulaması"** (secondary: ücretsiz …, oyunla, kişiye özel). Recurring: "ingilizce öğrenme uygulaması ücretsiz", "ingilizce öğrenmek için hangi uygulama daha iyi" (5/28), "en iyi … uygulaması ücretsiz". The old home phrase "kişiye özel dil eğitimi" has no search demand, so it stays as messaging only.
+- "kişiye özel İngilizce" and "oyunla İngilizce öğrenme" barely register. They work as messaging, not as title targets. "İspanyolca öğrenme uygulaması ücretsiz" recurs and becomes a secondary on `/spanish.html`.
+- English-language head terms ("language learning app", "learn English with games") are out of scope: Duolingo and the like own them, and the audience is wrong.
+- Next blog targets, in order, with evidence: `D:/farin/Claude/tools/seo-audit/content-queue.json`. They cover which app is best, the free level test (126 suggestions for the seed), vocabulary games, durable vocabulary (spaced review), ChatGPT speaking practice, and graded stories.
+- On-page rules for the redesign: `site/SEO-HANDOFF-REDESIGN.md`.
+
+**Automation:** `D:/farin/Claude/tools/seo-audit/` holds a weekly live audit (Windows task "FEschool SEO Audit"), a sitemap `lastmod` builder, and the content queue. These open Trello cards on new errors or a missed 14-day blog cadence. See the README there.
 
 ---
 
