@@ -9,7 +9,7 @@ Follows the technical migration (`DOMAIN-MIGRATION-SEO.md`) — that covered the
 ## 1. Where FEschool already stands (recap, verified against the live site)
 
 **Strong:**
-- Structured data already mature: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, `FAQPage` — most competitors in this space have none of this.
+- Structured data already mature: `EducationalOrganization`, `Person`, `Service`, `Course`, `SoftwareApplication`, `FAQPage`, `Article`, `BreadcrumbList`, `WebSite` (see §5 for the 2026-10-08 status). Most competitors in this space have none of this.
 - Metadata (titles, descriptions) already differentiated per page and intent-aware, not generic "learn English" copy.
 - Positioning already correct: goal-based personalization (VIP roadmap, 100 Doors, FE App, Student Club), not a generic course — this is a real differentiator worth leaning into harder in content, not just the homepage.
 - Technical foundation now solid: `thefeschool.com` live, `robots.txt`/`sitemap.xml` correct, canonical URLs consistent. **HTTPS (checked 2026-09-20):** works for visitors, but via Cloudflare, not GitHub Pages. The GitHub Pages certificate is still stuck at `new` and "Enforce HTTPS" is off (the GitHub support ticket of 2026-09-19 was auto-closed, free accounts get no human support). Since 2026-09-19 the Cloudflare orange-cloud proxy + SSL mode Full + Always Use HTTPS serve the site: `https://thefeschool.com/` returns 200 with a valid Let's Encrypt certificate (issued 2026-09-17, expires 2026-12-16, auto-renewed by Cloudflare), `http://` and `www` both 301 to `https://thefeschool.com/`. Do not switch the DNS records back to grey (DNS-only) unless GitHub's own certificate shows `approved`, or HTTPS breaks.
@@ -115,6 +115,11 @@ Current: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, 
 - `Article` schema on each blog post once §4 is built (author, datePublished, headline).
 - `BreadcrumbList` + `Article` combo also helps blog posts get the "how-to"/FAQ-style rich result treatment where the content genuinely is a how-to (article #1 and #5 in the calendar are strong candidates).
 
+**Status 2026-10-08 (Trello Orkb8jpq):** all of the above is live, plus:
+- Homepage `EducationalOrganization` (`/#fe-school`) now carries `logo` (icon-512, 512x512), `image`, `description`, `alternateName`, `areaServed`, `contactPoint` (WhatsApp URL + e-mail, no raw phone number) and `sameAs` (the footer's Instagram). `WebSite` got `inLanguage` + `publisher`.
+- `Course` (`#kurs`) on the 5 lesson pages (`english`, `spanish`, `german`, `is-ingilizcesi`, `ielts-hazirlik`), instructor `/#farin`, `courseMode` Online, offers = the 4 published packages (İlk Adım free, ₺3.400 / ₺6.720 / ₺9.960). Every value is copied from the page itself. No lesson duration or `courseSchedule`/`courseWorkload` is published because the site doesn't state one ("Süre ve sıklığı birlikte belirleriz"), so Google's Course-info rich result may still call those fields missing. That is deliberate. Don't invent them; add them only if Farin fixes a lesson length on the page.
+- `Article` on all 8 posts now has `@id`, `description` (= meta description), `inLanguage`, author `@id` `/#farin`, publisher `EducationalOrganization` with logo, `mainEntityOfPage` as `WebPage`, `isPartOf` `/blog/`.
+
 **Do not add:** `AggregateRating`/`Review` schema unless real, collected reviews exist — the brief and Google's own spam policies are both explicit here, and it's genuinely not worth the risk of a manual action.
 
 ---
@@ -143,6 +148,13 @@ Track monthly, not daily (SEO is slow, daily noise is not signal):
 - Blog posts: which one earns the first backlink or the first real click-through from a "People also ask" box — that's the signal to double down on that content type.
 
 No vanity metrics (raw traffic alone) — track query-level movement on the actual keyword map in §2, since that's what ties back to bookings.
+
+### 8b. Search Console log (real observations only)
+
+- **2026-10-08, Farin (manual, Search Console UI, me card BusjmGHy):** requested indexing for 7 URLs, all show "Indexing requested", no quota hit: `/`, `/english.html`, `/is-ingilizcesi.html`, `/ielts-hazirlik.html`, `/blog/`, `/blog/ingilizce-konusma-pratigi-nasil-yapilir.html`, `/blog/online-ingilizce-ozel-ders-fiyatlari.html`. `is-ingilizcesi.html` was already indexed (the Pages report lags). The speaking-practice post showed "URL is unknown to Google" before the request.
+- **2026-10-08, farin-seo (URL Inspection API, same day, after Farin's requests):** indexed = `/`, `/is-ingilizcesi.html`, `/blog/` (3/17). Crawled today, not indexed yet: `/english.html`, `/ielts-hazirlik.html`, and the speaking-practice post (crawled 09:27 UTC, so the request worked). Discovered, not crawled: `german`, `konusma-korkusu`, `hedefe-gore`, `ozel-ders-fiyatlari`. Still "unknown to Google": `spanish`, `studio`, `ogrenme-plani`, `yapilan-hatalar`, `ielts-speaking`, `is-ingilizcesi-mulakat`, `gizlilik-politikasi`. Sitemap: 17 submitted, last downloaded 2026-10-05, 0 errors.
+- **Why the speaking post was unknown (checked):** it is in `sitemap.xml` and has 8 internal links, including one from the homepage. So the cause is not a missing sitemap entry or an orphan page. It is crawl lag on a young domain: Google downloaded the sitemap but hasn't queued most of its URLs yet. Every sitemap URL has 2–16 internal inlinks; the weakest are `ielts-speaking` and `is-ingilizcesi-mulakat` (2 each). Next lever if they stay unknown: more contextual links from indexed pages (`/blog/`, `/is-ingilizcesi.html`), not more sitemap pings.
+- **Crawl hygiene fixed 2026-10-08 (Trello oQbWyB3K, 7PhBeJf8):** all internal `index.html` links now point at the canonical `/` and `/blog/` (48 links: 8 `blog/index.html`, 22 `../index.html` incl. 3 with anchors, 16 blog-folder `index.html`, 2 on the privacy page). robots.txt disallows `/cdn-cgi/l/` (Cloudflare e-mail obfuscation, always 404). Added `/favicon.ico` (it was 404). **Expected 404s, leave them alone:** old app assets under `/app/` (`manifest.json`, `farin-sw.js`, icons, audio). The app left this domain on purpose (HARD RULE in `Claude/entities.md`). Only the `/app/*.html` redirect stubs stay. `/site/*` is a duplicate copy that the deploy produces; it carries canonicals to the root and nothing links to it.
 
 ---
 

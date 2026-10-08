@@ -44,11 +44,34 @@
       "@type": "EducationalOrganization",
       "@id": "https://thefeschool.com/#fe-school",
       "name": "FE School",
+      "alternateName": "FEschool",
       "url": "https://thefeschool.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thefeschool.com/icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://thefeschool.com/og-image.jpg",
+      "description": "Türkçe konuşanlar için ücretsiz İngilizce öğrenme uygulaması (FE App) ve Farin ile birebir online İngilizce, İspanyolca ve Almanca özel dersler.",
       "email": "mailto:farinrasuli@gmail.com",
       "founder": {
         "@id": "https://thefeschool.com/#farin"
-      }
+      },
+      "areaServed": "TR",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://wa.me/905455783260",
+        "email": "farinrasuli@gmail.com",
+        "availableLanguage": [
+          "tr",
+          "en"
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/fariinrasouli/"
+      ]
     },
     {
       "@type": "Person",
@@ -82,7 +105,11 @@
       "@type": "WebSite",
       "@id": "https://thefeschool.com/#website",
       "name": "FE School",
-      "url": "https://thefeschool.com/"
+      "url": "https://thefeschool.com/",
+      "inLanguage": "tr",
+      "publisher": {
+        "@id": "https://thefeschool.com/#fe-school"
+      }
     },
     {
       "@type": "SoftwareApplication",
@@ -355,7 +382,7 @@
       <p class="v-ctas" style="justify-content:center; font-weight:700">
         <a class="v-link" href="blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">İngilizce öğrenme planı nasıl kurulur?</a>
         <a class="v-link" href="blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği nasıl yapılır?</a>
-        <a class="v-link" href="blog/index.html">Tüm yazılar →</a>
+        <a class="v-link" href="/blog/">Tüm yazılar →</a>
       </p>
     </div>
   </section>
@@ -413,7 +440,7 @@
         </div>
         <div class="footer-col">
           <h4>Rehber</h4>
-          <a href="blog/index.html">Blog</a>
+          <a href="/blog/">Blog</a>
         </div>
         <div class="footer-col">
           <h4>İletişim</h4>

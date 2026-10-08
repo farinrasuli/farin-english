@@ -41,12 +41,16 @@
   "@graph": [
     {
       "@type": "Article",
+      "@id": "https://thefeschool.com/blog/ingilizce-konusma-korkusu.html#article",
       "headline": "İngilizce Anlıyorum Ama Konuşamıyorum: Neden ve Ne Yapmalı?",
+      "description": "'İngilizce anlıyorum ama konuşamıyorum' diyorsan sorun genelde kelime eksikliği değil. Asıl nedeni ve küçük adımlarla özgüven kazanmanın gerçekçi yolu.",
+      "inLanguage": "tr",
       "datePublished": "2026-09-17",
       "dateModified": "2026-09-28",
-      "author": { "@type": "Person", "name": "Farin" },
-      "publisher": { "@type": "Organization", "name": "FE School", "logo": { "@type": "ImageObject", "url": "https://thefeschool.com/icon-512.png" } },
-      "mainEntityOfPage": "https://thefeschool.com/blog/ingilizce-konusma-korkusu.html",
+      "author": { "@type": "Person", "@id": "https://thefeschool.com/#farin", "name": "Farin", "url": "https://thefeschool.com/" },
+      "publisher": { "@type": "EducationalOrganization", "@id": "https://thefeschool.com/#fe-school", "name": "FE School", "url": "https://thefeschool.com/", "logo": { "@type": "ImageObject", "url": "https://thefeschool.com/icon-512.png", "width": 512, "height": 512 } },
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://thefeschool.com/blog/ingilizce-konusma-korkusu.html" },
+      "isPartOf": { "@id": "https://thefeschool.com/blog/" },
       "image": "https://thefeschool.com/og-image.jpg"
     },
     {
@@ -66,14 +70,14 @@
 
 <header class="site" id="siteHeader">
   <div class="wrap nav">
-    <a href="../index.html" class="brand" aria-label="FE School ana sayfa">
+    <a href="/" class="brand" aria-label="FE School ana sayfa">
       <img src="/icon-512.png" alt="FE School logosu" class="mark" width="36" height="36">
       <span class="word">FE School</span>
       <span class="lang-chip">Blog</span>
     </a>
     <nav aria-label="Ana menü">
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Blog</a></li>
+        <li><a href="/blog/">Blog</a></li>
         <li><a href="../english.html">İngilizce Dersleri</a></li>
       </ul>
     </nav>
@@ -110,7 +114,7 @@
       <p>Özgüven, bir anda gelmez — tekrar tekrar, güvenli bir ortamda konuşarak inşa edilir. Yargılanmayacağını bildiğin bir ortamda (bir öğretmenle, bir arkadaşla, ya da kendi kendine) konuşmaya devam ettikçe, beynin hata yapmanın aslında bir felaket olmadığını öğrenir. Zamanla bu güvenli tekrarlar, gerçek hayattaki konuşmalara da taşınır.</p>
 
       <h2>Oyun gibi ortamlar riski daha da azaltır</h2>
-      <p>İlginç bir gerçek: bir oyunun içindeyken insanlar hata yapmaktan çok daha az çekinir, çünkü odak "doğru konuşmak" değil "ilerlemek" ve "eğlenmek" olur. FE School'daki <a href="../index.html#yontem">100 Kapı oyun seansları</a> tam olarak bunu hedefler — bir dedektif gibi ilerlerken, konuşarak ipucu toplarsın; hata yapmak hikayenin bir parçası haline gelir, bir başarısızlık değil. Bu düşük baskılı ortam, birçok öğrencinin gerçek bir konuşmadan önce ihtiyaç duyduğu ara adımı sağlar.</p>
+      <p>İlginç bir gerçek: bir oyunun içindeyken insanlar hata yapmaktan çok daha az çekinir, çünkü odak "doğru konuşmak" değil "ilerlemek" ve "eğlenmek" olur. FE School'daki <a href="/#yontem">100 Kapı oyun seansları</a> tam olarak bunu hedefler — bir dedektif gibi ilerlerken, konuşarak ipucu toplarsın; hata yapmak hikayenin bir parçası haline gelir, bir başarısızlık değil. Bu düşük baskılı ortam, birçok öğrencinin gerçek bir konuşmadan önce ihtiyaç duyduğu ara adımı sağlar.</p>
 
       <h2>Bedeninin verdiği sinyalleri tanı</h2>
       <p>Konuşmadan hemen önce kalbin hızlanıyor, elleriniz terliyor veya boğazın kuruyor olabilir — bunlar kaygının fiziksel belirtileridir ve senin özel bir zayıflığın olduğu anlamına gelmez, bedenin sadece "önemli bir şey oluyor" sinyali veriyordur. Bu belirtileri fark ettiğinde kendini durdurmak yerine, "bu normal, herkes hissediyor" diye kabul etmek, o anın seni tamamen ele geçirmesini önler. Belirtiyi bastırmaya çalışmak yerine kabul etmek, garip bir şekilde onu daha çabuk geçirir.</p>
@@ -165,7 +169,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <a href="../index.html" class="brand">
+        <a href="/" class="brand">
           <img src="/icon-512.png" alt="FE School logosu" class="mark" width="36" height="36">
           <span class="word">FE School</span>
         </a>
@@ -180,7 +184,7 @@
         </div>
         <div class="footer-col">
           <h4>Blog</h4>
-          <a href="index.html">Tüm Yazılar</a>
+          <a href="/blog/">Tüm Yazılar</a>
         </div>
         <div class="footer-col">
           <h4>İletişim</h4>
