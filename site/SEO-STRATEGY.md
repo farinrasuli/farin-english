@@ -101,6 +101,14 @@ Each article: 800–1,200 words, real answer first (not buried under intro fluff
 | 7 | Online İngilizce Özel Ders Fiyatları (2026): Ne Kadar Olmalı, Neye Bakmalı? | online İngilizce özel ders fiyatları | `/english.html#paketler` (only references FEschool's own already-published prices, no invented figures) |
 | 8 | İş İngilizcesi Mülakat Soruları ve Nasıl Cevaplanır | iş İngilizcesi mülakat soruları | `/is-ingilizcesi.html#kapsam` |
 
+**Published 2026-10-10 — article 9** (content-queue item 1, Trello 7qJudVsb; SERP checked 2026-10-10 = listicles: tamindir, Lemon Academy, listelist, papora):
+
+| # | Title | Target keyword | Internal link to |
+|---|---|---|---|
+| 9 | İngilizce Öğrenmek İçin Hangi Uygulama Daha İyi? Seçmeden Önce Bakman Gereken 6 Şey | ingilizce öğrenmek için hangi uygulama daha iyi | `/#sana-gore` (homepage personalization section; home owns "İngilizce öğrenme uygulaması", the post owns the question query) |
+
+Angle: honest selection criteria instead of a ranking; no competitor names, no stats. FE App claims limited to the marketing-brief claim ledger (free, no card, ≤3 goals + level + topics, roadmap, games at every stop, review rounds, Chapter 1 of courses free, Android + iPhone browser).
+
 Also applied the same pass's "cheap wins": retitled/led article #3 around "İngilizce anlıyorum ama konuşamıyorum" (the actual query, not "çekiniyorum"), added "çalışma programı" wording to article #2, added a ChatGPT/AI-practice section to article #1.
 
 ---
