@@ -11305,40 +11305,143 @@ function stageDoneIds(nodeType, completedIds){
   const inRoadmap = currentRoadmap().filter(n=>n.type === nodeType).map(n=>n.refId);
   return (completedIds || []).slice().reverse().filter((id, i, a)=>inRoadmap.includes(id) && a.indexOf(id) === i);
 }
+/* Studio Lab: useful starting sentences for each round topic (2026-10-10, Farin: the round's
+   "Use these words" pills were random vocab unrelated to the topic; suggest topic-related
+   starters instead). Keyed by the topic's English text: PRACTICE_TOPICS items and
+   SPEAKING_TOPICS questions. Read by studioStartersFor(). */
+const STUDIO_STARTERS = {
+  // PRACTICE_TOPICS: career
+  "Tell a coworker you'll be a few minutes late today.": ["Hi, just a quick message to say I'm running late.", "I'll be there in about ten minutes.", "Sorry about that, the bus was late."],
+  "Ask your manager for one day off next week.": ["Hi, could I ask you something?", "I'd like to take a day off next week, on ...", "Is that OK with you?"],
+  "Thank a colleague for their help on a project.": ["Thank you so much for your help with ...", "I couldn't have done it without you.", "I really appreciate it."],
+  "Explain to your manager why you need to leave the office early tomorrow.": ["Would it be OK if I left early tomorrow?", "I have a doctor's appointment at ...", "I'll finish my work before I go, and ..."],
+  "Tell a new coworker about your daily tasks at work.": ["Every morning, I start by ...", "Most of my day, I work on ...", "Before I go home, I usually ..."],
+  "Describe a recent meeting and what was decided.": ["Last week, we had a meeting about ...", "In the meeting, we talked about ...", "In the end, we decided to ..."],
+  "Write a short email to a colleague summarizing what happened in today's meeting and the next steps.": ["Hi ..., here's a quick summary of today's meeting.", "We agreed that ...", "The next steps are: first, ... Then, ..."],
+  "Explain to your manager a problem you're having with a project and suggest a solution.": ["I wanted to talk to you about a problem with ...", "The main issue is that ...", "One solution could be to ..."],
+  "Describe your ideal job and why it would suit you well.": ["My ideal job would be ...", "I'd love it because I'm good at ...", "It would suit me well since ..."],
+  // PRACTICE_TOPICS: travel
+  "Tell a friend which city you want to visit next.": ["Next, I really want to visit ...", "I've always wanted to see ...", "I think it would be amazing because ..."],
+  "Ask someone for directions to the nearest train station.": ["Excuse me, could you help me?", "Where is the nearest train station?", "Is it far from here?"],
+  "Describe what's in your travel bag.": ["In my travel bag, I always have ...", "I never travel without ...", "I also pack ..."],
+  "Write a short message to a friend who is traveling, telling them about your week.": ["Hi! I hope your trip is going well.", "My week was pretty busy. On Monday, I ...", "The best part of my week was ..."],
+  "Describe your last vacation and what you liked most about it.": ["My last vacation was in ...", "We stayed there for ... and we ...", "What I liked most was ..."],
+  "Explain to a hotel receptionist a problem with your room.": ["Excuse me, I'm in room ...", "I'm afraid there's a problem with my room.", "The ... isn't working. Could someone fix it, please?"],
+  "Write a short email to a friend who's traveling abroad, sharing news from home and asking about their trip.": ["Hi ..., how's your trip going so far?", "Things here are fine. The big news is that ...", "Tell me everything! What's been your favorite place so far?"],
+  "Describe your dream vacation in detail, including where you'd go and what you'd do.": ["If I could go anywhere, I'd go to ...", "I'd spend my days ...", "In the evenings, I'd ..."],
+  "Explain to an airline staff member why your flight was delayed and what you'd like them to do about it.": ["Excuse me, my flight to ... was delayed by ... hours.", "Because of this, I missed ...", "Could you please book me on the next flight or ...?"],
+  // PRACTICE_TOPICS: exam
+  "Say whether you prefer studying alone or in a group.": ["I prefer studying ...", "That's because ...", "When I study alone, I can ..."],
+  "Say one thing you like about your hometown.": ["My hometown is ...", "One thing I really like about it is ...", "It's also a great place for ..."],
+  "Say what your favorite subject in school was.": ["My favorite subject at school was ...", "I liked it because ...", "My teacher was ..."],
+  "Give your opinion on whether homework helps students learn better.": ["In my opinion, homework ...", "On the one hand, it helps students ...", "On the other hand, too much homework can ..."],
+  "Describe a skill you'd like to learn and why.": ["One skill I'd love to learn is ...", "I've always wanted to learn it because ...", "I think it would help me ..."],
+  "Talk about a book or film that made an impression on you.": ["A film that really stayed with me is ...", "It's about ...", "It made an impression on me because ..."],
+  "Give your opinion on whether social media does more good than harm for teenagers, with reasons.": ["In my view, social media does more ... than ... for teenagers.", "First of all, ...", "However, we can't ignore that ..."],
+  "Discuss the advantages and disadvantages of working from home.": ["Working from home has clear advantages.", "For example, you don't have to ...", "On the downside, it can be hard to ..."],
+  "Describe a change you would make to your city and explain why it would help.": ["If I could change one thing about my city, it would be ...", "At the moment, ...", "This would help because ..."],
+  // PRACTICE_TOPICS: immigration
+  "Say why you want to move to a new country.": ["I want to move to ...", "The main reason is ...", "I think I'll have more ... there."],
+  "Tell someone one thing you'll miss about your home country.": ["I'll really miss ...", "Back home, we always ...", "It's hard to find that anywhere else."],
+  "Say what documents you need for your visa application.": ["For my visa, I need ...", "I also have to bring ...", "I still need to get ..."],
+  "Explain to a friend why you're moving abroad and what you're excited about.": ["I've decided to move to ...", "I'm moving because ...", "I'm really excited about ..."],
+  "Describe the neighborhood you'd like to live in after moving.": ["I'd like to live in a neighborhood that's ...", "It would be great to have ... nearby.", "I'd prefer somewhere quiet / lively because ..."],
+  "Talk about what you expect to be different about daily life abroad.": ["I think daily life there will be different.", "For example, I'll probably have to ...", "I'll need to get used to ..."],
+  "Write a short message to a friend explaining why you're moving abroad and what your plans are for the first few months.": ["Hi ..., I have some big news: I'm moving to ...!", "I'm doing it because ...", "For the first few months, I'm planning to ..."],
+  "Describe the biggest challenge you expect when settling into a new country and how you plan to handle it.": ["I think my biggest challenge will be ...", "This worries me a little because ...", "To deal with it, I'm going to ..."],
+  "Explain the steps you've taken so far to prepare for your move.": ["So far, I've already ...", "I've also started ...", "The next thing I need to do is ..."],
+  // PRACTICE_TOPICS: everyday
+  "Invite a friend to get coffee this weekend.": ["Hey, are you free this weekend?", "Do you want to get coffee on Saturday?", "How about the café near ...?"],
+  "Tell someone what you had for breakfast today.": ["This morning, I had ...", "I also drank ...", "It was really ..."],
+  "Ask a friend how their weekend was.": ["Hi! How was your weekend?", "Did you do anything fun?", "Did you go anywhere special?"],
+  "Write a short text inviting a friend to a weekend trip.": ["Hey! Do you want to go on a trip this weekend?", "I'm thinking of going to ...", "We could leave on Saturday morning and ..."],
+  "Describe your typical morning routine.": ["I usually wake up at ...", "First, I ... Then, I ...", "I leave the house at ..."],
+  "Tell a friend about a funny thing that happened to you recently.": ["You won't believe what happened to me last week!", "I was ... when suddenly ...", "Everyone started laughing because ..."],
+  "Write a short message to a friend planning a weekend trip together, including where to go and what to bring.": ["Hi! I've been thinking about our trip this weekend.", "How about going to ...?", "Don't forget to bring ..."],
+  "Describe how your daily routine has changed over the past year.": ["My daily routine has changed a lot this year.", "I used to ..., but now I ...", "These days, I also ..."],
+  "Tell a friend about a problem you're having and ask for their advice.": ["Can I ask for your advice about something?", "Lately, I've been having a problem with ...", "What would you do if you were me?"],
+  // SPEAKING_TOPICS questions: career
+  "What do you usually do in a normal work day?": ["On a normal work day, I start at ...", "First, I usually ...", "In the afternoon, I ..."],
+  "What do you like about your job?": ["What I like most about my job is ...", "I also enjoy ...", "It makes me feel ..."],
+  "Is your job easy or difficult? Why?": ["I think my job is quite ...", "The easy part is ...", "The difficult part is ... because ..."],
+  "What questions do interviewers usually ask?": ["Interviewers usually start by asking ...", "They often want to know ...", "Another common question is ..."],
+  "How do you talk about your strengths without sounding arrogant?": ["I think the key is to give examples, like ...", "Instead of saying \"I'm the best\", you can say ...", "For example, I'd say: \"One of my strengths is ...\""],
+  "What is a weakness you could mention in an interview, and how would you frame it?": ["One weakness I could mention is ...", "I'd explain that I'm working on it by ...", "For example, I've started ..."],
+  "How do you politely disagree with a colleague in a meeting?": ["I'd start with something like: \"I see your point, but ...\"", "Then I'd explain why: \"My concern is that ...\"", "Finally, I'd suggest: \"What if we ...?\""],
+  "Describe a time teamwork solved a problem you couldn't solve alone.": ["A while ago, we had a problem with ...", "I couldn't solve it on my own because ...", "Together, we managed to ..."],
+  "How do you give an update on a project that's behind schedule?": ["I'd be honest from the start: \"We're a bit behind on ...\"", "The main reason is ...", "To catch up, we're planning to ..."],
+  "Describe a time you had to negotiate something difficult at work — how did you approach it?": ["One difficult negotiation I remember was about ...", "Before the meeting, I made sure to ...", "In the end, we reached an agreement where ..."],
+  "How do you give critical feedback without damaging a working relationship?": ["I always try to start with what's working well, for example ...", "Then I focus on the issue, not the person: \"I noticed that ...\"", "I finish by asking: \"How can I help you with this?\""],
+  "When is it better to compromise, and when is it better to hold your position?": ["I'd say it's better to compromise when ...", "On the other hand, I'd hold my position if ...", "For instance, ..."],
+  // SPEAKING_TOPICS questions: travel
+  "How do you ask a stranger for directions?": ["I'd say: \"Excuse me, sorry to bother you.\"", "Then I'd ask: \"How do I get to ...?\"", "And at the end: \"Thanks a lot!\""],
+  "What do you say if you don't understand the directions someone gives you?": ["I'd say: \"Sorry, could you say that again, please?\"", "Or: \"Could you speak a bit more slowly?\"", "I might also ask: \"Can you show me on the map?\""],
+  "How do you buy a ticket at a bus or train station?": ["I'd go to the ticket office and say: \"Hello, I'd like a ticket to ...\"", "Then I'd ask: \"Single or return?\" / \"How much is it?\"", "Finally: \"Which platform does it leave from?\""],
+  "How do you decide between different hotel or flight options?": ["First, I usually compare the prices of ...", "I also look at ...", "In the end, I usually choose the one that ..."],
+  "What do you usually pack that other people forget?": ["I always pack ..., and most people forget it.", "It's really useful because ...", "Once, it saved me when ..."],
+  "Do you prefer planning every detail or traveling more spontaneously? Why?": ["I prefer to ...", "The good thing about it is that ...", "Once, on a trip to ..., I ..."],
+  "How would you politely but firmly complain about lost luggage at an airport counter?": ["I'd start with: \"Hello, my suitcase didn't arrive on flight ...\"", "Then I'd say firmly: \"I need to know when it will be delivered.\"", "I'd also ask: \"Am I entitled to any compensation for ...?\""],
+  "What's the difference between explaining a problem and demanding a solution?": ["When you explain a problem, you ...", "When you demand a solution, you ...", "In my experience, it works better to ..."],
+  "How do you stay calm when dealing with a stressful travel situation?": ["When something goes wrong on a trip, I try to ...", "It helps me to remember that ...", "For example, once when my flight was cancelled, I ..."],
+  "Roleplay: you were bumped from an overbooked flight and missed a connecting business meeting. Negotiate compensation with an airline representative.": ["I was denied boarding on flight ... because it was overbooked.", "As a result, I missed an important business meeting in ...", "Given the circumstances, I'd expect compensation in the form of ..."],
+  "How do you escalate a complaint professionally without sounding aggressive?": ["I'd begin by saying: \"I understand this isn't your fault, but ...\"", "If nothing changes, I'd ask: \"Could I speak to a supervisor, please?\"", "I'd always follow up in writing, stating that ..."],
+  "What's the value of a written paper trail in a dispute like this?": ["A written record is valuable because ...", "For example, if the airline later claims that ..., you can ...", "That's why I always ask for ... in writing."],
+  // SPEAKING_TOPICS questions: exam
+  "What is your favorite subject to study, and why?": ["My favorite subject to study is ...", "I like it because ...", "I'm especially interested in ..."],
+  "How do you usually prepare for a test?": ["Before a test, I usually start by ...", "Then I ...", "The night before, I try to ..."],
+  "What do you do if you feel nervous before a test?": ["When I feel nervous before a test, I ...", "It helps me to ...", "I also tell myself that ..."],
+  "Do you prefer studying alone or with other people? Why?": ["I prefer studying ...", "The main reason is that ...", "However, studying ... is useful when ..."],
+  "How do you manage your time when you have a lot to study?": ["When I have a lot to study, I make a plan for ...", "I usually study for ... and then take a break.", "I try to start with ..."],
+  "What study method has worked best for you?": ["The method that has worked best for me is ...", "It works because ...", "For example, when I studied for ..., I ..."],
+  "Some people say technology has made studying easier. Do you agree or disagree?": ["I partly agree with this idea.", "On the one hand, technology makes it easier to ...", "On the other hand, it can also ..."],
+  "What are the advantages and disadvantages of standardized testing?": ["One clear advantage of standardized testing is that ...", "However, a major disadvantage is ...", "Overall, I believe ..."],
+  "How would you support your opinion with a specific example?": ["I'd start by stating my opinion clearly: \"I believe that ...\"", "Then I'd give an example: \"For instance, ...\"", "Finally, I'd link it back: \"This shows that ...\""],
+  "To what extent should governments regulate access to standardized education versus leaving it to the private sector?": ["I'd argue that governments should play a ... role, because ...", "That said, the private sector can ...", "On balance, I think the best approach would be ..."],
+  "Is competition in education ultimately beneficial or harmful to society? Justify your view with more than one angle.": ["From an economic point of view, competition ...", "From a social perspective, however, ...", "Weighing both sides, I'd conclude that ..."],
+  "How might assessment methods need to evolve as technology changes what \"knowledge\" means?": ["Now that information is always a click away, ...", "Assessments might need to focus less on ... and more on ...", "One example could be ..."],
+  // SPEAKING_TOPICS questions: immigration
+  "How do you ask about renting an apartment?": ["I'd say: \"Hello, I'm calling about the apartment for rent on ...\"", "Then I'd ask: \"How much is the rent?\"", "And: \"When can I come and see it?\""],
+  "What do you say when you open a bank account?": ["I'd say: \"Hello, I'd like to open a bank account, please.\"", "Then I'd ask: \"What documents do I need?\"", "And: \"Is there a monthly fee?\""],
+  "How do you explain a health problem to a doctor in simple words?": ["I'd say: \"I don't feel well. I have a pain in my ...\"", "Then: \"It started ... days ago.\"", "And: \"It gets worse when I ...\""],
+  "What do you miss most about your home country?": ["What I miss most about my home country is ...", "Back home, we used to ...", "Here, I try to ..."],
+  "How did you make your first friends here?": ["I made my first friends here when I ...", "We met at ...", "What helped me most was ..."],
+  "What advice would you give someone who just arrived?": ["My first piece of advice would be to ...", "It's also a good idea to ...", "And don't be afraid to ..."],
+  "How do you explain a problem clearly to an official who doesn't have much time?": ["I'd get straight to the point: \"I'm here because ...\"", "Then I'd give the key details: \"My application number is ...\"", "Finally, I'd ask clearly: \"What do I need to do next?\""],
+  "What do you do if a form asks for a document you don't have?": ["First, I'd ask: \"Is there another document I can use instead?\"", "If not, I'd find out how to get ...", "I'd also explain in writing that ..."],
+  "How do you politely ask for an extension or exception to a rule?": ["I'd start with: \"I understand the rules, but I'd like to ask ...\"", "Then I'd explain my situation: \"Unfortunately, ...\"", "Finally: \"Would it be possible to ...?\""],
+  "How do you formally appeal a decision you believe was made in error?": ["I'd write: \"I am writing to appeal the decision dated ...\"", "Then I'd state the grounds: \"I believe an error was made because ...\"", "I'd close with: \"I would therefore request that ...\""],
+  "What's the difference between being assertive and being aggressive when dealing with institutions?": ["Being assertive means ..., while being aggressive means ...", "For example, an assertive person might say ...", "In my experience, assertiveness gets better results because ..."],
+  "How do cultural expectations around authority shape how comfortable people feel challenging a decision?": ["In some cultures, questioning an official is seen as ...", "Where I come from, people tend to ...", "As a result, newcomers may feel ..."],
+  // SPEAKING_TOPICS questions: everyday
+  "How do you invite a friend to do something?": ["I'd say: \"Hey, are you free on ...?\"", "Then: \"Do you want to ... with me?\"", "And: \"How about meeting at ...?\""],
+  "What do you say if you can't come to something?": ["I'd say: \"I'm really sorry, but I can't make it.\"", "Then I'd explain: \"I have to ...\"", "And: \"Maybe we can do it another time?\""],
+  "What kind of activities do you enjoy doing with friends?": ["With my friends, I really enjoy ...", "We often ...", "Last time, we ..."],
+  "What's a small habit that makes your day better?": ["A small habit that makes my day better is ...", "I started doing it when ...", "It helps me feel ..."],
+  "How do your habits differ from your friends' or family's?": ["Compared to my friends, I ...", "For example, my ... usually ..., but I ...", "I think that's because ..."],
+  "What's something you've started doing recently that you didn't use to do?": ["Recently, I've started ...", "I didn't use to ..., but now ...", "I decided to start because ..."],
+  "What's your opinion on work-life balance in modern life?": ["In my opinion, work-life balance is ...", "Nowadays, many people ...", "Personally, I try to ..."],
+  "Do you think people rely too much on technology in daily life?": ["I think we do rely on technology quite a lot.", "For example, most people can't ... without their phones.", "Still, technology also helps us ..."],
+  "How do you handle a disagreement with a friend about something you both care about?": ["When I disagree with a friend, I try to ...", "I usually say something like: \"I see why you think that, but ...\"", "In the end, what matters most is ..."],
+  "If you had to explain your core values to someone who barely knows you, what would you say?": ["If I had to sum up my values, I'd start with ...", "This matters to me because ...", "You can see it in the way I ..."],
+  "What's a widely accepted idea that you personally disagree with?": ["One idea that most people accept, but I don't, is ...", "The reason I disagree is that ...", "In my experience, ..."],
+  "How does humor differ across the languages or cultures you know?": ["In my culture, people tend to joke about ...", "In English, humor often relies on ...", "One thing that doesn't translate well is ..."]
+};
+function studioStartersFor(item){ return (item && STUDIO_STARTERS[item.en]) || []; }
 /* goal is one goal key, or 'all' to draw on every goal the learner chose. */
 function buildPracticeRound(goal, level, difficulty){
   const goalKeys = goal==='all' ? profileGoalKeys(state.profile) : [goal];
   if(!goalKeys.length) goalKeys.push('everyday');
-  const vPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='vocab');
   const slPoolAll = VOCAB_SETS_FREE.filter(s=>s.level===level && s.category==='slang');
   const gPoolAll = GRAMMAR_ITEMS_FREE.filter(g=>g.level===level);
-  const vTagged = vPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
   const slTagged = slPoolAll.filter(s=>s.goals.some(gk=>goalKeys.includes(gk)));
-  const vSets = vTagged.length ? vTagged : vPoolAll;
   const slSets = slTagged.length ? slTagged : slPoolAll;
   const flattenCards = sets => sets.reduce((acc,s)=>acc.concat(s.cards), []);
-  // Words: from the vocab sets completed on this stage's roadmap, newest set first (a second set
-  // is added until there are about 6 cards to choose from). No completed set yet: the level pool.
-  const stageSets = stageDoneIds('vocab', state.progress.completedVocabSets).map(id=>VOCAB_SETS.find(x=>x.id===id)).filter(x=>x && x.category === 'vocab');
-  let vCards = flattenCards(vSets);
-  if(stageSets.length){
-    const pool = [];
-    for(const st of stageSets){ st.cards.forEach(c=>pool.push(c)); if(pool.length >= 6) break; }
-    if(pool.length) vCards = pool;
-  }
   const slCards = flattenCards(slSets);
   const pick = (arr, n) => {
     const pool = arr.slice(), out = [];
     while(out.length < n && pool.length) out.push(pool.splice(Math.floor(Math.random()*pool.length), 1)[0]);
     return out;
   };
-  const wordCount = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
-  const words = pick(vCards, wordCount).map(c=>({
-    word: c.word,
-    meaning: L(c.meaning.en, c.meaning.tr, c.meaning.fa),
-    note: c.note ? L(c.note.en, c.note.tr, c.note.fa) : null,
-    sentence: c.sentence || null
-  }));
   let grammar = null;
   if(difficulty !== 'easy' && gPoolAll.length){
     const withVariant = gPoolAll.filter(g=>g.goalVariant && goalKeys.some(gk=>g.goalVariant[gk]));
@@ -11355,13 +11458,15 @@ function buildPracticeRound(goal, level, difficulty){
   }
   const minWords = difficulty==='easy' ? 4 : difficulty==='medium' ? 12 : 30;
   const minSentences = difficulty==='easy' ? 1 : difficulty==='medium' ? 2 : 3;
-  // With several goals, the topic comes from a randomly chosen one of them (words/grammar above
+  // With several goals, the topic comes from a randomly chosen one of them (grammar/slang above
   // already draw from all), so repeat rounds cover every goal.
   const topicGoal = goalKeys[Math.floor(Math.random()*goalKeys.length)];
   const topicPool = (PRACTICE_TOPICS[topicGoal] && PRACTICE_TOPICS[topicGoal][difficulty]) || [];
   const topicItem = topicPool.length ? topicPool[Math.floor(Math.random()*topicPool.length)] : null;
   const topic = topicItem ? L(topicItem.en, topicItem.tr, topicItem.fa) : null;
-  return {difficulty, goal, level, words, grammar, slang, minWords, minSentences, topic};
+  // No target words (2026-10-10, Farin: random vocab had nothing to do with the topic);
+  // the round offers starting sentences for its topic instead (STUDIO_STARTERS).
+  return {difficulty, goal, level, words:[], starters:studioStartersFor(topicItem), grammar, slang, minWords, minSentences, topic};
 }
 function stemWord(w){ return w.toLowerCase().replace(/[^a-z']/g,'').replace(/(ing|edly|ed|es|s)$/,''); }
 const COMMON_ENGLISH_WORDS = new Set(['i','you','he','she','it','we','they','me','him','her','us','them','my','your','his','its','our','their','mine','yours','am','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','can','could','shall','should','may','might','must','a','an','the','this','that','these','those','and','or','but','so','because','if','when','while','than','then','there','here','not','no','yes','very','too','also','just','only','about','after','before','again','all','any','some','many','much','more','most','other','such','what','which','who','whom','whose','where','why','how','of','to','in','on','at','by','for','with','from','up','down','out','off','over','under','into','onto','through','during','between','among','go','goes','went','gone','going','get','gets','got','getting','make','makes','made','making','take','takes','took','taken','taking','come','comes','came','coming','see','sees','saw','seen','seeing','know','knows','knew','known','knowing','think','thinks','thought','thinking','want','wants','wanted','wanting','like','likes','liked','liking','need','needs','needed','say','says','said','saying','tell','tells','told','telling','ask','asks','asked','asking','feel','feels','felt','feeling','look','looks','looked','looking','use','uses','used','using','work','works','worked','working','call','calls','called','calling','try','tries','tried','trying','give','gives','gave','given','giving','find','finds','found','finding','day','time','year','way','people','man','woman','child','life','world','hand','part','place','week','company','system','question','number','night','point','home','water','room','area','money','story','fact','month','lot','right','study','book','eye','job','word','business','side','kind','head','house','friend','father','mother','hour','game','line','end','law','car','city','name','minute','idea','body','information','back','face','level','office','door','health','person','war','result','change','morning','reason','girl','guy','moment','air','teacher','education','good','new','first','last','long','great','little','own','old','big','different','next','early','young','important','few','public','bad','same','able','sure','best','better','today','tomorrow','yesterday','now','soon','always','never','often','sometimes','usually'])
@@ -11433,6 +11538,7 @@ function checkPracticeAnswer(round, text){
   const weights = round.difficulty==='easy' ? {vocab:70, length:30, grammar:0, slang:0}
     : round.difficulty==='medium' ? {vocab:50, length:30, grammar:20, slang:0}
     : {vocab:40, length:20, grammar:20, slang:20};
+  if(!round.words.length){ weights.length += weights.vocab; weights.vocab = 0; }
   const vocabPct = round.words.length ? wordsHit.length/round.words.length : 1;
   const wcPct = round.minWords ? Math.min(wc/round.minWords, 1) : 1;
   const scPct = round.minSentences ? Math.min(sc/round.minSentences, 1) : 1;
@@ -11461,13 +11567,13 @@ function practiceFeedback(result, round){
       'این هنوز مثل یک جمله واقعی خوانده نمی‌شود — مطمئن شو یک فاعل و فعل واضح دارد، مثل «من ...» یا «دوستم ...».'
     )});
   }
-  if(result.wordsMissed.length===0){
+  if(round.words.length && result.wordsMissed.length===0){
     lines.push({ok:true, text: L(
       `All ${round.words.length} target word${round.words.length>1?'s':''} used — nice!`,
       `Hedeflenen ${round.words.length} kelimenin tümünü kullandın — harika!`,
       `همه ${round.words.length} کلمه هدف را استفاده کردی — عالی!`
     )});
-  } else {
+  } else if(round.words.length){
     lines.push({ok:false, text: L(
       `Missing: ${result.wordsMissed.join(', ')}. Try working ${result.wordsMissed.length>1?'them':'it'} into your ${round.words.length>1?'sentences':'sentence'}.`,
       `Eksik: ${result.wordsMissed.join(', ')}. Bunları cümlelerine eklemeyi dene.`,
@@ -11598,7 +11704,7 @@ function withWritingTask(round, vp){
   const ids = task.grammar || [];
   const recent = stageDoneIds('grammar', state.progress.completedTraps).filter(id=>ids.includes(id));
   const gItem = GRAMMAR_ITEMS.find(g=>g.id === (recent[0] || ids[0]));
-  const out = Object.assign({}, round, {topic:trLine(task.prompt), minWords:task.minWords || round.minWords, task:{stage, goal:gk}});
+  const out = Object.assign({}, round, {topic:trLine(task.prompt), starters:[], minWords:task.minWords || round.minWords, task:{stage, goal:gk}});
   if(gItem && gItem.blank && gItem.blank.word) out.grammar = {id:gItem.id, title:grammarTitle(gItem), markerWord:gItem.blank.word, exp:trLine(gItem.exp)};
   return out;
 }
@@ -11650,7 +11756,7 @@ function withSpeakingTopic(round, vp){
   const tp = ((SPEAKING_TOPICS[gk] && SPEAKING_TOPICS[gk][lv]) || []).find(x=>Array.isArray(x.models) && x.models.length && x.questions && x.questions.length);
   if(!tp) return round;
   const qi = Math.floor(n / Math.max(goals.length, 1)) % Math.min(tp.questions.length, tp.models.length);
-  return Object.assign({}, round, {topic:trLine(tp.questions[qi]), speak:{topicId:tp.id, goal:gk, level:lv, qi}});
+  return Object.assign({}, round, {topic:trLine(tp.questions[qi]), starters:studioStartersFor(tp.questions[qi]), speak:{topicId:tp.id, goal:gk, level:lv, qi}});
 }
 function speakingModelHtml(round){
   const tp = speakingTopicOf(round), m = tp && tp.models && tp.models[round.speak.qi];
@@ -11925,7 +12031,7 @@ function speakPanelHtml(vp){
     if(vp.said) return '';
     return `<div class="card-flat speak-shadow" style="margin-top:14px;">
       <div class="echo-say">${L('Say it out loud','Yüksek sesle söyle','بلند بگو','Dilo en voz alta')}</div>
-      <p class="speak-note">${L('Use the words above, then tap the button. You can also type it below.','Yukarıdaki kelimeleri kullan, sonra butona dokun. İstersen aşağıya da yazabilirsin.','از کلمه‌های بالا استفاده کن، بعد دکمه را بزن. می‌توانی پایین هم بنویسی.','Usa las palabras de arriba y toca el botón. También puedes escribirlo abajo.')}</p>
+      <p class="speak-note">${L('Use a starter above if it helps, then tap the button. You can also type it below.','İstersen yukarıdaki cümlelerden biriyle başla, sonra butona dokun. İstersen aşağıya da yazabilirsin.','اگر کمکت می‌کند با یکی از جمله‌های بالا شروع کن، بعد دکمه را بزن. می‌توانی پایین هم بنویسی.','Si te ayuda, empieza con una frase de arriba y toca el botón. También puedes escribirlo abajo.')}</p>
       <button class="btn btn-primary" data-action="speak-said">${L('I said it','Söyledim','گفتم','Ya lo dije')}</button>
     </div>`;
   }
@@ -11949,7 +12055,7 @@ function speakTakesHtml(takes, best, round){
     ${takes.map((t,i)=>{ const r = t.result || {}, h = (r.wordsHit || []).length, wc = r.wc || 0; return `<div class="speak-take${i === best ? ' kept' : ''}" id="speak-take-${i}">
       <div class="row between" style="align-items:center;"><span class="speak-take-n">${speakTakeLabel(i)}</span>${i === best ? `<span class="speak-kept-tag">✦ ${L('Kept','Seçilen','نگهش داشتی','Guardado')}</span>` : ''}</div>
       <p class="fill-text" dir="ltr">${t.text ? fillMarkedTextHtml(r, round, t.text) : '…'}</p>
-      <div class="speak-take-sum">${L(`${h} of ${n} target words · ${wc} words`, `Hedef kelimelerden ${h}/${n} · ${wc} kelime`, `${h} از ${n} کلمهٔ هدف · ${wc} کلمه`, `${h} de ${n} palabras clave · ${wc} palabras`)}</div>
+      <div class="speak-take-sum">${n ? L(`${h} of ${n} target words · ${wc} words`, `Hedef kelimelerden ${h}/${n} · ${wc} kelime`, `${h} از ${n} کلمهٔ هدف · ${wc} کلمه`, `${h} de ${n} palabras clave · ${wc} palabras`) : L(`${wc} words`, `${wc} kelime`, `${wc} کلمه`, `${wc} palabras`)}</div>
     </div>`; }).join('')}
     <p class="speak-note" style="margin-top:10px;">${best === 1 ? L("Take 2 is stronger, so that's the one you keep.",'2. deneme daha güçlü, onu saklıyoruz.','بار دوم بهتر گفتی، همین را نگه می‌داریم.','El intento 2 es más fuerte: ese es el que guardas.') : L('Your first take stays. Saying it twice still counts.','İlk denemen kalıyor. İki kez söylemek yine de sayılır.','بار اولت می‌ماند. دو بار گفتنش هم تمرین حساب می‌شود.','Tu primer intento se queda. Decirlo dos veces también cuenta.')}</p>
   </div>`;
@@ -12002,6 +12108,8 @@ function renderStudioRound(){
   // See it: in a speaking round the word pills stay lit for the words already said, before the check too.
   const litRes = result || (mode==='speaking' && vp.transcript ? checkPracticeAnswer(round, vp.transcript) : null);
   const wordPills = round.words.map((w,k)=>`<span class="pill vocab-hl fill-pill${litRes && litRes.wordsHit.includes(w.word) ? ' lit' : ''}" id="fill-pill-${k}" data-action="show-word-meaning" data-word="${esc(w.word)}" data-meaning="${esc(w.meaning)}" style="background:var(--cat-voc-soft); color:var(--cat-voc); margin:3px 4px 3px 0;">${esc(w.word)}</span>`).join('');
+  const starters = studioReflection(vp) ? [] : (round.starters || []);
+  const starterRows = starters.map(t=>`<div class="row" style="gap:8px; align-items:center;"><button type="button" class="icon-btn" data-action="speak-sentence" data-text="${esc(t)}" aria-label="${esc(L('Listen','Dinle','گوش بده','Escuchar'))}" style="flex:0 0 auto; background:var(--accent-soft); color:var(--accent-strong); border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; border:none;">${ICONS.soundOn}</button><span dir="ltr" style="font-size:14px; line-height:1.5;">${esc(t)}</span></div>`).join('');
   return `<div class="fade-in">
     ${sectionHead(
       mode==='writing' ? L('Writing Practice','Yazma Pratiği','تمرین نوشتن') : L('Speaking Practice','Konuşma Pratiği','تمرین صحبت‌کردن'),
@@ -12014,8 +12122,10 @@ function renderStudioRound(){
       </div>` : ''; })()}
       ${writingTaskPlanHtml(round, vp)}
       <div class="card-flat">
-        <div class="eyebrow">${L('Use these words','Bu kelimeleri kullan','از این کلمات استفاده کن')}</div>
-        <div style="margin-top:6px;">${wordPills}</div>
+        ${starters.length ? `<div class="eyebrow">${L('Useful ways to start','Başlamak için işe yarar cümleler','جمله‌های مفید برای شروع','Frases útiles para empezar')}</div>
+        <div class="stack" style="gap:8px; margin-top:8px;">${starterRows}</div>` : ''}
+        ${round.words.length ? `<div class="eyebrow"${starters.length ? ' style="margin-top:12px;"' : ''}>${L('Use these words','Bu kelimeleri kullan','از این کلمات استفاده کن','Usa estas palabras')}</div>
+        <div style="margin-top:6px;">${wordPills}</div>` : ''}
         ${round.grammar ? `<div style="margin-top:12px; font-size:13px; color:var(--ink-soft);"><b>${L('Try this grammar:','Bu yapıyı dene:','این ساختار را امتحان کن:')}</b> ${esc(round.grammar.title)}</div>` : ''}
         ${round.slang ? `<div style="margin-top:6px; font-size:13px; color:var(--ink-soft);"><b>${L('Bonus slang:','Bonus argo:','اصطلاح اضافه:')}</b> ${esc(round.slang.word)} — ${esc(round.slang.meaning)}</div>` : ''}
         <div style="margin-top:10px; font-size:12px; color:var(--ink-soft);">${L(`Aim for at least ${round.minWords} words.`,`En az ${round.minWords} kelime hedefle.`,`حداقل ${round.minWords} کلمه هدف بگیر.`)}</div>
