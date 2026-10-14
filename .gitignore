@@ -49,3 +49,5 @@ nojekyll-file/
 
 # Claude Code session/config folder — not part of the site
 .claude/
+# Student course reports (private, never publish)
+course-summary/
