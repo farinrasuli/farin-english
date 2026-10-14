@@ -49,10 +49,26 @@ if (burger && navLinks){
     var open = navLinks.classList.toggle('open');
     burger.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
+  var closeNav = function(){ navLinks.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); };
   navLinks.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){ navLinks.classList.remove('open'); });
+    a.addEventListener('click', closeNav);
   });
+  /* 2026-10-14 UX pass: the open menu also closes on Escape and on a tap outside it */
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && navLinks.classList.contains('open')){ closeNav(); burger.focus(); } });
+  document.addEventListener('click', function(e){ if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !burger.contains(e.target)) closeNav(); });
 }
+
+/* ---------------- Game names ----------------
+   The story game's public name lives here, once. Every element with
+   data-game-name="your-call" shows it (the HTML carries the same text as a
+   no-JS fallback). App name: EN "Your Call", TR "Karar Senin"
+   (Claude/specs/story-path-name-2026-10-14.md). To rename: change this line
+   and the fallback text found by grepping data-game-name. */
+var GAME_NAMES = { 'your-call': 'Karar Senin' };
+document.querySelectorAll('[data-game-name]').forEach(function(el){
+  var n = GAME_NAMES[el.getAttribute('data-game-name')];
+  if (n) el.textContent = n;
+});
 
 /* ---------------- Sticky header shadow ---------------- */
 var header = document.getElementById('siteHeader');
