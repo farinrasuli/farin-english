@@ -1,0 +1,731 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<!-- TITLE = the lesson topic only, 2-4 words (e.g. "Must, Have to, Should"). Never a student name. -->
+<title>Must, Have to, Should</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* ===== FARIN LESSON SHELL v2 — derived from the "Adım Adım Türkçe" design. Do NOT restyle per lesson. ===== */
+:root{
+  color-scheme:light dark;
+  --ground:#EEF3F2; --surface:#FFFFFF; --sunk:#E3EBEA; --ink:#13212A; --muted:#566A72; --line:#D2DEDD;
+  --cobalt:#1B4F8C; --teal:#0C8584; --tulip:#C23A2E; --gold:#B7862A;
+  --ok:#1D7A46; --okbg:#DDF1E4; --bad:#B3261E; --badbg:#FBE3E0;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --recap-a:#1B4F8C; --recap-b:#0C8584; --recap-ink:#FFFFFF;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0C1418; --surface:#142027; --sunk:#1A2A32; --ink:#E4EDEF; --muted:#93A8B0; --line:#26363E;
+    --cobalt:#79A8E6; --teal:#3FC3C0; --tulip:#EE7466; --gold:#E0B25A;
+    --ok:#6FD39A; --okbg:#133325; --bad:#FF8F85; --badbg:#3A1C1A;
+    --recap-a:#1F3B63; --recap-b:#0E4A49; --recap-ink:#E4EDEF;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0C1418; --surface:#142027; --sunk:#1A2A32; --ink:#E4EDEF; --muted:#93A8B0; --line:#26363E;
+  --cobalt:#79A8E6; --teal:#3FC3C0; --tulip:#EE7466; --gold:#E0B25A;
+  --ok:#6FD39A; --okbg:#133325; --bad:#FF8F85; --badbg:#3A1C1A;
+  --recap-a:#1F3B63; --recap-b:#0E4A49; --recap-ink:#E4EDEF;
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.55;padding-bottom:env(safe-area-inset-bottom,0px)}
+img{max-width:100%}
+[hidden]{display:none!important}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+a{color:var(--cobalt)}
+.hide-tl .tl{display:none!important}
+.tl{color:var(--muted);font-size:.9em}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 20px;padding-top:calc(10px + env(safe-area-inset-top,0px));display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand b{font-family:var(--display);font-weight:800;font-size:1.35rem;letter-spacing:-.01em}
+.brand b i{font-style:normal;color:var(--tulip)}
+.brand span{font-size:.8rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.prog{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.prog .bar{width:110px;height:6px;border-radius:3px;background:var(--sunk);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.tog{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:.85rem;font-weight:600}
+.tog[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+
+.wrap{max-width:880px;margin:0 auto;padding:24px 20px 40px}
+
+/* lesson head */
+.lhead{display:grid;grid-template-columns:auto 1fr;gap:4px 22px;align-items:end;padding-bottom:18px}
+.bignum{grid-row:span 2;font-family:var(--display);font-weight:800;font-size:4.6rem;line-height:.85;color:var(--tulip);font-variant-numeric:tabular-nums}
+.lhead .kick{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.lhead h1{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,3.6vw,2.4rem);line-height:1.05;margin:2px 0 0;text-wrap:balance;letter-spacing:-.015em}
+.lhead .sub{grid-column:2;color:var(--muted);margin:0}
+.gram-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.8rem;background:var(--sunk);padding:3px 10px;border-radius:6px;color:var(--ink);margin-top:6px}
+
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto;scrollbar-width:none}
+.tab{border:0;background:none;padding:10px 14px;font-weight:600;color:var(--muted);border-bottom:2.5px solid transparent;margin-bottom:-1px;white-space:nowrap;text-align:left}
+.tab small{display:block;font-weight:400;font-size:.72rem}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--tulip)}
+.tab .ck{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-left:6px;vertical-align:middle}
+
+.panel{display:flex;flex-direction:column;gap:18px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px 22px}
+.card h2{font-family:var(--display);font-size:1.25rem;margin:0 0 8px;font-weight:700}
+.card h4{margin:14px 0 6px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+p{margin:0 0 8px;max-width:68ch}
+.sx{font-family:var(--mono);font-weight:700;color:var(--tulip);font-size:.95em}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.93rem}
+th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.8rem;color:var(--muted);font-weight:700}
+.ex{display:flex;flex-direction:column;gap:0;border-left:3px solid var(--teal);padding:6px 0 6px 14px;margin:8px 0}
+.ex .sent{font-family:var(--read);font-size:1.08rem}
+.tip{background:var(--sunk);border-radius:8px;padding:12px 14px;font-size:.94rem;margin-top:12px}
+.tip b.lbl{color:var(--cobalt)}
+.hint{font-size:.84rem;color:var(--muted);font-family:var(--body)}
+
+/* warm-up */
+.prompts{margin:6px 0 0;padding-left:20px}
+.prompts li{margin:6px 0;font-family:var(--read);font-size:1.05rem}
+
+/* vocab groups */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.vc{background:var(--sunk);border-radius:8px;padding:10px 12px;display:flex;flex-direction:column;gap:2px}
+.vc strong{font-family:var(--display);font-size:1.02rem}
+.vc .m{font-size:.9rem;color:var(--muted)}
+.vc .e{font-family:var(--read);font-size:.92rem;font-style:italic}
+
+/* common mix-ups */
+.mixgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.mix{border:1px solid var(--line);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.mix .w{background:var(--badbg);color:var(--bad);border-radius:6px;padding:4px 9px;text-decoration:line-through;font-family:var(--read)}
+.mix .r{background:var(--okbg);color:var(--ok);border-radius:6px;padding:4px 9px;font-weight:600;font-family:var(--read)}
+.mix .why{font-size:.86rem;color:var(--muted)}
+
+/* reading */
+.reading{font-family:var(--read);font-size:1.12rem;line-height:1.75}
+.reading p{max-width:62ch;margin-bottom:12px}
+.reading .tl{font-family:var(--body);font-size:.88rem;line-height:1.5;margin:-6px 0 14px;padding-left:12px;border-left:2px solid var(--line)}
+.gloss{display:flex;flex-wrap:wrap;gap:6px}
+.gloss span{background:var(--sunk);border-radius:6px;padding:3px 9px;font-size:.88rem}
+.gloss span em{font-style:normal;color:var(--muted)}
+
+/* questions */
+.q{padding:12px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q .qt{font-weight:600;margin-bottom:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 12px;text-align:left}
+.opt:hover{border-color:var(--teal)}
+.opt.right{background:var(--okbg);border-color:var(--ok);color:var(--ok);font-weight:600}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.fb{font-size:.88rem;margin-top:6px;min-height:1.2em}
+.fb.good{color:var(--ok)} .fb.no{color:var(--bad)}
+
+/* flashcards */
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.fc{perspective:900px;border:0;background:none;padding:0;min-height:130px;text-align:left}
+.fc .in{position:relative;width:100%;height:100%;min-height:130px;transition:transform .45s;transform-style:preserve-3d}
+.fc.flip .in{transform:rotateY(180deg)}
+.fc .f,.fc .b{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r);padding:16px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line)}
+.fc .f{background:var(--surface)}
+.fc .f strong{font-family:var(--display);font-size:1.15rem;line-height:1.2}
+.fc .b{background:var(--cobalt);color:var(--surface);transform:rotateY(180deg);border-color:var(--cobalt)}
+.fc .b strong{font-size:1rem}
+.fc .b span{font-size:.84rem;opacity:.9;font-family:var(--read)}
+.fc small{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.65}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600}
+.btn.ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn.done{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* practice */
+.pi{padding:14px 0;border-top:1px solid var(--line)}
+.pi:first-of-type{border-top:0}
+.ptype{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.fill{display:flex;flex-wrap:wrap;align-items:center;gap:6px;font-family:var(--read);font-size:1.08rem;margin:6px 0}
+.fill input{font-family:var(--mono);font-size:.95rem;border:0;border-bottom:2px solid var(--cobalt);background:var(--sunk);padding:4px 8px;width:170px;border-radius:4px 4px 0 0}
+.fill input.good{border-color:var(--ok);background:var(--okbg)}
+.fill input.no{border-color:var(--bad);background:var(--badbg)}
+.fill .btn{font-family:var(--body);font-size:.88rem;padding:5px 12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;padding:6px;border-radius:8px}
+.chips.ans{background:var(--sunk);border:1px dashed var(--line)}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:5px 10px;font-family:var(--read);font-size:1rem}
+.chip:hover{border-color:var(--cobalt)}
+.score{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.score .big{font-family:var(--display);font-weight:800;font-size:2rem;font-variant-numeric:tabular-nums}
+
+/* speak */
+.sq{padding:10px 0;border-top:1px solid var(--line)}
+.sq:first-of-type{border-top:0}
+.sq .main{font-family:var(--read);font-size:1.1rem}
+.sq .follow{font-size:.9rem;color:var(--muted);margin-top:2px}
+.act{border-left:3px solid var(--gold);padding:6px 0 6px 14px;margin:10px 0}
+.act strong{font-family:var(--display)}
+
+/* watch */
+.ls{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.lcard{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.lcard:hover{border-color:var(--tulip)}
+.lcard .k{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.lcard .k .yt{background:var(--tulip);color:#fff;border-radius:4px;padding:2px 7px;letter-spacing:.04em}
+.lcard strong{font-family:var(--display);font-size:1.08rem;line-height:1.2}
+.lcard p{font-size:.88rem;color:var(--muted);margin:0}
+.lcard .go{margin-top:auto;font-size:.82rem;font-weight:600;color:var(--cobalt)}
+.kind-series .k span:first-child{color:var(--gold)}
+
+/* guided path */
+.tab .n{font-family:var(--mono);font-size:.72rem;color:var(--tulip);margin-right:6px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.stat{font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);border-radius:999px;padding:2px 10px;color:var(--muted);background:var(--surface)}
+.partbar{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.86rem;margin:-8px 0 18px}
+.partbar b{font-family:var(--display);color:var(--ink);font-size:1.05rem}
+
+/* play (sentence builder) */
+.play-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.play-grid label{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:4px}
+.play-grid select{width:100%;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:9px 11px}
+.play-out{font-family:var(--read);font-size:1.5rem;line-height:1.3;margin:14px 0 6px;padding:14px 16px;background:var(--sunk);border-radius:8px;border-left:3px solid var(--tulip)}
+.play-note{font-size:.9rem;color:var(--muted);min-height:1.3em}
+.play-note b{color:var(--ink)}
+
+/* recap */
+.card.recap{background:linear-gradient(135deg,var(--recap-a),var(--recap-b));color:var(--recap-ink);border:0}
+.recap h2{color:inherit}
+.recap .sx{color:inherit;background:rgba(255,255,255,.18);padding:0 4px;border-radius:4px}
+.recap .tl{color:inherit;opacity:.8}
+
+/* speaking-session mode (mode:"speaking") */
+.goals{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.goals li{display:flex;gap:10px;align-items:flex-start;font-family:var(--read);font-size:1.05rem}
+.goals li::before{content:"";flex:none;width:18px;height:18px;margin-top:4px;border-radius:50%;border:2px solid var(--teal)}
+.dlg{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.line{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:start;padding:8px 10px;border-radius:8px;background:var(--sunk)}
+.line.b{background:var(--surface);border:1px solid var(--line)}
+.line .who{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--cobalt);padding-top:5px;min-width:72px}
+.line.b .who{color:var(--tulip)}
+.line .say{font-family:var(--read);font-size:1.08rem;line-height:1.5}
+.ear{border:1px solid var(--line);background:var(--surface);border-radius:999px;width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;font-size:.85rem;flex:none}
+.ear:hover{border-color:var(--teal)}
+.ear.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+.drill{border-top:1px solid var(--line);padding:12px 0}
+.drill:first-of-type{border-top:0}
+.frame{font-family:var(--mono);font-size:.9rem;background:var(--sunk);border-radius:6px;padding:6px 10px;display:inline-block;margin:4px 0 8px}
+.cue{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 0}
+.cue .c{font-family:var(--read);font-size:1.02rem}
+.cue .m{grid-column:1/-1;display:flex;gap:8px;align-items:center;font-family:var(--read);color:var(--ok);background:var(--okbg);border-radius:6px;padding:5px 10px}
+.role{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.role h3{margin:0;padding:10px 14px;background:var(--sunk);font-family:var(--display);font-size:1.05rem}
+.role .sides{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.role .side{padding:12px 14px}
+.role .side+.side{border-left:1px dashed var(--line)}
+.role .side b{display:block;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.role .use{padding:0 14px 12px;display:flex;flex-wrap:wrap;gap:6px}
+.role .use span{font-size:.86rem;background:var(--okbg);color:var(--ok);border-radius:6px;padding:2px 8px}
+.cando{display:flex;flex-direction:column;gap:6px}
+.cando label{display:flex;gap:10px;align-items:flex-start;font-family:var(--read);font-size:1.03rem;cursor:pointer}
+.cando input{width:18px;height:18px;margin-top:4px;accent-color:var(--teal)}
+@media (max-width:560px){ .role .side+.side{border-left:0;border-top:1px dashed var(--line)} .line{grid-template-columns:1fr auto} .line .who{grid-column:1/-1;padding:0} }
+
+.nav{justify-content:space-between;margin-top:26px}
+.credit{max-width:880px;margin:0 auto;padding:0 20px 36px;font-size:.78rem;color:var(--muted)}
+
+@media (max-width:860px){
+  .wrap{padding:16px 16px 32px}
+  .credit{padding:0 16px 32px}
+  .top{padding-left:16px;padding-right:16px}
+  .prog .bar{width:70px}
+  .bignum{font-size:3.2rem}
+  .card{padding:16px}
+}
+@media (prefers-reduced-motion:reduce){ .fc .in,.prog .bar i{transition:none} }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><b>Farin <i>English</i></b><span id="meta"></span></div>
+  <div class="prog" id="prog"></div>
+  <button class="tog" id="trTog" aria-pressed="true">Türkçe: açık</button>
+</header>
+<main class="wrap" id="main"></main>
+<footer class="credit" id="credit"></footer>
+
+<script>
+/* =====================================================================
+   LESSON DATA — the ONLY part that changes per lesson. Replace this whole
+   object; leave the engine below untouched. See LESSON-ENGINE.md
+   ("Lesson design v2") for the field-by-field spec and content targets.
+   Markup: {curly braces} = highlight the target form inside any string.
+   Optional fields can be deleted (speak, watchTask, titleTr, gramTr…).
+   THE CONTENT BELOW IS A FULL-DENSITY SAMPLE (~40 min) — copy its shape and
+   item counts; replace all of it. Turkish is optional everywhere.
+   ===================================================================== */
+const LESSON = {
+  num: 1,                       // session number within the course (shown as the big number)
+  course: "Course 1 · B1",      // course label from the student's `courses`
+  level: "B1",                  // student's level
+  minutes: 40,                  // must match the real content length
+  showTr: true,                 // default state of the Türkçe toggle (true for A1–B1, usually false for B2+)
+  title: "Must, Have to, Should",
+  titleTr: "Zorunluluk ve tavsiye",
+  gram: "must · have to · should",
+
+  /* ---- LEARN tab: ordered blocks. Kinds: warmup | text | table | examples | tip | mixups | vocab ----
+     Turkish is OPTIONAL everywhere — only add it where it genuinely helps (see LESSON-ENGINE.md "Translation rule"). */
+  learn: [
+    {k:"warmup", h:"Warm-up", items:[
+      "What is one rule you have to follow at work or at school?",
+      "What is one rule in your country that visitors often don’t know about?",
+      "Think of a friend with a small problem. What would you say: “You must…” or “You should…”? Why?",
+      "What is something you don’t have to do at weekends, but you do anyway?",
+      "What did you have to do last week that you didn’t enjoy?"
+    ]},
+    {k:"text", h:"Meet the structure", p:[
+      "{Must} is a strong obligation. It often comes from the speaker’s own feeling: “I {must} call my mum tonight.” It is also used for official written rules: “Passengers {must} show a ticket.”",
+      "{Have to} is an obligation that comes from outside — a law, a boss, a school, a schedule: “I {have to} wear a uniform.” In everyday speech, {have to} is more common than {must}.",
+      "{Should} is not an obligation. It gives advice or an opinion, and it is softer than must: “You {should} see a doctor.”",
+      "The negatives are very different! {Mustn’t} means it is forbidden. {Don’t have to} means it is not necessary. {Shouldn’t} means it is not a good idea.",
+      "{Must} has no past form. For the past, we use {had to}: “Yesterday I {had to} work late.”"
+    ]},
+    {k:"table", h:"Build it", rows:[
+      ["Form","Positive","Negative","What the negative means"],
+      ["must","I {must} go.","I {mustn’t} go.","It is forbidden."],
+      ["have to","She {has to} go.","She {doesn’t have to} go.","It is not necessary."],
+      ["should","You {should} go.","You {shouldn’t} go.","It is not a good idea."],
+      ["past","I {had to} go.","I {didn’t have to} go.","It wasn’t necessary."]
+    ]},
+    {k:"table", h:"Asking questions", rows:[
+      ["Form","Question","Short answer"],
+      ["must","{Must} I wear a helmet?","Yes, you {must}. / No, you {mustn’t}."],
+      ["have to","{Do} I {have to} wear a helmet?","Yes, you {do}. / No, you {don’t}."],
+      ["have to (he/she)","{Does} she {have to} work today?","Yes, she {does}. / No, she {doesn’t}."],
+      ["should","{Should} I wear a helmet?","Yes, you {should}. / No, you {shouldn’t}."]
+    ]},
+    {k:"table", h:"Which one do I use?", rows:[
+      ["Ask yourself…","Use"],
+      ["Is it a law, a rule or an order from someone else?","{have to} / {must}"],
+      ["Is it a strong personal feeling or a written sign?","{must}"],
+      ["Is it just a good idea?","{should}"],
+      ["Is it forbidden?","{mustn’t}"],
+      ["Is it not necessary?","{don’t have to}"],
+      ["Was it necessary in the past?","{had to}"]
+    ]},
+    {k:"examples", h:"In real sentences", items:[
+      ["You {must} show your ticket at the gate."],
+      ["I {have to} get up at six on weekdays."],
+      ["You {should} drink more water during the day."],
+      ["You {mustn’t} use your phone while you are driving."],
+      ["He {doesn’t have to} wear a tie, but he usually does."],
+      ["We {had to} wait for an hour because the train was late."],
+      ["{Do} you {have to} work on Saturdays?"],
+      ["You {shouldn’t} eat so much sugar. It’s bad for your teeth."]
+    ]},
+    {k:"tip", t:"Türkçe köprüsü", en:"Turkish uses one form, {-mAlI} (or {gerek} / {lazım}), for all three ideas. In English you must choose: {must}, {have to} or {should}. The biggest trap is the negative: {mustn’t} = yasak, {don’t have to} = gerek yok.", tr:"Türkçede “gitmelisin” hem zorunluluk hem tavsiye olabilir; İngilizcede hangisini kastettiğini seçmelisin."},
+    /* vocabulary lessons: {k:"vocab", h:"At the bank", items:[["deposit","para yatırmak","I deposit my salary on the 1st."], …]} */
+  ],
+
+  /* ---- TIMING (optional): minutes per part; shown in the part bar. Should add up to `minutes`. ---- */
+  timing: {l:8, r:5, m:6, p:3, s:8, q:7, w:3},
+
+  /* ---- FIX & PLAY tab. Mix-ups = the Turkish-speaker error pairs: [wrong, right, why (English), why (Turkish)] ---- */
+  mixups: [
+      ["She must to go.","She must go.","No “to” after must.","Must’tan sonra fiil yalın hâlde gelir; “to” kullanılmaz."],
+      ["You don’t must smoke here.","You mustn’t smoke here.","Must never uses do / don’t. Its negative is mustn’t.","Must ile do/don’t kullanılmaz; olumsuzu mustn’t’tır."],
+      ["You mustn’t come tomorrow, it’s optional.","You don’t have to come tomorrow, it’s optional.","Mustn’t = forbidden. Don’t have to = not necessary.","“Gerek yok” için don’t have to; mustn’t “yasak” demektir."],
+      ["He has to goes early.","He has to go early.","After has to / have to, the verb stays in its base form.","Has to’dan sonra fiil yalın kalır; -s eki has’te."],
+      ["Yesterday I must work late.","Yesterday I had to work late.","Must has no past form. Use had to.","Must’ın geçmişi yoktur; geçmişte had to kullan."],
+      ["Do I must wear a helmet?","Do I have to wear a helmet? / Must I wear a helmet?","Questions: do + have to, or must in front of the subject.","Have to ile soru do/does ile kurulur; must ile do kullanılmaz."],
+      ["You should to see a doctor.","You should see a doctor.","No “to” after should, either.","Should’dan sonra da “to” gelmez."],
+      ["She don’t have to work today.","She doesn’t have to work today.","With he / she / it, use doesn’t.","Üçüncü tekil kişide doesn’t kullanılır."]
+  ],
+
+  /* ---- PLAY (optional, same tab): live sentence builder. Each slot's option is "text" or ["text","what it means"].
+          The sentence is the chosen texts joined by spaces + `end`. Keep options grammatical with each other. ---- */
+  play: {
+    h: "Play with the pattern",
+    intro: "Pick a word from each box and read the sentence out loud. Some combinations are funny — that’s the point. Watch what each form means.",
+    slots: [
+      {label:"Who", options:["You","We","They"]},
+      {label:"Form", options:[["must","strong obligation"],["mustn’t","it is forbidden"],["have to","obligation from an outside rule"],["don’t have to","it is not necessary"],["should","advice"],["shouldn’t","not a good idea"]]},
+      {label:"Action", options:["wear a helmet","show a ticket","turn off your phone","arrive on time","bring your ID"]},
+      {label:"Where", options:["at work","in the exam","on a plane","in a hospital","at the gym"]}
+    ],
+    end: "."
+  },
+
+  /* ---- READ tab: target structure 15+ times; Turkish paragraph translation is OPTIONAL (omit `tr` to leave it out) ---- */
+  read: {
+    title: "First Week at a New Job",
+    en: [
+      "Sara starts her new job at a software company on Monday. Her manager sent her a list of rules, and she reads it carefully on Sunday night. “You {have to} arrive by 8:30,” the list says. “You {must} wear your ID badge at all times. You {mustn’t} take photos in the server room, and you {mustn’t} share your password with anyone.”",
+      "Sara is a little nervous, so she calls her friend Deniz, who worked there last year. “Do I {have to} wear a suit?” she asks. “No, you {don’t have to},” Deniz says. “Smart casual is fine. But you {should} bring a jacket, because the office is freezing. And you {should} introduce yourself to the IT team on the first day. They are really helpful.”",
+      "On Monday, Sara arrives at 8:15. She waits at reception because she doesn’t have her badge yet. Her manager, Mr Kaya, says, “Sorry about that. You {must} get your badge from security before lunch.” Sara also {has to} sign a contract and finish an online safety course. “You {don’t have to} finish it today,” Mr Kaya says, “but you {should} do it this week.”",
+      "At lunch, a colleague called Emre gives her more advice. “You {shouldn’t} eat at your desk,” he says. “You {should} go to the canteen. And you {mustn’t} miss the Friday meeting — everybody {has to} come, even the interns.” Sara laughs. “Last week I {had to} run for a bus and I was almost late for my interview!” “Well, tomorrow you {don’t have to} run,” says Emre. “The bus stops right outside.”"
+    ],
+    gloss: [["ID badge","kimlik kartı"],["reception","resepsiyon"],["security","güvenlik"],["contract","sözleşme"],["intern","stajyer"],["smart casual","şık ama rahat kıyafet"],["freezing","buz gibi"],["attend","katılmak"]],
+    qs: [
+      ["What time must Sara arrive?",["8:00","8:30","9:00"],1],
+      ["Why doesn’t Sara have to wear a suit?",["Smart casual is fine","The office is warm","It is forbidden"],0],
+      ["“You mustn’t share your password” means…",["It is forbidden","It is not necessary","It is a good idea"],0],
+      ["Which of these is advice, not a rule?",["Bring a jacket","Wear your ID badge","Get your badge before lunch"],0],
+      ["Who has to come to the Friday meeting?",["Only managers","Everybody, even interns","Nobody"],1],
+      ["“Last week I had to run for a bus” tells us that…",["it was necessary in the past","it is necessary tomorrow","it was only advice"],0]
+    ]
+  },
+
+  /* ---- PHRASES tab: flip cards [phrase, Turkish meaning, when to use it] ---- */
+  phrases: [
+    ["You’d better…","…yapsan iyi olur","A friendly warning: “You’d better leave now.”"],
+    ["It’s a must.","Kesinlikle gerekli / görülmeli.","Recommending a place or an item."],
+    ["Do I have to?","Yapmak zorunda mıyım?","Asking if something is really necessary."],
+    ["You don’t have to worry.","Endişelenmene gerek yok.","Reassuring someone."],
+    ["Rules are rules.","Kurallar kuraldır.","When a rule can’t be changed."],
+    ["You really should…","Gerçekten … yapmalısın.","Stronger advice, still friendly."],
+    ["Am I supposed to…?","…yapmam mı gerekiyor?","Checking what people expect from you."],
+    ["You’re not allowed to…","…yapman yasak / izin yok.","A rule from an authority."],
+    ["It’s up to you.","Sana kalmış.","No obligation — your choice."],
+    ["I’ll have to go.","Gitmem gerekecek.","A polite way to leave a conversation."]
+  ],
+
+  /* ---- SPEAK tab (OPTIONAL: speaking sessions, or when notes call for speaking) ---- */
+  speak: {
+    questions: [
+      ["What rules do you have to follow at work?","Do you think they are fair?"],
+      ["What is one thing you must do every day?","What happens if you forget?"],
+      ["What should a new colleague know on their first day?","Who told you that when you started?"],
+      ["What is forbidden in your workplace or school?","Why do you think that rule exists?"],
+      ["What don’t you have to do at weekends?","What do you do instead?"],
+      ["What did you have to do as a child that you hated?","Do you understand the reason now?"],
+      ["What should people do to stay healthy?","Which of these do you actually do?"],
+      ["What must a driver never do?","Have you ever seen someone break that rule?"],
+      ["What should a tourist do in your city?","And what shouldn’t they do?"],
+      ["Is there a rule you think should be changed?","What would you change it to?"],
+      ["What do you have to do before an important meeting or exam?","How do you prepare?"],
+      ["What advice would you give to someone learning English?","Which piece of advice helped you most?"],
+      ["What is one thing you must never forget when you travel?","Have you ever forgotten it?"],
+      ["Which is worse: a rule you must follow or a rule you should follow?","Why?"]
+    ],
+    activities: [
+      ["Rule swap","Tell your teacher three rules from your workplace using have to / must / mustn’t. Your teacher guesses the job."],
+      ["Advice line","Your teacher describes a small problem (“I can’t sleep”, “I’m always late”). Give two pieces of advice with should, then one with you’d better."],
+      ["Must or mustn’t?","Your teacher names a place (library, hospital, plane). Say one thing you must do and one thing you mustn’t do there."],
+      ["Yesterday vs. tomorrow","Say three things you had to do yesterday and three things you have to do tomorrow. Your teacher asks a follow-up for each."],
+      ["Not necessary!","Your teacher says a task (“cook dinner”). Reply with a reason it isn’t necessary: “You don’t have to, because…”"],
+      ["Mini role-play: first day","You are the manager; your teacher is a new employee. Explain five rules and give three pieces of advice."]
+    ],
+    exit: [
+      "Say one thing you must do this week.",
+      "Say one thing you mustn’t do while driving.",
+      "Give me one piece of advice with should.",
+      "Say something you don’t have to do tomorrow.",
+      "Say something you had to do last month."
+    ]
+  },
+
+  /* ---- PRACTICE tab. Types: fill {pre,post,hint,a:[accepted…],why?} | mcq {q,o,a:index,why?} | order {w:[words],a:"answer"} ---- */
+  practice: [
+    {t:"fill", pre:"Passengers", post:"wear a seatbelt. It’s the law.", hint:"obligation from a rule", a:["must","have to"], why:"Laws are outside rules: must / have to."},
+    {t:"fill", pre:"You", post:"smoke in the hospital. It’s forbidden.", hint:"forbidden", a:["mustn’t","must not"], why:"Forbidden = mustn’t."},
+    {t:"fill", pre:"You", post:"come with me. You can stay at home if you want.", hint:"not necessary", a:["don’t have to","do not have to"], why:"Not necessary = don’t have to."},
+    {t:"fill", pre:"Yesterday I", post:"work late because of a deadline.", hint:"past obligation", a:["had to"], why:"Must has no past form, so we use had to."},
+    {t:"mcq", q:"Which sentence gives friendly advice?", o:["You should drink some tea.","You mustn’t drink tea.","You had to drink tea."], a:0, why:"Should = advice."},
+    {t:"mcq", q:"Which sentence is correct?", o:["Does she has to leave?","Does she have to leave?","Must she to leave?"], a:1, why:"After does, the verb is have (base form)."},
+    {t:"order", w:["don’t","You","have","to","pay"], a:"You don’t have to pay"},
+    {t:"order", w:["mustn’t","the","touch","You","screen"], a:"You mustn’t touch the screen"}
+  ],
+
+  /* ---- RECAP: 3–5 takeaways (string or [English, Turkish]) — shown under the score on the Practice tab ---- */
+  recap: [
+    "{Must} = strong obligation; {mustn’t} = forbidden.",
+    "{Have to} = outside rules; {don’t have to} = not necessary.",
+    "{Should} = advice; {shouldn’t} = not a good idea.",
+    "Must has no past: use {had to}.",
+    ["No “to” after must or should.","Must ve should’dan sonra “to” gelmez."]
+  ],
+
+  /* ---- WATCH tab: [kind, title, why it fits, YouTube search query, optional verified direct URL] ----
+     kind: "Series" | "Video" | "Channel" | "Podcast". Default = a YouTube SEARCH link (never goes dead). */
+  watch: [
+    ["Series","BBC Grammar Gameshow: Have to & Must","A short, fun BBC episode that quizzes must/have to in real use.","BBC Grammar Gameshow Have to and Must","https://www.youtube.com/watch?v=O-jJPd5ZYo4"],
+    ["Video","Must, have to & should — one lesson","A clear grammar lesson that compares all three modals side by side.","Modal verbs must have to should English grammar lesson","https://www.youtube.com/watch?v=POFfLs0Uaio"],
+    ["Channel","BBC Learning English","Clear, level-friendly lessons and dialogues.","BBC Learning English must have to","https://www.youtube.com/watch?v=HUXXgVElADg"],
+    ["Video","Job interview tips","Real advice using should / shouldn’t.","job interview tips English what you should do","https://www.youtube.com/watch?v=-JNjsOX0N0c"]
+  ],
+  // watchTask: "…"   // optional override of the default listening task text
+
+  preparedFor: ""               // shown ONLY in the footer credit. Never put the name anywhere else.
+};</script>
+
+<script>
+/* ============================ ENGINE — do not edit per lesson ============================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const plain = s => esc(String(s).replace(/[{}]/g,""));
+const fmt = s => esc(s).replace(/\{([^}]*)\}/g, '<b class="sx">$1</b>');
+const norm = s => String(s).trim().toLowerCase().replace(/[’‘]/g,"'").replace(/[.!?,;:“”"]/g,"").replace(/\s+/g," ");
+const pad = n => String(n).padStart(2,"0");
+const pair = x => Array.isArray(x) ? x : [x,""];
+const tl = s => s ? `<p class="tl" lang="tr">${plain(s)}</p>` : "";
+
+const L = LESSON;
+document.documentElement.lang = "en";
+const SPK = L.mode === "speaking";   // speaking-session mode: a different, talk-first path
+const TABS = () => SPK
+  ? [["k","Start","Başla"],["t","Toolkit","Araçlar"]]
+    .concat(L.model ? [["d","Model","Örnek"]] : [])
+    .concat(L.drills ? [["g","Guided","Adım adım"]] : [])
+    .concat([["s","Role-play","Canlandır"],["x","Wrap-up","Kapanış"]])
+    .concat(L.watch ? [["w","Listen","Dinle"]] : [])
+  : [["l","Learn","Öğren"],["r","Read","Oku"]]
+  .concat((L.mixups||L.play) ? [["m","Fix & Play","Düzelt"]] : [])
+  .concat([["p","Phrases","İfadeler"]])
+  .concat(L.speak ? [["s","Speak","Konuş"]] : [])
+  .concat([["q","Practice","Alıştırma"],["w","Watch","İzle"]]);
+const CAN_SAY = "speechSynthesis" in window;
+let SAYS = [];
+function ear(text){ if(!CAN_SAY) return ""; SAYS.push(String(text).replace(/[{}]/g,"")); return `<button class="ear" data-say="${SAYS.length-1}" aria-label="Listen">▶</button>`; }
+function sayIt(i, btn, next){
+  try{
+    speechSynthesis.cancel(); document.querySelectorAll(".ear.on").forEach(b=>b.classList.remove("on"));
+    const u = new SpeechSynthesisUtterance(SAYS[i]); u.lang = L.accent || "en-GB"; u.rate = L.rate || 0.92;
+    const v = speechSynthesis.getVoices().find(v => v.lang === u.lang) || speechSynthesis.getVoices().find(v => /^en/.test(v.lang)); if(v) u.voice = v;
+    if(btn) btn.classList.add("on");
+    u.onend = () => { if(btn) btn.classList.remove("on"); if(next) next(); };
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+const KEY = "fe-lesson-v2";
+const S = {tab:"l", tl:L.showTr!==false, seen:{}, best:0, pdone:false};
+try{ Object.assign(S, JSON.parse(localStorage.getItem(KEY)||"{}")); }catch(e){}
+const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} };
+let cur = {};
+const PURPOSE = SPK
+  ? {k:"Warm up and see today’s goals",t:"Get the words you need",d:"Hear it, then say it with the model",g:"Say it step by step",s:"Use it in a real conversation",x:"Check what you can do now",w:"Keep listening at home"}
+  : {l:"Understand the rule",r:"See it in a story",m:"Fix common mistakes, then play with the pattern",p:"Learn phrases people really say",s:"Say it out loud",q:"Test yourself",w:"Hear it in real life"};
+
+function renderTop(){
+  const tabs = TABS(), n = tabs.filter(t => t[0]==="q" ? S.pdone : S.seen[t[0]]).length;
+  $("#meta").textContent = `${L.level} · ${L.minutes} min`;
+  $("#prog").innerHTML = `<span>${n}/${tabs.length}</span><span class="bar"><i style="width:${n/tabs.length*100}%"></i></span>`;
+  const t = $("#trTog"); t.setAttribute("aria-pressed", S.tl); t.textContent = S.tl ? "Türkçe: açık" : "Türkçe: kapalı";
+  document.body.classList.toggle("hide-tl", !S.tl);
+  $("#credit").textContent = L.preparedFor ? `Prepared for ${L.preparedFor} · Farin English` : "Farin English";
+}
+function render(){
+  const tabs = TABS();
+  if(!tabs.some(t => t[0]===S.tab)) S.tab = tabs[0][0];
+  S.seen[S.tab] = true; save();
+  const i = tabs.findIndex(t => t[0]===S.tab);
+  $("#main").innerHTML = `
+   <div class="lhead"><div class="bignum">${pad(L.num)}</div>
+    <div><div class="kick">${esc(L.course)}</div><h1>${esc(L.title)}</h1>${L.titleTr?`<div class="tl">${esc(L.titleTr)}</div>`:""}</div>
+    <p class="sub"><span class="gram-pill">${esc(L.gram)}</span> ${L.gramTr?`<span class="tl">— ${esc(L.gramTr)}</span>`:""}</p>
+    <div class="stats" style="grid-column:1/-1"><span class="stat">${L.minutes} min</span><span class="stat">${esc(L.level)}</span><span class="stat">${tabs.length} parts</span></div></div>
+   <div class="tabs" role="tablist">${tabs.map(t=>`<button class="tab" role="tab" data-tab="${t[0]}" aria-selected="${S.tab===t[0]}"><span class="n">${tabs.indexOf(t)+1}</span>${t[1]}${(t[0]==="q"?S.pdone:S.seen[t[0]]&&S.tab!==t[0])?'<span class="ck" aria-label="done"></span>':""}<small>${t[2]}</small></button>`).join("")}</div>
+   <div class="partbar">Part ${i+1} of ${tabs.length} · <b>${tabs[i][1]}</b> · ${PURPOSE[S.tab]}${L.timing&&L.timing[S.tab]?` · about ${L.timing[S.tab]} min`:""}</div>
+   <div class="panel" id="panel"></div>
+   <div class="row nav">
+     <button class="btn ghost" data-step="-1" ${i===0?"disabled":""}>← ${i>0?tabs[i-1][1]:"Back"}</button>
+     <button class="btn ${i===tabs.length-1?"":"ghost"}" data-step="1" ${i===tabs.length-1?"disabled":""}>${i<tabs.length-1?tabs[i+1][1]+" →":"Finished ✓"}</button>
+   </div>`;
+  renderTop(); renderPanel();
+}
+function block(b){
+  const h = b.h ? `<h2>${esc(b.h)}</h2>` : "";
+  switch(b.k){
+    case "warmup": return `<section class="card">${h}<ol class="prompts">${b.items.map(x=>{const p=pair(x);return `<li>${fmt(p[0])}${tl(p[1])}</li>`;}).join("")}</ol></section>`;
+    case "text": return `<section class="card">${h}${b.p.map(x=>{const p=pair(x);return `<p>${fmt(p[0])}</p>${tl(p[1])}`;}).join("")}</section>`;
+    case "table": return `<section class="card">${h}<div class="tw"><table><thead><tr>${b.rows[0].map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.rows.slice(1).map(r=>`<tr>${r.map(c=>`<td>${fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></section>`;
+    case "examples": return `<section class="card">${h}${b.items.map(x=>`<div class="ex"><span class="sent">${fmt(x[0])}</span>${x[1]?`<span class="tl">${plain(x[1])}</span>`:""}</div>`).join("")}</section>`;
+    case "tip": return `<div class="tip"><b class="lbl">${esc(b.t)}:</b> ${fmt(b.en)}${tl(b.tr)}</div>`;
+    case "mixups": return `<section class="card">${h||"<h2>Common mix-ups</h2>"}<div class="mixgrid">${b.items.map(x=>`<div class="mix"><span class="w">${esc(x[0])}</span><span class="r">${esc(x[1])}</span><span class="why">${plain(x[2]||"")}</span>${tl(x[3])}</div>`).join("")}</div></section>`;
+    case "vocab": return `<section class="card">${h}<div class="vgrid">${b.items.map(x=>`<div class="vc"><strong>${esc(x[0])}</strong><span class="m tl" lang="tr">${esc(x[1]||"")}</span>${x[2]?`<span class="e">${fmt(x[2])}</span>`:""}</div>`).join("")}</div></section>`;
+  }
+  return "";
+}
+function phraseCard(){
+  return `<section class="card"><div class="row" style="justify-content:space-between"><div><h2>Phrases</h2><p class="hint">Tap a card to see the meaning and when to use it. Try to guess first!</p></div>
+      <div class="row"><button class="btn ghost" id="shuf">Shuffle</button><button class="btn ghost" id="flipAll">Flip all</button></div></div>
+      <div class="fc-grid" id="fcg" style="margin-top:14px">${L.phrases.map(x=>`<button class="fc"><div class="in"><div class="f"><small>Phrase</small><strong>${esc(x[0])}</strong><small>flip ↺</small></div><div class="b"><small>Meaning</small><strong>${esc(x[1])}</strong><span>${esc(x[2]||"")}</span></div></div></button>`).join("")}</div></section>`;
+}
+function renderSpeaking(p){
+  const s = L.speak || {};
+  if(S.tab==="k"){
+    p.innerHTML = (L.goals ? `<section class="card"><h2>By the end of this session you can…</h2><ul class="goals">${L.goals.map(g=>{const q=pair(g);return `<li><span>${fmt(q[0])}${tl(q[1])}</span></li>`;}).join("")}</ul></section>` : "") + L.learn.map(block).join("");
+  }
+  else if(S.tab==="t"){
+    p.innerHTML = (L.toolkit||[]).map(block).join("") + (L.phrases ? phraseCard() : "");
+  }
+  else if(S.tab==="d"){
+    const m = L.model;
+    p.innerHTML = `<section class="card"><div class="row" style="justify-content:space-between"><h2 style="margin:0">${esc(m.title)}</h2>${CAN_SAY?`<button class="btn ghost" id="playAll">▶ Play the whole dialogue</button>`:""}</div>
+      ${m.note?`<p class="hint" style="margin-top:6px">${fmt(m.note)}</p>`:""}
+      <div class="dlg">${m.lines.map(l=>`<div class="line ${l[0]===m.lines[0][0]?"":"b"}"><span class="who">${esc((m.speakers||{})[l[0]]||l[0])}</span><span class="say">${fmt(l[1])}</span>${ear(l[1])}</div>`).join("")}</div>
+      ${m.task?`<div class="tip"><b class="lbl">Say it:</b> ${fmt(m.task)}${tl(m.taskTr)}</div>`:""}</section>
+      ${m.qs&&m.qs.length?`<section class="card"><h2>Did you catch it?</h2>${m.qs.map((q,k)=>mcq("r"+k,q[0],q[1],q[2])).join("")}</section>`:""}`;
+  }
+  else if(S.tab==="g"){
+    p.innerHTML = L.drills.map((d,i)=>`<section class="card"><h2>${esc(d.h)}</h2>${d.how?`<p class="hint">${fmt(d.how)}</p>`:""}${d.frame?`<div class="frame">${fmt(d.frame)}</div>`:""}
+      ${d.items.map((c,j)=>`<div class="cue"><span class="c">${fmt(c[0])}</span>${c[1]?`<button class="btn ghost" data-reveal="m${i}-${j}">Show a model</button><span class="m" id="m${i}-${j}" hidden><span>${fmt(c[1])}</span>${ear(c[1])}</span>`:""}</div>`).join("")}</section>`).join("");
+  }
+  else if(S.tab==="s"){
+    p.innerHTML = (L.roles||[]).map(r=>`<div class="role"><h3>${esc(r.h)}</h3><div class="sides"><div class="side"><b>You</b>${fmt(r.you)}</div><div class="side"><b>Your teacher</b>${fmt(r.teacher)}</div></div>${r.use?`<div class="use">${r.use.map(u=>`<span>${esc(u)}</span>`).join("")}</div>`:""}</div>`).join("")
+      + (s.questions ? `<section class="card"><h2>Free talk: question bank</h2><p class="hint">Answer out loud and keep going: give a reason, an example, then ask your teacher a question back.</p>
+      ${s.questions.map(q=>`<div class="sq"><div class="main">${fmt(q[0])}</div>${q[1]?`<div class="follow">Follow-up: ${fmt(q[1])}</div>`:""}</div>`).join("")}</section>` : "")
+      + (s.activities ? `<section class="card"><h2>Speaking games</h2>${s.activities.map(a=>`<div class="act"><strong>${esc(a[0])}</strong><p>${fmt(a[1])}</p></div>`).join("")}</section>` : "");
+    if(L.roles) p.insertAdjacentHTML("afterbegin", `<section class="card"><h2>Role-plays</h2><p class="hint">Read your card, take 30 seconds to plan, then speak. Swap roles and do it again.</p></section>`);
+  }
+  else if(S.tab==="x"){
+    p.innerHTML = (s.exit ? `<section class="card"><h2>Exit check</h2><p class="hint">Answer each one out loud, in one or two sentences.</p><ol class="prompts">${s.exit.map(x=>`<li>${fmt(x)}</li>`).join("")}</ol></section>` : "")
+      + (L.goals ? `<section class="card"><h2>What can you do now?</h2><p class="hint">Tick what you can really do. Untick ones are next time’s warm-up.</p><div class="cando">${L.goals.map((g,k)=>`<label><input type="checkbox" data-cando="${k}" ${(S.cando||{})[k]?"checked":""}><span>${fmt(pair(g)[0])}</span></label>`).join("")}</div></section>` : "")
+      + (L.mixups ? block({k:"mixups",h:"Watch out: mistakes to avoid",items:L.mixups}) : "")
+      + (L.recap&&L.recap.length ? `<section class="card recap"><h2>Recap</h2><ul class="prompts">${L.recap.map(x=>{const q=pair(x);return `<li>${fmt(q[0])}${tl(q[1])}</li>`;}).join("")}</ul></section>` : "");
+  }
+  else return false;
+  return true;
+}
+function renderPanel(){
+  const p = $("#panel");
+  SAYS = []; try{ if(CAN_SAY) speechSynthesis.cancel(); }catch(e){}
+  if(SPK && renderSpeaking(p)) return;
+  if(S.tab==="l"){ p.innerHTML = L.learn.map(block).join(""); }
+  else if(S.tab==="r"){
+    const r = L.read;
+    p.innerHTML = `<section class="card"><h2>${esc(r.title)}</h2>${r.note?`<p class="hint">${esc(r.note)}</p>`:""}
+      <div class="reading">${r.en.map((t,k)=>`<p>${fmt(t)}</p>${tl(r.tr&&r.tr[k])}`).join("")}</div>
+      <h4>Words</h4><div class="gloss">${r.gloss.map(g=>`<span>${esc(g[0])} <em class="tl">· ${esc(g[1])}</em></span>`).join("")}</div></section>
+      <section class="card"><h2>Check your understanding</h2>${r.qs.map((q,k)=>mcq("r"+k,q[0],q[1],q[2])).join("")}</section>`;
+  }
+  else if(S.tab==="m"){
+    p.innerHTML = (L.mixups ? block({k:"mixups",items:L.mixups}) : "") + (L.play ? playCard() : "");
+    if(L.play) drawPlay();
+  }
+  else if(S.tab==="p"){
+    p.innerHTML = `<section class="card"><div class="row" style="justify-content:space-between"><div><h2>Phrases</h2><p class="hint">Tap a card to see the meaning and when to use it. Try to guess first!</p></div>
+      <div class="row"><button class="btn ghost" id="shuf">Shuffle</button><button class="btn ghost" id="flipAll">Flip all</button></div></div>
+      <div class="fc-grid" id="fcg" style="margin-top:14px">${L.phrases.map(x=>`<button class="fc"><div class="in"><div class="f"><small>Phrase</small><strong>${esc(x[0])}</strong><small>flip ↺</small></div><div class="b"><small>Meaning</small><strong>${esc(x[1])}</strong><span>${esc(x[2]||"")}</span></div></div></button>`).join("")}</div></section>`;
+  }
+  else if(S.tab==="s"){
+    const s = L.speak;
+    p.innerHTML = `<section class="card"><h2>Question bank</h2><p class="hint">Answer out loud. Your teacher will ask the follow-ups.</p>
+      ${s.questions.map(q=>`<div class="sq"><div class="main">${fmt(q[0])}</div>${q[1]?`<div class="follow">Follow-up: ${fmt(q[1])}</div>`:""}</div>`).join("")}</section>
+      <section class="card"><h2>Talking activities</h2>${s.activities.map(a=>`<div class="act"><strong>${esc(a[0])}</strong><p>${fmt(a[1])}</p></div>`).join("")}</section>
+      ${s.exit?`<section class="card"><h2>Exit check</h2><ol class="prompts">${s.exit.map(x=>`<li>${fmt(x)}</li>`).join("")}</ol></section>`:""}`;
+  }
+  else if(S.tab==="q"){
+    cur = {ok:{}};
+    p.innerHTML = `<section class="card"><h2>Practice</h2><p class="hint">Type the missing words and press Enter. Contractions are fine (doesn’t = does not).</p>
+      ${L.practice.map((q,k)=>practiceItem(q,k)).join("")}</section>
+      <section class="card score"><span class="big" id="scoreBig">0/${L.practice.length}</span><span class="hint" id="scoreTxt">Correct answers are counted here.${S.best?` Your best score: ${S.best}/${L.practice.length}`:""}</span></section>
+      ${L.recap&&L.recap.length?`<section class="card recap"><h2>Recap</h2><ul class="prompts">${L.recap.map(x=>{const p=pair(x);return `<li>${fmt(p[0])}${tl(p[1])}</li>`;}).join("")}</ul></section>`:""}`;
+    L.practice.forEach((q,k)=>{ if(q.t==="order") setupOrder(k,q); });
+  }
+  else if(S.tab==="w"){
+    p.innerHTML = `<section class="card"><h2>Watch &amp; listen</h2>
+      <p>${L.watchTask ? fmt(L.watchTask) : `1. First watch: just get the general idea. 2. Second watch: listen for <span class="gram-pill">${esc(L.gram)}</span> and write down three sentences you hear. 3. If you hear a phrase from this lesson’s cards, go back and review it.`}</p>
+      <p class="tl">${L.watchTaskTr ? plain(L.watchTaskTr) : "Önce genel konuyu anla, sonra dersin yapısını “avla” ve duyduğun üç cümleyi yaz. Bağlantılar YouTube araması açar; böylece her zaman güncel videolara ulaşırsın."}</p></section>
+      <div class="ls">${L.watch.map(x=>{const direct=x[4];const href=direct||`https://www.youtube.com/results?search_query=${encodeURIComponent(x[3])}`;
+        return `<a class="lcard ${x[0]==="Series"?"kind-series":""}" href="${esc(href)}" target="_blank" rel="noopener"><span class="k"><span>${esc(x[0])}</span><span class="yt">YouTube</span></span><strong>${esc(x[1])}</strong><p>${esc(x[2])}</p><span class="go">${direct?"Watch":"Search: “"+esc(x[3])+"”"} ↗</span></a>`;}).join("")}</div>`;
+  }
+}
+function playCard(){
+  const p = L.play;
+  return `<section class="card"><h2>${esc(p.h||"Play with the pattern")}</h2>${p.intro?`<p class="hint">${fmt(p.intro)}</p>`:""}
+    <div class="play-grid">${p.slots.map((s,i)=>`<div><label for="pl${i}">${esc(s.label)}</label><select id="pl${i}" data-pl="${i}">${s.options.map((o,j)=>`<option value="${j}">${esc(pair(o)[0])}</option>`).join("")}</select></div>`).join("")}</div>
+    <div class="play-out" id="plOut" aria-live="polite"></div><div class="play-note" id="plNote"></div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost" id="plRand">Surprise me</button></div></section>`;
+}
+function drawPlay(){
+  const p = L.play, parts = [], notes = [];
+  p.slots.forEach((s,i)=>{ const o = pair(s.options[+$("#pl"+i).value]); parts.push(o[0]); if(o[1]) notes.push(`<b>${esc(o[0])}</b> = ${esc(o[1])}`); });
+  let t = parts.join(" ") + (p.end||"."); t = t[0].toUpperCase() + t.slice(1);
+  $("#plOut").textContent = t; $("#plNote").innerHTML = notes.join(" · ");
+}
+function mcq(id,q,opts,a,why){
+  return `<div class="q" data-q="${id}" data-a="${a}"><div class="qt">${fmt(q)}</div><div class="opts">${opts.map((o,k)=>`<button class="opt" data-k="${k}">${esc(o)}</button>`).join("")}</div><div class="fb"></div>${why?`<span hidden class="why">${esc(why)}</span>`:""}</div>`;
+}
+function practiceItem(q,k){
+  if(q.t==="fill") return `<div class="pi"><div class="ptype">Fill the gap</div>
+    <div class="fill">${q.pre?`<span>${esc(q.pre)}</span>`:""}<input id="f${k}" data-f="${k}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Answer ${k+1}">${q.post?`<span>${esc(q.post)}</span>`:""}
+    <button class="btn ghost" data-chk="${k}">Check</button></div><div class="hint">(${esc(q.hint||"")})</div><div class="fb" id="fb${k}"></div></div>`;
+  if(q.t==="mcq") return `<div class="pi"><div class="ptype">Choose the correct answer</div>${mcq("p"+k,q.q,q.o,q.a,q.why)}</div>`;
+  return `<div class="pi"><div class="ptype">Build the sentence</div><p class="hint">Tap the words in order.</p>
+    <div class="chips ans" id="oa${k}"></div><div class="chips" id="op${k}"></div>
+    <div class="row"><button class="btn ghost" data-ochk="${k}">Check</button><button class="btn ghost" data-oreset="${k}">Reset</button></div><div class="fb" id="fb${k}"></div></div>`;
+}
+function setupOrder(k,q){ cur["o"+k] = {pool:q.w.slice().sort(()=>Math.random()-.5), ans:[]}; drawOrder(k); }
+function drawOrder(k){
+  const st = cur["o"+k];
+  $("#oa"+k).innerHTML = st.ans.map((w,j)=>`<button class="chip" data-oback="${k}:${j}">${esc(w)}</button>`).join("");
+  $("#op"+k).innerHTML = st.pool.map((w,j)=>`<button class="chip" data-opick="${k}:${j}">${esc(w)}</button>`).join("");
+}
+function mark(k, good, msg){
+  const fb = $("#fb"+k); fb.className = "fb " + (good?"good":"no"); fb.textContent = msg;
+  if(good) cur.ok[k] = true;
+  updScore();
+}
+function updScore(){
+  const n = Object.keys(cur.ok).length, tot = L.practice.length;
+  $("#scoreBig").textContent = `${n}/${tot}`;
+  if(n > (S.best||0)) S.best = n;
+  if(n === tot){ $("#scoreTxt").textContent = "Great work! Everything is correct."; S.pdone = true; renderTop(); }
+  else $("#scoreTxt").textContent = "Keep going. You can retry the wrong ones.";
+  save();
+}
+function checkFill(k){
+  const q = L.practice[k], inp = $("#f"+k), v = norm(inp.value);
+  if(!v) return;
+  const good = q.a.some(a => norm(a) === v);
+  inp.classList.toggle("good", good); inp.classList.toggle("no", !good);
+  inp.dataset.tries = String((+inp.dataset.tries||0)+1);
+  mark(k, good, good ? ("Correct!" + (q.why ? " " + q.why : "")) : `Try again. Hint: starts with “${q.a[0][0]}”, ${q.a[0].length} characters.`);
+  if(!good && +inp.dataset.tries >= 3){ $("#fb"+k).textContent = `Answer: ${q.a[0]}` + (q.why ? " — " + q.why : ""); }
+}
+
+document.addEventListener("click", e => {
+  const t = e.target.closest("button, a"); if(!t) return;
+  if(t.id==="trTog"){ S.tl=!S.tl; save(); renderTop(); return; }
+  if(t.dataset.say!==undefined){ sayIt(+t.dataset.say, t); return; }
+  if(t.id==="playAll"){ const bs=[...document.querySelectorAll(".dlg .ear")]; const go=i=>{ if(bs[i]) sayIt(+bs[i].dataset.say, bs[i], ()=>setTimeout(()=>go(i+1),350)); }; go(0); return; }
+  if(t.dataset.reveal){ const m=$("#"+t.dataset.reveal); m.hidden=!m.hidden; t.textContent=m.hidden?"Show a model":"Hide"; return; }
+  if(t.dataset.tab){ S.tab=t.dataset.tab; render(); window.scrollTo({top:0}); return; }
+  if(t.dataset.step){ const tabs=TABS(), i=tabs.findIndex(x=>x[0]===S.tab)+ +t.dataset.step; if(tabs[i]){ S.tab=tabs[i][0]; render(); window.scrollTo({top:0}); } return; }
+  if(t.classList.contains("opt")){
+    const q = t.closest(".q"); if(q.dataset.solved) return;
+    const good = +t.dataset.k === +q.dataset.a;
+    t.classList.add(good?"right":"wrong");
+    const fb = q.querySelector(".fb"), w = q.querySelector(".why");
+    fb.className = "fb "+(good?"good":"no"); fb.textContent = good ? "Correct!" + (w ? " " + w.textContent : "") : "Not quite. Try again.";
+    if(good){ q.dataset.solved="1"; const id=q.dataset.q; if(id[0]==="p"){ cur.ok[+id.slice(1)]=true; updScore(); } }
+    return;
+  }
+  if(t.classList.contains("fc")){ t.classList.toggle("flip"); return; }
+  if(t.id==="plRand"){ L.play.slots.forEach((s,i)=>{ $("#pl"+i).value = Math.floor(Math.random()*s.options.length); }); drawPlay(); return; }
+  if(t.id==="flipAll"){ const all=[...document.querySelectorAll(".fc")]; const anyUn = all.some(c=>!c.classList.contains("flip")); all.forEach(c=>c.classList.toggle("flip",anyUn)); return; }
+  if(t.id==="shuf"){ const g=$("#fcg"); [...g.children].sort(()=>Math.random()-.5).forEach(c=>{c.classList.remove("flip");g.appendChild(c);}); return; }
+  if(t.dataset.chk!==undefined){ checkFill(+t.dataset.chk); return; }
+  if(t.dataset.opick){ const [k,j]=t.dataset.opick.split(":").map(Number); const st=cur["o"+k]; st.ans.push(st.pool.splice(j,1)[0]); drawOrder(k); return; }
+  if(t.dataset.oback){ const [k,j]=t.dataset.oback.split(":").map(Number); const st=cur["o"+k]; st.pool.push(st.ans.splice(j,1)[0]); drawOrder(k); return; }
+  if(t.dataset.oreset!==undefined){ const k=+t.dataset.oreset; setupOrder(k, L.practice[k]); $("#fb"+k).textContent=""; return; }
+  if(t.dataset.ochk!==undefined){ const k=+t.dataset.ochk, st=cur["o"+k], q=L.practice[k];
+    if(st.pool.length){ mark(k,false,"Use all the words first."); return; }
+    const good = norm(st.ans.join(" "))===norm(q.a); mark(k,good, good?"Perfect sentence!":"Not the right order. Check the word order and try again."); return; }
+});
+document.addEventListener("change", e => {
+  if(e.target.dataset && e.target.dataset.pl!==undefined) drawPlay();
+  if(e.target.dataset && e.target.dataset.cando!==undefined){ S.cando = S.cando||{}; S.cando[e.target.dataset.cando] = e.target.checked; save(); }
+});
+document.addEventListener("keydown", e => { if(e.key==="Enter" && e.target.dataset && e.target.dataset.f!==undefined){ checkFill(+e.target.dataset.f); } });
+render();
+</script>
+</body>
+</html>
