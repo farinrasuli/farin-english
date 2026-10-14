@@ -142,7 +142,7 @@ Current: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, 
 
 ## 7. Off-page / local authority (not started, real decision needed)
 
-- **Google Business Profile**: worth setting up even for an online-only tutoring business — Google now supports "service area business" profiles with no physical address shown, and it's free, gives a Maps/local-pack presence for "İngilizce özel ders [şehir]" style searches, and is a legitimate trust signal. **ACTION REQUIRED FROM YOU** if you want this — it needs your own Google account and phone verification, not something I can set up on your behalf.
+- **Google Business Profile: not eligible (corrected 2026-10-14).** Google's guidelines (support.google.com/business/answer/3038177) only allow businesses that have a location customers visit or that travel to customers. An online-only school does not qualify; a profile risks suspension. The earlier "service area business, worth doing" advice here was wrong. Revisit only if Farin starts teaching in person somewhere.
 - **Backlinks**: no artificial link-building (paid links, directories, PBNs) — these carry real penalty risk and the brief explicitly rules them out. Legitimate options: a guest post or interview on a Turkish language-learning or expat-focused blog, a listing on legitimate language-school directories (iTutor-style comparison sites), being mentioned by a former student's own blog/social post (can't be manufactured, but worth asking happy students if they'd share).
 - **Social signals**: Instagram is already linked in the footer — consistent posting there doesn't directly move rankings, but drives the kind of branded-search volume ("FEschool İngilizce") that does help.
 
