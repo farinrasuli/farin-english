@@ -1120,21 +1120,19 @@ body.v4 .v-hero .eyebrow{ display:inline-block; background:var(--v-sun); color:#
 .v-fgame-chores{ background:#17708A; color:#fff; background-image:radial-gradient(circle at 90% 0%, rgba(255,255,255,.2), transparent 45%); }
 .v-fgame-chores h3{ color:#fff; }
 .v-fgame-chores p{ color:#fff; }
-.v-fgame-call{ background:#FCC48D; color:#3a1d06; grid-template-columns:1fr; align-content:space-between; }
+.v-fgame-call{ background:#FCC48D; color:#3a1d06; }
+.v-fgame-call .v-phone{ transform:rotate(-3deg); }
 .v-fgame-call h3{ color:#3a1d06; }
 .v-fgame-call p{ color:#4a2a10; max-width:32ch; }
-.v-fgame-art{ width:min(210px,60%); height:auto; justify-self:end; margin:-4px -8px -16px 0; mix-blend-mode:multiply; }
 .v-badge{ display:inline-flex; align-items:center; gap:6px; padding:5px 12px; border-radius:99px; font-weight:800; font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; }
 .v-badge-new{ background:var(--v-sun); color:#1d1a14; }
-.v-badge-soon{ background:#3a1d06; color:#FFE3C4; }
+.v-badge-dark{ background:#3a1d06; color:#FFE3C4; }
 .v-fgame p.v-fgame-note{ font-size:.88rem; font-weight:700; margin-top:12px; opacity:.92; }
 @media (max-width:900px){ .v-fgames{ grid-template-columns:1fr; } }
 @media (max-width:520px){
   .v-fgame{ grid-template-columns:1fr 38%; gap:14px; padding:22px 16px 22px 20px; border-radius:26px; }
   .v-fgame .v-phone{ width:100%; }
   .v-fgame p{ font-size:.95rem; }
-  .v-fgame-call{ grid-template-columns:1fr; }
-  .v-fgame-art{ width:56%; margin-top:-30px; }
 }
 
 .v-gcards{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
@@ -1156,17 +1154,10 @@ body.v4 .v-hero .eyebrow{ display:inline-block; background:var(--v-sun); color:#
 .v-games-cta{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:14px 22px; margin-top:30px; }
 /* the base body.v4 h3 rule is more specific than .v-fgame h3: say it again here */
 body.v4 .v-fgame h3{ font-size:clamp(1.7rem,1.8vw + 1rem,2.5rem); margin:14px 0 10px; line-height:1.04; }
-body.v4 .v-fgame-call{ grid-template-columns:1fr; align-content:space-between; }
-body.v4 .v-fgame-call > div{ align-self:start; }
-body.v4 .v-fgame-call .v-fgame-art{ width:72%; max-width:320px; justify-self:end; margin:0 -14px -24px 0; }
 @media (max-width:700px){
   /* five cards in two columns: the fifth one lies down across both */
   .v-gcard:last-child:nth-child(odd){ grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,150px) minmax(0,190px); justify-content:center; align-items:center; column-gap:18px; }
   .v-gcard:last-child:nth-child(odd) .v-phone{ max-width:none; }
-}
-@media (max-width:520px){
-  body.v4 .v-fgame-call{ grid-template-columns:1fr 38%; align-items:center; }
-  body.v4 .v-fgame-call .v-fgame-art{ width:100%; margin:0 -6px 0 0; }
 }
 
 /* related posts on the service pages (farin-seo priority 1, 2026-10-14) */
