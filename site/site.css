@@ -962,6 +962,9 @@ body.v4 .testimonial-card{ border-radius:22px; padding:22px; }
 body.v4 .testimonial-quote{ font-family:var(--sans); font-style:normal; font-size:.98rem; }
 @media (max-width:980px){ .v-proof{ grid-template-columns:1fr; } }
 @media (max-width:760px){ .v-proof .testimonial-grid{ grid-template-columns:1fr; } }
+/* real student reviews (Tuğba, Dilara — sent by Farin 2026-10-15), shown under the proof block and on english.html */
+.v-real-reviews{ grid-template-columns:repeat(2,1fr); margin-top:24px; }
+@media (max-width:760px){ .v-real-reviews{ grid-template-columns:1fr; } }
 
 /* studio strip */
 .v-rooms{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
