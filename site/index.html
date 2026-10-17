@@ -35,6 +35,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="ocean.css">
 
 <script type="application/ld+json">
 {
@@ -169,7 +170,7 @@
 </script>
 <script src="consent.js" defer></script>
 </head>
-<body class="v4">
+<body class="v4 ocean">
 <div class="topbar">FE App ücretsiz. <a data-loc="topbar" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">Yol haritanı kur →</a></div>
 
 <header class="site" id="siteHeader">
@@ -214,7 +215,6 @@
           <a data-loc="hero-lang" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">İngilizce</a>
           <a data-loc="hero-lang" href="https://farinrasuli.github.io/farin-spanish/app/farin-spanish-app.html">İspanyolca</a>
         </div>
-        <a href="#ozel-ders" class="v-hero-teacher">Öğretmenle çalışmak ister misin? Özel ders →</a>
       </div>
       <div class="v-hero-art">
         <div class="v-phone v-phone-back"><img src="assets/app/screen-game-ev-isleri.webp" alt="FE App, Ev İşleri oyunu ekranı: boyalı mutfakta sırayla yapılacak işler" width="600" height="1298" fetchpriority="low" decoding="async"></div>
@@ -286,12 +286,12 @@
         <figure class="v-gcard gc-order"><div class="v-phone"><img src="assets/app/screen-game-siparis.webp" alt="FE App, Sipariş Hazır! oyunu: müşterinin İngilizce siparişi ve hazırlanacak tepsi" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><h3>Sipariş Hazır!</h3><p>Müşteriyi dinle, tepsiyi hazırla.</p></figcaption></figure>
         <figure class="v-gcard gc-mystery"><div class="v-phone"><img src="assets/app/screen-game-dava.webp" alt="FE App, Dava Kapandı oyunu: şüpheliler, yerler ve İngilizce ipuçları" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><h3>Dava Kapandı</h3><p>İpuçlarını oku, kimin yaptığını bul.</p></figcaption></figure>
         <figure class="v-gcard gc-desk"><div class="v-phone"><img src="assets/app/screen-game-pasaport.webp" alt="FE App, Pasaport Masası oyunu: yolcunun söyledikleri ve kontrol edilecek giriş kartı" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><h3>Pasaport Masası</h3><p>Yolcuyu dinle, karttaki hatayı düzelt.</p></figcaption></figure>
-        <figure class="v-gcard gc-spell"><div class="v-phone"><img src="assets/app/screen-game-sihirli.webp" alt="FE App, Sihirli Kelimeler oyunu: kapalı sihirli kapı, ipucu cümlesi ve mikrofon" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><h3>Sihirli Kelimeler</h3><p>Kelimeyi sesli söyle, kapıyı aç.</p></figcaption></figure>
-        <figure class="v-gcard gc-cross"><div class="v-phone"><img src="assets/app/screen-game-bulmaca.webp" alt="FE App, Mini Bulmaca oyunu: öğrenilen kelimelerle kurulan bulmaca ve klavye" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><h3>Mini Bulmaca</h3><p>Öğrendiğin kelimeleri bulmacaya yaz.</p></figcaption></figure>
       </div>
-      <div class="v-gmore reveal">
-        <h3>Ve daha fazlası</h3>
+      <details class="v-gmore2">
+        <summary>Ve daha fazlası · 9 oyun daha</summary>
         <ul>
+          <li><b>Sihirli Kelimeler</b> Kelimeyi sesli söyle, kapıyı aç.</li>
+          <li><b>Mini Bulmaca</b> Öğrendiğin kelimeleri bulmacaya yaz.</li>
           <li><b>Kelime Yarışı</b> Karoları çevir, kelimeyi anlamıyla eşleştir.</li>
           <li><b>Hikaye Avı</b> Hikayende gizli kelimeleri bul.</li>
           <li><b>Cümle Kur</b> Karolara dokun, cümleyi kur.</li>
@@ -300,7 +300,7 @@
           <li><b>Dinle ve Yaz</b> Cümleyi dinle, duyduğunu yaz.</li>
           <li><b>Tuzak Kaçışı</b> Doğru şekli hızla seç.</li>
         </ul>
-      </div>
+      </details>
       <div class="v-games-cta reveal"><a class="v-btn v-btn-coral" data-loc="games" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">Bir oyun dene →</a><a class="v-link" href="studio.html">Bir de büyük oyunumuz var: 100 Kapı →</a></div>
     </div>
   </section>
@@ -412,18 +412,6 @@
     </div>
   </section>
 
-  <section id="rehber" style="padding-bottom:0">
-    <div class="wrap v-center reveal">
-      <p class="eyebrow">Rehber</p>
-      <p class="v-ctas" style="justify-content:center; font-weight:700">
-        <a class="v-link" href="blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">İngilizce öğrenme planı nasıl kurulur?</a>
-        <a class="v-link" href="blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği nasıl yapılır?</a>
-        <a class="v-link" href="blog/hedefe-gore-ingilizce-ogrenmek.html">Hedefe göre öğrenmek neden hızlı?</a>
-        <a class="v-link" href="/blog/">Tüm yazılar →</a>
-      </p>
-    </div>
-  </section>
-
   <section id="iletisim">
     <div class="wrap">
       <div class="v-final reveal">
@@ -477,6 +465,9 @@
         </div>
         <div class="footer-col">
           <h4>Rehber</h4>
+          <a href="blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">Öğrenme planı nasıl kurulur?</a>
+          <a href="blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği</a>
+          <a href="blog/hedefe-gore-ingilizce-ogrenmek.html">Hedefe göre öğrenmek</a>
           <a href="/blog/">Blog</a>
         </div>
         <div class="footer-col">

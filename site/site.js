@@ -450,3 +450,38 @@ if (storyEl && LANG && LANG.story){
 }
 
 })();
+
+/* ---------------- Homepage water light (ocean, 2026-10-17) ----------------
+   Homepage only (body.ocean). Draws a small caustic texture on a canvas once,
+   then adds a .wl-layer under a few sections; ocean.css shows it in light
+   mode only and stills it for prefers-reduced-motion. */
+(function(){
+  var B = document.body;
+  if (!B || !B.classList.contains('ocean')) return;
+  try {
+    var S = 200, c = document.createElement('canvas'); c.width = c.height = S;
+    var x = c.getContext('2d'); if (!x) return;
+    var im = x.createImageData(S, S), TAU = 6.28318530718, t = 13.7;
+    for (var py = 0; py < S; py++) for (var px = 0; px < S; px++){
+      var p0 = px/S*TAU - 250, p1 = py/S*TAU - 250, i0 = p0, i1 = p1, cc = 1, inten = .005;
+      for (var n = 0; n < 5; n++){
+        var tt = t*(1 - 3.5/(n+1));
+        var a = p0 + Math.cos(tt - i0) + Math.sin(tt + i1), b = p1 + Math.sin(tt - i1) + Math.cos(tt + i0);
+        i0 = a; i1 = b;
+        cc += 1/Math.hypot(p0/(Math.sin(i0 + tt)/inten), p1/(Math.cos(i1 + tt)/inten));
+      }
+      cc /= 5; cc = 1.17 - Math.pow(cc, 1.4);
+      var v = Math.min(1, Math.max(0, Math.pow(Math.abs(cc), 8))), k = (py*S + px)*4;
+      im.data[k] = 255; im.data[k+1] = 255; im.data[k+2] = 250; im.data[k+3] = Math.round(v*255);
+    }
+    x.putImageData(im, 0, 0);
+    document.documentElement.style.setProperty('--caustic', 'url(' + c.toDataURL() + ')');
+  } catch (e) { return; }
+  ['.v-hero', '#nasil', '#oyunlar', '#studyo', '.v-teacher', '.v-final'].forEach(function(sel){
+    var el = document.querySelector(sel); if (!el) return;
+    el.classList.add('wl');
+    var l = document.createElement('div'); l.className = 'wl-layer'; l.setAttribute('aria-hidden', 'true');
+    l.innerHTML = '<i></i><i></i>';
+    el.insertBefore(l, el.firstChild);
+  });
+})();

@@ -1,0 +1,189 @@
+/* =========================================================
+   HOMEPAGE: OCEAN LIGHT + BREATHING ROOM (live 2026-10-17)
+   farin-design spec (Trello design OaqlK2rZ), approved by Farin.
+   Loaded only by index.html, after site.css; everything is scoped to
+   body.v4.ocean (the homepage body class), so the other v4 pages
+   (english/spanish/german/studio/ielts/is-ingilizcesi) are untouched.
+   - Part 1 (all colour schemes): spacing, de-crowded layout, games
+     cards + "9 oyun daha" list.
+   - Part 2 (light colour scheme only): ocean backgrounds (Glass,
+     Shallow, Sage, Sand, Peach) + the soft water-light layer.
+     Dark mode keeps today's dark colours.
+   Buttons, logo and fonts are unchanged.
+   ========================================================= */
+
+/* ================= Part 1: layout, every colour scheme ================= */
+
+/* the water layer only exists in light mode (Part 2 shows it) */
+.wl-layer{ display:none; }
+
+/* spacing */
+body.v4.ocean main > section:not(.v-hero){ padding:clamp(72px,9vw,128px) 0; }
+body.v4.ocean .section-head{ margin-bottom:clamp(44px,5vw,64px); }
+body.v4.ocean .section-head h2{ margin:0 0 16px; }
+body.v4.ocean .eyebrow{ margin:0 0 14px; }
+body.v4.ocean .lead{ max-width:58ch; line-height:1.65; color:var(--ink-soft); }
+body.v4.ocean .v-below{ margin-top:48px; }
+
+/* hero: purple kept; quieter eyebrow and language links */
+body.v4.ocean .v-hero .eyebrow{ background:none; padding:0; color:rgba(255,255,255,.88); font-size:.8rem; letter-spacing:.14em; }
+body.v4.ocean .v-hero .v-sub{ margin-bottom:32px; }
+body.v4.ocean .v-langs{ gap:6px 16px; }
+body.v4.ocean .v-langs a{ background:none; box-shadow:none; padding:0; border-radius:0; text-decoration:underline; text-underline-offset:4px; font-weight:700; }
+
+/* how it works */
+body.v4.ocean .v-steps{ gap:clamp(32px,4vw,56px); }
+body.v4.ocean .v-step p{ color:var(--ink-soft); }
+
+/* SELIF */
+body.v4.ocean .v-selif{ grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:20px; }
+body.v4.ocean .v-chip{ padding:24px 22px; }
+body.v4.ocean .v-chip:last-child{ grid-column:auto; }
+body.v4.ocean .v-chip p{ font-size:.98rem; line-height:1.55; color:var(--ink-soft); }
+
+/* games: two featured, three cards, the rest folded away */
+body.v4.ocean .v-fgames{ gap:28px; margin-bottom:40px; }
+body.v4.ocean .v-fgame .v-phone, body.v4.ocean .v-fgame-call .v-phone{ transform:none; }
+body.v4.ocean .v-gcards{ grid-template-columns:repeat(3,1fr); gap:24px; }
+body.v4.ocean .v-gcard{ border-top:0; padding:16px 16px 22px; gap:16px; }
+body.v4.ocean .v-gcard h3::before{ display:none; }
+body.v4.ocean .v-gcard p{ font-size:.98rem; line-height:1.55; color:var(--ink-soft); }
+body.v4.ocean .v-gcard .v-phone{ background:none !important; box-shadow:none !important; border-radius:20px; max-width:none; overflow:hidden; }
+body.v4.ocean .v-gcard .v-phone::after{ display:none; }
+body.v4.ocean .v-gcard .v-phone img{ width:100%; margin:0; border-radius:20px; aspect-ratio:390/520; object-fit:cover; object-position:top center; }
+@media (max-width:700px){ body.v4.ocean .v-gcards{ grid-template-columns:repeat(2,1fr); gap:16px; } }
+body.v4.ocean details.v-gmore2{ margin-top:40px; border-radius:24px; background:var(--surface-solid); box-shadow:inset 0 0 0 2px var(--surface-border); padding:0 clamp(18px,3vw,30px); }
+body.v4.ocean details.v-gmore2 summary{ list-style:none; cursor:pointer; font-family:var(--v-round); font-weight:700; font-size:1.15rem; padding:20px 34px 20px 0; position:relative; color:var(--ink); }
+body.v4.ocean details.v-gmore2 summary::-webkit-details-marker{ display:none; }
+body.v4.ocean details.v-gmore2 summary::after{ content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); font-size:1.5rem; color:var(--ink); transition:transform .2s ease; }
+body.v4.ocean details.v-gmore2[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+body.v4.ocean details.v-gmore2 summary:focus-visible{ outline:3px solid var(--v-sun); outline-offset:3px; border-radius:8px; }
+body.v4.ocean details.v-gmore2 ul{ list-style:none; margin:0 0 22px; padding:0; display:grid; grid-template-columns:repeat(2,1fr); gap:12px 32px; }
+body.v4.ocean details.v-gmore2 li{ display:flex; gap:8px; align-items:baseline; color:var(--ink-soft); font-weight:600; line-height:1.5; }
+body.v4.ocean details.v-gmore2 li b{ color:var(--ink); white-space:nowrap; font-family:var(--v-round); font-weight:700; }
+@media (max-width:700px){ body.v4.ocean details.v-gmore2 ul{ grid-template-columns:1fr; } body.v4.ocean details.v-gmore2 li{ flex-direction:column; gap:0; } }
+@media (prefers-reduced-motion:reduce){ body.v4.ocean details.v-gmore2 summary::after{ transition:none; } }
+body.v4.ocean .v-games-cta{ margin-top:48px; }
+
+/* private lessons */
+body.v4.ocean #ozel-ders{ padding-top:0; }
+body.v4.ocean .v-teacher{ padding:clamp(32px,6vw,72px); gap:48px; }
+
+/* students */
+body.v4.ocean .testimonial-card{ padding:28px; }
+body.v4.ocean .testimonial-grid{ gap:24px; }
+body.v4.ocean .v-real-reviews{ margin-top:32px; }
+body.v4.ocean .testimonial-quote{ line-height:1.6; }
+
+/* studio + about */
+body.v4.ocean .v-rooms{ gap:24px; }
+body.v4.ocean .v-founder p{ color:var(--ink-soft); }
+body.v4.ocean .v-founder img{ transform:none; }
+
+
+/* ================= Part 2: ocean colours, light mode only ================= */
+@media (prefers-color-scheme: light){
+
+body.v4.ocean{
+  --glass:#C0E3D5; --glass-l:#E2F1EB; --shallow:#86C6B6; --sage:#8FAE85;
+  --sand:#DCD3C3; --sand-l:#F1ECE3; --peach:#E3B8A5; --peach-l:#F6E6DE;
+  --cream:#fdfbf8; --cream-soft:#F1ECE3; --surface:#fff; --surface-solid:#fff; --bg-elevated:#fff;
+  --surface-border:#E3EAE6; --border:#E3EAE6;
+  --ink:#14332e; --ink-soft:#3A5550; --ink-faint:#5E7A75;
+  --v-coral-ink:#9A3412;
+  --card-shadow:0 1px 2px rgba(20,51,46,.06), 0 14px 30px -18px rgba(20,51,46,.28);
+  --card-line:0 0 0 1px rgba(20,51,46,.08);
+  background:var(--cream); color:var(--ink);
+}
+
+/* water light layer (div.wl-layer added by site.js, texture drawn on a canvas) */
+body.ocean .wl{ position:relative; overflow:hidden; isolation:isolate; }
+body.ocean .wl-layer{ display:block; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(ellipse 45% 55% at 85% 0%, rgba(255,214,192,.45), transparent 70%),
+             linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 30%); }
+body.ocean .wl-layer i{ position:absolute; inset:0; background-image:var(--caustic); background-size:300px 300px; opacity:.5;
+  -webkit-mask-image:linear-gradient(180deg,#000,transparent 70%); mask-image:linear-gradient(180deg,#000,transparent 70%); }
+body.ocean .wl-layer i + i{ background-size:440px 440px; opacity:.35; }
+body.ocean .wl > *:not(.wl-layer){ position:relative; z-index:1; }
+
+/* bars */
+body.v4.ocean .topbar{ background:var(--sand); color:var(--ink); }
+body.v4.ocean .topbar a{ color:var(--ink); text-decoration:underline; text-underline-offset:3px; }
+body.v4.ocean header.site{ background:rgba(238,246,242,.82); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); border-bottom:1px solid rgba(20,51,46,.08); }
+body.v4.ocean .nav-links a{ color:var(--ink); }
+body.v4.ocean .burger span{ background:var(--ink); }
+body.v4.ocean .v-link{ color:var(--ink); }
+
+/* hero: purple kept, peach bloom, Glass-light curve */
+body.v4.ocean .v-hero{ background-image:radial-gradient(ellipse 45% 55% at 85% 0%, rgba(255,214,192,.45), transparent 70%), radial-gradient(circle at 12% 18%, rgba(255,255,255,.14), transparent 34%), linear-gradient(160deg,var(--v-hero-a),var(--v-hero-b)); }
+body.v4.ocean .v-hero::after{ background:var(--glass-l); }
+
+/* how it works */
+body.v4.ocean #nasil{ background:linear-gradient(180deg,var(--glass-l),var(--glass)); }
+body.v4.ocean .v-step h3::before, body.v4.ocean .v-step:nth-child(2) h3::before, body.v4.ocean .v-step:nth-child(3) h3::before{ background:var(--v-purple-deep); box-shadow:none; }
+@media (max-width:820px){ body.v4.ocean .v-step{ background:rgba(255,255,255,.7); box-shadow:var(--card-line), var(--card-shadow); gap:0; } }
+
+/* phone frames: dark only in the hero, light everywhere else */
+body.v4.ocean main section:not(.v-hero) .v-phone{ background:linear-gradient(160deg,#ffffff,#E6EEEA 70%); box-shadow:inset 0 0 0 1.5px #D3E0DA, 0 24px 44px -26px rgba(20,51,46,.35); }
+body.v4.ocean main section:not(.v-hero) .v-phone::after{ background:#C9D7D1; box-shadow:none; }
+
+/* SELIF */
+body.v4.ocean #yontem{ background:var(--sand-l); }
+body.v4.ocean .v-chip{ background:#fff; box-shadow:var(--card-line), var(--card-shadow); }
+body.v4.ocean .v-chip h3 span{ background:var(--v-coral) !important; color:#fff !important; }
+
+/* games */
+body.v4.ocean #oyunlar{ background:linear-gradient(180deg,var(--glass-l) 0%,var(--glass-l) 55%,var(--shallow) 100%); }
+body.v4.ocean .v-fgame-chores{ background:rgba(255,255,255,.75); background-image:none; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); color:var(--ink); box-shadow:var(--card-line), var(--card-shadow); }
+body.v4.ocean .v-fgame-chores h3, body.v4.ocean .v-fgame-chores p{ color:var(--ink); }
+body.v4.ocean .v-fgame-call{ background:var(--peach); color:var(--ink); box-shadow:var(--card-shadow); }
+body.v4.ocean .v-fgame-call h3, body.v4.ocean .v-fgame-call p{ color:var(--ink); }
+body.v4.ocean .v-badge-dark{ background:var(--v-sun); color:#1d1a14; }
+body.v4.ocean .v-gcard{ background:#fff; box-shadow:var(--card-line), var(--card-shadow); }
+body.v4.ocean details.v-gmore2{ background:rgba(255,255,255,.8); box-shadow:var(--card-line), var(--card-shadow); }
+
+/* personal */
+body.v4.ocean #sana-gore{ background:var(--cream); }
+body.v4.ocean .v-tag, body.v4.ocean .v-compare figure:nth-child(2) .v-tag{ background:var(--glass); color:var(--ink); }
+
+/* private lessons */
+body.v4.ocean #ozel-ders{ background:var(--cream); }
+body.v4.ocean .v-teacher{ background:linear-gradient(180deg,var(--peach-l),var(--peach)); color:var(--ink); }
+body.v4.ocean .v-teacher h2, body.v4.ocean .v-teacher p, body.v4.ocean .v-teacher .v-link{ color:var(--ink); }
+body.v4.ocean .v-teacher .eyebrow{ color:var(--ink); opacity:1; }
+body.v4.ocean .v-teacher-card{ box-shadow:var(--card-shadow); }
+
+/* students */
+body.v4.ocean #ogrenciler{ background:var(--sand-l); }
+body.v4.ocean .card::before{ display:none; }
+body.v4.ocean .testimonial-card{ background:#fff; box-shadow:var(--card-line), var(--card-shadow); border:0; }
+body.v4.ocean .testimonial-quote{ color:var(--ink); }
+body.v4.ocean .testimonial-author span{ color:var(--ink-soft); }
+
+/* studio */
+body.v4.ocean #studyo{ background:linear-gradient(180deg,var(--glass-l),var(--glass)); }
+body.v4.ocean .v-rooms figure{ background:#fff; color:var(--ink); box-shadow:var(--card-line), var(--card-shadow); }
+
+/* about */
+body.v4.ocean #hakkimda{ background:var(--sand); }
+body.v4.ocean .v-founder img{ box-shadow:var(--card-shadow); }
+body.v4.ocean .v-facts li{ background:#fff; box-shadow:none; }
+
+/* final CTA */
+body.v4.ocean #iletisim{ background:var(--glass-l); }
+body.v4.ocean .v-final{ background-image:radial-gradient(ellipse 45% 55% at 85% 0%, rgba(255,214,192,.45), transparent 70%), radial-gradient(circle at 8% 90%, rgba(255,255,255,.12), transparent 35%); }
+
+/* footer */
+body.v4.ocean footer.site{ background:var(--sand); color:var(--ink); border-top:0; }
+body.v4.ocean footer.site a, body.v4.ocean footer.site h4, body.v4.ocean .v-foot-tag{ color:var(--ink); }
+body.v4.ocean footer.site p, body.v4.ocean .footer-bottom{ color:#3A5550; }
+
+} /* end light mode */
+
+/* the water light drifts slowly; held still for reduced motion */
+@media (prefers-color-scheme: light) and (prefers-reduced-motion: no-preference){
+  body.ocean .wl-layer i{ animation:wl1 24s linear infinite; }
+  body.ocean .wl-layer i + i{ animation:wl2 32s linear infinite; }
+}
+@keyframes wl1{ to{ background-position:300px 150px; } }
+@keyframes wl2{ to{ background-position:-440px 440px; } }
