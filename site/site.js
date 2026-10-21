@@ -3,6 +3,52 @@
    sets window.FARIN_LANG before loading this file to localize the
    wizard and the mini story game; pages without it (the hub) simply
    skip anything that needs it. */
+/* Instagram -> WhatsApp lead tagging (farin-seo, 2026-10-21, Trello seo hjoDN7RW).
+   1. A visit that arrives with ?utm_source=... saves utm_source / utm_campaign / utm_content in
+      sessionStorage, so it survives clicking on to a second page in the same tab (cleared when
+      the tab closes; nothing personal is stored).
+   2. If the saved source is Instagram (utm_source starting "ig" or "instagram"), every wa.me link
+      gets a short tag at the end of its prefilled text, e.g. " (Instagram · p3-schools)", so
+      Farin can see which post a WhatsApp lead came from. Without such a UTM nothing changes.
+   3. The GA4 block below adds utm_source / utm_content to whatsapp_click and app_open. */
+(function(){
+  var KEY = 'fe_utm';
+  try {
+    var sp = new URLSearchParams(location.search);
+    if (sp.get('utm_source')) sessionStorage.setItem(KEY, JSON.stringify({
+      source: sp.get('utm_source') || '', campaign: sp.get('utm_campaign') || '', content: sp.get('utm_content') || ''
+    }));
+    window.FE_UTM = JSON.parse(sessionStorage.getItem(KEY) || 'null');
+  } catch (e) { window.FE_UTM = null; }
+  function clean(s){ return String(s || '').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 40); }
+  function igTag(){
+    var u = window.FE_UTM;
+    if (!u || !/^(ig|instagram)/i.test(u.source || '')) return '';
+    var c = clean(u.content) || clean(u.campaign);
+    return ' (Instagram' + (c ? ' · ' + c : '') + ')';
+  }
+  function tagHref(href){
+    if (!href || href.indexOf('wa.me/') === -1) return href;
+    var t = igTag(); if (!t) return href;
+    var m = href.match(/([?&])text=([^&#]*)/);
+    if (m){
+      var txt; try { txt = decodeURIComponent(m[2].replace(/\+/g, ' ')); } catch (e) { return href; }
+      if (txt.slice(-t.length) === t) return href;
+      return href.replace(m[0], m[1] + 'text=' + encodeURIComponent(txt + t));
+    }
+    return href + (href.indexOf('?') === -1 ? '?' : '&') + 'text=' + encodeURIComponent('Merhaba Farin!' + t);
+  }
+  window.FE_tagWa = tagHref;
+  function fix(a){ var h = a.getAttribute('href'), n = tagHref(h); if (n !== h) a.setAttribute('href', n); }
+  function tagAll(){ document.querySelectorAll('a[href*="wa.me/"]').forEach(fix); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', tagAll); else tagAll();
+  /* links built later (wizard result, story game) are tagged at click time */
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href*="wa.me/"]') : null;
+    if (a) fix(a);
+  }, true);
+})();
+
 /* Contact / app-link click tracking -> GA4. Kept in its own block at the very
    top so nothing further down this file can stop it from registering.
    No-op if the Google tag hasn't loaded (blocked, offline, etc). */
@@ -31,6 +77,7 @@
     if (!name) return;
     var params = { page_path: location.pathname, link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), transport_type: 'beacon' };
     for (var k in extra) params[k] = extra[k];
+    if (window.FE_UTM && (name === 'whatsapp_click' || name === 'app_open')){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
     window.gtag('event', name, params);
   }, true);
 })();
@@ -42,7 +89,8 @@ var WHATSAPP_NUMBER = '905455783260';
 var LANG = window.FARIN_LANG || null;
 
 function waLink(text){
-  return 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+  var u = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(text);
+  return window.FE_tagWa ? window.FE_tagWa(u) : u;
 }
 
 /* ---------------- Mobile nav ---------------- */

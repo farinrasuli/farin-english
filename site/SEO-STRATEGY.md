@@ -109,6 +109,14 @@ Each article: 800–1,200 words, real answer first (not buried under intro fluff
 
 Angle: honest selection criteria instead of a ranking; no competitor names, no stats. FE App claims limited to the marketing-brief claim ledger (free, no card, ≤3 goals + level + topics, roadmap, games at every stop, review rounds, Chapter 1 of courses free, Android + iPhone browser).
 
+**Published 2026-10-14, article 10** (content-queue item 2; plan `SEO-FOCUS-2026-10.md`, kept out of git):
+
+| # | Title | Target keyword | Internal link to |
+|---|---|---|---|
+| 10 | İngilizce Seviyemi Nasıl Anlarım? A1'den C1'e Seviyeler ve Ücretsiz Testler | ingilizce seviyemi nasıl anlarım | `/english.html#paketler` (free İlk Adım lesson) |
+
+Autocomplete TR 2026-10-14: "ingilizce seviyemi nasıl anlarım" 5, "seviye tespit sınavı ücretsiz/online" 5 each. No in-app level-test claim: the learner onboarding uses a self-reported level since 2026-09-29 (the adaptive test is admin-only). Cites Cambridge Test your English, EF SET, EnglishScore.
+
 Also applied the same pass's "cheap wins": retitled/led article #3 around "İngilizce anlıyorum ama konuşamıyorum" (the actual query, not "çekiniyorum"), added "çalışma programı" wording to article #2, added a ChatGPT/AI-practice section to article #1.
 
 ---
@@ -143,7 +151,7 @@ Current: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, 
 ## 7. Off-page / local authority (not started, real decision needed)
 
 - **Google Business Profile: not eligible (corrected 2026-10-14).** Google's guidelines (support.google.com/business/answer/3038177) only allow businesses that have a location customers visit or that travel to customers. An online-only school does not qualify; a profile risks suspension. The earlier "service area business, worth doing" advice here was wrong. Revisit only if Farin starts teaching in person somewhere.
-- **Backlinks**: no artificial link-building (paid links, directories, PBNs) — these carry real penalty risk and the brief explicitly rules them out. Legitimate options: a guest post or interview on a Turkish language-learning or expat-focused blog, a listing on legitimate language-school directories (iTutor-style comparison sites), being mentioned by a former student's own blog/social post (can't be manufactured, but worth asking happy students if they'd share).
+- **Backlinks** (2026-10 execution list: `LINK-BUILDING-2026-10.md`, kept out of git): no artificial link-building (paid links, directories, PBNs) — these carry real penalty risk and the brief explicitly rules them out. Legitimate options: a guest post or interview on a Turkish language-learning or expat-focused blog, a listing on legitimate language-school directories (iTutor-style comparison sites), being mentioned by a former student's own blog/social post (can't be manufactured, but worth asking happy students if they'd share).
 - **Social signals**: Instagram is already linked in the footer — consistent posting there doesn't directly move rankings, but drives the kind of branded-search volume ("FEschool İngilizce") that does help.
 
 ---
@@ -164,6 +172,11 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 - **Why the speaking post was unknown (checked):** it is in `sitemap.xml` and has 8 internal links, including one from the homepage. So the cause is not a missing sitemap entry or an orphan page. It is crawl lag on a young domain: Google downloaded the sitemap but hasn't queued most of its URLs yet. Every sitemap URL has 2–16 internal inlinks; the weakest are `ielts-speaking` and `is-ingilizcesi-mulakat` (2 each). Next lever if they stay unknown: more contextual links from indexed pages (`/blog/`, `/is-ingilizcesi.html`), not more sitemap pings.
 - **Crawl hygiene fixed 2026-10-08 (Trello oQbWyB3K, 7PhBeJf8):** all internal `index.html` links now point at the canonical `/` and `/blog/` (48 links: 8 `blog/index.html`, 22 `../index.html` incl. 3 with anchors, 16 blog-folder `index.html`, 2 on the privacy page). robots.txt disallows `/cdn-cgi/l/` (Cloudflare e-mail obfuscation, always 404). Added `/favicon.ico` (it was 404). **Expected 404s, leave them alone:** old app assets under `/app/` (`manifest.json`, `farin-sw.js`, icons, audio). The app left this domain on purpose (HARD RULE in `Claude/entities.md`). Only the `/app/*.html` redirect stubs stay. `/site/*` is a duplicate copy that the deploy produces; it carries canonicals to the root and nothing links to it.
 
+- **2026-10-14, farin-seo (Search Console API):** 28 days to 10-11: 0 clicks, 33 impressions, avg position 16.0 (27 impressions from Türkiye). Indexed 8/18: `/`, `/english.html`, `/is-ingilizcesi.html`, `/ielts-hazirlik.html`, `/blog/`, speaking post, app post, `/gizlilik-politikasi.html`. Not fetched yet: spanish, german, studio + 7 posts. Only non-brand impressions: speaking post ("refleks ingilizce konuşma" pos 12.8, "ingilizce konuşma refleksi" 21.5). Cause: indexed service pages linked to no posts. Same day: related-posts blocks on the 3 service pages (farin-website), contextual links + a "konuşma refleksi" section (farin-seo), article 10 published.
+
+- **2026-10-21, farin-seo (Search Console API, Trello KFMhJJT5):** 28 days 09-22..10-19: 5 clicks (first clicks ever, 10-17/10-18, all on `/`), 57 impressions, avg position 21.8. Of the 7 URLs that were "unknown" on 10-08, 5 are now indexed (spanish, studio, ielts-speaking, is-ingilizcesi-mulakat, gizlilik-politikasi; crawled 10-13..10-15). Still unknown: `ingilizce-ogrenme-plani`, `ingilizce-ogrenirken-yapilan-hatalar`, `german`; `hedefe-gore` is "Discovered, not indexed". Fix applied: one contextual in-body link to each blog straggler from indexed posts (seviyemi + fiyatlari → ogrenme-plani, ielts-speaking → yapilan-hatalar, mulakat → hedefe-gore). `german` is linked from every page's nav already, so no new link; watch it. Duplicate `/site/*` copy and the public `.md` docs are all "unknown to Google" (no leak into the index).
+- **2026-10-21, brand entity (Trello tsxpN5Rx):** homepage `sameAs` = @the_feschool + LinkedIn company page (retired @fariinrasouli removed; the footer links were already correct), `WebSite.alternateName` = FEschool / The FE School / thefeschool, `SoftwareApplication` name "FE App" (alternateName "Farin English"). Track "fe school"/"feschool" positions (10-21: "fe school" pos 6.0, "fe english" 6.0, 2 impressions each).
+
 ---
 
 ## 9. Phased roadmap
@@ -171,7 +184,7 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 - **Phase 1 (done)**: technical foundation — domain, HTTPS (via Cloudflare proxy, see §1), sitemap/robots, structured-data audit.
 - **Phase 2 (next, low effort)**: `WebSite`/`BreadcrumbList` schema additions (§5); privacy-policy title fix (carried over from the migration blueprint).
 - **Phase 3**: build `/blog/` structure (one template, matching site design) + publish articles 1–2 from §4.
-- **Phase 4**: Google Business Profile (needs you) + GSC query monitoring to see which of articles 1–2 are gaining traction before writing 3–6.
+- **Phase 4**: ~~Google Business Profile~~ (not eligible, see §7) + GSC query monitoring to see which of articles 1–2 are gaining traction before writing 3–6.
 - **Phase 5**: decide on `/is-ingilizcesi`/`/ielts-hazirlik` (§3) based on real inquiry-source data, not assumption.
 - **Phase 6**: ongoing — one article every 2 weeks, review GSC monthly, adjust the keyword map based on what's actually getting impressions.
 
@@ -182,5 +195,5 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 - Confirm GSC + analytics are set up (per `DOMAIN-MIGRATION-SEO.md`) — everything in §8 depends on this.
 - Spend ~20 minutes running the §2 keyword clusters through a real keyword tool (Google Keyword Planner is free) before I write article copy — confirms these are worth the writing time.
 - Decide: do you want to write the blog articles yourself (I can draft, you edit for voice), or should I draft them end-to-end for your review each time?
-- Google Business Profile — worth doing, needs your Google account.
+- ~~Google Business Profile~~: not eligible for an online-only school (see §7, corrected 2026-10-14).
 - Tell me whether career/exam inquiries are common enough to justify §3's new pages, or if I should hold off.
