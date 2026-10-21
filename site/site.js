@@ -18,7 +18,11 @@
     var locEl = a.closest('[data-loc]');
     var secEl = a.closest('section[id], header, footer, .topbar');
     var loc = locEl ? locEl.getAttribute('data-loc') : (secEl ? (secEl.id || secEl.tagName.toLowerCase()) : 'page');
-    if (href.indexOf('wa.me/') !== -1) name = 'whatsapp_click';
+    /* 2026-10-21: a WhatsApp link marked data-lead="course" is an app-course request (website 29HIYoiB);
+       it fires course_lead (course: the app course id) instead of whatsapp_click so course leads can be
+       told apart from private-lesson leads. */
+    if (a.getAttribute('data-lead') === 'course') { name = 'course_lead'; extra.course = a.getAttribute('data-course') || ''; extra.location = loc; }
+    else if (href.indexOf('wa.me/') !== -1) name = 'whatsapp_click';
     else if (href.indexOf('mailto:') === 0) name = 'email_click';
     else if (href.indexOf('farin-english.apk') !== -1) { name = 'apk_download'; extra.location = loc; }
     else if ((href.indexOf('farin-english-app') !== -1 || href.indexOf('farin-spanish-app') !== -1) && href.indexOf('privacy-policy') === -1) {
