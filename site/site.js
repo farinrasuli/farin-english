@@ -56,6 +56,17 @@
   /* 2026-10-07 app-first redesign: app links fire app_open (lang: en/es, location:
      the nearest data-loc or section id) and the APK link fires apk_download, beside
      the existing whatsapp_click / email_click. */
+  function pkgOf(href){
+    var m = href.match(/[?&]text=([^&#]*)/), t = '';
+    try { t = m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : ''; } catch (e) {}
+    t = t.toLocaleLowerCase('tr');
+    if (t.indexOf('ilk adım') !== -1) return 'ilk-adim';
+    if (t.indexOf('keşif') !== -1) return 'kesif';
+    if (t.indexOf('macera') !== -1) return 'macera';
+    if (t.indexOf('kahraman') !== -1) return 'kahraman';
+    if (t.indexOf('özel ders') !== -1 || t.indexOf('özel dersi') !== -1 || t.indexOf('birebir') !== -1) return 'ozel';
+    return 'other';
+  }
   document.addEventListener('click', function(e){
     var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
     if (!a || typeof window.gtag !== 'function') return;
@@ -64,11 +75,26 @@
     var locEl = a.closest('[data-loc]');
     var secEl = a.closest('section[id], header, footer, .topbar');
     var loc = locEl ? locEl.getAttribute('data-loc') : (secEl ? (secEl.id || secEl.tagName.toLowerCase()) : 'page');
-    /* 2026-10-21: a WhatsApp link marked data-lead="course" is an app-course request (website 29HIYoiB);
-       it fires course_lead (course: the app course id) instead of whatsapp_click so course leads can be
-       told apart from private-lesson leads. */
-    if (a.getAttribute('data-lead') === 'course') { name = 'course_lead'; extra.course = a.getAttribute('data-course') || ''; extra.location = loc; }
-    else if (href.indexOf('wa.me/') !== -1) name = 'whatsapp_click';
+    /* 2026-10-22 (website YMn1axz5): every WhatsApp click is typed so GA4 can tell lead kinds apart.
+       data-lead on the link wins: "course" = app-course request -> course_lead (course: data-course);
+       "private" = private/trial lesson or package -> private_lesson_lead (package: ilk-adim/kesif/macera/kahraman/ozel);
+       "contact" = general question -> no lead event. Untagged links (blog CTAs, wizard result, story game
+       built in JS) count as private_lesson_lead when they carry a prefilled ?text=, plain contact when bare.
+       whatsapp_click still fires for every WhatsApp click (lead_type param) so older reports keep working. */
+    var isWa = href.indexOf('wa.me/') !== -1;
+    var lead = a.getAttribute('data-lead');
+    if (isWa && !lead) lead = /[?&]text=/.test(href) ? 'private' : 'contact';
+    if (isWa){
+      var leadName = lead === 'course' ? 'course_lead' : (lead === 'private' ? 'private_lesson_lead' : null);
+      if (leadName){
+        var lp = { page_path: location.pathname, location: loc, link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), transport_type: 'beacon' };
+        if (lead === 'course') lp.course = a.getAttribute('data-course') || '';
+        else lp.package = pkgOf(href);
+        if (window.FE_UTM){ lp.utm_source = window.FE_UTM.source; lp.utm_content = window.FE_UTM.content; }
+        window.gtag('event', leadName, lp);
+      }
+      name = 'whatsapp_click'; extra.lead_type = lead; extra.location = loc;
+    }
     else if (href.indexOf('mailto:') === 0) name = 'email_click';
     else if (href.indexOf('farin-english.apk') !== -1) { name = 'apk_download'; extra.location = loc; }
     else if ((href.indexOf('farin-english-app') !== -1 || href.indexOf('farin-spanish-app') !== -1) && href.indexOf('privacy-policy') === -1) {
