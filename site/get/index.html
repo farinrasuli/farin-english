@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get the FE App</title>
+<meta name="description" content="Download the FE App: English and Spanish, built around your goal. Android and iPhone.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://thefeschool.com/get/">
+<meta name="theme-color" content="#fdfbf8">
+<link rel="icon" href="/assets/app-icon.png" type="image/png">
+<meta property="og:title" content="Get the FE App 🚀">
+<meta property="og:description" content="English + Spanish. Your goal, your roadmap. Android & iPhone.">
+<meta property="og:image" content="https://thefeschool.com/og-image.jpg">
+<style>
+:root{
+  --bg:#fdfbf8; --card:#ffffff; --ink:#14332e; --ink-soft:#4d6b66; --line:#eeebe3;
+  --primary:#ff7a59; --primary-deep:#e85c3b; --teal:#4FC3E8; --teal-deep:#1F8FB0;
+  --gold:#FFA53D;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color:var(--ink); display:flex; align-items:center; justify-content:center; padding:24px 16px;
+  background:
+    radial-gradient(600px 400px at 15% 0%, rgba(79,195,232,.22), transparent 70%),
+    radial-gradient(500px 380px at 100% 100%, rgba(255,122,89,.18), transparent 70%),
+    var(--bg);
+}
+.wrap{width:100%; max-width:420px; text-align:center}
+.logo{width:84px; height:84px; border-radius:22px; box-shadow:0 10px 30px rgba(20,51,46,.15); margin-bottom:18px}
+h1{font-size:30px; line-height:1.15; font-weight:800; letter-spacing:-.02em}
+h1 span{color:var(--primary)}
+.sub{margin:10px 0 28px; color:var(--ink-soft); font-size:16px; line-height:1.5}
+.btn{
+  display:flex; align-items:center; gap:14px; width:100%; padding:18px 20px; margin-bottom:14px;
+  border-radius:20px; text-decoration:none; color:#fff; text-align:left;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn:active{transform:scale(.98)}
+.btn .ic{font-size:30px; line-height:1}
+.btn b{display:block; font-size:19px}
+.btn small{display:block; font-size:13px; opacity:.9; margin-top:2px}
+.android{background:linear-gradient(135deg,var(--primary),var(--primary-deep)); box-shadow:0 10px 26px rgba(255,122,89,.4)}
+.iphone{background:linear-gradient(135deg,var(--teal),var(--teal-deep)); box-shadow:0 10px 26px rgba(31,143,176,.35)}
+.mine{outline:3px solid var(--gold); outline-offset:3px}
+.tip{
+  background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 16px;
+  font-size:14px; line-height:1.55; color:var(--ink-soft); text-align:left; margin-top:6px;
+}
+.tip b{color:var(--ink)}
+.tip p+p{margin-top:6px}
+.foot{margin-top:24px; font-size:13px; color:var(--ink-soft)}
+.foot a{color:var(--teal-deep); font-weight:600; text-decoration:none}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <img class="logo" src="/assets/app-icon.png" alt="FE App">
+  <h1>Your goal.<br><span>Your roadmap.</span></h1>
+  <p class="sub">English 🇬🇧 + Spanish 🇪🇸 · 100% personalized<br>Pick your phone 👇</p>
+
+  <a class="btn android" id="android" href="https://farinrasuli.github.io/farin-english-app/farin-english.apk">
+    <span class="ic">🤖</span><span><b>Android</b><small>Download the app · Uygulamayı indir · دانلود اپ</small></span>
+  </a>
+  <a class="btn iphone" id="iphone" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">
+    <span class="ic">🍏</span><span><b>iPhone</b><small>Open the app · Uygulamayı aç · باز کردن اپ</small></span>
+  </a>
+
+  <div class="tip">
+    <p><b>🍏 iPhone:</b> open in Safari → Share → <b>Add to Home Screen</b> ✨</p>
+    <p>Safari'de aç → Paylaş → <b>Ana Ekrana Ekle</b></p>
+    <p dir="rtl">تو Safari بازش کن ← Share ← <b>Add to Home Screen</b></p>
+  </div>
+
+  <p class="foot">Made by <a href="/">FE School</a> 💛</p>
+</main>
+<script>
+(function(){
+  var ua = navigator.userAgent || "";
+  var ios = /iPhone|iPad|iPod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  var android = /Android/i.test(ua);
+  var a = document.getElementById("android"), i = document.getElementById("iphone");
+  if (ios) { i.classList.add("mine"); i.parentNode.insertBefore(i, a); }
+  else if (android) { a.classList.add("mine"); }
+})();
+</script>
+</body>
+</html>
