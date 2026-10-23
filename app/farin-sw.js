@@ -136,6 +136,12 @@ const MANIFEST_RE = /\/audio\/[a-z]{2}\/(alt\/)?manifest\.json$/;
 // Game Theatre + lazy game files (x35crL5M): games/**/*.js|css load on the first tap of a game; stale-while-revalidate keeps
 // them offline after that and picks up a new ?v= on the next visit. Poster WebPs (games/posters/) fall under IMG_RE.
 const GAMES_RE = /\/games\/[^?#]+\.(js|css)$/;
+// IELTS: 10 full exams (2026-10-23): the lesson files ielts/exam-NN/*.js load per exam (?v= changes with the content) ->
+// stale-while-revalidate like the games, so an exam opened once works offline; its natural-voice clips ielts/audio/<key>.mp3 never
+// change under one name -> cache-first; ielts/audio/manifest.json -> network-first.
+const IELTS_RE = /\/ielts\/exam-\d+\/[^?#]+\.js$/;
+const IELTS_AUDIO_RE = /\/ielts\/audio\/[0-9a-f]{16}\.mp3$/;
+const IELTS_MANIFEST_RE = /\/ielts\/audio\/manifest\.json$/;
 const IMG_RE = /\.(png|webp|jpg|jpeg|svg)$/;
 const STATIC_HOSTS = ['fonts.gstatic.com'];
 const FIREBASE_SDK = 'https://www.gstatic.com/firebasejs/';
@@ -224,7 +230,9 @@ self.addEventListener('fetch', (e) => {
     // game art and app images: cache-first, filled on first use (the files never change under one name)
     if (AUDIO_RE.test(url.pathname)) { e.respondWith(audioCacheFirst(e.request)); return; }
     if (MANIFEST_RE.test(url.pathname)) { e.respondWith(networkFirst(e.request)); return; }
-    if (GAMES_RE.test(url.pathname)) { e.respondWith(staleWhileRevalidate(e)); return; }
+    if (GAMES_RE.test(url.pathname) || IELTS_RE.test(url.pathname)) { e.respondWith(staleWhileRevalidate(e)); return; }
+    if (IELTS_AUDIO_RE.test(url.pathname)) { e.respondWith(audioCacheFirst(e.request)); return; }
+    if (IELTS_MANIFEST_RE.test(url.pathname)) { e.respondWith(networkFirst(e.request)); return; }
     if (ART_RE.test(url.pathname) || PATH_RE.test(url.pathname) || IMG_RE.test(url.pathname)) e.respondWith(cacheFirst(e.request));
     return;
   }
