@@ -1,0 +1,23 @@
+IELTS course voice clips in this folder (ielts/audio)
+
+These MP3 clips (48 kbps mono) were generated with open-source text-to-speech from the listening scripts,
+announcer rubrics and speaking-examiner lines of the Farin English app's IELTS course. Each file name is
+ttsKey(voice + " " + text); manifest.json lists the clips that exist.
+
+Kokoro voices (bm_george, bm_lewis, bm_daniel, bm_fable, bf_emma, bf_isabella, bf_alice, bf_lily,
+af_sarah, af_nicole, af_heart, am_michael, am_adam, am_puck):
+  Kokoro-82M (https://huggingface.co/hexgrad/Kokoro-82M), Apache License 2.0.
+
+Piper voices (https://github.com/rhasspy/piper, models from https://huggingface.co/rhasspy/piper-voices):
+  en_GB-alba-medium: trained on the Edinburgh "alba" recordings (https://datashare.ed.ac.uk/handle/10283/3270),
+    licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+  en_GB-northern_english_male-medium and en_GB-southern_english_female-low: trained on the OpenSLR 83
+    "Crowdsourced high-quality UK and Ireland English Dialect speech data set" (Google, https://www.openslr.org/83/),
+    licensed CC BY-SA 4.0. The clips made with these two voices are shared under the Creative Commons
+    Attribution-ShareAlike 4.0 International licence: https://creativecommons.org/licenses/by-sa/4.0/
+  en_GB-jenny_dioco-medium: voice "Jenny (Dioco)", dataset https://github.com/dioco-group/jenny-tts-dataset
+    (attribution licence, commercial use permitted).
+  en_GB-alan-medium: trained on the Mycroft mimic3 "apope" voice (Alan Pope),
+    https://github.com/MycroftAI/mimic3-voices (repository licence CC BY-SA 4.0).
+
+The app's code, lessons and course texts are not covered by this licence.
