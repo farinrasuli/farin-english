@@ -9,7 +9,7 @@ af_sarah, af_nicole, af_heart, am_michael, am_adam, am_puck):
   Kokoro-82M (https://huggingface.co/hexgrad/Kokoro-82M), Apache License 2.0.
 
 Piper voices (https://github.com/rhasspy/piper, models from https://huggingface.co/rhasspy/piper-voices):
-  en_GB-alba-medium: trained on the Edinburgh "alba" recordings (https://datashare.ed.ac.uk/handle/10283/3270),
+  en_GB-alba-medium (credit: "Alba"): trained on the Edinburgh "alba" recordings (https://datashare.ed.ac.uk/handle/10283/3270),
     licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
   en_GB-northern_english_male-medium and en_GB-southern_english_female-low: trained on the OpenSLR 83
     "Crowdsourced high-quality UK and Ireland English Dialect speech data set" (Google, https://www.openslr.org/83/),
@@ -17,7 +17,12 @@ Piper voices (https://github.com/rhasspy/piper, models from https://huggingface.
     Attribution-ShareAlike 4.0 International licence: https://creativecommons.org/licenses/by-sa/4.0/
   en_GB-jenny_dioco-medium: voice "Jenny (Dioco)", dataset https://github.com/dioco-group/jenny-tts-dataset
     (attribution licence, commercial use permitted).
-  en_GB-alan-medium: trained on the Mycroft mimic3 "apope" voice (Alan Pope),
-    https://github.com/MycroftAI/mimic3-voices (repository licence CC BY-SA 4.0).
+
+Credits as shown in the app (Privacy Policy, section 10 "Voices and Credits"): Kokoro-82M (Apache License 2.0);
+"Jenny (Dioco)"; "Alba" (CC BY 4.0); OpenSLR 83 voices northern_english_male and southern_english_female (CC BY-SA 4.0).
+
+Voice change 2026-10-24: en_GB-alan-medium was removed (its voice folder is marked "All Rights Reserved") and its 44 clips
+deleted. Its speakers were re-voiced: Exam 5 Listening 1 Euan and Exam 10 Listening 4 Lecturer now use
+en_GB-northern_english_male-medium; Exam 8 Listening 3 Callum now uses bm_lewis.
 
 The app's code, lessons and course texts are not covered by this licence.
