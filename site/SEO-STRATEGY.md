@@ -48,6 +48,7 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 | IELTS prep | IELTS için nasıl çalışılır | `/ielts-hazirlik` (if built) |
 | Common mistakes | İngilizce öğrenirken yapılan hatalar | `/english.html` |
 | Speaking anxiety | İngilizce konuşurken çekiniyorum ne yapmalıyım | `/english.html`, Student Club angle |
+| HR English (added 2026-10-22, HR = course sale #1) | insan kaynakları İngilizcesi (secondary: İK İngilizce terimler, insan kaynakları uzmanı/müdürü İngilizce, işe alım süreci İngilizce) | `blog/insan-kaynaklari-ingilizcesi.html` (published 2026-10-25; links to `/is-ingilizcesi.html`, which links back from İlgili yazılar). The HR course block on `/is-ingilizcesi.html` (website rGfPTnEZ) should target "İK ve İş İngilizcesi kursu", not this head term. Candidate-side "mülakat soruları" stays with `blog/is-ingilizcesi-mulakat-sorulari.html`. Evidence: autocomplete TR 2026-10-22, in `Claude/tools/seo-audit/content-queue.json` |
 
 These are **directional clusters**, not volume-verified keywords — I don't have a real keyword-volume tool from here. Before committing real writing time, run these through Google Keyword Planner, Ubersuggest, or similar (free tiers exist) to confirm volume and see what Google's own "People also ask" surfaces for each — 20 minutes of real research per cluster, cheap insurance against writing for a keyword nobody searches.
 
