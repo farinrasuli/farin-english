@@ -120,6 +120,14 @@ Autocomplete TR 2026-10-14: "ingilizce seviyemi nasıl anlarım" 5, "seviye tesp
 
 Also applied the same pass's "cheap wins": retitled/led article #3 around "İngilizce anlıyorum ama konuşamıyorum" (the actual query, not "çekiniyorum"), added "çalışma programı" wording to article #2, added a ChatGPT/AI-practice section to article #1.
 
+**Published 2026-10-28, article 12** (Trello Qd1BaPIK; draft from the paused 10-15 run):
+
+| # | Title | Target keyword | Internal link to |
+|---|---|---|---|
+| 12 | İngilizce Düşünmek Nasıl Olur? Kafanda Çeviri Yapmadan Konuşmak | ingilizce düşünmek (secondary: ingilizce düşünmek nasıl olur, türkçe düşünmeden / kafada çeviri yapmadan İngilizce konuşmak) | `/english.html#yontem` |
+
+Cannibalization call: "ingilizce konuşma refleksi" / "refleks ingilizce konuşma" stay with article #1 (konuşma pratiği). GSC 10-01..10-26 shows them on that post only (9 impr pos 16.4, 4 impr pos 12.8), its only non-brand queries near page 1, and the TR SERP for "konuşma refleksi" is generic speaking-practice pages (papora, speakshark). So the new post was retargeted before publishing: slug `ingilizce-dusunmek-nasil-olur` (not `...-konusma-refleksi`), "refleks" removed from title/H1/meta keywords/H2, and the anchors pointing to it say "İngilizce düşünmek", not "konuşma refleksi". The TR SERP for "ingilizce düşünmek nasıl olur" was mostly English-language pages (Rachel's English, FluentU) on 2026-10-28: directional sign of a thin Turkish answer set, not a volume figure. Re-check in GSC by 2026-11-25: if #1 loses the refleks queries to #12, move the refleks wording back into #1 only.
+
 ---
 
 ## 5. Structured data to add
@@ -176,6 +184,7 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 - **2026-10-14, farin-seo (Search Console API):** 28 days to 10-11: 0 clicks, 33 impressions, avg position 16.0 (27 impressions from Türkiye). Indexed 8/18: `/`, `/english.html`, `/is-ingilizcesi.html`, `/ielts-hazirlik.html`, `/blog/`, speaking post, app post, `/gizlilik-politikasi.html`. Not fetched yet: spanish, german, studio + 7 posts. Only non-brand impressions: speaking post ("refleks ingilizce konuşma" pos 12.8, "ingilizce konuşma refleksi" 21.5). Cause: indexed service pages linked to no posts. Same day: related-posts blocks on the 3 service pages (farin-website), contextual links + a "konuşma refleksi" section (farin-seo), article 10 published.
 
 - **2026-10-21, farin-seo (Search Console API, Trello KFMhJJT5):** 28 days 09-22..10-19: 5 clicks (first clicks ever, 10-17/10-18, all on `/`), 57 impressions, avg position 21.8. Of the 7 URLs that were "unknown" on 10-08, 5 are now indexed (spanish, studio, ielts-speaking, is-ingilizcesi-mulakat, gizlilik-politikasi; crawled 10-13..10-15). Still unknown: `ingilizce-ogrenme-plani`, `ingilizce-ogrenirken-yapilan-hatalar`, `german`; `hedefe-gore` is "Discovered, not indexed". Fix applied: one contextual in-body link to each blog straggler from indexed posts (seviyemi + fiyatlari → ogrenme-plani, ielts-speaking → yapilan-hatalar, mulakat → hedefe-gore). `german` is linked from every page's nav already, so no new link; watch it. Duplicate `/site/*` copy and the public `.md` docs are all "unknown to Google" (no leak into the index).
+- **2026-10-28, farin-seo (Search Console API, real numbers):** 2026-10-01..10-26: 6 clicks, 82 impressions (Türkiye 6 / 73). September 1-30: 0 clicks, 8 impressions. Clicks: `/` 5 (brand), `/studio.html` 1. Mobile 6 clicks / 40 impr at pos 13.0; desktop 0 / 39 at pos 48.7. Non-brand impressions now on 3 posts: konuşma pratiği (30 impr, "ingilizce konuşma pratiği" pos 65, "ingilizce konuşma refleksi" 16.4), mülakat soruları (8 impr, pos ~70), seviyemi (3). GSC data lags ~2 days.
 - **2026-10-21, brand entity (Trello tsxpN5Rx):** homepage `sameAs` = @the_feschool + LinkedIn company page (retired @fariinrasouli removed; the footer links were already correct), `WebSite.alternateName` = FEschool / The FE School / thefeschool, `SoftwareApplication` name "FE App" (alternateName "Farin English"). Track "fe school"/"feschool" positions (10-21: "fe school" pos 6.0, "fe english" 6.0, 2 impressions each).
 
 ---
