@@ -9921,7 +9921,7 @@ function buildRoadmap(profile){
   // Drillers repeat-to-learn, and anyone who flagged vocab as their weak spot gets a warm-up rep first.
   const gaveVocabWarmup = stage===1 && (profile.priorityArea==='vocab' || profile.learnerType==='driller') && vPool.length;
   if(gaveVocabWarmup){
-    items.push({type:'vocab', refId:vPool[0].id, goal:(vPool[0].goals&&vPool[0].goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Vocab warm-up','Kelime ısınması','گرم‌کردن با کلمات')+': '+setTitle(vPool[0])});
+    items.push({type:'vocab', warmup:true, refId:vPool[0].id, goal:(vPool[0].goals&&vPool[0].goals.find(gk=>goals.includes(gk)))||primaryGoal, title:L('Vocab warm-up','Kelime ısınması','گرم‌کردن با کلمات')+': '+setTitle(vPool[0])});
   }
   // Position 0 (opener): the first node of the page, after the warm-up. Empty on stage 1 until
   // Story Path is live (a page never opens with a game on content it has not taught yet).
@@ -10010,6 +10010,44 @@ function buildRoadmap(profile){
     let mAt = sp >= 0 ? sp+1 : Math.floor(items.length/2);
     if(items[mAt] && items[mAt].type === 'game' && items[mAt].pos === 1) mAt++;   // the position-1 game stays right after speaking
     items.splice(mAt, 0, mediaRoadmapNode(profile, mediaPick, primaryGoal));
+  }
+  /* LXD Review 5 READY-5 (Farin 24lgwXUw, 2026-10-28): the same content in the same format twice on one page goes; new content
+     of the same type stays, and reviewing in a different way (box, games on taught sets, stage check, the driller warm-up)
+     is untouched. A repeated vocab/slang set swaps to a set of the pool not yet on the page, else becomes a vocab game on
+     that set (first free kind of echo / spell / cross / dictation), else is dropped. A second speaking card stays only when
+     its goal has another topic at this level; a second story is dropped. Games keep their positions. */
+  {
+    const EXEMPT = new Set(['box','game','stagecheck','media','song','dialogue','writing','grammar']);
+    const seen = new Set(), kept = [];
+    const setOnPage = id => items.some(x=>(x.type==='vocab' || x.type==='slang') && x.refId===id);
+    const gameOnPage = ref => items.some(x=>x.type==='game' && x.refId===ref) || kept.some(x=>x.type==='game' && x.refId===ref);
+    const gameFits = (s, k) => (k !== 'cross' || crossSetOk(s)) && (k !== 'spell' || spellSetOk(s)) && ((k !== 'dictation' && k !== 'echo') || s.cards.filter(c=>c.sentence).length >= 3);
+    items.forEach(it=>{
+      const key = it.type + '|' + it.refId;
+      if(EXEMPT.has(it.type) || !seen.has(key)){ seen.add(key); kept.push(it); return; }
+      if(it.type === 'vocab' || it.type === 'slang'){
+        const pool = it.type === 'vocab' ? vPool : slPool;
+        const fresh = pool.find(s=>!setOnPage(s.id));
+        if(fresh){
+          it.refId = fresh.id; it.goal = (fresh.goals && fresh.goals.find(gk=>goals.includes(gk))) || primaryGoal;
+          it.title = (it.type === 'vocab' ? L('Vocab','Kelime','کلمات','Vocabulario') : L('Slang','Argo','اصطلاحات','Argot')) + ': ' + setTitle(fresh);
+          seen.add(it.type + '|' + it.refId); kept.push(it); return;
+        }
+        const set = VOCAB_SETS.find(s=>s.id===it.refId);
+        const k = set && ['echo','spell','cross','dictation'].find(x=>!gameOnPage(set.id+'-'+x) && gameFits(set, x));
+        if(k) kept.push({type:'game', gameKind:k, slot:null, pos:null, rot:3, review:true, refId:set.id+'-'+k, setId:set.id, goal:it.goal || primaryGoal,
+          title:L('Game','Oyun','بازی','Juego')+': '+gameDisplayName(k)+' — '+setTitle(set)});
+        return;
+      }
+      if(it.type === 'speaking'){ if(speakTopicCount(profile, it.goal) >= 2) kept.push(it); return; }
+      if(it.type !== 'story') kept.push(it);   // a second story is dropped; types this READY does not name stay
+    });
+    items.length = 0; kept.forEach(x=>items.push(x));
+    // stage 2: the speaking card opens a follow-up round when the goal's only topic was used on stage 1
+    if(stage === 2){
+      const sp = items.find(it=>it.type==='speaking'), pl = sp && speakTopicPlan(profile, sp.goal);
+      if(pl && pl.follow) sp.title = L('Speaking: follow-up','Konuşma: devam','صحبت: ادامه','Conversación: continuación') + ': ' + L(pl.tp.topic.en, pl.tp.topic.tr, pl.tp.topic.fa, pl.tp.topic.es);
+    }
   }
   roadmapAddBoxNodes(items, profile, 0);   // Vocab Box reviews (Farin 2026-10-18)
   const seenNodeKeys = {};
@@ -14204,12 +14242,47 @@ function withSpeakingTopic(round, vp){
   const n = state.progress.speakingRoundsDone || 0;
   const gk = goals.length ? goals[n % goals.length] : 'everyday';
   // lxd cycle 2026-10-14 READY-3: a topic tagged with the learner's stage wins; untagged topics behave as before.
-  const okTopic = x => Array.isArray(x.models) && x.models.length && x.questions && x.questions.length;
-  const pool = (SPEAKING_TOPICS[gk] && SPEAKING_TOPICS[gk][lv]) || [];
-  const tp = pool.find(x => okTopic(x) && x.stage === stageKeyOf(state.profile)) || pool.find(okTopic);
-  if(!tp) return round;
-  const qi = Math.floor(n / Math.max(goals.length, 1)) % Math.min(tp.questions.length, tp.models.length);
+  // Review 5 READY-5: on stage 2 a topic not used on stage 1 wins, else the stage-1 topic comes back as a follow-up round.
+  const plan = speakTopicPlan(state.profile, gk);
+  if(!plan) return round;
+  const tp = plan.tp, k = Math.floor(n / Math.max(goals.length, 1));
+  if(plan.follow){
+    const f = plan.follow[k % plan.follow.length];
+    return Object.assign({}, round, {topic:trLine(f.text), starters:studioStartersFor(f.text), speak:{topicId:tp.id, goal:gk, level:lv, qi:f.qi != null ? f.qi : -1, fu:f.fu != null ? f.fu : null}});
+  }
+  const qi = k % Math.min(tp.questions.length, tp.models.length);
   return Object.assign({}, round, {topic:trLine(tp.questions[qi]), starters:studioStartersFor(tp.questions[qi]), speak:{topicId:tp.id, goal:gk, level:lv, qi}});
+}
+/* LXD Review 5 READY-5 (Farin 24lgwXUw, 2026-10-28): speaking across the two stages of a level. The questions a learner was
+   asked are kept per topic and stage in progress.speakAsked = {topicId:{"1":[qi], "2":[qi]}}. On stage 2 a usable topic not
+   asked on stage 1 is used; when the goal has none, the stage-1 topic opens as a follow-up round: its followups first, then
+   the questions stage 1 did not ask (review in a different way: new questions, same theme). */
+function speakTopicOk(x){ return !!(x && Array.isArray(x.models) && x.models.length && x.questions && x.questions.length); }
+function speakTopicCount(profile, gk){
+  const lv = profile && profile.level, sk = stageKeyOf(profile);
+  return ((SPEAKING_TOPICS[gk] && SPEAKING_TOPICS[gk][lv]) || []).filter(x=>speakTopicOk(x) && (!x.stage || x.stage === sk)).length;
+}
+function speakAskedMark(round){
+  const s = round && round.speak;
+  if(!s || !(s.qi >= 0) || !state.profile) return;
+  const all = state.progress.speakAsked || (state.progress.speakAsked = {});
+  const rec = all[s.topicId] || (all[s.topicId] = {}), st = state.profile.levelStage === 2 ? '2' : '1';
+  const arr = rec[st] || (rec[st] = []);
+  if(!arr.includes(s.qi)) arr.push(s.qi);
+}
+function speakTopicPlan(profile, gk){
+  const lv = profile && profile.level, sk = stageKeyOf(profile);
+  const pool = (SPEAKING_TOPICS[gk] && SPEAKING_TOPICS[gk][lv]) || [];
+  const tp = pool.find(x => speakTopicOk(x) && x.stage === sk) || pool.find(speakTopicOk);
+  if(!tp) return null;
+  if(!profile || profile.levelStage !== 2) return {tp, follow:null};
+  const asked = (state.progress && state.progress.speakAsked) || {};
+  const s1 = id => (asked[id] && asked[id]['1']) || [];
+  if(!s1(tp.id).length) return {tp, follow:null};
+  const fresh = pool.find(x => speakTopicOk(x) && (!x.stage || x.stage === sk) && !s1(x.id).length);
+  if(fresh) return {tp:fresh, follow:null};
+  const list = (tp.followups || []).map((f, i)=>({fu:i, text:f})).concat(tp.questions.map((q, i)=>({qi:i, text:q})).filter(x=>!s1(tp.id).includes(x.qi) && tp.models[x.qi]));
+  return {tp, follow:list.length ? list : null};
 }
 function speakingModelHtml(round){
   const tp = speakingTopicOf(round), m = tp && tp.models && tp.models[round.speak.qi];
@@ -21518,8 +21591,14 @@ function grammarQuizQuestions(item, variantKey, opts){
       else if(p.type === 'build' && Array.isArray(p.words) && p.words.length >= 2 && p.answer) out.build.push(buildQ(p));
       else if(p.type === 'type' && p.sentence && /_{2,}/.test(String(p.sentence)) && Array.isArray(p.accept) && p.accept.length) out.type.push(typeQ(p));
     });
-    // S3 order: fill, fill, meaning, fix, build, type, type, type; extras (goal practice comes first) after them
-    return [].concat(out.fill.slice(0, 2), out.meaning.slice(0, 1), out.fix.slice(0, 1), out.build.slice(0, 1), out.type.slice(0, 3), out.fill.slice(2), out.meaning.slice(1), out.fix.slice(1), out.build.slice(1), out.type.slice(3));
+    // Review 5 READY-6 order (Farin 0E36nBVz = A, 2026-10-28): fill, meaning, fill, type, fix, type, build, type.
+    // Recognition -> cued recall -> free recall as before, but no format twice in a row. If an item lacks a format
+    // (e.g. meaning skipped because the explainer check showed it), the next item of a different format moves forward.
+    // Extras (goal practice comes first) after them.
+    const fmtOf = new Map(); Object.keys(out).forEach(k=>out[k].forEach(q=>fmtOf.set(q, k)));
+    const core = [out.fill[0], out.meaning[0], out.fill[1], out.type[0], out.fix[0], out.type[1], out.build[0], out.type[2]].filter(Boolean);
+    for(let i = 1; i < core.length; i++) if(fmtOf.get(core[i]) === fmtOf.get(core[i-1])){ const j = core.findIndex((q, k)=>k > i && fmtOf.get(q) !== fmtOf.get(core[i-1])); if(j > 0) core.splice(i, 0, core.splice(j, 1)[0]); }
+    return core.concat(out.fill.slice(2), out.meaning.slice(1), out.fix.slice(1), out.build.slice(1), out.type.slice(3));
   };
   // Never the same sentence twice in a row.
   const spread = qs => {
@@ -24081,6 +24160,7 @@ const HANDLERS = {
     if(result.passed){
       const key = vp.mode==='writing' ? 'writingRoundsDone' : 'speakingRoundsDone';
       if(keep.count) state.progress[key] = (state.progress[key]||0) + 1;
+      if(keep.count && vp.mode === 'speaking') speakAskedMark(vp.round);   // Review 5 READY-5
       if(!state.progress.lastWords) state.progress.lastWords = {};
       state.progress.lastWords[vp.mode] = String(text||'').slice(0, 300);
       // Fill it (tobT7nwI): which target words landed, so the souvenir can lead with the best sentence.
@@ -24128,7 +24208,7 @@ const HANDLERS = {
     if(!vp || vp.mode !== 'speaking' || vp.said) return;
     vp.said = true;
     const counts = !speakMicMode(vp) && !vp.counted;
-    if(counts){ vp.counted = true; state.progress.speakingRoundsDone = (state.progress.speakingRoundsDone||0) + 1; }
+    if(counts){ vp.counted = true; state.progress.speakingRoundsDone = (state.progress.speakingRoundsDone||0) + 1; speakAskedMark(vp.round); }
     queueFx(()=>{ sfx('correct'); buzz(12); const el = document.querySelector('.speak-said-done'); if(el){ anim(el, [{transform:'scale(.7)', opacity:0}, {transform:'scale(1)', opacity:1}], {duration:320, easing:SPRING}); const c = centerOf(el); sparkBurst(c.x, c.y, 8, 'var(--success)', 70); } });
     save();
     if(counts) markActivity();
@@ -27127,7 +27207,7 @@ function renderCourseStep(){
   // IELTS exams (2026-10-23): items with `exam` use the exam-paper screens
   if(type==='drill' && it.drill && it.drill.exam) return courseStepShell(cid, uid, type, '<div class="ie-scope">' + courseIeDrillHtml(cid, uid, it.drill) + '</div>');
   if(type==='writing' && it.writing && it.writing.exam) return courseStepShell(cid, uid, type, '<div class="ie-scope">' + courseIeWritingHtml(cid, uid, it.writing) + '</div>');
-  if(type==='sets' && it.sets) return courseStepShell(cid, uid, type, '<div class="ie-scope">' + courseIeSetsHtml(cid, uid, it.sets) + '</div>');
+  if(type==='sets' && it.sets) return courseStepShell(cid, uid, type, '<div class="ie-scope">' + courseIeSetsHtml(cid, uid, it.sets, it.explain) + '</div>');
   if(type==='scene'){
     const f = courseFindUnit(cid, uid), cpMeta = COURSE_EXTRA.checkpoint.find(x=>x.id===uid);
     const covers = ((cpMeta && cpMeta.covers) || []).map(id=>{ const x = courseFindUnit(cid, id); return x ? cl(x.u.title) : ''; }).filter(Boolean);
@@ -28859,14 +28939,16 @@ function courseIeCards(cid, ex){ const want = courseTrack(cid) === 'gt' ? 'gt' :
 // null = not an exam lesson (the usual line is used)
 function courseIeStepLine(cid, uid, types, it){
   const t = types.length === 1 ? types[0] : '';
-  if(t === 'explain' && it.explain && it.explain.context){ const n = courseIeCards(cid, it.explain).length;
-    return CL('The context: '+n+' cards. Then the technique: key points, a worked example, a quick check.', 'Bağlam: '+n+' kart. Sonra teknik: ana noktalar, çözümlü bir örnek, hızlı bir kontrol.', 'بافت: '+n+' کارت. بعد تکنیک: نکته‌های اصلی، یک مثال حل‌شده، یک سؤال سریع.', 'El contexto: '+n+' tarjetas. Luego la técnica: puntos clave, un ejemplo resuelto y una comprobación rápida.'); }
+  if(t === 'explain' && it.explain && it.explain.context){ const n = courseIeLearnCards(cid, it.explain).length;   // Review 5 READY-7: each card ends with a word check
+    return CL('The context: '+n+' cards, each with a short word check. Then the technique: key points, a worked example, a quick check.', 'Bağlam: '+n+' kart, her birinde kısa bir kelime kontrolü. Sonra teknik: ana noktalar, çözümlü bir örnek, hızlı bir kontrol.', 'بافت: '+n+' کارت، هرکدام با یک امتحان کوتاه کلمه. بعد تکنیک: نکته‌های اصلی، یک مثال حل‌شده، یک سؤال سریع.', 'El contexto: '+n+' tarjetas, cada una con una breve comprobación de palabras. Luego la técnica: puntos clave, un ejemplo resuelto y una pregunta rápida.'); }
   if(t === 'drill' && it.drill && it.drill.exam){ const r = courseIeQRange(it.drill.groups);
     return it.drill.skill === 'listening' ? CL('Hear the recording once, as in the exam, and answer Questions '+r+'.', 'Kaydı sınavdaki gibi bir kez dinle ve '+r+'. soruları cevapla.', 'فایل صوتی را مثل آزمون فقط یک بار گوش بده و به سؤال‌های '+r+' جواب بده.', 'Escucha la grabación una vez, como en el examen, y responde a las preguntas '+r+'.')
       : CL('Read the passage and answer Questions '+r+' in about '+(it.drill.timed || 20)+' minutes.', 'Metni oku ve '+r+'. soruları yaklaşık '+(it.drill.timed || 20)+' dakikada cevapla.', 'متن را بخوان و در حدود '+(it.drill.timed || 20)+' دقیقه به سؤال‌های '+r+' جواب بده.', 'Lee el texto y responde a las preguntas '+r+' en unos '+(it.drill.timed || 20)+' minutos.'); }
   if(t === 'writing' && it.writing && it.writing.exam){ const m = it.writing.timed || 20;
     return CL('Write the task in about '+m+' minutes, then compare with a model answer and rate yourself.', 'Görevi yaklaşık '+m+' dakikada yaz, sonra örnek cevapla karşılaştır ve kendini puanla.', 'تکلیف را در حدود '+m+' دقیقه بنویس، بعد با جواب نمونه مقایسه کن و به خودت نمره بده.', 'Escribe la tarea en unos '+m+' minutos, compárala con una respuesta modelo y puntúate.'); }
-  if(t === 'sets' && it.sets) return CL('Parts 1, 2 and 3 in order, with the real timings.', 'Part 1, 2 ve 3 sırayla, gerçek sürelerle.', 'Part 1، 2 و 3 به ترتیب، با زمان‌بندی واقعی.', 'Partes 1, 2 y 3 en orden, con los tiempos reales.');
+  if(t === 'sets' && it.sets){ const split = it.explain && courseIeCards(cid, it.explain).some(k=>courseIeCardPart(k) >= 2);
+    return CL('Parts 1, 2 and 3 in order, with the real timings.', 'Part 1, 2 ve 3 sırayla, gerçek sürelerle.', 'Part 1، 2 و 3 به ترتیب، با زمان‌بندی واقعی.', 'Partes 1, 2 y 3 en orden, con los tiempos reales.')
+      + (split ? ' ' + CL('Each part opens with its context card.','Her kısım kendi bağlam kartıyla açılır.','هر بخش با کارت بافت خودش شروع می‌شود.','Cada parte empieza con su tarjeta de contexto.') : ''); }
   return null;
 }
 function courseIeDoneWork(cid, uid, it){
@@ -28879,14 +28961,42 @@ function courseIeDoneWork(cid, uid, it){
 }
 
 /* ---------- Learn: the context cards ("1 The context"; CONTEXT-DEPTH.md) ---------- */
-function courseIeContextHtml(cid, uid, ex){
-  const cx = ex.context || {}, lb = cx.labels || {}, cards = courseIeCards(cid, ex), rv = (courseUi.ieReveal && courseUi.ieReveal.uid === uid) ? courseUi.ieReveal.ids : {};
-  if(!cards.length) return '';
-  const blk = (l, body)=>`<div class="ie-cblk"><div class="lx-eyebrow">${esc(cl(l))}</div>${body}</div>`;
-  const chips = arr=>`<div class="ie-fchips" dir="ltr" translate="no">${arr.map(f=>`<span>${esc(f)}</span>`).join('')}</div>`;
-  const card = (k, i)=>{
+/* Review 5 READY-7 (farin-lxd, Farin c3K2Fai5 = A, 2026-10-28; Claude/specs/lxd-cycles/2026-10-28/READY-7-ielts-context-match.md).
+   (1) Each context card with word pairs ends with a 4-item word check: the "On the paper" word, three of the card's own
+   "what you hear or read" lines to choose from. Built at render time from k.words, not scored, not saved; the card's
+   kind chip gets a tick once every item was answered right once. (2) In a Speaking lesson, a card belongs to Part p when
+   its first pattern starts with "S"+p: Learn keeps Part 1 (and unassigned) cards, Parts 2 and 3 open with their own cards. */
+function courseIeCardPart(k){ const m = String(((k && k.patterns) || [])[0] || '').match(/^S([123])-/); return m ? +m[1] : 0; }
+function courseIeLearnCards(cid, ex){ const all = courseIeCards(cid, ex); return all.some(k=>courseIeCardPart(k) >= 2) ? all.filter(k=>courseIeCardPart(k) < 2) : all; }
+function courseIeMatchItems(uid, k){
+  const byU = (courseUi.ieMatch = courseUi.ieMatch || {})[uid] || (courseUi.ieMatch[uid] = {});
+  if(byU[k.id]) return byU[k.id];
+  const nm = s=>String(s || '').trim().toLowerCase();
+  const c = (k.words || []).filter(w=>w && w.a && w.b && nm(w.b) !== nm(w.a) && !nm(w.b).includes(nm(w.a)) && String(w.b).length <= 70), n = c.length;
+  if(n < 2) return (byU[k.id] = []);
+  const idx = n < 4 ? c.map((_, i)=>i) : [...new Set([0, Math.floor(n/4), Math.floor(n/2), Math.floor(3*n/4)])];
+  return (byU[k.id] = idx.map(i=>{
+    const near = [i-1, i+1, i-2, i+2, i-3, i+3].filter(j=>j >= 0 && j < n && nm(c[j].b) !== nm(c[i].b)).slice(0, 2);
+    return {w:c[i], opts:shuffle([c[i].b].concat(near.map(j=>c[j].b))), pick:null, ok:false};
+  }));
+}
+function courseIeMatchDone(uid, k){ const mi = courseIeMatchItems(uid, k); return mi.length > 0 && mi.every(m=>m.ok); }
+function courseIeMatchHtml(uid, k, lb){
+  const mi = courseIeMatchItems(uid, k);
+  if(!mi.length) return '';
+  return `<div class="ie-cblk ie-match"><div class="lx-eyebrow">${CL('Check the words','Kelimeleri kontrol et','یک امتحان کوتاه از کلمه‌ها','Comprueba las palabras')}</div>
+    <p class="cx-qnote" dir="${courseTD()}" style="margin:4px 0 8px;">${CL('On the paper you see the left word. Which words could you hear or read instead?','Kâğıtta soldaki kelimeyi görüyorsun. Onun yerine hangi kelimeleri duyabilir ya da okuyabilirsin?','روی برگه کلمهٔ سمت چپ را می‌بینی. به‌جایش چه کلمه‌هایی ممکن است بشنوی یا بخوانی؟','En el papel ves la palabra de la izquierda. ¿Qué palabras podrías oír o leer en su lugar?')}</p>
+    ${mi.map((m, j)=>{ const picked = m.pick !== null, right = picked && m.opts[m.pick] === m.w.b;
+      return `<div class="ie-mq" style="margin-top:${j ? 12 : 0}px;"><div class="lx-eyebrow" style="font-size:11px;">${esc(cl(lb.a || {en:'On the paper'}))}</div><div class="cx-item" dir="ltr" translate="no">${esc(m.w.a)}</div>
+        <div class="stack" style="gap:6px; margin-top:6px;">${m.opts.map((o, q)=>`<button class="cj-part wide${picked && q === m.pick ? (right ? ' ok' : ' bad') : ''}" dir="ltr" translate="no" data-action="course-ie-match" data-uid="${esc(uid)}" data-card="${esc(k.id)}" data-i="${j}" data-o="${q}">${esc(o)}</button>`).join('')}</div>
+        ${picked ? `<div class="cx-fb ${right ? 'ok' : 'bad'}"><b>${right ? CL('Right.','Doğru.','درست است.','Correcto.') : CL('Not quite.','Tam değil.','نه دقیقاً.','No exactamente.')}</b>${right ? '' : ` <span dir="ltr" translate="no">${esc(m.w.a)} = ${esc(m.w.b)}</span>${LANG !== 'en' && m.w[LANG] ? ` <small dir="${courseTD()}">(${esc(m.w[LANG])})</small>` : ''}`}</div>` : ''}</div>`; }).join('')}</div>`;
+}
+function courseIeCardHtml(cid, uid, ex, k, i){
+    const cx = ex.context || {}, lb = cx.labels || {}, rv = (courseUi.ieReveal && courseUi.ieReveal.uid === uid) ? courseUi.ieReveal.ids : {};
+    const blk = (l, body)=>`<div class="ie-cblk"><div class="lx-eyebrow">${esc(cl(l))}</div>${body}</div>`;
+    const chips = arr=>`<div class="ie-fchips" dir="ltr" translate="no">${arr.map(f=>`<span>${esc(f)}</span>`).join('')}</div>`;
     const e = k.example || {};
-    let h = `<div class="ie-ccard" data-i="${i}"><span class="ie-ckind">${k.exam ? CL('This exam','Bu sınav','این آزمون','Este examen') : CL('Across the real tests','Gerçek sınavlarda','در آزمون‌های واقعی','En los exámenes reales')}</span>
+    let h = `<div class="ie-ccard" data-i="${i}"><span class="ie-ckind">${k.exam ? CL('This exam','Bu sınav','این آزمون','Este examen') : CL('Across the real tests','Gerçek sınavlarda','در آزمون‌های واقعی','En los exámenes reales')}${courseIeMatchDone(uid, k) ? ' ✓' : ''}</span>
       ${k.often && k.often.label ? `<div class="ie-often"><span aria-hidden="true">📈</span><span dir="${courseTD()}">${esc(cl(k.often.label))}</span></div>` : ''}
       <h3 class="display" dir="${courseTD()}">${esc(cl(k.title))}</h3>`;
     if(k.asks) h += blk(lb.asks || {en:'What this part is about'}, `<p dir="${courseTD()}">${esc(cl(k.asks))}</p>`);
@@ -28899,11 +29009,15 @@ function courseIeContextHtml(cid, uid, ex){
         <div class="cx-item" dir="ltr" translate="no">${esc(e.item)}</div>
         <div class="ie-reveal">${open ? `<div class="cx-answer"><span>${CL('Answer','Cevap','پاسخ','Respuesta')}</span><b dir="ltr" translate="no">${esc(e.answer)}</b></div>${e.why ? `<div class="cx-fb ok"><span dir="${courseTD()}">${esc(cl(e.why))}</span></div>` : ''}`
           : `<button class="btn btn-sm ie-acc" data-action="course-ie-reveal" data-uid="${esc(uid)}" data-card="${esc(k.id)}">${CL('Show answer','Cevabı göster','جواب را نشان بده','Mostrar la respuesta')}</button>`}</div>`); }
+    h += courseIeMatchHtml(uid, k, lb);
     return h + `</div>`;
-  };
+}
+function courseIeContextHtml(cid, uid, ex){
+  const cx = ex.context || {}, cards = courseIeLearnCards(cid, ex);
+  if(!cards.length) return '';
   return `<div class="lx-sec ie-ctx"><div class="lx-head"><div class="lx-eyebrow">${esc(cl(cx.eyebrow) || CL('1 The context','1 Bağlam','۱ بافت','1 El contexto'))}</div><h2 class="display" dir="${courseTD()}">${esc(cl(cx.head))}<span class="dot">.</span></h2></div>
       ${cx.intro ? `<p class="ie-cintro" dir="${courseTD()}">${esc(cl(cx.intro))}</p>` : ''}
-      <div class="ie-cards" id="ie-cards">${cards.map(card).join('')}</div>
+      <div class="ie-cards" id="ie-cards">${cards.map((k, i)=>courseIeCardHtml(cid, uid, ex, k, i)).join('')}</div>
       ${cards.length > 1 ? `<div class="ie-pager"><span id="ie-cpos">1 / ${cards.length}</span><span class="ie-pd">${cards.map((k, i)=>`<i class="${i === 0 ? 'on' : ''}"></i>`).join('')}</span><span>${CL('Swipe for the next card','Sonraki kart için kaydır','برای کارت بعدی بکش','Desliza para la siguiente tarjeta')} ${LANG === 'fa' ? '←' : '→'}</span></div>` : ''}
     </div>
     <div class="lx-sec ie-tech"><div class="lx-eyebrow">${esc(cl(cx.technique) || CL('2 The technique','2 Teknik','۲ تکنیک','2 La técnica'))}</div></div>`;
@@ -29271,7 +29385,7 @@ function courseIeSayLines(lines, s){
   courseIeClipsLoad().then(async ()=>{ for(const l of lines){ if(run.cancel) return; await courseIeSay(l, vo, run); } });
 }
 function courseIeSpLines(p, i){ return i === 0 ? [].concat(p.examinerIntro || [], p.frame || [], p.topicIntro ? [p.topicIntro] : [], p.questions || []) : i === 1 ? [].concat(p.examinerIntro || []) : [].concat(p.examinerIntro || [], ...(p.subtopics || []).map(t=>t.questions || [])); }
-function courseIeSetsHtml(cid, uid, s){
+function courseIeSetsHtml(cid, uid, s, ex){
   const st = courseIeSpState(uid, s), i = Math.min(st.part, s.sets.length - 1), p = s.sets[i], k = courseIeSpPart(st, i), N = s.sets.length;
   const exq = (arr, intro)=>(arr || []).map(l=>`<div class="ie-exq${intro ? ' intro' : ''}"><button class="ie-spk" data-action="course-ie-say" data-text="${esc(l)}" aria-label="${esc(CL('Listen','Dinle','گوش کن','Escuchar'))}">${ICONS.soundOn}</button><span dir="ltr" translate="no">${esc(l)}</span></div>`).join('');
   let exBox = '';
@@ -29306,9 +29420,22 @@ function courseIeSetsHtml(cid, uid, s){
   return `<div class="ie-dots">${s.sets.map((_, j)=>`<i class="${j === i ? 'on' : j < i ? 'done' : ''}"></i>`).join('')}</div>
     <div class="ie-eyebrow">🎙️ ${esc(CL('Part '+(i+1)+' of '+N, 'Part '+(i+1)+' / '+N, 'Part '+(i+1)+' از '+N, 'Parte '+(i+1)+' de '+N))} · ${esc(CL(mins+' min', mins+' dk', mins+' دقیقه', mins+' min'))}</div>
     <h2 class="display ie-sph" dir="${courseTD()}">${esc(cl(p.title))}<span class="dot">.</span></h2>
+    ${courseIePartCtxHtml(cid, uid, ex, i + 1)}
     ${i === 0 && k.stage === 0 && s.note ? `<p class="ie-note" dir="${courseTD()}">${esc(cl(s.note))}</p>` : ''}
     <div class="card-flat ie-exbox"><div class="ie-exhead"><div class="lx-eyebrow">${CL('The examiner','Sınav görevlisi','ممتحن','El examinador')}</div><button class="btn btn-sm ie-acc" data-action="course-ie-sayall">${ICONS.soundOn} ${CL('Hear the examiner','Sınav görevlisini dinle','صدای ممتحن را بشنو','Escucha al examinador')}</button></div>${exBox}</div>
     ${card}${tail}${btn}`;
+}
+
+// Review 5 READY-7 part 2: Part 2 and Part 3 open with their own context cards; open until the cards' word checks are done,
+// then closed behind a Show / hide toggle so the timed part stays clean (the timers only start on the part's start button).
+function courseIePartCtxHtml(cid, uid, ex, part){
+  if(!ex || !ex.context || part < 2) return '';
+  const cards = courseIeCards(cid, ex).filter(k=>courseIeCardPart(k) === part);
+  if(!cards.length) return '';
+  const key = uid + ':' + part, ov = (courseUi.ieCtxOpen || {})[key];
+  const open = ov !== undefined ? ov : !cards.every(k=>courseIeMatchItems(uid, k).length === 0 || courseIeMatchDone(uid, k));
+  return `<div class="lx-sec ie-spctx" style="margin:10px 0 14px;"><button class="link-btn ie-link" data-action="course-ie-ctx-toggle" data-key="${esc(key)}" data-open="${open ? '1' : ''}">${open ? CL('Hide the context','Bağlamı gizle','پنهان کردن بافت','Ocultar el contexto') : CL('Show the context','Bağlamı göster','نشان دادن بافت','Mostrar el contexto')} (${cards.length})</button>
+    ${open ? `<div class="stack" style="gap:12px; margin-top:10px;">${cards.map((k, j)=>courseIeCardHtml(cid, uid, ex, k, j)).join('')}</div>` : ''}</div>`;
 }
 
 /* ---------- after each render: the context-card pager, the writing box ---------- */
@@ -29336,6 +29463,8 @@ Object.assign(HANDLERS, {
   'course-ie-track'(el){ const cid = el.dataset.cid, t = el.dataset.track === 'gt' ? 'gt' : 'academic', pr = state.progress;
     if(!pr.courseTrack) pr.courseTrack = {}; if(pr.courseTrack[cid] === t && courseTrack(cid) === t) return;
     pr.courseTrack[cid] = t; courseDrillStop(); courseUi.dr = null; courseUi.exit = null; courseUi.quick = null; courseUi.iew = null; courseUi.ieReveal = null; courseUi.ieCardsX = null; save(); render(); },
+  'course-ie-match'(el){ const items = ((courseUi.ieMatch || {})[el.dataset.uid] || {})[el.dataset.card], m = items && items[+el.dataset.i]; if(!m) return; m.pick = +el.dataset.o; if(m.opts[m.pick] === m.w.b) m.ok = true; render(); },
+  'course-ie-ctx-toggle'(el){ (courseUi.ieCtxOpen = courseUi.ieCtxOpen || {})[el.dataset.key] = !el.dataset.open; render(); },
   'course-ie-reveal'(el){ const uid = el.dataset.uid; if(!courseUi.ieReveal || courseUi.ieReveal.uid !== uid) courseUi.ieReveal = {uid, ids:{}}; courseUi.ieReveal.ids[el.dataset.card] = true; render(); },
   'course-ie-play'(){ const st = courseUi.dr; if(!st || st.played || st.checked) return; const d = courseUnitItems(st.uid).drill; if(!d || !d.audio) return;
     st.played = true; st.playing = true; courseIeAudioRun(d, st); courseIePlayerUpd(st); },
