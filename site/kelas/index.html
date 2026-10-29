@@ -148,6 +148,8 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
 .course header{background:var(--c);color:#fff;padding:20px 20px 18px}
 .ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .ch-top .num{font-family:"Fredoka",var(--display);font-weight:700;font-size:.9rem;opacity:.75}
+.ch-top .when{margin-inline-start:auto;background:rgba(255,255,255,.95);color:var(--c);font-weight:800;font-size:.8rem;padding:3px 11px;border-radius:999px}
+.ch-top .when+.badge{margin-inline-start:6px}
 .course h3{font-size:clamp(1.35rem,4vw,1.7rem);margin-top:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .chips span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:700}
@@ -243,7 +245,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
     <div class="courses">
       <article class="course" style="--c:#7C5CFC">
         <header>
-          <div class="ch-top"><span class="num">۰۱</span></div>
+          <div class="ch-top"><span class="num">۰۱</span><span class="when">فروش از ۱۰ آذر</span></div>
           <span class="tag light">«این بار مصاحبه‌کننده تویی.»</span>
           <h3>انگلیسی منابع انسانی و کسب‌وکار</h3>
           <div class="chips"><span>۳۲ درس</span><span>۸ فصل</span><span>حدود ۱۶ هفته</span><span>B1 → B2</span></div>
@@ -266,7 +268,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course star" style="--c:#E8644A">
         <header>
-          <div class="ch-top"><span class="num">۰۲</span><span class="badge">هر ماه فقط ۱ جا</span></div>
+          <div class="ch-top"><span class="num">۰۲</span><span class="when">فروش از ۱۴ دی</span><span class="badge">هر ماه فقط ۱ جا</span></div>
           <span class="tag light">«۱۰ آزمون کامل؛ روز امتحان هیچ غافلگیری‌ای نیست.»</span>
           <h3>آیلتس: ۱۰ آزمون کامل</h3>
           <div class="chips"><span>۱۰ آزمون</span><span>۱۰۰ درس</span><span>آکادمیک + جنرال</span><span>حدود ۲۰ رایتینگ با تصحیح فرین</span></div>
@@ -289,7 +291,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#1F8FB0">
         <header>
-          <div class="ch-top"><span class="num">۰۳</span></div>
+          <div class="ch-top"><span class="num">۰۳</span><span class="when">فروش از ۵ بهمن</span></div>
           <span class="tag light">«“خودت رو معرفی کن” دیگه نمی‌ترسونتت.»</span>
           <h3>مصاحبه‌ی شغلی به انگلیسی</h3>
           <div class="chips"><span>۹ درس</span><span>۳ فصل</span><span>حدود ۳ هفته</span><span>B1 به بالا</span></div>
@@ -312,7 +314,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#D64F86">
         <header>
-          <div class="ch-top"><span class="num">۰۴</span></div>
+          <div class="ch-top"><span class="num">۰۴</span><span class="when">فروش از ۲۴ اسفند</span></div>
           <span class="tag light">«ایده‌ت رو به انگلیسی بفروش.»</span>
           <h3>انگلیسی برای بازاریابی</h3>
           <div class="chips"><span>۱۲ درس</span><span>۳ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>
@@ -335,7 +337,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#3E9B6E">
         <header>
-          <div class="ch-top"><span class="num">۰۵</span></div>
+          <div class="ch-top"><span class="num">۰۵</span><span class="when">فروش از ۲۴ اسفند</span></div>
           <span class="tag light">«“نه” رو به “آره” تبدیل کن، به انگلیسی.»</span>
           <h3>انگلیسی فروش و مدیریت مشتری</h3>
           <div class="chips"><span>۱۲ درس</span><span>۴ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>
@@ -352,7 +354,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
           </div>
         </div>
         <footer>
-          <div class="price"><b>۳٬۴۹۰٬۰۰۰</b><span>تومان</span></div>
+          <div class="price"><b>۳٬۸۰۰٬۰۰۰</b><span>تومان</span></div>
           <a class="btn soft" data-msg="سلام فرین! می‌خوام دوره‌ی انگلیسی فروش و مدیریت مشتری رو بخرم." href="https://wa.me/905467615951">این دوره رو می‌خوام ←</a>
         </footer>
       </article></div>

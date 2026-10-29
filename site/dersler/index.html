@@ -140,6 +140,8 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
 .course header{background:var(--c);color:#fff;padding:20px 20px 18px}
 .ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .ch-top .num{font-family:"Fredoka",var(--display);font-weight:700;font-size:.9rem;opacity:.75}
+.ch-top .when{margin-inline-start:auto;background:rgba(255,255,255,.95);color:var(--c);font-weight:800;font-size:.8rem;padding:3px 11px;border-radius:999px}
+.ch-top .when+.badge{margin-inline-start:6px}
 .course h3{font-size:clamp(1.35rem,4vw,1.7rem);margin-top:12px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .chips span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:700}
@@ -255,7 +257,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
     <div class="courses">
       <article class="course" style="--c:#7C5CFC">
         <header>
-          <div class="ch-top"><span class="num">01</span></div>
+          <div class="ch-top"><span class="num">01</span><span class="when">1 Aralık'ta satışta</span></div>
           <span class="tag light">“Bu sefer mülakatı yapan sensin.”</span>
           <h3>İK ve İş İngilizcesi</h3>
           <div class="chips"><span>32 ders</span><span>8 bölüm</span><span>~16 hafta</span><span>B1 → B2</span></div>
@@ -278,7 +280,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course star" style="--c:#E8644A">
         <header>
-          <div class="ch-top"><span class="num">02</span><span class="badge">Ayda sadece 5 kişi</span></div>
+          <div class="ch-top"><span class="num">02</span><span class="when">4 Ocak'ta satışta</span><span class="badge">Ayda sadece 5 kişi</span></div>
           <span class="tag light">“10 tam sınav. Sınav günü sürpriz yok.”</span>
           <h3>IELTS: 10 tam sınav</h3>
           <div class="chips"><span>10 sınav</span><span>100 ders</span><span>Academic + General</span><span>~20 yazı Farin'den</span></div>
@@ -301,7 +303,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#1F8FB0">
         <header>
-          <div class="ch-top"><span class="num">03</span></div>
+          <div class="ch-top"><span class="num">03</span><span class="when">25 Ocak'ta satışta</span></div>
           <span class="tag light">“‘Tell me about yourself’ artık seni korkutmuyor.”</span>
           <h3>İngilizce İş Mülakatı</h3>
           <div class="chips"><span>9 ders</span><span>3 bölüm</span><span>~3 hafta</span><span>B1 ve üzeri</span></div>
@@ -324,7 +326,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#D64F86">
         <header>
-          <div class="ch-top"><span class="num">04</span></div>
+          <div class="ch-top"><span class="num">04</span><span class="when">15 Mart'ta satışta</span></div>
           <span class="tag light">“Fikrini İngilizce sat.”</span>
           <h3>Pazarlama İngilizcesi</h3>
           <div class="chips"><span>12 ders</span><span>3 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>
@@ -347,7 +349,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#3E9B6E">
         <header>
-          <div class="ch-top"><span class="num">05</span></div>
+          <div class="ch-top"><span class="num">05</span><span class="when">15 Mart'ta satışta</span></div>
           <span class="tag light">“‘Hayır’ı ‘evet’e çevir, İngilizce.”</span>
           <h3>Satış ve Müşteri Yönetimi İngilizcesi</h3>
           <div class="chips"><span>12 ders</span><span>4 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>

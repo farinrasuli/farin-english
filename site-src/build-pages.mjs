@@ -190,7 +190,9 @@ const GOALS = {
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['1 Aralık\'ta satışta', 'On sale 1 Dec', 'فروش از ۱۰ آذر']], ['free', ['Bölüm 1 ücretsiz', 'Chapter 1 free', 'فصل ۱ رایگان']]],
       cta: ['Bölüm 1\'i ücretsiz başlat', 'Start Chapter 1 free', 'فصل ۱ را رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'] },
-    live: 'biz', also: ['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['25 Ocak · ₺1.290', '25 Jan · ₺1,290', 'از ۵ بهمن · ۲٬۹۹۰٬۰۰۰ تومان']] },
+    live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['25 Ocak · ₺1.290', '25 Jan · ₺1,290', 'از ۵ بهمن · ۲٬۹۹۰٬۰۰۰ تومان']],
+      [null, ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی برای بازاریابی'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۴۹۰٬۰۰۰ تومان']],
+      [null, ['Satış ve Müşteri Yönetimi İngilizcesi', 'Sales & Customer Management English', 'انگلیسی فروش و مدیریت مشتری'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۸۰۰٬۰۰۰ تومان']]] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 Tam Sınav', 'IELTS: 10 Full Exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
@@ -204,7 +206,7 @@ const GOALS = {
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma', 'Introducing yourself', 'معرفی خودت'], OWN],
       price: ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['25 Ocak\'ta satışta', 'On sale 25 Jan', 'فروش از ۵ بهمن']]],
       cta: ['Açılınca haber ver', 'Tell me when it opens', 'وقتی باز شد خبرم کن'], notify: true, more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'] },
-    live: 'biz', also: ['is', ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'], ['1 Aralık · ₺3.490', '1 Dec · ₺3,490', 'از ۱۰ آذر · ۴٬۹۹۰٬۰۰۰ تومان']] },
+    live: 'biz', also: [['is', ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'], ['1 Aralık · ₺3.490', '1 Dec · ₺3,490', 'از ۱۰ آذر · ۴٬۹۹۰٬۰۰۰ تومان']]] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
       for: ['Hedefini ve seviyeni seç, uygulama yolunu kursun.', 'Pick your goal and level, and the app builds your path.', 'هدف و سطحت را انتخاب کن تا اپ مسیرت را بسازد.'],
@@ -325,7 +327,7 @@ function schema(l, page) {
     graph.push(
       { '@type': 'EducationalOrganization', '@id': ORIGIN + '/#fe-school', name: 'FE School', alternateName: 'FEschool', url: ORIGIN + '/',
         logo: { '@type': 'ImageObject', url: ORIGIN + '/icon-512.png', width: 512, height: 512 }, image: ORIGIN + '/og-image.jpg',
-        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Görüşmesi) ve Farin ile canlı online dersler.',
+        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Görüşmesi, Pazarlama, Satış ve Müşteri Yönetimi) ve Farin ile canlı online dersler.',
         email: 'mailto:farinrasuli@gmail.com', founder: { '@id': ORIGIN + '/#farin' }, areaServed: ['TR', 'IR'],
         contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: 'https://wa.me/' + WAN, email: 'farinrasuli@gmail.com', availableLanguage: ['tr', 'en', 'fa'] },
         sameAs: ['https://www.instagram.com/the_feschool/', 'https://www.linkedin.com/company/thefeschool/'] },
@@ -430,7 +432,8 @@ function card(l, c, live, also) {
     ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه‌ی بسته بین اعضای گروه (۱ تا ۴ نفر) تقسیم می‌شود`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>` : '';
-  const alsoRow = also ? `<div class="also"><b>${esc(S.also[i])}: <a href="#kurs-${also[0]}">${esc(also[1][i])}</a></b><span>${esc(also[2][i])}</span></div>` : '';
+  /* also = list of [panel anchor or null, name x3, 'date · price' x3]; one row per course, one 'Also' label */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(a[2][i])}</span></div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
