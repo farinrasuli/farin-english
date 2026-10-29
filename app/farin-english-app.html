@@ -2585,13 +2585,42 @@
     this._orderBy = null;
   }
   CollRef.prototype.doc = function(id){ return new DocRef(this.collPath, id); };
+  function cloneColl(src){ var next = new CollRef(src.collPath); next._orderBy = src._orderBy; next._where = src._where; next._limit = src._limit; return next; }
   CollRef.prototype.orderBy = function(field, dir){
-    var next = new CollRef(this.collPath);
+    var next = cloneColl(this);
     next._orderBy = field + ' ' + (dir === 'desc' ? 'desc' : 'asc');
     return next;
   };
+  // where() + limit() (2026-10-29): admin > Course access, admin > Writing reviews and the student pins look-up
+  // call .where(...).get(); this client had no where(), so those threw "where is not a function". They now run
+  // one REST structured query (documents:runQuery). Listing stays admin-only in the Firestore rules.
+  var WHERE_OPS = {'==':'EQUAL', '!=':'NOT_EQUAL', '<':'LESS_THAN', '<=':'LESS_THAN_OR_EQUAL', '>':'GREATER_THAN', '>=':'GREATER_THAN_OR_EQUAL', 'array-contains':'ARRAY_CONTAINS'};
+  CollRef.prototype.where = function(field, op, value){
+    var next = cloneColl(this);
+    next._where = (this._where || []).concat([{fieldFilter: {field: {fieldPath: field}, op: WHERE_OPS[op] || 'EQUAL', value: encodeValue(value)}}]);
+    return next;
+  };
+  CollRef.prototype.limit = function(n){ var next = cloneColl(this); next._limit = n; return next; };
   CollRef.prototype.get = function(){
     var self = this;
+    if(self._where || self._limit){
+      var q = {from: [{collectionId: self.collPath}]};
+      if(self._where) q.where = self._where.length === 1 ? self._where[0] : {compositeFilter: {op: 'AND', filters: self._where}};
+      if(self._orderBy){ var ob = self._orderBy.split(' '); q.orderBy = [{field: {fieldPath: ob[0]}, direction: ob[1] === 'desc' ? 'DESCENDING' : 'ASCENDING'}]; }
+      if(self._limit) q.limit = self._limit;
+      return authHeaders().then(function(h){
+        h = Object.assign({'Content-Type': 'application/json'}, h);
+        return req('POST', BASE + ':runQuery', h, {structuredQuery: q});
+      }).then(function(json){
+        var docs = [];
+        (Array.isArray(json) ? json : []).forEach(function(r){
+          if(!r || !r.document) return;
+          var d = r.document;
+          docs.push({id: d.name.split('/').pop(), exists: true, data: function(){ return decodeFields(d.fields || {}); }});
+        });
+        return new QuerySnapshot(docs);
+      });
+    }
     var params = ['pageSize=1000'];
     if(self._orderBy) params.push('orderBy=' + encodeURIComponent(self._orderBy));
     var url = BASE + '/' + self.collPath + '?' + params.join('&');
@@ -3116,7 +3145,7 @@ const GRAMMAR_ITEMS = [
   goalVariant:{career:{wrong:"You're presenting today, isn't it?", right:"You're presenting today, aren't you?", blank:{sentence:"She can start Monday, ___ ?", word:"can't she", distractors:["isn't she","doesn't she"]},
     wrong2:"It's a good offer, is it?", right2:"It's a good offer, isn't it?", blank2:{sentence:'He handles the accounts, ___ ?', word:"doesn't he", distractors:["isn't he",'does he']}}}},
  {id:'g-B1-10', why:{"rule":{"en":"After 'said', the tense steps back: is → was.","tr":"'said'den sonra zaman bir adım geri gider: is → was.","fa":"بعد از said زمان یک قدم عقب می‌رود: is ← was."},"wrong":[{"en":"After 'said', keep the tense exactly as spoken.","tr":"'said'den sonra zaman söylendiği gibi kalır.","fa":"بعد از said زمان همان‌طور که گفته شده می‌ماند."},{"en":"'said' moves the verb forward: is → has been.","tr":"'said' fiili ileri taşır: is → has been.","fa":"said فعل را جلو می‌برد: is ← has been."}]}, level:'B1', title:'Reported Speech (basic)', titleTr:'Aktarılan Konuşma (Temel)',
-  exp:{"en":"When you tell someone what another person said, the verb usually moves one step back: “I'm tired” becomes “Ali said he was tired”. The rule: after said or told me, move the tense one step into the past. Common changes: am / is → was, are → were, can → could, will → would. The present simple becomes the past simple: “We need help” → They said they needed help. Pronouns change too: I becomes he or she, and my becomes his or her. Remember: if said is in the past, the reported verb usually goes back too — “Omar said the shop was closed”, not “Omar said the shop is closed”.","tr":"Birinin söylediğini başkasına aktarırken fiil genelde bir adım geriye gider: “I'm tired” cümlesi “Ali said he was tired” olur. Kural: said ya da told me'den sonra zamanı bir adım geçmişe al. Sık değişimler: am / is → was, are → were, can → could, will → would. Present simple, past simple olur: “We need help” → They said they needed help. Zamirler de değişir: I yerine he ya da she, my yerine his ya da her gelir. Türkçede “yorgunum dedi” deriz ve fiil aynı kalır, İngilizcede ise genelde geriye kayar. Unutma: said geçmişteyse aktarılan fiil de genelde geriye gider — “Omar said the shop is closed” değil, “Omar said the shop was closed”.","fa":"وقتی حرف کسی را برای دیگری نقل می‌کنی، فعل معمولاً یک قدم به عقب می‌رود: “I'm tired” می‌شود “Ali said he was tired”. قاعده: بعد از said یا told me زمان فعل را یک قدم به گذشته ببر. تغییرهای رایج: am / is → was, are → were, can → could, will → would. حال ساده می‌شود گذشتهٔ ساده: “We need help” می‌شود They said they needed help. ضمیرها هم عوض می‌شوند: I می‌شود he یا she، و my می‌شود his یا her. در فارسی می‌گوییم «گفت خسته است» و زمان عوض نمی‌شود، ولی در انگلیسی معمولاً عقب می‌رود. یادت باشد: وقتی said در گذشته است، فعل نقل‌شده هم معمولاً عقب می‌رود — “Omar said the shop was closed”، نه “Omar said the shop is closed”."},
+  exp:{"en":"When you tell someone what another person said, the verb usually moves one step back: “I'm tired” becomes “Ali said he was tired”. The rule: after said or told me, move the tense one step into the past. Common changes: am / is → was, are → were, can → could, will → would. The present simple becomes the past simple: “We need help” → They said they needed help. Pronouns change too: I becomes he or she, and my becomes his or her. Remember: if said is in the past, the reported verb usually goes back too — “Omar said the shop was closed”, not “Omar said the shop is closed”.","tr":"Birinin söylediğini başkasına aktarırken fiil genelde bir adım geriye gider: “I'm tired” cümlesi “Ali said he was tired” olur. Kural: said ya da told me'den sonra zamanı bir adım geçmişe al. Sık değişimler: am / is → was, are → were, can → could, will → would. Present simple, past simple olur: “We need help” → They said they needed help. Zamirler de değişir: I yerine he ya da she, my yerine his ya da her gelir. Türkçede “yorgunum dedi” deriz ve fiil aynı kalır, İngilizcede ise genelde geriye kayar. Unutma: said geçmişteyse aktarılan fiil de genelde geriye gider — “Omar said the shop is closed” değil, “Omar said the shop was closed”.","fa":"وقتی حرف کسی را برای دیگری نقل می‌کنی، فعل معمولاً یک قدم به عقب می‌رود: “I'm tired” می‌شود “Ali said he was tired”. قاعده: بعد از said یا told me زمان فعل را یک قدم به گذشته ببر. تغییرهای رایج: am و is می‌شوند was، are می‌شود were، can می‌شود could و will می‌شود would. حال ساده می‌شود گذشتهٔ ساده: “We need help” می‌شود They said they needed help. ضمیرها هم عوض می‌شوند: I می‌شود he یا she، و my می‌شود his یا her. در فارسی می‌گوییم «گفت خسته است» و زمان عوض نمی‌شود، ولی در انگلیسی معمولاً عقب می‌رود. یادت باشد: وقتی said در گذشته است، فعل نقل‌شده هم معمولاً عقب می‌رود — “Omar said the shop was closed”، نه “Omar said the shop is closed”."},
   wrong:'She said she is tired.', right:'She said she was tired.', blank:{sentence:'When I called him last night, he said he ___ busy.', word:'was', distractors:['is','has been']},
   wrong2:'He said he is busy.', right2:'He said he was busy.', blank2:{sentence:'When they got home last night, they said they ___ tired.', word:'were', distractors:['are','have been']},
   goalVariant:{career:{wrong:'She said she is available for the interview.', right:'She said she was available for the interview.', blank:{sentence:'At the meeting last month, he said he ___ busy that week.', word:'was', distractors:['is','has been']},
@@ -25979,7 +26008,7 @@ function courseAccessRedeem(cid, pw){
       try{
         const dev = (typeof deviceInfo === 'function') ? deviceInfo() : {os:'?', mode:'?'};
         const act = {code: state.profile.recoveryCode || 'local', at: now, os: dev.os, name: state.profile.name || ''};
-        ref.set({activations: firebase.firestore.FieldValue.arrayUnion(act), lastUsedAt: now}, {merge:true}).catch(()=>{});
+        ref.set({activations: (Array.isArray(d.activations) ? d.activations : []).concat([act]).slice(-50), lastUsedAt: now}, {merge:true}).catch(()=>{});   // the REST client has no FieldValue: append to the list just read
       }catch(e){}
       return {status:'ok', course:d.course};
     });
