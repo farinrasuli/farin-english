@@ -49,7 +49,7 @@ gIe:['IELTS ve yurt dışı','IELTS &amp; moving abroad','آیلتس و مهاج
 gMu:['İş görüşmesi','Job interview','مصاحبه‌ی کاری'],gMuS:['Mülakata hazırlan','Get interview-ready','برای مصاحبه آماده شو'],
 gKo:['Rahat konuşmak','Speak with confidence','راحت حرف زدن'],gKoS:['Kişisel, kendi hedefin','Personal, your own goal','شخصی، با هدف خودت'],
 f1:['%97 öğrenci hedefine ulaştı','97% of students reached their goal','۹۷٪ شاگردها به هدفشان رسیدند'],
-f2:['İlk ders ve Bölüm 1 ücretsiz','First lesson and Chapter 1 free','فصل ۱ رایگان · کلاس آنلاین برای ۱ تا ۴ نفر'],
+f2:['1. bölümün yarısı ücretsiz · birebir derste ilk analiz seansı hediye','Half of Chapter 1 free · a free analysis session with 1-to-1 lessons','نیمه‌ی اول فصل ۱ رایگان · کلاس آنلاین برای ۱ تا ۴ نفر'],
 f3:['Uygulama için kart gerekmez','No card needed for the app','برای اپ کارت بانکی لازم نیست'],
 forYou:['Senin için','For you','برای تو'],
 oneWay:['Bu hedef için hazır bir kurs var.','There is a ready-made course for this goal.','برای این هدف یک دوره‌ی آماده هست.'],
@@ -57,7 +57,7 @@ twoWays:['İki yol var. Sana uyanı seç.','Two ways in. Pick what suits you.','
 selfT:['Kendi hızında kurs','Self-paced course','دوره با سرعت خودت'],
 selfS:['Uygulamada · tek ödeme · 12 ay erişim','In the app · one payment · 12 months\' access','داخل اپ · یک‌بار پرداخت · ۱۲ ماه دسترسی'],
 liveT:['Birebir canlı ders','Live 1-to-1 lessons','کلاس آنلاین با فرین'],
-liveS:['Farin\'le online · ilk ders ücretsiz','Online with Farin · first lesson free','تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر)'],
+liveS:['Farin\'le online · ilk analiz seansı hediye','Online with Farin · free analysis session','تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر)'],
 freebar:['Kursun FE App\'in içinde. Uygulamanın kendisi her zaman ücretsiz.','Your course lives inside FE App. The app itself is always free.','دوره‌ات داخل اپ FE است. خود اپ همیشه رایگان است.'],
 seeApp:['Uygulamayı gör →','See the app →','اپ را ببین ←'],
 appEb:['FE App · ücretsiz','FE App · free','اپ FE · رایگان'],
@@ -108,7 +108,7 @@ k1:['Adım 1','Step 1','قدم ۱'],k2:['Adım 2','Step 2','قدم ۲'],k3:['Hik
 b2:['Yolun kurulur','Your path is built','مسیرت ساخته می‌شود'],b3:['Kararı sen ver','You make the call','تصمیم با توست'],b4:['Oyunla pekiştir','Lock it in with games','با بازی تثبیتش کن'],
 andA:['Android\'e indir','Download for Android','دانلود نسخه‌ی اندروید'],andB:['iPhone\'da tarayıcıdan açılır','opens in the browser on iPhone','در آیفون از مرورگر باز می‌شود'],
 pmH:['Premium kursların da burada'+dot('.'),'Your premium courses are here too'+dot('.'),'دوره‌های ویژه‌ات هم همین‌جاست'+dot('.')],
-pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. İlk bölüm ücretsiz, gerisi için WhatsApp\'tan şifre alırsın.','The Business English and IELTS courses open inside the app. Chapter 1 is free; for the rest you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. فصل اول رایگان است و برای بقیه‌اش رمز را از واتس‌اپ می‌گیری.'],
+pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. 1. bölümün ilk yarısı ücretsiz, gerisi için WhatsApp\'tan şifre alırsın.','The Business English and IELTS courses open inside the app. The first half of Chapter 1 is free; for the rest you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. نیمه‌ی اول فصل اول رایگان است و برای بقیه‌اش رمز را از واتس‌اپ می‌گیری.'],
 pmBtn:['Hedefime uygun kurs','Find my course','دوره‌ی مناسب من'],
 gamesEb:['Oyunlar','Games','بازی‌ها'],
 gamesH:['Her durakta bir oyun'+dot('.'),'A game at every stop'+dot('.'),'در هر ایستگاه یک بازی'+dot('.')],
@@ -150,9 +150,9 @@ faqH:['Sık sorulanlar','Common questions','سؤال‌های رایج'],
 fq1:['Uygulama gerçekten ücretsiz mi?','Is the app really free?','اپ واقعاً رایگان است؟'],
 fa_1:['Evet. Yol haritası, oyunlar ve dersler ücretsiz. Sadece premium kurslar ücretli.','Yes. The roadmap, games and lessons are free. Only the premium courses are paid.','بله. نقشه‌ی راه، بازی‌ها و درس‌ها رایگان‌اند. فقط دوره‌های ویژه پولی هستند.'],
 fq2:['Kursu nasıl alırım?','How do I get a course?','دوره را چطور بخرم؟'],
-fa_2:['İlk bölümü uygulamada ücretsiz dene. Devam etmek istersen WhatsApp\'tan yaz, kursun şifresini gönderirim.','Try the first chapter free in the app. If you want to continue, message me on WhatsApp and I\'ll send you the course password.','فصل اول را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، در واتس‌اپ پیام بده تا رمز دوره را برایت بفرستم.'],
+fa_2:['1. bölümün ilk yarısını uygulamada ücretsiz dene. Devam etmek istersen WhatsApp\'tan yaz, kursun şifresini gönderirim.','Try the first half of Chapter 1 free in the app. If you want to continue, message me on WhatsApp and I\'ll send you the course password.','نیمه‌ی اول فصل اول را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، در واتس‌اپ پیام بده تا رمز دوره را برایت بفرستم.'],
 fq3:['Birebir ders nasıl işliyor?','How do 1-to-1 lessons work?','کلاس آنلاین چطور است؟'],
-fa_3:['Online, sadece sen ve Farin. İlk ders ücretsiz, sonrası aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim.','Online, just you and Farin. The first lesson is free, then a monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
+fa_3:['Online, sadece sen ve Farin. Aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim. Ödemeden sonra ücretsiz bir analiz seansı: seviye tespiti, hedef belirleme ve sana özel yol haritası. Paketinin dışında, ek olarak.','Online, just you and Farin. A monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs. Free analysis session after you pay: level test, goal setting and your personal roadmap. Extra to your pack.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
 tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not because you have to learn, but because you have somewhere to go.','نه چون باید یاد بگیری؛ چون جایی برای رفتن داری.'],
 blog:['Blog','Blog (Turkish)','وبلاگ (ترکی)'],
 also:['Ayrıca','Also','همچنین'],want:['Bu kursu istiyorum','I want this course','این دوره را می‌خواهم'],
@@ -168,8 +168,8 @@ rights:['FE School. Tüm hakları saklıdır.','FE School. All rights reserved.'
 
 const WAMSG = [n => `Merhaba Farin! "${n}" ile ilgileniyorum.`, n => `Hi Farin! I'm interested in "${n}".`, n => `سلام فرین! به «${n}» علاقه دارم.`];
 const LIVE_PRICE = ['₺3.400<small>\'dan / ay</small>', '<small style="margin:0 4px 0 0">from</small>₺3,400<small>/ month</small>', null];
-const FREE1 = ['İlk ders ücretsiz', 'First lesson free', '۱ تا ۴ نفر'];
-const BOOK = ['Ücretsiz ilk dersini ayarla', 'Book your free first lesson', 'رزرو کلاس'];
+const FREE1 = ['İlk analiz seansı hediye', 'Free analysis session', '۱ تا ۴ نفر'];
+const BOOK = ['Dersini ayarla', 'Book your lessons', 'رزرو کلاس'];
 const OWN = ['Kendi hızında, uygulamada', 'At your own pace, in the app', 'با سرعت خودت، داخل اپ'];
 const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (ترکی) ←'];
 
@@ -188,8 +188,8 @@ const GOALS = {
     self: { key: 'hr', name: ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'],
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
-      price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['1 Aralık\'ta satışta', 'On sale 1 Dec', 'فروش از ۱۰ آذر']], ['free', ['Bölüm 1 ücretsiz', 'Chapter 1 free', 'فصل ۱ رایگان']]],
-      cta: ['Bölüm 1\'i ücretsiz başlat', 'Start Chapter 1 free', 'فصل ۱ را رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'] },
+      price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['1 Aralık\'ta satışta', 'On sale 1 Dec', 'فروش از ۱۰ آذر']], ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'] },
     live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['25 Ocak · ₺1.290', '25 Jan · ₺1,290', 'از ۵ بهمن · ۲٬۹۹۰٬۰۰۰ تومان']],
       [null, ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی برای بازاریابی'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۴۹۰٬۰۰۰ تومان']],
       [null, ['Satış ve Müşteri Yönetimi İngilizcesi', 'Sales & Customer Management English', 'انگلیسی فروش و مدیریت مشتری'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۸۰۰٬۰۰۰ تومان']]] },
@@ -197,8 +197,8 @@ const GOALS = {
     self: { key: 'ielts', name: ['IELTS: 10 Tam Sınav', 'IELTS: 10 Full Exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
-      price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['4 Ocak\'ta satışta', 'On sale 4 Jan', 'فروش از ۱۴ دی']], ['free', ['Sınav 1 ücretsiz', 'Exam 1 free', 'آزمون ۱ رایگان']]],
-      cta: ['Sınav 1\'i ücretsiz başlat', 'Start Exam 1 free', 'آزمون ۱ را رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'] },
+      price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['4 Ocak\'ta satışta', 'On sale 4 Jan', 'فروش از ۱۴ دی']], ['free', ['Sınav 1\'in ilk yarısı ücretsiz', 'First half of Exam 1 free', 'نیمه‌ی اول آزمون ۱ رایگان']]],
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
     self: { key: 'interview', name: ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'],
@@ -430,7 +430,7 @@ function card(l, c, live, also) {
   const note = (icon, html, cls = '') => `<li${cls ? ` class="${cls}"` : ''}>${ic(icon)}<span>${html}</span></li>`;
   const liveNotes = !live ? '' : l === 'fa'
     ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه‌ی بسته بین اعضای گروه (۱ تا ۴ نفر) تقسیم می‌شود`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
-    : `<ul class="lnotes">${note('cal', esc(PACK[i]))}</ul>`;
+    : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>` : '';
   /* also = list of [panel anchor or null, name x3, 'date · price' x3]; one row per course, one 'Also' label */
   const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(a[2][i])}</span></div>`).join('')}</div>` : '';

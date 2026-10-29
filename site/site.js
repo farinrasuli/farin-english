@@ -366,10 +366,10 @@ var LEVEL_LABELS = {}; LEVELS.forEach(function(l){ LEVEL_LABELS[l.id] = l.label 
 var GOAL_LABELS = {}; GOALS.forEach(function(g){ GOAL_LABELS[g.id] = g.label; });
 
 var PACKAGES = {
-  ilkadim: { name:'İlk Adım — Ücretsiz Deneme Dersi', sessions:1, price:0, blurb:'Tanışma + seviye tespiti + ilk mini deneyimle başlangıç. Kart bilgisi gerekmez.' },
-  kesif:   { name:'Keşif Paketi', sessions:4,  price:690, blurb:'Ritmi yakalamak ve düzenli konuşma alışkanlığı için ideal.' },
-  macera:     { name:'Macera Paketi', sessions:8,  price:670, blurb:'Belirgin bir hedefe düzenli adımlarla ilerlemek için.' },
-  kahraman:   { name:'Kahraman Yolculuğu Paketi', sessions:12, price:650, blurb:'Sınav, göç veya iş hedefi gibi yoğun programlar için en avantajlısı.' }
+  ilkadim: { name:'İlk Adım — Ücretsiz Analiz Seansı', sessions:1, price:0, blurb:'Ödemeden sonra, paketinin dışında, ek olarak: seviye tespiti, hedef belirleme ve sana özel yol haritası.' },
+  kesif:   { name:'Keşif Paketi', sessions:4,  price:850, blurb:'Ritmi yakalamak ve düzenli konuşma alışkanlığı için ideal.' },
+  macera:     { name:'Macera Paketi', sessions:8,  price:840, blurb:'Belirgin bir hedefe düzenli adımlarla ilerlemek için.' },
+  kahraman:   { name:'Kahraman Yolculuğu Paketi', sessions:12, price:830, blurb:'Sınav, göç veya iş hedefi gibi yoğun programlar için en avantajlısı.' }
 };
 function recommendPackage(goalId){
   if (goalId === 'sinav' || goalId === 'gocyurtdisi') return 'kahraman';
@@ -448,7 +448,7 @@ if (wizardEl){
       'Seviyem: '+levelLabel+'\n'+
       'Öğrenme karakterim: '+charObj.label+'\n'+
       'Önerilen paket: '+pkg.name+'\n\n'+
-      'Ücretsiz deneme dersiyle başlamak istiyorum.';
+      'Bu paketle başlamak istiyorum.';
 
     wizardEl.innerHTML =
       '<div class="result-card">'+
@@ -462,15 +462,15 @@ if (wizardEl){
           '<div class="result-item"><div class="k">Karakter</div><div class="v">'+charObj.label+'</div></div>'+
         '</div>'+
         '<div class="result-plan">'+
-          '<h4>Başlangıç: İlk Adım dersin tamamen ücretsiz</h4>'+
-          '<p>Tanışma, hedef ve seviye tespiti + ilk mini deneyim — kart bilgisi gerekmez.</p>'+
+          '<h4>Başlangıç: ücretsiz analiz seansı</h4>'+
+          '<p>Ödemeden sonra, paketinin dışında, ek olarak: seviye tespiti, hedef belirleme ve sana özel yol haritası.</p>'+
         '</div>'+
         '<div class="result-plan">'+
           '<h4>Sonrası için önerilen: '+pkg.name+'</h4>'+
           '<p>'+charObj.plan+' '+pkg.blurb+' Seans başına ₺'+pkg.price+'.</p>'+
         '</div>'+
         '<div class="cta-row center">'+
-          '<a class="btn btn-cta" target="_blank" rel="noopener" href="'+waLink(msg)+'">Ücretsiz Dersimi Ayarla</a>'+
+          '<a class="btn btn-cta" target="_blank" rel="noopener" href="'+waLink(msg)+'">Paketimi Ayarla</a>'+
           '<button type="button" class="btn btn-ghost" id="wizRestart">Baştan Başla</button>'+
         '</div>'+
       '</div>';
@@ -490,7 +490,7 @@ if (wizardEl){
 var storyEl = document.getElementById('storyGame');
 if (storyEl && LANG && LANG.story){
   var STORY = LANG.story;
-  var storyMsg = 'Merhaba Farin! '+(LANG.name||'')+' mini deneyimini az önce denedim ve yöntemini çok sevdim — ücretsiz deneme dersi almak istiyorum.';
+  var storyMsg = 'Merhaba Farin! '+(LANG.name||'')+' mini deneyimini az önce denedim ve yöntemini çok sevdim. Birebir ders paketleri hakkında bilgi almak istiyorum.';
 
   function renderStory(nodeId){
     var node = STORY[nodeId];
