@@ -242,10 +242,11 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
     <h3 class="sub-h">توی هر دوره</h3>
     <div class="perks"><div class="perk"><span class="pic">🆓</span><b>نیمه‌ی اول فصل ۱ رایگان</b><p>قبل از پرداخت، توی اپ امتحانش کن.</p></div><div class="perk"><span class="pic">💳</span><b>کارت‌به‌کارت، رمز همون روز</b><p>رسید رو بفرست، رمز شخصی دوره همون روز می‌رسه.</p></div><div class="perk"><span class="pic">📅</span><b>۱۲ ماه، همه‌ی دستگاه‌ها</b><p>روی هر دستگاهی که وارد بشی، از همون‌جا ادامه می‌دی.</p></div><div class="perk"><span class="pic">🇮🇷</span><b>اپ کاملاً فارسی</b><p>همه‌ی توضیح‌ها و راهنماها به فارسی، تا هیچ‌جا گیر نکنی.</p></div><div class="perk"><span class="pic">🏁</span><b>نمونه‌کار + گواهی</b><p>پروژه‌ی پایانی که سر کار به کار می‌بری و گواهی FEschool.</p></div><div class="perk"><span class="pic">🧭</span><b>ساختار روشن هر درس</b><p>هر درس: هدف ← توضیح ← تمرین ← بررسی.</p></div></div>
     <div style="height:28px"></div>
+    <!-- SALE STATUS (Farin 2026-10-29): courses go on sale as soon as they are complete; no sale dates. Each course card has <span class="when" data-sale="soon|now" data-course="...">. To open a course: set data-sale="now" and change the text (TR "Şimdi satışta" / FA "در حال فروش"). Keep in sync with SALE in site-src/build-pages.mjs. -->
     <div class="courses">
       <article class="course" style="--c:#7C5CFC">
         <header>
-          <div class="ch-top"><span class="num">۰۱</span><span class="when">فروش از ۱۰ آذر</span></div>
+          <div class="ch-top"><span class="num">۰۱</span><span class="when" data-sale="soon" data-course="hr">به‌زودی</span></div>
           <span class="tag light">«این بار مصاحبه‌کننده تویی.»</span>
           <h3>انگلیسی منابع انسانی و کسب‌وکار</h3>
           <div class="chips"><span>۳۲ درس</span><span>۸ فصل</span><span>حدود ۱۶ هفته</span><span>B1 → B2</span></div>
@@ -268,7 +269,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course star" style="--c:#E8644A">
         <header>
-          <div class="ch-top"><span class="num">۰۲</span><span class="when">فروش از ۱۴ دی</span><span class="badge">هر ماه فقط ۱ جا</span></div>
+          <div class="ch-top"><span class="num">۰۲</span><span class="when" data-sale="soon" data-course="ielts">به‌زودی</span><span class="badge">هر ماه فقط ۱ جا</span></div>
           <span class="tag light">«۱۰ آزمون کامل؛ روز امتحان هیچ غافلگیری‌ای نیست.»</span>
           <h3>آیلتس: ۱۰ آزمون کامل</h3>
           <div class="chips"><span>۱۰ آزمون</span><span>۱۰۰ درس</span><span>آکادمیک + جنرال</span><span>حدود ۲۰ رایتینگ با تصحیح فرین</span></div>
@@ -291,7 +292,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#1F8FB0">
         <header>
-          <div class="ch-top"><span class="num">۰۳</span><span class="when">فروش از ۵ بهمن</span></div>
+          <div class="ch-top"><span class="num">۰۳</span><span class="when" data-sale="soon" data-course="interview">به‌زودی</span></div>
           <span class="tag light">«“خودت رو معرفی کن” دیگه نمی‌ترسونتت.»</span>
           <h3>مصاحبه‌ی شغلی به انگلیسی</h3>
           <div class="chips"><span>۹ درس</span><span>۳ فصل</span><span>حدود ۳ هفته</span><span>B1 به بالا</span></div>
@@ -314,7 +315,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#D64F86">
         <header>
-          <div class="ch-top"><span class="num">۰۴</span><span class="when">فروش از ۲۴ اسفند</span></div>
+          <div class="ch-top"><span class="num">۰۴</span><span class="when" data-sale="soon" data-course="marketing">به‌زودی</span></div>
           <span class="tag light">«ایده‌ت رو به انگلیسی بفروش.»</span>
           <h3>انگلیسی برای بازاریابی</h3>
           <div class="chips"><span>۱۲ درس</span><span>۳ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>
@@ -337,7 +338,7 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
       </article>
       <article class="course" style="--c:#3E9B6E">
         <header>
-          <div class="ch-top"><span class="num">۰۵</span><span class="when">فروش از ۲۴ اسفند</span></div>
+          <div class="ch-top"><span class="num">۰۵</span><span class="when" data-sale="soon" data-course="sales">به‌زودی</span></div>
           <span class="tag light">«“نه” رو به “آره” تبدیل کن، به انگلیسی.»</span>
           <h3>انگلیسی فروش و مدیریت مشتری</h3>
           <div class="chips"><span>۱۲ درس</span><span>۴ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>

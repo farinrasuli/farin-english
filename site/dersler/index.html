@@ -253,10 +253,11 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
     <h3 class="sub-h">Her kursta</h3>
     <div class="perks"><div class="perk"><span class="pic">🆓</span><b>1. bölümün yarısı ücretsiz</b><p>Ödemeden önce uygulamada dene.</p></div><div class="perk"><span class="pic">🔑</span><b>Şifren aynı gün</b><p>Dekontu gönder, kişisel kurs şifren aynı gün gelir.</p></div><div class="perk"><span class="pic">📅</span><b>12 ay, tüm cihazlar</b><p>Giriş yaptığın her cihazda kaldığın yerden devam.</p></div><div class="perk"><span class="pic">🧭</span><b>Net ders yapısı</b><p>Her ders: hedef → anlatım → pratik → kontrol.</p></div><div class="perk"><span class="pic">🏁</span><b>Portfolyo + sertifika</b><p>İşte kullanacağın final projesi ve FEschool sertifikası.</p></div><div class="perk"><span class="pic">🇹🇷</span><b>Tamamen Türkçe arayüz</b><p>Tüm açıklamalar ve yönlendirmeler Türkçe; hiçbir yerde takılmazsın.</p></div></div>
     <div style="height:28px"></div>
+    <!-- SALE STATUS (Farin 2026-10-29): courses go on sale as soon as they are complete; no sale dates. Each course card has <span class="when" data-sale="soon|now" data-course="...">. To open a course: set data-sale="now" and change the text (TR "Şimdi satışta" / FA "در حال فروش"). Keep in sync with SALE in site-src/build-pages.mjs. -->
     <div class="courses">
       <article class="course" style="--c:#7C5CFC">
         <header>
-          <div class="ch-top"><span class="num">01</span><span class="when">1 Aralık'ta satışta</span></div>
+          <div class="ch-top"><span class="num">01</span><span class="when" data-sale="soon" data-course="hr">Yakında satışta</span></div>
           <span class="tag light">“Bu sefer mülakatı yapan sensin.”</span>
           <h3>İK ve İş İngilizcesi</h3>
           <div class="chips"><span>32 ders</span><span>8 bölüm</span><span>~16 hafta</span><span>B1 → B2</span></div>
@@ -279,7 +280,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course star" style="--c:#E8644A">
         <header>
-          <div class="ch-top"><span class="num">02</span><span class="when">4 Ocak'ta satışta</span><span class="badge">Ayda sadece 5 kişi</span></div>
+          <div class="ch-top"><span class="num">02</span><span class="when" data-sale="soon" data-course="ielts">Yakında satışta</span><span class="badge">Ayda sadece 5 kişi</span></div>
           <span class="tag light">“10 tam sınav. Sınav günü sürpriz yok.”</span>
           <h3>IELTS: 10 tam sınav</h3>
           <div class="chips"><span>10 sınav</span><span>100 ders</span><span>Academic + General</span><span>~20 yazı Farin'den</span></div>
@@ -302,7 +303,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#1F8FB0">
         <header>
-          <div class="ch-top"><span class="num">03</span><span class="when">25 Ocak'ta satışta</span></div>
+          <div class="ch-top"><span class="num">03</span><span class="when" data-sale="soon" data-course="interview">Yakında satışta</span></div>
           <span class="tag light">“‘Tell me about yourself’ artık seni korkutmuyor.”</span>
           <h3>İngilizce İş Mülakatı</h3>
           <div class="chips"><span>9 ders</span><span>3 bölüm</span><span>~3 hafta</span><span>B1 ve üzeri</span></div>
@@ -325,7 +326,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#D64F86">
         <header>
-          <div class="ch-top"><span class="num">04</span><span class="when">15 Mart'ta satışta</span></div>
+          <div class="ch-top"><span class="num">04</span><span class="when" data-sale="soon" data-course="marketing">Yakında satışta</span></div>
           <span class="tag light">“Fikrini İngilizce sat.”</span>
           <h3>Pazarlama İngilizcesi</h3>
           <div class="chips"><span>12 ders</span><span>3 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>
@@ -348,7 +349,7 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
       </article>
       <article class="course" style="--c:#3E9B6E">
         <header>
-          <div class="ch-top"><span class="num">05</span><span class="when">15 Mart'ta satışta</span></div>
+          <div class="ch-top"><span class="num">05</span><span class="when" data-sale="soon" data-course="sales">Yakında satışta</span></div>
           <span class="tag light">“‘Hayır’ı ‘evet’e çevir, İngilizce.”</span>
           <h3>Satış ve Müşteri Yönetimi İngilizcesi</h3>
           <div class="chips"><span>12 ders</span><span>4 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>
