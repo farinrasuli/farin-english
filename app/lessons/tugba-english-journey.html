@@ -511,12 +511,33 @@ const TABS = () => SPK
   .concat([["p","Phrases","İfadeler"]])
   .concat(L.speak ? [["s","Speak","Konuş"]] : [])
   .concat([["q","Practice","Alıştırma"],["w","Watch","İzle"]]);
-const CAN_SAY = "speechSynthesis" in window;
+// natural voice clips (George / Bella), rendered by Claude/tts/lesson-clips.mjs; the key must match the app's ttsKey()
+const CLIP_BASE = "audio/", CLIPS = {};
+let clipAudio = null;
+try{ fetch(CLIP_BASE + "manifest.json").then(r => r.ok ? r.json() : {}).then(m => Object.assign(CLIPS, m)).catch(() => {}); }catch(e){}
+function clipKey(t){
+  const s = String(t||'').toLowerCase().replace(/[‘’ʼ`]/g,"'").replace(/[^a-z0-9áéíóúüñ']+/g,' ').trim(); let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for(let i=0;i<s.length;i++){ const c = s.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1>>>16), 2246822507) ^ Math.imul(h2 ^ (h2>>>13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
+  return (h2>>>0).toString(16).padStart(8,'0') + (h1>>>0).toString(16).padStart(8,'0');
+}
+const CAN_SAY = true;   // the clips play on every phone; the device voice is only the last resort
 let SAYS = [];
 function ear(text){ if(!CAN_SAY) return ""; SAYS.push(String(text).replace(/[{}]/g,"")); return `<button class="ear" data-say="${SAYS.length-1}" aria-label="Listen">▶</button>`; }
 function sayIt(i, btn, next){
   try{
-    speechSynthesis.cancel(); document.querySelectorAll(".ear.on").forEach(b=>b.classList.remove("on"));
+    try{ speechSynthesis.cancel(); }catch(e){} document.querySelectorAll(".ear.on").forEach(b=>b.classList.remove("on"));
+    if(clipAudio){ clipAudio.onended = clipAudio.onerror = null; clipAudio.pause(); clipAudio = null; }
+    const k = clipKey(SAYS[i]);
+    if(CLIPS[k]){
+      const a = clipAudio = new Audio(CLIP_BASE + k + ".mp3"); if(btn) btn.classList.add("on");
+      const end = () => { if(clipAudio !== a) return; clipAudio = null; if(btn) btn.classList.remove("on"); if(next) next(); };
+      a.onended = end; a.onerror = end;
+      const p = a.play(); if(p && p.catch) p.catch(end);
+      return;
+    }
+    if(!("speechSynthesis" in window)) return;
     const u = new SpeechSynthesisUtterance(SAYS[i]); u.lang = L.accent || "en-GB"; u.rate = L.rate || 0.92;
     const v = speechSynthesis.getVoices().find(v => v.lang === u.lang) || speechSynthesis.getVoices().find(v => /^en/.test(v.lang)); if(v) u.voice = v;
     if(btn) btn.classList.add("on");
@@ -617,7 +638,7 @@ function renderSpeaking(p){
 }
 function renderPanel(){
   const p = $("#panel");
-  SAYS = []; try{ if(CAN_SAY) speechSynthesis.cancel(); }catch(e){}
+  SAYS = []; try{ speechSynthesis.cancel(); if(clipAudio){ clipAudio.pause(); clipAudio = null; } }catch(e){}
   if(SPK && renderSpeaking(p)) return;
   if(S.tab==="l"){ p.innerHTML = L.learn.map(block).join(""); }
   else if(S.tab==="r"){
