@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="tr" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,6 +7,7 @@
 <meta name="description" content="Farin ile canlı online İngilizce dersler ve FE App içindeki premium kurslar: İK, IELTS, iş mülakatı, pazarlama, satış. Fiyatlar ve WhatsApp.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://thefeschool.com/dersler/">
+<link rel="alternate" hreflang="fa" href="https://thefeschool.com/kelas/">
 <meta name="theme-color" content="#FAF7F0">
 <link rel="icon" href="/assets/app-icon.png" type="image/png">
 <meta property="og:title" content="FEschool Premium Dersler ✨">
@@ -19,76 +20,144 @@
   --paper:#FAF7F0; --card:#FFFFFF; --sunk:#F3EEE2; --ink:#1A1410; --muted:#6B5F55; --line:#E9E2D3;
   --purple:#7C5CFC; --purple-ink:#5A3FD6; --purple-soft:#EEE9FF;
   --orange:#FFA53D; --orange-ink:#A85A05; --orange-soft:#FFF0DA;
-  --green-ink:#4F6047; --green-soft:#E8EEE3;
-  --wa:#1FAF53; --wa-deep:#128C40;
-  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif;
-  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --shadow:0 1px 2px rgba(26,20,16,.05),0 12px 30px -16px rgba(26,20,16,.22);
+  --green-ink:#3F6B4F; --green-soft:#E3F1E8; --wa:#1FAF53;
+  --display:"Fredoka","Trebuchet MS",system-ui,sans-serif; --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 2px rgba(26,20,16,.05),0 14px 34px -18px rgba(26,20,16,.25);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:18px 16px 64px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:560px;margin:0 auto}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;padding:18px 16px 96px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto}
 a{color:inherit}
 h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:balance}
+.lh{font-size:.74rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:1.2rem}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Fredoka",var(--display);font-weight:700;font-size:1.2rem;direction:ltr}
 .brand img{width:36px;height:36px;border-radius:10px}
 .brand i{font-style:normal;color:var(--orange)}
 .lang{font-weight:800;font-size:.85rem;text-decoration:none;color:var(--purple-ink);background:var(--purple-soft);padding:6px 14px;border-radius:999px}
 
-.hero{background:linear-gradient(140deg,var(--purple),var(--purple-ink));color:#fff;border-radius:28px;padding:30px 24px 24px;box-shadow:var(--shadow)}
-.hero .pill{display:inline-block;background:rgba(0,0,0,.22);border-radius:999px;padding:5px 13px;font-weight:800;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
-.hero h1{font-size:clamp(2.1rem,8vw,2.8rem);margin:14px 0 10px;letter-spacing:-.01em}
+/* hero */
+.hero{display:grid;gap:22px;background:linear-gradient(140deg,var(--purple),var(--purple-ink));color:#fff;border-radius:30px;padding:30px 22px 22px;box-shadow:var(--shadow)}
+.pill{display:inline-block;background:rgba(0,0,0,.22);border-radius:999px;padding:5px 13px;font-weight:800;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.2rem,7vw,3.4rem);margin:14px 0 12px}
 .hero h1 span{color:#FFD08A}
-.hero p{opacity:.92;font-size:1.02rem}
-.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
-.pick a{display:block;text-decoration:none;background:#fff;color:var(--ink);border-radius:18px;padding:14px 14px 12px}
-.pick b{display:block;font-family:var(--display);font-weight:600;font-size:1.08rem;line-height:1.2}
-.pick small{display:block;color:var(--muted);font-size:.84rem;line-height:1.35;margin-top:3px}
-.pick .ic{font-size:1.4rem;line-height:1;display:block;margin-bottom:6px}
+.hero .sub{opacity:.93;font-size:1.03rem;max-width:520px}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:center}
+.path{display:flex;flex-direction:column;text-decoration:none;background:#fff;color:var(--ink);border-radius:20px;padding:16px}
+.path .ic{font-size:1.6rem;line-height:1;margin-bottom:8px}
+.path b{font-family:var(--display);font-size:1.2rem;line-height:1.2}
+.path small{color:var(--muted);font-size:.86rem;line-height:1.4;margin-top:4px}
+.path em{font-style:normal;font-weight:800;font-size:.82rem;color:var(--purple-ink);background:var(--purple-soft);border-radius:10px;padding:4px 9px;margin-top:12px;width:fit-content}
+.facts{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid rgba(255,255,255,.22);padding-top:16px}
+.facts .fn{grid-column:1/-1;font-size:.8rem;font-weight:800;opacity:.75}
+.facts div{text-align:center}
+.facts b{display:block;font-family:var(--display);font-size:1.35rem;line-height:1.2;direction:ltr}
+.facts span{font-size:.78rem;opacity:.85}
+@media (min-width:820px){.hero{grid-template-columns:1.2fr 1fr;padding:44px 40px 30px}}
 
-.sec{margin-top:52px}
-.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
-.sec>h2{font-size:clamp(1.65rem,6vw,2.1rem);margin:6px 0 8px}
-.lead{color:var(--muted);margin-bottom:22px}
+/* sections */
+.sec{margin-top:64px}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange-ink)}
+.sec-head h2{font-size:clamp(1.7rem,5vw,2.4rem);margin:6px 0 8px}
+.sec-head p{color:var(--muted);max-width:620px}
+.sec-head{margin-bottom:24px}
+.sub-h{font-family:var(--display);font-size:1.15rem;margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.sub-h::after{content:"";flex:1;height:1px;background:var(--line)}
 
-.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 20px 20px;box-shadow:var(--shadow);margin-bottom:18px}
-.card.star{border:2px solid var(--orange)}
-.badge{position:absolute;top:-12px;right:18px;background:var(--orange);color:#3A2100;font-weight:800;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:999px}
-.tag{display:inline-block;background:var(--orange-soft);color:var(--orange-ink);font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.3;padding:7px 14px;border-radius:14px;margin-bottom:14px}
-.card h3{font-size:1.45rem}
-.meta{color:var(--muted);font-size:.92rem;margin-top:2px}
-.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:14px 0 4px}
-.price b{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--purple-ink);font-variant-numeric:tabular-nums}
-.price span{color:var(--muted);font-weight:700;font-size:.92rem}
+/* why */
+.why{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.why .row{display:grid;grid-template-columns:1fr 1.25fr}
+.why .row>div{padding:13px 16px;font-size:.95rem;line-height:1.45}
+.why .row+.row{border-top:1px solid var(--line)}
+.why .a{color:var(--muted);background:var(--sunk);text-decoration:line-through;text-decoration-color:rgba(107,95,85,.45)}
+.why .b{font-weight:700}
+.why .b::before{content:"✓ ";color:var(--green-ink);font-weight:900}
+.why .hd>div{font-weight:800;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.why .hd .a{color:var(--muted)}
+.why .hd .b{background:var(--purple);color:#fff}
+.why .hd .b::before{content:""}
+
+/* perks */
+.perks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:820px){.perks{grid-template-columns:repeat(3,1fr)}}
+.perk{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.pic{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--orange-soft);font-size:1.3rem;margin-bottom:10px}
+.perk b{display:block;font-family:var(--display);font-size:1.02rem;line-height:1.3}
+.perk p{font-size:.86rem;color:var(--muted);line-height:1.5;margin-top:4px}
+
+/* packages */
+.packs{display:grid;gap:18px}
+@media (min-width:760px){.packs{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.packs.four{grid-template-columns:repeat(4,1fr)}}
+.pk{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.pk.star{outline:3px solid var(--orange);outline-offset:-1px}
+.pk header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;background:var(--c);color:#fff;padding:18px 18px 16px}
+.pk header h3{font-size:1.3rem}
+.pk header p{font-size:.86rem;opacity:.92;margin-top:2px}
+.badge{flex:none;background:#fff;color:var(--ink);font-weight:800;font-size:.72rem;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pk-body{display:flex;flex-direction:column;flex:1;padding:18px}
+.tag{display:inline-block;width:fit-content;background:var(--orange-soft);color:var(--orange-ink);font-family:var(--display);font-weight:600;font-size:1rem;line-height:1.4;padding:7px 13px;border-radius:14px}
+.tag.light{background:rgba(255,255,255,.95);color:var(--c)}
+.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:16px 0 14px}
+.price b{font-family:var(--display);font-weight:600;font-size:2rem;line-height:1;color:var(--ink)}
+.price span{color:var(--muted);font-weight:700;font-size:.88rem}
 .price s{color:var(--muted);font-size:1rem}
-.note{font-size:.86rem;font-weight:700;color:var(--green-ink)}
-.get{list-style:none;margin:16px 0 18px;padding:14px 16px;background:var(--sunk);border-radius:16px}
-.get .h{font-size:.72rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
-.get li{position:relative;padding-left:26px;font-size:.96rem;line-height:1.45;margin-top:6px}
-.get li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--green-soft);color:var(--green-ink);font-weight:800;font-size:.75rem;display:grid;place-items:center;margin-top:2px}
-.get li.h::before{display:none}
-.get li.h{padding-left:0}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-decoration:none;font-weight:800;border-radius:16px;padding:14px 18px;font-size:1rem;transition:transform .12s ease}
+.price em{font-style:normal;font-weight:800;font-size:.78rem;color:var(--green-ink);background:var(--green-soft);padding:3px 9px;border-radius:999px}
+.ticks{list-style:none;display:grid;gap:8px;margin-bottom:18px}
+.ticks li{position:relative;padding-inline-start:28px;font-size:.95rem;line-height:1.45}
+.ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--green-soft);color:var(--green-ink);font-weight:900;font-size:.75rem;display:grid;place-items:center}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:800;border-radius:16px;padding:14px 18px;font-size:1rem;text-align:center;transition:transform .12s ease}
 .btn:active{transform:scale(.98)}
+.pk .btn{margin-top:auto}
 .btn.soft{background:var(--purple-soft);color:var(--purple-ink)}
 .btn.wa{background:var(--wa);color:#fff;box-shadow:0 10px 24px -10px rgba(18,140,64,.6)}
 
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
-.trust div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 10px;text-align:center}
-.trust b{display:block;font-family:var(--display);font-weight:600;font-size:1.15rem;color:var(--purple-ink);line-height:1.2}
-.trust span{display:block;font-size:.8rem;color:var(--muted);line-height:1.3;margin-top:4px}
+/* steps */
+.steps{display:grid;gap:12px;counter-reset:s}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--sunk);border-radius:20px;padding:16px}
+.step::before{counter-increment:s;content:counter(s);flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;font-family:var(--display);font-weight:700}
+.step b{display:block;font-family:var(--display);font-size:1.02rem;line-height:1.3}
+.step p{font-size:.88rem;color:var(--muted);line-height:1.45;margin-top:2px}
 
-.final{margin-top:52px;background:linear-gradient(140deg,var(--purple),var(--purple-ink));color:#fff;border-radius:28px;padding:30px 22px 24px;text-align:center;box-shadow:var(--shadow)}
-.final h2{font-size:clamp(1.6rem,6vw,2rem)}
-.final p{opacity:.92;margin:10px 0 20px}
-.final .btn.wa{font-size:1.12rem;padding:17px 18px}
-.final .num{display:block;margin-top:12px;font-weight:700;opacity:.85;font-size:.92rem;direction:ltr}
-.foot{text-align:center;margin-top:26px;font-size:.85rem;color:var(--muted)}
-.foot a{color:var(--purple-ink);font-weight:700;text-decoration:none}
-@media (max-width:380px){.pick{grid-template-columns:1fr}.trust{grid-template-columns:1fr}}
+/* courses */
+.courses{display:grid;gap:22px}
+.course{background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+.course.star{outline:3px solid var(--orange);outline-offset:-1px}
+.course header{background:var(--c);color:#fff;padding:20px 20px 18px}
+.ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ch-top .num{font-family:"Fredoka",var(--display);font-weight:700;font-size:.9rem;opacity:.75}
+.course h3{font-size:clamp(1.35rem,4vw,1.7rem);margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:700}
+.c-body{display:grid;gap:18px;padding:20px}
+.c-info p:not(.lh){font-size:.95rem;line-height:1.55}
+.c-info .lh+p{margin-bottom:14px}
+.c-get{background:var(--sunk);border-radius:18px;padding:16px}
+.pieces{list-style:none;counter-reset:p;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pieces li{counter-increment:p;display:flex;gap:8px;align-items:flex-start;background:var(--card);border-radius:12px;padding:9px 10px;font-size:.86rem;font-weight:700;line-height:1.35}
+.pieces li::before{content:counter(p);flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:7px;background:var(--c);color:#fff;font-size:.72rem;font-weight:900}
+.fnote{font-size:.84rem;color:var(--muted);margin-top:10px;font-weight:600}
+.course footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:16px 20px}
+.course footer .price{margin:0}
+.course footer .btn{flex:1 1 220px;max-width:340px}
+@media (min-width:820px){.c-body{grid-template-columns:1fr 1.15fr;gap:24px;padding:24px}}
+@media (max-width:420px){.pieces{grid-template-columns:1fr}.course footer .btn{max-width:none}}
+
+/* final */
+.final{margin-top:64px;background:linear-gradient(140deg,var(--purple),var(--purple-ink));color:#fff;border-radius:30px;padding:36px 22px 28px;text-align:center;box-shadow:var(--shadow)}
+.final h2{font-size:clamp(1.6rem,5vw,2.3rem)}
+.final p{opacity:.93;margin:10px auto 22px;max-width:460px}
+.final .btn{max-width:420px;margin:0 auto;font-size:1.12rem;padding:17px 18px}
+.final .tel{display:block;margin-top:12px;font-weight:700;opacity:.85;font-size:.92rem;direction:ltr}
+.foot{text-align:center;margin-top:26px;font-size:.88rem;color:var(--muted)}
+.foot a{color:var(--purple-ink);font-weight:800;text-decoration:none}
+.sticky{position:fixed;inset-inline:16px;bottom:14px;z-index:5;display:none}
+.sticky .btn{box-shadow:0 12px 30px -8px rgba(18,140,64,.7)}
+@media (max-width:759px){.sticky{display:block}}
+@media (max-width:360px){.paths{grid-template-columns:1fr}.perks{grid-template-columns:1fr}.facts{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -100,170 +169,205 @@ h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.12;text-wrap:b
   </header>
 
   <section class="hero">
-    <span class="pill">Premium dersler</span>
-    <h1>İngilizcen artık<br><span>bir plan.</span></h1>
-    <p>İki yol var. Farin ile canlı dersler ya da uygulamada kendi hızında kurslar. Hangisi sana uygunsa oradan başla.</p>
-    <div class="pick">
-      <a href="#online"><span class="ic">🎥</span><b>Online</b><small>Farin ile canlı, birebir ders</small></a>
-      <a href="#offline"><span class="ic">📱</span><b>Offline</b><small>Uygulamada, istediğin saatte</small></a>
+    <div>
+      <span class="pill">Premium dersler</span>
+      <h1>İngilizcen artık<br><span>bir plan.</span></h1>
+      <p class="sub">Farin ile canlı dersler ya da uygulamada kendi hızında kurslar. İkisinde de ezber yok: hedefine göre kurulmuş bir yol, konuşarak ilerleyen dersler ve aradaki boşluğu dolduran oyunlar.</p>
+    </div>
+    <div class="paths"><a class="path" href="#online"><span class="ic">🎥</span><b>Online</b><small>Farin ile canlı, birebir</small><em>₺830'dan / ders</em></a><a class="path" href="#offline"><span class="ic">📱</span><b>Offline</b><small>Uygulamada, kendi hızında</small><em>1. bölüm ücretsiz</em></a></div>
+    <div class="facts"><p class="fn">Her öğrencinin cebinde FE App</p><div><b>A1 → C1</b><span>tüm seviyeler</span></div><div><b>14</b><span>oyun</span></div><div><b>75</b><span>hikâye</span></div><div><b>5</b><span>hedef yolu</span></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><p class="eyebrow">Neden FEschool?</p><h2>Klasik kurs değil. Senin yolun.</h2></div>
+    <div class="why">
+      <div class="row hd"><div class="a">Klasik kurs</div><div class="b">FEschool</div></div>
+      <div class="row"><div class="a">Herkese aynı kitap</div><div class="b">Senin 3 hedefine göre kurulmuş yol haritası</div></div><div class="row"><div class="a">Öğretmen anlatır, sen dinlersin</div><div class="b">Konuşma ağırlıklı dersler, Farin'in SELIF yöntemi</div></div><div class="row"><div class="a">İki ders arası bir hafta sessizlik</div><div class="b">Arada oyunlar, hikâyeler, şarkılar ve ödev sayfan</div></div><div class="row"><div class="a">Aylık abonelik, uzun taahhüt</div><div class="b">Abonelik yok: paket ya da tek ödeme</div></div><div class="row"><div class="a">Sonunda sadece bir kâğıt</div><div class="b">Kurs Raporu, portfolyo ve FEschool sertifikası</div></div>
     </div>
   </section>
 
-  <!-- ONLINE -->
   <section class="sec" id="online">
-    <p class="eyebrow">🎥 Online · Canlı</p>
-    <h2>Farin ile birebir dersler</h2>
-    <p class="lead">Konuşma ağırlıklı, sadece sana göre. Seviyene, tarzına ve hedeflerine göre bir VIP yol haritası. Saatleri birlikte seçeriz.</p>
-
-    <article class="card">
-      <span class="tag">“İlk ders bizden, kararı sen ver.”</span>
-      <h3>İlk Adım</h3>
-      <p class="meta">1 deneme dersi · tanışma</p>
-      <div class="price"><b>Ücretsiz</b></div>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Gerçek seviyen, net olarak</li>
-        <li>En önemli hedefin ve ona giden ilk adımlar</li>
-        <li>Farin ile ders nasıl geçiyor, ödemeden görürsün</li>
-      </ul>
-      <a class="btn wa" data-lead="private" data-msg="Merhaba Farin! Ücretsiz İlk Adım dersini almak istiyorum.">Ücretsiz dersimi ayarla →</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">“Haftada bir ders, ayda bir yeni sen.”</span>
-      <h3>Keşif</h3>
-      <p class="meta">4 ders / ay · haftada bir</p>
-      <div class="price"><b>₺850</b><span>/ ders · toplam ₺3.400</span></div>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Sana özel VIP yol haritası</li>
-        <li>Her hafta düzenli konuşma pratiği</li>
-        <li>Kendini İngilizce ifade etme rahatlığı</li>
-      </ul>
-      <a class="btn soft" data-lead="private" data-msg="Merhaba Farin! Keşif paketi (ayda 4 ders) hakkında bilgi almak istiyorum.">Keşif'i seçiyorum →</a>
-    </article>
-
-    <article class="card star">
-      <span class="badge">En popüler</span>
-      <span class="tag">“Konuşmaktan çekinme devri bitti.”</span>
-      <h3>Macera</h3>
-      <p class="meta">8 ders / ay · haftada iki</p>
-      <div class="price"><b>₺840</b><span>/ ders · toplam ₺6.720</span></div>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Net bir hedefe giden 10 derslik program</li>
-        <li>Haftada iki kez konuşma, unutmaya fırsat yok</li>
-        <li>Sana özel VIP yol haritası</li>
-      </ul>
-      <a class="btn wa" data-lead="private" data-msg="Merhaba Farin! Macera paketi (ayda 8 ders) ile başlamak istiyorum.">Macera'yı seçiyorum →</a>
-    </article>
-
-    <article class="card">
-      <span class="badge" style="background:var(--purple-soft);color:var(--purple-ink)">En avantajlı</span>
-      <span class="tag">“Hedefin büyükse, temponu büyüt.”</span>
-      <h3>Kahraman Yolculuğu</h3>
-      <p class="meta">12 ders / ay · yoğun tempo</p>
-      <div class="price"><b>₺830</b><span>/ ders · toplam ₺9.960</span></div>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Sınav, göç ya da iş için yoğun hazırlık</li>
-        <li>Haftada üç ders, en hızlı ilerleme</li>
-        <li>Ders başına en düşük fiyat</li>
-      </ul>
-      <a class="btn soft" data-lead="private" data-msg="Merhaba Farin! Kahraman Yolculuğu paketi (ayda 12 ders) hakkında bilgi almak istiyorum.">Kahraman'ı seçiyorum →</a>
-    </article>
+    <div class="sec-head"><p class="eyebrow">🎥 Online · Canlı</p><h2>Farin ile birebir dersler</h2><p>Konuşma ağırlıklı ve sadece sana göre. Saatleri birlikte seçeriz.</p></div>
+    <div class="packs four">
+      <article class="pk" style="--c:#3E9B6E">
+        <header><div><h3>İlk Adım</h3><p>1 deneme dersi</p></div></header>
+        <div class="pk-body">
+          <span class="tag">“İlk ders bizden, kararı sen ver.”</span>
+          <div class="price"><b>Ücretsiz</b></div>
+          <p class="lh">Bu pakette</p>
+          <ul class="ticks"><li>Gerçek seviyeni ve seni neyin durdurduğunu net görürsün</li><li>3 hedefine göre ilk yol haritası taslağın çıkar</li><li>Farin'in ders tarzını ödemeden yaşarsın</li></ul>
+          <a class="btn wa" data-msg="Merhaba Farin! Ücretsiz İlk Adım dersini almak istiyorum." href="https://wa.me/905467615951">Ücretsiz dersimi ayarla →</a>
+        </div>
+      </article>
+      <article class="pk" style="--c:#1F8FB0">
+        <header><div><h3>Keşif</h3><p>4 ders / ay · haftada bir</p></div></header>
+        <div class="pk-body">
+          <span class="tag">“Haftada bir ders, ayda bir yeni sen.”</span>
+          <div class="price"><b>₺850</b><span>/ ders · toplam ₺3.400</span></div>
+          <p class="lh">Bu pakette</p>
+          <ul class="ticks"><li>4 konuşma dersi + 4 kişisel ödev sayfası</li><li>En sık yaptığın hatalar tek tek düzelir</li><li>VIP yol haritan ve Kulüp panelin açılır</li></ul>
+          <a class="btn soft" data-msg="Merhaba Farin! Keşif paketi (ayda 4 ders) hakkında bilgi almak istiyorum." href="https://wa.me/905467615951">Keşif'i seçiyorum →</a>
+        </div>
+      </article>
+      <article class="pk star" style="--c:#F28A1C">
+        <header><div><h3>Macera</h3><p>8 ders / ay · haftada iki</p></div><span class="badge">En popüler</span></header>
+        <div class="pk-body">
+          <span class="tag">“Konuşmaktan çekinme devri bitti.”</span>
+          <div class="price"><b>₺840</b><span>/ ders · toplam ₺6.720</span></div>
+          <p class="lh">Bu pakette</p>
+          <ul class="ticks"><li>Haftada 2 konuşma: donmadan cevap vermeye alışırsın</li><li>Mülakat, seyahat ya da sunum: bir hedefe baştan sona hazırlık</li><li>10 derslik program bitince kişisel Kurs Raporun</li></ul>
+          <a class="btn wa" data-msg="Merhaba Farin! Macera paketi (ayda 8 ders) ile başlamak istiyorum." href="https://wa.me/905467615951">Macera'yı seçiyorum →</a>
+        </div>
+      </article>
+      <article class="pk star" style="--c:#7C5CFC">
+        <header><div><h3>Kahraman Yolculuğu</h3><p>12 ders / ay · haftada üç</p></div><span class="badge">En avantajlı</span></header>
+        <div class="pk-body">
+          <span class="tag">“Hedefin büyükse, temponu büyüt.”</span>
+          <div class="price"><b>₺830</b><span>/ ders · toplam ₺9.960</span></div>
+          <p class="lh">Bu pakette</p>
+          <ul class="ticks"><li>Sınav, vize ya da iş başvurusu tarihine en kısa yol</li><li>Haftada 3 ders: konu soğumadan sonrakine geçersin</li><li>Ders başına en düşük fiyat + seviye sınavı</li></ul>
+          <a class="btn soft" data-msg="Merhaba Farin! Kahraman Yolculuğu paketi (ayda 12 ders) hakkında bilgi almak istiyorum." href="https://wa.me/905467615951">Kahraman'ı seçiyorum →</a>
+        </div>
+      </article></div>
+    <h3 class="sub-h">Canlı öğrencilere özel ayrıcalıklar</h3>
+    <div class="perks"><div class="perk"><span class="pic">🗺️</span><b>VIP yol haritası</b><p>Farin senin için kurar; uygulamadaki özel Kulüp panelinde seni bekler.</p></div><div class="perk"><span class="pic">✍️</span><b>Sana özel yazılan dersler</b><p>Hazır kitap yok. Her ders hedefine, seviyene ve hatalarına göre yazılır.</p></div><div class="perk"><span class="pic">📝</span><b>Her dersin ödev sayfası</b><p>Dersten sonra kendi ödevin; konuştuğun konu kalıcı olur.</p></div><div class="perk"><span class="pic">🎒</span><b>Derse hazırlık</b><p>“Derse hazırlan” ekranı; derse getirmek istediğin cümleleri işaretlersin, Farin görür.</p></div><div class="perk"><span class="pic">📊</span><b>Kişisel Kurs Raporu</b><p>Kurs bitince neyi öğrendiğin, nerede güçlendiğin ve sonraki adımın tek belgede.</p></div><div class="perk"><span class="pic">🎯</span><b>Seviye sınavı</b><p>Seviye atlarken sana göre hazırlanmış sınav ve yazılı değerlendirme.</p></div></div>
+    <h3 class="sub-h">Nasıl başlarsın?</h3>
+    <div class="steps"><div class="step"><div><b>WhatsApp'tan yaz</b><p>Hedefini ve uygun saatlerini söyle.</p></div></div><div class="step"><div><b>Ücretsiz ilk ders</b><p>Seviyen ve yol haritan netleşir.</p></div></div><div class="step"><div><b>Paketini seç, başla</b><p>Kulüp panelin açılır, dersler sana göre yazılır.</p></div></div></div>
   </section>
 
-  <!-- OFFLINE -->
   <section class="sec" id="offline">
-    <p class="eyebrow">📱 Offline · Kendi hızında</p>
-    <h2>Uygulamada premium kurslar</h2>
-    <p class="lead">FE App içinde, istediğin saatte. Ödemeden önce 1. bölümü ücretsiz dene. Ödemeyi WhatsApp'tan yaparsın, kurs şifren aynı gün gelir.</p>
-
-    <div class="trust">
-      <div><b>1. bölüm</b><span>ücretsiz, önce dene</span></div>
-      <div><b>12 ay</b><span>erişim, tüm cihazlarda</span></div>
-      <div><b>7 gün</b><span>iade hakkı</span></div>
-    </div>
-    <div style="height:22px"></div>
-
-    <article class="card">
-      <span class="tag">“Bu sefer mülakatı yapan sensin.”</span>
-      <h3>İK ve İş İngilizcesi</h3>
-      <p class="meta">32 ders · 8 bölüm · yaklaşık 16 hafta</p>
-      <div class="price"><b>₺2.690</b><s>₺3.490</s></div>
-      <p class="note">İlk 20 öğrenciye özel fiyat</p>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>7 parçalık işe alım portfolyosu (final projen)</li>
-        <li>İlan, mülakat, geri bildirim: İK'nın tüm dili</li>
-        <li>FEschool sertifikası</li>
-      </ul>
-      <a class="btn soft" data-lead="course" data-msg="Merhaba Farin! İK ve İş İngilizcesi kursunu almak istiyorum.">Bu kursu istiyorum →</a>
-    </article>
-
-    <article class="card star">
-      <span class="badge">Ayda sadece 5 kişi</span>
-      <span class="tag">“10 tam sınav. Sınav günü sürpriz yok.”</span>
-      <h3>IELTS: 10 tam sınav</h3>
-      <p class="meta">100 ders · Academic ya da General Training</p>
-      <div class="price"><b>₺7.990</b><s>₺9.490</s></div>
-      <p class="note">İlk 10 öğrenciye özel fiyat</p>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Sınav sırasıyla 10 tam deneme: Listening, Reading, Writing, Speaking</li>
-        <li>Yaklaşık 20 yazın, Farin tarafından 2–3 günde değerlendirilmiş</li>
-        <li>FEschool sertifikası</li>
-      </ul>
-      <a class="btn wa" data-lead="course" data-msg="Merhaba Farin! IELTS: 10 tam sınav kursu için bu ay yer var mı?">Yerimi ayır →</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">“‘Tell me about yourself’ artık seni korkutmuyor.”</span>
-      <h3>İngilizce İş Mülakatı</h3>
-      <p class="meta">9 ders · 3 bölüm · yaklaşık 3 hafta</p>
-      <div class="price"><b>₺990</b><s>₺1.290</s></div>
-      <p class="note">İlk 20 öğrenciye özel fiyat</p>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>Baştan sona bir deneme mülakatı</li>
-        <li>Kendi cevaplarınla hazır mülakat dosyan</li>
-        <li>FEschool sertifikası</li>
-      </ul>
-      <a class="btn soft" data-lead="course" data-msg="Merhaba Farin! İngilizce İş Mülakatı kursunu almak istiyorum.">Bu kursu istiyorum →</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">“Fikrini İngilizce sat.”</span>
-      <h3>Pazarlama İngilizcesi</h3>
-      <p class="meta">12 ders · 3 bölüm · yaklaşık 6 hafta</p>
-      <div class="price"><b>₺1.290</b><s>₺1.690</s></div>
-      <p class="note">İlk 20 öğrenciye özel fiyat</p>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>7 parçalık lansman dosyası (final projen)</li>
-        <li>Kampanya, sunum ve marka dili</li>
-        <li>FEschool sertifikası</li>
-      </ul>
-      <a class="btn soft" data-lead="course" data-msg="Merhaba Farin! Pazarlama İngilizcesi kursunu almak istiyorum.">Bu kursu istiyorum →</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">“‘Hayır’ı ‘evet’e çevir, İngilizce.”</span>
-      <h3>Satış ve Müşteri Yönetimi İngilizcesi</h3>
-      <p class="meta">12 ders · 4 bölüm · yaklaşık 6 hafta</p>
-      <div class="price"><b>₺1.290</b><s>₺1.690</s></div>
-      <p class="note">İlk 20 öğrenciye özel fiyat</p>
-      <ul class="get"><li class="h">Sonunda elinde</li>
-        <li>6 parçalık satış portfolyosu (final projen)</li>
-        <li>Teklif, itiraz ve müşteri görüşmesi dili</li>
-        <li>FEschool sertifikası</li>
-      </ul>
-      <a class="btn soft" data-lead="course" data-msg="Merhaba Farin! Satış ve Müşteri Yönetimi İngilizcesi kursunu almak istiyorum.">Bu kursu istiyorum →</a>
-    </article>
+    <div class="sec-head"><p class="eyebrow">📱 Offline · Kendi hızında</p><h2>Uygulamada premium kurslar</h2><p>FE App içinde, istediğin saatte. Her kurs gerçek bir iş dosyasıyla biter.</p></div>
+    <h3 class="sub-h">Her kursta</h3>
+    <div class="perks"><div class="perk"><span class="pic">🆓</span><b>1. bölüm ücretsiz</b><p>Ödemeden önce uygulamada dene.</p></div><div class="perk"><span class="pic">🔑</span><b>Şifren aynı gün</b><p>Dekontu gönder, kişisel kurs şifren aynı gün gelir.</p></div><div class="perk"><span class="pic">📅</span><b>12 ay, tüm cihazlar</b><p>Giriş yaptığın her cihazda kaldığın yerden devam.</p></div><div class="perk"><span class="pic">🧭</span><b>Net ders yapısı</b><p>Her ders: hedef → anlatım → pratik → kontrol.</p></div><div class="perk"><span class="pic">🏁</span><b>Portfolyo + sertifika</b><p>İşte kullanacağın final projesi ve FEschool sertifikası.</p></div><div class="perk"><span class="pic">↩️</span><b>7 gün iade hakkı</b><p>1. bölüm dışında en fazla 2 ders açtıysan ücretin tamamı iade.</p></div></div>
+    <div style="height:28px"></div>
+    <div class="courses">
+      <article class="course" style="--c:#7C5CFC">
+        <header>
+          <div class="ch-top"><span class="num">01</span></div>
+          <span class="tag light">“Bu sefer mülakatı yapan sensin.”</span>
+          <h3>İK ve İş İngilizcesi</h3>
+          <div class="chips"><span>32 ders</span><span>8 bölüm</span><span>~16 hafta</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">Kimin için</p><p>İngilizce çalışan ya da çalışmak isteyen İK uzmanları, işe alım uzmanları ve ekip liderleri.</p>
+            <p class="lh">Ne öğrenirsin</p><p>İK'nın 32 gerçek görevi: mülakat, iş ilanı, geri bildirim görüşmesi, politika e-postaları, toplantılar, resmî mektuplar, disiplin görüşmeleri ve izin talepleri.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">Bitirdiğinde elinde</p>
+            <ol class="pieces"><li>İş ilanı</li><li>Davranışsal mülakat</li><li>Mülakat notları + öneri</li><li>Teklif e-postası</li><li>Olumsuz yanıt e-postası</li><li>1 haftalık işe uyum planı</li><li>Adayın gözünden değerlendirme</li></ol>
+            <p class="fnote">Bir işe alım döngüsünün tamamı, 7 gerçek çalışma.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>₺2.690</b><s>₺3.490</s><em>İlk 20 öğrenciye</em></div>
+          <a class="btn soft" data-msg="Merhaba Farin! İK ve İş İngilizcesi kursunu almak istiyorum." href="https://wa.me/905467615951">Bu kursu istiyorum →</a>
+        </footer>
+      </article>
+      <article class="course star" style="--c:#E8644A">
+        <header>
+          <div class="ch-top"><span class="num">02</span><span class="badge">Ayda sadece 5 kişi</span></div>
+          <span class="tag light">“10 tam sınav. Sınav günü sürpriz yok.”</span>
+          <h3>IELTS: 10 tam sınav</h3>
+          <div class="chips"><span>10 sınav</span><span>100 ders</span><span>Academic + General</span><span>~20 yazı Farin'den</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">Kimin için</p><p>Eğitim, iş ya da göç için IELTS Academic veya General Training'e girecek herkes. En iyi B1'den.</p>
+            <p class="lh">Ne öğrenirsin</p><p>Gerçek format ve sürede, kısım kısım 10 tam sınav ve her kısım için bir teknik. Dinleme, gerçek sınav gibi bir kez çalar.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">Bitirdiğinde elinde</p>
+            <ol class="pieces"><li>10 tam deneme sınavı</li><li>Her kısım için teknik</li><li>~20 yazı, Farin'in 2–3 günlük geri bildirimiyle</li><li>Örnek cevapların yanında kendi yazıların</li></ol>
+            <p class="fnote">Hiçbir kurs puan sözü veremez. Bu kurs sana alıştırmayı verir.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>₺7.990</b><s>₺9.490</s><em>İlk 10 öğrenciye</em></div>
+          <a class="btn wa" data-msg="Merhaba Farin! IELTS: 10 tam sınav kursu için bu ay yer var mı?" href="https://wa.me/905467615951">Bu ay yer var mı? →</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#1F8FB0">
+        <header>
+          <div class="ch-top"><span class="num">03</span></div>
+          <span class="tag light">“‘Tell me about yourself’ artık seni korkutmuyor.”</span>
+          <h3>İngilizce İş Mülakatı</h3>
+          <div class="chips"><span>9 ders</span><span>3 bölüm</span><span>~3 hafta</span><span>B1 ve üzeri</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">Kimin için</p><p>Yakında İngilizce iş mülakatı olan herkes. Çalıştığın her cevap kendi işinle ilgili.</p>
+            <p class="lh">Ne öğrenirsin</p><p>Kendini tanıtmak, güçlü ve zayıf yönünü kanıtla anlatmak, iş hikâyelerini anlatmak ve teklife cevap vermek.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">Bitirdiğinde elinde</p>
+            <ol class="pieces"><li>60 saniyelik tanıtım</li><li>Kanıtlı 1 güçlü + 1 zayıf yön</li><li>3 gerçek iş hikâyesi</li><li>Soracağın 3 soru</li><li>Teşekkür e-postası</li><li>Teklife cevap</li><li>Baştan sona deneme mülakatı</li></ol>
+            <p class="fnote">Mülakat sabahı açıp çalışacağın kendi dosyan.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>₺990</b><s>₺1.290</s><em>İlk 20 öğrenciye</em></div>
+          <a class="btn soft" data-msg="Merhaba Farin! İngilizce İş Mülakatı kursunu almak istiyorum." href="https://wa.me/905467615951">Bu kursu istiyorum →</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#D64F86">
+        <header>
+          <div class="ch-top"><span class="num">04</span></div>
+          <span class="tag light">“Fikrini İngilizce sat.”</span>
+          <h3>Pazarlama İngilizcesi</h3>
+          <div class="chips"><span>12 ders</span><span>3 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">Kimin için</p><p>Yabancı pazarlara satış yapan ya da yapmak üzere olan pazarlamacılar.</p>
+            <p class="lh">Ne öğrenirsin</p><p>Brief, ürün metni, sosyal medya, sonuç raporu. Yapay zekâ taslaklarını değerlendirip düzeltmeyi de öğrenirsin.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">Bitirdiğinde elinde</p>
+            <ol class="pieces"><li>Kreatif brief</li><li>Ürün metni</li><li>2 kitleye sosyal medya gönderileri</li><li>Bir taslağa geri bildirim</li><li>Sonuç özeti</li><li>Vaka çalışması</li><li>Müşterinin gözünden değerlendirme</li></ol>
+            <p class="fnote">7 parçalık, gerçek bir lansman dosyası.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>₺1.290</b><s>₺1.690</s><em>İlk 20 öğrenciye</em></div>
+          <a class="btn soft" data-msg="Merhaba Farin! Pazarlama İngilizcesi kursunu almak istiyorum." href="https://wa.me/905467615951">Bu kursu istiyorum →</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#3E9B6E">
+        <header>
+          <div class="ch-top"><span class="num">05</span></div>
+          <span class="tag light">“‘Hayır’ı ‘evet’e çevir, İngilizce.”</span>
+          <h3>Satış ve Müşteri Yönetimi İngilizcesi</h3>
+          <div class="chips"><span>12 ders</span><span>4 bölüm</span><span>~6 hafta</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">Kimin için</p><p>Yabancı müşterilerle konuşan satış, ihracat ve müşteri hizmetleri çalışanları.</p>
+            <p class="lh">Ne öğrenirsin</p><p>Ürün sunumu, ilk e-posta, fiyat teklifi, itirazlara ve şikâyetlere cevap.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">Bitirdiğinde elinde</p>
+            <ol class="pieces"><li>Ürün sunumun</li><li>Yeni müşteriye ilk e-posta</li><li>Fiyat teklifi</li><li>3 itiraza cevap</li><li>Şikâyete yanıt</li><li>Müşterinin gözünden değerlendirme</li></ol>
+            <p class="fnote">Yarın müşteriye gönderebileceğin 6 gerçek çalışma.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>₺1.290</b><s>₺1.690</s><em>İlk 20 öğrenciye</em></div>
+          <a class="btn soft" data-msg="Merhaba Farin! Satış ve Müşteri Yönetimi İngilizcesi kursunu almak istiyorum." href="https://wa.me/905467615951">Bu kursu istiyorum →</a>
+        </footer>
+      </article></div>
   </section>
 
   <section class="final">
     <h2>Hangisi sana uygun, emin değil misin?</h2>
     <p>Hedefini tek mesajla yaz, birlikte seçelim. Cevap Farin'den gelir.</p>
-    <a class="btn wa" data-lead="contact" data-msg="Merhaba Farin! Hangi ders ya da kurs bana uygun, birlikte seçebilir miyiz?">💬 WhatsApp'tan yaz</a>
-    <span class="num">+90 546 761 59 51</span>
+    <a class="btn wa" data-msg="Merhaba Farin! Hangi ders ya da kurs bana uygun, birlikte seçebilir miyiz?" href="https://wa.me/905467615951">💬 WhatsApp'tan yaz</a>
+    <span class="tel">+90 546 761 59 51</span>
   </section>
 
   <p class="foot">Uygulamayı henüz indirmedin mi? <a href="/get/">Buradan indir</a> · <a href="/">FE School</a> 💛</p>
 </main>
+<div class="sticky"><a class="btn wa" data-msg="Merhaba Farin! Hangi ders ya da kurs bana uygun, birlikte seçebilir miyiz?" href="https://wa.me/905467615951">💬 WhatsApp'tan yaz</a></div>
 <script>
 (function(){
   var WA = "https://wa.me/905467615951";

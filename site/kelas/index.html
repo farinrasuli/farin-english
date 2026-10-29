@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>کلاس‌های FEschool</title>
-<meta name="description" content="کلاس‌های گروهی کوچک و زنده با فارین و دوره‌های پریمیوم داخل اپ FE: منابع انسانی، آیلتس، مصاحبه‌ی شغلی، بازاریابی، فروش. قیمت‌ها و واتساپ.">
+<meta name="description" content="کلاس‌های گروهی کوچک و زنده با فرین و دوره‌های پریمیوم داخل اپ FE: منابع انسانی، آیلتس، مصاحبه‌ی شغلی، بازاریابی، فروش. قیمت‌ها و واتساپ.">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://thefeschool.com/kelas/">
+<link rel="alternate" hreflang="tr" href="https://thefeschool.com/dersler/">
 <meta name="theme-color" content="#FAF7F0">
 <link rel="icon" href="/assets/app-icon.png" type="image/png">
-<meta property="og:title" content="کلاس‌های پریمیوم FEschool ✨">
-<meta property="og:description" content="کلاس زنده‌ی آنلاین با فارین + دوره‌های داخل اپ. قیمت‌ها اینجاست، سؤال‌ها تو واتساپ.">
+<meta property="og:title" content="کلاس‌های FEschool ✨">
+<meta property="og:description" content="کلاس زنده‌ی آنلاین با فرین + دوره‌های داخل اپ. قیمت‌ها اینجاست، سؤال‌ها تو واتساپ.">
 <meta property="og:image" content="https://thefeschool.com/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800;900&display=swap">
@@ -19,74 +20,144 @@
   --paper:#FAF7F0; --card:#FFFFFF; --sunk:#F3EEE2; --ink:#1A1410; --muted:#6B5F55; --line:#E9E2D3;
   --purple:#7C5CFC; --purple-ink:#5A3FD6; --purple-soft:#EEE9FF;
   --orange:#FFA53D; --orange-ink:#A85A05; --orange-soft:#FFF0DA;
-  --green-ink:#4F6047; --green-soft:#E8EEE3;
-  --wa:#1FAF53;
-  --font:"Vazirmatn",Tahoma,system-ui,sans-serif;
-  --shadow:0 1px 2px rgba(26,20,16,.05),0 12px 30px -16px rgba(26,20,16,.22);
+  --green-ink:#3F6B4F; --green-soft:#E3F1E8; --wa:#1FAF53;
+  --display:"Vazirmatn",Tahoma,system-ui,sans-serif; --body:"Vazirmatn",Tahoma,system-ui,sans-serif;
+  --shadow:0 1px 2px rgba(26,20,16,.05),0 14px 34px -18px rgba(26,20,16,.25);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.75;padding:18px 16px 64px;-webkit-font-smoothing:antialiased}
-.wrap{max-width:560px;margin:0 auto}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;padding:18px 16px 96px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto}
 a{color:inherit}
-h1,h2,h3{font-weight:800;line-height:1.35;text-wrap:balance}
-.en{font-family:"Trebuchet MS",system-ui,sans-serif;unicode-bidi:isolate}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:balance}
+.lh{font-size:.74rem;font-weight:800;letter-spacing:0;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
 
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:900;font-size:1.15rem;direction:ltr}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:"Fredoka",var(--display);font-weight:700;font-size:1.2rem;direction:ltr}
 .brand img{width:36px;height:36px;border-radius:10px}
 .brand i{font-style:normal;color:var(--orange)}
 .lang{font-weight:800;font-size:.85rem;text-decoration:none;color:var(--purple-ink);background:var(--purple-soft);padding:6px 14px;border-radius:999px}
 
-.hero{background:linear-gradient(220deg,var(--purple),var(--purple-ink));color:#fff;border-radius:28px;padding:30px 24px 24px;box-shadow:var(--shadow)}
-.hero .pill{display:inline-block;background:rgba(0,0,0,.22);border-radius:999px;padding:4px 14px;font-weight:800;font-size:.8rem}
-.hero h1{font-size:clamp(2rem,8vw,2.6rem);margin:14px 0 10px}
+/* hero */
+.hero{display:grid;gap:22px;background:linear-gradient(220deg,var(--purple),var(--purple-ink));color:#fff;border-radius:30px;padding:30px 22px 22px;box-shadow:var(--shadow)}
+.pill{display:inline-block;background:rgba(0,0,0,.22);border-radius:999px;padding:5px 13px;font-weight:800;font-size:.75rem;letter-spacing:0;text-transform:uppercase}
+.hero h1{font-size:clamp(2.2rem,7vw,3.4rem);margin:14px 0 12px}
 .hero h1 span{color:#FFD08A}
-.hero p{opacity:.93;font-size:1.02rem}
-.pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
-.pick a{display:block;text-decoration:none;background:#fff;color:var(--ink);border-radius:18px;padding:14px 14px 12px}
-.pick b{display:block;font-weight:800;font-size:1.08rem;line-height:1.3}
-.pick small{display:block;color:var(--muted);font-size:.84rem;line-height:1.5;margin-top:3px}
-.pick .ic{font-size:1.4rem;line-height:1;display:block;margin-bottom:6px}
+.hero .sub{opacity:.93;font-size:1.03rem;max-width:520px}
+.paths{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:center}
+.path{display:flex;flex-direction:column;text-decoration:none;background:#fff;color:var(--ink);border-radius:20px;padding:16px}
+.path .ic{font-size:1.6rem;line-height:1;margin-bottom:8px}
+.path b{font-family:var(--display);font-size:1.2rem;line-height:1.2}
+.path small{color:var(--muted);font-size:.86rem;line-height:1.4;margin-top:4px}
+.path em{font-style:normal;font-weight:800;font-size:.82rem;color:var(--purple-ink);background:var(--purple-soft);border-radius:10px;padding:4px 9px;margin-top:12px;width:fit-content}
+.facts{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;border-top:1px solid rgba(255,255,255,.22);padding-top:16px}
+.facts .fn{grid-column:1/-1;font-size:.8rem;font-weight:800;opacity:.75}
+.facts div{text-align:center}
+.facts b{display:block;font-family:var(--display);font-size:1.35rem;line-height:1.2;direction:ltr}
+.facts span{font-size:.78rem;opacity:.85}
+@media (min-width:820px){.hero{grid-template-columns:1.2fr 1fr;padding:44px 40px 30px}}
 
-.sec{margin-top:52px}
-.eyebrow{font-size:.85rem;font-weight:800;color:var(--orange-ink)}
-.sec>h2{font-size:clamp(1.55rem,6vw,1.95rem);margin:4px 0 8px}
-.lead{color:var(--muted);margin-bottom:22px}
+/* sections */
+.sec{margin-top:64px}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:0;text-transform:uppercase;color:var(--orange-ink)}
+.sec-head h2{font-size:clamp(1.7rem,5vw,2.4rem);margin:6px 0 8px}
+.sec-head p{color:var(--muted);max-width:620px}
+.sec-head{margin-bottom:24px}
+.sub-h{font-family:var(--display);font-size:1.15rem;margin:30px 0 14px;display:flex;align-items:center;gap:10px}
+.sub-h::after{content:"";flex:1;height:1px;background:var(--line)}
 
-.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 20px 20px;box-shadow:var(--shadow);margin-bottom:18px}
-.card.star{border:2px solid var(--orange)}
-.badge{position:absolute;top:-13px;left:18px;background:var(--orange);color:#3A2100;font-weight:800;font-size:.8rem;padding:3px 13px;border-radius:999px}
-.tag{display:inline-block;background:var(--orange-soft);color:var(--orange-ink);font-weight:800;font-size:1rem;line-height:1.55;padding:7px 14px;border-radius:14px;margin-bottom:14px}
-.card h3{font-size:1.35rem}
-.meta{color:var(--muted);font-size:.92rem;margin-top:2px}
-.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:14px 0 4px}
-.price b{font-weight:900;font-size:1.9rem;line-height:1.1;color:var(--purple-ink)}
-.price span{color:var(--muted);font-weight:700;font-size:.92rem}
-.get{list-style:none;margin:16px 0 18px;padding:14px 16px;background:var(--sunk);border-radius:16px}
-.get .h{font-size:.82rem;font-weight:800;color:var(--muted);margin-bottom:4px}
-.get li{position:relative;padding-right:28px;font-size:.96rem;line-height:1.6;margin-top:6px}
-.get li::before{content:"✓";position:absolute;right:0;top:3px;width:18px;height:18px;border-radius:50%;background:var(--green-soft);color:var(--green-ink);font-weight:800;font-size:.75rem;display:grid;place-items:center}
-.get li.h::before{display:none}
-.get li.h{padding-right:0}
-.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;text-decoration:none;font-weight:800;border-radius:16px;padding:14px 18px;font-size:1rem;transition:transform .12s ease}
+/* why */
+.why{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.why .row{display:grid;grid-template-columns:1fr 1.25fr}
+.why .row>div{padding:13px 16px;font-size:.95rem;line-height:1.45}
+.why .row+.row{border-top:1px solid var(--line)}
+.why .a{color:var(--muted);background:var(--sunk);text-decoration:line-through;text-decoration-color:rgba(107,95,85,.45)}
+.why .b{font-weight:700}
+.why .b::before{content:"✓ ";color:var(--green-ink);font-weight:900}
+.why .hd>div{font-weight:800;font-size:.8rem;letter-spacing:0;text-transform:uppercase;text-decoration:none}
+.why .hd .a{color:var(--muted)}
+.why .hd .b{background:var(--purple);color:#fff}
+.why .hd .b::before{content:""}
+
+/* perks */
+.perks{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media (min-width:820px){.perks{grid-template-columns:repeat(3,1fr)}}
+.perk{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.pic{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:var(--orange-soft);font-size:1.3rem;margin-bottom:10px}
+.perk b{display:block;font-family:var(--display);font-size:1.02rem;line-height:1.3}
+.perk p{font-size:.86rem;color:var(--muted);line-height:1.5;margin-top:4px}
+
+/* packages */
+.packs{display:grid;gap:18px}
+@media (min-width:760px){.packs{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1000px){.packs.four{grid-template-columns:repeat(4,1fr)}}
+.pk{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.pk.star{outline:3px solid var(--orange);outline-offset:-1px}
+.pk header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;background:var(--c);color:#fff;padding:18px 18px 16px}
+.pk header h3{font-size:1.3rem}
+.pk header p{font-size:.86rem;opacity:.92;margin-top:2px}
+.badge{flex:none;background:#fff;color:var(--ink);font-weight:800;font-size:.72rem;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pk-body{display:flex;flex-direction:column;flex:1;padding:18px}
+.tag{display:inline-block;width:fit-content;background:var(--orange-soft);color:var(--orange-ink);font-family:var(--display);font-weight:800;font-size:1rem;line-height:1.4;padding:7px 13px;border-radius:14px}
+.tag.light{background:rgba(255,255,255,.95);color:var(--c)}
+.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin:16px 0 14px}
+.price b{font-family:var(--display);font-weight:900;font-size:2rem;line-height:1;color:var(--ink)}
+.price span{color:var(--muted);font-weight:700;font-size:.88rem}
+.price s{color:var(--muted);font-size:1rem}
+.price em{font-style:normal;font-weight:800;font-size:.78rem;color:var(--green-ink);background:var(--green-soft);padding:3px 9px;border-radius:999px}
+.ticks{list-style:none;display:grid;gap:8px;margin-bottom:18px}
+.ticks li{position:relative;padding-inline-start:28px;font-size:.95rem;line-height:1.45}
+.ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:1px;width:20px;height:20px;border-radius:50%;background:var(--green-soft);color:var(--green-ink);font-weight:900;font-size:.75rem;display:grid;place-items:center}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;font-weight:800;border-radius:16px;padding:14px 18px;font-size:1rem;text-align:center;transition:transform .12s ease}
 .btn:active{transform:scale(.98)}
+.pk .btn{margin-top:auto}
 .btn.soft{background:var(--purple-soft);color:var(--purple-ink)}
 .btn.wa{background:var(--wa);color:#fff;box-shadow:0 10px 24px -10px rgba(18,140,64,.6)}
 
-.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
-.trust div{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 10px;text-align:center}
-.trust b{display:block;font-weight:900;font-size:1.1rem;color:var(--purple-ink);line-height:1.3}
-.trust span{display:block;font-size:.8rem;color:var(--muted);line-height:1.45;margin-top:4px}
+/* steps */
+.steps{display:grid;gap:12px;counter-reset:s}
+@media (min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--sunk);border-radius:20px;padding:16px}
+.step::before{counter-increment:s;content:counter(s, persian);flex:none;display:grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--purple);color:#fff;font-family:var(--display);font-weight:700}
+.step b{display:block;font-family:var(--display);font-size:1.02rem;line-height:1.3}
+.step p{font-size:.88rem;color:var(--muted);line-height:1.45;margin-top:2px}
 
-.final{margin-top:52px;background:linear-gradient(220deg,var(--purple),var(--purple-ink));color:#fff;border-radius:28px;padding:30px 22px 24px;text-align:center;box-shadow:var(--shadow)}
-.final h2{font-size:clamp(1.5rem,6vw,1.9rem)}
-.final p{opacity:.93;margin:10px 0 20px}
-.final .btn.wa{font-size:1.12rem;padding:17px 18px}
-.final .num{display:block;margin-top:12px;font-weight:700;opacity:.85;font-size:.92rem;direction:ltr}
+/* courses */
+.courses{display:grid;gap:22px}
+.course{background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:var(--shadow)}
+.course.star{outline:3px solid var(--orange);outline-offset:-1px}
+.course header{background:var(--c);color:#fff;padding:20px 20px 18px}
+.ch-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.ch-top .num{font-family:"Fredoka",var(--display);font-weight:700;font-size:.9rem;opacity:.75}
+.course h3{font-size:clamp(1.35rem,4vw,1.7rem);margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{background:rgba(255,255,255,.2);border-radius:999px;padding:3px 11px;font-size:.82rem;font-weight:700}
+.c-body{display:grid;gap:18px;padding:20px}
+.c-info p:not(.lh){font-size:.95rem;line-height:1.55}
+.c-info .lh+p{margin-bottom:14px}
+.c-get{background:var(--sunk);border-radius:18px;padding:16px}
+.pieces{list-style:none;counter-reset:p;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pieces li{counter-increment:p;display:flex;gap:8px;align-items:flex-start;background:var(--card);border-radius:12px;padding:9px 10px;font-size:.86rem;font-weight:700;line-height:1.35}
+.pieces li::before{content:counter(p, persian);flex:none;display:grid;place-items:center;width:20px;height:20px;border-radius:7px;background:var(--c);color:#fff;font-size:.72rem;font-weight:900}
+.fnote{font-size:.84rem;color:var(--muted);margin-top:10px;font-weight:600}
+.course footer{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:16px 20px}
+.course footer .price{margin:0}
+.course footer .btn{flex:1 1 220px;max-width:340px}
+@media (min-width:820px){.c-body{grid-template-columns:1fr 1.15fr;gap:24px;padding:24px}}
+@media (max-width:420px){.pieces{grid-template-columns:1fr}.course footer .btn{max-width:none}}
+
+/* final */
+.final{margin-top:64px;background:linear-gradient(220deg,var(--purple),var(--purple-ink));color:#fff;border-radius:30px;padding:36px 22px 28px;text-align:center;box-shadow:var(--shadow)}
+.final h2{font-size:clamp(1.6rem,5vw,2.3rem)}
+.final p{opacity:.93;margin:10px auto 22px;max-width:460px}
+.final .btn{max-width:420px;margin:0 auto;font-size:1.12rem;padding:17px 18px}
+.final .tel{display:block;margin-top:12px;font-weight:700;opacity:.85;font-size:.92rem;direction:ltr}
 .foot{text-align:center;margin-top:26px;font-size:.88rem;color:var(--muted)}
 .foot a{color:var(--purple-ink);font-weight:800;text-decoration:none}
-@media (max-width:380px){.pick{grid-template-columns:1fr}.trust{grid-template-columns:1fr}}
+.sticky{position:fixed;inset-inline:16px;bottom:14px;z-index:5;display:none}
+.sticky .btn{box-shadow:0 12px 30px -8px rgba(18,140,64,.7)}
+@media (max-width:759px){.sticky{display:block}}
+@media (max-width:360px){.paths{grid-template-columns:1fr}.perks{grid-template-columns:1fr}.facts{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -98,137 +169,185 @@ h1,h2,h3{font-weight:800;line-height:1.35;text-wrap:balance}
   </header>
 
   <section class="hero">
-    <span class="pill">کلاس‌های پریمیوم</span>
-    <h1>انگلیسی، این بار<br><span>با نقشه.</span></h1>
-    <p>دو راه داری: کلاس زنده‌ی آنلاین با فارین، یا دوره‌های داخل اپ که هر وقت خواستی جلو می‌ری. هر کدوم به تو می‌خوره، از همون شروع کن.</p>
-    <div class="pick">
-      <a href="#online"><span class="ic">🎥</span><b>آنلاین</b><small>کلاس زنده با فارین</small></a>
-      <a href="#offline"><span class="ic">📱</span><b>آفلاین</b><small>داخل اپ، هر ساعتی که بخوای</small></a>
+    <div>
+      <span class="pill">کلاس‌های پریمیوم</span>
+      <h1>انگلیسی، این بار<br><span>با نقشه.</span></h1>
+      <p class="sub">کلاس زنده با فرین، یا دوره‌های داخل اپ که با سرعت خودت جلو می‌ری. توی هر دوتاش خبری از حفظ کردن نیست: یک مسیر بر اساس هدف خودت، کلاس‌هایی که با حرف زدن جلو می‌ره و بازی‌هایی که فاصله‌ی بین جلسه‌ها رو پر می‌کنه.</p>
+    </div>
+    <div class="paths"><a class="path" href="#online"><span class="ic">🎥</span><b>آنلاین</b><small>کلاس زنده با فرین، گروه ۲ تا ۴ نفره</small><em>از ۳٬۵۰۰٬۰۰۰ تومان / جلسه</em></a><a class="path" href="#offline"><span class="ic">📱</span><b>آفلاین</b><small>داخل اپ، هر ساعتی که بخوای</small><em>فصل ۱ رایگان</em></a></div>
+    <div class="facts"><p class="fn">اپ FE توی جیب هر شاگرد</p><div><b>A1 → C1</b><span>همه‌ی سطح‌ها</span></div><div><b>۱۴</b><span>بازی</span></div><div><b>۷۵</b><span>داستان</span></div><div><b>۵</b><span>مسیر هدف</span></div></div>
+  </section>
+
+  <section class="sec">
+    <div class="sec-head"><p class="eyebrow">چرا FEschool؟</p><h2>کلاس معمولی نیست. مسیر خود توئه.</h2></div>
+    <div class="why">
+      <div class="row hd"><div class="a">کلاس معمولی</div><div class="b">FEschool</div></div>
+      <div class="row"><div class="a">یک کتاب برای همه</div><div class="b">نقشه‌ی راهی که بر اساس ۳ هدف خودت ساخته می‌شه</div></div><div class="row"><div class="a">معلم حرف می‌زنه، تو گوش می‌دی</div><div class="b">کلاس‌هایی که اول حرف زدنه، با روش SELIF فرین</div></div><div class="row"><div class="a">بین دو جلسه، یک هفته سکوت</div><div class="b">بازی، داستان، آهنگ و صفحه‌ی تکلیف بین جلسه‌ها</div></div><div class="row"><div class="a">اشتراک ماهانه و تعهد طولانی</div><div class="b">بدون اشتراک؛ پرداخت جلسه‌ای یا یک‌باره</div></div><div class="row"><div class="a">آخرش فقط یک برگه</div><div class="b">گزارش دوره، نمونه‌کار و گواهی FEschool</div></div>
     </div>
   </section>
 
-  <!-- ONLINE -->
   <section class="sec" id="online">
-    <p class="eyebrow">🎥 آنلاین · زنده</p>
-    <h2>کلاس‌های گروهی کوچک با فارین</h2>
-    <p class="lead">فقط ۲ تا ۴ نفر، همه هم‌سطح و با یک هدف. هر جلسه ۵۰ دقیقه و بیشترش حرف زدن. ساعت کلاس رو با هم هماهنگ می‌کنیم.</p>
-
-    <article class="card">
-      <span class="tag">«حفظ نکن، حرف بزن.»</span>
-      <h3>کلاس انگلیسی عمومی</h3>
-      <p class="meta">۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p>
-      <div class="price"><b>۳٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>هم‌کلاسی‌هایی دقیقاً هم‌سطح و هم‌هدف خودت</li>
-        <li>۵۰ دقیقه حرف زدن واقعی، نه جزوه خوندن</li>
-        <li>بازخورد مستقیم فارین روی اشتباه‌هات</li>
-      </ul>
-      <a class="btn wa" data-msg="سلام فارین! می‌خوام توی کلاس گروهی انگلیسی عمومی ثبت‌نام کنم.">جای من رو نگه دار ←</a>
-    </article>
-
-    <article class="card star">
-      <span class="badge">مخصوص کار</span>
-      <span class="tag">«جلسه‌ی بعدی، حرف آخر رو تو می‌زنی.»</span>
-      <h3>کلاس انگلیسی بیزینس</h3>
-      <p class="meta">۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p>
-      <div class="price"><b>۴٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>تمرین واقعی جلسه، ایمیل، ارائه و مذاکره</li>
-        <li>گروه کوچکی از آدم‌هایی با هدف کاری مثل تو</li>
-        <li>جمله‌هایی که فردا سر کار به کار می‌بری</li>
-      </ul>
-      <a class="btn wa" data-msg="سلام فارین! می‌خوام توی کلاس گروهی انگلیسی بیزینس ثبت‌نام کنم.">جای من رو نگه دار ←</a>
-    </article>
+    <div class="sec-head"><p class="eyebrow">🎥 آنلاین · زنده</p><h2>کلاس‌های گروهی کوچک با فرین</h2><p>فقط ۲ تا ۴ نفر، همه هم‌سطح و با یک هدف. هر جلسه ۵۰ دقیقه و بیشترش حرف زدن. ساعت کلاس رو با هم هماهنگ می‌کنیم.</p></div>
+    <div class="packs">
+      <article class="pk" style="--c:#1F8FB0">
+        <header><div><h3>کلاس انگلیسی عمومی</h3><p>۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p></div></header>
+        <div class="pk-body">
+          <span class="tag">«حفظ نکن، حرف بزن.»</span>
+          <div class="price"><b>۳٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه</span></div>
+          <p class="lh">توی هر جلسه</p>
+          <ul class="ticks"><li>هم‌کلاسی‌هایی دقیقاً هم‌سطح و هم‌هدف خودت</li><li>۵۰ دقیقه حرف زدن واقعی، نه جزوه خوندن</li><li>بازخورد مستقیم فرین روی اشتباه‌هات</li><li>سفر، مهاجرت، زندگی روزمره: هدف گروه‌تون محور کلاسه</li></ul>
+          <a class="btn wa" data-msg="سلام فرین! می‌خوام توی کلاس گروهی انگلیسی عمومی ثبت‌نام کنم." href="https://wa.me/905467615951">جای من رو نگه دار ←</a>
+        </div>
+      </article>
+      <article class="pk star" style="--c:#7C5CFC">
+        <header><div><h3>کلاس انگلیسی بیزینس</h3><p>۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p></div><span class="badge">مخصوص کار</span></header>
+        <div class="pk-body">
+          <span class="tag">«جلسه‌ی بعدی، حرف آخر رو تو می‌زنی.»</span>
+          <div class="price"><b>۴٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه</span></div>
+          <p class="lh">توی هر جلسه</p>
+          <ul class="ticks"><li>تمرین واقعی جلسه، ایمیل، ارائه و مذاکره</li><li>هم‌گروهی‌هایی با هدف کاری مثل خودت</li><li>جمله‌هایی که فردا سر کار به کار می‌بری</li><li>آمادگی برای مصاحبه‌ی شغلی و مشتری خارجی</li></ul>
+          <a class="btn wa" data-msg="سلام فرین! می‌خوام توی کلاس گروهی انگلیسی بیزینس ثبت‌نام کنم." href="https://wa.me/905467615951">جای من رو نگه دار ←</a>
+        </div>
+      </article></div>
+    <h3 class="sub-h">امتیازهای ویژه‌ی شاگردهای کلاس زنده</h3>
+    <div class="perks"><div class="perk"><span class="pic">🗺️</span><b>نقشه‌ی راه VIP</b><p>فرین برات می‌سازه و توی پنل اختصاصی باشگاه، داخل اپ منتظرته.</p></div><div class="perk"><span class="pic">✍️</span><b>درس‌هایی که برای شما نوشته می‌شه</b><p>کتاب آماده‌ای در کار نیست. هر درس بر اساس هدف، سطح و اشتباه‌های گروه‌تون نوشته می‌شه.</p></div><div class="perk"><span class="pic">📝</span><b>صفحه‌ی تکلیف هر جلسه</b><p>بعد از کلاس، تکلیف مخصوص خودت؛ چیزی که توی کلاس گفتی ماندگار می‌شه.</p></div><div class="perk"><span class="pic">🎒</span><b>آمادگی قبل از کلاس</b><p>صفحه‌ی «آماده‌ی کلاس شو»؛ جمله‌هایی که می‌خوای سر کلاس بیاری رو علامت می‌زنی و فرین می‌بینه.</p></div><div class="perk"><span class="pic">📊</span><b>گزارش شخصی دوره</b><p>آخر دوره، توی یک سند: چی یاد گرفتی، کجا قوی‌تر شدی و قدم بعدیت چیه.</p></div><div class="perk"><span class="pic">🎯</span><b>آزمون تعیین سطح</b><p>موقع رفتن به سطح بعد، آزمونی که برای خودت آماده شده با ارزیابی کتبی.</p></div></div>
+    <h3 class="sub-h">چطور شروع کنی؟</h3>
+    <div class="steps"><div class="step"><div><b>توی واتساپ پیام بده</b><p>هدف، سطح و ساعت‌های آزادت رو بگو.</p></div></div><div class="step"><div><b>گروهت رو پیدا می‌کنیم</b><p>با ۱ تا ۳ نفر هم‌سطح و هم‌هدف خودت.</p></div></div><div class="step"><div><b>کلاس شروع می‌شه</b><p>پنل باشگاه و نقشه‌ی راهت باز می‌شه.</p></div></div></div>
   </section>
 
-  <!-- OFFLINE -->
   <section class="sec" id="offline">
-    <p class="eyebrow">📱 آفلاین · با سرعت خودت</p>
-    <h2>دوره‌های پریمیوم داخل اپ</h2>
-    <p class="lead">داخل اپ FE، هر ساعتی که بخوای. فصل ۱ رایگانه، قبل از پرداخت امتحانش کن. پرداخت کارت‌به‌کارت از طریق واتساپه و رمز دوره همون روز می‌رسه.</p>
-
-    <div class="trust">
-      <div><b>فصل ۱</b><span>رایگان، اول امتحان کن</span></div>
-      <div><b>۱۲ ماه</b><span>دسترسی روی همه‌ی دستگاه‌ها</span></div>
-      <div><b>۷ روز</b><span>امکان برگشت پول</span></div>
-    </div>
-
-    <article class="card">
-      <span class="tag">«این بار مصاحبه‌کننده تویی.»</span>
-      <h3>انگلیسی منابع انسانی و کسب‌وکار</h3>
-      <p class="meta">۳۲ درس · ۸ فصل · حدود ۱۶ هفته</p>
-      <div class="price"><b>۴٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>نمونه‌کار ۷ بخشی استخدام (پروژه‌ی پایانی)</li>
-        <li>زبان آگهی شغلی، مصاحبه و بازخورد؛ کل زبان <span class="en">HR</span></li>
-        <li>گواهی <span class="en">FEschool</span></li>
-      </ul>
-      <a class="btn soft" data-msg="سلام فارین! می‌خوام دوره‌ی انگلیسی منابع انسانی و کسب‌وکار رو بخرم.">این دوره رو می‌خوام ←</a>
-    </article>
-
-    <article class="card star">
-      <span class="badge">هر ماه فقط ۱ جا</span>
-      <span class="tag">«۱۰ آزمون کامل؛ روز امتحان هیچ غافلگیری‌ای نیست.»</span>
-      <h3>آیلتس: ۱۰ آزمون کامل</h3>
-      <p class="meta">۱۰۰ درس · آکادمیک یا جنرال</p>
-      <div class="price"><b>۹٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>۱۰ آزمون کامل به ترتیب واقعی: لیسنینگ، ریدینگ، رایتینگ، اسپیکینگ</li>
-        <li>حدود ۲۰ رایتینگ که فارین خودش ظرف ۲ تا ۳ روز تصحیح می‌کنه</li>
-        <li>گواهی <span class="en">FEschool</span></li>
-      </ul>
-      <a class="btn wa" data-msg="سلام فارین! برای دوره‌ی آیلتس: ۱۰ آزمون کامل این ماه جا هست؟">این ماه جا هست؟ ←</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">«"خودت رو معرفی کن" دیگه نمی‌ترسونتت.»</span>
-      <h3>مصاحبه‌ی شغلی به انگلیسی</h3>
-      <p class="meta">۹ درس · ۳ فصل · حدود ۳ هفته</p>
-      <div class="price"><b>۲٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>یک مصاحبه‌ی تمرینی کامل، از اول تا آخر</li>
-        <li>بسته‌ی مصاحبه با جواب‌های خودت</li>
-        <li>گواهی <span class="en">FEschool</span></li>
-      </ul>
-      <a class="btn soft" data-msg="سلام فارین! می‌خوام دوره‌ی مصاحبه‌ی شغلی به انگلیسی رو بخرم.">این دوره رو می‌خوام ←</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">«ایده‌ت رو به انگلیسی بفروش.»</span>
-      <h3>انگلیسی برای بازاریابی</h3>
-      <p class="meta">۱۲ درس · ۳ فصل · حدود ۶ هفته</p>
-      <div class="price"><b>۳٬۴۹۰٬۰۰۰</b><span>تومان</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>بسته‌ی ۷ بخشی معرفی محصول (پروژه‌ی پایانی)</li>
-        <li>زبان کمپین، ارائه و برند</li>
-        <li>گواهی <span class="en">FEschool</span></li>
-      </ul>
-      <a class="btn soft" data-msg="سلام فارین! می‌خوام دوره‌ی انگلیسی برای بازاریابی رو بخرم.">این دوره رو می‌خوام ←</a>
-    </article>
-
-    <article class="card">
-      <span class="tag">«"نه" رو به "آره" تبدیل کن، به انگلیسی.»</span>
-      <h3>انگلیسی فروش و مدیریت مشتری</h3>
-      <p class="meta">۱۲ درس · ۴ فصل · حدود ۶ هفته</p>
-      <div class="price"><b>۳٬۴۹۰٬۰۰۰</b><span>تومان</span></div>
-      <ul class="get"><li class="h">آخرش چی به دست میاری</li>
-        <li>نمونه‌کار ۶ بخشی فروش (پروژه‌ی پایانی)</li>
-        <li>زبان پیشنهاد قیمت، اعتراض مشتری و مذاکره</li>
-        <li>گواهی <span class="en">FEschool</span></li>
-      </ul>
-      <a class="btn soft" data-msg="سلام فارین! می‌خوام دوره‌ی انگلیسی فروش و مدیریت مشتری رو بخرم.">این دوره رو می‌خوام ←</a>
-    </article>
+    <div class="sec-head"><p class="eyebrow">📱 آفلاین · با سرعت خودت</p><h2>دوره‌های پریمیوم داخل اپ</h2><p>داخل اپ FE، هر ساعتی که بخوای. هر دوره با یک نمونه‌کار واقعی تموم می‌شه.</p></div>
+    <h3 class="sub-h">توی هر دوره</h3>
+    <div class="perks"><div class="perk"><span class="pic">🆓</span><b>فصل ۱ رایگان</b><p>قبل از پرداخت، توی اپ امتحانش کن.</p></div><div class="perk"><span class="pic">💳</span><b>کارت‌به‌کارت، رمز همون روز</b><p>رسید رو بفرست، رمز شخصی دوره همون روز می‌رسه.</p></div><div class="perk"><span class="pic">📅</span><b>۱۲ ماه، همه‌ی دستگاه‌ها</b><p>روی هر دستگاهی که وارد بشی، از همون‌جا ادامه می‌دی.</p></div><div class="perk"><span class="pic">🌐</span><b>قطعی اینترنت؟</b><p>همون مدت به دسترسی‌ت اضافه می‌شه.</p></div><div class="perk"><span class="pic">🏁</span><b>نمونه‌کار + گواهی</b><p>پروژه‌ی پایانی که سر کار به کار می‌بری و گواهی FEschool.</p></div><div class="perk"><span class="pic">↩️</span><b>۷ روز برگشت پول</b><p>اگه غیر از فصل ۱ حداکثر ۲ درس باز کرده باشی، کل مبلغ برمی‌گرده.</p></div></div>
+    <div style="height:28px"></div>
+    <div class="courses">
+      <article class="course" style="--c:#7C5CFC">
+        <header>
+          <div class="ch-top"><span class="num">۰۱</span></div>
+          <span class="tag light">«این بار مصاحبه‌کننده تویی.»</span>
+          <h3>انگلیسی منابع انسانی و کسب‌وکار</h3>
+          <div class="chips"><span>۳۲ درس</span><span>۸ فصل</span><span>حدود ۱۶ هفته</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">برای کی</p><p>کارشناس‌های منابع انسانی، استخدام و سرپرست‌های تیم که به انگلیسی کار می‌کنن یا می‌خوان کار کنن.</p>
+            <p class="lh">چی یاد می‌گیری</p><p>۳۲ کار واقعی HR به انگلیسی: مصاحبه، آگهی استخدام، گفتگوی بازخورد، ایمیل‌های آیین‌نامه، جلسه‌ها، نامه‌های رسمی، جلسه‌های انضباطی و درخواست مرخصی.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">آخرش چی دستته</p>
+            <ol class="pieces"><li>آگهی استخدام</li><li>مصاحبه‌ی رفتاری</li><li>یادداشت مصاحبه + توصیه</li><li>ایمیل پیشنهاد کار</li><li>ایمیل عدم پذیرش</li><li>برنامه‌ی یک‌هفته‌ای ورود</li><li>نگاه از چشم متقاضی</li></ol>
+            <p class="fnote">یک چرخه‌ی کامل استخدام، ۷ کار واقعی.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>۴٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
+          <a class="btn soft" data-msg="سلام فرین! می‌خوام دوره‌ی انگلیسی منابع انسانی و کسب‌وکار رو بخرم." href="https://wa.me/905467615951">این دوره رو می‌خوام ←</a>
+        </footer>
+      </article>
+      <article class="course star" style="--c:#E8644A">
+        <header>
+          <div class="ch-top"><span class="num">۰۲</span><span class="badge">هر ماه فقط ۱ جا</span></div>
+          <span class="tag light">«۱۰ آزمون کامل؛ روز امتحان هیچ غافلگیری‌ای نیست.»</span>
+          <h3>آیلتس: ۱۰ آزمون کامل</h3>
+          <div class="chips"><span>۱۰ آزمون</span><span>۱۰۰ درس</span><span>آکادمیک + جنرال</span><span>حدود ۲۰ رایتینگ با تصحیح فرین</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">برای کی</p><p>هر کسی که برای تحصیل، کار یا مهاجرت آیلتس آکادمیک یا جنرال می‌ده. بهتره از B1 شروع کنی.</p>
+            <p class="lh">چی یاد می‌گیری</p><p>۱۰ آزمون کامل، بخش به بخش با قالب و زمان واقعی، و یک تکنیک برای هر بخش. لیسنینگ مثل امتحان واقعی فقط یک بار پخش می‌شه.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">آخرش چی دستته</p>
+            <ol class="pieces"><li>۱۰ آزمون کامل تمرینی</li><li>تکنیک برای هر بخش</li><li>حدود ۲۰ رایتینگ با تصحیح ۲ تا ۳ روزه‌ی فرین</li><li>نوشته‌های خودت کنار جواب‌های نمونه</li></ol>
+            <p class="fnote">هیچ دوره‌ای نمی‌تونه نمره رو تضمین کنه. این دوره تمرینش رو بهت می‌ده.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>۹٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
+          <a class="btn wa" data-msg="سلام فرین! برای دوره‌ی آیلتس: ۱۰ آزمون کامل این ماه جا هست؟" href="https://wa.me/905467615951">این ماه جا هست؟ ←</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#1F8FB0">
+        <header>
+          <div class="ch-top"><span class="num">۰۳</span></div>
+          <span class="tag light">«“خودت رو معرفی کن” دیگه نمی‌ترسونتت.»</span>
+          <h3>مصاحبه‌ی شغلی به انگلیسی</h3>
+          <div class="chips"><span>۹ درس</span><span>۳ فصل</span><span>حدود ۳ هفته</span><span>B1 به بالا</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">برای کی</p><p>هر کسی که به‌زودی مصاحبه‌ی شغلی به انگلیسی داره. هر جوابی که تمرین می‌کنی درباره‌ی شغل خودته.</p>
+            <p class="lh">چی یاد می‌گیری</p><p>معرفی خودت، گفتن نقطه‌ی قوت و ضعف با شاهد، تعریف تجربه‌های کاری و جواب دادن به پیشنهاد کار.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">آخرش چی دستته</p>
+            <ol class="pieces"><li>معرفی ۶۰ ثانیه‌ای</li><li>۱ نقطه‌ی قوت + ۱ ضعف با شاهد</li><li>۳ تجربه‌ی واقعی کاری</li><li>۳ سؤال برای پرسیدن</li><li>ایمیل تشکر</li><li>جواب به پیشنهاد کار</li><li>یک مصاحبه‌ی تمرینی کامل</li></ol>
+            <p class="fnote">پرونده‌ای که صبح روز مصاحبه بازش می‌کنی.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>۲٬۹۹۰٬۰۰۰</b><span>تومان</span></div>
+          <a class="btn soft" data-msg="سلام فرین! می‌خوام دوره‌ی مصاحبه‌ی شغلی به انگلیسی رو بخرم." href="https://wa.me/905467615951">این دوره رو می‌خوام ←</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#D64F86">
+        <header>
+          <div class="ch-top"><span class="num">۰۴</span></div>
+          <span class="tag light">«ایده‌ت رو به انگلیسی بفروش.»</span>
+          <h3>انگلیسی برای بازاریابی</h3>
+          <div class="chips"><span>۱۲ درس</span><span>۳ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">برای کی</p><p>بازاریاب‌هایی که برای بازارهای خارجی کار می‌کنن یا قراره شروع کنن.</p>
+            <p class="lh">چی یاد می‌گیری</p><p>بریف، متن محصول، شبکه‌های اجتماعی و گزارش نتایج. یاد می‌گیری پیش‌نویس‌های هوش مصنوعی رو بسنجی و درستشون کنی.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">آخرش چی دستته</p>
+            <ol class="pieces"><li>بریف خلاقانه</li><li>متن محصول</li><li>پست برای دو مخاطب</li><li>بازخورد روی یک پیش‌نویس</li><li>خلاصه‌ی نتایج</li><li>کیس استادی</li><li>بازتاب از نگاه مشتری</li></ol>
+            <p class="fnote">یک بسته‌ی واقعی ۷ بخشی معرفی محصول.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>۳٬۴۹۰٬۰۰۰</b><span>تومان</span></div>
+          <a class="btn soft" data-msg="سلام فرین! می‌خوام دوره‌ی انگلیسی برای بازاریابی رو بخرم." href="https://wa.me/905467615951">این دوره رو می‌خوام ←</a>
+        </footer>
+      </article>
+      <article class="course" style="--c:#3E9B6E">
+        <header>
+          <div class="ch-top"><span class="num">۰۵</span></div>
+          <span class="tag light">«“نه” رو به “آره” تبدیل کن، به انگلیسی.»</span>
+          <h3>انگلیسی فروش و مدیریت مشتری</h3>
+          <div class="chips"><span>۱۲ درس</span><span>۴ فصل</span><span>حدود ۶ هفته</span><span>B1 → B2</span></div>
+        </header>
+        <div class="c-body">
+          <div class="c-info">
+            <p class="lh">برای کی</p><p>کارکنان فروش، صادرات و خدمات مشتری که با مشتری خارجی حرف می‌زنن (از جمله انگلیسی بازرگانی).</p>
+            <p class="lh">چی یاد می‌گیری</p><p>معرفی محصول، اولین ایمیل، پیش‌فاکتور، جواب به اعتراض و شکایت مشتری.</p>
+          </div>
+          <div class="c-get">
+            <p class="lh">آخرش چی دستته</p>
+            <ol class="pieces"><li>معرفی محصولت</li><li>اولین ایمیل به مشتری جدید</li><li>پیش‌فاکتور قیمت</li><li>جواب به ۳ اعتراض</li><li>پاسخ به یک شکایت</li><li>بازتاب از نگاه مشتری</li></ol>
+            <p class="fnote">۶ کار واقعی که فردا می‌تونی برای مشتری بفرستی.</p>
+          </div>
+        </div>
+        <footer>
+          <div class="price"><b>۳٬۴۹۰٬۰۰۰</b><span>تومان</span></div>
+          <a class="btn soft" data-msg="سلام فرین! می‌خوام دوره‌ی انگلیسی فروش و مدیریت مشتری رو بخرم." href="https://wa.me/905467615951">این دوره رو می‌خوام ←</a>
+        </footer>
+      </article></div>
   </section>
 
   <section class="final">
     <h2>نمی‌دونی کدوم به تو می‌خوره؟</h2>
-    <p>هدفت رو توی یک پیام بنویس، با هم انتخاب می‌کنیم. جوابت رو خود فارین می‌ده.</p>
-    <a class="btn wa" data-msg="سلام فارین! کمکم می‌کنی ببینم کدوم کلاس یا دوره به من می‌خوره؟">💬 تو واتساپ پیام بده</a>
-    <span class="num">+90 546 761 59 51</span>
+    <p>هدفت رو توی یک پیام بنویس، با هم انتخاب می‌کنیم. جوابت رو خود فرین می‌ده.</p>
+    <a class="btn wa" data-msg="سلام فرین! کمکم می‌کنی ببینم کدوم کلاس یا دوره به من می‌خوره؟" href="https://wa.me/905467615951">💬 توی واتساپ پیام بده</a>
+    <span class="tel">+90 546 761 59 51</span>
   </section>
 
   <p class="foot">هنوز اپ رو نصب نکردی؟ <a href="/get/">از اینجا دانلودش کن</a> · <a href="/">FE School</a> 💛</p>
 </main>
+<div class="sticky"><a class="btn wa" data-msg="سلام فرین! کمکم می‌کنی ببینم کدوم کلاس یا دوره به من می‌خوره؟" href="https://wa.me/905467615951">💬 پیام در واتساپ</a></div>
 <script>
 (function(){
   var WA = "https://wa.me/905467615951";
