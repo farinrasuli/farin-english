@@ -424,14 +424,16 @@ function card(l, c, live, also) {
   else ctas = `<a class="btn btn-orange" data-loc="course-${c.key}" href="${APP}" ${ext}>${esc(c.cta[i])}</a>` +
     (c.noWa ? '' : `<a class="tlink" data-lead="course" data-course="${c.key}" href="${msg}" ${ext}>${esc(S.want[i])}</a>`);
   const price = live ? (l === 'fa' ? c.toman + '<small>تومان / هر جلسه</small>' : LIVE_PRICE[i]) : c.price[i];
-  const PACK = ['Ayda 4, 8 veya 12 ders, sen seç · 3 ayı tek seferde öde, %20 indirim (8 ve 12 derslik paketlerde)', '4, 8 or 12 lessons a month, your choice · Pay 3 months at once, get 20% off (8- and 12-lesson packs)'];
-  const trLive = live && l !== 'fa' ? `<p class="split">${esc(PACK[i])}</p>` : '';
-  const faLive = live && l === 'fa' ? `<p class="split">پرداخت ماهانه · هر جلسه ۵۰ دقیقه<br>۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت · پرداخت یک‌جای ۳ ماه = ۲۰٪ تخفیف (برای بسته‌های ۸ و ۱۲ جلسه‌ای)</p><p class="split">هزینه‌ی هر جلسه بین اعضای گروه تقسیم می‌شود؛ مثلاً با ۴ نفر، نفری ${c.each} تومان.</p><p class="gift">${ic('gift')}<span><b>هدیه:</b> جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.</span></p>` : '';
+  const PACK = ['Aylık · 50 dk · ayda 4, 8 veya 12 ders · 3 ay peşin: 8 ve 12 derslik paketlerde %20 indirim', 'Monthly · 50 min · 4, 8 or 12 lessons a month · Pay 3 months upfront: 20% off the 8- and 12-lesson packs'];
+  const note = (icon, html, cls = '') => `<li${cls ? ` class="${cls}"` : ''}>${ic(icon)}<span>${html}</span></li>`;
+  const liveNotes = !live ? '' : l === 'fa'
+    ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه بین اعضای گروه تقسیم می‌شود؛ با ۴ نفر، نفری ${c.each} تومان`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
+    : `<ul class="lnotes">${note('cal', esc(PACK[i]))}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>` : '';
   const alsoRow = also ? `<div class="also"><b>${esc(S.also[i])}: <a href="#kurs-${also[0]}">${esc(also[1][i])}</a></b><span>${esc(also[2][i])}</span></div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
-        <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${trLive}${faLive}
+        <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
         <div class="ctas">${ctas}</div>${more}</div>${alsoRow}`;
 }
 

@@ -296,9 +296,12 @@ footer.site .tag{font-family:var(--hand);font-size:1.5rem;color:var(--purple-ink
 
 /* ===== v5: one-path result + group split note ===== */
 .paths.one{grid-template-columns:minmax(0,640px);justify-content:center}
-.gift{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;font-weight:600;color:var(--green-ink);background:var(--green-soft);border-radius:12px;padding:10px 13px}
-.gift svg{width:20px;height:20px;flex:none;margin-top:3px}
-.split{font-size:.88rem;font-weight:700;color:var(--purple-ink);background:var(--purple-soft);border-radius:12px;padding:9px 13px}
+.lnotes{list-style:none;margin:4px 0 0;padding:0 4px;display:grid;gap:11px}
+.lnotes li{display:flex;gap:10px;align-items:flex-start;font-size:.88rem;font-weight:600;line-height:1.55;color:var(--muted)}
+.lnotes svg{width:18px;height:18px;flex:none;margin-top:2px;color:var(--purple-ink)}
+.lnotes li.g{color:var(--green-ink)}
+.lnotes li.g svg{color:var(--green-ink)}
+.lnotes b{font-weight:800}
 /* ===== v3: language switch + Persian (RTL) ===== */
 .langs{display:flex;gap:2px;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:4px;box-shadow:var(--shadow)}
 .langs a{font:inherit;text-decoration:none;font-weight:900;font-size:.82rem;border:0;background:transparent;color:var(--muted);border-radius:99px;padding:6px 11px;cursor:pointer;line-height:1.2}

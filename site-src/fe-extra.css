@@ -79,6 +79,5 @@ footer.site .f-cols a:hover{color:var(--ink)}
   .hero::after{width:170px;height:170px;right:-80px;top:-80px}
   [dir="rtl"] .hero::after{right:auto;left:-80px}
 }
-.split+.split{margin-top:-4px}
 @media (max-width:700px){.st{padding-left:56px}[dir="rtl"] .st{padding-left:0;padding-right:56px}}
 .langs a[lang="fa"]{font-family:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;font-size:.95rem}
