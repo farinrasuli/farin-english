@@ -189,7 +189,7 @@ const GOALS = {
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['1 Aralık\'ta satışta', 'On sale 1 Dec', 'فروش از ۱۰ آذر']], ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
-      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['25 Ocak · ₺1.290', '25 Jan · ₺1,290', 'از ۵ بهمن · ۲٬۹۹۰٬۰۰۰ تومان']],
       [null, ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی برای بازاریابی'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۴۹۰٬۰۰۰ تومان']],
       [null, ['Satış ve Müşteri Yönetimi İngilizcesi', 'Sales & Customer Management English', 'انگلیسی فروش و مدیریت مشتری'], ['15 Mart · ₺1.690', '15 Mar · ₺1,690', 'از ۲۴ اسفند · ۳٬۸۰۰٬۰۰۰ تومان']]] },
@@ -198,14 +198,14 @@ const GOALS = {
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
       price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['4 Ocak\'ta satışta', 'On sale 4 Jan', 'فروش از ۱۴ دی']], ['free', ['Sınav 1\'in ilk yarısı ücretsiz', 'First half of Exam 1 free', 'نیمه‌ی اول آزمون ۱ رایگان']]],
-      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
     self: { key: 'interview', name: ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'],
       for: ['En sık sorulan sorular ve güçlü cevaplar.', 'The most common questions and strong answers.', 'رایج‌ترین سؤال‌ها و جواب‌های قوی.'],
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma', 'Introducing yourself', 'معرفی خودت'], OWN],
       price: ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [['soon', ['25 Ocak\'ta satışta', 'On sale 25 Jan', 'فروش از ۵ بهمن']]],
-      cta: ['Açılınca haber ver', 'Tell me when it opens', 'وقتی باز شد خبرم کن'], notify: true, more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'] },
+      cta: ['Açılınca haber ver', 'Tell me when it opens', 'وقتی باز شد خبرم کن'], notify: true, more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'] },
     live: 'biz', also: [['is', ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'], ['1 Aralık · ₺3.490', '1 Dec · ₺3,490', 'از ۱۰ آذر · ۴٬۹۹۰٬۰۰۰ تومان']]] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
@@ -378,9 +378,11 @@ ${ICONS}
 function footer(l) {
   const i = LANGS[l].i, tr = l === 'tr' ? '' : ' hreflang="tr"';
   const guide = l === 'tr' ? `<div><h4>${S.fcGuide[i]}</h4>
-      <a href="/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">Öğrenme planı nasıl kurulur?</a>
+      <a href="/blog/insan-kaynaklari-ingilizcesi.html">İK İngilizcesi terimleri</a>
+      <a href="/blog/ielts-writing-task-2-puanlama.html">IELTS Writing puanlama</a>
+      <a href="/blog/online-ingilizce-ozel-ders-fiyatlari.html">Özel ders fiyatları</a>
       <a href="/blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği</a>
-      <a href="/blog/hedefe-gore-ingilizce-ogrenmek.html">Hedefe göre öğrenmek</a>
+      <a href="/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">Öğrenme planı nasıl kurulur?</a>
       <a href="/blog/">${S.blog[i]}</a></div>` : '';
   return `</main>
 <footer class="site"><div class="wrap">
@@ -391,7 +393,7 @@ function footer(l) {
       <a href="/ielts-hazirlik.html"${tr}>${S.fIelts[i]}</a>
       <a href="/english.html"${tr}>${S.fEn[i]}</a>
       <a href="/spanish.html"${tr}>${S.fEs[i]}</a>
-      <a href="/german.html"${tr}>${S.fDe[i]}</a>${l === 'tr' ? '' : `\n      <a href="/blog/"${tr}>${S.blog[i]}</a>`}</div>
+      <a href="/german.html"${tr}>${S.fDe[i]}</a>${l === 'tr' ? '' : `\n      <a href="/blog/"${tr}>${S.blog[i]}</a>`}${l === 'fa' ? `\n      <a href="/fa/blog/">وبلاگ فارسی</a>` : ''}</div>
     <div><h4>${S.fcSchool[i]}</h4>
       <a href="${url(l, 'home')}">${S.nav1[i]}</a>
       <a href="${url(l, 'app')}">${S.nav2[i]}</a>
@@ -431,7 +433,8 @@ function card(l, c, live, also) {
   const liveNotes = !live ? '' : l === 'fa'
     ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه‌ی بسته بین اعضای گروه (۱ تا ۴ نفر) تقسیم می‌شود`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
-  const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>` : '';
+  const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>`
+    : l === 'fa' && c.moreFa ? `<a class="tlink more" href="${c.moreFa[0]}">${esc(c.moreFa[1])}</a>` : '';
   /* also = list of [panel anchor or null, name x3, 'date · price' x3]; one row per course, one 'Also' label */
   const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(a[2][i])}</span></div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
