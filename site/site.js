@@ -111,7 +111,7 @@
 (function(){
 "use strict";
 
-var WHATSAPP_NUMBER = '905455783260';
+var WHATSAPP_NUMBER = '905467615951';
 var LANG = window.FARIN_LANG || null;
 
 function waLink(text){
