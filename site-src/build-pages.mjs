@@ -152,7 +152,7 @@ fa_1:['Evet. Yol haritası, oyunlar ve dersler ücretsiz. Sadece premium kurslar
 fq2:['Kursu nasıl alırım?','How do I get a course?','دوره را چطور بخرم؟'],
 fa_2:['İlk bölümü uygulamada ücretsiz dene. Devam etmek istersen WhatsApp\'tan yaz, kursun şifresini gönderirim.','Try the first chapter free in the app. If you want to continue, message me on WhatsApp and I\'ll send you the course password.','فصل اول را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، در واتس‌اپ پیام بده تا رمز دوره را برایت بفرستم.'],
 fq3:['Birebir ders nasıl işliyor?','How do 1-to-1 lessons work?','کلاس آنلاین چطور است؟'],
-fa_3:['Online, sadece sen ve Farin. İlk ders ücretsiz, sonrası ders başına ₺830\'dan. Ayda 4, 8 veya 12 ders, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim.','Online, just you and Farin. The first lesson is free, then from ₺830 per lesson. 4, 8 or 12 lessons a month, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. هر جلسه‌ی کلاس تجاری ۴٬۵۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ۳٬۵۰۰٬۰۰۰ تومان است و هزینه بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
+fa_3:['Online, sadece sen ve Farin. İlk ders ücretsiz, sonrası aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim.','Online, just you and Farin. The first lesson is free, then a monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
 tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not because you have to learn, but because you have somewhere to go.','نه چون باید یاد بگیری؛ چون جایی برای رفتن داری.'],
 blog:['Blog','Blog (Turkish)','وبلاگ (ترکی)'],
 also:['Ayrıca','Also','همچنین'],want:['Bu kursu istiyorum','I want this course','این دوره را می‌خواهم'],
@@ -167,7 +167,7 @@ rights:['FE School. Tüm hakları saklıdır.','FE School. All rights reserved.'
 };
 
 const WAMSG = [n => `Merhaba Farin! "${n}" ile ilgileniyorum.`, n => `Hi Farin! I'm interested in "${n}".`, n => `سلام فرین! به «${n}» علاقه دارم.`];
-const LIVE_PRICE = ['₺830<small>\'dan / ders</small>', '<small style="margin:0 4px 0 0">from</small>₺830<small>/ lesson</small>', null];
+const LIVE_PRICE = ['₺3.400<small>\'dan / ay</small>', '<small style="margin:0 4px 0 0">from</small>₺3,400<small>/ month</small>', null];
 const FREE1 = ['İlk ders ücretsiz', 'First lesson free', '۱ تا ۴ نفر'];
 const BOOK = ['Ücretsiz ilk dersini ayarla', 'Book your free first lesson', 'رزرو کلاس'];
 const OWN = ['Kendi hızında, uygulamada', 'At your own pace, in the app', 'با سرعت خودت، داخل اپ'];
@@ -177,11 +177,11 @@ const LIVES = {
   biz: { key: 'business-live', name: ['Birebir İş İngilizcesi', 'Business English 1-to-1', 'کلاس انگلیسی تجاری'],
     for: ['Senin işin ve senin toplantıların üzerine kurulur.', 'Built around your job and your meetings.', 'بر اساس کار و جلسه‌های کاری خودت ساخته می‌شود.'],
     outs: [['Konuşma ağırlıklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Sektörüne göre içerik, mülakat provası dahil', 'Content for your industry, interview practice included', 'محتوا بر اساس حوزه‌ی کاری، همراه با تمرین مصاحبه'], ['Esnek saatler', 'Flexible hours', 'ساعت‌های منعطف']],
-    toman: '۴٬۵۰۰٬۰۰۰', each: '۱٬۱۲۵٬۰۰۰', more: ['/is-ingilizcesi.html#ders', 'İş İngilizcesi dersleri →'] },
+    toman: '۴٬۵۰۰٬۰۰۰', month: '۱۸٬۰۰۰٬۰۰۰', each: '۱٬۱۲۵٬۰۰۰', more: ['/is-ingilizcesi.html#ders', 'İş İngilizcesi dersleri →'] },
   gen: { key: 'general-live', name: ['Birebir genel İngilizce', 'General English 1-to-1', 'کلاس انگلیسی عمومی شخصی‌سازی‌شده'],
     for: ['Ders tamamen senin hedefine ve ilgi alanına göre.', 'Lessons built entirely on your goal and interests.', 'کلاس کاملاً بر اساس هدف و علاقه‌های خودت.'],
     outs: [['Konuşma odaklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Senin konuların', 'Your topics', 'موضوع‌های خودت'], ['İspanyolca ve Almanca da var', 'Spanish and German too', 'اسپانیایی و آلمانی هم هست']],
-    toman: '۳٬۵۰۰٬۰۰۰', each: '۸۷۵٬۰۰۰', more: ['/english.html#paketler', 'Online İngilizce özel ders →'] },
+    toman: '۳٬۵۰۰٬۰۰۰', month: '۱۴٬۰۰۰٬۰۰۰', each: '۸۷۵٬۰۰۰', more: ['/english.html#paketler', 'Online İngilizce özel ders →'] },
 };
 const GOALS = {
   is: { img: 'char-career', c: '--g-career', title: ['İş ve kariyer', 'Work & career', 'کار و شغل'], label: 'gIs', sub: 'gIsS',
@@ -423,11 +423,11 @@ function card(l, c, live, also) {
   else if (c.notify) ctas = `<a class="btn btn-ghost" data-lead="course" data-course="${c.key}" href="${msg}" ${ext}>${esc(c.cta[i])}</a>`;
   else ctas = `<a class="btn btn-orange" data-loc="course-${c.key}" href="${APP}" ${ext}>${esc(c.cta[i])}</a>` +
     (c.noWa ? '' : `<a class="tlink" data-lead="course" data-course="${c.key}" href="${msg}" ${ext}>${esc(S.want[i])}</a>`);
-  const price = live ? (l === 'fa' ? c.toman + '<small>تومان / هر جلسه</small>' : LIVE_PRICE[i]) : c.price[i];
+  const price = live ? (l === 'fa' ? c.month + '<small>تومان در ماه، از بسته‌ی ۴ جلسه‌ای</small>' : LIVE_PRICE[i]) : c.price[i];
   const PACK = ['Aylık · 50 dk · ayda 4, 8 veya 12 ders · 3 ay peşin: 8 ve 12 derslik paketlerde %20 indirim', 'Monthly · 50 min · 4, 8 or 12 lessons a month · Pay 3 months upfront: 20% off the 8- and 12-lesson packs'];
   const note = (icon, html, cls = '') => `<li${cls ? ` class="${cls}"` : ''}>${ic(icon)}<span>${html}</span></li>`;
   const liveNotes = !live ? '' : l === 'fa'
-    ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه بین اعضای گروه تقسیم می‌شود؛ با ۴ نفر، نفری ${c.each} تومان`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
+    ? `<ul class="lnotes">${note('cal', 'ماهانه · جلسه‌ی ۵۰ دقیقه · ۴، ۸ یا ۱۲ جلسه در ماه · ۳ ماه یک‌جا: ۲۰٪ تخفیف (بسته‌ی ۸ و ۱۲)')}${note('users', `هزینه‌ی بسته بین اعضای گروه (۱ تا ۴ نفر) تقسیم می‌شود`)}${note('gift', '<b>هدیه:</b> بعد از پرداخت، یک جلسه‌ی تحلیل رایگان (تعیین سطح و هدف، ساخت نقشه‌ی راهت)، جدا از جلسه‌های بسته', 'g')}</ul>`
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>` : '';
   const alsoRow = also ? `<div class="also"><b>${esc(S.also[i])}: <a href="#kurs-${also[0]}">${esc(also[1][i])}</a></b><span>${esc(also[2][i])}</span></div>` : '';
