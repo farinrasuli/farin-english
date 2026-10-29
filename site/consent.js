@@ -11,6 +11,14 @@
 var GA_ID = 'G-T2E9FFH861';
 var KEY = 'fe_analytics_consent';           // 'granted' | 'denied'
 var POLICY_URL = '/gizlilik-politikasi.html';
+/* 2026-10-29: banner text follows <html lang> (tr default; en and fa pages exist since the redesign). */
+var LANG = (document.documentElement.lang || 'tr').slice(0,2);
+var T = {
+  tr: { aria:'Çerez tercihleri', title:'Çerezler ve gizlilik.', body:'Bu site, ziyaretçi istatistiklerini anlamak için Google Analytics çerezleri kullanır. Kabul etmezsen hiçbir analitik çerez kullanılmaz ve site aynı şekilde çalışır.', policy:'Gizlilik politikası', accept:'Kabul et', reject:'Reddet', link:'Çerez tercihleri' },
+  en: { aria:'Cookie preferences', title:'Cookies and privacy.', body:'This site uses Google Analytics cookies to understand visitor statistics. If you decline, no analytics cookies are used and the site works the same.', policy:'Privacy policy (Turkish)', accept:'Accept', reject:'Decline', link:'Cookie preferences' },
+  fa: { aria:'تنظیمات کوکی', title:'کوکی‌ها و حریم خصوصی.', body:'این سایت برای فهم آمار بازدیدکننده‌ها از کوکی‌های Google Analytics استفاده می‌کند. اگر قبول نکنی، هیچ کوکی تحلیلی استفاده نمی‌شود و سایت همان‌طور کار می‌کند.', policy:'سیاست حریم خصوصی (ترکی)', accept:'قبول', reject:'رد', link:'تنظیمات کوکی' }
+}[LANG] || null;
+if (!T) T = { aria:'Çerez tercihleri', title:'Çerezler ve gizlilik.', body:'Bu site, ziyaretçi istatistiklerini anlamak için Google Analytics çerezleri kullanır. Kabul etmezsen hiçbir analitik çerez kullanılmaz ve site aynı şekilde çalışır.', policy:'Gizlilik politikası', accept:'Kabul et', reject:'Reddet', link:'Çerez tercihleri' };
 
 function read(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
 function write(v){ try { localStorage.setItem(KEY, v); } catch(e){} }
@@ -81,14 +89,13 @@ function showBanner(){
   el.id = 'feConsent';
   el.className = 'fe-consent';
   el.setAttribute('role', 'region');
-  el.setAttribute('aria-label', 'Çerez tercihleri');
+  el.setAttribute('aria-label', T.aria);
   el.innerHTML =
-    '<p><strong>Çerezler ve gizlilik.</strong> Bu site, ziyaretçi istatistiklerini anlamak için Google Analytics çerezleri kullanır. ' +
-    'Kabul etmezsen hiçbir analitik çerez kullanılmaz ve site aynı şekilde çalışır. ' +
-    '<a href="' + POLICY_URL + '">Gizlilik politikası</a></p>' +
+    '<p><strong>' + T.title + '</strong> ' + T.body + ' ' +
+    '<a href="' + POLICY_URL + '">' + T.policy + '</a></p>' +
     '<div class="fe-consent-row">' +
-      '<button type="button" class="fe-accept">Kabul et</button>' +
-      '<button type="button" class="fe-reject">Reddet</button>' +
+      '<button type="button" class="fe-accept">' + T.accept + '</button>' +
+      '<button type="button" class="fe-reject">' + T.reject + '</button>' +
     '</div>';
   el.querySelector('.fe-accept').addEventListener('click', function(){ write('granted'); closeBanner(); loadGA(); });
   el.querySelector('.fe-reject').addEventListener('click', function(){ write('denied'); closeBanner(); clearGACookies(); });
@@ -101,7 +108,7 @@ function addFooterLink(){
   var b = document.createElement('button');
   b.type = 'button';
   b.className = 'fe-cookie-link';
-  b.textContent = 'Çerez tercihleri';
+  b.textContent = T.link;
   b.addEventListener('click', showBanner);
   bottom.appendChild(b);
 }

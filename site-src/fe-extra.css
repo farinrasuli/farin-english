@@ -1,0 +1,84 @@
+
+/* ===== multipage build additions (2026-10-29) ===== */
+html,body{overflow-x:clip}
+.skip{position:absolute;left:12px;top:8px;transform:translateY(-300%);z-index:50;background:var(--ink);color:#fff;padding:10px 16px;border-radius:99px;font-weight:800;text-decoration:none}
+.skip:focus{transform:none}
+[dir="rtl"] .skip{left:auto;right:12px}
+img{max-width:100%;height:auto}
+
+/* goal result panels: one visible at a time. No JS = the "on" panel (İş ve kariyer) plus #hash targets. */
+.gres{display:none}
+.gres.on{display:block;animation:fadeIn .35s ease}
+html:not(.js) .result:has(.gres:target) .gres.on:not(:target){display:none}
+html:not(.js) .gres:target{display:block}
+html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="is"],
+html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="is"],
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"]{box-shadow:0 2px 0 rgba(0,0,0,.08),0 18px 30px -18px rgba(0,0,0,.5);transform:none}
+html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="is"] .tick,
+html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="is"] .tick,
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"] .tick{opacity:0}
+html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="ielts"],
+html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="mulakat"],
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"]{box-shadow:0 0 0 4px var(--orange),0 22px 40px -18px rgba(0,0,0,.55);transform:translateY(-4px)}
+html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="ielts"] .tick,
+html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="mulakat"] .tick,
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"] .tick{opacity:1;transform:scale(1)}
+@keyframes fadeIn{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+.gres{scroll-margin-top:90px}
+.also a{color:inherit;text-decoration:none;border-bottom:2px solid color-mix(in srgb,var(--purple) 30%,transparent)}
+.also a:hover{border-color:var(--purple)}
+.more{font-size:.9rem}
+
+/* app page: games */
+.games{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+@media (max-width:960px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.games{gap:12px}.fcard{padding:10px 10px 16px;border-radius:22px}.fcard .scr{padding:10px 10px 0}}
+.fcard p{color:var(--muted);font-size:.92rem;font-weight:600}
+.gmore{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:4px 24px}
+.gmore details{border:0;padding:16px 0}
+.gmore ul{list-style:none;margin:14px 0 4px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 22px}
+@media (max-width:800px){.gmore ul{grid-template-columns:1fr}}
+.gmore li{font-weight:600;color:var(--muted);font-size:.95rem}
+.gmore li b{display:block;color:var(--ink);font-family:var(--display);font-weight:600;font-size:1.05rem}
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,260px));justify-content:center;gap:clamp(18px,4vw,48px)}
+@media (max-width:520px){.compare{gap:12px}}
+.compare figure{margin:0;display:grid;gap:12px;justify-items:center;min-width:0}
+.compare .ph{width:100%;border-radius:30px;padding:8px}
+.compare .ph img{border-radius:22px;aspect-ratio:600/1000}
+.compare .ph:nth-child(n){transform:none}
+.compare figcaption{font-weight:900;background:var(--card);border:1px solid var(--line);border-radius:99px;padding:6px 14px;font-size:.88rem}
+
+/* footer */
+footer.site .f-top{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;width:100%}
+footer.site .f-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px;width:100%;margin-top:18px}
+@media (max-width:800px){footer.site .f-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+footer.site .f-cols div{display:flex;flex-direction:column;gap:6px;min-width:0}
+footer.site .f-cols h4{margin:0 0 4px;font-size:.72rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink)}
+html[lang="fa"] footer.site .f-cols h4{letter-spacing:0;font-size:.85rem}
+footer.site .f-cols a{font-weight:700;text-decoration:none;color:var(--muted);font-size:.92rem}
+footer.site .f-cols a:hover{color:var(--ink)}
+.footer-bottom{width:100%;margin-top:18px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.85rem;font-weight:700;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.fe-cookie-link{margin-left:0!important}
+.fe-consent{font-family:var(--body)!important}
+
+/* small screens: header + hero tidy */
+@media (max-width:480px){
+  header.site .wrap{gap:10px}
+  .langs a{padding:6px 9px}
+  .hero{border-radius:28px}
+  .goals{gap:10px}
+  .goal{padding:10px 10px 14px;border-radius:20px}
+  .goal .art{height:92px}
+  .goal .art img{height:100px}
+  .goal strong{font-size:1.02rem}
+  .course,.p-top{padding-inline:18px}
+  .also{margin-inline:18px}
+  .pills{margin-left:0}
+}
+@media (max-width:600px){
+  .hero::after{width:170px;height:170px;right:-80px;top:-80px}
+  [dir="rtl"] .hero::after{right:auto;left:-80px}
+}
+.split+.split{margin-top:-4px}
+@media (max-width:700px){.st{padding-left:56px}[dir="rtl"] .st{padding-left:0;padding-right:56px}}
+.langs a[lang="fa"]{font-family:"Vazirmatn",Tahoma,"Segoe UI",sans-serif;font-size:.95rem}

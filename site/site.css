@@ -1173,3 +1173,7 @@ body.v4 .v-fgame h3{ font-size:clamp(1.7rem,1.8vw + 1rem,2.5rem); margin:14px 0 
 .v-rel-title{ font-family:var(--v-round); font-weight:600; font-size:1.12rem; line-height:1.3; flex:1; }
 .v-rel-more{ font-weight:800; color:var(--v-coral-ink); font-size:.95rem; }
 @media (max-width:860px){ .v-related{ grid-template-columns:1fr; gap:12px; } .v-rel{ padding:18px; } }
+
+/* 2026-10-29: two-plan grid (ielts-hazirlik: free Exam 1 + full course), centred */
+.pricing-grid.pricing-two{ grid-template-columns:repeat(2,minmax(0,320px)); justify-content:center; }
+@media (max-width:600px){ .pricing-grid.pricing-two{ grid-template-columns:1fr; } }

@@ -4,6 +4,7 @@ Allow: /
 # the site folder but are not meant for search results.
 Disallow: /*.md$
 Disallow: /keyword-research/
+Disallow: /site-src/
 # Cloudflare Email Obfuscation rewrites mailto: links to /cdn-cgi/l/email-protection,
 # which returns 404 to crawlers. Not content; keep it out of crawl stats.
 Disallow: /cdn-cgi/l/
