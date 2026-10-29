@@ -66,6 +66,22 @@ The site now leads with the app (best learning techniques, games, personalizatio
 
 ---
 
+### 2c. Keyword map v3: sprint 2026-10-29 (winnable long-tail, TR + FA)
+
+Rule: a new small domain should target queries where page 1 is thin or off-language. These are not head terms. Evidence is a WebSearch SERP look on 2026-10-29 (directional, not Google TR/IR SERPs, no volumes).
+
+| Page | Primary query | SERP evidence | Feeds |
+|---|---|---|---|
+| `/blog/ielts-writing-task-2-puanlama.html` | ielts writing task 2 puanlama (değerlendirme kriterleri) | IDP, ielts.international, 3d-universal, foreign pages; few TR articles | `/ielts-hazirlik.html#ielts-kursu` |
+| `/blog/ielts-general-training-mektup.html` | ielts general training mektup (writing task 1) | IDP TR, 3d-universal, ielts.international | `/ielts-hazirlik.html#ielts-kursu` |
+| `/fa/blog/estelahat-manabe-ensani-englisi.html` | اصطلاحات منابع انسانی به انگلیسی | abadis dictionary, FAO, English pages: **no Persian article** | `/fa/#kurs-is` (HR course) |
+| `/fa/blog/moarefi-khod-mosahebe-englisi.html` | معرفی خود در مصاحبه کاری به انگلیسی | only English pages (resumelab, flexjobs…) | `/fa/#kurs-mulakat` |
+| `/fa/blog/nameh-nevisi-ielts-general.html` | نامه نویسی آیلتس جنرال | only IDP pages | `/fa/#kurs-ielts` |
+| `/blog/is-ingilizcesi-mulakat-sorulari.html` (retitled) | ingilizce mülakat soruları ve cevapları | job portals (yenibiris, kariyer, secretcv): hard; GSC already shows it at pos 69–77 | `/is-ingilizcesi.html` |
+| `/is-ingilizcesi.html` (retitled) | online iş ingilizcesi kursu | seen in GSC (1 impr, pos 80) | HR course + classes |
+
+Not chased (owned by big players): "online ingilizce özel ders fiyatları" (armut.com city pages fill the SERP; marketplaces are the lever there, see LINK-BUILDING §F3), "iş görüşmesinde ingilizce kendini tanıtma" (TR job portals). hreflang pairs: TR HR ↔ FA HR post, TR GT letter ↔ FA GT letter.
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
