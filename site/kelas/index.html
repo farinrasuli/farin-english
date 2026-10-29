@@ -105,6 +105,10 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
 .price span{color:var(--muted);font-weight:700;font-size:.88rem}
 .price s{color:var(--muted);font-size:1rem}
 .price em{font-style:normal;font-weight:800;font-size:.78rem;color:var(--green-ink);background:var(--green-soft);padding:3px 9px;border-radius:999px}
+.banner{display:flex;gap:14px;align-items:center;background:var(--orange-soft);border:2px solid var(--orange);border-radius:20px;padding:16px 18px;margin-bottom:22px}
+.banner>span{font-size:2rem;line-height:1}
+.banner b{display:block;font-size:1.12rem;line-height:1.4;color:var(--orange-ink)}
+.banner p{font-size:.92rem;color:var(--ink);margin-top:2px}
 .split{background:var(--green-soft);border-radius:16px;padding:12px;margin:-4px 0 16px}
 .split p{font-size:.82rem;font-weight:800;color:var(--green-ink);margin-bottom:8px}
 .split>div{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
@@ -179,9 +183,9 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
     <div>
       <span class="pill">کلاس‌های پریمیوم</span>
       <h1>انگلیسی، این بار<br><span>با نقشه.</span></h1>
-      <p class="sub">کلاس زنده با فرین، یا دوره‌های داخل اپ که با سرعت خودت جلو می‌ری. توی هر دوتاش خبری از حفظ کردن نیست: یک مسیر بر اساس هدف خودت، کلاس‌هایی که با حرف زدن جلو می‌ره و بازی‌هایی که فاصله‌ی بین جلسه‌ها رو پر می‌کنه.</p>
+      <p class="sub">کلاس زنده با فرین که با دوست‌هات می‌گیری و هزینه‌ش رو بین خودتون تقسیم می‌کنید، یا دوره‌های داخل اپ که با سرعت خودت جلو می‌ری. توی هر دوتاش خبری از حفظ کردن نیست: یک مسیر بر اساس هدف خودت، کلاس‌هایی که با حرف زدن جلو می‌ره و بازی‌هایی که فاصله‌ی بین جلسه‌ها رو پر می‌کنه.</p>
     </div>
-    <div class="paths"><a class="path" href="#online"><span class="ic">🎥</span><b>آنلاین</b><small>کلاس زنده با فرین، با ۲ تا ۴ دوستت</small><em>هزینه رو با هم تقسیم کنید</em></a><a class="path" href="#offline"><span class="ic">📱</span><b>آفلاین</b><small>داخل اپ، هر ساعتی که بخوای</small><em>فصل ۱ رایگان</em></a></div>
+    <div class="paths"><a class="path" href="#online"><span class="ic">🎥</span><b>آنلاین</b><small>با ۲ تا ۴ دوستت بیا، هزینه بین شما تقسیم می‌شه</small><em>از نفری ۸۷۵٬۰۰۰ تومان</em></a><a class="path" href="#offline"><span class="ic">📱</span><b>آفلاین</b><small>داخل اپ، هر ساعتی که بخوای</small><em>فصل ۱ رایگان</em></a></div>
     <div class="facts"><p class="fn">اپ FE توی جیب هر شاگرد</p><div><b>A1 → C1</b><span>همه‌ی سطح‌ها</span></div><div><b>۱۴</b><span>بازی</span></div><div><b>۷۵</b><span>داستان</span></div><div><b>۵</b><span>مسیر هدف</span></div></div>
   </section>
 
@@ -195,22 +199,23 @@ h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1.35;text-wrap:b
 
   <section class="sec" id="online">
     <div class="sec-head"><p class="eyebrow">🎥 آنلاین · زنده</p><h2>با دوستات بیا، هزینه رو تقسیم کن</h2><p>کلاس زنده‌ی آنلاین با فرین، رودررو و تصویری. ۲ تا ۴ نفر از دوست‌ها، همکارها یا اعضای خانواده‌ت رو جمع کن و هزینه‌ی هر جلسه رو بین خودتون تقسیم کنید. هر جلسه ۵۰ دقیقه و بیشترش حرف زدن؛ ساعتش رو با هم هماهنگ می‌کنیم.</p></div>
+    <div class="banner"><span>👥</span><div><b>قیمت هر جلسه برای کل گروهه، نه برای هر نفر.</b><p>۲ تا ۴ نفر با هم میاید و هزینه رو بین خودتون تقسیم می‌کنید. هر چی تعدادتون بیشتر، سهم هر نفر کمتر.</p></div></div>
     <div class="packs">
       <article class="pk" style="--c:#1F8FB0">
-        <header><div><h3>کلاس انگلیسی عمومی</h3><p>۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p></div></header>
+        <header><div><h3>کلاس انگلیسی عمومی</h3><p>با ۲ تا ۴ دوستت · هزینه تقسیم بین شما · جلسه‌ی ۵۰ دقیقه‌ای</p></div></header>
         <div class="pk-body">
           <span class="tag">«حفظ نکن، حرف بزن.»</span>
-          <div class="price"><b>۳٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه برای کل گروه</span></div><div class="split"><p>سهم هر نفر وقتی هزینه رو تقسیم می‌کنید:</p><div><span><small>۲ نفر</small><b>۱٬۷۵۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۳ نفر</small><b>۱٬۱۶۷٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۴ نفر</small><b>۸۷۵٬۰۰۰</b><i>تومان / نفر</i></span></div></div>
+          <div class="price"><b>۳٬۵۰۰٬۰۰۰</b><span>تومان هر جلسه، برای کل گروه</span></div><div class="split"><p>👥 تقسیم بین شما؛ سهم هر نفر:</p><div><span><small>۲ نفر</small><b>۱٬۷۵۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۳ نفر</small><b>۱٬۱۶۷٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۴ نفر</small><b>۸۷۵٬۰۰۰</b><i>تومان / نفر</i></span></div></div>
           <p class="lh">توی هر جلسه</p>
           <ul class="ticks"><li>کلاس با دوست‌های خودت؛ راحت حرف می‌زنی، بدون خجالت</li><li>۵۰ دقیقه حرف زدن واقعی، نه جزوه خوندن</li><li>بازخورد مستقیم فرین روی اشتباه‌هات</li><li>سفر، مهاجرت، زندگی روزمره: هدف گروه‌تون محور کلاسه</li></ul>
           <a class="btn wa" data-msg="سلام فرین! با دوستام (۲ تا ۴ نفر) می‌خوایم کلاس انگلیسی عمومی بگیریم." href="https://wa.me/905467615951">با دوستام ثبت‌نام می‌کنم ←</a>
         </div>
       </article>
       <article class="pk star" style="--c:#7C5CFC">
-        <header><div><h3>کلاس انگلیسی بیزینس</h3><p>۲ تا ۴ نفر · هر جلسه ۵۰ دقیقه</p></div><span class="badge">مخصوص کار</span></header>
+        <header><div><h3>کلاس انگلیسی بیزینس</h3><p>با ۲ تا ۴ همکار یا دوست · هزینه تقسیم بین شما · جلسه‌ی ۵۰ دقیقه‌ای</p></div><span class="badge">مخصوص کار</span></header>
         <div class="pk-body">
           <span class="tag">«جلسه‌ی بعدی، حرف آخر رو تو می‌زنی.»</span>
-          <div class="price"><b>۴٬۵۰۰٬۰۰۰</b><span>تومان / هر جلسه برای کل گروه</span></div><div class="split"><p>سهم هر نفر وقتی هزینه رو تقسیم می‌کنید:</p><div><span><small>۲ نفر</small><b>۲٬۲۵۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۳ نفر</small><b>۱٬۵۰۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۴ نفر</small><b>۱٬۱۲۵٬۰۰۰</b><i>تومان / نفر</i></span></div></div>
+          <div class="price"><b>۴٬۵۰۰٬۰۰۰</b><span>تومان هر جلسه، برای کل گروه</span></div><div class="split"><p>👥 تقسیم بین شما؛ سهم هر نفر:</p><div><span><small>۲ نفر</small><b>۲٬۲۵۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۳ نفر</small><b>۱٬۵۰۰٬۰۰۰</b><i>تومان / نفر</i></span><span><small>۴ نفر</small><b>۱٬۱۲۵٬۰۰۰</b><i>تومان / نفر</i></span></div></div>
           <p class="lh">توی هر جلسه</p>
           <ul class="ticks"><li>تمرین واقعی جلسه، ایمیل، ارائه و مذاکره</li><li>با همکارها یا شریک‌های کاری‌ت بیا، با هم پیشرفت کنید</li><li>جمله‌هایی که فردا سر کار به کار می‌بری</li><li>آمادگی برای مصاحبه‌ی شغلی و مشتری خارجی</li></ul>
           <a class="btn wa" data-msg="سلام فرین! با همکارها/دوستام (۲ تا ۴ نفر) می‌خوایم کلاس انگلیسی بیزینس بگیریم." href="https://wa.me/905467615951">با گروهم ثبت‌نام می‌کنم ←</a>
