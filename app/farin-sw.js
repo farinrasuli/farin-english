@@ -137,7 +137,7 @@ const MANIFEST_RE = /\/audio\/[a-z]{2}\/(alt\/)?manifest\.json$/;
    with no connection. Bump CACHE whenever an image is replaced under the same name. */
 // Game Theatre + lazy game files (x35crL5M): games/**/*.js|css load on the first tap of a game; stale-while-revalidate keeps
 // them offline after that and picks up a new ?v= on the next visit. Poster WebPs (games/posters/) fall under IMG_RE.
-const GAMES_RE = /\/games\/[^?#]+\.(js|css)$/;
+const GAMES_RE = /\/games\/[^?#]+\.(js|css|json|woff2)$/;
 // IELTS: 10 full exams (2026-10-23): the lesson files ielts/exam-NN/*.js load per exam (?v= changes with the content) ->
 // stale-while-revalidate like the games, so an exam opened once works offline; its natural-voice clips ielts/audio/<key>.mp3 never
 // change under one name -> cache-first; ielts/audio/manifest.json -> network-first.
