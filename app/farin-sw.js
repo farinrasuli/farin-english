@@ -142,6 +142,8 @@ const GAMES_RE = /\/games\/[^?#]+\.(js|css|json|woff2)$/;
 // stale-while-revalidate like the games, so an exam opened once works offline; its natural-voice clips ielts/audio/<key>.mp3 never
 // change under one name -> cache-first; ielts/audio/manifest.json -> network-first.
 const IELTS_RE = /\/ielts\/exam-\d+\/[^?#]+\.js$/;
+// Other lazy courses (Copywriting & Content English, 2026-10-31): courses/<id>/<chapter>/*.js, same rule, so a chapter opened once works offline.
+const COURSE_FILES_RE = /\/courses\/[a-z0-9-]+\/[^?#]+\.js$/;
 const IELTS_AUDIO_RE = /\/ielts\/audio\/[0-9a-f]{16}\.mp3$/;
 const IELTS_MANIFEST_RE = /\/ielts\/audio\/manifest\.json$/;
 const IMG_RE = /\.(png|webp|jpg|jpeg|svg)$/;
@@ -232,7 +234,7 @@ self.addEventListener('fetch', (e) => {
     // game art and app images: cache-first, filled on first use (the files never change under one name)
     if (AUDIO_RE.test(url.pathname)) { e.respondWith(audioCacheFirst(e.request)); return; }
     if (MANIFEST_RE.test(url.pathname)) { e.respondWith(networkFirst(e.request)); return; }
-    if (GAMES_RE.test(url.pathname) || IELTS_RE.test(url.pathname)) { e.respondWith(staleWhileRevalidate(e)); return; }
+    if (GAMES_RE.test(url.pathname) || IELTS_RE.test(url.pathname) || COURSE_FILES_RE.test(url.pathname)) { e.respondWith(staleWhileRevalidate(e)); return; }
     if (IELTS_AUDIO_RE.test(url.pathname)) { e.respondWith(audioCacheFirst(e.request)); return; }
     if (IELTS_MANIFEST_RE.test(url.pathname)) { e.respondWith(networkFirst(e.request)); return; }
     if (ART_RE.test(url.pathname) || PATH_RE.test(url.pathname) || IMG_RE.test(url.pathname)) e.respondWith(cacheFirst(e.request));
