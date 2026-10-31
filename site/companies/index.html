@@ -465,10 +465,10 @@ const ORDER = ["plan","overview","sales","marketing","hr","interview","ai","clas
 const COLORS = {plan:"#FFA53D",overview:"#7C5CFC",sales:"#4C6C82",marketing:"#FFA53D",hr:"#CB7D4D",interview:"#48796B",ai:"#4B33C9",classes:"#7C5CFC",packages:"#FFA53D",support:"#4F7A55"};
 
 /* Prices in toman. List = 08-final-prices v4; 21-39 people = -15%, 40+ = -20%, exact, on the final price of the courses; company classes are separate and undiscounted. */
-const PRICE = {sales:3800000,marketing:3490000,hr:4990000,interview:2990000,ai:3490000};
+const PRICE = {sales:3800000,marketing:3490000,hr:4990000,interview:2990000,ai:3800000};
 const CLASS_RATE = 4500000;
 const AFF = {mfg:["sales","marketing","ai"],trade:["sales","ai","marketing"],tech:["ai","sales","hr"],energy:["ai","sales","hr"],health:["ai","sales","marketing"],finance:["ai","hr","sales"],tour:["sales","marketing","ai"],retail:["marketing","sales","ai"],services:["sales","ai","hr"],other:["sales","ai","hr"]};
-const WEEKS = {sales:6,marketing:6,hr:16,interview:3,ai:6};
+const WEEKS = {sales:6,marketing:6,hr:16,interview:3,ai:8};
 const esc = x => String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const tierOf = n => n>=40?.2:n>20?.15:0;
 const cut = (p,t) => Math.round(p*(1-t));
@@ -508,10 +508,10 @@ en:{
     valid:d=>`Dated ${d}. Toman prices hold for 3 days.`, printB:"Save as PDF", waPeople:"people",
     courseK:"Package", classK:"Live classes · optional", incK:"Included", optK:"Optional",
     pctL:t=>`−${t*100}%`, perMonth:p=>`≈ ${p} toman per employee, per month of access`,
-    wkName:"Weekly support sessions", wkWhy:"One 50-minute online group session a week with a teacher, for questions and help, not a class. Plus a monthly summary to HR and a kick-off with the managers.",
+    wkName:"Weekly support sessions", wkWhy:"One 50-minute online group session a week for up to 8 weeks, with a teacher, for questions and help, not a class. Plus a monthly summary to HR and a kick-off with the managers.",
     seatL:p=>`${p} toman per employee`,
     pkgName:{sales:"Business package",marketing:"Content package",hr:"HR package",interview:"Interview package",ai:"AI & Internet package"},
-    rs:{sales:"For anyone who does business with foreign customers, suppliers or partners: same-day replies, clear quotes and orders, negotiation and complaints handled in English.",marketing:"For content teams: English product pages and posts written in-house, AI drafts checked before they go out.",hr:"For HR and managers: interviews, offers, feedback talks and meetings in English, run by the company's own team.",interview:"For staff assessed in English: a clear introduction, true work stories and calm answers under pressure.",ai:"For anyone who uses AI tools or the English internet at work: prompts that work, answers checked before they are used."},
+    rs:{sales:"For anyone who does business with foreign customers, suppliers or partners: same-day replies, clear quotes and orders, negotiation and complaints handled in English.",marketing:"For content teams: English product pages and posts written in-house, AI drafts checked before they go out.",hr:"For HR and managers: interviews, offers, feedback talks and meetings in English, run by the company's own team.",interview:"For staff assessed in English: a clear introduction, true work stories and calm answers under pressure.",ai:"For anyone who uses AI tools or English sources at work: ChatGPT, Claude, Gemini, Midjourney and more, what each is good for, and how to write and check a prompt."},
     clsName:{meet:"Meeting sessions",business:"Business English classes",general:"General English classes"},
     clsPrice:"4,500,000 toman per 50 minutes · 2–4 people",
     clsWhy:{meet:"Running a call, presenting results, handling questions and agreeing next steps, on the company's real meetings.",business:"Speaking practice on the company's own emails, products and calls.",general:"Most of the team needs a stronger base first. A career package can follow."},
@@ -571,11 +571,11 @@ en:{
       can:["Introduce themselves in 60–90 seconds for a specific role","Answer screening questions on the phone and confirm dates and numbers","Give a strength with proof and a real weakness with what they do about it","Tell a true work story: situation, action, result","Handle a video interview, including a technical problem","Answer an offer, ask about the package and ask for one change"],
       deliv:["Introduction","Strength and weakness","Three best work stories","Questions for the interviewer","Thank-you email","Reply to an offer","Full practice interview"],delivP:"A 7-part interview pack.",
       res:["Staff who represent the company well when a partner or client interviews them","A short programme: about 3 weeks","Pairs with HR & Business English for the hiring side"]},
-    ai:{status:"prod",name:"English for AI and the Internet",k:"Career · Every team that uses AI tools",who:"Any employee who uses AI tools, searches online or reads English sources at work.",promise:"Use AI and the English internet at work: write prompts that get usable results, check what comes back, and find and judge sources in English.",
-      facts:["B1, with a B2 track","12 lessons · 3 chapters · about 6 weeks","Self-study + 3 chapter finales","3,490,000"],
-      can:["Write a clear request in English: the task, the reader, the facts, the limits and the format","Decide what to give to AI and what must stay out of it, and hand over a longer job with clear steps","Improve a weak AI answer in a few messages instead of starting again","Check an AI draft against the company's documents, correct its facts and tone, and explain the changes","Search in English, judge a source, and say what is confirmed and what is not","Read a datasheet or catalogue, follow an online meeting or webinar, and report the main points in a short message"],
-      deliv:["Prompt set for their own job","Corrected AI draft, before and after","Short research report","Meeting or webinar summary","Checking rules a team can also use","Reflection"],delivP:"A 6-piece work pack from the employee's own job.",
-      res:["Useful work from any AI assistant, by asking in clear English","AI mistakes stopped before they reach a customer or a manager","English information found, judged and used: search results, documents, catalogues and webinars"]}
+    ai:{status:"prod",name:"English for AI and the Internet",k:"Career · Every team that uses AI tools",who:"Any employee who uses AI tools, searches online or reads English sources at work.",promise:"ChatGPT, Claude, Gemini, Copilot, Perplexity, Midjourney and more: what each one is good for, how to write and check a prompt, and how and where to research in English. Tools change, and availability differs by country.",
+      facts:["B1, with a B2 track","16 lessons · 4 chapters · about 8 weeks","Self-study + 4 chapter finales","3,800,000"],
+      can:["Choose the right AI tool for a job and understand its screens and error messages","Write clear prompts for text and images, keeping private data out","Check a prompt with a checklist, see why it failed and fix it","Check an AI draft against the company's documents, correct it and explain the changes","Research in English: choose where to look, search well, judge a source and report what is confirmed","Read a datasheet or catalogue, follow an online meeting or webinar, and report the main points"],
+      deliv:["Prompt set for their own job, text and image","Corrected AI draft, before and after","Short research report","Meeting or webinar summary","Personal AI guide: which tool for which job, and a prompt checklist","Reflection"],delivP:"A 6-piece work pack from the employee's own job.",
+      res:["Staff who know which AI tool to use for which job, and how to get useful work from it","AI mistakes caught before they reach a customer or a manager","English information found, judged and used: search results, documents, catalogues and webinars"]}
   },
   classes:{
     eyebrow:"Live classes", h:"One teacher, 50 minutes, practice on the company's real work.",
@@ -604,7 +604,7 @@ en:{
     trustH:"Why this is a low-risk choice",
     trust:[["Try before paying","Staff can open the first half of Chapter 1 of any course in the app for free."],["One clear payment","One written total, one bank transfer, no subscription."],["A fixed quote","Toman quotes hold for 3 days, so the number in the proposal is the number paid."],["Results on paper","A level at the start, then a portfolio and a Course Report for every employee."]],
     pkH:"The packages", pkP:"Each employee takes the package for their role.", pkFrom:p=>`from ${p} toman per employee`,
-    wkH:"Weekly support sessions", wkP:"Above 20 people, each order gets one 50-minute online group session every week with a teacher, for the length of the course. It is a question-and-help session, not a class: questions from the week's lessons, help for anyone who is stuck, and a look at progress.",
+    wkH:"Weekly support sessions", wkP:"Above 20 people, each order gets one 50-minute online group session every week with a teacher, for up to 8 weeks. It is a question-and-help session, not a class: questions from the week's lessons, help for anyone who is stuck, and a look at progress.",
     tH:"Course price per employee (toman)", head:["Course","1–20 people","21–39 people (−15%)","40 or more (−20%)"],
     cH:"Live classes (optional, agreed separately)", cHead:["Class","Per 50 minutes (whole group)","Group size"],
     cRows:[["Online or face to face","4,500,000","2–4 people"]],
@@ -659,10 +659,10 @@ fa:{
     valid:d=>`تاریخ صدور: ${d}. قیمت‌های تومانی تا ۳ روز معتبرند.`, printB:"ذخیره به‌صورت PDF", waPeople:"نفر",
     courseK:"پکیج", classK:"کلاس زنده · اختیاری", incK:"همراه پکیج", optK:"اختیاری",
     pctL:t=>t===.2?"٪۲۰":"٪۱۵", perMonth:p=>`≈ ${p} تومان برای هر کارمند، هر ماه دسترسی`,
-    wkName:"جلسه‌ی پشتیبانی هفتگی", wkWhy:"هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برای پاسخ به سؤال‌ها و رفع اشکال (این جلسه کلاس درس نیست). به‌همراه گزارش ماهانه برای منابع انسانی و جلسه‌ی آغاز دوره با مدیران.",
+    wkName:"جلسه‌ی پشتیبانی هفتگی", wkWhy:"تا ۸ هفته، هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برای پاسخ به سؤال‌ها و رفع اشکال (این جلسه کلاس درس نیست). به‌همراه گزارش ماهانه برای منابع انسانی و جلسه‌ی آغاز دوره با مدیران.",
     seatL:p=>`${p} تومان برای هر کارمند`,
     pkgName:{sales:"پکیج بیزنس",marketing:"پکیج محتوا",hr:"پکیج منابع انسانی",interview:"پکیج مصاحبه",ai:"پکیج هوش مصنوعی و اینترنت"},
-    rs:{sales:"برای هر کسی که با مشتری، تأمین‌کننده یا شریک خارجی کار می‌کند: پاسخ در همان روز، پیش‌فاکتور و سفارش شفاف، و مذاکره و رسیدگی به شکایت به انگلیسی.",marketing:"برای تیم محتوا: نوشتن صفحه‌ی محصول و پست انگلیسی در خود شرکت و بررسی متن‌های هوش مصنوعی پیش از انتشار.",hr:"برای منابع انسانی و مدیران: مصاحبه، پیشنهاد شغلی، جلسه‌ی بازخورد و جلسه‌های کاری به انگلیسی، بدون نیاز به کمک بیرونی.",interview:"برای کارکنانی که به انگلیسی ارزیابی می‌شوند: معرفی روشن، مثال‌های واقعی از سابقه‌ی کاری و پاسخ آرام در شرایط فشار.",ai:"برای هر کسی که با ابزارهای هوش مصنوعی یا منابع انگلیسی اینترنت کار می‌کند: نوشتن پرامپت درست و بررسی خروجی پیش از استفاده."},
+    rs:{sales:"برای هر کسی که با مشتری، تأمین‌کننده یا شریک خارجی کار می‌کند: پاسخ در همان روز، پیش‌فاکتور و سفارش شفاف، و مذاکره و رسیدگی به شکایت به انگلیسی.",marketing:"برای تیم محتوا: نوشتن صفحه‌ی محصول و پست انگلیسی در خود شرکت و بررسی متن‌های هوش مصنوعی پیش از انتشار.",hr:"برای منابع انسانی و مدیران: مصاحبه، پیشنهاد شغلی، جلسه‌ی بازخورد و جلسه‌های کاری به انگلیسی، بدون نیاز به کمک بیرونی.",interview:"برای کارکنانی که به انگلیسی ارزیابی می‌شوند: معرفی روشن، مثال‌های واقعی از سابقه‌ی کاری و پاسخ آرام در شرایط فشار.",ai:"برای هر کسی که با ابزارهای هوش مصنوعی یا منابع انگلیسی کار می‌کند: ChatGPT، Claude، Gemini، Midjourney و ابزارهای دیگر، کاربرد هر کدام، و نوشتن و بررسی پرامپت."},
     clsName:{meet:"کلاس تمرین جلسه و مذاکره",business:"کلاس انگلیسی بیزنس",general:"کلاس انگلیسی عمومی"},
     clsPrice:"۴٬۵۰۰٬۰۰۰ تومان برای هر ۵۰ دقیقه · ۲ تا ۴ نفر",
     clsWhy:{meet:"اداره‌ی تماس، ارائه‌ی نتایج، پاسخ به سؤال‌ها و توافق بر سر قدم بعدی، با تمرین روی جلسه‌های واقعی شرکت.",business:"تمرین مکالمه با ایمیل‌ها، محصولات و تماس‌های خود شرکت.",general:"بیشتر اعضای تیم اول به پایه‌ی قوی‌تری نیاز دارند. پکیج تخصصی می‌تواند بعد از آن بیاید."},
@@ -722,11 +722,11 @@ fa:{
       can:["خودشان را در ۶۰ تا ۹۰ ثانیه برای یک نقش مشخص معرفی کنند","به سؤال‌های مصاحبه‌ی تلفنی اولیه پاسخ دهند و تاریخ‌ها و عددها را تأیید کنند","نقطه‌ی قوت خود را با مثال و نقطه‌ی ضعف واقعی‌شان را با راه‌حل بیان کنند","یک تجربه‌ی کاری واقعی را تعریف کنند: موقعیت، اقدام، نتیجه","مصاحبه‌ی ویدیویی را، حتی در صورت مشکل فنی، خوب پیش ببرند","به پیشنهاد شغلی پاسخ دهند، درباره‌ی مزایا بپرسند و تغییری را درخواست کنند"],
       deliv:["معرفی خود","نقطه‌ی قوت و ضعف","سه تجربه‌ی کاری برتر","سؤال برای مصاحبه‌کننده","ایمیل تشکر","پاسخ به پیشنهاد شغلی","یک مصاحبه‌ی تمرینی کامل"],delivP:"یک بسته‌ی ۷ بخشی مصاحبه.",
       res:["کارکنانی که در مصاحبه با شریک یا مشتری، تصویر خوبی از شرکت نشان می‌دهند","برنامه‌ی کوتاه: حدود ۳ هفته","مکمل دوره‌ی منابع انسانی، که سمت استخدام‌کننده را آموزش می‌دهد"]},
-    ai:{status:"prod",name:"انگلیسی برای هوش مصنوعی و اینترنت",k:"شغلی · هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند",who:"هر کارمندی که در کارش از ابزارهای هوش مصنوعی استفاده می‌کند، آنلاین جست‌وجو می‌کند یا منابع انگلیسی می‌خواند.",promise:"کار با هوش مصنوعی و منابع انگلیسی اینترنت: نوشتن پرامپت درست، بررسی خروجی، و پیدا کردن و سنجیدن منابع به انگلیسی.",
-      facts:["B1، با مسیر B2","۱۲ درس · ۳ فصل · حدود ۶ هفته","خودآموز + ۳ آزمون پایان فصل","۳٬۴۹۰٬۰۰۰"],
-      can:["به انگلیسی درخواست روشن بنویسند: کار، خواننده، اطلاعات، محدودیت‌ها و قالب","تصمیم بگیرند چه چیزی را به هوش مصنوعی بدهند و چه چیزی نباید به آن برسد، و یک کار طولانی‌تر را با مرحله‌های روشن واگذار کنند","خروجی ضعیف هوش مصنوعی را با چند پیام بهتر کنند، بدون این‌که از اول شروع کنند","پیش‌نویس هوش مصنوعی را با سندهای شرکت مقایسه کنند، اطلاعات و لحنش را اصلاح کنند و تغییرها را توضیح بدهند","به انگلیسی جست‌وجو کنند، منبع را بسنجند و بگویند چه چیزی تأیید شده و چه چیزی نه","دیتاشیت یا کاتالوگ را بخوانند، یک جلسه‌ی آنلاین یا وبینار را دنبال کنند و نکته‌های اصلی را در پیامی کوتاه گزارش بدهند"],
-      deliv:["مجموعه‌ی پرامپت برای شغل خودشان","پیش‌نویس هوش مصنوعی، قبل و بعد از اصلاح","گزارش تحقیق کوتاه","خلاصه‌ی جلسه یا وبینار","چک‌لیست بررسی برای استفاده‌ی تیم","جمع‌بندی"],delivP:"یک بسته‌ی کاری ۶ بخشی از کار خود کارمند.",
-      res:["گرفتن نتیجه‌ی کاربردی از دستیارهای هوش مصنوعی، با درخواست روشن به انگلیسی","شناسایی اشتباه‌های هوش مصنوعی پیش از رسیدن به مشتری یا مدیر","پیدا کردن، سنجیدن و به‌کارگیری اطلاعات انگلیسی: نتایج جست‌وجو، سندها، کاتالوگ‌ها و وبینارها"]}
+    ai:{status:"prod",name:"انگلیسی برای هوش مصنوعی و اینترنت",k:"شغلی · هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند",who:"هر کارمندی که در کارش از ابزارهای هوش مصنوعی استفاده می‌کند، آنلاین جست‌وجو می‌کند یا منابع انگلیسی می‌خواند.",promise:"ChatGPT، Claude، Gemini، Copilot، Perplexity، Midjourney و ابزارهای دیگر: هر کدام به چه کاری می‌آید، پرامپت را چطور بنویسیم و بررسی کنیم، و چطور و کجا به انگلیسی تحقیق کنیم. ابزارها تغییر می‌کنند و در همه‌ی کشورها در دسترس نیستند.",
+      facts:["B1، با مسیر B2","۱۶ درس · ۴ فصل · حدود ۸ هفته","خودآموز + ۴ آزمون پایان فصل","۳٬۸۰۰٬۰۰۰"],
+      can:["ابزار مناسب هر کار را انتخاب کنند و صفحه‌ها و پیام‌های خطای آن را بفهمند","برای متن و تصویر پرامپت روشن بنویسند و اطلاعات خصوصی را وارد نکنند","پرامپت را با چک‌لیست بررسی کنند، بفهمند چرا نتیجه نداده و اصلاحش کنند","متن هوش مصنوعی را با سندهای شرکت مقایسه کنند، اصلاح کنند و تغییرها را توضیح بدهند","به انگلیسی تحقیق کنند: بدانند کجا بگردند، درست جست‌وجو کنند، منبع را بسنجند و موارد تأییدشده را گزارش کنند","دیتاشیت یا کاتالوگ را بخوانند، جلسه‌ی آنلاین یا وبینار را دنبال کنند و نکته‌های اصلی را گزارش کنند"],
+      deliv:["مجموعه‌ی پرامپت متن و تصویر برای شغل خودشان","متن هوش مصنوعی، قبل و بعد از اصلاح","گزارش تحقیق کوتاه","خلاصه‌ی جلسه یا وبینار","راهنمای شخصی: هر ابزار برای چه کاری، به‌همراه چک‌لیست پرامپت","جمع‌بندی"],delivP:"یک بسته‌ی کاری ۶ بخشی از کار خود کارمند.",
+      res:["کارکنانی که می‌دانند برای هر کار از کدام ابزار هوش مصنوعی استفاده کنند و چطور نتیجه‌ی کاربردی بگیرند","شناسایی اشتباه‌های هوش مصنوعی پیش از رسیدن به مشتری یا مدیر","پیدا کردن، سنجیدن و به‌کارگیری اطلاعات انگلیسی: نتایج جست‌وجو، سندها، کاتالوگ‌ها و وبینارها"]}
   },
   classes:{
     eyebrow:"کلاس‌های زنده", h:"یک مدرس، ۵۰ دقیقه و تمرین روی کار واقعی شرکت.",
@@ -755,7 +755,7 @@ fa:{
     trustH:"چرا این انتخاب کم‌ریسک است",
     trust:[["امتحان پیش از پرداخت","نیمه‌ی اول فصل ۱ هر دوره‌ی موجود در اپ رایگان است."],["پرداخت شفاف","یک مبلغ کل کتبی و یک انتقال بانکی، بدون اشتراک ماهانه."],["قیمت ثابت","قیمت تومانی تا ۳ روز معتبر است و همان مبلغ پیشنهاد کتبی پرداخت می‌شود."],["نتیجه‌ی مستند","تعیین سطح در شروع، و نمونه‌کار و گزارش دوره برای هر کارمند در پایان."]],
     pkH:"پکیج‌ها", pkP:"هر کارمند پکیج متناسب با نقش خود را می‌گذراند.", pkFrom:p=>`از ${p} تومان برای هر کارمند`,
-    wkH:"جلسه‌ی پشتیبانی هفتگی", wkP:"در سفارش‌های بیش از ۲۰ نفر، در طول دوره هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برگزار می‌شود. این جلسه کلاس درس نیست: پاسخ به سؤال‌های همان هفته، رفع اشکال و مرور پیشرفت.",
+    wkH:"جلسه‌ی پشتیبانی هفتگی", wkP:"در سفارش‌های بیش از ۲۰ نفر، تا ۸ هفته، هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برگزار می‌شود. این جلسه کلاس درس نیست: پاسخ به سؤال‌های همان هفته، رفع اشکال و مرور پیشرفت.",
     tH:"قیمت دوره برای هر کارمند (تومان)", head:["دوره","۱ تا ۲۰ نفر","۲۱ تا ۳۹ نفر (٪۱۵ تخفیف)","۴۰ نفر به بالا (٪۲۰ تخفیف)"],
     cH:"کلاس زنده (اختیاری، با توافق جداگانه)", cHead:["کلاس","هر ۵۰ دقیقه (کل گروه)","اندازه‌ی گروه"],
     cRows:[["آنلاین یا حضوری","۴٬۵۰۰٬۰۰۰","۲ تا ۴ نفر"]],
