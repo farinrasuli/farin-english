@@ -245,10 +245,10 @@ const COMPANY = [
     for: ['İçerik, metin yazarlığı ve sosyal medya ekipleri', 'Content, copy and social media teams', 'تیم‌های محتوا، کپی‌رایتینگ و شبکه‌های اجتماعی'] },
   { sale: 'interview', c: '--g-imm', pkg: ['Mülakat paketi', 'Interview package', 'پکیج مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
     for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
-  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet İngilizcesi', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet İngilizcesi', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'],
     for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
 ];
-const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی']];
+const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته']];
 const GAMES_SHOWN = [
   { img: 'screen-game-siparis', c: '--orange-deep', name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], d: ['Müşteriyi dinle, tepsiyi hazırla.', 'Listen to the customer, fill the tray.', 'به مشتری گوش کن و سینی را آماده کن.'] },
   { img: 'screen-game-dava', c: '--purple', name: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], d: ['İpuçlarını oku, kimin yaptığını bul.', 'Read the clues, find who did it.', 'سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'] },
