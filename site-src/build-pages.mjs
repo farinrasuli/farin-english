@@ -155,6 +155,17 @@ fq3:['Birebir ders nasıl işliyor?','How do 1-to-1 lessons work?','کلاس آ�
 fa_3:['Online, sadece sen ve Farin. Aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim. Ödemeden sonra ücretsiz bir analiz seansı: seviye tespiti, hedef belirleme ve sana özel yol haritası. Paketinin dışında, ek olarak.','Online, just you and Farin. A monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs. Free analysis session after you pay: level test, goal setting and your personal roadmap. Extra to your pack.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
 tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not because you have to learn, but because you have somewhere to go.','نه چون باید یاد بگیری؛ چون جایی برای رفتن داری.'],
 blog:['Blog','Blog (Turkish)','وبلاگ (ترکی)'],
+coQ:['Şirketin için profesyonel kurslar mı istiyorsun','Want professional courses for your company','برای شرکتت دوره‌ی حرفه‌ای می‌خواهی'],
+coMark:['?','?','؟'],
+coS:['Çalışanların için iş İngilizcesi kursları, uygulamanın içinde','Work English courses for your staff, inside the app','دوره‌های انگلیسی کاری برای کارمندانت، داخل اپ'],
+coEb:['Şirketler için','For companies','برای شرکت‌ها'],
+coP:['Çalışanların uygulamada kendi hızında öğrenir. Ekibine uyan kursları seçersin.','Your staff learn at their own pace in the app. You choose the courses that fit your team.','کارمندانت داخل اپ با سرعت خودشان یاد می‌گیرند. تو دوره‌هایی را انتخاب می‌کنی که به تیمت می‌خورند.'],
+coEach:['kişi başı','per person','برای هر نفر'],
+coOffer:['Ekibinin büyüklüğüne göre sana yazılı bir teklif hazırlarım. Canlı dersler isteğe bağlıdır ve ayrıca konuşulur.','I\'ll prepare a written offer based on the size of your team. Live classes are optional and agreed separately.','کلاس زنده اختیاری است و جدا توافق می‌شود: هر ۵۰ دقیقه ۴٬۵۰۰٬۰۰۰ تومان، برای گروه ۲ تا ۴ نفره.'],
+coFill:['','','پرسشنامه‌ی شرکت را پر کن'],
+coWa:['Şirketim için teklif al','Get an offer for my company','در واتس‌اپ بپرس'],
+coWaMsg:['Merhaba Farin! Şirketimiz için kurslarla ilgileniyoruz.','Hi Farin! We\'re interested in courses for our company.','سلام فرین! برای شرکتمان به دوره‌ها علاقه داریم.'],
+fCo:['Şirketler için','For companies','برای شرکت‌ها'],
 also:['Ayrıca','Also','همچنین'],want:['Bu kursu istiyorum','I want this course','این دوره را می‌خواهم'],
 waHello:['Merhaba Farin! FE School hakkında bilgi almak istiyorum.','Hi Farin! I\'d like to know more about FE School.','سلام فرین! می‌خواهم درباره‌ی FE School بیشتر بدانم.'],
 // footer
@@ -176,7 +187,7 @@ const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon' };
+const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'soon' };
 const SALE_TXT = { soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'] };
 const salePill = k => [SALE[k] === 'now' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
@@ -222,6 +233,22 @@ const GOALS = {
       cta: ['Yol haritamı kur', 'Build my roadmap', 'نقشه‌ی راهم را بساز'], noWa: true, more: ['/blog/ingilizce-konusma-pratigi-nasil-yapilir.html', 'Konuşma pratiği rehberi →'] },
     live: 'gen' },
 };
+/* Company option (Farin 2026-10-31). Rules + toman prices: business/farin-monetization/08-final-prices.md "Company orders".
+   The team discount is set for Iranian companies, so the tiers show on FA only; TR/EN ask for a written offer. */
+const [ALSO_INT, ALSO_MKT, ALSO_SALES] = GOALS.is.also;
+const COMPANY = [
+  { sale: 'sales', c: '--orange-deep', pkg: ['İş paketi', 'Business package', 'پکیج بیزنس'], name: ALSO_SALES[1], price: ALSO_SALES[2],
+    for: ['Yöneticiler, satış, ihracat ve müşteri ekipleri', 'Managers, sales, export and customer teams', 'مدیران و تیم‌های فروش، صادرات و مشتری'] },
+  { sale: 'hr', c: '--g-career', pkg: ['İK paketi', 'HR package', 'پکیج منابع انسانی'], name: GOALS.is.self.name, price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'],
+    for: ['İK ekipleri, işe alım uzmanları, ekip liderleri', 'HR staff, recruiters and team leads', 'تیم منابع انسانی، کارشناسان جذب و سرپرست‌ها'] },
+  { sale: 'marketing', c: '--purple', pkg: ['İçerik paketi', 'Content package', 'پکیج محتوا'], name: ALSO_MKT[1], price: ALSO_MKT[2],
+    for: ['İçerik, metin yazarlığı ve sosyal medya ekipleri', 'Content, copy and social media teams', 'تیم‌های محتوا، کپی‌رایتینگ و شبکه‌های اجتماعی'] },
+  { sale: 'interview', c: '--g-imm', pkg: ['Mülakat paketi', 'Interview package', 'پکیج مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
+    for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
+  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet İngilizcesi', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+    for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
+];
+const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی']];
 const GAMES_SHOWN = [
   { img: 'screen-game-siparis', c: '--orange-deep', name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], d: ['Müşteriyi dinle, tepsiyi hazırla.', 'Listen to the customer, fill the tray.', 'به مشتری گوش کن و سینی را آماده کن.'] },
   { img: 'screen-game-dava', c: '--purple', name: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], d: ['İpuçlarını oku, kimin yaptığını bul.', 'Read the clues, find who did it.', 'سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'] },
@@ -406,6 +433,7 @@ function footer(l) {
       <a href="${url(l, 'app')}">${S.nav2[i]}</a>
       <a href="${url(l, 'sys')}">${S.nav3[i]}</a>
       <a href="${url(l, 'contact')}">${S.nav4[i]}</a>
+      <a href="${url(l, 'home')}#kurs-sirket">${S.fCo[i]}</a>
       <a href="/studio.html"${tr}>${S.fStudio[i]}</a></div>
     ${guide}
     <div><h4>${S.fcContact[i]}</h4>
@@ -450,10 +478,37 @@ function card(l, c, live, also) {
         <div class="ctas">${ctas}</div>${more}</div>${alsoRow}`;
 }
 
+/* company panel: same goal-picker panel as the courses, one small card per course */
+function companyPanel(l) {
+  const i = LANGS[l].i;
+  const tiers = l === 'fa' ? `<ul class="co-tiers">${CO_TIERS.map(t => `<li><b>${t[0]}</b><span>${t[1]}</span></li>`).join('')}</ul>` : '';
+  const wa = `href="${WA(S.coWaMsg[i])}" ${ext}`;
+  const ctas = l === 'fa'
+    ? `<a class="btn btn-orange" href="/companies/">${S.coFill[i]} <span aria-hidden="true">←</span></a><a class="btn btn-ghost" data-lead="course" data-course="company" ${wa}>${S.coWa[i]}</a>`
+    : `<a class="btn btn-orange" data-lead="course" data-course="company" ${wa}>${S.coWa[i]} <span aria-hidden="true">→</span></a>`;
+  return `<div class="gres" id="kurs-sirket" data-goal="sirket">
+    <div class="r-head">
+      <div class="r-who"><span class="r-badge co-badge">${ic('users')}</span>
+        <div><p class="eyebrow">${S.coEb[i]}</p><h2>${S.coQ[i]}${dot(S.coMark[i])}</h2></div></div>
+      <p>${S.coP[i]}</p>
+    </div>
+    <div class="co-grid">
+      ${COMPANY.map(c => {
+        const [cls, txt] = salePill(c.sale);
+        return `<article class="co-card" style="--c:var(${c.c})"><p class="co-pkg">${esc(c.pkg[i])}</p><h3>${esc(c.name[i])}</h3><p class="for">${esc(c.for[i])}</p><div class="co-foot"><span class="co-price">${esc(c.price[i])}<small>${S.coEach[i]}</small></span><span class="pill ${cls}"><i></i>${esc(txt[i])}</span></div></article>`;
+      }).join('\n      ')}
+    </div>
+    ${tiers}
+    <p class="co-note">${S.coOffer[i]}</p>
+    <div class="ctas co-ctas">${ctas}</div>
+  </div>`;
+}
+
 function home(l) {
   const i = LANGS[l].i;
   const goalCards = Object.entries(GOALS).map(([k, g]) =>
-    `<a class="goal" href="#kurs-${k}" data-goal="${k}"${k === 'is' ? ' aria-current="true"' : ''} style="--c:var(${g.c})"><span class="tick">${ic('tick')}</span><span class="art"><img src="/assets/${g.img}.png" alt="" width="128" height="128"></span><span><strong>${S[g.label][i]}</strong><small>${S[g.sub][i]}</small></span></a>`).join('\n        ');
+    `<a class="goal" href="#kurs-${k}" data-goal="${k}"${k === 'is' ? ' aria-current="true"' : ''} style="--c:var(${g.c})"><span class="tick">${ic('tick')}</span><span class="art"><img src="/assets/${g.img}.png" alt="" width="128" height="128"></span><span><strong>${S[g.label][i]}</strong><small>${S[g.sub][i]}</small></span></a>`).join('\n        ')
+    + `\n        <a class="goal goal-co" href="#kurs-sirket" data-goal="sirket"><span class="co-ico">${ic('users')}</span><span><strong>${S.coQ[i]}${S.coMark[i]}</strong><small>${S.coS[i]}</small></span><span class="co-arrow" aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a>`;
   const panels = Object.entries(GOALS).map(([k, g]) => {
     const lv = g.live ? LIVES[g.live] : null;
     return `<div class="gres${k === 'is' ? ' on' : ''}" id="kurs-${k}" data-goal="${k}">
@@ -473,7 +528,7 @@ function home(l) {
       </article>` : ''}
     </div>
   </div>`;
-  }).join('\n  ');
+  }).join('\n  ') + '\n  ' + companyPanel(l);
   const q = (n, av, col, name, lab, sm) => `<blockquote class="q${sm ? ' sm' : ''}"><p>${S[n][i]}</p><footer><span class="av" style="background:var(${col})" aria-hidden="true">${av}</span><cite>${S[name][i]}<span>${S[lab][i]}</span></cite></footer></blockquote>`;
   return `
 <div class="wrap hero-out">
