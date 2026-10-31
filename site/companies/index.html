@@ -503,6 +503,7 @@ en:{
     tagMain:"Main recommendation", tagNext:"Also recommended", tagFill:"Also useful for this industry",
     whyH:"Why it fits", getsH:"What the company gets", learnH2:"What employees learn", fillWhy:(l)=>`A common need in ${l}, even though it was not on the priority list.`, teamWhy:t=>`For the team: ${t}`,
     seatL2:"People", lowNote:"These courses start at B1. Most of this team should begin with live General English classes, then take the package.",
+    invH:"Final price", seat:(c,n,p)=>`${c}, ${n} × ${p}`, discRow:t=>`${Math.round(t*100)}% off (${t===.2?"40 people or more":"21–39 people"})`, wkInc:"Weekly support sessions", wkIncV:"Included", pays:"The company pays", saved:"Saved", perEmp:"Per employee", perMonthL:"Per employee, per month of access", discOk:"off the final price, plus weekly support sessions", discNext:k=>`${k} more people: 20% off`, discNo:k=>`${k} more people: 15% off and weekly support sessions`, invNote:"Live classes are not included. The written proposal confirms the final number.",
     extraH:"Support and options", othersH:"Other courses", othersP:"Also available for the company.", classesL:"Live classes", contactH:"Contact", contactL:{WhatsApp:"WhatsApp",Web:"Website",Email:"Email",Instagram:"Instagram",LinkedIn:"LinkedIn"}, tiles:{ind:"Industry",ppl:"People",pk:"Packages",plan:"Team price"}, listL:"List price",
     valid:d=>`Dated ${d}. Toman prices hold for 3 days.`, printB:"Save as PDF", waPeople:"people",
     courseK:"Package", classK:"Live classes · optional", incK:"Included", optK:"Optional",
@@ -653,6 +654,7 @@ fa:{
     tagMain:"پیشنهاد اصلی", tagNext:"پیشنهاد بعدی", tagFill:"مفید برای این صنعت",
     whyH:"چرا مناسب است", getsH:"شرکت چه می‌گیرد", learnH2:"کارکنان چه یاد می‌گیرند", fillWhy:(l)=>`نیازی رایج در حوزه‌ی «${l}»، هرچند جزو اولویت‌ها انتخاب نشده بود.`, teamWhy:t=>`برای تیم: ${t}`,
     seatL2:"تعداد نفرات", lowNote:"این دوره‌ها از سطح B1 شروع می‌شوند. بهتر است بیشتر این تیم با کلاس زنده‌ی انگلیسی عمومی شروع کند و بعد پکیج را بگیرد.",
+    invH:"قیمت نهایی", seat:(c,n,p)=>`${c}، ${n} × ${p}`, discRow:t=>t===.2?"٪۲۰ تخفیف (۴۰ نفر به بالا)":"٪۱۵ تخفیف (۲۱ تا ۳۹ نفر)", wkInc:"جلسه‌های پشتیبانی هفتگی", wkIncV:"شامل است", pays:"مبلغ پرداختی شرکت", saved:"صرفه‌جویی", perEmp:"برای هر کارمند", perMonthL:"برای هر کارمند، هر ماه دسترسی", discOk:"تخفیف روی قیمت نهایی، به‌علاوه‌ی جلسه‌های پشتیبانی هفتگی", discNext:k=>`با ${k} نفر بیشتر: ٪۲۰ تخفیف`, discNo:k=>`با ${k} نفر بیشتر: ٪۱۵ تخفیف و جلسه‌های پشتیبانی هفتگی`, invNote:"کلاس زنده حساب نشده است. پیشنهاد کتبی عدد نهایی را تأیید می‌کند.",
     extraH:"پشتیبانی و گزینه‌ها", othersH:"دوره‌های دیگر", othersP:"این دوره‌ها هم برای شرکت موجودند.", classesL:"کلاس‌های زنده", contactH:"تماس", contactL:{WhatsApp:"واتس‌اپ",Web:"وب‌سایت",Email:"ایمیل",Instagram:"اینستاگرام",LinkedIn:"لینکدین"}, tiles:{ind:"صنعت",ppl:"نفرات",pk:"پکیج‌ها",plan:"قیمت تیمی"}, listL:"قیمت پایه",
     valid:d=>`تاریخ: ${d}. قیمت‌های تومانی ۳ روز معتبرند.`, printB:"ذخیره به‌صورت PDF", waPeople:"نفر",
     courseK:"پکیج", classK:"کلاس زنده · اختیاری", incK:"شامل", optK:"اختیاری",
@@ -776,7 +778,7 @@ fa:{
 }};
 
 let lang = "fa", tab = "plan";
-const Q0 = () => ({step:0,done:false,company:"",a:{industry:"",teams:[],goals:[],meet:"",level:"",size:10,live:""}});
+const Q0 = () => ({step:0,done:false,seats:null,company:"",a:{industry:"",teams:[],goals:[],meet:"",level:"",size:10,live:""}});
 let Q = Q0();
 try{ const q = JSON.parse(localStorage.getItem("fes-corp-quiz3")); if(q&&q.a) Q = {...Q0(),...q,a:{...Q0().a,...q.a}}; }catch(e){}
 const saveQ = () => { try{localStorage.setItem("fes-corp-quiz3",JSON.stringify(Q))}catch(e){} };
@@ -894,10 +896,17 @@ function recommend(){
   const fill = aff.filter(c=>!core.includes(c)).slice(0,3-core.length);
   const courses = [...core,...fill];
   const size = Math.max(1,a.size|0);
-  const n = size, t = tierOf(n);
+  if(!Q.seats || Object.keys(Q.seats).join()!==courses.join()){
+    Q.seats = {};
+    const base = core.length?core:[courses[0]];
+    courses.forEach(c=>{ const i = base.indexOf(c); Q.seats[c] = i<0?0:Math.floor(size/base.length)+(i<size%base.length?1:0); });
+  }
+  const n = Object.values(Q.seats).reduce((x,y)=>x+y,0), t = tierOf(n);
+  const on = courses.filter(c=>Q.seats[c]>0);
+  const list = on.reduce((x,c)=>x+Q.seats[c]*PRICE[c],0), fin = cut(list,t);
   const meetNeed = a.meet==="daily"||a.meet==="weekly"||a.goals.includes("meet");
   const cls = a.level==="low"||!core.length ? "general" : meetNeed ? "meet" : "business";
-  return {n,big:n>20,t,courses,core,why,cls};
+  return {n,big:n>20,t,courses,core,why,cls,on,list,fin};
 }
 
 function planHead(z){
@@ -948,12 +957,21 @@ function planResult(L){
         <div class="price tnum">${r.t?`<s class="was">${money(PRICE[c])}</s><br>`:""}${money(p)}<small>${L.packages.perEmpL}</small></div></div>
       <div class="goalbox"><div class="lb">${z.whyH}</div><ul>${why.map(x=>`<li>${x}</li>`).join("")}</ul></div>
       <div class="cols2"><div><div class="lb" style="color:var(--green)">${z.getsH}</div><ul class="ticks">${k.res.map(x=>`<li><span>${x}</span></li>`).join("")}</ul></div><div><div class="lb">${z.learnH2}</div><ul class="ticks">${k.can.slice(0,3).map(x=>`<li><span>${x}</span></li>`).join("")}</ul></div></div>
-      <div class="foot2"><span class="chip ${k.status==="live"?"ok":"soon"}">${L.status[k.status]}</span><button class="btn ghost sm noprint" style="margin:0" data-go="${c}">${L.more} →</button></div>
+      <div class="foot2"><div class="seatrow"><span>${z.seatL2}</span><button type="button" class="noprint" data-seat="${c}|-1" aria-label="−">−</button><b>${num(Q.seats[c])}</b><button type="button" class="noprint" data-seat="${c}|1" aria-label="+">+</button></div><span class="chip ${k.status==="live"?"ok":"soon"}">${L.status[k.status]}</span><button class="btn ghost sm noprint" style="margin:0" data-go="${c}">${L.more} →</button></div>
     </article>`;
   });
   const extras = [];
   if(r.big) extras.push(`<div class="box"><span class="tag g">${z.incK}</span><h3>${z.wkName}</h3><p>${z.wkWhy}</p></div>`);
   extras.push(`<div class="box"><span class="tag">${z.classK}</span><h3>${z.clsName[r.cls]}</h3><p><b>${z.clsPrice}</b></p><p>${z.clsWhy[r.cls]}</p><p>${z.whereName[a.live||"talk"]}</p><p class="note">${z.clsSep}</p></div>`);
+  const rows = r.on.map(c=>[z.seat(L.courses[c].name,num(Q.seats[c]),money(PRICE[c])),money(Q.seats[c]*PRICE[c])]);
+  if(r.t) rows.push([z.discRow(r.t),"−"+money(r.list-r.fin)]);
+  if(r.big&&r.on.length) rows.push([z.wkInc,z.wkIncV]);
+  if(r.on.length){
+    rows.push([z.pays,money(r.fin),"tot"]);
+    if(r.t) rows.push([z.saved,money(r.list-r.fin),"save"]);
+    rows.push([z.perEmp,money(r.fin/r.n)]);
+    rows.push([z.perMonthL,"≈ "+money(Math.round(r.fin/r.n/12/1000)*1000)]);
+  }
   const others = COURSES.filter(c=>!r.courses.includes(c)).map(c=>`<button type="button" class="orow" style="--c:${COLORS[c]}" data-go="${c}"><i></i><span>${z.pkgName[c]}</span><small>${L.courses[c].name}</small><span class="ar">→</span></button>`);
   others.push(`<button type="button" class="orow" style="--c:#7C5CFC" data-go="classes"><i></i><span>${z.classesL}</span><small>${z.clsName.business}</small><span class="ar">→</span></button>`);
   return `<div class="report">
@@ -965,6 +983,9 @@ function planResult(L){
   <section><div class="sh"><div class="eyebrow">${z.recH}</div><h2 class="h2">${z.recIntro(num(r.courses.length))}</h2></div>
     ${a.level==="low"?`<p class="fine" style="margin-bottom:18px">${z.lowNote}</p>`:""}
     ${!r.core.length?`<p class="fine" style="margin-bottom:18px">${z.genFit}</p>`:""}<div class="pkglist">${blocks.join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${z.invH}</h2></div>
+    <div class="disc ${r.big?"":"no"}" style="margin-bottom:14px"><b>${r.big?z.pctL(r.t):num(r.n)+" "+z.waPeople}</b><span>${r.big?z.discOk:z.discNo(num(21-r.n))}</span>${r.t===.15?`<span>· ${z.discNext(num(40-r.n))}</span>`:""}</div>
+    ${rows.length?`<div class="calc2">${rows.map(x=>`<div class="${x[2]||""}"><span>${x[0]}</span><span>${x[1]}</span></div>`).join("")}</div><p class="note" style="margin-top:10px">${z.invNote}</p>`:""}</section>
   <section><div class="sh"><h2 class="h2">${z.extraH}</h2></div><div class="extra">${extras.join("")}</div></section>
   <section class="noprint"><div class="sh"><h2 class="h2">${z.othersH}</h2><p>${z.othersP}</p></div><div class="others">${others.join("")}</div></section>
   <section class="contact"><h2 class="h2">${z.contactH}</h2><div class="clist">${CONTACTS.map(x=>`<div><small>${z.contactL[x[0]]}</small><a class="${x[0]==="WhatsApp"||x[0]==="Email"?"ltr":""}" href="${x[2]}" target="_blank" rel="noopener">${x[1]}</a></div>`).join("")}</div></section>
@@ -1001,6 +1022,14 @@ function go(id, push){
 
 document.addEventListener("click", e=>{
   if(e.target.closest("[data-print]")){ window.print(); return; }
+  const sb = e.target.closest("[data-seat]");
+  if(sb){
+    const [c,d] = sb.dataset.seat.split("|");
+    Q.seats[c] = Math.min(500,Math.max(0,Q.seats[c]+Number(d)));
+    saveQ(); render();
+    const el = document.querySelector(`[data-seat="${sb.dataset.seat}"]`); if(el) el.focus({preventScroll:true});
+    return;
+  }
   const o = e.target.closest("[data-q-opt]"), nv = e.target.closest("[data-q-nav]"), nm = e.target.closest("[data-q-num]"), st = e.target.closest("[data-q-set]");
   if(o||nv||nm||st){
     let focus = null;
@@ -1018,7 +1047,7 @@ document.addEventListener("click", e=>{
     if(st){ Q.a.size = Number(st.dataset.qSet); focus = `[data-q-set="${st.dataset.qSet}"]`; }
     if(nv){
       const a = nv.dataset.qNav, count = quizQs(T[lang]).length;
-      if(a==="next"){ if(Q.step>=count-1) Q.done = true; else Q.step++; }
+      if(a==="next"){ if(Q.step>=count-1){ Q.done = true; Q.seats = null; } else Q.step++; }
       if(a==="back") Q.step = Math.max(0,Q.step-1);
       if(a==="edit"){ Q.done = false; Q.step = 0; }
       if(a==="restart") Q = Q0();
