@@ -1,0 +1,1051 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<title>FEschool for Companies</title>
+<meta name="description" content="English for companies: a short questionnaire leads to a customised report showing which FEschool packages fit your team.">
+<link rel="canonical" href="https://thefeschool.com/companies/">
+<meta name="theme-color" content="#FAF7F0">
+<link rel="icon" href="/assets/app-icon.png" type="image/png">
+<meta property="og:title" content="FEschool for Companies">
+<meta property="og:description" content="Eight short questions. A report built for your company.">
+<meta property="og:image" content="https://thefeschool.com/og-image.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Vazirmatn:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: a tabbed company proposal for Iranian companies. Sticky tab rail, one tab per offer, each tab = result, facts, deliverables, price. App design guide: paper, purple, orange pill CTA, Fredoka + Nunito / Vazirmatn. Single light theme by choice (the brand is light). */
+:root{
+  --paper:#FAF7F0; --card:#FFFFFF; --ink:#1A1410; --ink-2:#6B5F55; --ink-3:#8F8478;
+  --line:#E9E2D3; --wash:#F3EEE2;
+  --purple:#7C5CFC; --purple-soft:#EEE9FF; --purple-deep:#5A3FD6;
+  --orange:#FFA53D; --orange-soft:#FFF0DA; --orange-deep:#A85A05;
+  --green:#4F7A55; --green-soft:#E6F0E3;
+  --f-display:"Fredoka","Nunito",system-ui,sans-serif;
+  --f-body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --r-lg:26px; --r-md:18px; --r-sm:12px;
+  --shadow:0 1px 2px rgba(30,26,46,.04),0 14px 34px -16px rgba(30,26,46,.18);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{margin:0;text-wrap:balance;font-family:var(--f-display);font-weight:600}
+p{margin:0}
+a{color:var(--purple-deep)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.tnum{font-variant-numeric:tabular-nums}
+
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(250,247,240,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:14px;height:62px}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:20px;color:var(--ink);text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:9px;box-shadow:0 0 0 1px var(--line)}
+.brand small{font-family:var(--f-body);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep)}
+.lsw{margin-inline-start:auto;display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--wash);border:1px solid var(--line)}
+.lsw button{appearance:none;border:0;background:transparent;font:700 13px/1 var(--f-body);color:var(--ink-2);padding:8px 13px;border-radius:999px;cursor:pointer}
+.lsw button.fa{font-family:"Vazirmatn",Tahoma,sans-serif}
+.lsw button[aria-pressed="true"]{background:var(--purple);color:#fff}
+.lsw button:focus-visible,.tabs button:focus-visible,.btn:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-block:10px 12px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{appearance:none;flex:none;border:1.5px solid var(--line);background:var(--card);font:700 14px/1 var(--f-body);color:var(--ink-2);padding:10px 15px;border-radius:999px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.tabs button i{width:9px;height:9px;border-radius:50%;background:var(--c,var(--ink-3))}
+.tabs button[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.tabs .sep{flex:none;width:1px;background:var(--line);margin-inline:4px}
+
+main{padding-block:44px 80px}
+.panel{display:grid;gap:64px}
+.eyebrow{font-weight:800;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-deep)}
+.h1{font-size:clamp(34px,5vw,58px);line-height:1.04;margin-top:12px;max-width:20ch;font-weight:700}
+.h1 em{font-style:normal;color:var(--purple)}
+.h2{font-size:clamp(25px,3vw,34px);line-height:1.12;max-width:28ch}
+.lede{font-size:clamp(17px,1.6vw,19px);color:var(--ink-2);max-width:62ch;margin-top:16px}
+.sh{display:grid;gap:8px;margin-bottom:22px}
+.sh p{color:var(--ink-2);max-width:64ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.chip.ok{background:var(--green-soft);border-color:transparent;color:var(--green)}
+.chip.soon{background:var(--orange-soft);border-color:transparent;color:var(--orange-deep)}
+.chip.p{background:var(--purple-soft);border-color:transparent;color:var(--purple-deep)}
+
+.hero{display:grid;grid-template-columns:1.25fr .75fr;gap:40px;align-items:center}
+.phone{width:min(260px,100%);margin-inline:auto;aspect-ratio:9/19;border-radius:38px;background:#16131F;padding:9px;box-shadow:0 30px 60px -22px rgba(76,51,201,.45);transform:rotate(3deg)}
+.phone div{width:100%;height:100%;border-radius:30px;overflow:hidden;background:#fff}
+.phone img{width:100%;height:100%;object-fit:cover;object-position:top}
+[dir="rtl"] .phone{transform:rotate(-3deg)}
+@media (max-width:860px){.hero{grid-template-columns:1fr}.phone{width:210px}}
+
+.results{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.res{background:var(--card);border-radius:var(--r-md);border:1px solid var(--line);padding:22px;display:grid;gap:10px;align-content:start;min-width:0}
+.res .ba{display:grid;gap:6px;font-size:14.5px}
+.res .ba div{display:grid;grid-template-columns:62px 1fr;gap:10px;align-items:start}
+.res .ba small{font-weight:800;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 0;border-radius:6px;text-align:center}
+.res .ba .b small{background:var(--wash);color:var(--ink-3)}
+.res .ba .a small{background:var(--green-soft);color:var(--green)}
+.res .ba .b span{color:var(--ink-3)}
+.res .ba .a span{color:var(--ink);font-weight:700}
+.res h3{font-size:18px}
+@media (max-width:900px){.results{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.results{grid-template-columns:1fr}}
+
+.now{background:var(--ink);color:#F3F0FA;border-radius:32px;padding:clamp(24px,4vw,44px);display:grid;gap:26px}
+.now .eyebrow{color:var(--orange)}
+.now h2{color:#fff;font-size:clamp(26px,3.4vw,40px);line-height:1.12;max-width:24ch;margin-top:10px}
+.now .lede{color:#C9C3D9}
+.nowg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.nowg div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r-md);padding:20px;min-width:0}
+.nowg b{display:block;font-family:var(--f-display);font-size:30px;line-height:1.1;color:var(--orange)}
+.nowg h3{font-size:18px;color:#fff;margin-top:8px}
+.nowg p{font-size:14.5px;color:#C9C3D9;margin-top:6px}
+.now .src{font-size:12.5px;color:#9E97B3}
+.now .src a{color:#D8CFFF}
+@media (max-width:860px){.nowg{grid-template-columns:1fr !important}}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.step{background:var(--card);border-radius:var(--r-md);padding:22px;border:1px solid var(--line);min-width:0;display:grid;gap:8px;align-content:start}
+.step .n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;background:var(--purple);color:#fff}
+.step:nth-child(even) .n{background:var(--orange);color:#2A1700}
+.step h3{font-size:19px}
+.step p{font-size:14.5px;color:var(--ink-2)}
+@media (max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.steps{grid-template-columns:1fr}}
+
+.grid{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:14px}
+.box{background:var(--card);border-radius:var(--r-md);padding:22px;border:1px solid var(--line);min-width:0}
+.box h3{font-size:18px}
+.box p{font-size:14.5px;color:var(--ink-2);margin-top:6px}
+.box .tag{display:inline-block;font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;background:var(--purple-soft);color:var(--purple-deep);margin-bottom:10px}
+.box .tag.o{background:var(--orange-soft);color:var(--orange-deep)}
+.box .tag.g{background:var(--green-soft);color:var(--green)}
+.box ul{margin:10px 0 0;padding-inline-start:18px;font-size:14.5px;color:var(--ink-2);display:grid;gap:5px}
+@media (max-width:900px){.grid{--cols:2 !important}}
+@media (max-width:560px){.grid{--cols:1 !important}}
+
+.course-head{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:end;padding-bottom:28px;border-bottom:1px solid var(--line)}
+.course-head .h1{max-width:22ch}
+.pricecard{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:22px 24px;min-width:250px;display:grid;gap:4px}
+.pricecard small{font-weight:700;font-size:12.5px;color:var(--ink-3);letter-spacing:.06em;text-transform:uppercase}
+.pricecard b{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1.15;color:var(--ink)}
+.pricecard span{font-size:13.5px;color:var(--ink-2)}
+.pricecard span strong{color:var(--green)}
+@media (max-width:760px){.course-head{grid-template-columns:1fr}.pricecard{min-width:0}}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-radius:var(--r-md);border:1px solid var(--line);overflow:hidden}
+.facts div{padding:16px 18px;border-inline-start:1px solid var(--line);min-width:0}
+.facts div:first-child{border-inline-start:0}
+.facts small{display:block;font-weight:800;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.facts b{display:block;font-size:16px;margin-top:4px;line-height:1.35}
+@media (max-width:760px){.facts{grid-template-columns:1fr 1fr}.facts div:nth-child(3){border-inline-start:0}.facts div:nth-child(n+3){border-top:1px solid var(--line)}}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+.cando{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.cando li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 14px;font-size:15px}
+.cando li::before{content:"✓";width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green);font-weight:800;font-size:14px}
+.deliv{background:var(--ink);color:#F3F0FA;border-radius:var(--r-lg);padding:26px}
+.deliv h3{font-size:20px;color:#fff}
+.deliv p{color:#C9C3D9;font-size:14.5px;margin-top:6px}
+.deliv ol{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:d}
+.deliv li{counter-increment:d;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:center;font-size:15px;background:rgba(255,255,255,.06);border-radius:10px;padding:9px 12px}
+.deliv li::before{content:counter(d);width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--orange);color:#2A1700;font-weight:800;font-size:13px}
+.why{background:var(--purple-soft);border-radius:var(--r-lg);padding:26px;display:grid;gap:10px}
+.why h3{font-size:20px;color:var(--purple-deep)}
+.why ul{margin:0;padding-inline-start:20px;display:grid;gap:6px;color:var(--ink-2);font-size:15px}
+.note{font-size:13.5px;color:var(--ink-3)}
+.fine{font-size:13.5px;color:var(--ink-2);background:var(--wash);border-radius:var(--r-sm);padding:12px 16px}
+
+.tbl-wrap{overflow-x:auto;background:var(--card);border-radius:var(--r-md);border:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:15px}
+th,td{padding:13px 16px;text-align:start;border-top:1px solid var(--line);vertical-align:top}
+thead th{border-top:0;font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);background:var(--wash)}
+thead th.t2{color:var(--purple-deep)}
+thead th.t3{color:var(--green)}
+td b{font-family:var(--f-display);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td .hl{color:var(--green);font-weight:800}
+
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.tier{background:var(--card);border-radius:var(--r-lg);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.tier.feat{border:2px solid var(--purple);box-shadow:var(--shadow)}
+.tier .k{font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep)}
+.tier .size{font-family:var(--f-display);font-weight:700;font-size:22px;color:var(--ink)}
+.tier .off{font-family:var(--f-display);font-weight:700;font-size:44px;line-height:1;color:var(--purple)}
+.tier .off small{font-size:15px;color:var(--ink-3);font-weight:600}
+.tier.t3 .off{color:var(--green)}
+.tier ul{margin:0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px}
+.tier li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.tier li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--purple);margin-top:8px}
+.tier li.plus::before{background:var(--orange)}
+@media (max-width:900px){.tiers{grid-template-columns:1fr}}
+
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pkc{background:var(--card);border-radius:var(--r-md);border:1px solid var(--line);padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.pkc .k{font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange-deep)}
+.pkc h3{font-size:20px}
+.pkc p{font-size:14.5px;color:var(--ink-2)}
+@media (max-width:900px){.pk{grid-template-columns:1fr}}
+
+.example{background:var(--wash);border-radius:var(--r-lg);padding:clamp(20px,3vw,32px);display:grid;gap:18px}
+.example h3{font-size:22px}
+.calc{display:grid;background:var(--card);border-radius:var(--r-md);overflow:hidden}
+.calc div{display:grid;grid-template-columns:1fr auto;gap:16px;padding:12px 18px;border-top:1px solid var(--line);font-size:15px}
+.calc div:first-child{border-top:0}
+.calc div span:last-child{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.calc .tot{background:var(--ink);color:#fff}
+.calc .tot span:last-child{color:var(--orange)}
+
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.mode{border-radius:var(--r-md);padding:22px;min-width:0;display:grid;gap:6px;align-content:start}
+.mode.m1{background:var(--purple);color:#fff}
+.mode.m2{background:var(--orange);color:#2A1700}
+.mode.m3{background:var(--card);border:2px dashed var(--purple)}
+.mode h3{font-size:20px}
+.mode p{font-size:14.5px;opacity:.92}
+.mode small{font-weight:800;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;opacity:.8}
+@media (max-width:860px){.modes{grid-template-columns:1fr}}
+
+.tl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.tl .box{border-top:4px solid var(--c)}
+@media (max-width:860px){.tl{grid-template-columns:1fr}}
+
+.founder{display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center;background:var(--card);border-radius:var(--r-lg);padding:24px;box-shadow:var(--shadow)}
+.founder img{width:150px;aspect-ratio:1;object-fit:cover;border-radius:22px}
+.founder h3{font-size:22px}
+.founder p{color:var(--ink-2);font-size:15px;margin-top:6px}
+@media (max-width:560px){.founder{grid-template-columns:1fr}.founder img{width:120px}}
+
+.cta{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;border-radius:var(--r-lg);padding:28px}
+.cta h3{font-size:clamp(21px,2.4vw,28px);color:#fff;max-width:26ch}
+.cta p{color:#C9C3D9;font-size:14.5px;margin-top:6px;max-width:52ch}
+.cta .c{display:grid;gap:6px;font-size:15px}
+.cta .c b{color:var(--orange)}
+.cta .c span{user-select:all}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15px;text-decoration:none;border-radius:999px;padding:13px 22px;background:var(--orange);color:#2A1700;border:0;cursor:pointer;font-family:var(--f-body)}
+.btn.ghost{background:transparent;border:2px solid var(--purple);color:var(--purple-deep)}
+.btn.sm{padding:8px 16px;font-size:14px;margin-top:10px}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+
+footer{padding-block:0 48px;font-size:12.5px;color:var(--ink-3)}
+
+[lang="fa"]{--f-display:"Vazirmatn",Tahoma,sans-serif;--f-body:"Vazirmatn",Tahoma,sans-serif;line-height:1.85}
+[lang="fa"] *{letter-spacing:0 !important}
+[lang="fa"] .h1{font-weight:800;line-height:1.3;font-size:clamp(30px,4.4vw,50px)}
+[lang="fa"] .h2,[lang="fa"] .now h2{font-weight:800;line-height:1.35}
+[lang="fa"] .eyebrow,[lang="fa"] .facts small,[lang="fa"] thead th,[lang="fa"] .tier .k,[lang="fa"] .pkc .k,[lang="fa"] .pricecard small,[lang="fa"] .mode small,[lang="fa"] .box .tag,[lang="fa"] .res .ba small{text-transform:none}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+.qhead .h1{font-size:clamp(28px,4vw,44px);max-width:24ch}
+.quiz{display:grid;grid-template-columns:minmax(0,760px);justify-content:center}
+@media (max-width:900px){.quiz{grid-template-columns:1fr}}
+.qcard{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:clamp(20px,3.5vw,36px);display:grid;gap:18px;min-width:0}
+.qprog{height:8px;border-radius:99px;background:var(--wash);overflow:hidden}
+.qprog span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--purple),var(--orange));transition:width .3s}
+[dir="rtl"] .qprog span{background:linear-gradient(270deg,var(--purple),var(--orange))}
+.qstep{font-weight:800;font-size:12.5px;color:var(--ink-3)}
+.qq{font-size:clamp(22px,2.6vw,30px);line-height:1.22}
+.qhint{color:var(--ink-2);font-size:15px;margin-top:-8px}
+.opts{display:grid;gap:10px}
+.opt{appearance:none;text-align:start;display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;width:100%;border:1.5px solid var(--line);background:var(--paper);border-radius:var(--r-md);padding:14px 16px;font:600 15.5px/1.45 var(--f-body);color:var(--ink);cursor:pointer}
+.opt::before{content:"";width:22px;height:22px;border-radius:50%;border:2px solid var(--ink-3);box-sizing:border-box;margin-top:1px}
+.opt.m::before{border-radius:7px}
+.opt:hover{border-color:var(--purple)}
+.opt[aria-pressed="true"]{border-color:var(--purple);background:var(--purple-soft)}
+.opt[aria-pressed="true"]::before{border-color:var(--purple);background:var(--purple) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.opt small{display:block;font-weight:700;font-size:13px;color:var(--green);margin-top:2px}
+.opt:focus-visible,.qnum button:focus-visible,.qnum input:focus-visible,.quick button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.qnav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:4px}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.qnum{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.qnum button{appearance:none;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);font:700 24px/1 var(--f-display);color:var(--purple-deep);cursor:pointer}
+.qnum input{width:120px;height:60px;border-radius:var(--r-md);border:2px solid var(--purple);text-align:center;font:700 30px/1 var(--f-display);color:var(--ink);background:var(--card);direction:ltr}
+.qnum span{font-weight:700;color:var(--ink-2)}
+.quick{display:flex;gap:8px;flex-wrap:wrap}
+.quick button{appearance:none;border:1.5px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font:700 14px/1 var(--f-body);color:var(--ink-2);cursor:pointer}
+.quick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.qside{background:var(--ink);color:#F3F0FA;border-radius:var(--r-lg);padding:24px;display:grid;gap:10px;position:sticky;top:150px}
+@media (max-width:900px){.qside{position:static}}
+.qside small{font-weight:800;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.qside b{font-family:var(--f-display);font-weight:700;font-size:46px;line-height:1;color:var(--orange)}
+.qside p{color:#C9C3D9;font-size:14.5px}
+.qside ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:14.5px}
+.qside li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.qside li::before{content:"✓";color:var(--orange);font-weight:800}
+.qside .st{margin-top:6px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.08);font-weight:700;font-size:14px}
+.qside .st.ok{background:rgba(120,190,130,.22);color:#CDEBD0}
+
+.disc{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;background:var(--green-soft);color:var(--green);border-radius:var(--r-md);padding:14px 18px;font-weight:800}
+.disc b{font-family:var(--f-display);font-size:26px;line-height:1}
+.disc.no{background:var(--purple-soft);color:var(--purple-deep)}
+.recs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.rec{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c,var(--purple));border-radius:var(--r-lg);padding:22px;display:grid;gap:8px;align-content:start;min-width:0}
+.rec .k{font-weight:800;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.rec h3{font-size:20px}
+.rec p{font-size:14.5px;color:var(--ink-2)}
+.rec .chip{display:inline-block}
+.rec .pr{font-family:var(--f-display);font-weight:600;font-size:17px;color:var(--ink)}
+.rec ul{margin:2px 0 0;padding-inline-start:18px;font-size:14.5px;color:var(--ink-2);display:grid;gap:4px}
+.was{text-decoration:line-through;text-decoration-color:var(--orange-deep);color:var(--ink-3);font-weight:600}
+.pricecard .was{font-size:16px}
+.pkfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.pkf{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c);border-radius:var(--r-lg);padding:24px;display:grid;gap:10px;align-content:start;min-width:0}
+.pkf h3{font-size:22px}
+.pkf .pr{font-family:var(--f-display);font-weight:600;font-size:18px}
+.lab{font-weight:800;font-size:13px;color:var(--green);margin-top:4px}
+.lab.l2{color:var(--purple-deep)}
+.pkf ul,.rec ul{margin:0;padding-inline-start:18px;font-size:14.5px;color:var(--ink-2);display:grid;gap:4px}
+.tier{position:relative}
+.badge{position:absolute;top:-13px;inset-inline-start:22px;background:var(--orange);color:#2A1700;font-weight:800;font-size:12.5px;padding:4px 12px;border-radius:999px}
+.tier .from{font-family:var(--f-display);font-weight:600;font-size:17px;line-height:1.35}
+.tier .btn{margin-top:auto;justify-content:center}
+.yes{color:var(--green);font-weight:800;font-size:18px}
+.no{color:var(--ink-3)}
+.anchor{background:var(--purple);color:#fff;border-radius:var(--r-lg);padding:clamp(22px,3vw,32px);display:grid;gap:8px}
+.anchor h3{font-size:clamp(22px,2.6vw,30px);color:#fff}
+.anchor p{color:#EFEBFF;max-width:62ch}
+details{font-size:14.5px}
+summary{cursor:pointer;font-weight:800;font-size:13px;color:var(--purple-deep);padding-block:4px}
+details ul{margin-top:6px}
+.cofield{display:grid;gap:6px;max-width:420px;font-weight:700;font-size:14px;color:var(--ink-2)}
+.cofield input{height:46px;border-radius:var(--r-sm);border:1.5px solid var(--line);background:var(--card);padding-inline:14px;font:600 16px var(--f-body);color:var(--ink)}
+.cofield input:focus-visible,.seatrow button:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.told{display:flex;flex-wrap:wrap;gap:8px}
+.seatrow{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink-2);font-size:14.5px}
+.seatrow button{appearance:none;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);font:700 18px/1 var(--f-display);color:var(--purple-deep);cursor:pointer}
+.seatrow b{min-width:26px;text-align:center;font-size:17px;color:var(--ink)}
+.calc .save{background:var(--green-soft);color:var(--green);font-weight:800}
+@media print{.top,footer,.noprint{display:none !important}body{background:#fff}main{padding:0}.rec,.calc{break-inside:avoid}}
+.qhead{max-width:760px;margin-inline:auto;width:100%}
+.qcard .st{font-weight:700;font-size:14.5px;color:var(--purple-deep)}
+.qcard .st.ok{color:var(--green)}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:560px){.opts.two{grid-template-columns:1fr}}
+.opt[aria-disabled="true"]{opacity:.45}
+.qtext{height:54px;width:100%;border-radius:var(--r-md);border:2px solid var(--purple);background:var(--card);padding-inline:16px;font:600 17px var(--f-body);color:var(--ink)}
+.report{max-width:960px;margin-inline:auto;display:grid;gap:44px}
+.rhead{padding-bottom:26px;border-bottom:1px solid var(--line)}
+.rhead .h1{max-width:none;font-size:clamp(30px,4.2vw,48px)}
+.rdate{color:var(--ink-3);font-size:14px;margin-top:10px}
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px 28px}
+.meta small{display:block;font-weight:800;font-size:12.5px;color:var(--ink-3)}
+.meta b{display:block;margin-top:3px;font-size:15.5px;line-height:1.45}
+.prio{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.prio li{display:grid;grid-template-columns:24px 1fr;gap:10px;font-size:16px}
+.prio li::before{content:"✓";color:var(--green);font-weight:800}
+.rp{background:var(--card);border:1px solid var(--line);border-inline-start:6px solid var(--c);border-radius:var(--r-lg);padding:clamp(20px,3vw,32px);display:grid;gap:24px}
+.rp+.rp{margin-top:18px}
+.rph{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-start;justify-content:space-between}
+.rph .tag2{font-weight:800;font-size:12.5px;color:var(--purple-deep)}
+.rph .tag2.f{color:var(--ink-3)}
+.rph h3{font-size:clamp(22px,2.6vw,28px);margin-top:2px}
+.rph p{color:var(--ink-2);font-size:14.5px;margin-top:2px}
+.rph .pr{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.4;text-align:end}
+.rpb{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:800px){.rpb{grid-template-columns:1fr}}
+.rpb ul{margin:6px 0 0;padding-inline-start:18px;font-size:14.5px;color:var(--ink-2);display:grid;gap:6px}
+.rpf{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;justify-content:space-between;padding-top:18px;border-top:1px solid var(--line)}
+.extra{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.extra .box h3{margin-top:2px}
+.calc2{background:var(--card);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;display:grid}
+.calc2 div{display:grid;grid-template-columns:1fr auto;gap:16px;padding:13px 18px;border-top:1px solid var(--line);font-size:15px}
+.calc2 div:first-child{border-top:0}
+.calc2 div span:last-child{font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.calc2 .tot{background:var(--ink);color:#fff}
+.calc2 .tot span:last-child{color:#fff;font-size:18px}
+.calc2 .save{background:var(--green-soft);color:var(--green);font-weight:800}
+@media print{.report{gap:26px}.rp{break-inside:avoid}}
+.h2::after{content:".";color:var(--orange)}
+.phero{position:relative;overflow:hidden;border-radius:32px;color:#fff;background:linear-gradient(140deg,#7C5CFC,#5A3FD6);padding:clamp(28px,5vw,48px);box-shadow:var(--shadow)}
+.phero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,165,61,.55) 0 3px,transparent 3.5px),radial-gradient(circle,rgba(255,255,255,.26) 0 2px,transparent 2.5px);background-size:150px 150px,96px 96px;background-position:24px 34px,62px 12px}
+.phero>*{position:relative}
+.phero .eyebrow{color:var(--orange)}
+.phero .h1{color:#fff}
+.phero .h1 em{color:var(--orange)}
+.phero .h1::after{content:".";color:var(--orange)}
+.phero .lede{color:#EEE9FF}
+.phero .btn.ghost{color:#fff;border-color:#fff}
+.phero .note{color:#EEE9FF}
+.hero.phero .chip.p{background:rgba(255,255,255,.16);color:#fff}
+.course-head.phero{border-bottom:0;padding-bottom:clamp(28px,5vw,48px);align-items:center}
+.pricecard{color:var(--ink)}
+.pricecard .was{color:var(--ink-3)}
+.report{max-width:920px;gap:64px}
+.rhero{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:end;padding-bottom:0;padding-inline-end:clamp(16px,3vw,32px)}
+.rhero .main{padding-bottom:56px;display:grid;gap:14px;min-width:0}
+.rhero .brandrow{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:19px;margin-bottom:12px}
+.rhero .brandrow img{width:36px;height:36px;border-radius:10px;background:#FAF7F0}
+.rhero .h1{font-size:clamp(31px,4.8vw,50px);margin:0;max-width:18ch;line-height:1.14}
+.rhero .rdate{color:#EEE9FF;margin:0}
+.rhero .art{position:relative;align-self:end;width:clamp(130px,24vw,230px);aspect-ratio:1/1.1}
+.rhero .art .disc2{position:absolute;left:50%;bottom:-14%;translate:-50% 0;width:118%;aspect-ratio:1;border-radius:50%;background:#CB7D4D}
+.rhero .art img{position:relative;width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}
+@media (max-width:620px){.rhero{grid-template-columns:1fr}.rhero .main{padding-bottom:0}.rhero .art{justify-self:end;width:150px;margin-top:-10px}}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:-92px;position:relative;padding-inline:16px;z-index:2}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;box-shadow:var(--shadow);display:grid;gap:4px;align-content:start;min-width:0}
+.tile small{font-weight:800;font-size:12px;color:var(--ink-2)}
+.tile b{font-family:var(--f-display);font-weight:600;font-size:17px;line-height:1.3}
+.tile b.big{font-size:28px;line-height:1.1;font-variant-numeric:tabular-nums}
+.heroWrap{display:grid}
+.heroWrap .rhero{padding-bottom:0}
+.heroWrap .tiles{margin-top:-30px}
+.focus2{display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:start}
+@media (max-width:760px){.focus2{grid-template-columns:1fr}}
+.statement{font-family:var(--f-display);font-weight:600;font-size:clamp(22px,2.8vw,29px);line-height:1.3;color:var(--purple-deep)}
+.objs2{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.objs2 li{display:grid;grid-template-columns:24px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 16px;font-weight:700;font-size:15px;line-height:1.5}
+.objs2 li::before{content:"✓";width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--green-soft);color:var(--green);font-weight:800;font-size:13px}
+.meta2{display:grid;gap:14px;margin-top:22px}
+.meta2 small{display:block;font-weight:800;font-size:12.5px;color:var(--ink-2)}
+.meta2 b{display:block;font-size:15px;margin-top:2px}
+.pkglist{display:grid;gap:22px}
+.rp2{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:clamp(22px,3.4vw,36px);box-shadow:var(--shadow);display:grid;gap:26px;break-inside:avoid}
+.rp2 .top2{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:16px;align-items:center}
+.rp2 .n2{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:var(--c);color:#fff;font-family:var(--f-display);font-weight:700;font-size:21px}
+.rp2 .tg{font-weight:800;font-size:12.5px;color:var(--orange-deep)}
+.rp2 .tg.f{color:var(--ink-3)}
+.rp2 h3{font-size:clamp(23px,2.8vw,29px);line-height:1.2}
+.rp2 .cn{color:var(--ink-2);font-size:14.5px}
+.rp2 .price{font-family:var(--f-display);font-weight:600;font-size:18px;line-height:1.35;text-align:end}
+.rp2 .price small{display:block;font-family:var(--f-body);font-size:12.5px;font-weight:700;color:var(--ink-2)}
+@media (max-width:640px){.rp2 .top2{grid-template-columns:48px minmax(0,1fr)}.rp2 .price{grid-column:1/-1;text-align:start}}
+.goalbox{background:var(--purple-soft);border-radius:18px;padding:18px 20px;display:grid;gap:8px}
+.goalbox .lb{font-weight:800;font-size:13px;color:var(--purple-deep)}
+.goalbox ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-weight:700;font-size:15px}
+.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+@media (max-width:640px){.cols2{grid-template-columns:1fr}}
+.cols2 .lb{font-weight:800;font-size:13px;margin-bottom:10px}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:15px;color:var(--ink-2)}
+.ticks li{display:grid;grid-template-columns:18px 1fr;gap:8px}
+.ticks li::before{content:"✓";color:var(--c);font-weight:800}
+.foot2{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.foot2 .chip{margin:0}
+.others{display:grid;gap:10px}
+.orow{appearance:none;width:100%;display:grid;grid-template-columns:12px 1fr auto auto;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 18px;font:700 15px/1.4 var(--f-body);color:var(--ink);cursor:pointer;text-align:start}
+.orow:hover{border-color:var(--purple)}
+.orow:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.orow i{width:12px;height:12px;border-radius:50%;background:var(--c)}
+.orow small{font-weight:600;font-size:13px;color:var(--ink-2)}
+.orow .ar{color:var(--purple-deep);font-weight:800}
+@media (max-width:560px){.orow{grid-template-columns:12px 1fr auto}.orow small{display:none}}
+.contact{background:var(--purple-soft);border-radius:28px;padding:clamp(24px,4vw,36px);display:grid;gap:20px}
+.contact h2{color:var(--purple-deep)}
+.clist{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px 28px}
+.clist small{display:block;font-weight:800;font-size:12.5px;color:var(--ink-2)}
+.clist a{display:inline-block;font-weight:800;font-size:16px;color:var(--ink);text-decoration:none;margin-top:2px;overflow-wrap:anywhere}
+.clist a:hover{color:var(--purple-deep);text-decoration:underline}
+.tools{display:flex;flex-wrap:wrap;gap:10px}
+.tools .btn{margin:0}
+@media print{.phero,.rp2,.goalbox,.contact,.tile,.rhero .disc2{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+[lang="fa"] .qside small,[lang="fa"] .rec .k{text-transform:none}
+@media (prefers-reduced-motion:no-preference){.panel{animation:in .35s ease-out}@keyframes in{from{transform:translateY(6px)}to{transform:none}}}
+</style>
+
+</head>
+<body>
+<div id="app">
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#plan"><img src="/assets/app-icon.png" alt="">FEschool <small id="brandSub">for companies</small></a>
+      <div class="lsw" role="group" aria-label="Language">
+        <button type="button" id="l-fa" data-set="fa" class="fa">فارسی</button>
+        <button type="button" id="l-en" data-set="en">English</button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs" aria-label="Sections"></nav>
+  </div>
+</header>
+<main class="wrap"><div id="view"></div></main>
+<footer class="wrap"><p id="foot"></p></footer>
+</div>
+
+<script>
+const WA = "+90 546 761 59 51";
+const COURSES = ["sales","marketing","hr","interview","ai"];
+const ORDER = ["plan","overview","sales","marketing","hr","interview","ai","classes","packages","support"];
+const COLORS = {plan:"#FFA53D",overview:"#7C5CFC",sales:"#4C6C82",marketing:"#FFA53D",hr:"#CB7D4D",interview:"#48796B",ai:"#4B33C9",classes:"#7C5CFC",packages:"#FFA53D",support:"#4F7A55"};
+
+/* Prices in toman. List = 08-final-prices v4; 21-39 people = -15%, 40+ = -20%, exact, on the final price of the courses; company classes are separate and undiscounted. */
+const PRICE = {sales:3800000,marketing:3490000,hr:4990000,interview:2990000,ai:3490000};
+const CLASS_RATE = 4500000;
+const AFF = {mfg:["sales","marketing","ai"],trade:["sales","ai","marketing"],tech:["ai","sales","hr"],energy:["ai","sales","hr"],health:["ai","sales","marketing"],finance:["ai","hr","sales"],tour:["sales","marketing","ai"],retail:["marketing","sales","ai"],services:["sales","ai","hr"],other:["sales","ai","hr"]};
+const WEEKS = {sales:6,marketing:6,hr:16,interview:3,ai:6};
+const esc = x => String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tierOf = n => n>=40?.2:n>20?.15:0;
+const cut = (p,t) => Math.round(p*(1-t));
+const CONTACTS = [["WhatsApp","+90 546 761 59 51","https://wa.me/905467615951"],["Web","thefeschool.com","https://thefeschool.com"],["Email","farinrasuli@gmail.com","mailto:farinrasuli@gmail.com"],["Instagram","@the_feschool","https://www.instagram.com/the_feschool/"],["LinkedIn","FEschool","https://www.linkedin.com/company/thefeschool/"]];
+const T = {
+en:{
+  dir:"ltr", sub:"for companies", unit:"toman",
+  tabs:{plan:"Find your package",overview:"Overview",sales:"Business & Sales",marketing:"Marketing",hr:"HR & Business",interview:"Job Interview",ai:"AI & Internet",classes:"Live classes",packages:"Packages & prices",support:"Reporting & results"},
+  foot:"FEschool · Company programmes for Iran · October 2026 · All prices in toman, per employee, valid on the date of the written proposal. FEschool certificates are certificates of completion, not CEFR or Cambridge certificates.",
+  status:{live:"In the app now",soon:"Content complete · opening in the app",prod:"In production"},
+  more:"Details", open:"Open the app", who:"Who it is for", bl:["Before","After"],
+  quiz:{
+    eyebrow:"Plan for your company · 2 minutes",
+    h:"Eight short questions. A report built for your company.",
+    lede:"Say what the company does and what should change. The answers become a customised report: which packages fit, what each one gives, and the exact price.",
+    stepL:(i,n)=>`Question ${i} of ${n}`, next:"Next", back:"Back", see:"See the plan", edit:"Change answers", restart:"Start again",
+    stT:(n,d)=>n>=40?`${d(n)} people: 20% off, the best price.`:n>20?`${d(n)} people: 15% off. ${d(40-n)} more people: 20% off.`:`${d(Math.max(0,21-n))} more people: 15% off and weekly support sessions.`,
+    qs:[
+      {id:"industry",type:"one",cols:2,q:"What is the company's industry?",opts:[["mfg","Manufacturing & export"],["trade","Trade & import"],["tech","Technology & software"],["energy","Energy, construction & engineering"],["health","Healthcare & pharma"],["finance","Banking, finance & insurance"],["tour","Tourism & hospitality"],["retail","Retail & e-commerce"],["services","Services, consulting & education"],["other","Something else"]]},
+      {id:"teams",type:"multi",q:"Which teams should be trained?",hint:"Choose all that apply.",opts:[["sales","Sales, export or purchasing"],["marketing","Marketing and content"],["hr","HR and team managers"],["proj","Staff on international projects or partner programmes"],["staff","Office and support staff"]]},
+      {id:"goals",type:"multi",max:3,q:"Six months from now, what should be true in the company?",hint:"Choose up to 3: the results that matter most.",opts:[["buyers","Foreign buyers get an answer the same day, without a translator"],["quotes","Quotes, emails and contracts go out clear, with no misunderstandings"],["meet","Staff run online meetings with foreign partners themselves"],["ai","Staff use AI tools in English and check the answer before using it"],["mkt","Product pages, catalogues and posts are written in good English, in-house"],["hire","HR interviews and hires in English without outside help"],["rep","Staff represent the company well when a partner or client assesses them"],["base","Staff have a solid base: they understand and speak with confidence"]]},
+      {id:"meet",type:"one",q:"How often do these employees have meetings or calls in English?",opts:[["daily","Every day"],["weekly","Every week"],["monthly","A few times a month"],["rare","Rarely, but it is coming"]]},
+      {id:"level",type:"one",q:"Where is most of the team today?",opts:[["low","They understand little and avoid English"],["read","They read emails but struggle to speak or write"],["work","They work in English, but slowly and with mistakes"],["mixed","Levels are very mixed"]]},
+      {id:"size",type:"num",q:"How many employees should be trained?",hint:"More than 20 people: 15% off and weekly support sessions. 40 or more: 20% off.",quick:[5,10,21,40],unit:"people"},
+      {id:"live",type:"one",q:"Do they also need live classes with a teacher?",hint:"App courses are the core of every package. Live classes are optional and agreed separately.",opts:[["no","No, the app courses are enough"],["online","Yes, online"],["f2f","Yes, face to face at the company"],["talk","Maybe, we would like to discuss it"]]},
+      {id:"company",type:"text",q:"What should the report be called?",hint:"The company name. Optional.",ph:"Company name"}
+    ],
+    indCtx:{mfg:"catalogues, technical specifications, quotes and trade fairs",trade:"supplier emails, contracts, shipping documents and negotiation",tech:"documentation, AI tools, product demos and foreign clients",energy:"technical documents, standards, foreign contractors and project meetings",health:"research, product information, foreign suppliers and conferences",finance:"reports, foreign partners, compliance documents and client calls",tour:"guest messages, reviews, bookings and foreign agencies",retail:"product pages, online ads, supplier messages and customer service",services:"proposals, online meetings, client reports and research",other:"emails, online meetings and English sources"},
+    rEy:"Customised report", rH:x=>`English training report for ${x}`, rDef:"your company", planL:{0:"Team plan",15:"Growth plan",20:"Enterprise plan"},
+    sum:{h:"What we understood",ind:"Industry",ppl:"People to train",tms:"Teams",mt:"Meetings in English",lv:"Where the team is today",prio:"The company's priorities",use:(l,c)=>`In ${l}, English shows up in ${c}.`},
+    recH:"Our recommendation", recIntro:k=>`Based on these needs, we recommend ${k==="1"?"this package":k+" packages"}`,
+    tagMain:"Main recommendation", tagNext:"Also recommended", tagFill:"Also useful for this industry",
+    whyH:"Why it fits", getsH:"What the company gets", learnH2:"What employees learn", fillWhy:(l)=>`A common need in ${l}, even though it was not on the priority list.`, teamWhy:t=>`For the team: ${t}`,
+    seatL2:"People", lowNote:"These courses start at B1. Most of this team should begin with live General English classes, then take the package.",
+    extraH:"Support and options", othersH:"Other courses", othersP:"Also available for the company.", classesL:"Live classes", contactH:"Contact", contactL:{WhatsApp:"WhatsApp",Web:"Website",Email:"Email",Instagram:"Instagram",LinkedIn:"LinkedIn"}, tiles:{ind:"Industry",ppl:"People",pk:"Packages",plan:"Team price"}, listL:"List price",
+    valid:d=>`Dated ${d}. Toman prices hold for 3 days.`, printB:"Save as PDF", waPeople:"people",
+    courseK:"Package", classK:"Live classes · optional", incK:"Included", optK:"Optional",
+    pctL:t=>`−${t*100}%`, perMonth:p=>`≈ ${p} toman per employee, per month of access`,
+    wkName:"Weekly support sessions", wkWhy:"One 50-minute online group session a week with a teacher, for questions and help, not a class. Plus a monthly summary to HR and a kick-off with the managers.",
+    seatL:p=>`${p} toman per employee`,
+    pkgName:{sales:"Business package",marketing:"Marketing package",hr:"HR package",interview:"Interview package",ai:"AI & Internet package"},
+    rs:{sales:"For anyone who does business with foreign customers, suppliers or partners: same-day replies, clear quotes and orders, negotiation and complaints handled in English.",marketing:"For marketing: English product pages and posts written in-house, AI drafts checked before they go out.",hr:"For HR and managers: interviews, offers, feedback talks and meetings in English, run by the company's own team.",interview:"For staff assessed in English: a clear introduction, true work stories and calm answers under pressure.",ai:"For anyone who uses AI tools or the English internet at work: prompts that work, answers checked before they are used."},
+    clsName:{meet:"Meeting sessions",business:"Business English classes",general:"General English classes"},
+    clsPrice:"4,500,000 toman per 50 minutes · 2–4 people",
+    clsWhy:{meet:"Running a call, presenting results, handling questions and agreeing next steps, on the company's real meetings.",business:"Speaking practice on the company's own emails, products and calls.",general:"Most of the team needs a stronger base first. A career package can follow."},
+    clsSep:"Agreed separately. Not included in the estimate.",
+    whereName:{online:"Online, from any city.",f2f:"Face to face at the company, where the location and schedule allow.",talk:"Online or face to face, decided together.",no:"Online or face to face, whenever the company wants to add them."},
+    genFit:"The packages are built for sales, marketing, HR and interviews. For general staff, live General English is the better fit, so the next step is a short conversation.",
+    lab:{res:"Final result",learn:"What they learn"},
+  },
+  overview:{
+    eyebrow:"English for Iranian companies",
+    h:"A team that <em>works in English</em>: with foreign partners, online and with AI.",
+    lede:"FEschool trains company staff in the English their job actually uses: emails to suppliers, quotes for foreign buyers, online meetings, product pages, and the AI tools that now sit in every workflow. Each course ends in real work pieces, so the company sees the result on paper.",
+    chips:["Online, anywhere in Iran","Face to face on request","Live classes for 2–4 people","Teaching in English with Persian support"],
+    resH:"What changes in the company", resP:"The before and after we design every programme around.",
+    res:[
+      ["Foreign customers","Replies wait for the one person who knows English, or for a translator.","The sales team answers buyers the same day, in clear written English."],
+      ["Quotes and orders","Prices, delivery and payment terms get lost between languages.","Quotes and order confirmations state quantities, delivery, payment and lead time clearly."],
+      ["AI tools","Staff paste AI answers without being able to check them.","Staff write precise English prompts and check the answer before it is used."],
+      ["Online meetings","Calls with partners are avoided or left to the manager.","Staff join and run video calls, present results and handle questions."],
+      ["Marketing in English","Product pages and catalogues are machine-translated.","English product copy, posts and case studies are written and checked in-house."],
+      ["Training record","No way to know what training achieved.","A level test at the start, a portfolio and a Course Report for every employee at the end."]
+    ],
+    nowEy:"Why now", nowH:"English is now a work tool, not a school subject.",
+    nowL:"Three things changed how companies in Iran use English. None of them waits for a translator.",
+    now:[["AI","AI is now part of the work","AI can draft the email, but the customer, the supplier and the documents are still in English. Staff who read English can check what the AI wrote instead of just trusting it."],["~50%","Half the internet is English","About half of all websites are in English. Supplier catalogues, technical documents, standards and training material are found there first."],["B2B","Trade runs in English","With partners in Türkiye, the UAE, China or Europe, English is the shared working language for emails, quotes, contracts and trade fairs."]],
+    nowSrc:'Share of websites by content language: <a href="https://w3techs.com/technologies/overview/content_language" target="_blank" rel="noopener">W3Techs</a>.',
+    sysH:"How the system works", sysP:"Every employee goes through the same four steps. The content changes with the role; the structure does not.",
+    steps:[["Analysis","A level test, the employee's goals for the role, and a personal roadmap. Free for every employee."],["Learn in the app","Short sessions of 12–25 minutes on phone or computer, with a B1 and a B2 track."],["Practise live (optional)","Classes with a teacher turn the course into speaking, using the company's own emails, products and calls."],["Prove it","Chapter finales, a portfolio of real work pieces, a Course Report and an FEschool certificate."]],
+    modesH:"Three ways to deliver it",
+    modes:[["Self-study","App courses","12 months' access on every device. Staff learn on their own schedule; we follow progress."],["Live online","Business or General English","50-minute classes with a teacher, for 2 to 4 people per class, on the video platform the company already uses."],["Face to face","On request","Classes at the company when the location, schedule and group make it possible. Terms are agreed in the written proposal."]],
+    coursesH:"The courses",
+    founderH:"Farin Rasoulifathabad", founderP:"Founder of FEschool and creator of the SELIF method. 11 years teaching English 1-to-1 and online, 120-hour Premier TEFL, BA in Spanish Language and Literature from Allameh Tabataba'i University. Speaks Persian, English, Spanish, Turkish and German. Farin designs the programmes and leads the live classes.",
+    methodH:"Built on our own method", methodP:"Every lesson follows SELIF, FEschool's teaching method: language arrives inside a story and a real work task first, the rule comes after, and every step asks the learner to use the language, not only recognise it.",
+    ctaH:"Try it before the company decides", ctaP:"Staff can open the first half of Chapter 1 of any live course in the app for free. Then we send a written proposal for your team."
+  },
+  facts:["Level","Length","Format","List price per employee"],
+  canH:"What employees can do after the course", delivH:"What each employee hands in", resH:"Result for the company", inc:"Included for every employee", fromL:"Company price from", learnH:"What they learn", tierLine:(a,b)=>`21–39 people: <strong>${a}</strong> (−15%)<br>40 or more: <strong>${b}</strong> (−20%)`,
+  incl:["12 months' access on every device the employee logs in on","Chapter finales that check each step","Final project and FEschool certificate of completion","Support on WhatsApp in Persian or English"],
+  courses:{
+    sales:{status:"soon",name:"Sales & Trade English",k:"Business package · Business, sales, export, customer service",who:"Managers, sales, export, purchasing and customer-service staff: anyone who does business with foreign customers, suppliers or partners.",promise:"One full customer account in English: first contact, the trade fair, the quote, objections, negotiation, the order, the complaint and the review.",
+      facts:["B1, with a B2 track","12 lessons · 4 chapters · about 6 weeks","Self-study + 4 chapter finales","3,800,000"],
+      can:["Introduce the company and turn product features into benefits","Cold-call a company, leave a clear message, ask about needs and summarise them back","Work a trade-fair stand and tell serious buyers from visitors","Write and explain a quote: prices, quantities, delivery, payment, lead time","Answer price objections without an early discount and negotiate by trading","Confirm an order in writing, handle a complaint, give bad news early and review results with numbers"],
+      deliv:["Product pitch","First email to a new customer","A quote with clear terms","Answers to three objections","Reply to a complaint","Reflection as the customer"],delivP:"A 6-piece sales portfolio: one account, start to finish.",
+      res:["Foreign enquiries answered the same day, without a translator in the middle","Quotes and confirmations that leave no room for misunderstanding","Staff ready for the next trade fair or video call with a buyer"]},
+    marketing:{status:"soon",name:"Marketing English",k:"Career · Marketing, content, export",who:"Marketing and content staff who sell to foreign markets, or are about to.",promise:"Take a product from factory to brand in English: brief, copy, honest claims, numbers and a client case study, including checking AI-written drafts.",
+      facts:["B1+, with a B2 track","12 lessons · 3 chapters · about 6 weeks","Self-study + 3 chapter finales","3,490,000"],
+      can:["Explain what the company does and what is changing","Describe a target audience with real data and turn notes into a creative brief","Judge a draft, human or AI, and give clear, kind feedback","Write product copy that turns features into benefits, with claims that are true and provable","Adapt one message for different audiences and platforms","Read campaign numbers honestly and present results; reply to a public complaint"],
+      deliv:["Creative brief","Product copy","Social posts for two audiences","Feedback on an AI or human draft","Results summary","Client case study","Reflection as the customer"],delivP:"A 7-piece launch pack.",
+      res:["English product pages, catalogues and posts written in-house instead of machine-translated","AI drafts checked and corrected before they reach a foreign customer","Campaign results reported clearly to foreign partners"]},
+    hr:{status:"live",name:"HR & Business English",k:"Career · HR, management",who:"HR staff, recruiters and team leads in companies that hire, report or work in English.",promise:"32 real HR tasks in English: interviews, job ads, feedback talks, policy emails, meetings, formal letters, disciplinary meetings and leave requests.",
+      facts:["B1, with a B2 track","32 lessons · 8 chapters · about 16 weeks","Self-study + 8 chapter finales","4,990,000"],
+      can:["Run a structured, behavioural interview and take notes that support a decision","Write a job ad, a shortlist email, an offer or a kind rejection in clear, correct English","Lead feedback talks and team meetings","Handle disciplinary meetings, staff consultation, contracts, leave and adjustments at work","Write formal letters and policy emails"],
+      deliv:["Job ad","Behavioural interview","Interview notes with a recommendation","Offer email","Rejection email","One-week onboarding plan","A look back through the rejected candidate's eyes"],delivP:"A 7-piece portfolio from one full hiring cycle.",
+      res:["Interviews with foreign or English-speaking candidates run by your own HR team","A set of English HR templates the team keeps using","Managers who can hold meetings and feedback talks in English"]},
+    interview:{status:"soon",name:"Job Interview English",k:"Career · Internal moves, international projects",who:"Staff who will be interviewed or assessed in English: international projects, partner programmes, internal promotions.",promise:"The whole interview, from the first phone call to the final answer, practised in English.",
+      facts:["B1, with a B2 track","9 lessons · 3 chapters · about 3 weeks","Self-study + 3 chapter finales","2,990,000"],
+      can:["Introduce themselves in 60–90 seconds for a specific role","Answer screening questions on the phone and confirm dates and numbers","Give a strength with proof and a real weakness with what they do about it","Tell a true work story: situation, action, result","Handle a video interview, including a technical problem","Answer an offer, ask about the package and ask for one change"],
+      deliv:["Introduction","Strength and weakness","Three best work stories","Questions for the interviewer","Thank-you email","Reply to an offer","Full practice interview"],delivP:"A 7-part interview pack.",
+      res:["Staff who represent the company well when a partner or client interviews them","A short programme: about 3 weeks","Pairs with HR & Business English for the hiring side"]},
+    ai:{status:"prod",name:"English for AI and the Internet",k:"Career · Every team that uses AI tools",who:"Any employee who uses AI tools, searches online or reads English sources at work.",promise:"Use AI and the English internet at work: write prompts that get usable results, check what comes back, and find and judge sources in English.",
+      facts:["B1, with a B2 track","12 lessons · 3 chapters · about 6 weeks","Self-study + 3 chapter finales","3,490,000"],
+      can:["Write a clear request in English: the task, the reader, the facts, the limits and the format","Decide what to give to AI and what must stay out of it, and hand over a longer job with clear steps","Improve a weak AI answer in a few messages instead of starting again","Check an AI draft against the company's documents, correct its facts and tone, and explain the changes","Search in English, judge a source, and say what is confirmed and what is not","Read a datasheet or catalogue, follow an online meeting or webinar, and report the main points in a short message"],
+      deliv:["Prompt set for their own job","Corrected AI draft, before and after","Short research report","Meeting or webinar summary","Checking rules a team can also use","Reflection"],delivP:"A 6-piece work pack from the employee's own job.",
+      res:["Useful work from any AI assistant, by asking in clear English","AI mistakes stopped before they reach a customer or a manager","English information found, judged and used: search results, documents, catalogues and webinars"]}
+  },
+  classes:{
+    eyebrow:"Live classes", h:"A teacher, 50 minutes, the company's real work on the table.",
+    lede:"Optional and separate from the app courses. Two kinds of live class, both planned from the analysis session and built on the company's own emails, products, presentations and calls.",
+    types:[["Business English","Meetings, calls, emails, presentations, negotiation. Pairs with the career courses."],["General English, personalised","For staff who need a stronger base first: speaking, listening and grammar on a personal roadmap."]],
+    aiH:"Focus module: English for AI and the internet", aiP:"Available inside Business English classes.",
+    ai:["Writing clear prompts in English and refining them","Checking an AI answer: facts, tone, what is missing","Searching in English and judging a source","Reading English documentation, catalogues and standards","Running and joining online meetings"],
+    tH:"Class price (online or face to face)", head:["Class","Per 50 minutes (whole group)","Group size"],
+    rows:[["Business English or General English","4,500,000","2–4 people"]],
+    tNote:"The price is for the whole group, so the group shares it. Classes are agreed with each company separately from the courses, and the team discount on courses does not apply to them.",
+    plusH:"With live classes",
+    plus:[["Free analysis session","Level test, goal setting and a personal roadmap per employee, extra to the classes."],["A plan, not a chat","Every class follows the roadmap and is tied to a real work task."],["Groups by level","We build groups of 2 to 4 by level and role."]],
+    f2fH:"Face to face", f2fP:"Classes are online by default. Face-to-face classes at the company can be arranged when the location, the schedule and the group size make it possible. The price is the same: 4,500,000 toman per 50 minutes for 2 to 4 people. The place and dates are fixed in the written proposal before anything starts."
+  },
+  packages:{
+    eyebrow:"Packages & prices", h:"Pick the plan by team size. Pick the courses by role.", lede:"Every plan is one payment with 12 months' access for each employee. No subscription and no hidden fees.",
+    fromL:"from", perEmpL:"toman per employee", ctaB:"Build the proposal", recL:"Recommended",
+    tiers:[
+      {k:"Team",size:"1–20 people",t:0,note:"The full course experience at list price.",l:["App courses with 12 months' access","Free analysis session per employee","Course Report and certificate of completion"]},
+      {k:"Growth",size:"21–39 people",t:.15,feat:true,note:"For a team that must finish, not just start.",l:["15% off the final price",{p:"Weekly 50-minute group support session"},{p:"Monthly progress summary to HR"},{p:"Kick-off session with the managers"}]},
+      {k:"Enterprise",size:"40 people or more",t:.2,cls:"t3",note:"The best price, for a company-wide programme.",l:["20% off the final price, our best price",{p:"Everything in Growth"}]}
+    ],
+    mH:"What each plan includes", mHead:["","Team","Growth","Enterprise"],
+    mRows:[["App courses with 12 months' access",1,1,1],["Final project and certificate of completion",1,1,1],["Free analysis session per employee",1,1,1],["Course Report per employee",1,1,1],["Support on WhatsApp in Persian or English",1,1,1],["Weekly 50-minute group support session",0,1,1],["Monthly progress summary to HR",0,1,1],["Kick-off session with the managers",0,1,1],["Discount on the final price",0,"−15%","−20%"]],
+    anchorH:"A whole course for less than one live session.", anchorP:"At 21 people or more, one employee's full course with 12 months' access costs less than a single 50-minute live class (4,500,000 toman).",
+    trustH:"Why this is a safe decision",
+    trust:[["Try before paying","Staff can open the first half of Chapter 1 of any course in the app for free."],["One clear payment","One written total, one bank transfer, no subscription."],["A fixed quote","Toman quotes hold for 3 days, so the number in the proposal is the number paid."],["Proof on paper","A level at the start, then a portfolio and a Course Report for every employee."]],
+    pkH:"The packages", pkP:"Each employee takes the package for their role.", pkFrom:p=>`from ${p} toman per employee`,
+    wkH:"Weekly support sessions", wkP:"Above 20 people, each order gets one 50-minute online group session every week with a teacher, for the length of the course. It is a question-and-help session, not a class: questions from the week's lessons, help for anyone who is stuck, and a look at progress.",
+    tH:"Course price per employee (toman)", head:["Course","1–20 people","21–39 people (−15%)","40 or more (−20%)"],
+    cH:"Live classes (optional, agreed separately)", cHead:["Class","Per 50 minutes (whole group)","Group size"],
+    cRows:[["Online or face to face","4,500,000","2–4 people"]],
+    fine:"Team size = the number of employees in one order. The discount applies to the final price of the courses, not to live classes.",
+    pk:[["Optional","Meeting sessions","Live Business English with a meetings focus, online or face to face. 4,500,000 per 50 minutes for 2–4 people, agreed separately."],["Mixed teams","Combined order","Each employee gets the package for their role. The whole order counts toward the team discount."]],
+    exH:"Example: what 24 employees on the Business package get",
+    ex:[["Sales & Trade English, 24 × 3,800,000","91,200,000"],["Weekly support: 6 sessions, valued at our class rate","27,000,000"],["Total value","118,200,000"],["15% off the courses","−13,680,000"],["Weekly support, included","−27,000,000"],["The company pays","77,520,000"],["Saved","40,680,000"],["Per employee","3,230,000"],["Per employee, per month of access","≈ 269,000"]],
+    exNote:"With 40 people the courses cost 121,600,000 instead of 152,000,000: 3,040,000 per employee. Live classes are not included.",
+    payH:"How buying works",
+    pay:[["1 · Proposal","You tell us the team, the roles and the goal. We send a written proposal with the package, dates and total."],["2 · Payment","One bank transfer for the order (Paya or Satna for larger amounts)."],["3 · Start","Each employee gets a personal course password and starts with the analysis session."]]
+  },
+  support:{
+    eyebrow:"Reporting & results", h:"What management sees before, during and after.", lede:"Training only counts if you can see what changed. This is what FEschool gives the company at each stage.",
+    tl:[["Before","#7C5CFC",["A level test for every employee","Goals agreed for each role","A personal roadmap per employee","A written proposal with dates and total"]],["During","#FFA53D",["Progress from app records: lessons done, chapter finales passed","Weekly online support session and a monthly progress summary to HR (more than 20 people)","Feedback on the employee's writing in live classes","One WhatsApp contact for questions, in Persian or English"]],["After","#4F7A55",["A Course Report per employee: what was done, the level reached, next steps","The employee's portfolio of real work pieces","An FEschool certificate of completion","A recommendation for the next course or class pack"]]],
+    measH:"How results are measured",
+    meas:[["Start level","The analysis session records each employee's level and goals, so the end can be compared with the start."],["Checkpoints","A chapter finale closes every chapter and checks its tasks before the next one opens."],["Portfolio","Each course ends with real work pieces (emails, a quote, a brief, an interview pack) that a manager can read."],["Course Report","One document per employee for the training file, with the result and the next step."]],
+    notH:"What we never promise", not:["An official CEFR or Cambridge certificate","A fixed level jump in a fixed time","A sale, a contract or a promotion"],
+    notP:"We promise the practice, the feedback and a clear written record of what each employee can now do."
+  }
+},
+fa:{
+  dir:"rtl", sub:"برای سازمان‌ها", unit:"تومان",
+  tabs:{plan:"پیدا کردن پکیج",overview:"نمای کلی",sales:"بیزنس و فروش",marketing:"بازاریابی",hr:"منابع انسانی و بیزنس",interview:"مصاحبه‌ی شغلی",ai:"هوش مصنوعی و اینترنت",classes:"کلاس‌های زنده",packages:"پکیج‌ها و قیمت‌ها",support:"گزارش و نتیجه"},
+  foot:"FEschool · برنامه‌های سازمانی برای ایران · آبان ۱۴۰۵ · همه‌ی قیمت‌ها به تومان و برای هر کارمند است و در تاریخ پیشنهاد کتبی معتبر است. گواهی FEschool گواهی پایان دوره است و مدرک CEFR یا کمبریج نیست.",
+  status:{live:"الان در اپ",soon:"محتوا کامل · در حال اضافه‌شدن به اپ",prod:"در حال تولید"},
+  more:"جزئیات", open:"باز کردن اپ", who:"برای چه کسانی", bl:["قبل","بعد"],
+  quiz:{
+    eyebrow:"برنامه‌ی شرکت · ۲ دقیقه",
+    h:"هشت سؤال کوتاه. گزارشی مخصوص همین شرکت.",
+    lede:"شرکت چه کاری می‌کند و چه چیزی باید تغییر کند؟ جواب‌ها به یک گزارش اختصاصی تبدیل می‌شوند: کدام پکیج‌ها مناسب‌اند، هر کدام چه می‌دهند و قیمت دقیق چقدر است.",
+    stepL:(i,n)=>`سؤال ${i} از ${n}`, next:"بعدی", back:"قبلی", see:"دیدن برنامه", edit:"تغییر جواب‌ها", restart:"شروع دوباره",
+    stT:(n,d)=>n>=40?`${d(n)} نفر: ٪۲۰ تخفیف، بهترین قیمت.`:n>20?`${d(n)} نفر: ٪۱۵ تخفیف. با ${d(40-n)} نفر بیشتر: ٪۲۰ تخفیف.`:`با ${d(Math.max(0,21-n))} نفر بیشتر: ٪۱۵ تخفیف و جلسه‌های پشتیبانی هفتگی.`,
+    qs:[
+      {id:"industry",type:"one",cols:2,q:"صنعت شرکت چیست؟",opts:[["mfg","تولید و صادرات"],["trade","بازرگانی و واردات"],["tech","فناوری و نرم‌افزار"],["energy","انرژی، ساخت‌وساز و مهندسی"],["health","سلامت و داروسازی"],["finance","بانک، مالی و بیمه"],["tour","گردشگری و هتلداری"],["retail","خرده‌فروشی و تجارت الکترونیک"],["services","خدمات، مشاوره و آموزش"],["other","حوزه‌ای دیگر"]]},
+      {id:"teams",type:"multi",q:"کدام تیم‌ها آموزش می‌بینند؟",hint:"هر چند گزینه که لازم است.",opts:[["sales","فروش، صادرات یا خرید"],["marketing","بازاریابی و محتوا"],["hr","منابع انسانی و مدیران تیم"],["proj","کارکنان پروژه‌های بین‌المللی یا برنامه‌های شریک تجاری"],["staff","کارکنان اداری و پشتیبانی"]]},
+      {id:"goals",type:"multi",max:3,q:"شش ماه بعد، چه چیزی باید در شرکت درست شده باشد؟",hint:"حداکثر ۳ گزینه: نتیجه‌هایی که از همه مهم‌ترند.",opts:[["buyers","خریدار خارجی همان روز جواب می‌گیرد، بدون مترجم"],["quotes","پیش‌فاکتور، ایمیل و قرارداد روشن و بدون سوءتفاهم فرستاده می‌شود"],["meet","کارکنان جلسه‌ی آنلاین با شریک خارجی را خودشان پیش می‌برند"],["ai","کارکنان با ابزارهای هوش مصنوعی به انگلیسی کار می‌کنند و جواب را پیش از استفاده بررسی می‌کنند"],["mkt","صفحه‌ی محصول، کاتالوگ و پست‌ها با انگلیسیِ خوب در خود شرکت نوشته می‌شوند"],["hire","مصاحبه و استخدام به انگلیسی بدون کمک بیرونی انجام می‌شود"],["rep","وقتی شریک یا مشتری کارکنان را ارزیابی می‌کند، شرکت خوب نمایندگی می‌شود"],["base","کارکنان پایه‌ی محکمی دارند: می‌فهمند و با اعتمادبه‌نفس حرف می‌زنند"]]},
+      {id:"meet",type:"one",q:"این کارکنان هر چند وقت یک بار جلسه یا تماس انگلیسی دارند؟",opts:[["daily","هر روز"],["weekly","هر هفته"],["monthly","چند بار در ماه"],["rare","به‌ندرت، اما در راه است"]]},
+      {id:"level",type:"one",q:"بیشترِ تیم الان در چه سطحی است؟",opts:[["low","کم می‌فهمند و از انگلیسی دوری می‌کنند"],["read","ایمیل را می‌خوانند اما در صحبت و نوشتن مشکل دارند"],["work","به انگلیسی کار می‌کنند، اما کند و با اشتباه"],["mixed","سطح‌ها خیلی متفاوت است"]]},
+      {id:"size",type:"num",q:"چند نفر از کارکنان آموزش می‌بینند؟",hint:"بیش از ۲۰ نفر: ٪۱۵ تخفیف و جلسه‌های پشتیبانی هفتگی. ۴۰ نفر به بالا: ٪۲۰ تخفیف.",quick:[5,10,21,40],unit:"نفر"},
+      {id:"live",type:"one",q:"آیا کلاس زنده با معلم هم لازم است؟",hint:"دوره‌های اپ هسته‌ی هر پکیج‌اند. کلاس زنده اختیاری است و جداگانه توافق می‌شود.",opts:[["no","نه، دوره‌های اپ کافی است"],["online","بله، آنلاین"],["f2f","بله، حضوری در محل شرکت"],["talk","شاید، باید درباره‌اش صحبت شود"]]},
+      {id:"company",type:"text",q:"گزارش به چه نامی باشد؟",hint:"نام شرکت. اختیاری.",ph:"نام شرکت"}
+    ],
+    indCtx:{mfg:"کاتالوگ، مشخصات فنی، پیش‌فاکتور و نمایشگاه",trade:"ایمیل به تأمین‌کننده، قرارداد، اسناد حمل و مذاکره",tech:"مستندات، ابزارهای هوش مصنوعی، دموی محصول و مشتری خارجی",energy:"اسناد فنی، استانداردها، پیمانکار خارجی و جلسه‌های پروژه",health:"پژوهش، اطلاعات محصول، تأمین‌کننده‌ی خارجی و کنفرانس",finance:"گزارش، شریک خارجی، اسناد انطباق و تماس با مشتری",tour:"پیام مهمان، نظرها، رزرو و آژانس خارجی",retail:"صفحه‌ی محصول، تبلیغات آنلاین، پیام تأمین‌کننده و خدمات مشتری",services:"پیشنهاد کاری، جلسه‌ی آنلاین، گزارش به مشتری و پژوهش",other:"ایمیل، جلسه‌ی آنلاین و منابع انگلیسی"},
+    rEy:"گزارش اختصاصی", rH:x=>`گزارش آموزش انگلیسی برای ${x}`, rDef:"این شرکت", planL:{0:"پلن تیم",15:"پلن رشد",20:"پلن سازمانی"},
+    sum:{h:"آنچه از نیاز شرکت فهمیدیم",ind:"صنعت",ppl:"تعداد نفرات",tms:"تیم‌ها",mt:"جلسه‌های انگلیسی",lv:"سطح فعلی تیم",prio:"اولویت‌های شرکت",use:(l,c)=>`در حوزه‌ی «${l}»، انگلیسی در این‌جاها به کار می‌آید: ${c}.`},
+    recH:"پیشنهاد ما", recIntro:k=>`بر اساس این نیازها، ${k==="۱"?"این پکیج":k+" پکیج"} پیشنهاد می‌شود`,
+    tagMain:"پیشنهاد اصلی", tagNext:"پیشنهاد بعدی", tagFill:"مفید برای این صنعت",
+    whyH:"چرا مناسب است", getsH:"شرکت چه می‌گیرد", learnH2:"کارکنان چه یاد می‌گیرند", fillWhy:(l)=>`نیازی رایج در حوزه‌ی «${l}»، هرچند جزو اولویت‌ها انتخاب نشده بود.`, teamWhy:t=>`برای تیم: ${t}`,
+    seatL2:"تعداد نفرات", lowNote:"این دوره‌ها از سطح B1 شروع می‌شوند. بهتر است بیشتر این تیم با کلاس زنده‌ی انگلیسی عمومی شروع کند و بعد پکیج را بگیرد.",
+    extraH:"پشتیبانی و گزینه‌ها", othersH:"دوره‌های دیگر", othersP:"این دوره‌ها هم برای شرکت موجودند.", classesL:"کلاس‌های زنده", contactH:"تماس", contactL:{WhatsApp:"واتس‌اپ",Web:"وب‌سایت",Email:"ایمیل",Instagram:"اینستاگرام",LinkedIn:"لینکدین"}, tiles:{ind:"صنعت",ppl:"نفرات",pk:"پکیج‌ها",plan:"قیمت تیمی"}, listL:"قیمت پایه",
+    valid:d=>`تاریخ: ${d}. قیمت‌های تومانی ۳ روز معتبرند.`, printB:"ذخیره به‌صورت PDF", waPeople:"نفر",
+    courseK:"پکیج", classK:"کلاس زنده · اختیاری", incK:"شامل", optK:"اختیاری",
+    pctL:t=>t===.2?"٪۲۰":"٪۱۵", perMonth:p=>`≈ ${p} تومان برای هر کارمند، هر ماه دسترسی`,
+    wkName:"جلسه‌های پشتیبانی هفتگی", wkWhy:"هفته‌ای یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با معلم، برای سؤال و کمک، نه کلاس. به‌علاوه‌ی خلاصه‌ی ماهانه برای منابع انسانی و جلسه‌ی شروع با مدیران.",
+    seatL:p=>`${p} تومان برای هر کارمند`,
+    pkgName:{sales:"پکیج بیزنس",marketing:"پکیج بازاریابی",hr:"پکیج منابع انسانی",interview:"پکیج مصاحبه",ai:"پکیج هوش مصنوعی و اینترنت"},
+    rs:{sales:"برای هر کسی که با مشتری، تأمین‌کننده یا شریک خارجی کار می‌کند: جواب همان روز، پیش‌فاکتور و سفارش روشن، و مذاکره و رسیدگی به شکایت به انگلیسی.",marketing:"برای بازاریابی: صفحه‌ی محصول و پست انگلیسی در خود شرکت، و بررسی پیش‌نویس‌های هوش مصنوعی پیش از انتشار.",hr:"برای منابع انسانی و مدیران: مصاحبه، پیشنهاد کار، گفت‌وگوی بازخورد و جلسه به انگلیسی، توسط تیم خود شرکت.",interview:"برای کارکنانی که به انگلیسی ارزیابی می‌شوند: معرفی روشن، داستان‌های کاری واقعی و جواب آرام زیر فشار.",ai:"برای هر کسی که با ابزارهای هوش مصنوعی یا اینترنت انگلیسی کار می‌کند: پرامپتی که جواب می‌دهد و جوابی که پیش از استفاده بررسی می‌شود."},
+    clsName:{meet:"جلسه‌های تمرین مذاکره و جلسه",business:"کلاس انگلیسی بیزنس",general:"کلاس انگلیسی عمومی"},
+    clsPrice:"۴٬۵۰۰٬۰۰۰ تومان برای هر ۵۰ دقیقه · ۲ تا ۴ نفر",
+    clsWhy:{meet:"پیش بردن تماس، ارائه‌ی نتیجه، جواب به سؤال و توافق بر قدم بعدی، روی جلسه‌های واقعی شرکت.",business:"تمرین صحبت روی ایمیل‌ها، محصولات و تماس‌های خود شرکت.",general:"بیشتر تیم اول پایه‌ی قوی‌تری لازم دارد. پکیج شغلی می‌تواند بعد از آن بیاید."},
+    clsSep:"با توافق جداگانه. در برآورد حساب نشده است.",
+    whereName:{online:"آنلاین، از هر شهری.",f2f:"حضوری در محل شرکت، هر جا که مکان و زمان‌بندی اجازه بدهد.",talk:"آنلاین یا حضوری، با تصمیم مشترک.",no:"آنلاین یا حضوری، هر زمان که شرکت بخواهد اضافه شود."},
+    genFit:"پکیج‌ها برای فروش، بازاریابی، منابع انسانی و مصاحبه ساخته شده‌اند. برای کارکنان عمومی، کلاس زنده‌ی انگلیسی عمومی مناسب‌تر است؛ پس قدم بعدی یک گفت‌وگوی کوتاه است.",
+    lab:{res:"نتیجه‌ی نهایی",learn:"چه چیزهایی یاد می‌گیرند"},
+  },
+  overview:{
+    eyebrow:"انگلیسی برای شرکت‌های ایرانی",
+    h:"تیمی که <em>به انگلیسی کار می‌کند</em>: با شریک خارجی، در فضای آنلاین و با هوش مصنوعی.",
+    lede:"FEschool به کارکنان شرکت همان انگلیسی‌ای را یاد می‌دهد که کارشان واقعاً لازم دارد: ایمیل به تأمین‌کننده، پیش‌فاکتور برای خریدار خارجی، جلسه‌ی آنلاین، صفحه‌ی محصول، و ابزارهای هوش مصنوعی که حالا در هر کاری هستند. هر دوره با کارهای واقعی تمام می‌شود؛ پس شرکت نتیجه را روی کاغذ می‌بیند.",
+    chips:["آنلاین، از هر شهری در ایران","حضوری در صورت درخواست","کلاس زنده برای ۲ تا ۴ نفر","آموزش به انگلیسی با پشتیبانی فارسی"],
+    resH:"چه چیزی در شرکت تغییر می‌کند", resP:"قبل و بعدی که هر برنامه حول آن طراحی می‌شود.",
+    res:[
+      ["مشتری خارجی","جواب‌ها منتظر تنها کسی می‌مانند که انگلیسی بلد است، یا منتظر مترجم.","تیم فروش همان روز با انگلیسیِ نوشتاریِ روشن به خریدار جواب می‌دهد."],
+      ["پیش‌فاکتور و سفارش","قیمت، تحویل و شرایط پرداخت بین دو زبان گم می‌شود.","پیش‌فاکتور و تأیید سفارش مقدار، تحویل، پرداخت و زمان تأمین را روشن می‌گویند."],
+      ["ابزارهای هوش مصنوعی","کارکنان جواب هوش مصنوعی را بدون امکان بررسی کپی می‌کنند.","کارکنان پرامپت دقیق انگلیسی می‌نویسند و جواب را پیش از استفاده بررسی می‌کنند."],
+      ["جلسه‌ی آنلاین","از تماس با شریک خارجی پرهیز می‌شود یا فقط به مدیر سپرده می‌شود.","کارکنان در تماس تصویری شرکت می‌کنند، آن را پیش می‌برند، نتیجه ارائه می‌دهند و به سؤال جواب می‌دهند."],
+      ["بازاریابی به انگلیسی","صفحه‌ی محصول و کاتالوگ با ترجمه‌ی ماشینی ساخته می‌شود.","متن محصول، پست‌ها و کیس‌استادی انگلیسی در خود شرکت نوشته و بررسی می‌شود."],
+      ["سابقه‌ی آموزش","معلوم نیست آموزش چه نتیجه‌ای داشته.","تعیین سطح در شروع، و نمونه‌کار و گزارش دوره برای هر کارمند در پایان."]
+    ],
+    nowEy:"چرا الان", nowH:"انگلیسی حالا ابزار کار است، نه درس مدرسه.",
+    nowL:"سه چیز نحوه‌ی استفاده‌ی شرکت‌های ایرانی از انگلیسی را عوض کرده است. هیچ‌کدام منتظر مترجم نمی‌ماند.",
+    now:[["AI","هوش مصنوعی حالا بخشی از کار است","هوش مصنوعی می‌تواند ایمیل را بنویسد، اما مشتری، تأمین‌کننده و سندها همچنان انگلیسی‌اند. کارمندی که انگلیسی می‌خواند می‌تواند نوشته‌ی هوش مصنوعی را بررسی کند، نه این‌که فقط به آن اعتماد کند."],["٪۵۰~","نیمی از اینترنت انگلیسی است","حدود نیمی از وب‌سایت‌های دنیا انگلیسی‌اند. کاتالوگ تأمین‌کننده‌ها، اسناد فنی، استانداردها و منابع آموزشی اول آن‌جا پیدا می‌شوند."],["B2B","تجارت به انگلیسی انجام می‌شود","با شریک‌هایی در ترکیه، امارات، چین یا اروپا، انگلیسی زبان مشترک کار است: ایمیل، پیش‌فاکتور، قرارداد و نمایشگاه."]],
+    nowSrc:'سهم وب‌سایت‌ها بر اساس زبان محتوا: <a href="https://w3techs.com/technologies/overview/content_language" target="_blank" rel="noopener">W3Techs</a>.',
+    sysH:"سیستم چطور کار می‌کند", sysP:"همه‌ی کارکنان از همین چهار مرحله می‌گذرند. محتوا با نقش شغلی عوض می‌شود؛ ساختار نه.",
+    steps:[["تحلیل","تعیین سطح، هدف‌های کارمند برای نقشش و یک نقشه‌ی راه شخصی. برای هر کارمند رایگان."],["یادگیری در اپ","جلسه‌های کوتاه ۱۲ تا ۲۵ دقیقه‌ای روی گوشی یا کامپیوتر، با مسیر B1 و B2."],["تمرین زنده (اختیاری)","در کلاس با معلم، دوره به صحبت تبدیل می‌شود؛ با ایمیل‌ها، محصولات و تماس‌های خود شرکت."],["اثبات نتیجه","پایان‌های فصل، نمونه‌کار از کارهای واقعی، گزارش دوره و گواهی FEschool."]],
+    modesH:"سه روش برگزاری",
+    modes:[["خودآموز","دوره‌های اپ","۱۲ ماه دسترسی روی همه‌ی دستگاه‌ها. کارکنان با برنامه‌ی خودشان پیش می‌روند و ما پیشرفت را دنبال می‌کنیم."],["زنده‌ی آنلاین","انگلیسی بیزنس یا انگلیسی عمومی","کلاس‌های ۵۰ دقیقه‌ای با معلم، برای ۲ تا ۴ نفر در هر کلاس، روی همان پلتفرم تصویری که شرکت استفاده می‌کند."],["حضوری","در صورت درخواست","کلاس در محل شرکت، هر جا که مکان، زمان‌بندی و گروه اجازه بدهد. شرایط در پیشنهاد کتبی مشخص می‌شود."]],
+    coursesH:"دوره‌ها",
+    founderH:"فرین رسولی فتح‌آباد", founderP:"بنیان‌گذار FEschool و طراح روش SELIF. ۱۱ سال تدریس انگلیسی به‌صورت خصوصی و آنلاین، گواهی ۱۲۰ ساعته‌ی Premier TEFL، کارشناسی زبان و ادبیات اسپانیایی از دانشگاه علامه طباطبایی. به فارسی، انگلیسی، اسپانیایی، ترکی و آلمانی صحبت می‌کند. برنامه‌ها را خودش طراحی می‌کند و کلاس‌های زنده را خودش برگزار می‌کند.",
+    methodH:"بر پایه‌ی روش خودمان", methodP:"هر درس بر اساس SELIF، روش آموزشی FEschool، ساخته شده است: زبان اول در دل یک داستان و یک کار واقعی می‌آید، قاعده بعد از آن، و هر مرحله از زبان‌آموز می‌خواهد زبان را به کار ببرد، نه فقط تشخیص بدهد.",
+    ctaH:"پیش از تصمیم شرکت امتحانش کنید", ctaP:"کارکنان می‌توانند نیمه‌ی اول فصل ۱ هر دوره‌ی فعال را رایگان در اپ باز کنند. بعد پیشنهاد کتبی برای تیم فرستاده می‌شود."
+  },
+  facts:["سطح","مدت","شکل دوره","قیمت پایه برای هر کارمند"],
+  canH:"کارکنان بعد از دوره چه کارهایی می‌توانند بکنند", delivH:"هر کارمند چه چیزی تحویل می‌دهد", resH:"نتیجه برای شرکت", inc:"شامل برای هر کارمند", fromL:"قیمت سازمانی از", learnH:"چه چیزهایی یاد می‌گیرند", tierLine:(a,b)=>`۲۱ تا ۳۹ نفر: <strong>${a}</strong> (٪۱۵ تخفیف)<br>۴۰ نفر به بالا: <strong>${b}</strong> (٪۲۰ تخفیف)`,
+  incl:["۱۲ ماه دسترسی روی هر دستگاهی که کارمند با آن وارد می‌شود","پایان فصل برای سنجش هر مرحله","پروژه‌ی پایانی و گواهی پایان دوره‌ی FEschool","پشتیبانی در واتس‌اپ به فارسی یا انگلیسی"],
+  courses:{
+    sales:{status:"soon",name:"انگلیسی فروش و بازرگانی",k:"پکیج بیزنس · بیزنس، فروش، صادرات، خدمات مشتری",who:"مدیران و کارکنان فروش، صادرات، خرید و خدمات مشتری: هر کسی که با مشتری، تأمین‌کننده یا شریک خارجی کار می‌کند.",promise:"یک حساب مشتریِ کامل به انگلیسی: اولین تماس، نمایشگاه، پیش‌فاکتور، اعتراض‌ها، مذاکره، سفارش، شکایت و بازبینی.",
+      facts:["B1، با مسیر B2","۱۲ درس · ۴ فصل · حدود ۶ هفته","خودآموز + ۴ پایان فصل","۳٬۸۰۰٬۰۰۰"],
+      can:["شرکت را معرفی کنند و ویژگی محصول را به فایده تبدیل کنند","تماس سرد بگیرند، پیام روشن بگذارند، نیاز مشتری را بپرسند و خلاصه کنند","در غرفه‌ی نمایشگاه کار کنند و خریدار جدی را از بازدیدکننده تشخیص دهند","پیش‌فاکتور بنویسند و توضیح دهند: قیمت، مقدار، تحویل، پرداخت، زمان تأمین","به اعتراض قیمت بدون تخفیف زودهنگام جواب دهند و با بده‌بستان مذاکره کنند","سفارش را کتبی تأیید کنند، شکایت را مدیریت کنند، خبر بد را زود بدهند و نتایج را با عدد بررسی کنند"],
+      deliv:["معرفی محصول","اولین ایمیل به مشتری جدید","پیش‌فاکتور با شرایط روشن","جواب به سه اعتراض","جواب به یک شکایت","بازتاب از نگاه مشتری"],delivP:"یک نمونه‌کار ۶ بخشی فروش: یک حساب مشتری از شروع تا پایان.",
+      res:["جواب به استعلام خارجی در همان روز، بدون مترجم در وسط","پیش‌فاکتور و تأیید سفارشی که جای سوءتفاهم نمی‌گذارد","کارکنانی آماده برای نمایشگاه بعدی یا تماس تصویری با خریدار"]},
+    marketing:{status:"soon",name:"انگلیسی برای بازاریابی",k:"شغلی · بازاریابی، محتوا، صادرات",who:"کارکنان بازاریابی و محتوا که به بازار خارجی می‌فروشند یا قرار است بفروشند.",promise:"یک محصول را به انگلیسی از کارخانه تا برند ببرند: بریف، متن، ادعای درست، عددها و کیس‌استادی، همراه با بررسی پیش‌نویس‌های هوش مصنوعی.",
+      facts:["B1+، با مسیر B2","۱۲ درس · ۳ فصل · حدود ۶ هفته","خودآموز + ۳ پایان فصل","۳٬۴۹۰٬۰۰۰"],
+      can:["توضیح دهند شرکت چه می‌کند و چه چیزی در حال تغییر است","مخاطب هدف را با داده‌ی واقعی توصیف کنند و یادداشت‌ها را به بریف خلاقانه تبدیل کنند","یک پیش‌نویس، انسانی یا هوش مصنوعی، را ارزیابی کنند و بازخورد روشن و محترمانه بدهند","متن محصول بنویسند که ویژگی را به فایده تبدیل کند، با ادعاهای درست و قابل اثبات","یک پیام را برای مخاطب‌ها و پلتفرم‌های مختلف تطبیق دهند","عددهای کمپین را صادقانه بخوانند و نتیجه را ارائه کنند؛ به شکایت عمومی جواب دهند"],
+      deliv:["بریف خلاقانه","متن محصول","پست برای دو مخاطب","بازخورد روی پیش‌نویس انسانی یا هوش مصنوعی","خلاصه‌ی نتایج","کیس‌استادی برای مشتری","بازتاب از نگاه مشتری"],delivP:"یک بسته‌ی ۷ بخشی برای عرضه‌ی محصول.",
+      res:["صفحه‌ی محصول، کاتالوگ و پست انگلیسی که در خود شرکت نوشته می‌شود، نه با ترجمه‌ی ماشینی","پیش‌نویس‌های هوش مصنوعی پیش از رسیدن به مشتری خارجی بررسی و اصلاح می‌شوند","گزارش روشن نتایج کمپین به شریک خارجی"]},
+    hr:{status:"live",name:"انگلیسی منابع انسانی و بیزنس",k:"شغلی · منابع انسانی، مدیریت",who:"کارشناسان منابع انسانی، کارشناسان استخدام و سرپرست‌های تیم در شرکت‌هایی که به انگلیسی استخدام، گزارش یا کار می‌کنند.",promise:"۳۲ کار واقعی منابع انسانی به انگلیسی: مصاحبه، آگهی استخدام، گفت‌وگوی بازخورد، ایمیل‌های آیین‌نامه، جلسه‌ها، نامه‌های رسمی، جلسه‌های انضباطی و درخواست‌های مرخصی.",
+      facts:["B1، با مسیر B2","۳۲ درس · ۸ فصل · حدود ۱۶ هفته","خودآموز + ۸ پایان فصل","۴٬۹۹۰٬۰۰۰"],
+      can:["یک مصاحبه‌ی ساختارمند و رفتاری برگزار کنند و یادداشت‌هایی بنویسند که پشتوانه‌ی تصمیم باشد","آگهی استخدام، ایمیل فهرست نهایی، پیشنهاد کار یا ایمیل عدم پذیرشِ محترمانه را به انگلیسیِ روشن و درست بنویسند","گفت‌وگوی بازخورد و جلسه‌ی تیم را پیش ببرند","جلسه‌ی انضباطی، نظرخواهی از کارکنان، قرارداد، مرخصی و تغییرات محیط کار را مدیریت کنند","نامه‌ی رسمی و ایمیل آیین‌نامه بنویسند"],
+      deliv:["آگهی استخدام","مصاحبه‌ی رفتاری","یادداشت مصاحبه و توصیه‌ی نهایی","ایمیل پیشنهاد کار","ایمیل عدم پذیرش","برنامه‌ی یک‌هفته‌ای ورود و آشناسازی","نگاهی دوباره از چشم متقاضیِ پذیرفته‌نشده"],delivP:"یک نمونه‌کار ۷ بخشی از یک چرخه‌ی کامل استخدام.",
+      res:["مصاحبه با متقاضی خارجی یا انگلیسی‌زبان توسط تیم منابع انسانیِ خود شرکت","مجموعه‌ای از قالب‌های انگلیسی منابع انسانی که تیم مدام استفاده می‌کند","مدیرانی که می‌توانند جلسه و گفت‌وگوی بازخورد را به انگلیسی برگزار کنند"]},
+    interview:{status:"soon",name:"مصاحبه‌ی شغلی به انگلیسی",k:"شغلی · جابه‌جایی داخلی، پروژه‌های بین‌المللی",who:"کارکنانی که به انگلیسی مصاحبه یا ارزیابی می‌شوند: پروژه‌های بین‌المللی، برنامه‌های شریک تجاری، ارتقای داخلی.",promise:"کل مصاحبه، از اولین تماس تلفنی تا جواب نهایی، به انگلیسی تمرین می‌شود.",
+      facts:["B1، با مسیر B2","۹ درس · ۳ فصل · حدود ۳ هفته","خودآموز + ۳ پایان فصل","۲٬۹۹۰٬۰۰۰"],
+      can:["خودشان را در ۶۰ تا ۹۰ ثانیه برای یک نقش مشخص معرفی کنند","به سؤال‌های تلفنیِ غربالگری جواب دهند و تاریخ‌ها و عددها را تأیید کنند","یک نقطه‌ی قوت را با مثال و یک نقطه‌ی ضعف واقعی را با راه‌حلش بگویند","یک داستان کاری واقعی تعریف کنند: موقعیت، اقدام، نتیجه","مصاحبه‌ی ویدیویی را، حتی با مشکل فنی، مدیریت کنند","به پیشنهاد جواب دهند، درباره‌ی مزایا بپرسند و یک تغییر درخواست کنند"],
+      deliv:["معرفی خود","نقطه‌ی قوت و ضعف","سه داستان کاری برتر","سؤال‌ها برای مصاحبه‌کننده","ایمیل تشکر","جواب به پیشنهاد","یک مصاحبه‌ی تمرینی کامل"],delivP:"یک بسته‌ی ۷ بخشی مصاحبه.",
+      res:["کارکنانی که وقتی شریک یا مشتری با آن‌ها مصاحبه می‌کند، شرکت را خوب نمایندگی می‌کنند","برنامه‌ی کوتاه: حدود ۳ هفته","جفت با دوره‌ی منابع انسانی برای طرف استخدام‌کننده"]},
+    ai:{status:"prod",name:"انگلیسی برای هوش مصنوعی و اینترنت",k:"شغلی · هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند",who:"هر کارمندی که در کارش از ابزارهای هوش مصنوعی استفاده می‌کند، آنلاین جست‌وجو می‌کند یا منابع انگلیسی می‌خواند.",promise:"کار با هوش مصنوعی و اینترنت انگلیسی: پرامپتی که نتیجه‌ی قابل استفاده می‌دهد، بررسی جواب، و پیدا کردن و سنجیدن منابع به انگلیسی.",
+      facts:["B1، با مسیر B2","۱۲ درس · ۳ فصل · حدود ۶ هفته","خودآموز + ۳ پایان فصل","۳٬۴۹۰٬۰۰۰"],
+      can:["به انگلیسی درخواست روشن بنویسند: کار، خواننده، اطلاعات، محدودیت‌ها و قالب","تصمیم بگیرند چه چیزی را به هوش مصنوعی بدهند و چه چیزی نباید به آن برسد، و یک کار طولانی‌تر را با مرحله‌های روشن واگذار کنند","جواب ضعیف هوش مصنوعی را با چند پیام بهتر کنند، بدون اینکه از اول شروع کنند","پیش‌نویس هوش مصنوعی را با سندهای شرکت مقایسه کنند، اطلاعات و لحنش را اصلاح کنند و تغییرها را توضیح بدهند","به انگلیسی جست‌وجو کنند، منبع را بسنجند و بگویند چه چیزی تأیید شده و چه چیزی نه","دیتاشیت یا کاتالوگ را بخوانند، یک جلسه‌ی آنلاین یا وبینار را دنبال کنند و نکته‌های اصلی را در پیامی کوتاه گزارش بدهند"],
+      deliv:["مجموعه‌ی پرامپت برای شغل خودشان","پیش‌نویس هوش مصنوعی، قبل و بعد از اصلاح","گزارش تحقیق کوتاه","خلاصه‌ی جلسه یا وبینار","قاعده‌های بررسی که تیم هم می‌تواند استفاده کند","بازتاب"],delivP:"یک بسته‌ی کاری ۶ بخشی از کار خود کارمند.",
+      res:["کار به‌دردبخور از هر دستیار هوش مصنوعی، با درخواست روشن به انگلیسی","اشتباه‌های هوش مصنوعی پیش از رسیدن به مشتری یا مدیر گرفته می‌شود","اطلاعات انگلیسی پیدا، سنجیده و به کار گرفته می‌شود: نتایج جست‌وجو، سندها، کاتالوگ‌ها و وبینارها"]}
+  },
+  classes:{
+    eyebrow:"کلاس‌های زنده", h:"یک معلم، ۵۰ دقیقه، و کار واقعیِ شرکت روی میز.",
+    lede:"اختیاری و جدا از دوره‌های اپ. دو نوع کلاس زنده؛ هر دو بر اساس جلسه‌ی تحلیل برنامه‌ریزی می‌شوند و روی ایمیل‌ها، محصولات، ارائه‌ها و تماس‌های خود شرکت ساخته می‌شوند.",
+    types:[["انگلیسی بیزنس","جلسه، تماس، ایمیل، ارائه، مذاکره. مکمل دوره‌های شغلی."],["انگلیسی عمومی، شخصی‌سازی‌شده","برای کارکنانی که اول پایه‌ی قوی‌تری لازم دارند: صحبت، شنیدن و گرامر در یک نقشه‌ی راه شخصی."]],
+    aiH:"ماژول ویژه: انگلیسی برای هوش مصنوعی و اینترنت", aiP:"داخل کلاس‌های انگلیسی بیزنس قابل انتخاب است.",
+    ai:["نوشتن پرامپت روشن به انگلیسی و بهتر کردن آن","بررسی جواب هوش مصنوعی: درستی، لحن، آنچه جا افتاده","جست‌وجو به انگلیسی و سنجیدن منبع","خواندن مستندات، کاتالوگ و استاندارد انگلیسی","برگزاری و شرکت در جلسه‌ی آنلاین"],
+    tH:"قیمت کلاس (آنلاین یا حضوری)", head:["کلاس","هر ۵۰ دقیقه (کل گروه)","اندازه‌ی گروه"],
+    rows:[["انگلیسی بیزنس یا انگلیسی عمومی","۴٬۵۰۰٬۰۰۰","۲ تا ۴ نفر"]],
+    tNote:"قیمت برای کل گروه است و گروه آن را تقسیم می‌کند. کلاس‌ها جدا از دوره‌ها با هر شرکت توافق می‌شوند و تخفیف تیمی دوره‌ها شامل آن‌ها نمی‌شود.",
+    plusH:"همراه کلاس‌های زنده",
+    plus:[["جلسه‌ی تحلیل رایگان","تعیین سطح، تعیین هدف و نقشه‌ی راه شخصی برای هر کارمند، جدا از جلسه‌های کلاس."],["برنامه، نه گپ","هر کلاس طبق نقشه‌ی راه پیش می‌رود و به یک کار واقعی وصل است."],["گروه‌بندی بر اساس سطح","گروه‌های ۲ تا ۴ نفره بر اساس سطح و نقش ساخته می‌شوند."]],
+    f2fH:"حضوری", f2fP:"کلاس‌ها به‌طور پیش‌فرض آنلاین‌اند. کلاس حضوری در محل شرکت هر جا که مکان، زمان‌بندی و اندازه‌ی گروه اجازه بدهد قابل برنامه‌ریزی است. قیمت همان است: ۴٬۵۰۰٬۰۰۰ تومان برای هر ۵۰ دقیقه، برای ۲ تا ۴ نفر. محل و تاریخ‌ها پیش از شروع در پیشنهاد کتبی ثبت می‌شود."
+  },
+  packages:{
+    eyebrow:"پکیج‌ها و قیمت‌ها", h:"پلن بر اساس اندازه‌ی تیم، دوره بر اساس نقش هر نفر.", lede:"هر پلن یک پرداخت است با ۱۲ ماه دسترسی برای هر کارمند. بدون اشتراک و بدون هزینه‌ی پنهان.",
+    fromL:"از", perEmpL:"تومان برای هر کارمند", ctaB:"ساخت پیشنهاد", recL:"پیشنهاد ما",
+    tiers:[
+      {k:"تیم",size:"۱ تا ۲۰ نفر",t:0,note:"تجربه‌ی کامل دوره با قیمت پایه.",l:["دوره‌های اپ با ۱۲ ماه دسترسی","جلسه‌ی تحلیل رایگان برای هر کارمند","گزارش دوره و گواهی پایان دوره"]},
+      {k:"رشد",size:"۲۱ تا ۳۹ نفر",t:.15,feat:true,note:"برای تیمی که باید دوره را تمام کند، نه فقط شروع.",l:["٪۱۵ تخفیف روی قیمت نهایی",{p:"جلسه‌ی پشتیبانی گروهی هفتگی، ۵۰ دقیقه"},{p:"خلاصه‌ی ماهانه‌ی پیشرفت برای منابع انسانی"},{p:"جلسه‌ی شروع با مدیران"}]},
+      {k:"سازمانی",size:"۴۰ نفر به بالا",t:.2,cls:"t3",note:"بهترین قیمت، برای برنامه‌ای در سطح کل شرکت.",l:["٪۲۰ تخفیف روی قیمت نهایی، بهترین قیمت ما",{p:"همه‌ی موارد پلن رشد"}]}
+    ],
+    mH:"هر پلن شامل چه چیزهایی است", mHead:["","تیم","رشد","سازمانی"],
+    mRows:[["دوره‌های اپ با ۱۲ ماه دسترسی",1,1,1],["پروژه‌ی پایانی و گواهی پایان دوره",1,1,1],["جلسه‌ی تحلیل رایگان برای هر کارمند",1,1,1],["گزارش دوره برای هر کارمند",1,1,1],["پشتیبانی در واتس‌اپ به فارسی یا انگلیسی",1,1,1],["جلسه‌ی پشتیبانی گروهی هفتگی، ۵۰ دقیقه",0,1,1],["خلاصه‌ی ماهانه‌ی پیشرفت برای منابع انسانی",0,1,1],["جلسه‌ی شروع با مدیران",0,1,1],["تخفیف روی قیمت نهایی",0,"٪۱۵","٪۲۰"]],
+    anchorH:"یک دوره‌ی کامل، کمتر از قیمت یک جلسه‌ی زنده.", anchorP:"از ۲۱ نفر به بالا، دوره‌ی کامل هر کارمند با ۱۲ ماه دسترسی کمتر از یک کلاس زنده‌ی ۵۰ دقیقه‌ای (۴٬۵۰۰٬۰۰۰ تومان) هزینه دارد.",
+    trustH:"چرا این تصمیم کم‌ریسک است",
+    trust:[["امتحان پیش از پرداخت","کارکنان می‌توانند نیمه‌ی اول فصل ۱ هر دوره‌ی موجود در اپ را رایگان باز کنند."],["یک پرداخت روشن","یک مبلغ کل کتبی، یک انتقال بانکی، بدون اشتراک."],["قیمت ثابت","قیمت تومانی ۳ روز معتبر است؛ پس عدد پیشنهاد همان عددی است که پرداخت می‌شود."],["اثبات روی کاغذ","تعیین سطح در شروع، و نمونه‌کار و گزارش دوره برای هر کارمند در پایان."]],
+    pkH:"پکیج‌ها", pkP:"هر کارمند پکیج متناسب با نقشش را می‌گیرد.", pkFrom:p=>`از ${p} تومان برای هر کارمند`,
+    wkH:"جلسه‌های پشتیبانی هفتگی", wkP:"برای سفارش‌های بیش از ۲۰ نفر، هر سفارش در طول دوره هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با معلم دارد. این جلسه برای سؤال و کمک است، نه کلاس: سؤال‌های درس‌های همان هفته، کمک به کسی که گیر کرده و مرور پیشرفت.",
+    tH:"قیمت دوره برای هر کارمند (تومان)", head:["دوره","۱ تا ۲۰ نفر","۲۱ تا ۳۹ نفر (٪۱۵ تخفیف)","۴۰ نفر به بالا (٪۲۰ تخفیف)"],
+    cH:"کلاس زنده (اختیاری، با توافق جداگانه)", cHead:["کلاس","هر ۵۰ دقیقه (کل گروه)","اندازه‌ی گروه"],
+    cRows:[["آنلاین یا حضوری","۴٬۵۰۰٬۰۰۰","۲ تا ۴ نفر"]],
+    fine:"اندازه‌ی تیم = تعداد کارکنان در یک سفارش. تخفیف روی قیمت نهایی دوره‌هاست و شامل کلاس زنده نمی‌شود.",
+    pk:[["اختیاری","جلسه‌های تمرین مذاکره و جلسه","انگلیسی بیزنس زنده با تمرکز بر جلسه، آنلاین یا حضوری. ۴٬۵۰۰٬۰۰۰ تومان برای هر ۵۰ دقیقه برای ۲ تا ۴ نفر، با توافق جداگانه."],["تیم‌های ترکیبی","سفارش ترکیبی","هر کارمند پکیج متناسب با نقشش را می‌گیرد. کل سفارش برای تخفیف تیمی حساب می‌شود."]],
+    exH:"نمونه: ۲۴ کارمند در پکیج بیزنس چه می‌گیرند",
+    ex:[["انگلیسی فروش و بازرگانی، ۲۴ × ۳٬۸۰۰٬۰۰۰","۹۱٬۲۰۰٬۰۰۰"],["پشتیبانی هفتگی: ۶ جلسه، به ارزش نرخ کلاس ما","۲۷٬۰۰۰٬۰۰۰"],["ارزش کل","۱۱۸٬۲۰۰٬۰۰۰"],["٪۱۵ تخفیف دوره‌ها","−۱۳٬۶۸۰٬۰۰۰"],["پشتیبانی هفتگی، رایگان","−۲۷٬۰۰۰٬۰۰۰"],["مبلغ پرداختی شرکت","۷۷٬۵۲۰٬۰۰۰"],["صرفه‌جویی","۴۰٬۶۸۰٬۰۰۰"],["برای هر کارمند","۳٬۲۳۰٬۰۰۰"],["برای هر کارمند، هر ماه دسترسی","≈ ۲۶۹٬۰۰۰"]],
+    exNote:"با ۴۰ نفر هزینه‌ی دوره‌ها به‌جای ۱۵۲٬۰۰۰٬۰۰۰ تومان ۱۲۱٬۶۰۰٬۰۰۰ تومان می‌شود: ۳٬۰۴۰٬۰۰۰ تومان برای هر کارمند. کلاس زنده حساب نشده است.",
+    payH:"روند خرید",
+    pay:[["۱ · پیشنهاد","تیم، نقش‌ها و هدف را می‌گویید. ما یک پیشنهاد کتبی با پکیج، تاریخ‌ها و مبلغ کل می‌فرستیم."],["۲ · پرداخت","یک انتقال بانکی برای کل سفارش (پایا یا ساتنا برای مبالغ بزرگ‌تر)."],["۳ · شروع","هر کارمند یک رمز شخصی دوره می‌گیرد و با جلسه‌ی تحلیل شروع می‌کند."]]
+  },
+  support:{
+    eyebrow:"گزارش و نتیجه", h:"مدیریت قبل، حین و بعد از دوره چه می‌بیند.", lede:"آموزش وقتی ارزش دارد که تغییرش دیده شود. FEschool در هر مرحله این‌ها را به شرکت می‌دهد.",
+    tl:[["قبل","#7C5CFC",["تعیین سطح برای هر کارمند","هدف‌های توافق‌شده برای هر نقش","نقشه‌ی راه شخصی برای هر کارمند","پیشنهاد کتبی با تاریخ‌ها و مبلغ کل"]],["حین","#FFA53D",["پیشرفت از سوابق اپ: درس‌های انجام‌شده، پایان‌های فصلِ قبول‌شده","جلسه‌ی پشتیبانی آنلاین هفتگی و خلاصه‌ی ماهانه‌ی پیشرفت برای منابع انسانی (بیش از ۲۰ نفر)","بازخورد روی نوشته‌های کارمند در کلاس زنده","یک رابط واتس‌اپ برای سؤال‌ها، به فارسی یا انگلیسی"]],["بعد","#4F7A55",["گزارش دوره برای هر کارمند: چه انجام شد، به چه سطحی رسید، قدم بعدی","نمونه‌کار کارمند از کارهای واقعی","گواهی پایان دوره‌ی FEschool","پیشنهاد برای دوره یا پکیج کلاس بعدی"]]],
+    measH:"نتیجه چطور سنجیده می‌شود",
+    meas:[["سطح شروع","جلسه‌ی تحلیل سطح و هدف هر کارمند را ثبت می‌کند تا پایان با شروع مقایسه شود."],["پایان فصل","هر فصل با یک پایان فصل بسته می‌شود که کارهای همان فصل را پیش از فصل بعد می‌سنجد."],["نمونه‌کار","هر دوره با کارهای واقعی تمام می‌شود (ایمیل، پیش‌فاکتور، بریف، بسته‌ی مصاحبه) که مدیر می‌تواند بخواند."],["گزارش دوره","یک سند برای هر کارمند در پرونده‌ی آموزشی، با نتیجه و قدم بعدی."]],
+    notH:"آنچه هرگز وعده نمی‌دهیم", not:["مدرک رسمی CEFR یا کمبریج","جهش سطحِ مشخص در زمان مشخص","فروش، قرارداد یا ارتقای شغلی"],
+    notP:"ما تمرین، بازخورد و یک سابقه‌ی کتبیِ روشن از آنچه هر کارمند حالا می‌تواند انجام دهد را وعده می‌دهیم."
+  }
+}};
+
+let lang = "fa", tab = "plan";
+const Q0 = () => ({step:0,done:false,company:"",a:{industry:"",teams:[],goals:[],meet:"",level:"",size:10,live:""}});
+let Q = Q0();
+try{ const q = JSON.parse(localStorage.getItem("fes-corp-quiz3")); if(q&&q.a) Q = {...Q0(),...q,a:{...Q0().a,...q.a}}; }catch(e){}
+const saveQ = () => { try{localStorage.setItem("fes-corp-quiz3",JSON.stringify(Q))}catch(e){} };
+try{ const s = localStorage.getItem("fes-corp-lang"); if(s==="fa"||s==="en") lang = s; }catch(e){}
+
+const list = (a, cls) => `<ul class="${cls||""}">${a.map(x=>typeof x==="string"?`<li>${x}</li>`:`<li class="plus">${x.p}</li>`).join("")}</ul>`;
+const digit = i => lang==="fa" ? "۱۲۳۴۵۶"[i] : String(i+1);
+const tbl = (head, rows) => `<div class="tbl-wrap"><table><thead><tr>${head.map((h,i)=>`<th class="${i===2?"t2":i===3?"t3":""}">${h}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr><td><b>${r[0]}</b></td>${r.slice(1).map(x=>`<td class="num">${x}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+
+function cta(L){
+  const o = L.overview;
+  return `<section class="cta"><div><h3>${o.ctaH}</h3><p>${o.ctaP}</p></div>
+  <div class="c"><div><b>WhatsApp</b> <span class="ltr">${WA}</span></div><div><b>Web</b> <a href="https://thefeschool.com" target="_blank" rel="noopener" style="color:#fff">thefeschool.com</a></div>
+  <div><a class="btn" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html" target="_blank" rel="noopener">${L.open}</a></div></div></section>`;
+}
+
+function overview(L){
+  const o = L.overview;
+  return `<div class="panel">
+  <section class="hero phero"><div><div class="eyebrow">${o.eyebrow}</div><h1 class="h1">${o.h}</h1><p class="lede">${o.lede}</p>
+    <div class="chips">${o.chips.map(c=>`<span class="chip p">${c}</span>`).join("")}</div>
+    <div class="row"><button class="btn" data-go="plan">${L.tabs.plan} →</button><button class="btn ghost" data-go="packages">${L.tabs.packages}</button></div></div>
+    <div class="phone"><div><img src="/partners/img/app-path.png" alt=""></div></div></section>
+  <section><div class="sh"><h2 class="h2">${o.resH}</h2><p>${o.resP}</p></div>
+    <div class="results">${o.res.map(r=>`<div class="res"><h3>${r[0]}</h3><div class="ba"><div class="b"><small>${L.bl[0]}</small><span>${r[1]}</span></div><div class="a"><small>${L.bl[1]}</small><span>${r[2]}</span></div></div></div>`).join("")}</div></section>
+  <section class="now"><div><div class="eyebrow">${o.nowEy}</div><h2>${o.nowH}</h2><p class="lede">${o.nowL}</p></div>
+    <div class="nowg">${o.now.map(n=>`<div><b>${n[0]}</b><h3>${n[1]}</h3><p>${n[2]}</p></div>`).join("")}</div><p class="src">${o.nowSrc}</p></section>
+  <section><div class="sh"><h2 class="h2">${o.sysH}</h2><p>${o.sysP}</p></div>
+    <div class="steps">${o.steps.map((s,i)=>`<div class="step"><span class="n">${digit(i)}</span><h3>${s[0]}</h3><p>${s[1]}</p></div>`).join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${o.modesH}</h2></div>
+    <div class="modes">${o.modes.map((m,i)=>`<div class="mode m${i+1}"><small>${m[1]}</small><h3>${m[0]}</h3><p>${m[2]}</p></div>`).join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${o.coursesH}</h2></div>
+    <div class="grid" style="--cols:3">${COURSES.map(id=>{const c=L.courses[id];return `<div class="box"><span class="tag ${c.status==="live"?"g":"o"}">${L.status[c.status]}</span><h3>${c.name}</h3><p>${c.facts[1]}</p><p class="tnum"><s class="was">${money(PRICE[id])}</s> <b>${L.packages.pkFrom(money(cut(PRICE[id],.2)))}</b></p><button class="btn ghost sm" data-go="${id}">${L.more} →</button></div>`}).join("")}</div></section>
+  <section class="two"><div><h2 class="h2">${o.methodH}</h2><p class="lede">${o.methodP}</p></div>
+    <div class="founder"><img src="/assets/farin-portrait.jpg" alt=""><div><h3>${o.founderH}</h3><p>${o.founderP}</p></div></div></section>
+  ${cta(L)}</div>`;
+}
+
+function course(L,id){
+  const c = L.courses[id];
+  return `<div class="panel">
+  <section class="course-head phero"><div><div class="eyebrow">${c.k}</div><h1 class="h1">${c.name}</h1><p class="lede">${c.promise}</p>
+    <div class="chips"><span class="chip ${c.status==="live"?"ok":"soon"}">${L.status[c.status]}</span></div></div>
+    <div class="pricecard"><small>${L.fromL}</small><s class="was tnum">${money(PRICE[id])}</s><b class="tnum">${money(cut(PRICE[id],.2))} <span style="font-size:15px">${L.unit}</span></b><span class="tnum">${L.tierLine(money(cut(PRICE[id],.15)),money(cut(PRICE[id],.2)))}</span></div></section>
+  <div class="facts">${L.facts.slice(0,3).map((f,i)=>`<div><small>${f}</small><b>${c.facts[i]}</b></div>`).join("")}<div><small>${L.who}</small><b style="font-size:14px;font-weight:600">${c.who}</b></div></div>
+  <section class="why" style="background:var(--green-soft)"><h3 style="color:var(--green)">${L.resH}</h3>${list(c.res)}</section>
+  <section class="two"><div><div class="sh"><h2 class="h2">${L.canH}</h2></div>${list(c.can,"cando")}</div>
+    <div class="deliv"><h3>${L.delivH}</h3><p>${c.delivP}</p><ol>${c.deliv.map(d=>`<li>${d}</li>`).join("")}</ol></div></section>
+  <section><div class="sh"><h2 class="h2">${L.inc}</h2></div><div class="grid" style="--cols:4">${L.incl.map(x=>`<div class="box"><p style="margin:0;color:var(--ink)">${x}</p></div>`).join("")}</div></section>
+  ${cta(L)}</div>`;
+}
+
+function classes(L){
+  const k = L.classes;
+  return `<div class="panel">
+  <section class="phero"><div class="eyebrow">${k.eyebrow}</div><h1 class="h1">${k.h}</h1><p class="lede">${k.lede}</p></section>
+  <div class="grid" style="--cols:2">${k.types.map((t,i)=>`<div class="box"><span class="tag ${i?"o":""}">${k.eyebrow}</span><h3>${t[0]}</h3><p>${t[1]}</p></div>`).join("")}</div>
+  <section class="now"><div><div class="eyebrow">AI · Internet</div><h2>${k.aiH}</h2><p class="lede">${k.aiP}</p></div>
+    <div class="nowg" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">${k.ai.map((a,i)=>`<div><b style="font-size:22px">${digit(i)}</b><p style="color:#F3F0FA">${a}</p></div>`).join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${k.tH}</h2></div>${tbl(k.head,k.rows)}
+    <p class="note" style="margin-top:12px">${k.tNote}</p></section>
+  <section><div class="sh"><h2 class="h2">${k.plusH}</h2></div><div class="grid" style="--cols:3">${k.plus.map(p=>`<div class="box"><h3>${p[0]}</h3><p>${p[1]}</p></div>`).join("")}</div></section>
+  <section class="mode m3"><small>${L.overview.modes[2][1]}</small><h3>${k.f2fH}</h3><p>${k.f2fP}</p></section>
+  ${cta(L)}</div>`;
+}
+
+function packages(L){
+  const p = L.packages, z = L.quiz, low = Math.min(...COURSES.map(c=>PRICE[c]));
+  const priceRows = COURSES.map(c=>[L.courses[c].name,money(PRICE[c]),`<s class="was">${money(PRICE[c])}</s> ${money(cut(PRICE[c],.15))}`,`<s class="was">${money(PRICE[c])}</s> ${money(cut(PRICE[c],.2))}`]);
+  const mark = x => x===1?'<span class="yes">✓</span>':x===0?'<span class="no">—</span>':`<b>${x}</b>`;
+  return `<div class="panel">
+  <section class="phero"><div class="eyebrow">${p.eyebrow}</div><h1 class="h1">${p.h}</h1><p class="lede">${p.lede}</p></section>
+  <div class="tiers" style="padding-top:12px">${p.tiers.map(x=>`<div class="tier${x.feat?" feat":""} ${x.cls||""}">${x.feat?`<span class="badge">${p.recL}</span>`:""}<div class="k">${x.k}</div><div class="size">${x.size}</div><div class="from tnum">${x.t?`<s class="was">${money(low)}</s><br>`:""}${p.fromL} ${money(cut(low,x.t))} ${p.perEmpL}</div><p class="note">${x.note}</p>${list(x.l)}<button class="btn${x.feat?"":" ghost"}" data-go="plan">${p.ctaB}</button></div>`).join("")}</div>
+  <section class="anchor"><h3>${p.anchorH}</h3><p>${p.anchorP}</p></section>
+  <section><div class="sh"><h2 class="h2">${p.mH}</h2></div>${tbl(p.mHead,p.mRows.map(r=>[r[0],...r.slice(1).map(mark)]))}</section>
+  <section class="example"><h3>${p.exH}</h3>
+    <div class="calc">${p.ex.map((r,i)=>`<div class="${i===5?"tot":i===6?"save":""}"><span>${r[0]}</span><span>${r[1]}</span></div>`).join("")}</div>
+    <p class="note">${p.exNote}</p></section>
+  <section><div class="sh"><h2 class="h2">${p.pkH}</h2><p>${p.pkP}</p></div>
+    <div class="pkfs">${COURSES.map(c=>{const k=L.courses[c];return `<div class="pkf" style="--c:${COLORS[c]}"><h3>${z.pkgName[c]}</h3><p><b>${k.name}</b> · ${k.facts[1]}</p><div class="pr tnum"><s class="was">${money(PRICE[c])}</s> ${p.pkFrom(money(cut(PRICE[c],.2)))}</div><div class="lab">${z.lab.res}</div>${list(k.res)}<details><summary>${z.lab.learn}</summary>${list(k.can)}</details><div><span class="chip ${k.status==="live"?"ok":"soon"}">${L.status[k.status]}</span></div><div><button class="btn ghost sm" data-go="${c}">${L.more} →</button></div></div>`}).join("")}</div>
+    <div class="pk" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">${p.pk.map(x=>`<div class="pkc"><div class="k">${x[0]}</div><h3>${x[1]}</h3><p>${x[2]}</p></div>`).join("")}</div></section>
+  <section class="why" style="background:var(--green-soft)"><h3 style="color:var(--green)">${p.wkH}</h3><p style="color:var(--ink-2)">${p.wkP}</p></section>
+  <section><div class="sh"><h2 class="h2">${p.trustH}</h2></div><div class="grid" style="--cols:4">${p.trust.map(x=>`<div class="box"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${p.tH}</h2></div>${tbl(p.head,priceRows)}</section>
+  <section><div class="sh"><h2 class="h2">${p.cH}</h2></div>${tbl(p.cHead,p.cRows)}
+    <p class="fine" style="margin-top:14px">${p.fine}</p></section>
+  <section><div class="sh"><h2 class="h2">${p.payH}</h2></div><div class="grid" style="--cols:3">${p.pay.map(x=>`<div class="box"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
+  ${cta(L)}</div>`;
+}
+
+function support(L){
+  const s = L.support;
+  return `<div class="panel">
+  <section class="phero"><div class="eyebrow">${s.eyebrow}</div><h1 class="h1">${s.h}</h1><p class="lede">${s.lede}</p></section>
+  <div class="tl">${s.tl.map(t=>`<div class="box" style="--c:${t[1]}"><h3>${t[0]}</h3>${list(t[2])}</div>`).join("")}</div>
+  <section><div class="sh"><h2 class="h2">${s.measH}</h2></div><div class="grid" style="--cols:4">${s.meas.map(m=>`<div class="box"><span class="tag g">${m[0]}</span><p style="margin:0">${m[1]}</p></div>`).join("")}</div></section>
+  <section class="why" style="background:var(--wash)"><h3 style="color:var(--ink)">${s.notH}</h3>${list(s.not)}<p class="note">${s.notP}</p></section>
+  ${cta(L)}</div>`;
+}
+
+const num = x => lang==="fa" ? String(x).replace(/\d/g,d=>"۰۱۲۳۴۵۶۷۸۹"[d]) : String(x);
+const money = x => Math.round(x).toLocaleString(lang==="fa"?"fa-IR":"en-US");
+const quizQs = L => L.quiz.qs;
+const answered = q => q.type==="text" ? true : q.type==="num" ? Q.a.size>=1 : q.type==="multi" ? Q.a[q.id].length>0 : !!Q.a[q.id];
+
+function recommend(){
+  const a = Q.a, score = {}, why = {};
+  const tm = {sales:"sales",marketing:"marketing",hr:"hr",proj:"interview"}, gm = {buyers:"sales",quotes:"sales",meet:"sales",mkt:"marketing",hire:"hr",rep:"interview",ai:"ai"};
+  COURSES.forEach(c=>{ score[c] = 0; why[c] = {goals:[],teams:[]}; });
+  a.teams.forEach(t=>{ const c = tm[t]; if(c){ score[c] += 2; why[c].teams.push(t); } });
+  a.goals.forEach(g=>{ const c = gm[g]; if(c){ score[c] += 3; why[c].goals.push(g); } });
+  const aff = AFF[a.industry]||AFF.other;
+  const rank = c => { const i = aff.indexOf(c); return score[c]*10 + (i<0?0:3-i); };
+  const core = COURSES.filter(c=>score[c]>0).sort((x,y)=>rank(y)-rank(x)).slice(0,3);
+  const fill = aff.filter(c=>!core.includes(c)).slice(0,3-core.length);
+  const courses = [...core,...fill];
+  const size = Math.max(1,a.size|0);
+  const n = size, t = tierOf(n);
+  const meetNeed = a.meet==="daily"||a.meet==="weekly"||a.goals.includes("meet");
+  const cls = a.level==="low"||!core.length ? "general" : meetNeed ? "meet" : "business";
+  return {n,big:n>20,t,courses,core,why,cls};
+}
+
+function planHead(z){
+  return `<section class="qhead phero"><div class="eyebrow">${z.eyebrow}</div><h1 class="h1">${z.h}</h1><p class="lede">${z.lede}</p></section>`;
+}
+
+function planQuiz(L){
+  const z = L.quiz, qs = quizQs(L);
+  if(Q.step>=qs.length) Q.step = qs.length-1;
+  const q = qs[Q.step], last = Q.step===qs.length-1, n = Q.a.size|0;
+  let body;
+  if(q.type==="num"){
+    body = `<div class="qnum"><button type="button" data-q-num="-1" aria-label="−">−</button><input id="qsize" type="number" min="1" max="500" inputmode="numeric" value="${Q.a.size||""}" aria-label="${q.q}"><button type="button" data-q-num="1" aria-label="+">+</button><span>${q.unit}</span></div>
+    <div class="quick">${q.quick.map(x=>`<button type="button" data-q-set="${x}" aria-pressed="${x===n}">${num(x)}</button>`).join("")}</div>
+    <div class="st ${n>20?"ok":""}" id="qst">${z.stT(n,num)}</div>`;
+  } else if(q.type==="text"){
+    body = `<input id="qco" class="qtext" type="text" maxlength="60" placeholder="${q.ph}" aria-label="${q.q}" value="${esc(Q.company||"")}">`;
+  } else {
+    const multi = q.type==="multi", full = q.max && Q.a[q.id].length>=q.max;
+    body = `<div class="opts${q.cols?" two":""}">${q.opts.map(o=>{const on = multi?Q.a[q.id].includes(o[0]):Q.a[q.id]===o[0];
+      return `<button type="button" class="opt${multi?" m":""}" data-q-opt="${q.id}|${o[0]}" aria-pressed="${on}"${full&&!on?' aria-disabled="true"':""}><span>${o[1]}${o[2]?`<small>${o[2]}</small>`:""}</span></button>`}).join("")}</div>`;
+  }
+  return `<div class="panel" style="gap:28px">${Q.step?"":planHead(z)}
+  <section class="quiz"><div class="qcard">
+    <div class="qprog"><span style="width:${(Q.step+1)/qs.length*100}%"></span></div>
+    <div class="qstep">${z.stepL(num(Q.step+1),num(qs.length))}</div>
+    <h2 class="qq">${q.q}</h2>${q.hint?`<p class="qhint">${q.hint}</p>`:""}
+    ${body}
+    <div class="qnav"><button type="button" class="btn ghost" data-q-nav="back" ${Q.step?"":"disabled"}>${z.back}</button><button type="button" class="btn" data-q-nav="next" ${answered(q)?"":"disabled"}>${last?z.see:z.next} →</button></div>
+  </div></section></div>`;
+}
+
+function planResult(L){
+  const z = L.quiz, a = Q.a, r = recommend(), pct = Math.round(r.t*100), S = z.sum;
+  const label = (id,v) => { const o = z.qs.find(q=>q.id===id).opts.find(x=>x[0]===v); return o?o[1]:""; };
+  const ind = a.industry||"other", indL = label("industry",ind);
+  const date = new Date().toLocaleDateString(lang==="fa"?"fa-IR":"en-GB",{year:"numeric",month:"long",day:"numeric"});
+  const facts = [];
+  if(a.teams.length) facts.push([S.tms,a.teams.map(v=>label("teams",v)).join(lang==="fa"?"، ":", ")]);
+  if(a.meet) facts.push([S.mt,label("meet",a.meet)]);
+  if(a.level) facts.push([S.lv,label("level",a.level)]);
+  const blocks = r.courses.map((c,i)=>{
+    const k = L.courses[c], p = cut(PRICE[c],r.t), isCore = r.core.includes(c), w = r.why[c];
+    const why = [...w.goals.map(v=>label("goals",v)),...w.teams.map(v=>z.teamWhy(label("teams",v)))];
+    if(!isCore) why.push(z.fillWhy(indL));
+    return `<article class="rp2" style="--c:${COLORS[c]}">
+      <div class="top2"><span class="n2">${digit(i)}</span><div><div class="tg ${isCore?"":"f"}">${isCore?(i?z.tagNext:z.tagMain):z.tagFill}</div><h3>${z.pkgName[c]}</h3><div class="cn">${k.name} · ${k.facts[1]}</div></div>
+        <div class="price tnum">${r.t?`<s class="was">${money(PRICE[c])}</s><br>`:""}${money(p)}<small>${L.packages.perEmpL}</small></div></div>
+      <div class="goalbox"><div class="lb">${z.whyH}</div><ul>${why.map(x=>`<li>${x}</li>`).join("")}</ul></div>
+      <div class="cols2"><div><div class="lb" style="color:var(--green)">${z.getsH}</div><ul class="ticks">${k.res.map(x=>`<li><span>${x}</span></li>`).join("")}</ul></div><div><div class="lb">${z.learnH2}</div><ul class="ticks">${k.can.slice(0,3).map(x=>`<li><span>${x}</span></li>`).join("")}</ul></div></div>
+      <div class="foot2"><span class="chip ${k.status==="live"?"ok":"soon"}">${L.status[k.status]}</span><button class="btn ghost sm noprint" style="margin:0" data-go="${c}">${L.more} →</button></div>
+    </article>`;
+  });
+  const extras = [];
+  if(r.big) extras.push(`<div class="box"><span class="tag g">${z.incK}</span><h3>${z.wkName}</h3><p>${z.wkWhy}</p></div>`);
+  extras.push(`<div class="box"><span class="tag">${z.classK}</span><h3>${z.clsName[r.cls]}</h3><p><b>${z.clsPrice}</b></p><p>${z.clsWhy[r.cls]}</p><p>${z.whereName[a.live||"talk"]}</p><p class="note">${z.clsSep}</p></div>`);
+  const others = COURSES.filter(c=>!r.courses.includes(c)).map(c=>`<button type="button" class="orow" style="--c:${COLORS[c]}" data-go="${c}"><i></i><span>${z.pkgName[c]}</span><small>${L.courses[c].name}</small><span class="ar">→</span></button>`);
+  others.push(`<button type="button" class="orow" style="--c:#7C5CFC" data-go="classes"><i></i><span>${z.classesL}</span><small>${z.clsName.business}</small><span class="ar">→</span></button>`);
+  return `<div class="report">
+  <div class="heroWrap"><section class="phero rhero"><div class="main"><div class="brandrow"><img src="/assets/app-icon.png" alt="">FEschool</div><div class="eyebrow">${z.rEy}</div><h1 class="h1">${z.rH(esc(Q.company||z.rDef))}</h1><p class="rdate">${z.valid(date)}</p></div><div class="art"><div class="disc2"></div><img src="/assets/char-career.png" alt=""></div></section>
+    <div class="tiles"><div class="tile"><small>${z.tiles.ind}</small><b>${indL}</b></div><div class="tile"><small>${z.tiles.ppl}</small><b class="big">${num(r.n)}</b></div><div class="tile"><small>${z.tiles.pk}</small><b class="big">${num(r.courses.length)}</b></div><div class="tile"><small>${z.tiles.plan}</small><b class="big">${r.t?z.pctL(r.t):z.listL}</b></div></div></div>
+  <section><div class="sh"><h2 class="h2">${S.h}</h2></div>
+    <div class="focus2"><div><p class="statement">${S.use(indL,z.indCtx[ind])}</p><div class="meta2">${facts.map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join("")}</div></div>
+    ${a.goals.length?`<div><div class="lab l2" style="margin:0 0 12px">${S.prio}</div><ul class="objs2">${a.goals.map(v=>`<li><span>${label("goals",v)}</span></li>`).join("")}</ul></div>`:""}</div></section>
+  <section><div class="sh"><div class="eyebrow">${z.recH}</div><h2 class="h2">${z.recIntro(num(r.courses.length))}</h2></div>
+    ${a.level==="low"?`<p class="fine" style="margin-bottom:18px">${z.lowNote}</p>`:""}
+    ${!r.core.length?`<p class="fine" style="margin-bottom:18px">${z.genFit}</p>`:""}<div class="pkglist">${blocks.join("")}</div></section>
+  <section><div class="sh"><h2 class="h2">${z.extraH}</h2></div><div class="extra">${extras.join("")}</div></section>
+  <section class="noprint"><div class="sh"><h2 class="h2">${z.othersH}</h2><p>${z.othersP}</p></div><div class="others">${others.join("")}</div></section>
+  <section class="contact"><h2 class="h2">${z.contactH}</h2><div class="clist">${CONTACTS.map(x=>`<div><small>${z.contactL[x[0]]}</small><a class="${x[0]==="WhatsApp"||x[0]==="Email"?"ltr":""}" href="${x[2]}" target="_blank" rel="noopener">${x[1]}</a></div>`).join("")}</div></section>
+  <div class="tools noprint"><button type="button" class="btn ghost sm" data-print="1">${z.printB}</button><button class="btn ghost sm" data-q-nav="edit">${z.edit}</button><button class="btn ghost sm" data-q-nav="restart">${z.restart}</button></div>
+  </div>`;
+}
+
+const plan = L => Q.done ? planResult(L) : planQuiz(L);
+
+function render(){
+  const L = T[lang];
+  const root = document.documentElement;
+  root.lang = lang; root.dir = L.dir;
+  document.getElementById("app").lang = lang;
+  document.getElementById("brandSub").textContent = L.sub;
+  document.getElementById("foot").textContent = L.foot;
+  document.querySelectorAll(".lsw button").forEach(b=>b.setAttribute("aria-pressed", String(b.dataset.set===lang)));
+  document.getElementById("tabs").innerHTML = ORDER.map((id,i)=>
+    (i===1||i===2||i===7?'<span class="sep" aria-hidden="true"></span>':"")+
+    `<button type="button" role="tab" id="t-${id}" aria-selected="${id===tab}" data-go="${id}" style="--c:${COLORS[id]}"><i></i>${L.tabs[id]}</button>`).join("");
+  const v = document.getElementById("view");
+  v.innerHTML = tab==="plan"?plan(L):tab==="overview"?overview(L):COURSES.includes(tab)?course(L,tab):tab==="classes"?classes(L):tab==="packages"?packages(L):support(L);
+  if(lang==="fa") v.innerHTML = v.innerHTML.replace(/→/g,"←");
+  const cur = document.getElementById("t-"+tab); if(cur) cur.scrollIntoView({block:"nearest",inline:"nearest"});
+}
+
+function go(id, push){
+  if(!ORDER.includes(id)) id = "plan";
+  tab = id;
+  if(push && location.hash !== "#"+id) location.hash = id;
+  render();
+  if(push) window.scrollTo(0,0);
+}
+
+document.addEventListener("click", e=>{
+  if(e.target.closest("[data-print]")){ window.print(); return; }
+  const o = e.target.closest("[data-q-opt]"), nv = e.target.closest("[data-q-nav]"), nm = e.target.closest("[data-q-num]"), st = e.target.closest("[data-q-set]");
+  if(o||nv||nm||st){
+    let focus = null;
+    if(o){
+      const [id,val] = o.dataset.qOpt.split("|");
+      const qd = T[lang].quiz.qs.find(x=>x.id===id);
+      if(Array.isArray(Q.a[id])){
+        if(!Q.a[id].includes(val)&&qd.max&&Q.a[id].length>=qd.max) return;
+        Q.a[id] = Q.a[id].includes(val)?Q.a[id].filter(x=>x!==val):[...Q.a[id],val];
+      }
+      else Q.a[id] = val;
+      focus = `[data-q-opt="${o.dataset.qOpt}"]`;
+    }
+    if(nm){ Q.a.size = Math.min(500,Math.max(1,(Q.a.size|0)+Number(nm.dataset.qNum))); focus = `[data-q-num="${nm.dataset.qNum}"]`; }
+    if(st){ Q.a.size = Number(st.dataset.qSet); focus = `[data-q-set="${st.dataset.qSet}"]`; }
+    if(nv){
+      const a = nv.dataset.qNav, count = quizQs(T[lang]).length;
+      if(a==="next"){ if(Q.step>=count-1) Q.done = true; else Q.step++; }
+      if(a==="back") Q.step = Math.max(0,Q.step-1);
+      if(a==="edit"){ Q.done = false; Q.step = 0; }
+      if(a==="restart") Q = Q0();
+      window.scrollTo(0,0);
+    }
+    saveQ(); render();
+    if(focus){ const el = document.querySelector(focus); if(el) el.focus({preventScroll:true}); }
+    return;
+  }
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go, true); return; }
+  const l = e.target.closest("[data-set]"); if(l){ lang = l.dataset.set; try{localStorage.setItem("fes-corp-lang",lang)}catch(_){} render(); }
+});
+document.addEventListener("input", e=>{
+  if(e.target.id==="qco"){
+    const L = T[lang], z = L.quiz;
+    Q.company = e.target.value; saveQ();
+    return;
+  }
+  if(e.target.id!=="qsize") return;
+  const n = Math.min(500,parseInt(e.target.value,10)||0), z = T[lang].quiz;
+  Q.a.size = n; saveQ();
+  const b = document.querySelector('[data-q-nav="next"]'); if(b) b.disabled = n<1;
+  const st = document.getElementById("qst"); if(st){ st.className = "st "+(n>20?"ok":""); st.textContent = z.stT(n,num); }
+  document.querySelectorAll("[data-q-set]").forEach(x=>x.setAttribute("aria-pressed",String(Number(x.dataset.qSet)===n)));
+});
+window.addEventListener("hashchange", ()=>go(location.hash.slice(1), false));
+go(location.hash.slice(1), false);
+</script>
+</body>
+</html>
