@@ -198,7 +198,7 @@ const GOALS = {
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr'), ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
-      [null, ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی برای بازاریابی'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing'],
+      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing'],
       [null, ['Satış ve Müşteri Yönetimi İngilizcesi', 'Sales & Customer Management English', 'انگلیسی فروش و مدیریت مشتری'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales']] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 Tam Sınav', 'IELTS: 10 Full Exams', 'آیلتس: ۱۰ آزمون کامل'],
