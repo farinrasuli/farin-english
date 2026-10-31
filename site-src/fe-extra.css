@@ -111,7 +111,3 @@ footer.site .f-cols a:hover{color:var(--ink)}
 .co-tiers b{color:var(--purple-ink)}
 .co-note{color:var(--muted);font-weight:700;margin-top:18px;text-align:center}
 .co-ctas{justify-content:center;margin-top:18px}
-.co-next{margin-top:22px;border:1.5px dashed var(--line);border-radius:18px;padding:16px 20px;font-weight:700}
-.co-next ul{list-style:none;padding:0;margin:10px 0;display:flex;flex-wrap:wrap;gap:8px}
-.co-next li{background:var(--sunk);border-radius:99px;padding:6px 14px;font-size:.92rem}
-.co-next p{color:var(--muted);font-size:.9rem}

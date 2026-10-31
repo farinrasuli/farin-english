@@ -162,8 +162,6 @@ coEb:['Şirketler için','For companies','برای شرکت‌ها'],
 coP:['Çalışanların uygulamada kendi hızında öğrenir. Ekibine uyan kursları seçersin.','Your staff learn at their own pace in the app. You choose the courses that fit your team.','کارمندانت داخل اپ با سرعت خودشان یاد می‌گیرند. تو دوره‌هایی را انتخاب می‌کنی که به تیمت می‌خورند.'],
 coEach:['kişi başı','per person','برای هر نفر'],
 coOffer:['Ekibinin büyüklüğüne göre sana yazılı bir teklif hazırlarım. Canlı dersler isteğe bağlıdır ve ayrıca konuşulur.','I\'ll prepare a written offer based on the size of your team. Live classes are optional and agreed separately.','کلاس زنده اختیاری است و جدا توافق می‌شود: هر ۵۰ دقیقه ۴٬۵۰۰٬۰۰۰ تومان، برای گروه ۲ تا ۴ نفره.'],
-coNext:['Sırada','Coming next','دوره‌های بعدی'],
-coNextP:['Fiyatlar kurslar hazır olunca belli olur.','Each price is set when the course is ready.','قیمت هر دوره وقتی آماده شود مشخص می‌شود.'],
 coFill:['','','پرسشنامه‌ی شرکت را پر کن'],
 coWa:['Şirketim için teklif al','Get an offer for my company','در واتس‌اپ بپرس'],
 coWaMsg:['Merhaba Farin! Şirketimiz için kurslarla ilgileniyoruz.','Hi Farin! We\'re interested in courses for our company.','سلام فرین! برای شرکتمان به دوره‌ها علاقه داریم.'],
@@ -189,8 +187,8 @@ const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'soon' };
-const SALE_TXT = { soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'] };
+const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'soon', biz: 'plan', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
+const SALE_TXT = { soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
 const salePill = k => [SALE[k] === 'now' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
 const LIVES = {
@@ -249,8 +247,17 @@ const COMPANY = [
     for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
   { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet İngilizcesi', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'],
     for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
+  { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş paketi', 'Complete Business package', 'پکیج جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'],
+    for: ['Yöneticiler, şirket sahipleri ve karma ofis ekipleri', 'Owners, managers and mixed office teams', 'مدیران، صاحبان کسب‌وکار و تیم‌های اداری'] },
+  { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama paketi', 'Marketing package', 'پکیج بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'],
+    for: ['Pazarlama ekipleri ve yöneticileri', 'Marketing teams and managers', 'تیم‌های بازاریابی و مدیران'] },
+  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İş Görüşmesi İngilizcesi Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+    for: ['Üst düzey roller ve zor mülakatlar için', 'For senior moves and harder interviews', 'برای جایگاه‌های ارشد و مصاحبه‌های سخت‌تر'] },
+  { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı paketi', 'Meetings package', 'پکیج جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+    for: ['Uluslararası ve uzaktan çalışan ekipler', 'International and remote teams', 'تیم‌های بین‌المللی و دورکار'] },
+  { sale: 'email', c: '--g-career', pkg: ['E-posta paketi', 'Email & Writing package', 'پکیج ایمیل و نگارش'], name: ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+    for: ['İngilizce yazan ofis çalışanları', 'Office staff who write in English', 'کارکنان اداری که به انگلیسی می‌نویسند'] },
 ];
-const CO_NEXT = [['İş İngilizcesi', 'Business English', 'انگلیسی بیزنس'], ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], ['İş Görüşmesi İngilizcesi Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی']];
 const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته']];
 const GAMES_SHOWN = [
   { img: 'screen-game-siparis', c: '--orange-deep', name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], d: ['Müşteriyi dinle, tepsiyi hazırla.', 'Listen to the customer, fill the tray.', 'به مشتری گوش کن و سینی را آماده کن.'] },
@@ -501,7 +508,6 @@ function companyPanel(l) {
         return `<article class="co-card" style="--c:var(${c.c})"><p class="co-pkg">${esc(c.pkg[i])}</p><h3>${esc(c.name[i])}</h3><p class="for">${esc(c.for[i])}</p><div class="co-foot"><span class="co-price">${esc(c.price[i])}<small>${S.coEach[i]}</small></span><span class="pill ${cls}"><i></i>${esc(txt[i])}</span></div></article>`;
       }).join('\n      ')}
     </div>
-    <div class="co-next"><b>${S.coNext[i]}</b><ul>${CO_NEXT.map(n => `<li>${esc(n[i])}</li>`).join('')}</ul><p>${S.coNextP[i]}</p></div>
     ${tiers}
     <p class="co-note">${S.coOffer[i]}</p>
     <div class="ctas co-ctas">${ctas}</div>

@@ -460,15 +460,16 @@ details ul{margin-top:6px}
 
 <script>
 const WA = "+90 546 761 59 51";
-const COURSES = ["sales","marketing","hr","interview","ai"];
-const ORDER = ["plan","overview","sales","marketing","hr","interview","ai","classes","packages","support"];
-const COLORS = {plan:"#FFA53D",overview:"#7C5CFC",sales:"#4C6C82",marketing:"#FFA53D",hr:"#CB7D4D",interview:"#48796B",ai:"#4B33C9",classes:"#7C5CFC",packages:"#FFA53D",support:"#4F7A55"};
+const COURSES = ["sales","marketing","hr","interview","ai","biz","mktg","pro","meetings","email"];
+const ORDER = ["plan","overview","sales","marketing","hr","interview","ai","biz","mktg","pro","meetings","email","classes","packages","support"];
+const COLORS = {plan:"#FFA53D",overview:"#7C5CFC",sales:"#4C6C82",marketing:"#FFA53D",hr:"#CB7D4D",interview:"#48796B",ai:"#4B33C9",biz:"#5A3FD6",mktg:"#E8790A",pro:"#2F6B5C",meetings:"#8B7273",email:"#C9978A",classes:"#7C5CFC",packages:"#FFA53D",support:"#4F7A55"};
 
 /* Prices in toman. List = 08-final-prices v4; 21-39 people = -15%, 40+ = -20%, exact, on the final price of the courses; company classes are separate and undiscounted. */
-const PRICE = {sales:3800000,marketing:3490000,hr:4990000,interview:2990000,ai:3800000};
+const PRICE = {sales:3800000,marketing:3490000,hr:4990000,interview:2990000,ai:3800000,biz:6990000,mktg:4990000,pro:3490000,meetings:3490000,email:3490000};
+/* biz, mktg, pro, meetings, email: planned courses at the recommended prices Farin accepted 2026-10-31. recommend() only picks courses in AFF and the goal maps, so the report never leads with a course that does not exist yet. */
 const CLASS_RATE = 4500000;
 const AFF = {mfg:["sales","marketing","ai"],trade:["sales","ai","marketing"],tech:["ai","sales","hr"],energy:["ai","sales","hr"],health:["ai","sales","marketing"],finance:["ai","hr","sales"],tour:["sales","marketing","ai"],retail:["marketing","sales","ai"],services:["sales","ai","hr"],other:["sales","ai","hr"]};
-const WEEKS = {sales:6,marketing:6,hr:16,interview:3,ai:8};
+const WEEKS = {sales:6,marketing:6,hr:16,interview:3,ai:8,biz:20,mktg:16,pro:6,meetings:6,email:6};
 const esc = x => String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const tierOf = n => n>=40?.2:n>20?.15:0;
 const cut = (p,t) => Math.round(p*(1-t));
@@ -476,9 +477,9 @@ const CONTACTS = [["WhatsApp","+90 546 761 59 51","https://wa.me/905467615951"],
 const T = {
 en:{
   dir:"ltr", sub:"for companies", unit:"toman",
-  tabs:{plan:"Find your package",overview:"Overview",sales:"Business & Sales",marketing:"Copywriting & Content",hr:"HR & Business",interview:"Job Interview",ai:"AI & Internet",classes:"Live classes",packages:"Packages & prices",support:"Reporting & results"},
+  tabs:{plan:"Find your package",overview:"Overview",sales:"Business & Sales",marketing:"Copywriting & Content",hr:"HR & Business",interview:"Job Interview",ai:"AI & Internet",biz:"Complete Business",mktg:"Marketing",pro:"Interview Pro",meetings:"Meetings",email:"Email & Writing",classes:"Live classes",packages:"Packages & prices",support:"Reporting & results"},
   foot:"FEschool · Company programmes for Iran · October 2026 · All prices in toman, per employee, valid on the date of the written proposal. FEschool certificates are certificates of completion, not CEFR or Cambridge certificates.",
-  status:{live:"In the app now",soon:"Content complete · opening in the app",prod:"In production"},
+  status:{live:"In the app now",soon:"Content complete · opening in the app",prod:"In production",plan:"Planned"},
   more:"Details", open:"Open the app", who:"Who it is for", bl:["Before","After"],
   quiz:{
     eyebrow:"Plan for your company · 2 minutes",
@@ -510,7 +511,7 @@ en:{
     pctL:t=>`−${t*100}%`, perMonth:p=>`≈ ${p} toman per employee, per month of access`,
     wkName:"Weekly support sessions", wkWhy:"One 50-minute online group session a week for up to 8 weeks, with a teacher, for questions and help, not a class. Plus a monthly summary to HR and a kick-off with the managers.",
     seatL:p=>`${p} toman per employee`,
-    pkgName:{sales:"Business package",marketing:"Content package",hr:"HR package",interview:"Interview package",ai:"AI & Internet package"},
+    pkgName:{sales:"Business package",marketing:"Content package",hr:"HR package",interview:"Interview package",ai:"AI & Internet package",biz:"Complete Business package",mktg:"Marketing package",pro:"Interview Pro package",meetings:"Meetings package",email:"Email & Writing package"},
     rs:{sales:"For anyone who does business with foreign customers, suppliers or partners: same-day replies, clear quotes and orders, negotiation and complaints handled in English.",marketing:"For content teams: English product pages and posts written in-house, AI drafts checked before they go out.",hr:"For HR and managers: interviews, offers, feedback talks and meetings in English, run by the company's own team.",interview:"For staff assessed in English: a clear introduction, true work stories and calm answers under pressure.",ai:"For anyone who uses AI tools or English sources at work: ChatGPT, Claude, Gemini, Midjourney and more, what each is good for, and how to write and check a prompt."},
     clsName:{meet:"Meeting sessions",business:"Business English classes",general:"General English classes"},
     clsPrice:"4,500,000 toman per 50 minutes · 2–4 people",
@@ -575,7 +576,32 @@ en:{
       facts:["B1, with a B2 track","16 lessons · 4 chapters · about 8 weeks","Self-study + 4 chapter finales","3,800,000"],
       can:["Know what ChatGPT, Claude, Gemini, Copilot, Perplexity and Midjourney are each good for, and choose the right one for a job","Understand AI tools' menus, settings, help pages and error messages in English","Write clear prompts for text: the task, the reader, the facts, the limits and the format","Write image prompts with subject, style, lighting and composition, fix a wrong picture, and brief a short video","Check a prompt with a checklist, see why it failed and fix it","Hand a longer job to an AI tool with clear steps and stop points","Keep private company and customer data out of AI tools","Check an AI draft against the company's documents, spot invented facts and sources, and correct it","Research in English: choose where to look (search engines, AI search, Google Scholar, standards bodies, company sites, forums, YouTube), search well and judge a source","Read a datasheet or catalogue, follow an online meeting or webinar, and report the main points"],
       deliv:["Prompt set for their own job, text and image","Corrected AI draft, before and after","Short research report","Meeting or webinar summary","Personal AI guide: which tool for which job, and a prompt checklist","Reflection"],delivP:"A 6-piece work pack from the employee's own job.",
-      res:["Staff who know which AI tool to use for which job, and how to get useful work from it","Text and images made with AI, from prompts staff can write and fix themselves","Private company data kept out of AI tools, and AI mistakes caught before they reach a customer or a manager","English information found, judged and used: search results, documents, catalogues and webinars"]}
+      res:["Staff who know which AI tool to use for which job, and how to get useful work from it","Text and images made with AI, from prompts staff can write and fix themselves","Private company data kept out of AI tools, and AI mistakes caught before they reach a customer or a manager","English information found, judged and used: search results, documents, catalogues and webinars"]},
+    biz:{status:"plan",name:"Complete Business English",k:"Business · Managers, owners and mixed office teams",who:"Owners, managers, team leads and staff who work across the company with foreign partners.",promise:"The English of working life across a whole company: strategy, money, marketing, sales, negotiation, contracts, operations and leading. Planned: the exact lessons are final when the course is built.",
+      facts:["B1, with a B2 track","About 40 lessons · 10 chapters · about 20 weeks","Self-study + 10 chapter finales","6,990,000"],
+      can:["Present the company and make first contact with a new partner work","Size up a market and recommend what to do","Read the numbers and talk about them with anyone","Choose a customer and plan how to reach them","Prepare a deal, trade well and close in writing","Read a contract, spot the risk and ask the right questions","Run a meeting, lead a mixed team and get a decision from senior people"],
+      deliv:["Company profile and business model","Market snapshot and recommendation memo","One-page business case","Market and customer plan","Offer to a partner","Negotiation preparation sheet","Operations and risk list","5-minute board presentation","Reflection"],delivP:"The expansion case: a 9-piece project on the employee's own company.",
+      res:["One shared business language across teams, not only in sales","Staff who can follow the numbers, the contract and the deal in English","Real work handed in about the company's own business, recorded in the Course Report"]},
+    mktg:{status:"plan",name:"Marketing English",k:"Career · Marketing teams and managers",who:"Marketing staff and managers who plan, run or report on marketing with foreign partners, agencies or markets.",promise:"Marketing as a whole in English: research, customers, positioning, channels, campaigns, budgets and results. Wider than Copywriting & Content. Planned: the exact lessons are final when the course is built.",
+      facts:["B1, with a B2 track","About 32 lessons · about 16 weeks","Self-study + chapter finales","4,990,000"],
+      can:["Explain a market, its customers and the competition","Position a product and say why anyone should choose it","Choose channels and plan a campaign","Brief and manage agencies and foreign partners","Read campaign numbers and explain what they mean","Present a marketing plan and defend the budget"],
+      deliv:["Market and customer summary","Positioning statement","Channel and campaign plan","Agency brief","Campaign results report","Marketing plan presentation"],delivP:"A marketing plan for the employee's own company or product.",
+      res:["A marketing team that can plan and report in English","Clearer work with foreign agencies, partners and markets","A marketing plan built on the company's real product"]},
+    pro:{status:"plan",name:"Interview English Pro",k:"Career · Senior moves and harder interviews",who:"Experienced staff who face harder interviews or assessments in English, after Job Interview English or at B2 level.",promise:"The next step after Job Interview English: harder questions, longer answers and a final mock interview. Planned: the exact lessons are final when the course is built.",
+      facts:["B2","About 12 lessons · 4 chapters · about 6 weeks","Self-study + chapter finales","3,490,000"],
+      can:["Answer hard and unexpected questions without losing the thread","Give longer answers with clear evidence from their own work","Talk about leadership, failure and difficult decisions","Discuss pay, role and terms with confidence","Hold up through a full, demanding mock interview"],
+      deliv:["Answers to the hardest questions for their field","Evidence bank from their own work","Pay and terms talking points","Final mock interview"],delivP:"A senior interview pack and a final mock.",
+      res:["Staff ready for international roles and internal promotions","Stronger answers built on real results, not memorised lines"]},
+    meetings:{status:"plan",name:"Meetings & Presentations",k:"Career · Teams in international or remote work",who:"Team members and leads in international or remote teams, including people who understand English but struggle to speak.",promise:"Speaking at work: joining and running meetings, presenting results and handling questions. Planned: the exact lessons are final when the course is built.",
+      facts:["B1+ to B2","About 12 lessons · about 6 weeks","Self-study + chapter finales","3,490,000"],
+      can:["Join a meeting, give an opinion and disagree politely","Run a meeting and close it with clear next steps","Present results and explain charts","Handle questions, including ones they can't answer yet","Keep a video call on track"],
+      deliv:["Meeting agenda and follow-up note","Recorded update for a team meeting","Recorded results presentation","Answers to hard questions"],delivP:"A presentation and meeting pack from the employee's own work.",
+      res:["Staff who speak up in meetings instead of staying silent","Calls that end with clear decisions and next steps"]},
+    email:{status:"plan",name:"Professional Email & Writing",k:"Career · Office staff who write in English",who:"Office staff who write to foreign clients, colleagues or head office.",promise:"Clear professional writing at work: emails, requests, replies, reports and difficult messages. Planned: the exact lessons are final when the course is built.",
+      facts:["B1, with a B2 track","About 12 lessons · about 6 weeks","Self-study + chapter finales","3,490,000"],
+      can:["Write an email with one clear request and a deadline","Reply to complaints and difficult messages politely","Write short reports and updates for managers","Set the right tone for clients, colleagues and head office","Check their own writing, or an AI draft, before sending"],
+      deliv:["Request email","Reply to a complaint","Project update","Short report","Personal writing checklist"],delivP:"A writing pack from the employee's own inbox.",
+      res:["Emails that get answers the first time","Less rewriting by managers, and fewer misunderstandings"]}
   },
   classes:{
     eyebrow:"Live classes", h:"One teacher, 50 minutes, practice on the company's real work.",
@@ -603,7 +629,6 @@ en:{
     anchorH:"A full course for less than one live class.", anchorP:"At 21 people or more, one employee's full course with 12 months' access costs less than a single 50-minute live class (4,500,000 toman).",
     trustH:"Why this is a low-risk choice",
     trust:[["Try before paying","Staff can open the first half of Chapter 1 of any course in the app for free."],["One clear payment","One written total, one bank transfer, no subscription."],["A fixed quote","Toman quotes hold for 3 days, so the number in the proposal is the number paid."],["Results on paper","A level at the start, then a portfolio and a Course Report for every employee."]],
-    nextH:"Coming next", nextP:"These courses are in planning. Each price is set when the course is ready.", next:[["Business English","Strategy, money, marketing, negotiation, contracts, operations and leading."],["Marketing English","Marketing as a whole, beyond copy and content."],["Interview English Pro","Harder job interviews at B2 level."],["Meetings & Presentations","Running meetings and presenting at work."],["Professional Email & Writing","Writing to foreign clients, colleagues and head office."]],
     pkH:"The packages", pkP:"Each employee takes the package for their role.", pkFrom:p=>`from ${p} toman per employee`,
     wkH:"Weekly support sessions", wkP:"Above 20 people, each order gets one 50-minute online group session every week with a teacher, for up to 8 weeks. It is a question-and-help session, not a class: questions from the week's lessons, help for anyone who is stuck, and a look at progress.",
     tH:"Course price per employee (toman)", head:["Course","1–20 people","21–39 people (−15%)","40 or more (−20%)"],
@@ -628,9 +653,9 @@ en:{
 },
 fa:{
   dir:"rtl", sub:"ویژه‌ی شرکت‌ها", unit:"تومان",
-  tabs:{plan:"انتخاب پکیج",overview:"معرفی",sales:"بیزنس و فروش",marketing:"کپی‌رایتینگ و محتوا",hr:"منابع انسانی و بیزنس",interview:"مصاحبه‌ی شغلی",ai:"هوش مصنوعی و اینترنت",classes:"کلاس‌های زنده",packages:"پکیج‌ها و قیمت‌ها",support:"گزارش و نتیجه"},
+  tabs:{plan:"انتخاب پکیج",overview:"معرفی",sales:"بیزنس و فروش",marketing:"کپی‌رایتینگ و محتوا",hr:"منابع انسانی و بیزنس",interview:"مصاحبه‌ی شغلی",ai:"هوش مصنوعی و اینترنت",biz:"بیزنس جامع",mktg:"بازاریابی",pro:"مصاحبه‌ی پیشرفته",meetings:"جلسه و ارائه",email:"ایمیل و نگارش",classes:"کلاس‌های زنده",packages:"پکیج‌ها و قیمت‌ها",support:"گزارش و نتیجه"},
   foot:"FEschool · دوره‌های سازمانی برای ایران · آبان ۱۴۰۵ · قیمت‌ها به تومان و برای هر کارمند است و در تاریخ پیشنهاد کتبی معتبر است. گواهی FEschool گواهی گذراندن دوره است، نه مدرک CEFR یا کمبریج.",
-  status:{live:"در اپ فعال است",soon:"محتوا آماده است · به‌زودی در اپ",prod:"در حال تولید"},
+  status:{live:"در اپ فعال است",soon:"محتوا آماده است · به‌زودی در اپ",prod:"در حال تولید",plan:"در برنامه"},
   more:"جزئیات", open:"باز کردن اپ", who:"مناسب چه کسانی است", bl:["قبل","بعد"],
   quiz:{
     eyebrow:"نیازسنجی شرکت · ۲ دقیقه",
@@ -662,7 +687,7 @@ fa:{
     pctL:t=>t===.2?"٪۲۰":"٪۱۵", perMonth:p=>`≈ ${p} تومان برای هر کارمند، هر ماه دسترسی`,
     wkName:"جلسه‌ی پشتیبانی هفتگی", wkWhy:"تا ۸ هفته، هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برای پاسخ به سؤال‌ها و رفع اشکال (این جلسه کلاس درس نیست). به‌همراه گزارش ماهانه برای منابع انسانی و جلسه‌ی آغاز دوره با مدیران.",
     seatL:p=>`${p} تومان برای هر کارمند`,
-    pkgName:{sales:"پکیج بیزنس",marketing:"پکیج محتوا",hr:"پکیج منابع انسانی",interview:"پکیج مصاحبه",ai:"پکیج هوش مصنوعی و اینترنت"},
+    pkgName:{sales:"پکیج بیزنس",marketing:"پکیج محتوا",hr:"پکیج منابع انسانی",interview:"پکیج مصاحبه",ai:"پکیج هوش مصنوعی و اینترنت",biz:"پکیج جامع بیزنس",mktg:"پکیج بازاریابی",pro:"پکیج مصاحبه‌ی پیشرفته",meetings:"پکیج جلسه و ارائه",email:"پکیج ایمیل و نگارش"},
     rs:{sales:"برای هر کسی که با مشتری، تأمین‌کننده یا شریک خارجی کار می‌کند: پاسخ در همان روز، پیش‌فاکتور و سفارش شفاف، و مذاکره و رسیدگی به شکایت به انگلیسی.",marketing:"برای تیم محتوا: نوشتن صفحه‌ی محصول و پست انگلیسی در خود شرکت و بررسی متن‌های هوش مصنوعی پیش از انتشار.",hr:"برای منابع انسانی و مدیران: مصاحبه، پیشنهاد شغلی، جلسه‌ی بازخورد و جلسه‌های کاری به انگلیسی، بدون نیاز به کمک بیرونی.",interview:"برای کارکنانی که به انگلیسی ارزیابی می‌شوند: معرفی روشن، مثال‌های واقعی از سابقه‌ی کاری و پاسخ آرام در شرایط فشار.",ai:"برای هر کسی که با ابزارهای هوش مصنوعی یا منابع انگلیسی کار می‌کند: ChatGPT، Claude، Gemini، Midjourney و ابزارهای دیگر، کاربرد هر کدام، و نوشتن و بررسی پرامپت."},
     clsName:{meet:"کلاس تمرین جلسه و مذاکره",business:"کلاس انگلیسی بیزنس",general:"کلاس انگلیسی عمومی"},
     clsPrice:"۴٬۵۰۰٬۰۰۰ تومان برای هر ۵۰ دقیقه · ۲ تا ۴ نفر",
@@ -727,7 +752,32 @@ fa:{
       facts:["B1، با مسیر B2","۱۶ درس · ۴ فصل · حدود ۸ هفته","خودآموز + ۴ آزمون پایان فصل","۳٬۸۰۰٬۰۰۰"],
       can:["بدانند ChatGPT، Claude، Gemini، Copilot، Perplexity و Midjourney هر کدام به چه کاری می‌آیند و ابزار مناسب هر کار را انتخاب کنند","منوها، تنظیمات، صفحه‌های راهنما و پیام‌های خطای ابزارهای هوش مصنوعی را به انگلیسی بفهمند","برای متن پرامپت روشن بنویسند: کار، خواننده، اطلاعات، محدودیت‌ها و قالب","برای تصویر پرامپت بنویسند (موضوع، سبک، نور و ترکیب‌بندی)، تصویر نادرست را اصلاح کنند و برای ویدیوی کوتاه شرح کار بنویسند","پرامپت را با چک‌لیست بررسی کنند، بفهمند چرا نتیجه نداده و اصلاحش کنند","یک کار طولانی‌تر را با مرحله‌ها و نقطه‌های توقف روشن به ابزار هوش مصنوعی بسپارند","اطلاعات خصوصی شرکت و مشتری را وارد ابزارهای هوش مصنوعی نکنند","متن هوش مصنوعی را با سندهای شرکت مقایسه کنند، اطلاعات و منابع ساختگی را تشخیص بدهند و اصلاح کنند","به انگلیسی تحقیق کنند: بدانند کجا بگردند (موتورهای جست‌وجو، جست‌وجوی هوش مصنوعی، Google Scholar، نهادهای استاندارد، سایت شرکت‌ها، فروم‌ها، YouTube)، درست جست‌وجو کنند و منبع را بسنجند","دیتاشیت یا کاتالوگ را بخوانند، جلسه‌ی آنلاین یا وبینار را دنبال کنند و نکته‌های اصلی را گزارش کنند"],
       deliv:["مجموعه‌ی پرامپت متن و تصویر برای شغل خودشان","متن هوش مصنوعی، قبل و بعد از اصلاح","گزارش تحقیق کوتاه","خلاصه‌ی جلسه یا وبینار","راهنمای شخصی: هر ابزار برای چه کاری، به‌همراه چک‌لیست پرامپت","جمع‌بندی"],delivP:"یک بسته‌ی کاری ۶ بخشی از کار خود کارمند.",
-      res:["کارکنانی که می‌دانند برای هر کار از کدام ابزار هوش مصنوعی استفاده کنند و چطور نتیجه‌ی کاربردی بگیرند","تولید متن و تصویر با هوش مصنوعی، با پرامپت‌هایی که کارکنان خودشان می‌نویسند و اصلاح می‌کنند","حفظ اطلاعات خصوصی شرکت، و شناسایی اشتباه‌های هوش مصنوعی پیش از رسیدن به مشتری یا مدیر","پیدا کردن، سنجیدن و به‌کارگیری اطلاعات انگلیسی: نتایج جست‌وجو، سندها، کاتالوگ‌ها و وبینارها"]}
+      res:["کارکنانی که می‌دانند برای هر کار از کدام ابزار هوش مصنوعی استفاده کنند و چطور نتیجه‌ی کاربردی بگیرند","تولید متن و تصویر با هوش مصنوعی، با پرامپت‌هایی که کارکنان خودشان می‌نویسند و اصلاح می‌کنند","حفظ اطلاعات خصوصی شرکت، و شناسایی اشتباه‌های هوش مصنوعی پیش از رسیدن به مشتری یا مدیر","پیدا کردن، سنجیدن و به‌کارگیری اطلاعات انگلیسی: نتایج جست‌وجو، سندها، کاتالوگ‌ها و وبینارها"]},
+    biz:{status:"plan",name:"دوره‌ی جامع انگلیسی تجاری",k:"بیزنس · مدیران، صاحبان کسب‌وکار و تیم‌های اداری",who:"صاحبان کسب‌وکار، مدیران، سرپرست‌ها و کارکنانی که در بخش‌های مختلف شرکت با شریک خارجی کار می‌کنند.",promise:"انگلیسی محیط کار در تمام شرکت: استراتژی، امور مالی، بازاریابی، فروش، مذاکره، قرارداد، عملیات و رهبری. در برنامه: فهرست نهایی درس‌ها هنگام ساخت دوره مشخص می‌شود.",
+      facts:["B1، با مسیر B2","حدود ۴۰ درس · ۱۰ فصل · حدود ۲۰ هفته","خودآموز + ۱۰ آزمون پایان فصل","۶٬۹۹۰٬۰۰۰"],
+      can:["شرکت را معرفی کنند و اولین تماس با شریک جدید را درست پیش ببرند","یک بازار را بسنجند و پیشنهاد مشخص بدهند","عددها را بخوانند و با هر کسی درباره‌شان حرف بزنند","مشتری هدف را انتخاب کنند و برای رسیدن به او برنامه بریزند","معامله را آماده کنند، خوب مذاکره کنند و کتبی نهایی‌اش کنند","قرارداد را بخوانند، ریسک را ببینند و سؤال درست بپرسند","جلسه را اداره کنند، تیم را رهبری کنند و از مدیران ارشد تصمیم بگیرند"],
+      deliv:["معرفی شرکت و مدل کسب‌وکار","تصویر بازار و یادداشت پیشنهاد","طرح توجیهی یک‌صفحه‌ای","برنامه‌ی بازار و مشتری","پیشنهاد به شریک","برگه‌ی آمادگی مذاکره","فهرست عملیات و ریسک","ارائه‌ی ۵ دقیقه‌ای به هیئت‌مدیره","جمع‌بندی"],delivP:"پروژه‌ی توسعه: ۹ بخش درباره‌ی شرکت خود کارمند.",
+      res:["زبان کاری مشترک در همه‌ی تیم‌ها، نه فقط در فروش","کارکنانی که عدد، قرارداد و معامله را به انگلیسی دنبال می‌کنند","کار واقعی درباره‌ی کسب‌وکار خود شرکت، ثبت‌شده در گزارش دوره"]},
+    mktg:{status:"plan",name:"انگلیسی بازاریابی",k:"شغلی · تیم‌های بازاریابی و مدیران",who:"کارکنان و مدیران بازاریابی که با شریک، آژانس یا بازار خارجی برنامه‌ریزی، اجرا یا گزارش می‌کنند.",promise:"بازاریابی به‌طور کامل به انگلیسی: تحقیق، مشتری، جایگاه‌یابی، کانال‌ها، کمپین، بودجه و نتیجه. گسترده‌تر از کپی‌رایتینگ و تولید محتوا. در برنامه: فهرست نهایی درس‌ها هنگام ساخت دوره مشخص می‌شود.",
+      facts:["B1، با مسیر B2","حدود ۳۲ درس · حدود ۱۶ هفته","خودآموز + آزمون‌های پایان فصل","۴٬۹۹۰٬۰۰۰"],
+      can:["بازار، مشتری و رقبا را توضیح بدهند","جایگاه محصول را مشخص کنند و بگویند چرا باید آن را انتخاب کرد","کانال را انتخاب کنند و کمپین را برنامه‌ریزی کنند","به آژانس و شریک خارجی بریف بدهند و کار را پیگیری کنند","عددهای کمپین را بخوانند و توضیح بدهند","برنامه‌ی بازاریابی را ارائه کنند و از بودجه دفاع کنند"],
+      deliv:["خلاصه‌ی بازار و مشتری","بیانیه‌ی جایگاه‌یابی","برنامه‌ی کانال و کمپین","بریف آژانس","گزارش نتیجه‌ی کمپین","ارائه‌ی برنامه‌ی بازاریابی"],delivP:"برنامه‌ی بازاریابی برای شرکت یا محصول خود کارمند.",
+      res:["تیم بازاریابی که به انگلیسی برنامه‌ریزی و گزارش می‌کند","همکاری روشن‌تر با آژانس، شریک و بازار خارجی","برنامه‌ی بازاریابی بر پایه‌ی محصول واقعی شرکت"]},
+    pro:{status:"plan",name:"مصاحبه‌ی شغلی پیشرفته به انگلیسی",k:"شغلی · جایگاه‌های ارشد و مصاحبه‌های سخت‌تر",who:"کارکنان باتجربه‌ای که با مصاحبه یا ارزیابی سخت‌تر به انگلیسی روبه‌رو هستند، بعد از دوره‌ی مصاحبه یا در سطح B2.",promise:"قدم بعدی بعد از دوره‌ی مصاحبه‌ی شغلی: سؤال‌های سخت‌تر، جواب‌های بلندتر و یک مصاحبه‌ی آزمایشی پایانی. در برنامه: فهرست نهایی درس‌ها هنگام ساخت دوره مشخص می‌شود.",
+      facts:["B2","حدود ۱۲ درس · ۴ فصل · حدود ۶ هفته","خودآموز + آزمون‌های پایان فصل","۳٬۴۹۰٬۰۰۰"],
+      can:["به سؤال‌های سخت و غیرمنتظره بدون گم کردن رشته‌ی کلام جواب بدهند","جواب‌های بلندتر با شاهد روشن از کار خودشان بدهند","درباره‌ی رهبری، شکست و تصمیم‌های سخت حرف بزنند","درباره‌ی حقوق، نقش و شرایط با اطمینان گفت‌وگو کنند","یک مصاحبه‌ی آزمایشی کامل و سخت را پشت سر بگذارند"],
+      deliv:["جواب سخت‌ترین سؤال‌های حوزه‌ی خودشان","بانک شاهد از کار خودشان","نکته‌های گفت‌وگو درباره‌ی حقوق و شرایط","مصاحبه‌ی آزمایشی پایانی"],delivP:"بسته‌ی مصاحبه‌ی ارشد و یک مصاحبه‌ی آزمایشی پایانی.",
+      res:["کارکنان آماده برای نقش‌های بین‌المللی و ارتقای داخلی","جواب‌های قوی‌تر بر پایه‌ی نتیجه‌ی واقعی، نه جمله‌های حفظی"]},
+    meetings:{status:"plan",name:"جلسه و ارائه به انگلیسی",k:"شغلی · تیم‌های بین‌المللی و دورکار",who:"اعضا و سرپرست‌های تیم‌های بین‌المللی یا دورکار، از جمله کسانی که انگلیسی را می‌فهمند ولی در حرف زدن مشکل دارند.",promise:"حرف زدن در کار: شرکت در جلسه و اداره‌ی آن، ارائه‌ی نتیجه و جواب دادن به سؤال‌ها. در برنامه: فهرست نهایی درس‌ها هنگام ساخت دوره مشخص می‌شود.",
+      facts:["B1+ تا B2","حدود ۱۲ درس · حدود ۶ هفته","خودآموز + آزمون‌های پایان فصل","۳٬۴۹۰٬۰۰۰"],
+      can:["در جلسه نظر بدهند و مؤدبانه مخالفت کنند","جلسه را اداره کنند و با قدم‌های بعدی روشن تمامش کنند","نتیجه را ارائه کنند و نمودار را توضیح بدهند","به سؤال‌ها جواب بدهند، حتی سؤالی که هنوز جوابش را ندارند","تماس تصویری را در مسیر نگه دارند"],
+      deliv:["دستور جلسه و یادداشت پیگیری","گزارش ضبط‌شده برای جلسه‌ی تیم","ارائه‌ی ضبط‌شده از نتیجه‌ها","جواب سؤال‌های سخت"],delivP:"بسته‌ی ارائه و جلسه از کار خود کارمند.",
+      res:["کارکنانی که در جلسه حرف می‌زنند و ساکت نمی‌مانند","تماس‌هایی که با تصمیم و قدم بعدی روشن تمام می‌شوند"]},
+    email:{status:"plan",name:"ایمیل و نگارش حرفه‌ای به انگلیسی",k:"شغلی · کارکنان اداری که به انگلیسی می‌نویسند",who:"کارکنان اداری که برای مشتری، همکار یا دفتر مرکزی خارجی می‌نویسند.",promise:"نگارش روشن و حرفه‌ای در کار: ایمیل، درخواست، پاسخ، گزارش و پیام‌های دشوار. در برنامه: فهرست نهایی درس‌ها هنگام ساخت دوره مشخص می‌شود.",
+      facts:["B1، با مسیر B2","حدود ۱۲ درس · حدود ۶ هفته","خودآموز + آزمون‌های پایان فصل","۳٬۴۹۰٬۰۰۰"],
+      can:["ایمیلی با یک درخواست روشن و مهلت مشخص بنویسند","به شکایت و پیام دشوار مؤدبانه جواب بدهند","گزارش و به‌روزرسانی کوتاه برای مدیر بنویسند","لحن مناسب مشتری، همکار و دفتر مرکزی را انتخاب کنند","پیش از ارسال، متن خودشان یا پیش‌نویس هوش مصنوعی را بررسی کنند"],
+      deliv:["ایمیل درخواست","پاسخ به شکایت","به‌روزرسانی پروژه","گزارش کوتاه","چک‌لیست نگارش شخصی"],delivP:"بسته‌ی نگارش از کار روزانه‌ی خود کارمند.",
+      res:["ایمیل‌هایی که بار اول جواب می‌گیرند","بازنویسی کمتر توسط مدیر و سوءتفاهم کمتر"]}
   },
   classes:{
     eyebrow:"کلاس‌های زنده", h:"یک مدرس، ۵۰ دقیقه و تمرین روی کار واقعی شرکت.",
@@ -755,7 +805,6 @@ fa:{
     anchorH:"یک دوره‌ی کامل، با هزینه‌ای کمتر از یک جلسه کلاس زنده.", anchorP:"در سفارش‌های ۲۱ نفر به بالا، هزینه‌ی دوره‌ی کامل با ۱۲ ماه دسترسی برای هر کارمند کمتر از یک جلسه کلاس زنده‌ی ۵۰ دقیقه‌ای (۴٬۵۰۰٬۰۰۰ تومان) است.",
     trustH:"چرا این انتخاب کم‌ریسک است",
     trust:[["امتحان پیش از پرداخت","نیمه‌ی اول فصل ۱ هر دوره‌ی موجود در اپ رایگان است."],["پرداخت شفاف","یک مبلغ کل کتبی و یک انتقال بانکی، بدون اشتراک ماهانه."],["قیمت ثابت","قیمت تومانی تا ۳ روز معتبر است و همان مبلغ پیشنهاد کتبی پرداخت می‌شود."],["نتیجه‌ی مستند","تعیین سطح در شروع، و نمونه‌کار و گزارش دوره برای هر کارمند در پایان."]],
-    nextH:"دوره‌های بعدی", nextP:"این دوره‌ها در حال برنامه‌ریزی‌اند. قیمت هر دوره وقتی آماده شود مشخص می‌شود.", next:[["انگلیسی بیزنس","استراتژی، امور مالی، بازاریابی، مذاکره، قرارداد، عملیات و رهبری."],["انگلیسی بازاریابی","بازاریابی به‌طور کامل، فراتر از متن و محتوا."],["مصاحبه‌ی شغلی پیشرفته به انگلیسی","مصاحبه‌های سخت‌تر در سطح B2."],["جلسه و ارائه به انگلیسی","اداره‌ی جلسه و ارائه در محیط کار."],["ایمیل و نگارش حرفه‌ای به انگلیسی","نوشتن برای مشتری، همکار و دفتر مرکزی خارجی."]],
     pkH:"پکیج‌ها", pkP:"هر کارمند پکیج متناسب با نقش خود را می‌گذراند.", pkFrom:p=>`از ${p} تومان برای هر کارمند`,
     wkH:"جلسه‌ی پشتیبانی هفتگی", wkP:"در سفارش‌های بیش از ۲۰ نفر، تا ۸ هفته، هر هفته یک جلسه‌ی گروهی آنلاین ۵۰ دقیقه‌ای با مدرس برگزار می‌شود. این جلسه کلاس درس نیست: پاسخ به سؤال‌های همان هفته، رفع اشکال و مرور پیشرفت.",
     tH:"قیمت دوره برای هر کارمند (تومان)", head:["دوره","۱ تا ۲۰ نفر","۲۱ تا ۳۹ نفر (٪۱۵ تخفیف)","۴۰ نفر به بالا (٪۲۰ تخفیف)"],
@@ -862,7 +911,6 @@ function packages(L){
   <section><div class="sh"><h2 class="h2">${p.pkH}</h2><p>${p.pkP}</p></div>
     <div class="pkfs">${COURSES.map(c=>{const k=L.courses[c];return `<div class="pkf" style="--c:${COLORS[c]}"><h3>${z.pkgName[c]}</h3><p><b>${k.name}</b> · ${k.facts[1]}</p><div class="pr tnum"><s class="was">${money(PRICE[c])}</s> ${p.pkFrom(money(cut(PRICE[c],.2)))}</div><div class="lab">${z.lab.res}</div>${list(k.res)}<details><summary>${z.lab.learn}</summary>${list(k.can)}</details><div><span class="chip ${k.status==="live"?"ok":"soon"}">${L.status[k.status]}</span></div><div><button class="btn ghost sm" data-go="${c}">${L.more} →</button></div></div>`}).join("")}</div>
     <div class="pk" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">${p.pk.map(x=>`<div class="pkc"><div class="k">${x[0]}</div><h3>${x[1]}</h3><p>${x[2]}</p></div>`).join("")}</div></section>
-  <section><div class="sh"><h2 class="h2">${p.nextH}</h2><p>${p.nextP}</p></div><div class="grid" style="--cols:3">${p.next.map(x=>`<div class="box"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
   <section class="why" style="background:var(--green-soft)"><h3 style="color:var(--green)">${p.wkH}</h3><p style="color:var(--ink-2)">${p.wkP}</p></section>
   <section><div class="sh"><h2 class="h2">${p.trustH}</h2></div><div class="grid" style="--cols:4">${p.trust.map(x=>`<div class="box"><h3>${x[0]}</h3><p>${x[1]}</p></div>`).join("")}</div></section>
   <section><div class="sh"><h2 class="h2">${p.tH}</h2></div>${tbl(p.head,priceRows)}</section>
