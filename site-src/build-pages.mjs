@@ -213,9 +213,9 @@ const GOALS = {
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr'), ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
-      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing'],
-      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales'],
-      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet']] },
+      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing'],
+      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales', 'sales'],
+      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true]] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
@@ -485,8 +485,8 @@ function card(l, c, live, also) {
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>`
     : l === 'fa' && c.moreFa ? `<a class="tlink more" href="${c.moreFa[0]}">${esc(c.moreFa[1])}</a>` : '';
-  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id if it has free lessons + a request button]; one row per course, one 'Also' label */
-  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks"><a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc(FREE2[i])}</a><a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
+  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true if it also has a free lessons link]; one row per course, one 'Also' label */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc(FREE2[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
