@@ -184,6 +184,7 @@ const LIVE_PRICE = ['₺3.400<small>\'dan / ay</small>', '<small style="margin:0
 const FREE1 = ['İlk analiz seansı hediye', 'Free analysis session', '۱ تا ۴ نفر'];
 const BOOK = ['Dersini ayarla', 'Book your lessons', 'رزرو کلاس'];
 const OWN = ['Kendi hızında, uygulamada', 'At your own pace, in the app', 'با سرعت خودت، داخل اپ'];
+const FREE2 = ['2 ücretsiz derse başla', 'Start the 2 free lessons', 'شروع ۲ درس رایگان'];
 const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (ترکی) ←'];
 
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
@@ -206,29 +207,29 @@ const LIVES = {
 };
 const GOALS = {
   is: { img: 'char-career', c: '--g-career', title: ['İş ve kariyer', 'Work & career', 'کار و شغل'], label: 'gIs', sub: 'gIsS',
-    self: { key: 'hr', name: ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'],
+    self: { key: 'hr', name: ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'],
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr'), ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
-    live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
+    live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
       [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing'],
       [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales'],
-      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai']] },
+      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet']] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
-    self: { key: 'ielts', name: ['IELTS: 10 Tam Sınav', 'IELTS: 10 Full Exams', 'آیلتس: ۱۰ آزمون کامل'],
+    self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
       price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('ielts'), ['free', ['Sınav 1\'in ilk yarısı ücretsiz', 'First half of Exam 1 free', 'نیمه‌ی اول آزمون ۱ رایگان']]],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
-    self: { key: 'interview', name: ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'],
+    self: { key: 'interview', name: ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'],
       for: ['En sık sorulan sorular ve güçlü cevaplar.', 'The most common questions and strong answers.', 'رایج‌ترین سؤال‌ها و جواب‌های قوی.'],
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma', 'Introducing yourself', 'معرفی خودت'], OWN],
       price: ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('interview')],
       cta: ['Açılınca haber ver', 'Tell me when it opens', 'وقتی باز شد خبرم کن'], notify: true, more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'] },
-    live: 'biz', also: [['is', ['İK & İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و تجاری'], ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'], 'hr']] },
+    live: 'biz', also: [['is', ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'], ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'], 'hr']] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
       for: ['Hedefini ve seviyeni seç, uygulama yolunu kursun.', 'Pick your goal and level, and the app builds your path.', 'هدف و سطحت را انتخاب کن تا اپ مسیرت را بسازد.'],
@@ -255,7 +256,7 @@ const COMPANY = [
     for: ['Yöneticiler, şirket sahipleri ve karma ofis ekipleri', 'Owners, managers and mixed office teams', 'مدیران، صاحبان کسب‌وکار و تیم‌های اداری'] },
   { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama paketi', 'Marketing package', 'پکیج بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'],
     for: ['Pazarlama ekipleri ve yöneticileri', 'Marketing teams and managers', 'تیم‌های بازاریابی و مدیران'] },
-  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İş Görüşmesi İngilizcesi Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İngilizce İş Mülakatı Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
     for: ['Üst düzey roller ve zor mülakatlar için', 'For senior moves and harder interviews', 'برای جایگاه‌های ارشد و مصاحبه‌های سخت‌تر'] },
   { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı paketi', 'Meetings package', 'پکیج جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
     for: ['Uluslararası ve uzaktan çalışan ekipler', 'International and remote teams', 'تیم‌های بین‌المللی و دورکار'] },
@@ -375,7 +376,7 @@ function schema(l, page) {
     graph.push(
       { '@type': 'EducationalOrganization', '@id': ORIGIN + '/#fe-school', name: 'FE School', alternateName: 'FEschool', url: ORIGIN + '/',
         logo: { '@type': 'ImageObject', url: ORIGIN + '/icon-512.png', width: 512, height: 512 }, image: ORIGIN + '/og-image.jpg',
-        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Görüşmesi, Metin Yazarlığı ve İçerik, Satış ve Dış Ticaret, Yapay Zekâ ve İnternet) ve Farin ile canlı online dersler.',
+        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Mülakatı, Metin Yazarlığı ve İçerik, Satış ve Dış Ticaret, Yapay Zekâ ve İnternet) ve Farin ile canlı online dersler.',
         email: 'mailto:farinrasuli@gmail.com', founder: { '@id': ORIGIN + '/#farin' }, areaServed: ['TR', 'IR'],
         contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: 'https://wa.me/' + WAN, email: 'farinrasuli@gmail.com', availableLanguage: ['tr', 'en', 'fa'] },
         sameAs: ['https://www.instagram.com/the_feschool/', 'https://www.linkedin.com/company/thefeschool/'] },
@@ -484,8 +485,8 @@ function card(l, c, live, also) {
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>`
     : l === 'fa' && c.moreFa ? `<a class="tlink more" href="${c.moreFa[0]}">${esc(c.moreFa[1])}</a>` : '';
-  /* also = list of [panel anchor or null, name x3, price x3, SALE key]; one row per course, one 'Also' label */
-  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span></div>`).join('')}</div>` : '';
+  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id if it has free lessons + a request button]; one row per course, one 'Also' label */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks"><a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc(FREE2[i])}</a><a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}

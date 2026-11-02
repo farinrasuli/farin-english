@@ -111,3 +111,6 @@ footer.site .f-cols a:hover{color:var(--ink)}
 .co-tiers b{color:var(--purple-ink)}
 .co-note{color:var(--muted);font-weight:700;margin-top:18px;text-align:center}
 .co-ctas{justify-content:center;margin-top:18px}
+.also .alinks{flex:1 1 100%;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin-top:8px}
+.also .alinks .btn{border-bottom:0;color:#2A1700}
+.also .alinks .btn span{color:inherit}
