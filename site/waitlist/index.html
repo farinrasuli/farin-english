@@ -1,0 +1,296 @@
+<!doctype html>
+<!-- The course waiting list (Farin 2026-11-02). Hand-written, one page for TR / EN / FA: /waitlist/?course=<id>&lang=tr|en|fa.
+     Same record as the app's "I want this course" page (app/farin-english-app.html, WAITLIST_DOC_PREFIX), so Farin's admin
+     Waiting list shows both: progress/wl-<32 random hex>, kind:'waitlist'. The id must stay random: get-by-id is open in the
+     Firestore rules, so a guessable id would expose phone numbers. Talks to Firestore over REST, no SDK, only from this page.
+     Never list the collection from here. Name and phone never go to analytics. -->
+<html lang="tr" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bekleme listesi | FE School</title>
+<meta name="description" content="Adını ve telefon numaranı bırak. Yer açılır açılmaz sana yazacağız.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://thefeschool.com/waitlist/">
+<meta name="theme-color" content="#7C5CFC">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="/icon-512.png" type="image/png">
+<script>
+(function(){
+  var l = new URLSearchParams(location.search).get('lang');
+  if (l !== 'en' && l !== 'fa') l = 'tr';
+  var h = document.documentElement;
+  h.lang = l; h.dir = l === 'fa' ? 'rtl' : 'ltr'; h.classList.add('js');
+  var f = document.createElement('link'); f.rel = 'stylesheet';
+  f.href = l === 'fa' ? 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap'
+                      : 'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap';
+  document.head.appendChild(f);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="/feschool.css">
+<style>
+[hidden]{display:none!important}
+.wl-main{padding-block:28px 72px}
+.wl-grid{display:grid;gap:24px;max-width:620px;margin:0 auto}
+.wl-hero{position:relative;overflow:hidden;background:linear-gradient(140deg,var(--purple),var(--purple-ink));color:#fff;border-radius:30px;padding:38px 28px 34px;box-shadow:var(--shadow-lg)}
+.wl-hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:var(--sparkle);background-size:230px 190px,150px 130px,310px 260px;background-position:20px 30px,80px 90px,160px 10px;opacity:.8}
+.wl-hero>*{position:relative}
+.wl-pill{display:inline-block;background:var(--ink);color:#fff;font-weight:800;font-size:.8rem;line-height:1.3;border-radius:99px;padding:7px 15px}
+.wl-hero h1{font-size:clamp(1.85rem,6.4vw,2.7rem);line-height:1.14;margin:20px 0 0}
+.wl-lead{margin-top:16px;font-size:1.06rem;line-height:1.55;max-width:30em}
+.wl-art{display:block;width:104px;height:104px;margin:24px 0 -6px auto;object-fit:contain}
+[dir="rtl"] .wl-art{margin:24px auto -6px 0}
+.wl-card{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:34px 26px 30px;box-shadow:var(--shadow)}
+.wl-form{display:flex;flex-direction:column;gap:26px}
+.wl-label{display:block;font-weight:800;font-size:1rem;margin-bottom:10px}
+.wl-input{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--sunk);border:1.5px solid var(--line);border-radius:22px;padding:15px 18px}
+.wl-input:focus{outline:3px solid var(--orange);outline-offset:1px}
+.wl-input[aria-invalid="true"]{border-color:var(--coral-deep)}
+[dir="rtl"] #wl-phone{text-align:right}
+.wl-hint{margin-top:10px;font-size:.85rem;line-height:1.45;color:var(--muted)}
+.wl-err{margin-top:10px;font-size:.9rem;line-height:1.45;font-weight:800;color:#B23A1E}
+.wl-submit{width:100%;min-height:56px;white-space:normal;line-height:1.25;font-size:1.05rem;padding:15px 24px}
+.wl-submit[disabled]{opacity:.65;cursor:default;transform:none}
+.wl-save-err{margin-top:18px;text-align:center}
+.wl-wa{display:block;margin-top:12px;text-align:center}
+.wl-wa a{font-size:.95rem}
+.wl-note{margin-top:18px;font-size:.85rem;line-height:1.5;text-align:center;color:var(--muted)}
+.wl-note a{color:inherit}
+.wl-done-msg{font-family:var(--display);font-weight:600;font-size:clamp(1.5rem,5.4vw,2rem);line-height:1.3;margin-top:22px}
+.wl-done-msg:focus{outline:none}
+.wl-back{margin-top:30px}
+.wl-hero .wl-back{background:#fff;color:var(--ink);box-shadow:0 4px 0 rgba(26,20,16,.28)}
+.wl-small{padding-block:0 40px;font-size:.85rem;color:var(--muted);text-align:center}
+.wl-small a{color:inherit}
+.wl-small .footer-bottom{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+header.site .langs{margin-left:auto}
+[dir="rtl"] header.site .langs{margin-left:0;margin-right:auto}
+html[lang="fa"] .wl-hero h1,html[lang="fa"] .wl-done-msg{line-height:1.45;letter-spacing:0}
+@media (min-width:900px){
+  .wl-main{padding-block:52px 104px}
+  .wl-grid{grid-template-columns:1fr 1fr;gap:32px;max-width:1040px;align-items:start}
+  .wl-grid.wl-one{grid-template-columns:1fr;max-width:680px}
+  .wl-hero{padding:52px 44px 44px}
+  .wl-card{padding:44px 40px 38px}
+  .wl-art{width:150px;height:150px;margin-top:34px}
+  [dir="rtl"] .wl-art{margin-top:34px}
+}
+</style>
+<script src="/consent.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main" id="wl-skip">İçeriğe geç</a>
+<header class="site"><div class="wrap">
+  <a class="logo" id="wl-logo" href="/" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38"><span class="wm" dir="ltr">FE<i>School</i></span></a>
+  <nav class="langs" id="wl-langs" aria-label="Dil"></nav>
+</div></header>
+<main id="main" class="wl-main"><div class="wrap">
+  <div class="wl-grid" id="wl-root"></div>
+  <noscript><p style="text-align:center;margin-top:24px">Bu form için JavaScript gerekir. <a href="https://wa.me/905467615951">WhatsApp</a></p></noscript>
+</div></main>
+<footer class="wl-small"><div class="wrap"><div class="footer-bottom"><a id="wl-privacy" href="/gizlilik-politikasi.html">Gizlilik Politikası</a></div></div></footer>
+<script>
+(function(){
+"use strict";
+/* Course ids and English titles are the app's own (COURSES in app/farin-english-app.html); the admin panel groups by them. */
+var COURSES = {
+  'hr':          {art:'char-career',      en:'HR & Business English', tr:'İK ve İş İngilizcesi', fa:'انگلیسی منابع انسانی و کسب‌وکار'},
+  'ielts':       {art:'char-exam',        en:'IELTS: 10 full exams', tr:'IELTS: 10 tam sınav', fa:'آیلتس: ۱۰ آزمون کامل'},
+  'interview':   {art:'char-immigration', en:'Job Interview English', tr:'İngilizce İş Mülakatı', fa:'مصاحبه‌ی شغلی به انگلیسی'},
+  'marketing':   {art:'char-everyday',    en:'Copywriting & Content English', tr:'Metin Yazarlığı ve İçerik İngilizcesi', fa:'انگلیسی کپی‌رایتینگ و تولید محتوا'},
+  'sales':       {art:'char-travel',      en:'Sales & Trade English', tr:'Satış ve Dış Ticaret İngilizcesi', fa:'انگلیسی فروش و بازرگانی'},
+  'ai-internet': {art:'char-career',      en:'English for AI and the Internet', tr:'Yapay Zekâ ve İnternet için İngilizce', fa:'انگلیسی برای هوش مصنوعی و اینترنت'}
+};
+/* Wording is the app's, word for word, where the app has the same sentence. */
+var T = {
+  en:{home:'/en/', title:'Waiting list', skip:'Skip to content', langs:'Language', lead:"Leave your name and phone number. As soon as a spot opens, we'll message you.",
+      nameL:'Name and surname', phoneL:'Phone number', phonePh:'+44 7XXX XXXXXX', hint:'Please include your country code.',
+      nameE:'Write your name and surname.', phoneE:"This number doesn't look right. Use 7 to 15 digits, with an optional + at the start.",
+      send:'Put me on the list', busy:'Saving…', saveE:"We couldn't save this. Check your connection and try again.", or:'Or message us on WhatsApp',
+      note:'We only use your number to message you about this course.', done:"You're on the list. As soon as a spot opens, we'll message you.", back:'Back to the course',
+      priv:'Privacy policy', privHref:'/privacy-policy.html', none:'Pick a course first.', noneBtn:'See the courses',
+      wa:function(n){ return 'Hi Farin! I\'d like to join the waiting list for "' + n + '".'; }},
+  tr:{home:'/', title:'Bekleme listesi', skip:'İçeriğe geç', langs:'Dil', lead:'Adını ve telefon numaranı bırak. Yer açılır açılmaz sana yazacağız.',
+      nameL:'Ad ve soyad', phoneL:'Telefon numarası', phonePh:'+90 5XX XXX XX XX', hint:'Lütfen ülke kodunu da yaz.',
+      nameE:'Adını ve soyadını yaz.', phoneE:'Bu numara doğru görünmüyor. 7 ila 15 rakam yaz; başa + koyabilirsin.',
+      send:'Beni listeye ekle', busy:'Kaydediliyor…', saveE:'Kaydedemedik. Bağlantını kontrol edip tekrar dene.', or:"Ya da WhatsApp'tan yaz",
+      note:'Numaranı yalnızca bu kurs için sana yazmak üzere kullanırız.', done:'Listedesin. Yer açılır açılmaz sana yazacağız.', back:'Kursa dön',
+      priv:'Gizlilik Politikası', privHref:'/gizlilik-politikasi.html', none:'Önce bir kurs seç.', noneBtn:'Kursları gör',
+      wa:function(n){ return 'Merhaba Farin! "' + n + '" kursunun bekleme listesine yazılmak istiyorum.'; }},
+  fa:{home:'/fa/', title:'لیست انتظار', skip:'رفتن به محتوا', langs:'زبان', lead:'اسم و شماره‌ی تلفنت را بگذار. به‌محض اینکه جا باز شود، به تو پیام می‌دهیم.',
+      nameL:'نام و نام خانوادگی', phoneL:'شماره‌ی تلفن', phonePh:'+98 9XX XXX XXXX', hint:'لطفاً کد کشور را هم بنویس.',
+      nameE:'نام و نام خانوادگی‌ات را بنویس.', phoneE:'این شماره درست به نظر نمی‌رسد. ۷ تا ۱۵ رقم بنویس؛ می‌توانی اولش + بگذاری.',
+      send:'اسمم را در لیست بنویس', busy:'در حال ذخیره…', saveE:'ذخیره نشد. اتصالت را بررسی کن و دوباره امتحان کن.', or:'یا در واتس‌اپ پیام بده',
+      note:'شماره‌ات را فقط برای پیام دادن درباره‌ی این دوره استفاده می‌کنیم.', done:'اسمت در لیست است. به‌محض اینکه جا باز شود، به تو پیام می‌دهیم.', back:'برگشت به دوره',
+      priv:'سیاست حریم خصوصی (ترکی)', privHref:'/gizlilik-politikasi.html', none:'اول یک دوره انتخاب کن.', noneBtn:'دیدن دوره‌ها',
+      wa:function(n){ return 'سلام فرین! می‌خواهم در لیست انتظار «' + n + '» باشم.'; }}
+};
+var LANG = document.documentElement.lang, t = T[LANG];
+var cid = new URLSearchParams(location.search).get('course');
+var course = Object.prototype.hasOwnProperty.call(COURSES, cid) ? COURSES[cid] : null;
+var ARROW = LANG === 'fa' ? '←' : '→';
+var DOC_URL = 'https://firestore.googleapis.com/v1/projects/farinenglish/databases/(default)/documents/progress/';
+var API_KEY = 'AIzaSyDo0M3Hyzy1ZdEgVx7I8vkc1YHxpA-8cA4';   /* the app's public web key */
+var root = document.getElementById('wl-root');
+
+function el(tag, attrs, kids){
+  var n = document.createElement(tag);
+  Object.keys(attrs || {}).forEach(function(k){ if (k === 'text') n.textContent = attrs[k]; else n.setAttribute(k, attrs[k]); });
+  (kids || []).forEach(function(c){ if (c) n.appendChild(c); });
+  return n;
+}
+/* Same rules as the app: courseWaitlistPhone, courseWaitlistPhoneOk, courseWaitlistNameOk. */
+function cleanPhone(s){
+  return String(s || '').replace(/[۰-۹]/g, function(d){ return d.charCodeAt(0) - 0x06F0; }).replace(/[٠-٩]/g, function(d){ return d.charCodeAt(0) - 0x0660; })
+    .replace(/[\s\-().​-‏‪-‮⁦-⁩]/g, '');
+}
+function phoneOk(p){ return /^\+?\d{7,15}$/.test(p) && !/^\+?(\d)\1+$/.test(p); }
+function nameOk(n){ return String(n || '').trim().split(/\s+/).filter(function(x){ return x.length >= 2; }).length >= 2; }
+function newId(){ var b = new Uint8Array(16); crypto.getRandomValues(b); return 'wl-' + Array.prototype.map.call(b, function(x){ return (x < 16 ? '0' : '') + x.toString(16); }).join(''); }
+
+function headline(text, dot){
+  var h = el('h1', {text:text});
+  if (dot) h.appendChild(el('span', {class:'dot', text:'.'}));
+  return h;
+}
+function backHref(){
+  try {
+    var r = new URL(document.referrer);
+    if (r.origin === location.origin && r.pathname.indexOf('/waitlist') !== 0) return r.href;
+  } catch (e) {}
+  return t.home;
+}
+
+/* ---------- save: PATCH, then read it back. The confirmation only shows when the doc is really there. ---------- */
+function save(id, doc){
+  var fields = {};
+  Object.keys(doc).forEach(function(k){ fields[k] = typeof doc[k] === 'number' ? {integerValue:String(doc[k])} : {stringValue:doc[k]}; });
+  var url = DOC_URL + id + '?key=' + API_KEY;
+  var ctl = new AbortController(), timer = setTimeout(function(){ ctl.abort(); }, 15000);
+  function must(r){ if (!r.ok) throw new Error('http ' + r.status); return r; }
+  return fetch(url, {method:'PATCH', headers:{'Content-Type':'application/json'}, body:JSON.stringify({fields:fields}), signal:ctl.signal}).then(must)
+    .then(function(){ return fetch(url, {cache:'no-store', signal:ctl.signal}); }).then(must)
+    .then(function(r){ return r.json(); })
+    .then(function(got){
+      var f = got && got.fields;
+      if (!f || !f.phone || f.phone.stringValue !== doc.phone || !f.kind || f.kind.stringValue !== 'waitlist') throw new Error('not saved');
+    })
+    .finally(function(){ clearTimeout(timer); });
+}
+
+function showDone(){
+  root.className = 'wl-grid wl-one';
+  root.textContent = '';
+  var msg = el('p', {class:'wl-done-msg', tabindex:'-1', role:'status', text:t.done});
+  root.appendChild(el('section', {class:'wl-hero', id:'wl-done'}, [
+    el('span', {class:'wl-pill', text:t.title}),
+    headline(course[LANG], true),
+    msg,
+    el('a', {class:'btn wl-back', href:backHref(), text:t.back})
+  ]));
+  window.scrollTo(0, 0);
+  msg.focus({preventScroll:true});
+}
+
+function renderForm(){
+  var name = el('input', {id:'wl-name', class:'wl-input', type:'text', dir:'auto', autocomplete:'name', maxlength:'80', 'aria-describedby':'wl-name-err'});
+  var phone = el('input', {id:'wl-phone', class:'wl-input', type:'tel', inputmode:'tel', dir:'ltr', autocomplete:'tel', maxlength:'30', placeholder:t.phonePh, 'aria-describedby':'wl-phone-msg'});
+  var nameErr = el('p', {id:'wl-name-err', class:'wl-err', role:'alert', hidden:''});
+  var phoneMsg = el('p', {id:'wl-phone-msg', class:'wl-hint', text:t.hint});
+  var send = el('button', {id:'wl-send', class:'btn btn-orange wl-submit', type:'submit'});
+  var saveErr = el('p', {id:'wl-save-err', class:'wl-err wl-save-err', role:'alert', hidden:''});
+  /* WhatsApp is the way out only when saving failed. site.js counts this link as a course lead. */
+  var waLink = el('a', {class:'tlink', 'data-lead':'course', 'data-course':cid, target:'_blank', rel:'noopener', text:t.or,
+    href:'https://wa.me/905467615951?text=' + encodeURIComponent(t.wa(course[LANG]))});
+  var waRow = el('p', {id:'wl-wa', class:'wl-wa', hidden:''}, [waLink]);
+  var privacy = el('a', {href:t.privHref, text:t.priv});
+  var note = el('p', {class:'wl-note', id:'wl-note', text:t.note + ' '}, [privacy]);
+  var form = el('form', {class:'wl-form', novalidate:'', id:'wl-form'}, [
+    el('div', {}, [el('label', {class:'wl-label', for:'wl-name', text:t.nameL}), name, nameErr]),
+    el('div', {}, [el('label', {class:'wl-label', for:'wl-phone', text:t.phoneL}), phone, phoneMsg]),
+    el('div', {}, [send, saveErr, waRow, note])
+  ]);
+  root.className = 'wl-grid';
+  root.textContent = '';
+  root.appendChild(el('section', {class:'wl-hero'}, [
+    el('span', {class:'wl-pill', text:t.title}),
+    headline(course[LANG], true),
+    el('p', {class:'wl-lead', text:t.lead}),
+    el('img', {class:'wl-art', src:'/assets/' + course.art + '.png', alt:'', width:'150', height:'150'})
+  ]));
+  root.appendChild(el('section', {class:'wl-card'}, [form]));
+
+  function label(busy){ send.textContent = busy ? t.busy : t.send + ' ' + ARROW; }
+  function nameState(bad){
+    name.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    nameErr.hidden = !bad; nameErr.textContent = bad ? t.nameE : '';
+  }
+  function phoneState(bad){
+    phone.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    phoneMsg.className = bad ? 'wl-err' : 'wl-hint';
+    phoneMsg.setAttribute('role', bad ? 'alert' : 'note');
+    phoneMsg.textContent = bad ? t.phoneE : t.hint;
+  }
+  function failed(){
+    saveErr.textContent = t.saveE; saveErr.hidden = false; waRow.hidden = false;
+  }
+  label(false);
+  name.addEventListener('input', function(){ if (name.getAttribute('aria-invalid') === 'true') nameState(false); });
+  phone.addEventListener('input', function(){ if (phone.getAttribute('aria-invalid') === 'true') phoneState(false); });
+
+  /* A retry reuses the id, so a save that did land but timed out here can't make a second doc. */
+  var busy = false, id = null, createdAt = 0;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (busy) return;
+    var nm = name.value.trim().replace(/\s+/g, ' '), ph = cleanPhone(phone.value);
+    var badName = !nameOk(nm), badPhone = !phoneOk(ph);
+    nameState(badName); phoneState(badPhone);
+    saveErr.hidden = true;
+    if (badName || badPhone){ (badName ? name : phone).focus(); return; }
+    if (!(window.crypto && crypto.getRandomValues && window.fetch && window.AbortController)){ failed(); return; }
+    if (!id){ id = newId(); createdAt = Date.now(); }
+    busy = true; send.disabled = true; name.readOnly = true; phone.readOnly = true; label(true);
+    save(id, {kind:'waitlist', app:'en', course:cid, courseTitle:course.en, name:nm, phone:ph, lang:LANG, createdAt:createdAt, status:'waiting', source:'site'}).then(function(){
+      /* Course and language only. Name and phone never go to analytics. */
+      if (typeof window.gtag === 'function'){
+        var p = {course:cid, via:'waitlist', page_path:location.pathname};
+        if (window.FE_UTM){ p.utm_source = window.FE_UTM.source; p.utm_content = window.FE_UTM.content; }
+        window.gtag('event', 'course_lead', p);
+      }
+      showDone();
+    }).catch(function(){
+      busy = false; send.disabled = false; name.readOnly = false; phone.readOnly = false; label(false);
+      failed();
+    });
+  });
+}
+
+function renderNone(){
+  root.className = 'wl-grid wl-one';
+  root.appendChild(el('section', {class:'wl-hero'}, [
+    el('span', {class:'wl-pill', text:t.title}),
+    headline(t.none.replace(/\.$/, ''), true),
+    el('a', {class:'btn btn-orange wl-back', href:t.home, text:t.noneBtn + ' ' + ARROW})
+  ]));
+}
+
+document.title = t.title + ' | FE School';
+document.getElementById('wl-skip').textContent = t.skip;
+document.getElementById('wl-logo').href = t.home;
+var pv = document.getElementById('wl-privacy'); pv.href = t.privHref; pv.textContent = t.priv;
+var langs = document.getElementById('wl-langs');
+langs.setAttribute('aria-label', t.langs);
+[['tr', 'TR'], ['en', 'EN'], ['fa', 'فا']].forEach(function(x){
+  var a = el('a', {hreflang:x[0], lang:x[0], text:x[1], href:'/waitlist/?' + (course ? 'course=' + encodeURIComponent(cid) + '&' : '') + 'lang=' + x[0]});
+  if (x[0] === LANG) a.setAttribute('aria-current', 'true');
+  langs.appendChild(a);
+});
+if (course) renderForm(); else renderNone();
+})();
+</script>
+<script src="/site.js"></script>
+</body>
+</html>

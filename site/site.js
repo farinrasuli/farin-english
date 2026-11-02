@@ -80,7 +80,9 @@
        "private" = private/trial lesson or package -> private_lesson_lead (package: ilk-adim/kesif/macera/kahraman/ozel);
        "contact" = general question -> no lead event. Untagged links (blog CTAs, wizard result, story game
        built in JS) count as private_lesson_lead when they carry a prefilled ?text=, plain contact when bare.
-       whatsapp_click still fires for every WhatsApp click (lead_type param) so older reports keep working. */
+       whatsapp_click still fires for every WhatsApp click (lead_type param) so older reports keep working.
+       2026-11-02: course requests moved to /waitlist/. A click there is waitlist_open; course_lead with via=waitlist
+       fires from that page only after the entry is saved. Never send the name or phone number to analytics. */
     var isWa = href.indexOf('wa.me/') !== -1;
     var lead = a.getAttribute('data-lead');
     if (isWa && !lead) lead = /[?&]text=/.test(href) ? 'private' : 'contact';
@@ -95,6 +97,7 @@
       }
       name = 'whatsapp_click'; extra.lead_type = lead; extra.location = loc;
     }
+    else if (href.indexOf('/waitlist/') === 0) { name = 'waitlist_open'; extra.course = (href.match(/[?&]course=([^&#]+)/) || [])[1] || ''; extra.location = loc; }
     else if (href.indexOf('mailto:') === 0) name = 'email_click';
     else if (href.indexOf('farin-english.apk') !== -1) { name = 'apk_download'; extra.location = loc; }
     else if ((href.indexOf('farin-english-app') !== -1 || href.indexOf('farin-spanish-app') !== -1) && href.indexOf('privacy-policy') === -1) {
@@ -103,7 +106,7 @@
     if (!name) return;
     var params = { page_path: location.pathname, link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), transport_type: 'beacon' };
     for (var k in extra) params[k] = extra[k];
-    if (window.FE_UTM && (name === 'whatsapp_click' || name === 'app_open')){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
+    if (window.FE_UTM && (name === 'whatsapp_click' || name === 'app_open' || name === 'waitlist_open')){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
     window.gtag('event', name, params);
   }, true);
 })();

@@ -20,6 +20,8 @@ const APK = 'https://farinrasuli.github.io/farin-english-app/farin-english.apk';
 const WAN = '905467615951';
 const WA = t => 'https://wa.me/' + WAN + (t ? '?text=' + encodeURIComponent(t) : '');
 const ext = 'target="_blank" rel="noopener"';
+/* course requests go to the shared waiting list page (Farin 2026-11-02), not WhatsApp. Ids = the app's course ids. */
+const WL = (key, l) => `/waitlist/?course=${key}&amp;lang=${l}`;
 const dot = c => `<span class="dot">${c}</span>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const strip = s => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
@@ -108,7 +110,7 @@ k1:['Adım 1','Step 1','قدم ۱'],k2:['Adım 2','Step 2','قدم ۲'],k3:['Hik
 b2:['Yolun kurulur','Your path is built','مسیرت ساخته می‌شود'],b3:['Kararı sen ver','You make the call','تصمیم با توست'],b4:['Oyunla pekiştir','Lock it in with games','با بازی تثبیتش کن'],
 andA:['Android\'e indir','Download for Android','دانلود نسخه‌ی اندروید'],andB:['iPhone\'da tarayıcıdan açılır','opens in the browser on iPhone','در آیفون از مرورگر باز می‌شود'],
 pmH:['Premium kursların da burada'+dot('.'),'Your premium courses are here too'+dot('.'),'دوره‌های ویژه‌ات هم همین‌جاست'+dot('.')],
-pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. 1. bölümün ilk yarısı ücretsiz, gerisi için WhatsApp\'tan şifre alırsın.','The Business English and IELTS courses open inside the app. The first half of Chapter 1 is free; for the rest you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. نیمه‌ی اول فصل اول رایگان است و برای بقیه‌اش رمز را از واتس‌اپ می‌گیری.'],
+pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. 1. bölümün ilk yarısı ücretsiz, gerisi için bekleme listesine yazılırsın; yer açılınca şifreni WhatsApp\'tan alırsın.','The Business English and IELTS courses open inside the app. The first half of Chapter 1 is free; for the rest, join the waiting list; when a spot opens, you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. نیمه‌ی اول فصل اول رایگان است و برای بقیه‌اش اسمت را در لیست انتظار می‌نویسی؛ وقتی جا باز شد، رمز را از واتس‌اپ می‌گیری.'],
 pmBtn:['Hedefime uygun kurs','Find my course','دوره‌ی مناسب من'],
 gamesEb:['Oyunlar','Games','بازی‌ها'],
 gamesH:['Her durakta bir oyun'+dot('.'),'A game at every stop'+dot('.'),'در هر ایستگاه یک بازی'+dot('.')],
@@ -150,7 +152,7 @@ faqH:['Sık sorulanlar','Common questions','سؤال‌های رایج'],
 fq1:['Uygulama gerçekten ücretsiz mi?','Is the app really free?','اپ واقعاً رایگان است؟'],
 fa_1:['Evet. Yol haritası, oyunlar ve dersler ücretsiz. Sadece premium kurslar ücretli.','Yes. The roadmap, games and lessons are free. Only the premium courses are paid.','بله. نقشه‌ی راه، بازی‌ها و درس‌ها رایگان‌اند. فقط دوره‌های ویژه پولی هستند.'],
 fq2:['Kursu nasıl alırım?','How do I get a course?','دوره را چطور بخرم؟'],
-fa_2:['1. bölümün ilk yarısını uygulamada ücretsiz dene. Devam etmek istersen WhatsApp\'tan yaz, kursun şifresini gönderirim.','Try the first half of Chapter 1 free in the app. If you want to continue, message me on WhatsApp and I\'ll send you the course password.','نیمه‌ی اول فصل اول را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، در واتس‌اپ پیام بده تا رمز دوره را برایت بفرستم.'],
+fa_2:['1. bölümün ilk yarısını uygulamada ücretsiz dene. Devam etmek istersen «Bu kursu istiyorum» düğmesiyle bekleme listesine yazıl. Yer açılır açılmaz sana yazarız; ödemeden sonra kursun şifresini göndeririz.','Try the first half of Chapter 1 free in the app. If you want to continue, tap "I want this course" to join the waiting list. As soon as a spot opens, we\'ll message you, and you get the course password after you pay.','نیمه‌ی اول فصل اول را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، با دکمه‌ی «این دوره را می‌خواهم» اسمت را در لیست انتظار بنویس. به‌محض اینکه جا باز شود، به تو پیام می‌دهیم و بعد از پرداخت، رمز دوره را برایت می‌فرستیم.'],
 fq3:['Birebir ders nasıl işliyor?','How do 1-to-1 lessons work?','کلاس آنلاین چطور است؟'],
 fa_3:['Online, sadece sen ve Farin. Aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim. Ödemeden sonra ücretsiz bir analiz seansı: seviye tespiti, hedef belirleme ve sana özel yol haritası. Paketinin dışında, ek olarak.','Online, just you and Farin. A monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs. Free analysis session after you pay: level test, goal setting and your personal roadmap. Extra to your pack.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
 tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not because you have to learn, but because you have somewhere to go.','نه چون باید یاد بگیری؛ چون جایی برای رفتن داری.'],
@@ -471,9 +473,9 @@ function card(l, c, live, also) {
   const msg = WA(WAMSG[i](name));
   let ctas;
   if (live) ctas = `<a class="btn btn-purple" data-lead="private" href="${msg}" ${ext}>${esc(BOOK[i])}</a>`;
-  else if (c.notify) ctas = `<a class="btn btn-ghost" data-lead="course" data-course="${c.key}" href="${msg}" ${ext}>${esc(c.cta[i])}</a>`;
+  else if (c.notify) ctas = `<a class="btn btn-ghost" data-course="${c.key}" href="${WL(c.key, l)}">${esc(c.cta[i])}</a>`;
   else ctas = `<a class="btn btn-orange" data-loc="course-${c.key}" href="${APP}" ${ext}>${esc(c.cta[i])}</a>` +
-    (c.noWa ? '' : `<a class="btn btn-want" data-lead="course" data-course="${c.key}" href="${msg}" ${ext}>${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a>`);
+    (c.noWa ? '' : `<a class="btn btn-want" data-course="${c.key}" href="${WL(c.key, l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a>`);
   const price = live ? (l === 'fa' ? c.month + '<small>تومان در ماه، از بسته‌ی ۴ جلسه‌ای</small>' : LIVE_PRICE[i]) : c.price[i];
   const PACK = ['Aylık · 50 dk · ayda 4, 8 veya 12 ders · 3 ay peşin: 8 ve 12 derslik paketlerde %20 indirim', 'Monthly · 50 min · 4, 8 or 12 lessons a month · Pay 3 months upfront: 20% off the 8- and 12-lesson packs'];
   const note = (icon, html, cls = '') => `<li${cls ? ` class="${cls}"` : ''}>${ic(icon)}<span>${html}</span></li>`;
