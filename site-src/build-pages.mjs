@@ -187,9 +187,10 @@ const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'soon', biz: 'plan', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
-const SALE_TXT = { soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
-const salePill = k => [SALE[k] === 'now' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
+const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'start', biz: 'plan', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
+/* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). */
+const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
+const salePill = k => [SALE[k] === 'now' || SALE[k] === 'start' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
 const LIVES = {
   biz: { key: 'business-live', name: ['Birebir İş İngilizcesi', 'Business English 1-to-1', 'کلاس انگلیسی تجاری'],
@@ -210,7 +211,8 @@ const GOALS = {
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İş Görüşmesi İngilizcesi', 'Job Interview English', 'انگلیسی مصاحبه‌ی کاری'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
       [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing'],
-      [null, ['Satış ve Müşteri Yönetimi İngilizcesi', 'Sales & Customer Management English', 'انگلیسی فروش و مدیریت مشتری'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales']] },
+      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales'],
+      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai']] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 Tam Sınav', 'IELTS: 10 Full Exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
@@ -245,7 +247,7 @@ const COMPANY = [
     for: ['İçerik, metin yazarlığı ve sosyal medya ekipleri', 'Content, copy and social media teams', 'تیم‌های محتوا، کپی‌رایتینگ و شبکه‌های اجتماعی'] },
   { sale: 'interview', c: '--g-imm', pkg: ['Mülakat paketi', 'Interview package', 'پکیج مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
     for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
-  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet İngilizcesi', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'],
+  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'],
     for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
   { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş paketi', 'Complete Business package', 'پکیج جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'],
     for: ['Yöneticiler, şirket sahipleri ve karma ofis ekipleri', 'Owners, managers and mixed office teams', 'مدیران، صاحبان کسب‌وکار و تیم‌های اداری'] },
@@ -371,7 +373,7 @@ function schema(l, page) {
     graph.push(
       { '@type': 'EducationalOrganization', '@id': ORIGIN + '/#fe-school', name: 'FE School', alternateName: 'FEschool', url: ORIGIN + '/',
         logo: { '@type': 'ImageObject', url: ORIGIN + '/icon-512.png', width: 512, height: 512 }, image: ORIGIN + '/og-image.jpg',
-        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Görüşmesi, Pazarlama, Satış ve Müşteri Yönetimi) ve Farin ile canlı online dersler.',
+        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, IELTS, İş Görüşmesi, Metin Yazarlığı ve İçerik, Satış ve Dış Ticaret, Yapay Zekâ ve İnternet) ve Farin ile canlı online dersler.',
         email: 'mailto:farinrasuli@gmail.com', founder: { '@id': ORIGIN + '/#farin' }, areaServed: ['TR', 'IR'],
         contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: 'https://wa.me/' + WAN, email: 'farinrasuli@gmail.com', availableLanguage: ['tr', 'en', 'fa'] },
         sameAs: ['https://www.instagram.com/the_feschool/', 'https://www.linkedin.com/company/thefeschool/'] },
