@@ -1,0 +1,17 @@
+14:22:22 LOCAL ok plate-s23 557s
+11:42:16 skip plate-s23
+11:46:40 LOCAL ok bell-s23 264s
+11:49:57 LOCAL ok cakes-s23 197s
+11:55:20 LOCAL ok door-s23 324s
+12:00:07 LOCAL ok dial-s23 287s
+12:00:07 DONE
+12:09:58 LOCAL ok bell-s7 526s
+12:18:36 LOCAL ok bell-s11 518s
+12:24:24 LOCAL ok bell-s42 347s
+12:29:11 LOCAL ok cakes-s7 287s
+12:35:15 LOCAL ok cakes-s11 364s
+12:41:52 LOCAL ok cakes-s42 397s
+12:46:28 LOCAL ok dial-s7 276s
+12:50:14 LOCAL ok dial-s11 226s
+12:53:43 LOCAL ok dial-s42 209s
+12:53:43 DONE

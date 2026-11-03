@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cozy Chores · Open House · oven station (visual sample)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#fbf4e8; --paper:#fffdf7; --ink:#14332e; --ink-soft:#4d6b66; --line:#e7dfd0; --accent:#ff7a59; --accent-strong:#e85c3b; --gold:#FFD166;
+    --display:'Fredoka', ui-rounded, system-ui, sans-serif; --text:'Nunito', system-ui, sans-serif; --panel-b:620px; --panel-x:8px; --panel-w:374px; --bell-w:140px; }
+  *{box-sizing:border-box;}
+  html,body{margin:0; height:100%; overflow:hidden; background:var(--bg); color:var(--ink); font-family:var(--text); -webkit-tap-highlight-color:transparent; user-select:none; -webkit-user-select:none; overscroll-behavior:none;}
+  body{background:
+    radial-gradient(circle at 20% 10%, rgba(255,209,102,.18) 0 2px, transparent 3px) 0 0/26px 26px,
+    var(--bg);}
+  #stage{position:fixed; inset:0; touch-action:none;}
+  #stage canvas{display:block;}
+
+  /* HUD */
+  .hud{position:fixed; left:0; right:0; top:0; height:58px; display:flex; align-items:center; justify-content:space-between; padding:0 12px; pointer-events:none; z-index:5;}
+  .hud button{pointer-events:auto;}
+  .round{width:40px; height:40px; border-radius:50%; border:2.5px solid var(--ink); background:var(--paper); box-shadow:0 3px 0 var(--ink); display:grid; place-items:center; cursor:pointer; padding:0;}
+  .round:active{transform:translateY(2px); box-shadow:0 1px 0 var(--ink);}
+  .round svg{width:18px; height:18px;}
+  #sound.off .on, #sound:not(.off) .offi{display:none;}
+  .strip{display:flex; gap:6px; align-items:center;}
+  .strip i{width:22px; height:26px; border-radius:3px; background:#fff; box-shadow:0 0 0 1.5px rgba(20,51,46,.2), 0 3px 6px -3px rgba(20,51,46,.4); transform:rotate(-3deg);}
+  .strip i:nth-child(even){transform:rotate(2.5deg);}
+  .strip i.done{background:linear-gradient(#fff,#fff) padding-box; box-shadow:0 0 0 1.5px rgba(20,51,46,.35), inset 0 0 0 3px #fff, inset 0 0 0 30px #ffe7c2;}
+  .strip i.cur{box-shadow:0 0 0 2.5px var(--accent), 0 6px 12px -5px rgba(232,92,59,.6); transform:translateY(-2px) scale(1.15);}
+
+  /* dial readout: live HTML number (never baked into art) */
+  #readout{position:fixed; top:72px; right:calc(var(--panel-x) + 12px); z-index:4; padding:6px 14px 8px; border-radius:16px; background:var(--paper); border:2.5px solid var(--ink); box-shadow:0 3px 0 var(--ink);
+    text-align:center; opacity:0; transform:translateY(-8px) scale(.9); transition:opacity .25s, transform .35s cubic-bezier(.3,1.6,.5,1);}
+  #readout.in{opacity:1; transform:none;}
+  #readout b{display:block; font:700 34px/1 var(--display);} #readout b::after{content:' min'; font-size:15px; font-weight:600; color:var(--ink-soft);}
+  #readout i{font:700 13px/1.2 var(--text); font-style:normal; color:var(--ink-soft);}
+  #readout.bump b{animation:bump .22s ease-out;}
+  @keyframes bump{40%{transform:scale(1.18);}}
+
+  /* cinematic intro */
+  .bar{position:fixed; left:0; right:0; height:13vh; background:var(--paper); z-index:6; transition:transform .9s cubic-bezier(.6,0,.2,1); pointer-events:none;}
+  #bar-t{top:0; transform:translateY(-101%); border-bottom:3px solid var(--ink);} #bar-b{bottom:0; transform:translateY(101%); border-top:3px solid var(--ink);}
+  .bar.in{transform:none !important;}
+  #title{position:fixed; left:0; right:0; bottom:16vh; z-index:7; text-align:center; opacity:0; transform:translateY(16px); transition:opacity .5s, transform .7s cubic-bezier(.3,1.5,.5,1); pointer-events:none;}
+  #title.in{opacity:1; transform:none;}
+  #title small{display:inline-block; padding:5px 12px; border-radius:99px; background:var(--gold); border:2.5px solid var(--ink); font:700 13px/1 var(--display); letter-spacing:.06em; text-transform:uppercase;}
+  #title h1{margin:10px 0 0; font:400 44px/1 'Alfa Slab One', var(--display); color:#e85c3b; text-shadow:3px 3px 0 var(--paper), 5px 5px 0 var(--ink);}
+  #title p{margin:8px 0 0; font:700 16px/1.2 var(--display); color:var(--ink);}
+  #skip{position:fixed; right:14px; bottom:calc(13vh + 12px); z-index:8; padding:8px 14px; border-radius:99px; border:2px solid var(--ink); background:var(--paper); font:600 13px/1 var(--display); color:var(--ink);}
+
+  /* talk: balloon to the right of Mrs Bell, under the panel */
+  .talk{position:fixed; left:calc(var(--panel-x) + var(--bell-w)); right:var(--panel-x); top:calc(var(--panel-b) + 12px); z-index:4; display:flex; flex-direction:column; gap:10px; align-items:flex-start;}
+  #balloon{position:relative; width:100%; padding:12px 14px 12px; background:var(--paper); border:2.5px solid var(--ink); border-radius:20px; box-shadow:0 4px 0 var(--ink);
+    opacity:0; transform:translateY(10px) scale(.96); transform-origin:0 0;}
+  #balloon.in{animation:pop .45s cubic-bezier(.3,1.6,.5,1) forwards;}
+  @keyframes pop{0%{opacity:0; transform:translateY(10px) scale(.92);} 100%{opacity:1; transform:none;}}
+  #balloon::before{content:''; position:absolute; left:-13px; top:16px; width:20px; height:20px; background:var(--paper); border-left:2.5px solid var(--ink); border-bottom:2.5px solid var(--ink); transform:rotate(45deg) skew(10deg,10deg); border-radius:0 0 0 4px;}
+  #who{display:inline-block; padding:3px 10px; border-radius:99px; background:#e8edff; border:2px solid var(--ink); font:700 12px/1 var(--display); color:var(--ink); margin-bottom:6px;}
+  #line{font:600 20px/1.22 var(--display); color:var(--ink);}
+  #gloss{margin-top:5px; font:700 14px/1.3 var(--text); color:var(--ink-soft);}
+  #cue{padding:7px 13px; border-radius:99px; background:#fff3d2; border:2px dashed rgba(20,51,46,.4); font:700 14px/1 var(--text); color:var(--ink); opacity:0; transform:translateY(6px); transition:opacity .25s, transform .3s;}
+  #cue.in{opacity:1; transform:none;}
+  #cta{position:fixed; left:50%; bottom:calc(18px + env(safe-area-inset-bottom,0px)); z-index:9; padding:15px 34px; border:0; border-radius:99px; background:var(--accent); color:#fff; font:700 19px/1 var(--display); letter-spacing:.01em;
+    box-shadow:0 5px 0 var(--accent-strong), 0 14px 26px -12px rgba(232,92,59,.8); opacity:0; transform:translate(-50%, 20px) scale(.9); pointer-events:none; transition:opacity .25s, transform .4s cubic-bezier(.3,1.6,.5,1); cursor:pointer;}
+  #cta.in{opacity:1; transform:translate(-50%,0); pointer-events:auto;}
+  #cta:active{transform:translate(-50%,3px); box-shadow:0 2px 0 var(--accent-strong);}
+
+  #end{position:fixed; inset:0; z-index:10; display:grid; place-items:center; background:rgba(251,244,232,.86); opacity:0; pointer-events:none; transition:opacity .3s;}
+  #end.in{opacity:1; pointer-events:auto;}
+  #end div{padding:22px 26px; background:var(--paper); border:2.5px solid var(--ink); border-radius:22px; box-shadow:0 5px 0 var(--ink); text-align:center; transform:scale(.9); transition:transform .45s cubic-bezier(.3,1.6,.5,1);}
+  #end.in div{transform:none;}
+  #end h2{margin:0 0 6px; font:700 24px/1.1 var(--display);} #end p{margin:0 0 14px; font:700 15px/1.3 var(--text); color:var(--ink-soft);}
+  #end a{display:inline-block; padding:12px 26px; border-radius:99px; background:var(--accent); color:#fff; text-decoration:none; font:700 17px/1 var(--display); box-shadow:0 4px 0 var(--accent-strong);}
+
+  #boot{position:fixed; inset:0; display:grid; place-items:center; font:600 16px var(--display); color:var(--ink-soft); z-index:20; background:var(--bg); transition:opacity .4s;}
+  #boot.gone{opacity:0; pointer-events:none;}
+  @media (prefers-reduced-motion: reduce){ *{transition-duration:.01s !important; animation-duration:.01s !important;} }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div class="hud">
+  <button class="round" aria-label="Leave"><svg viewBox="0 0 20 20"><path d="M4 4l12 12M16 4L4 16" stroke="#14332e" stroke-width="3" stroke-linecap="round"/></svg></button>
+  <div class="strip" aria-label="Station 5 of 8"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="cur"></i><i></i><i></i><i></i></div>
+  <button class="round" id="sound" aria-label="Sound"><svg class="on" viewBox="0 0 20 20"><path d="M3 8h3l4-3v10l-4-3H3z" fill="#14332e"/><path d="M13 7c1.3 1.6 1.3 4.4 0 6M15.5 5c2.4 2.8 2.4 7.2 0 10" stroke="#14332e" stroke-width="2" fill="none" stroke-linecap="round"/></svg><svg class="offi" viewBox="0 0 20 20"><path d="M3 8h3l4-3v10l-4-3H3z" fill="#14332e"/><path d="M13 8l4 4M17 8l-4 4" stroke="#14332e" stroke-width="2" stroke-linecap="round"/></svg></button>
+</div>
+<div id="readout" aria-live="polite"><b>0</b><i>zero</i></div>
+<div class="talk">
+  <div id="balloon" aria-live="polite"><span id="who">Mrs Bell</span><div id="line"></div><div id="gloss"></div></div>
+  <div id="cue"></div>
+</div>
+<button id="cta"></button>
+<div class="bar" id="bar-t"></div><div class="bar" id="bar-b"></div>
+<div id="title"><small>Station 5 · Bake</small><h1>The Oven</h1><p>Happy Birthday, Ada</p></div>
+<button id="skip" hidden>Skip</button>
+<div id="end"><div><h2>Station done!</h2><p>The cake is ready to cool.</p><a href="?">Play again</a></div></div>
+<div id="boot">Warming up the oven…</div>
+<script type="module" src="./game.js"></script>
+</body>
+</html>
