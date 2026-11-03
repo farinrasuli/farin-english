@@ -1,0 +1,372 @@
+{
+ "_about": "Cloud 2026-11-03, Complete Business English chapter 4 (bus-m4). English lines with no natural-voice clip in app/audio/en/manifest.json (checked with the app's ttsKey). Until clips exist the app plays them with the device voice; nothing fake was added. Priority: Learn phrases and speaking models (Play button) first, then vocab.",
+ "voice": "default course narrator (as for the other courses' Learn phrases)",
+ "count": 73,
+ "lines": [
+  {
+   "unit": "bus-13",
+   "where": "Learn phrase",
+   "text": "Our price is ..., because ..."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Learn phrase",
+   "text": "I'm afraid we can't ..., but we could ... if you ..."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Learn phrase",
+   "text": "So, to confirm: ..."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Learn phrase",
+   "text": "walk-away point"
+  },
+  {
+   "unit": "bus-13",
+   "where": "Speaking model (Play)",
+   "text": "Our price is 2,950 euros a month for 40 users, because it includes a same-day response to every call. I'm afraid we can't go lower on the price, but we could accept payment within 60 days if you sign for two years. So, to confirm: 2,950 euros a month, a two-year contract, and payment within 60 days of each invoice. The offer is valid until 30 June, and I'll send it to you in writing today."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "We negotiate the price and the payment terms together."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "The unit price is EUR 4.85."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "Our payment terms are 30 days from the invoice date."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "We can offer a 3% discount on orders over 5,000 units."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "We made two small concessions on delivery."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "Our walk-away point is EUR 4.40; below that, we say no."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "The buyer made a counter-offer of EUR 4.50."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab word",
+   "text": "lead time"
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "Our lead time is four weeks from the order date."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "Payment is due within 30 days of the invoice date."
+  },
+  {
+   "unit": "bus-13",
+   "where": "Vocab sentence",
+   "text": "The offer is valid until 31 May."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Learn phrase",
+   "text": "Thank you for letting me know."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Learn phrase",
+   "text": "Could you tell me ...?"
+  },
+  {
+   "unit": "bus-14",
+   "where": "Learn phrase",
+   "text": "I'll ... and get back to you by ..."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Speaking model (Play)",
+   "text": "Thank you for letting me know. So our engineer didn't come today, and your machine is still down. I'm really sorry about that. Could you tell me what the error message on the screen says? I'll call our service team now, and I'll get back to you by 11 with a time for a visit today."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "We had one complaint about the late delivery."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "The client asked for a refund of the second payment."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "We'll send a replacement by courier today."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab word",
+   "text": "look into"
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "I'll look into it and call you back."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "I'll follow up with the warehouse this afternoon."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "Three of the units were faulty."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "We charged you twice by mistake."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "If the courier doesn't answer, I'll escalate it to my manager."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "This is urgent: their production line stops on Monday."
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab word",
+   "text": "inconvenience"
+  },
+  {
+   "unit": "bus-14",
+   "where": "Vocab sentence",
+   "text": "The late delivery caused real inconvenience for their team."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Learn phrase",
+   "text": "I'm sorry: we ..."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Learn phrase",
+   "text": "As soon as ..., we'll ..."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Learn phrase",
+   "text": "From now on, ..."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Learn phrase",
+   "text": "root cause"
+  },
+  {
+   "unit": "bus-15",
+   "where": "Speaking model (Play)",
+   "text": "Hello Ms Novak, I'm calling about your brochures, and I'm sorry: we printed last year's prices. That was our mistake. Here's the plan. We'll reprint all 300 today, and as soon as they are ready, our courier will bring them to you, by Thursday at noon. When he arrives, please give him the old ones. From now on, a second person checks every price before we print."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "We apologise for sending the wrong file."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "It was our mistake, not yours."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "We found the root cause: two files had the same name."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab word",
+   "text": "action plan"
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "Here is our action plan, step by step."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab word",
+   "text": "make up for"
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "We'd like to make up for the lost day."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "Check with your manager before you offer compensation."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab word",
+   "text": "prevent"
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "A second check prevents the same mistake."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab word",
+   "text": "in the meantime"
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "In the meantime, you can use our spare machine."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "The new plan is on track."
+  },
+  {
+   "unit": "bus-15",
+   "where": "Vocab sentence",
+   "text": "We take full responsibility for the delay."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Learn phrase",
+   "text": "You told us you want to ..."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Learn phrase",
+   "text": "We'll ... so that you can ..."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Learn phrase",
+   "text": "Could we have a short call on ... to agree the next step?"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Learn phrase",
+   "text": "scope"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Speaking model (Play)",
+   "text": "You told us you want 30% fewer missed appointments. We'll send each patient a text two days and two hours before their visit, so that they can confirm or change the time with one tap. Option A, reminders only, is 190 euros a month. Option B adds online booking, for 290. At a clinic in Ankara, missed visits fell by a third in three months. Could we have a short call on Thursday to agree the next step?"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "proposal"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "We sent the client a one-page proposal."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "The scope includes training but not new hardware."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "There are three deliverables: a plan, a report and a training day."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "timeline"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "The timeline shows each step and its date."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "option"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "Option B costs more but covers both sites."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "Our fee for the set-up is EUR 6,400."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "case study"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "Attach one short case study as proof."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "The objective is to cut delivery times to two days."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "set-up"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "The set-up takes four weeks."
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab word",
+   "text": "go ahead"
+  },
+  {
+   "unit": "bus-16",
+   "where": "Vocab sentence",
+   "text": "If you're happy with Option A, we can go ahead on Monday."
+  },
+  {
+   "unit": "bus-cp-4",
+   "where": "Speaking model (Play)",
+   "text": "Hello Ms Grant, thank you for your email, and I'm sorry: our team missed your offices twice this month. That was our mistake. We'll clean them tonight, and from now on, a supervisor checks every visit, so as soon as a visit is done, you'll get a message. We'd really like to keep working with you. If you sign for twelve more months, we can offer next month at ten percent off, and that offer is open until 30 November. Could we speak again on Thursday?"
+  }
+ ]
+}

@@ -1,0 +1,437 @@
+{
+ "_about": "Cloud 2026-11-03, Complete Business English chapter 2 (bus-m2). English lines with no natural-voice clip in app/audio/en/manifest.json (checked with the app's ttsKey). Until clips exist the app plays them with the device voice; nothing fake was added. Priority: Learn phrases and speaking models (Play button) first, then vocab.",
+ "voice": "default course narrator (as for the other courses' Learn phrases)",
+ "count": 86,
+ "lines": [
+  {
+   "unit": "bus-5",
+   "where": "Learn phrase",
+   "text": "By the end of this meeting, we need to..."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Learn phrase",
+   "text": "Let's park that and come back to it at the end."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Learn phrase",
+   "text": "So, to sum up: ..."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Learn phrase",
+   "text": "agenda item"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Learn phrase",
+   "text": "I'd go with..., because..."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Learn phrase",
+   "text": "What do you think, ...?"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Learn phrase",
+   "text": "So you're saying...?"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Learn phrase",
+   "text": "fair point"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Learn phrase",
+   "text": "I see why..., but..."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Learn phrase",
+   "text": "What if we...?"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Learn phrase",
+   "text": "So we've agreed that... Can everyone live with that?"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Learn phrase",
+   "text": "Before we finish, let me read back the actions."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Learn phrase",
+   "text": "Claire, can you book the hotel by Friday?"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Learn phrase",
+   "text": "When can you do it by?"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Learn phrase",
+   "text": "action point"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Speaking model",
+   "text": "Thanks for joining, everyone. We have 45 minutes, and by the end of this meeting we need to choose a carrier for Dubai and a start date. Zeynep is keeping time, so let's start with item 1. Arash, that's a good point about the office move. Let's park that and come back to it at the end. So, to sum up item 1: we go with Anka Cargo. Let's move on to item 2, the start date."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Speaking model",
+   "text": "I'd go with SalesDesk, because most of our clients write in Arabic. I'm not sure about the training time, though. Priya, what do you think? So you're saying two weeks of training is too long in December? That's a fair point. But I don't think we should choose a system our clients can't read. What do you think about starting the training in January?"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Speaking model",
+   "text": "I see why 15 March is easier for you, but our stores open on 1 March, so that date doesn't work for us. What if you send 800 units by 20 February and the rest by 15 March? We could share the extra cost. So we've agreed: 800 units by 20 February, the rest by 15 March, and we split the €600. Can everyone live with that?"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Speaking model",
+   "text": "Before we finish, let me read back the decisions. We're booking the twelve-square-metre stand, and the samples go by air. Now the actions. Sam, can you book the stand by Friday? Great. Claire, the hotel by Wednesday? Thanks. Babak, the samples by Monday? OK, when can you do it by? Wednesday the 17th is fine. I'll send the minutes this afternoon."
+  },
+  {
+   "unit": "bus-cp-2",
+   "where": "Speaking model",
+   "text": "Thanks for coming. We have 20 minutes, and by the end we need to choose a city for the spring event. Mina is keeping time. Reza, what do you think? Mina, how do you see it? So we have two views: Dubai is closer for two of our clients, and Istanbul costs less and needs no visas. So we've agreed on Istanbul. Can everyone live with that? Good. Mina will book the hotel by 12 March, and Kaveh will book the flights by 10 March."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "agenda item"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "timekeeper"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "run over"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "AOB"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "park"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab word",
+   "text": "pre-read"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "point of view"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "in favour of"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "drawback"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "input"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "fair point"
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab word",
+   "text": "pros and cons"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "option"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "go with"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "live with"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "common ground"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "deadlock"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab word",
+   "text": "meet halfway"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "action point"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "owner"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "circulate"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "attendee"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "apologies"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "open point"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "carry over"
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab word",
+   "text": "on hold"
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Please send the agenda a day before the meeting."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "The first agenda item is the new carrier."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Emre will chair Monday's meeting."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Zeynep is the timekeeper, so she tells us when time is up."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Each item has an outcome: decide, discuss or inform."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Last week the meeting ran over by twenty minutes."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Questions about the office move can go under AOB."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Good point. Let's park it and come back to it at the end."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "The costs sheet is the pre-read for item 1."
+  },
+  {
+   "unit": "bus-5",
+   "where": "Vocab sentence",
+   "text": "Let's wrap up: two decisions and three actions."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "From a sales point of view, the Arabic interface matters most."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "Most of the team is in favour of SalesDesk."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "Omar is against a long training period."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "My main concern is the training time."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "The main drawback of Pipeline is the language."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "The biggest benefit is the mobile app."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "Thanks for your input, Priya."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "That's a fair point: two weeks is a long time."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "On balance, I'd go with SalesDesk."
+  },
+  {
+   "unit": "bus-6",
+   "where": "Vocab sentence",
+   "text": "Let's list the pros and cons of each system."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "We have two options: one delivery or two."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "The compromise is two deliveries, one in February and one in March."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "The trade-off is a higher cost for a faster delivery."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "Does anyone have an objection to the new date?"
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "We didn't reach a consensus, so the manager decided."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "We'll go with the split delivery."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "It isn't my first choice, but I can live with it."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "We found common ground on the price."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "After an hour we were in deadlock, so we took a break."
+  },
+  {
+   "unit": "bus-7",
+   "where": "Vocab sentence",
+   "text": "We can meet halfway on the shipping cost."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Neda will send the minutes this afternoon."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Each action point has one name and a date."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Babak is the owner of the shipping action."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Claire will follow up with the hotel on Monday."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Please circulate the minutes to the whole team."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "There were six attendees, and two sent apologies."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "Apologies: Sam, who is on holiday."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "The brochure design is still an open point."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "The budget item was carried over to the next meeting."
+  },
+  {
+   "unit": "bus-8",
+   "where": "Vocab sentence",
+   "text": "The second stand is on hold until we know the budget."
+  }
+ ]
+}

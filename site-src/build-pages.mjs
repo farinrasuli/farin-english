@@ -190,7 +190,7 @@ const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'start', biz: 'plan', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
+const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'start', biz: 'start', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
 /* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). */
 const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
 const salePill = k => [SALE[k] === 'now' || SALE[k] === 'start' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
@@ -215,7 +215,8 @@ const GOALS = {
     live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
       [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing'],
       [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales', 'sales'],
-      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true]] },
+      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true],
+      [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'], 'biz', 'business', true]] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],

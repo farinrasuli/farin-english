@@ -1,0 +1,195 @@
+{
+  "id": "mkt-m4",
+  "weeks": [
+    7,
+    8
+  ],
+  "title": {
+    "en": "Formats that convert",
+    "tr": "Dönüşüm getiren formatlar",
+    "fa": "قالب‌هایی که نتیجه می‌دهند"
+  },
+  "blurb": {
+    "en": "Four formats, one job: get the reader to act. Write a newsletter with one message, a landing page with one button, a page that answers a search first, and a 30-second video script.",
+    "tr": "Dört format, tek görev: okuru harekete geçirmek. Tek mesajlı bir bülten, tek butonlu bir açılış sayfası, bir aramaya en başta cevap veren bir sayfa ve 30 saniyelik bir video senaryosu yaz.",
+    "fa": "چهار قالب، یک کار: مخاطب را به اقدام برسان. خبرنامه‌ای با یک پیام، لندینگ پیجی با یک دکمه، صفحه‌ای که همان اول به جست‌وجو جواب می‌دهد و سناریوی یک ویدیوی ۳۰ ثانیه‌ای بنویس."
+  },
+  "units": [
+    {
+      "id": "mkt-13",
+      "episode": {
+        "en": "One message per email, and the four lines that get it opened and clicked.",
+        "tr": "E-posta başına tek mesaj ve e-postayı açtırıp tıklatan dört satır.",
+        "fa": "هر ایمیل فقط یک پیام، و چهار خطی که باعث می‌شود بازش کنند و رویش کلیک کنند."
+      },
+      "title": {
+        "en": "Newsletters people open",
+        "tr": "İnsanların açtığı bültenler",
+        "fa": "خبرنامه‌ای که بازش می‌کنند"
+      },
+      "cando": {
+        "en": "I can write a newsletter with one message, a subject line and preview text that get it opened, and one call to action.",
+        "tr": "Tek mesajlı, konu satırı ve önizleme metniyle açılan ve tek bir harekete geçirici mesajı olan bir bülten yazabilirim.",
+        "fa": "می‌توانم خبرنامه‌ای با یک پیام بنویسم که عنوان و متن پیش‌نمایشش باعث شود بازش کنند و فقط یک دعوت به اقدام داشته باشد."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a newsletter people open and act on: one message, a clear subject line and preview text, a strong first line and one call to action.",
+        "tr": "Bu dersin sonunda tek mesajlı, konu satırı ve önizleme metniyle açılan, ilk cümlesi hemen konuya giren ve tek bir harekete geçirici mesajla biten bir bülten yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی خبرنامه‌ای بنویسی که بازش کنند و به آن عمل کنند: یک پیام، عنوان ایمیل و متن پیش‌نمایش روشن، جمله‌ی اول قوی و فقط یک دعوت به اقدام."
+      }
+    },
+    {
+      "id": "mkt-14",
+      "episode": {
+        "en": "The five parts of a page that turns visitors into customers, and why it asks for one thing only.",
+        "tr": "Ziyaretçiyi müşteriye çeviren bir sayfanın beş parçası ve neden yalnızca tek bir şey istediği.",
+        "fa": "پنج بخش صفحه‌ای که بازدیدکننده را به مشتری تبدیل می‌کند، و اینکه چرا فقط یک چیز از او می‌خواهد."
+      },
+      "title": {
+        "en": "A landing page that converts",
+        "tr": "Dönüşüm getiren açılış sayfası",
+        "fa": "لندینگ پیجی که نتیجه می‌دهد"
+      },
+      "cando": {
+        "en": "I can write a landing page that names the result, proves it, answers doubts and asks for one action.",
+        "tr": "Sonucu söyleyen, bunu kanıtlayan, şüpheleri cevaplayan ve tek bir eylem isteyen bir açılış sayfası yazabilirim.",
+        "fa": "می‌توانم لندینگ پیجی بنویسم که نتیجه را بگوید، ثابتش کند، به تردیدها جواب بدهد و فقط یک اقدام بخواهد."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a landing page with a headline that names the result, benefit bullets, real proof, answers to doubts and one call to action.",
+        "tr": "Bu dersin sonunda sonucu söyleyen bir başlığı, fayda maddeleri, gerçek kanıtları, şüphelere cevapları ve tek bir harekete geçirici mesajı olan bir açılış sayfası yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی لندینگ پیجی بنویسی با تیتری که نتیجه را می‌گوید، فهرست فایده‌ها، مدرک واقعی، جواب تردیدها و فقط یک دعوت به اقدام."
+      }
+    },
+    {
+      "id": "mkt-15",
+      "episode": {
+        "en": "How to answer what people really type into a search box: first, and in their words.",
+        "tr": "İnsanların arama kutusuna gerçekten yazdığı soruya nasıl cevap verilir: hemen ve onların kelimeleriyle.",
+        "fa": "چطور به همان سؤالی که مردم واقعاً در جست‌وجو تایپ می‌کنند جواب بدهی: همان اول و با کلمه‌های خودشان."
+      },
+      "title": {
+        "en": "Writing for search",
+        "tr": "Arama için yazmak",
+        "fa": "نوشتن برای جست‌وجو"
+      },
+      "cando": {
+        "en": "I can write a page that answers what people search for: a clear title, the answer first, plain words.",
+        "tr": "İnsanların aradığı şeye cevap veren bir sayfa yazabilirim: net bir başlık, önce cevap, sade kelimeler.",
+        "fa": "می‌توانم صفحه‌ای بنویسم که به چیزی که مردم جست‌وجو می‌کنند جواب بدهد: عنوان روشن، اول جواب، کلمه‌های ساده."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a page that matches what people search for, with a clear title and headings, the answer first and plain words.",
+        "tr": "Bu dersin sonunda net bir başlığı ve ara başlıkları olan, cevabı en başta veren ve sade kelimeler kullanan, insanların aradığı şeye uygun bir sayfa yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی صفحه‌ای بنویسی که با چیزی که مردم جست‌وجو می‌کنند جور باشد: عنوان و تیترهای روشن، اول جواب و کلمه‌های ساده."
+      }
+    },
+    {
+      "id": "mkt-16",
+      "episode": {
+        "en": "A two-second hook, three beats and an ending people hear and see.",
+        "tr": "İki saniyelik bir kanca, üç bölüm ve hem duyulan hem görülen bir kapanış.",
+        "fa": "یک هوک دو ثانیه‌ای، سه بخش و پایانی که هم شنیده می‌شود هم دیده می‌شود."
+      },
+      "title": {
+        "en": "Scripts for short videos",
+        "tr": "Kısa videolar için senaryo",
+        "fa": "سناریو برای ویدیوی کوتاه"
+      },
+      "cando": {
+        "en": "I can write a 30-second video script with a hook, three beats, on-screen text and a spoken call to action.",
+        "tr": "Kancası, üç bölümü, ekran yazıları ve sesli bir harekete geçirici mesajı olan 30 saniyelik bir video senaryosu yazabilirim.",
+        "fa": "می‌توانم سناریوی یک ویدیوی ۳۰ ثانیه‌ای بنویسم با هوک، سه بخش، متن روی تصویر و دعوت به اقدامی که با صدا گفته می‌شود."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a 30-second video script with a 2-second hook, three beats, on-screen text and a spoken call to action.",
+        "tr": "Bu dersin sonunda iki saniyelik bir kancası, üç bölümü, ekran yazıları ve sesli bir harekete geçirici mesajı olan 30 saniyelik bir video senaryosu yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی سناریوی یک ویدیوی ۳۰ ثانیه‌ای بنویسی با یک هوک دو ثانیه‌ای، سه بخش، متن روی تصویر و دعوت به اقدامی که با صدا گفته می‌شود."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "mkt-cp-4",
+    "finale": {
+      "en": "One launch, four formats",
+      "tr": "Tek lansman, dört format",
+      "fa": "یک عرضه، چهار قالب"
+    },
+    "scene": {
+      "en": "A small brand launches one product next week. Write its newsletter, landing-page hero, search opening and video script, then pitch the plan to the founder.",
+      "tr": "Küçük bir marka gelecek hafta bir ürün çıkarıyor. Bültenini, açılış sayfasının üst kısmını, arama sayfasının girişini ve video senaryosunu yaz, sonra planı kurucuya sun.",
+      "fa": "یک برند کوچک هفته‌ی آینده محصولی را عرضه می‌کند. خبرنامه، بالای لندینگ پیج، مقدمه‌ی صفحه‌ی جست‌وجو و سناریوی ویدیویش را بنویس و بعد برنامه را به بنیان‌گذار ارائه بده."
+    },
+    "title": {
+      "en": "Chapter 4 finale: One launch, four formats",
+      "tr": "4. Bölüm finali: Tek lansman, dört format",
+      "fa": "پایان فصل ۴: یک عرضه، چهار قالب"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to write a newsletter people open, a landing page that converts, a page that answers a search and a script for a short video.",
+    "tr": "Bu bölümün sonunda açılan bir bülten, dönüşüm getiren bir açılış sayfası, bir aramaya cevap veren bir sayfa ve kısa bir video için senaryo yazabileceksin.",
+    "fa": "در پایان این فصل می‌توانی خبرنامه‌ای بنویسی که بازش کنند، لندینگ پیجی که بازدیدکننده را به مشتری تبدیل کند، صفحه‌ای که به یک جست‌وجو جواب بدهد و سناریوی یک ویدیوی کوتاه."
+  }
+}

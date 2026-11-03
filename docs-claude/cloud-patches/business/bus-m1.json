@@ -1,0 +1,195 @@
+{
+ "id": "bus-m1",
+ "weeks": [
+  1,
+  2
+ ],
+ "title": {
+  "en": "Working in English",
+  "tr": "İngilizce çalışmak",
+  "fa": "کار کردن به انگلیسی"
+ },
+ "blurb": {
+  "en": "Introduce yourself and your company, write emails that get action, run calls and video meetings with a clear recap, and start conversations that turn into contacts.",
+  "tr": "Kendini ve şirketini tanıt, harekete geçiren e-postalar yaz, telefon ve görüntülü toplantıları net bir özetle yönet, iş bağlantısına dönüşen sohbetler başlat.",
+  "fa": "خودت و شرکتت را معرفی کن، ایمیل‌هایی بنویس که نتیجه بگیرند، تماس‌ها و جلسه‌های آنلاین را با جمع‌بندی روشن اداره کن و گفت‌وگوهایی را شروع کن که به ارتباط کاری تبدیل شوند."
+ },
+ "units": [
+  {
+   "id": "bus-1",
+   "episode": {
+    "en": "Three lines that tell a new client who you are, what you do and why it matters to them.",
+    "tr": "Yeni bir müşteriye kim olduğunu, ne yaptığını ve bunun onu neden ilgilendirdiğini söyleyen üç cümle.",
+    "fa": "سه جمله که به یک مشتری تازه می‌گوید کی هستی، چه کار می‌کنی و چرا این برایش مهم است."
+   },
+   "title": {
+    "en": "Introduce yourself and your company",
+    "tr": "Kendini ve şirketini tanıt",
+    "fa": "خودت و شرکتت را معرفی کن"
+   },
+   "cando": {
+    "en": "I can introduce myself, my role and my company in 30 seconds.",
+    "tr": "Kendimi, görevimi ve şirketimi 30 saniyede tanıtabilirim.",
+    "fa": "می‌توانم خودم، نقشم و شرکتم را در ۳۰ ثانیه معرفی کنم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can introduce yourself, your role and your company in 30 seconds, in a meeting or in an email.",
+    "tr": "Bu dersin sonunda kendini, görevini ve şirketini bir toplantıda ya da bir e-postada 30 saniyede tanıtabileceksin.",
+    "fa": "بعد از این درس می‌توانی خودت، نقشت و شرکتت را در ۳۰ ثانیه، در جلسه یا در ایمیل، معرفی کنی."
+   }
+  },
+  {
+   "id": "bus-2",
+   "episode": {
+    "en": "Why most work emails wait, and the four parts that get a reply the same day.",
+    "tr": "İş e-postalarının çoğu neden bekler ve aynı gün cevap getiren dört parça.",
+    "fa": "چرا بیشتر ایمیل‌های کاری بی‌جواب می‌مانند و چهار بخشی که همان روز جواب می‌گیرد."
+   },
+   "title": {
+    "en": "Emails that get action",
+    "tr": "Harekete geçiren e-postalar",
+    "fa": "ایمیل‌هایی که نتیجه می‌گیرند"
+   },
+   "cando": {
+    "en": "I can write an email with one clear request, a reason and a deadline.",
+    "tr": "Tek net rica, bir neden ve bir son tarih içeren bir e-posta yazabilirim.",
+    "fa": "می‌توانم ایمیلی با یک درخواست روشن، یک دلیل و یک مهلت بنویسم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can write an email that gets action: one clear request, a reason and a deadline.",
+    "tr": "Bu dersin sonunda tek net bir rica, bir neden ve bir son tarihle harekete geçiren bir e-posta yazabileceksin.",
+    "fa": "بعد از این درس می‌توانی ایمیلی بنویسی که نتیجه بگیرد: یک درخواست روشن، یک دلیل و یک مهلت."
+   }
+  },
+  {
+   "id": "bus-3",
+   "episode": {
+    "en": "Open with the goal, read every number back, and end with who does what.",
+    "tr": "Amaçla başla, her sayıyı geri oku ve kimin ne yapacağıyla bitir.",
+    "fa": "با هدف شروع کن، هر عددی را دوباره بخوان و با «چه کسی، چه کاری» تمام کن."
+   },
+   "title": {
+    "en": "Calls and video meetings",
+    "tr": "Telefon ve görüntülü toplantılar",
+    "fa": "تماس تلفنی و جلسه‌ی آنلاین"
+   },
+   "cando": {
+    "en": "I can check numbers on a call and close it with a clear recap.",
+    "tr": "Bir görüşmede sayıları teyit edip görüşmeyi net bir özetle kapatabilirim.",
+    "fa": "می‌توانم در تماس عددها را چک کنم و تماس را با یک جمع‌بندی روشن تمام کنم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can open a call, check numbers and dates, and close it with a clear recap of who does what.",
+    "tr": "Bu dersin sonunda bir görüşmeyi açabilecek, sayıları ve tarihleri teyit edebilecek ve görüşmeyi kimin ne yapacağını söyleyen net bir özetle kapatabileceksin.",
+    "fa": "بعد از این درس می‌توانی یک تماس را شروع کنی، عددها و تاریخ‌ها را چک کنی و تماس را با جمع‌بندی روشنی تمام کنی که می‌گوید چه کسی چه کاری را انجام می‌دهد."
+   }
+  },
+  {
+   "id": "bus-4",
+   "episode": {
+    "en": "How to start a chat at an event, end it warmly and follow up the next day.",
+    "tr": "Bir etkinlikte sohbeti nasıl başlatır, sıcak bir şekilde bitirir ve ertesi gün takip edersin.",
+    "fa": "چطور در یک رویداد سر صحبت را باز کنی، گرم خداحافظی کنی و فردایش پیگیری کنی."
+   },
+   "title": {
+    "en": "Networking and small talk",
+    "tr": "Networking ve kısa sohbet",
+    "fa": "شبکه‌سازی و گپ کوتاه"
+   },
+   "cando": {
+    "en": "I can start a conversation at an event, keep it going and follow up.",
+    "tr": "Bir etkinlikte sohbet başlatabilir, sürdürebilir ve sonrasında takip edebilirim.",
+    "fa": "می‌توانم در یک رویداد سر صحبت را باز کنم، ادامه‌اش بدهم و بعدش پیگیری کنم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can start a conversation at a business event, keep it going with follow-up questions, end it politely and follow up the next day.",
+    "tr": "Bu dersin sonunda bir iş etkinliğinde sohbet başlatabilecek, takip sorularıyla sürdürebilecek, kibarca bitirebilecek ve ertesi gün takip mesajı gönderebileceksin.",
+    "fa": "بعد از این درس می‌توانی در یک رویداد کاری سر صحبت را باز کنی، با سؤال‌های تکمیلی ادامه‌اش بدهی، مؤدبانه تمامش کنی و فردایش پیگیری کنی."
+   }
+  }
+ ],
+ "checkpoint": {
+  "id": "bus-cp-1",
+  "finale": {
+   "en": "Run a first call with a new client and confirm it in writing",
+   "tr": "Yeni bir müşteriyle ilk görüşmeyi yap ve yazılı olarak teyit et",
+   "fa": "اولین تماس با یک مشتری تازه را اداره کن و کتبی تأییدش کن"
+  },
+  "scene": {
+   "en": "A hotel group in Berlin has just become your client. Run your first video call with them, then write the email that confirms what you agreed.",
+   "tr": "Berlin'deki bir otel grubu yeni müşterin oldu. Onlarla ilk görüntülü görüşmeni yap, sonra anlaştıklarınızı teyit eden e-postayı yaz.",
+   "fa": "یک گروه هتل‌داری در برلین تازه مشتری شرکتت شده. اولین تماس تصویری را با آن‌ها اداره کن و بعد ایمیلی بنویس که توافق‌هایتان را تأیید می‌کند."
+  },
+  "title": {
+   "en": "Chapter 1 finale: A first week with a new client",
+   "tr": "1. Bölüm finali: Yeni bir müşteriyle ilk hafta",
+   "fa": "پایان فصل ۱: هفته‌ی اول با یک مشتری تازه"
+  },
+  "sessions": [
+   [
+    "exit"
+   ],
+   [
+    "writing",
+    "speaking"
+   ]
+  ]
+ },
+ "goal": {
+  "en": "By the end of this chapter you will be able to introduce yourself and your company, write an email that gets action, run a call with a clear recap and network at a business event.",
+  "tr": "Bu bölümün sonunda kendini ve şirketini tanıtabilecek, harekete geçiren bir e-posta yazabilecek, bir görüşmeyi net bir özetle yönetebilecek ve bir iş etkinliğinde iş bağlantıları kurabileceksin.",
+  "fa": "در پایان این فصل می‌توانی خودت و شرکتت را معرفی کنی، ایمیلی بنویسی که نتیجه بگیرد، یک تماس را با جمع‌بندی روشن اداره کنی و در یک رویداد کاری شبکه‌سازی کنی."
+ }
+}
