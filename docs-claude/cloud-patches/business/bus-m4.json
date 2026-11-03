@@ -1,0 +1,195 @@
+{
+  "id": "bus-m4",
+  "weeks": [
+    7,
+    8
+  ],
+  "title": {
+    "en": "Clients and deals",
+    "tr": "Müşteriler ve anlaşmalar",
+    "fa": "مشتری‌ها و معامله‌ها"
+  },
+  "blurb": {
+    "en": "Negotiate price and terms, handle a complaint, fix a problem with an apology and a plan, and write a proposal a client can say yes to.",
+    "tr": "Fiyat ve koşullar üzerinde pazarlık yap, bir şikâyeti yönet, bir sorunu özür ve planla çöz ve müşterinin evet diyebileceği bir teklif yaz.",
+    "fa": "سر قیمت و شرایط مذاکره کن، به شکایت رسیدگی کن، مشکل را با عذرخواهی و برنامه حل کن و پروپوزالی بنویس که مشتری بتواند به آن «بله» بگوید."
+  },
+  "units": [
+    {
+      "id": "bus-13",
+      "episode": {
+        "en": "Why the first number matters, how to trade instead of giving things away, and how to say no without sounding rude.",
+        "tr": "İlk rakam neden önemlidir, bedavaya vermek yerine nasıl takas edersin ve kaba görünmeden nasıl hayır dersin.",
+        "fa": "چرا اولین عدد مهم است، چطور به‌جای امتیاز مجانی بده‌بستان کنی و چطور بدون بی‌ادبی «نه» بگویی."
+      },
+      "title": {
+        "en": "Negotiate price and terms",
+        "tr": "Fiyat ve koşul pazarlığı",
+        "fa": "مذاکره سر قیمت و شرایط"
+      },
+      "cando": {
+        "en": "I can negotiate price and terms and confirm the deal in writing.",
+        "tr": "Fiyat ve koşullar üzerinde pazarlık yapabilir, anlaşmayı yazılı olarak teyit edebilirim.",
+        "fa": "می‌توانم سر قیمت و شرایط مذاکره کنم و توافق را کتبی تأیید کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can negotiate price and terms and confirm the deal in writing.",
+        "tr": "Bu dersin sonunda fiyat ve koşullar üzerinde pazarlık yapabilecek ve anlaşmayı yazılı olarak teyit edebileceksin.",
+        "fa": "بعد از این درس می‌توانی سر قیمت و شرایط مذاکره کنی و توافق را کتبی تأیید کنی."
+      }
+    },
+    {
+      "id": "bus-14",
+      "episode": {
+        "en": "How to answer an angry message in four moves, and how to ask for the facts without sounding like a test.",
+        "tr": "Öfkeli bir mesaja dört hamlede nasıl cevap verirsin ve bilgileri sorgu gibi değil, kibarca nasıl sorarsın.",
+        "fa": "چطور در چهار حرکت به یک پیام عصبانی جواب بدهی و چطور اطلاعات را بپرسی بدون اینکه شبیه بازجویی شود."
+      },
+      "title": {
+        "en": "Handle a complaint",
+        "tr": "Bir şikâyeti yönetmek",
+        "fa": "رسیدگی به شکایت"
+      },
+      "cando": {
+        "en": "I can answer a complaint calmly, ask for the facts I need and promise a clear next step.",
+        "tr": "Bir şikâyete sakin bir cevap verebilir, ihtiyacım olan bilgileri kibarca sorabilir ve net bir sonraki adım için söz verebilirim.",
+        "fa": "می‌توانم آرام به یک شکایت جواب بدهم، اطلاعاتی را که لازم دارم مؤدبانه بپرسم و برای قدم بعدی قول روشنی بدهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can answer a complaint calmly, ask for the facts you need and promise a clear next step.",
+        "tr": "Bu dersin sonunda bir şikâyete sakin bir cevap verebilecek, ihtiyacın olan bilgileri kibarca sorabilecek ve net bir sonraki adım için söz verebileceksin.",
+        "fa": "بعد از این درس می‌توانی آرام به یک شکایت جواب بدهی، اطلاعاتی را که لازم داری مؤدبانه بپرسی و برای قدم بعدی قول روشنی بدهی."
+      }
+    },
+    {
+      "id": "bus-15",
+      "episode": {
+        "en": "What makes an apology work, and how to give a plan the client can follow step by step.",
+        "tr": "Bir özrü işe yarar kılan nedir ve müşterinin adım adım izleyebileceği bir plan nasıl verilir.",
+        "fa": "چه چیزی یک عذرخواهی را مؤثر می‌کند و چطور برنامه‌ای بدهی که مشتری بتواند قدم‌به‌قدم دنبالش کند."
+      },
+      "title": {
+        "en": "Solve a problem with a client",
+        "tr": "Müşteriyle bir sorunu çözmek",
+        "fa": "حل مشکل با مشتری"
+      },
+      "cando": {
+        "en": "I can apologise for our mistake and give a step-by-step plan with dates.",
+        "tr": "Hatamız için özür dileyebilir ve tarihleri belli, adım adım bir plan sunabilirim.",
+        "fa": "می‌توانم بابت اشتباه خودمان عذرخواهی کنم و یک برنامه‌ی قدم‌به‌قدم با تاریخ بدهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can apologise for a mistake your side made and give the client a step-by-step plan with dates.",
+        "tr": "Bu dersin sonunda kendi tarafının yaptığı bir hata için özür dileyebilecek ve müşteriye tarihleri belli, adım adım bir plan sunabileceksin.",
+        "fa": "بعد از این درس می‌توانی بابت اشتباهی که از طرف شرکت خودت بوده عذرخواهی کنی و به مشتری یک برنامه‌ی قدم‌به‌قدم با تاریخ بدهی."
+      }
+    },
+    {
+      "id": "bus-16",
+      "episode": {
+        "en": "The parts of a proposal a busy client can say yes to, and how to link every feature to a reason to buy.",
+        "tr": "Yoğun bir müşterinin evet diyebileceği bir teklifin parçaları ve her özelliği bir satın alma nedenine bağlamanın yolu.",
+        "fa": "بخش‌های پروپوزالی که مشتری پرمشغله بتواند به آن «بله» بگوید و اینکه چطور هر ویژگی را به دلیلی برای خرید وصل کنی."
+      },
+      "title": {
+        "en": "Write a proposal",
+        "tr": "Bir teklif yazmak",
+        "fa": "نوشتن پروپوزال"
+      },
+      "cando": {
+        "en": "I can write a one-page proposal that starts from the client's goal and ends with a clear next step.",
+        "tr": "Müşterinin hedefinden başlayıp net bir sonraki adımla biten tek sayfalık bir teklif yazabilirim.",
+        "fa": "می‌توانم یک پروپوزال یک‌صفحه‌ای بنویسم که از هدف مشتری شروع می‌شود و با یک قدم بعدی روشن تمام می‌شود."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a one-page proposal that starts from the client's goal and ends with a clear next step.",
+        "tr": "Bu dersin sonunda müşterinin hedefinden başlayıp net bir sonraki adımla biten tek sayfalık bir teklif yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی یک پروپوزال یک‌صفحه‌ای بنویسی که از هدف مشتری شروع می‌شود و با یک قدم بعدی روشن تمام می‌شود."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-4",
+    "finale": {
+      "en": "Win back an unhappy client",
+      "tr": "Mutsuz bir müşteriyi geri kazan",
+      "fa": "برگرداندن یک مشتری ناراضی"
+    },
+    "scene": {
+      "en": "A client is about to leave after a bad month. Write the email that keeps them: an apology with a plan and a fair offer with clear terms. Then make the call.",
+      "tr": "Kötü bir ayın ardından bir müşteri gitmek üzere. Onu tutacak e-postayı yaz: planlı bir özür ve koşulları net, adil bir teklif. Sonra müşteriyi ara.",
+      "fa": "یک مشتری بعد از یک ماه بد دارد می‌رود. ایمیلی بنویس که نگهش دارد: عذرخواهی با برنامه و یک پیشنهاد منصفانه با شرایط روشن. بعد به او زنگ بزن."
+    },
+    "title": {
+      "en": "Chapter 4 finale: Win back an unhappy client",
+      "tr": "4. Bölüm finali: Mutsuz bir müşteriyi geri kazan",
+      "fa": "پایان فصل ۴: برگرداندن مشتری ناراضی"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to negotiate price and terms, handle a complaint, apologise with a clear plan and write a one-page proposal.",
+    "tr": "Bu bölümün sonunda fiyat ve koşullar üzerinde pazarlık yapabilecek, bir şikâyeti yönetebilecek, net bir planla özür dileyebilecek ve tek sayfalık bir teklif yazabileceksin.",
+    "fa": "در پایان این فصل می‌توانی سر قیمت و شرایط مذاکره کنی، به شکایت رسیدگی کنی، با یک برنامه‌ی روشن عذرخواهی کنی و پروپوزال یک‌صفحه‌ای بنویسی."
+  }
+}

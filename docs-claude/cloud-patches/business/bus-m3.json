@@ -1,0 +1,195 @@
+{
+ "id": "bus-m3",
+ "weeks": [
+  5,
+  6
+ ],
+ "title": {
+  "en": "Present and report",
+  "tr": "Sunum yap, rapor ver",
+  "fa": "ارائه بده، گزارش بده"
+ },
+ "blurb": {
+  "en": "Structure a short talk, present numbers and trends, write a one-page report, and give an honest update when a project slips.",
+  "tr": "Kısa bir sunumu kurgula, rakamları ve eğilimleri sun, tek sayfalık bir rapor yaz ve bir proje geciktiğinde dürüst bir güncelleme ver.",
+  "fa": "یک ارائه‌ی کوتاه را درست بچین، عددها و روندها را توضیح بده، یک گزارش یک‌صفحه‌ای بنویس و وقتی پروژه عقب می‌افتد، صادقانه گزارش وضعیت بده."
+ },
+ "units": [
+  {
+   "id": "bus-9",
+   "episode": {
+    "en": "Why listeners get lost, and the three-part plan that keeps them with you.",
+    "tr": "Dinleyiciler neden kaybolur ve onları sonuna kadar seninle tutan üç bölümlü plan.",
+    "fa": "چرا شنونده‌ها رشته‌ی حرف را گم می‌کنند و نقشه‌ی سه‌بخشی‌ای که آن‌ها را تا آخر با تو نگه می‌دارد."
+   },
+   "title": {
+    "en": "Structure a short presentation",
+    "tr": "Kısa bir sunumu kurgulamak",
+    "fa": "ساختار یک ارائه‌ی کوتاه"
+   },
+   "cando": {
+    "en": "I can plan a short talk: one message, three points and a close that asks for one action.",
+    "tr": "Tek mesajlı, üç ana noktalı ve net bir taleple biten kısa bir sunum planlayabilirim.",
+    "fa": "می‌توانم یک ارائه‌ی کوتاه را برنامه‌ریزی کنم: یک پیام، سه نکته و پایانی که یک کار مشخص از جمع می‌خواهد."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can plan a short talk: one message, three points and a close that asks for one action.",
+    "tr": "Bu dersin sonunda tek mesajlı, üç ana noktalı ve net bir taleple biten kısa bir sunum planlayabileceksin.",
+    "fa": "بعد از این درس می‌توانی یک ارائه‌ی کوتاه را برنامه‌ریزی کنی: یک پیام، سه نکته و پایانی که یک کار مشخص از جمع می‌خواهد."
+   }
+  },
+  {
+   "id": "bus-10",
+   "episode": {
+    "en": "Why \"this chart shows\" is a weak start, and four moves that make numbers stick.",
+    "tr": "\"Bu grafik ... gösteriyor\" neden zayıf bir başlangıçtır ve rakamları akılda tutan dört adım.",
+    "fa": "چرا «این نمودار نشان می‌دهد» شروع ضعیفی است و چهار حرکتی که عددها را در ذهن نگه می‌دارد."
+   },
+   "title": {
+    "en": "Numbers, charts and trends",
+    "tr": "Rakamlar, grafikler ve eğilimler",
+    "fa": "عددها، نمودارها و روندها"
+   },
+   "cando": {
+    "en": "I can describe a chart: the main trend first, then the key numbers and what they mean.",
+    "tr": "Bir grafiği önce ana eğilimi, sonra önemli rakamları ve anlamlarını söyleyerek anlatabilirim.",
+    "fa": "می‌توانم یک نمودار را توضیح بدهم: اول روند اصلی، بعد عددهای مهم و معنی‌شان."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can describe a chart clearly: the main trend first, then the key numbers and what they mean.",
+    "tr": "Bu dersin sonunda bir grafiği önce ana eğilimi, sonra önemli rakamları ve anlamlarını söyleyerek net biçimde anlatabileceksin.",
+    "fa": "بعد از این درس می‌توانی یک نمودار را روشن توضیح بدهی: اول روند اصلی، بعد عددهای مهم و معنی‌شان."
+   }
+  },
+  {
+   "id": "bus-11",
+   "episode": {
+    "en": "Why busy managers stop after a few lines, and how to put the answer in them.",
+    "tr": "Yoğun yöneticiler neden birkaç satırdan sonra okumayı bırakır ve cevabı o satırlara nasıl koyarsın.",
+    "fa": "چرا مدیرهای پرمشغله بعد از چند خط دیگر نمی‌خوانند و چطور جواب را در همان چند خط بگذاری."
+   },
+   "title": {
+    "en": "A one-page report",
+    "tr": "Tek sayfalık rapor",
+    "fa": "گزارش یک‌صفحه‌ای"
+   },
+   "cando": {
+    "en": "I can write a one-page report with the main point first, clear headings and a recommendation.",
+    "tr": "Ana noktası başta olan, net başlıkları bulunan ve bir öneriyle biten tek sayfalık bir rapor yazabilirim.",
+    "fa": "می‌توانم گزارشی یک‌صفحه‌ای بنویسم که نکته‌ی اصلی‌اش اول بیاید، تیترهای روشن داشته باشد و با یک پیشنهاد تمام شود."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can write a one-page report with the main point first, clear headings and a recommendation.",
+    "tr": "Bu dersin sonunda ana noktası başta olan, net başlıkları bulunan ve bir öneriyle biten tek sayfalık bir rapor yazabileceksin.",
+    "fa": "بعد از این درس می‌توانی گزارشی یک‌صفحه‌ای بنویسی که نکته‌ی اصلی‌اش اول بیاید، تیترهای روشن داشته باشد و با یک پیشنهاد تمام شود."
+   }
+  },
+  {
+   "id": "bus-12",
+   "episode": {
+    "en": "Why late news hurts more than the delay, and the four lines that keep trust.",
+    "tr": "Geç gelen haber neden gecikmeden daha çok zarar verir ve güveni koruyan dört satır.",
+    "fa": "چرا خبرِ دیر از خودِ تأخیر بیشتر ضربه می‌زند و چهار خطی که اعتماد را نگه می‌دارد."
+   },
+   "title": {
+    "en": "A project update when things slip",
+    "tr": "İşler geciktiğinde proje güncellemesi",
+    "fa": "گزارش وضعیت پروژه وقتی کار عقب افتاده"
+   },
+   "cando": {
+    "en": "I can report a delay honestly: what slipped and why, the new date, my plan and what I need.",
+    "tr": "Neyin neden geciktiğini, yeni tarihi, planımı ve neye ihtiyacım olduğunu söyleyerek bir gecikmeyi dürüstçe bildirebilirim.",
+    "fa": "می‌توانم عقب افتادن کار را صادقانه گزارش بدهم: چه چیزی و چرا عقب افتاد، تاریخ تازه، برنامه‌ام و چیزی که لازم دارم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can report a delay honestly: what slipped and why, the new date, your plan and what you need.",
+    "tr": "Bu dersin sonunda neyin neden geciktiğini, yeni tarihi, planını ve neye ihtiyacın olduğunu söyleyerek bir gecikmeyi dürüstçe bildirebileceksin.",
+    "fa": "بعد از این درس می‌توانی عقب افتادن کار را صادقانه گزارش بدهی: چه چیزی و چرا عقب افتاد، تاریخ تازه، برنامه‌ات و چیزی که لازم داری."
+   }
+  }
+ ],
+ "checkpoint": {
+  "id": "bus-cp-3",
+  "finale": {
+   "en": "A 3-minute quarterly update with one slide",
+   "tr": "Tek slaytla 3 dakikalık çeyrek güncellemesi",
+   "fa": "گزارش سه‌دقیقه‌ای فصل با یک اسلاید"
+  },
+  "scene": {
+   "en": "Your manager gives you three minutes at the quarterly meeting. Write the one slide and your talk, then give it out loud.",
+   "tr": "Yöneticin çeyrek toplantısında sana üç dakika veriyor. Tek slaydı ve konuşmanı yaz, sonra sesli sun.",
+   "fa": "مدیرت در جلسه‌ی فصلی سه دقیقه به تو وقت می‌دهد. اسلاید و متن حرف‌هایت را بنویس و بعد با صدای بلند ارائه‌اش بده."
+  },
+  "title": {
+   "en": "Chapter 3 finale: A quarterly update",
+   "tr": "3. Bölüm finali: Çeyrek güncellemesi",
+   "fa": "پایان فصل ۳: گزارش فصلی"
+  },
+  "sessions": [
+   [
+    "exit"
+   ],
+   [
+    "writing",
+    "speaking"
+   ]
+  ]
+ },
+ "goal": {
+  "en": "By the end of this chapter you will be able to give a short talk with numbers, write a one-page report and report a delay honestly.",
+  "tr": "Bu bölümün sonunda rakamlarla kısa bir sunum yapabilecek, tek sayfalık bir rapor yazabilecek ve bir gecikmeyi dürüstçe bildirebileceksin.",
+  "fa": "در پایان این فصل می‌توانی یک ارائه‌ی کوتاه با عدد و رقم بدهی، یک گزارش یک‌صفحه‌ای بنویسی و خبر تأخیر را صادقانه بدهی."
+ }
+}

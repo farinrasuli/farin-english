@@ -1,0 +1,39 @@
+{
+  "_about": "Cloud 2026-11-03, Copywriting chapter 4 (mkt-m4). Judge-label glosses missing from COURSE_JUDGE_L in farin-english-app.html; merge these keys into it when assembling the chapter. \"Specific\" is already in the table.",
+  "One message": {
+    "tr": "Tek mesaj",
+    "fa": "یک پیام"
+  },
+  "Preview adds a fact": {
+    "tr": "Önizleme yeni bir bilgi ekliyor",
+    "fa": "پیش‌نمایش واقعیت تازه‌ای اضافه می‌کند"
+  },
+  "Speaks to the visitor": {
+    "tr": "Ziyaretçiye hitap ediyor",
+    "fa": "با خود بازدیدکننده حرف می‌زند"
+  },
+  "Leads to the one action": {
+    "tr": "Tek eyleme götürüyor",
+    "fa": "به همان یک اقدام می‌رساند"
+  },
+  "Matches the search": {
+    "tr": "Aramaya uyuyor",
+    "fa": "با جست‌وجو جور است"
+  },
+  "Answer first": {
+    "tr": "Önce cevap",
+    "fa": "اول جواب"
+  },
+  "Plain words": {
+    "tr": "Sade kelimeler",
+    "fa": "کلمه‌های ساده"
+  },
+  "Hooks in 2 seconds": {
+    "tr": "2 saniyede yakalıyor",
+    "fa": "در ۲ ثانیه جذب می‌کند"
+  },
+  "Works with the sound off": {
+    "tr": "Ses kapalıyken de işe yarıyor",
+    "fa": "بی‌صدا هم کار می‌کند"
+  }
+}
