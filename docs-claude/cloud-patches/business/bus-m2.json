@@ -1,0 +1,195 @@
+{
+ "id": "bus-m2",
+ "weeks": [
+  3,
+  4
+ ],
+ "title": {
+  "en": "Meetings and decisions",
+  "tr": "Toplantılar ve kararlar",
+  "fa": "جلسه‌ها و تصمیم‌ها"
+ },
+ "blurb": {
+  "en": "Run a meeting from an agenda, give and ask for opinions, disagree without damage, reach a decision, then write minutes people act on.",
+  "tr": "Bir toplantıyı gündemle yönet, görüş bildir ve görüş sor, zarar vermeden itiraz et, karara var, sonra herkesin harekete geçtiği bir tutanak yaz.",
+  "fa": "جلسه را با دستور جلسه اداره کن، نظر بده و نظر بپرس، بدون آسیب زدن مخالفت کن، به تصمیم برس و بعد صورت‌جلسه‌ای بنویس که کار را پیش ببرد."
+ },
+ "units": [
+  {
+   "id": "bus-5",
+   "episode": {
+    "en": "Why meetings run over, and the agenda that gives them a finish line.",
+    "tr": "Toplantılar neden uzar ve onlara bitiş çizgisi koyan gündem.",
+    "fa": "چرا جلسه‌ها بیشتر از وقتشان طول می‌کشند و دستور جلسه‌ای که برایشان خط پایان می‌گذارد."
+   },
+   "title": {
+    "en": "Run a meeting with an agenda",
+    "tr": "Gündemle toplantı yönetmek",
+    "fa": "اداره‌ی جلسه با دستور جلسه"
+   },
+   "cando": {
+    "en": "I can write an agenda people can prepare for and chair a meeting that ends with clear decisions.",
+    "tr": "Herkesin hazırlanabileceği bir gündem yazabilir ve net kararlarla biten bir toplantı yönetebilirim.",
+    "fa": "می‌توانم دستور جلسه‌ای بنویسم که همه برایش آماده شوند و جلسه‌ای را اداره کنم که با تصمیم‌های روشن تمام شود."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can write an agenda people can prepare for and chair a meeting that ends with clear decisions.",
+    "tr": "Bu dersin sonunda herkesin hazırlanabileceği bir gündem yazabilecek ve net kararlarla biten bir toplantı yönetebileceksin.",
+    "fa": "بعد از این درس می‌توانی دستور جلسه‌ای بنویسی که همه بتوانند برایش آماده شوند و جلسه‌ای را اداره کنی که با تصمیم‌های روشن تمام شود."
+   }
+  },
+  {
+   "id": "bus-6",
+   "episode": {
+    "en": "How to give a view people remember, and hear from the quiet people too.",
+    "tr": "İnsanların hatırlayacağı bir görüş nasıl verilir ve sessiz kalanlar nasıl konuşturulur.",
+    "fa": "چطور نظری بدهی که یادشان بماند و صدای ساکت‌ترها را هم بشنوی."
+   },
+   "title": {
+    "en": "Give and ask for opinions",
+    "tr": "Görüş bildirmek ve görüş sormak",
+    "fa": "نظر دادن و نظر پرسیدن"
+   },
+   "cando": {
+    "en": "I can give a clear view with a reason and get every person's view in a meeting.",
+    "tr": "Gerekçeli, net bir görüş bildirebilir ve toplantıda herkesin görüşünü alabilirim.",
+    "fa": "می‌توانم نظرم را روشن و با دلیل بگویم و نظر همه‌ی آدم‌های جلسه را بگیرم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can give a clear view with a reason and get every person's view in a meeting.",
+    "tr": "Bu dersin sonunda gerekçeli, net bir görüş bildirebilecek ve toplantıda herkesin görüşünü alabileceksin.",
+    "fa": "بعد از این درس می‌توانی نظرت را روشن و با دلیل بگویی و نظر همه‌ی آدم‌های جلسه را بگیری."
+   }
+  },
+  {
+   "id": "bus-7",
+   "episode": {
+    "en": "How to say no without damage, and turn a long argument into a clear decision.",
+    "tr": "Zarar vermeden nasıl hayır denir ve uzun bir tartışma nasıl net bir karara dönüşür.",
+    "fa": "چطور بدون آسیب زدن نه بگویی و یک بحث طولانی را به تصمیمی روشن برسانی."
+   },
+   "title": {
+    "en": "Disagree politely and reach a decision",
+    "tr": "Kibarca itiraz etmek ve karara varmak",
+    "fa": "مخالفت مؤدبانه و رسیدن به تصمیم"
+   },
+   "cando": {
+    "en": "I can disagree without damaging the relationship and bring a discussion to a clear decision.",
+    "tr": "İlişkiye zarar vermeden itiraz edebilir ve bir tartışmayı net bir karara bağlayabilirim.",
+    "fa": "می‌توانم بدون آسیب زدن به رابطه مخالفت کنم و بحث را به یک تصمیم روشن برسانم."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can disagree without damaging the relationship and bring a discussion to a clear decision.",
+    "tr": "Bu dersin sonunda ilişkiye zarar vermeden itiraz edebilecek ve bir tartışmayı net bir karara bağlayabileceksin.",
+    "fa": "بعد از این درس می‌توانی بدون اینکه به رابطه آسیب بزنی مخالفت کنی و بحث را به یک تصمیم روشن برسانی."
+   }
+  },
+  {
+   "id": "bus-8",
+   "episode": {
+    "en": "Minutes that get things done: the decisions, and one name and one date for each action.",
+    "tr": "İş bitiren tutanak: kararlar ve her eylem için tek isim, tek tarih.",
+    "fa": "صورت‌جلسه‌ای که کار را پیش می‌برد: تصمیم‌ها و برای هر کار یک اسم و یک تاریخ."
+   },
+   "title": {
+    "en": "Minutes and action points",
+    "tr": "Tutanak ve eylem maddeleri",
+    "fa": "صورت‌جلسه و کارهای مصوب"
+   },
+   "cando": {
+    "en": "I can write minutes that show what was decided and who does what by when.",
+    "tr": "Neye karar verildiğini ve kimin neyi ne zamana kadar yapacağını gösteren bir tutanak yazabilirim.",
+    "fa": "می‌توانم صورت‌جلسه‌ای بنویسم که نشان بدهد چه تصمیمی گرفته شد و چه کسی چه کاری را تا کی انجام می‌دهد."
+   },
+   "sessions": [
+    [
+     "explain"
+    ],
+    [
+     "judge",
+     "speaking",
+     "writing"
+    ],
+    [
+     "exit"
+    ]
+   ],
+   "objective": {
+    "en": "After this lesson, you can write minutes that show what was decided and who does what by when.",
+    "tr": "Bu dersin sonunda neye karar verildiğini ve kimin neyi ne zamana kadar yapacağını gösteren bir tutanak yazabileceksin.",
+    "fa": "بعد از این درس می‌توانی صورت‌جلسه‌ای بنویسی که نشان بدهد چه تصمیمی گرفته شد و چه کسی چه کاری را تا کی انجام می‌دهد."
+   }
+  }
+ ],
+ "checkpoint": {
+  "id": "bus-cp-2",
+  "finale": {
+   "en": "Chair and minute a 20-minute decision meeting",
+   "tr": "20 dakikalık bir karar toplantısını yönet ve tutanağını yaz",
+   "fa": "یک جلسه‌ی تصمیم‌گیری ۲۰ دقیقه‌ای را اداره کن و صورت‌جلسه‌اش را بنویس"
+  },
+  "scene": {
+   "en": "Your team has 20 minutes to make one real decision. Write the agenda and the minutes, then chair the meeting out loud.",
+   "tr": "Ekibinin tek bir gerçek karar için 20 dakikası var. Gündemi ve tutanağı yaz, sonra toplantıyı sesli olarak yönet.",
+   "fa": "تیمت ۲۰ دقیقه وقت دارد تا یک تصمیم واقعی بگیرد. دستور جلسه و صورت‌جلسه را بنویس، بعد جلسه را با صدای بلند اداره کن."
+  },
+  "title": {
+   "en": "Chapter 2 finale: A 20-minute decision meeting",
+   "tr": "2. Bölüm finali: 20 dakikalık karar toplantısı",
+   "fa": "پایان فصل ۲: جلسه‌ی تصمیم‌گیری ۲۰ دقیقه‌ای"
+  },
+  "sessions": [
+   [
+    "exit"
+   ],
+   [
+    "writing",
+    "speaking"
+   ]
+  ]
+ },
+ "goal": {
+  "en": "By the end of this chapter you will be able to run a meeting from an agenda, give and ask for opinions, disagree politely, reach a clear decision and write minutes with action points.",
+  "tr": "Bu bölümün sonunda bir toplantıyı gündemle yönetebilecek, görüş bildirip görüş sorabilecek, kibarca itiraz edebilecek, net bir karara varabilecek ve eylem maddeleri olan bir tutanak yazabileceksin.",
+  "fa": "در پایان این فصل می‌توانی جلسه را با دستور جلسه اداره کنی، نظر بدهی و نظر بپرسی، مؤدبانه مخالفت کنی، به تصمیم روشن برسی و صورت‌جلسه‌ای با کارهای مصوب بنویسی."
+ }
+}
