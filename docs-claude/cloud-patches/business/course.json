@@ -1,0 +1,127 @@
+{
+  "course": {
+    "id": "business", "entry": "B1", "tracks": ["B1", "B2"], "weeks": 8, "sessionMinutes": [15, 20],
+    "title": {"en": "Complete Business English", "tr": "Kapsamlı İş İngilizcesi", "fa": "دوره‌ی جامع انگلیسی تجاری"},
+    "promise": {
+      "en": "Do the core work of any office in English: introduce yourself and your company, write emails that get action, run meetings and write the minutes, present numbers, report on a project, negotiate terms, handle complaints and write a proposal.",
+      "tr": "Her ofisin temel işlerini İngilizce yap: kendini ve şirketini tanıt, karşılık alan e-postalar yaz, toplantı yönet ve tutanağını yaz, rakamları sun, bir projeyi raporla, koşulları pazarlık et, şikâyetleri çöz ve teklif yaz.",
+      "fa": "کارهای اصلی هر دفتری را به انگلیسی انجام بده: خودت و شرکتت را معرفی کن، ایمیل‌هایی بنویس که نتیجه بگیرند، جلسه را اداره کن و صورت‌جلسه بنویس، عددها را ارائه بده، گزارش پروژه بده، سر شرایط مذاکره کن، شکایت‌ها را حل کن و پروپوزال بنویس."
+    },
+    "intro": {
+      "meet": {
+        "title": {"en": "Who this is for", "tr": "Bu kurs kimin için", "fa": "این دوره برای چه کسی است"},
+        "body": {
+          "en": "For anyone who works with foreign clients, suppliers or colleagues: office staff, managers, engineers, exporters and freelancers. Each lesson teaches one work skill directly, with a weak and a strong model, the common mistake, the exact phrases and a checklist. You practise on short real material, emails, meeting lines, slides and offers, and on your own work.",
+          "tr": "Yabancı müşteriler, tedarikçiler ya da iş arkadaşlarıyla çalışan herkes için: ofis çalışanları, yöneticiler, mühendisler, ihracatçılar ve serbest çalışanlar. Her ders tek bir iş becerisini doğrudan öğretir: zayıf ve güçlü bir örnek, sık yapılan hata, tam kullanacağın ifadeler ve bir kontrol listesi. Kısa gerçek malzemeyle (e-postalar, toplantı cümleleri, slaytlar, teklifler) ve kendi işinle alıştırma yaparsın.",
+          "fa": "برای هر کسی که با مشتری، تأمین‌کننده یا همکار خارجی کار می‌کند: کارمندهای اداری، مدیرها، مهندس‌ها، صادرکننده‌ها و فریلنسرها. هر درس یک مهارت کاری را مستقیم یاد می‌دهد: یک نمونه‌ی ضعیف و یک نمونه‌ی قوی، اشتباه رایج، همان عبارت‌هایی که لازم داری و یک چک‌لیست. با متن‌های کوتاه و واقعی تمرین می‌کنی (ایمیل، جمله‌های جلسه، اسلاید، پیشنهاد قیمت) و با کارِ خودت."
+        }
+      },
+      "how": {
+        "title": {"en": "How it works", "tr": "Nasıl işler", "fa": "چطور پیش می‌رود"},
+        "body": {
+          "en": "16 lessons in 4 chapters, plus 4 chapter reviews and a final project. Each lesson has 3 steps: Learn, Practise, Check. Learn gives you the skill and the English it needs. Practise is a real task: you sort strong and weak lines, say it out loud and write it. Check proves you can do it. Two lessons a week is about 8 weeks.",
+          "tr": "4 bölümde 16 ders, ayrıca 4 bölüm tekrarı ve bir final projesi. Her dersin 3 adımı var: Öğren, Alıştır, Kontrol et. Öğren'de beceriyi ve gereken İngilizceyi alırsın. Alıştır gerçek bir görevdir: güçlü ve zayıf cümleleri ayırırsın, sesli söylersin ve yazarsın. Kontrol et, bunu yapabildiğini gösterir. Haftada iki dersle yaklaşık 8 hafta sürer.",
+          "fa": "۱۶ درس در ۴ فصل، به‌علاوه‌ی ۴ مرور فصل و یک پروژه‌ی پایانی. هر درس ۳ مرحله دارد: یاد بگیر، تمرین کن، بررسی کن. در «یاد بگیر» مهارت و انگلیسیِ لازمش را می‌گیری. «تمرین کن» یک کار واقعی است: جمله‌های قوی و ضعیف را جدا می‌کنی، بلند می‌گویی و می‌نویسی. «بررسی کن» نشان می‌دهد از پسش برمی‌آیی. با هفته‌ای دو درس حدود ۸ هفته طول می‌کشد."
+        }
+      },
+      "finish": {
+        "title": {"en": "What you finish with", "tr": "Elinde ne olacak", "fa": "آخر دوره چه چیزی در دستت است"},
+        "body": {
+          "en": "A business pack of 6 pieces for your own job or the default company: an introduction email to a new client, a meeting agenda and minutes, a 3-minute presentation with one slide, a one-page report, an email that confirms negotiated terms, and a reply to a complaint with a plan. Plus the certificate 'FEschool Complete Business English, completed'. It shows you finished this course. It is not a CEFR or Cambridge qualification, and no course can promise you a job or a promotion. This one makes you do the work in English.",
+          "tr": "Kendi işin ya da varsayılan şirket için 6 parçalık bir iş dosyası: yeni bir müşteriye tanışma e-postası, toplantı gündemi ve tutanağı, tek slaytlı 3 dakikalık bir sunum, tek sayfalık bir rapor, pazarlıkla varılan koşulları teyit eden bir e-posta ve bir şikâyete planlı bir cevap. Ayrıca 'FEschool Kapsamlı İş İngilizcesi, tamamlandı' sertifikası. Bu kursu bitirdiğini gösterir. CEFR ya da Cambridge belgesi değildir ve hiçbir kurs sana iş ya da terfi sözü veremez. Bu kurs işi İngilizce yapmanı sağlar.",
+          "fa": "یک پرونده‌ی کاری ۶ بخشی برای کار خودت یا شرکت پیش‌فرض: ایمیل معرفی به یک مشتری تازه، دستور جلسه و صورت‌جلسه، یک ارائه‌ی ۳ دقیقه‌ای با یک اسلاید، یک گزارش یک‌صفحه‌ای، ایمیلی که شرایطِ مذاکره‌شده را تأیید می‌کند و جواب یک شکایت همراه با برنامه‌ی حل آن. به‌علاوه‌ی گواهی «FEschool Complete Business English, completed». این گواهی نشان می‌دهد دوره را تمام کرده‌ای. مدرک CEFR یا کمبریج نیست و هیچ دوره‌ای نمی‌تواند به تو قول کار یا ترفیع بدهد. این دوره کاری می‌کند که کارت را به انگلیسی انجام بدهی."
+        }
+      },
+      "trackQuestion": {
+        "q": {"en": "Do you already write work emails and run meetings in English without a model?", "tr": "İş e-postalarını yazıp toplantıları İngilizce olarak örneğe bakmadan yürütebiliyor musun?", "fa": "الان بدون نمونه ایمیل کاری می‌نویسی و جلسه را به انگلیسی اداره می‌کنی؟"},
+        "a": {"en": "Not yet. I want model texts and sentence starters first.", "tr": "Henüz değil. Önce örnek metinler ve cümle başlangıçları istiyorum.", "fa": "هنوز نه. اول متن نمونه و شروع جمله می‌خواهم."},
+        "b": {"en": "Yes. I want the extra B2 language and no sentence starters.", "tr": "Evet. Ek B2 dilini istiyorum, cümle başlangıçları olmasın.", "fa": "بله. زبان اضافه‌ی B2 را می‌خواهم، بدون شروع جمله."}
+      },
+      "start": {"en": "Start Lesson 1: Introduce yourself and your company", "tr": "1. dersi başlat: Kendini ve şirketini tanıt", "fa": "درس ۱ را شروع کن: خودت و شرکتت را معرفی کن"}
+    },
+    "final": {"id": "bus-final", "week": 8, "title": {"en": "Final project: Your business pack", "tr": "Final projesi: İş dosyan", "fa": "پروژه‌ی پایانی: پرونده‌ی کاری تو"}, "unlockAfter": "bus-cp-4"},
+    "outcomes": {
+      "learn": [
+        {"en": "Introduce yourself, your role and your company in a clear, short way.", "tr": "Kendini, görevini ve şirketini kısa ve net biçimde tanıtmak.", "fa": "معرفی کوتاه و روشن خودت، نقشت و شرکتت."},
+        {"en": "Write emails with one clear request, a reason and a date.", "tr": "Tek net rica, bir neden ve bir tarih içeren e-postalar yazmak.", "fa": "نوشتن ایمیل با یک درخواست روشن، دلیل و تاریخ."},
+        {"en": "Check details on calls and video meetings, and network with ease.", "tr": "Telefonda ve görüntülü toplantıda ayrıntıları teyit etmek, rahatça tanışıp ilişki kurmak.", "fa": "چک کردن جزئیات در تماس و جلسه‌ی آنلاین و شبکه‌سازیِ راحت."},
+        {"en": "Run a meeting, give opinions, disagree politely and reach a decision.", "tr": "Toplantı yönetmek, görüş bildirmek, kibarca itiraz etmek ve karara varmak.", "fa": "اداره‌ی جلسه، نظر دادن، مخالفتِ مؤدبانه و رسیدن به تصمیم."},
+        {"en": "Write minutes with clear action points: who, what, by when.", "tr": "Net eylem maddeleriyle tutanak yazmak: kim, ne, ne zamana kadar.", "fa": "نوشتن صورت‌جلسه با کارهای روشن: چه کسی، چه کاری، تا کی."},
+        {"en": "Present a short talk with numbers and trends, and write a one-page report.", "tr": "Rakamlar ve eğilimlerle kısa bir sunum yapmak ve tek sayfalık rapor yazmak.", "fa": "ارائه‌ی کوتاه با عدد و روند و نوشتن گزارش یک‌صفحه‌ای."},
+        {"en": "Give a project update, even when things are late.", "tr": "İşler geciktiğinde bile proje güncellemesi vermek.", "fa": "گزارش وضعیت پروژه، حتی وقتی کار عقب افتاده."},
+        {"en": "Negotiate price and terms, handle a complaint and write a proposal.", "tr": "Fiyat ve koşulları pazarlık etmek, bir şikâyeti çözmek ve teklif yazmak.", "fa": "مذاکره سر قیمت و شرایط، رسیدگی به شکایت و نوشتن پروپوزال."}
+      ],
+      "life": [
+        {"en": "Open a first call with a foreign client and say in 30 seconds who you are and what your company does.", "tr": "Yabancı bir müşteriyle ilk görüşmeyi açıp 30 saniyede kim olduğunu ve şirketinin ne yaptığını söylemek.", "fa": "اولین تماس با یک مشتری خارجی را شروع کنی و در ۳۰ ثانیه بگویی کی هستی و شرکتت چه کار می‌کند."},
+        {"en": "Send an email that gets an answer the same day.", "tr": "Aynı gün cevap alan bir e-posta göndermek.", "fa": "ایمیلی بفرستی که همان روز جواب بگیرد."},
+        {"en": "Chair a 20-minute meeting in English and send the minutes the same afternoon.", "tr": "20 dakikalık bir toplantıyı İngilizce yönetip tutanağı aynı öğleden sonra göndermek.", "fa": "یک جلسه‌ی ۲۰ دقیقه‌ای را به انگلیسی اداره کنی و همان بعدازظهر صورت‌جلسه را بفرستی."},
+        {"en": "Say no to an idea in a meeting without sounding rude, and offer another way.", "tr": "Bir toplantıda kaba görünmeden bir fikre hayır deyip başka bir yol önermek.", "fa": "در جلسه بدون بی‌ادبی با یک ایده مخالفت کنی و راه دیگری پیشنهاد بدهی."},
+        {"en": "Present last quarter's results in three minutes with one clear slide.", "tr": "Geçen çeyreğin sonuçlarını tek net slaytla üç dakikada sunmak.", "fa": "نتیجه‌های فصل گذشته را با یک اسلاید روشن در سه دقیقه ارائه بدهی."},
+        {"en": "Tell a client a project is late, with a new date and a plan they can accept.", "tr": "Bir müşteriye projenin geciktiğini yeni bir tarih ve kabul edebileceği bir planla söylemek.", "fa": "به مشتری بگویی پروژه عقب افتاده، با تاریخ تازه و برنامه‌ای که بتواند قبولش کند."},
+        {"en": "Agree a price and terms, then confirm them in writing so nobody remembers it differently.", "tr": "Bir fiyat ve koşullarda anlaşıp kimse farklı hatırlamasın diye yazılı teyit etmek.", "fa": "سر قیمت و شرایط توافق کنی و کتبی تأییدش کنی تا کسی چیز دیگری یادش نماند."},
+        {"en": "Turn an angry email into a kept client, and win new work with a one-page proposal.", "tr": "Öfkeli bir e-postayı elde tutulan bir müşteriye çevirmek ve tek sayfalık bir teklifle yeni iş almak.", "fa": "یک ایمیل عصبانی را به مشتریِ ماندگار تبدیل کنی و با یک پروپوزال یک‌صفحه‌ای کار تازه بگیری."}
+      ]
+    },
+    "rubricTone": [
+      {"en": "Could upset or confuse the reader, or promises what you cannot do.", "tr": "Okuru üzebilir ya da şaşırtabilir veya yapamayacağın bir şeyi vaat ediyor.", "fa": "ممکن است مخاطب را برنجاند یا گیج کند، یا قول چیزی را می‌دهد که از عهده‌اش برنمی‌آیی."},
+      {"en": "Clear, but too direct or too vague for this reader in one place.", "tr": "Net ama bir yerde bu okur için fazla doğrudan ya da fazla belirsiz.", "fa": "روشن است، اما یک جا برای این مخاطب زیادی رُک یا زیادی مبهم است."},
+      {"en": "Polite and fits the reader, but one line sounds like a template.", "tr": "Kibar ve okura uygun ama bir satır hazır şablon gibi duruyor.", "fa": "مؤدبانه و مناسب مخاطب است، اما یک خط شبیه متن آماده است."},
+      {"en": "Polite, clear and specific; it fits this reader and every promise can be kept.", "tr": "Kibar, net ve somut; bu okura uygun ve her söz tutulabilir.", "fa": "مؤدبانه، روشن و مشخص؛ مناسب همین مخاطب است و هر قولی که داده عملی است."}
+    ],
+    "portfolioSources": {"bus-final-1": ["bus-1", "bus-2", "bus-cp-1"], "bus-final-2": ["bus-5", "bus-8", "bus-cp-2"], "bus-final-3": ["bus-9", "bus-10", "bus-cp-3"], "bus-final-4": ["bus-11", "bus-12"], "bus-final-5": ["bus-13"], "bus-final-6": ["bus-14", "bus-15", "bus-cp-4"]}
+  },
+  "app": {"status": "live", "cat": "gram", "icon": "suitcase", "freeUnits": ["bus-1", "bus-2"]},
+  "project": {
+    "id": "bus-final", "course": "business", "unit": "bus-final", "type": "project",
+    "title": {"en": "Final project: Your business pack", "tr": "Final projesi: İş dosyan", "fa": "پروژه‌ی پایانی: پرونده‌ی کاری تو"},
+    "brief": {
+      "en": "Build a business pack for your own job or the default company below. Six pieces. Your drafts from the lessons and chapter reviews are already in the slots; revise them for your situation. Then score each piece on the four-line checklist. A piece passes when every line is 2 or more.",
+      "tr": "Kendi işin ya da aşağıdaki varsayılan şirket için bir iş dosyası hazırla. Altı parça. Derslerden ve bölüm tekrarlarından taslakların yerlerinde duruyor; onları kendi durumuna göre düzelt. Sonra her parçayı dört satırlık kontrol listesiyle puanla. Her satır 2 ya da üstüyse parça geçer.",
+      "fa": "برای کار خودت یا شرکت پیش‌فرضِ پایین یک پرونده‌ی کاری درست کن. شش بخش. پیش‌نویس‌هایت از درس‌ها و مرورهای فصل از قبل سر جایشان هستند؛ آن‌ها را برای موقعیت خودت اصلاح کن. بعد هر بخش را با چک‌لیست چهارخطی نمره بده. اگر همه‌ی خط‌ها ۲ یا بیشتر باشند، آن بخش قبول است."
+    },
+    "defaultCompany": {
+      "en": "Default company: a mid-sized maker of kitchen cabinets in Bursa that exports to Germany and the Gulf. Facts: 140 staff; a new client in Munich ordered 300 cabinets for an apartment project; delivery was due on 15 May but the hinges arrived late, so the first 120 units leave on 29 May; last quarter's sales rose 12% to 4.1 million euros; the price on the table is 410 euros per unit for 300 units.",
+      "tr": "Varsayılan şirket: Bursa'da mutfak dolabı üreten, Almanya'ya ve Körfez'e ihracat yapan orta ölçekli bir firma. Bilgiler: 140 çalışan; Münih'teki yeni bir müşteri bir konut projesi için 300 dolap sipariş etti; teslim tarihi 15 Mayıs'tı ama menteşeler geç geldi, bu yüzden ilk 120 adet 29 Mayıs'ta çıkıyor; geçen çeyrekte satışlar %12 artarak 4,1 milyon avroya çıktı; masadaki fiyat 300 adet için adet başı 410 avro.",
+      "fa": "شرکت پیش‌فرض: یک تولیدکننده‌ی متوسطِ کابینت آشپزخانه در بورسا که به آلمان و کشورهای حاشیه‌ی خلیج فارس صادرات دارد. اطلاعات: ۱۴۰ کارمند؛ یک مشتری تازه در مونیخ برای یک پروژه‌ی آپارتمانی ۳۰۰ کابینت سفارش داده؛ تحویل برای ۱۵ مه بود، اما لولاها دیر رسیدند و برای همین ۱۲۰ عدد اول ۲۹ مه بار می‌شوند؛ فروش فصل گذشته ۱۲٪ بالا رفت و به ۴٫۱ میلیون یورو رسید؛ قیمتی که روی میز است برای ۳۰۰ عدد، هر عدد ۴۱۰ یورو است."
+    },
+    "rubric": {"en": ["Task done: every required point of the part is there", "Organised: clear moves in the right order", "Language: range and accuracy of the course language", "Tone: polite, clear and fits the reader; no promise you cannot keep"], "tr": ["Görev: parçanın gerektirdiği her nokta var", "Düzen: doğru sırada, açık adımlar", "Dil: kursun dil yapılarının çeşitliliği ve doğruluğu", "Üslup: kibar, net ve okura uygun; tutamayacağın söz yok"], "fa": ["کامل بودن کار: همه‌ی نکته‌های لازمِ این بخش آمده", "نظم: مرحله‌های روشن به ترتیب درست", "زبان: تنوع و درستی زبانی که در دوره یاد گرفتی", "لحن: مؤدبانه، روشن و مناسب مخاطب؛ بدون قولی که نتوانی عملی کنی"]},
+    "passRule": {"en": "Pass: every line of the checklist scores 2 or more in every part.", "tr": "Geçme: her parçada kontrol listesinin her satırı 2 ya da üstü.", "fa": "قبولی: در همه‌ی بخش‌ها هر خطِ چک‌لیست ۲ یا بیشتر بگیرد."},
+    "parts": [
+      {"id": "bus-final-1", "step": 1, "mode": "writing", "from": ["bus-1", "bus-2"], "scored": true, "minWords": 80,
+        "title": {"en": "Introduction email to a new client", "tr": "Yeni bir müşteriye tanışma e-postası", "fa": "ایمیل معرفی به یک مشتری تازه"},
+        "prompt": {"en": "Write to the new client (80-120 words): who you are and your role, what your company does in one line, why you are writing, one clear request with a date, and a friendly close.", "tr": "Yeni müşteriye yaz (80-120 kelime): kim olduğun ve görevin, şirketinin ne yaptığı tek satırda, neden yazdığın, tarihli tek net bir rica ve samimi bir kapanış.", "fa": "به مشتری تازه بنویس (۸۰ تا ۱۲۰ کلمه): کی هستی و نقشت چیست، شرکتت در یک خط چه کار می‌کند، چرا می‌نویسی، یک درخواست روشن با تاریخ و یک پایان دوستانه."},
+        "model": "Subject: Your cabinet order: next steps\n\nDear Ms Weber,\n\nI'm Selin Kaya, the export manager at Arda Mobilya. We make kitchen cabinets in Bursa and ship them to Germany and the Gulf. I'll be your contact for the Munich project.\n\nI'm writing to confirm the final drawings. Could you send them by Friday 10 May? Our factory needs them to plan production for your 300 units.\n\nIf it helps, I'm happy to go through them with you on a short call.\n\nBest regards,\nSelin Kaya"},
+      {"id": "bus-final-2", "step": 2, "mode": "writing", "from": ["bus-5", "bus-8"], "scored": true, "minWords": 80,
+        "title": {"en": "Meeting agenda and minutes", "tr": "Toplantı gündemi ve tutanağı", "fa": "دستور جلسه و صورت‌جلسه"},
+        "prompt": {"en": "Write a three-item agenda for a meeting about the late hinges, then the minutes (80-120 words in total): the decision on each item and the action points as who, what, by when.", "tr": "Geç gelen menteşelerle ilgili bir toplantı için üç maddelik bir gündem yaz, sonra tutanağı yaz (toplam 80-120 kelime): her maddedeki karar ve kim, ne, ne zamana kadar biçiminde eylem maddeleri.", "fa": "برای جلسه‌ای درباره‌ی دیر رسیدن لولاها یک دستور جلسه‌ی سه‌بندی بنویس، بعد صورت‌جلسه را (در مجموع ۸۰ تا ۱۲۰ کلمه): تصمیم هر بند و کارها به شکل چه کسی، چه کاری، تا کی."},
+        "model": "Agenda: 1. New delivery date 2. Message to the client 3. Hinge supplier\n\nMinutes, 7 May\n1. Delivery: we agreed to ship the first 120 units on 29 May and the rest on 12 June.\n2. Client: Selin will call Ms Weber today and confirm the dates by email.\n3. Supplier: we will ask for a second hinge supplier quote.\n\nAction points\n- Selin: call and email the client, today.\n- Murat: send the production plan to the team, by 8 May.\n- Deniz: get a quote from a second supplier, by 14 May."},
+      {"id": "bus-final-3", "step": 3, "mode": "speaking", "from": ["bus-9", "bus-10"], "scored": true, "minWords": 0,
+        "title": {"en": "A 3-minute update with one slide", "tr": "Tek slaytlı 3 dakikalık güncelleme", "fa": "گزارش ۳ دقیقه‌ای با یک اسلاید"},
+        "prompt": {"en": "Plan and record a 3-minute talk on last quarter's sales: the main message first, three points with the numbers and what they mean, and one next step. Write the one slide's title as a full sentence.", "tr": "Geçen çeyreğin satışları hakkında 3 dakikalık bir konuşma planla ve kaydet: önce ana mesaj, rakamları ve anlamlarıyla üç nokta ve bir sonraki adım. Tek slaytın başlığını tam bir cümle olarak yaz.", "fa": "یک صحبت ۳ دقیقه‌ای درباره‌ی فروش فصل گذشته آماده و ضبط کن: اول پیام اصلی، بعد سه نکته با عددها و معنی‌شان و یک قدم بعدی. عنوان تنها اسلایدت را یک جمله‌ی کامل بنویس."},
+        "model": "Slide title: Sales rose 12% last quarter, led by Germany.\n\nGood morning. My main message is simple: sales grew 12% last quarter, to 4.1 million euros, and Germany drove most of it. First, Germany: up 20%, because of two apartment projects. Second, the Gulf: flat, which means our new distributor needs more time. Third, costs: hinge prices rose 8%, so our margin fell slightly. Next step: we will test a second hinge supplier in June. Thank you. Any questions?"},
+      {"id": "bus-final-4", "step": 4, "mode": "writing", "from": ["bus-11", "bus-12"], "scored": true, "minWords": 100,
+        "title": {"en": "One-page project report", "tr": "Tek sayfalık proje raporu", "fa": "گزارش یک‌صفحه‌ای پروژه"},
+        "prompt": {"en": "Write a short report on the Munich order (100-150 words) with four headings: Summary, Progress, Problems and actions, Next steps. Put the most important fact first.", "tr": "Münih siparişi hakkında dört başlıklı kısa bir rapor yaz (100-150 kelime): Summary, Progress, Problems and actions, Next steps. En önemli bilgiyi en başa koy.", "fa": "درباره‌ی سفارش مونیخ یک گزارش کوتاه بنویس (۱۰۰ تا ۱۵۰ کلمه) با چهار تیتر: Summary، Progress، Problems and actions، Next steps. مهم‌ترین واقعیت را اول بیاور."},
+        "model": "Summary\nThe first 120 cabinets will ship on 29 May, two weeks late, because the hinges arrived late. The rest will follow on 12 June.\n\nProgress\n180 units are built and checked. The doors for the last 120 are in production.\n\nProblems and actions\nOur hinge supplier delivered ten days late. We have ordered extra hinges and asked a second supplier for a quote.\n\nNext steps\n- Confirm the new dates with the client in writing (Selin, 8 May).\n- Choose a back-up supplier (Deniz, 14 May)."},
+      {"id": "bus-final-5", "step": 5, "mode": "writing", "from": ["bus-13"], "scored": true, "minWords": 70,
+        "title": {"en": "Email confirming agreed terms", "tr": "Varılan koşulları teyit eden e-posta", "fa": "ایمیل تأیید شرایطِ توافق‌شده"},
+        "prompt": {"en": "After the call, confirm what you agreed (70-100 words): the price per unit, the quantity, the delivery dates, the payment terms, and what happens next. Use exact numbers.", "tr": "Görüşmeden sonra neyde anlaştığınızı teyit et (70-100 kelime): adet fiyatı, miktar, teslim tarihleri, ödeme koşulları ve sonraki adım. Tam rakamlar kullan.", "fa": "بعد از تماس، چیزی را که سرش توافق کردید تأیید کن (۷۰ تا ۱۰۰ کلمه): قیمت هر عدد، تعداد، تاریخ‌های تحویل، شرایط پرداخت و قدم بعدی. عددها را دقیق بنویس."},
+        "model": "Dear Ms Weber,\n\nThank you for the call today. To confirm what we agreed:\n- Price: 395 euros per unit for 300 units, because you will take the second batch on 12 June.\n- Delivery: 120 units on 29 May, 180 units on 12 June.\n- Payment: 30% on order, 70% within 30 days of each delivery.\n\nI will send the updated order confirmation by Thursday. Please let me know if anything here is different from your notes.\n\nBest regards,\nSelin"},
+      {"id": "bus-final-6", "step": 6, "mode": "writing", "from": ["bus-14", "bus-15"], "scored": true, "minWords": 80,
+        "title": {"en": "Reply to a complaint, with a plan", "tr": "Bir şikâyete planlı cevap", "fa": "جواب شکایت، همراه با برنامه"},
+        "prompt": {"en": "The client writes: \"Twelve cabinet doors arrived scratched. This is not acceptable.\" Reply (80-120 words): thank them and show you understand, apologise for the problem, say what you will do and when, and what you will change so it does not happen again.", "tr": "Müşteri yazıyor: \"On iki dolap kapağı çizik geldi. Bu kabul edilemez.\" Cevap ver (80-120 kelime): teşekkür et ve anladığını göster, sorun için özür dile, ne yapacağını ve ne zaman yapacağını söyle, bir daha olmaması için neyi değiştireceğini yaz.", "fa": "مشتری نوشته: «دوازده درِ کابینت خط‌افتاده رسید. این قابل قبول نیست.» جواب بده (۸۰ تا ۱۲۰ کلمه): تشکر کن و نشان بده درکش می‌کنی، برای مشکل عذرخواهی کن، بگو چه کار می‌کنی و کی، و چه چیزی را عوض می‌کنی تا دوباره پیش نیاید."},
+        "model": "Dear Ms Weber,\n\nThank you for telling us so quickly, and I'm sorry: twelve scratched doors is not the standard you should get from us.\n\nWe will send twelve new doors by express on Monday, and they will arrive by Thursday 23 May. You don't need to return the damaged ones.\n\nWe checked the packing and found the cause: the doors were not separated by foam. From this week every door is packed in its own foam sleeve.\n\nI'll call you on Thursday to make sure everything is fine.\n\nBest regards,\nSelin Kaya"}
+    ],
+    "certificate": {
+      "title": {"en": "Complete Business English", "tr": "Kapsamlı İş İngilizcesi", "fa": "دوره‌ی جامع انگلیسی تجاری"},
+      "disclaimer": {"en": "This certificate shows completion of an FEschool course. It is not an official CEFR or Cambridge certificate, and it is not a business or management qualification.", "tr": "Bu sertifika bir FEschool kursunun tamamlandığını gösterir. Resmî bir CEFR ya da Cambridge sertifikası değildir; işletme ya da yöneticilik belgesi de değildir.", "fa": "این گواهی نشان می‌دهد یک دوره‌ی FEschool را تمام کرده‌ای. گواهی رسمی CEFR یا کمبریج نیست و مدرک کسب‌وکار یا مدیریت هم نیست."},
+      "canDo": [
+        {"en": "I can introduce myself and my company, and write work emails that get a clear answer.", "tr": "Kendimi ve şirketimi tanıtabilir, net cevap alan iş e-postaları yazabilirim.", "fa": "می‌توانم خودم و شرکتم را معرفی کنم و ایمیل‌های کاری بنویسم که جواب روشن بگیرند."},
+        {"en": "I can run a meeting in English, disagree politely, reach a decision and write the minutes.", "tr": "İngilizce toplantı yönetebilir, kibarca itiraz edebilir, karara varıp tutanak yazabilirim.", "fa": "می‌توانم جلسه را به انگلیسی اداره کنم، مؤدبانه مخالفت کنم، به تصمیم برسم و صورت‌جلسه بنویسم."},
+        {"en": "I can present numbers and trends, and report on a project, including bad news.", "tr": "Rakamları ve eğilimleri sunabilir, kötü haber dahil bir projeyi raporlayabilirim.", "fa": "می‌توانم عدد و روند را ارائه بدهم و گزارش پروژه بدهم، حتی وقتی خبر بد است."},
+        {"en": "I can negotiate price and terms and confirm them in writing.", "tr": "Fiyat ve koşulları pazarlık edip yazılı olarak teyit edebilirim.", "fa": "می‌توانم سر قیمت و شرایط مذاکره کنم و کتبی تأییدشان کنم."},
+        {"en": "I can handle a complaint and write a short proposal that a client can say yes to.", "tr": "Bir şikâyeti çözebilir ve müşterinin evet diyebileceği kısa bir teklif yazabilirim.", "fa": "می‌توانم به شکایت رسیدگی کنم و پروپوزال کوتاهی بنویسم که مشتری بتواند قبولش کند."}
+      ]
+    }
+  }
+}
