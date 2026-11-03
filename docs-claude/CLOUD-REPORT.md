@@ -51,3 +51,27 @@ check, a "Result of this lesson" line and Turkish/Persian notes. Three gaps agai
 
 **Farin to decide**
 - Port the cloud patches into `Claude/specs/lxd-course-hr` on the PC (or keep running `apply-hr.mjs` after each sync).
+
+## Task 1b: objective + Common mistake pass on every existing premium lesson (2026-11-03)
+
+Done while the Exam 11 / Business / Copywriting writers were running. Covers IELTS exams 1-10 (100 lessons), English for AI
+and the Internet (16), Job Interview (9), Copywriting (12) and Sales & Trade (12): 149 lessons, in the lazy lesson files and
+the course blocks. Chapter reviews have no Learn page, so nothing to change there. All lessons already ended with a result line.
+
+**Changed**
+- Objective in en/tr/fa on every lesson (unit card + Learn page): "After this lesson, you can…" / "Bu dersin sonunda …-ebileceksin." /
+  «بعد از این درس می‌توانی …». Turkish is converted by rule (-mayı/-meyi öğreneceksin → -abileceksin) with a guard for nouns that look
+  like infinitives (bir konuşmayı, kelimeyi, aşamayı…) and two hand fixes (`objectives-tr.json`). Every converted sentence was reviewed.
+- A Common mistake pair on each lesson's language point (AI, Interview, Copywriting, Sales) or trap point (IELTS, written as a mini exam
+  item: ✗ the tempting answer, ✓ the right one and why). IELTS pairs are on the Academic Learn page; GT pages keep their trap text.
+- Each changed chapter's lazy `v` is bumped so installed apps refetch the lesson files.
+- Files: `apply-objectives.mjs`, `objectives-tr.json`, `apply-mistakes.mjs`, `mistakes-2026-11-03.json`, `mistakes-ielts-1.json`, `mistakes-ielts-2.json`.
+
+**Before → after**
+- x03-r1 (Reading, FALSE or NOT GIVEN?): ✗ "'The horse was first bred in Spain.' The passage says Portugal → NOT GIVEN." ✓ "The text gives the
+  opposite (Portugal) → FALSE."
+- ai-16 objective (tr): "Bu derste bir konuşmayı işaret sözcükleriyle takip etmeyi … öğreneceksin." → "Bu dersin sonunda bir konuşmayı işaret
+  sözcükleriyle takip edebilecek, yapay zekâ notlarını düzeltebilecek ve beş satırlık rapor yazabileceksin."
+
+**Left:** the tips next to the new pairs are the lessons' existing tr/fa tips; the Persian pass (task 6) re-reads them.
+**Farin to decide:** nothing new. Re-run the two apply scripts after any local sync, or port the pairs into the specs.
