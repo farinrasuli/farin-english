@@ -1,0 +1,1318 @@
+{"en":"Speaking — Extend Every Answer","tr":"Konuşma — Her Cevabı Genişlet","fa":"مکالمه — هر پاسخ را گسترش بده","owner":"IELTS_STRATEGY"}
+{"en":"One-word answers cost you points. Always add a reason, an example, or a short story after your answer.","tr":"Tek kelimelik cevaplar puan kaybettirir. Cevabından sonra her zaman bir sebep, örnek veya kısa bir hikaye ekle.","fa":"پاسخ‌های تک‌کلمه‌ای امتیاز را کم می‌کنند. همیشه بعد از پاسخ خود یک دلیل، مثال یا داستان کوتاه اضافه کن.","owner":"IELTS_STRATEGY"}
+{"en":"Listening — Predict Before You Hear","tr":"Dinleme — Duymadan Önce Tahmin Et","fa":"شنیدن — قبل از شنیدن حدس بزن","owner":"IELTS_STRATEGY"}
+{"en":"Read the questions before the audio starts. Predicting the type of answer (a name, a number, a place) helps you catch it faster.","tr":"Ses başlamadan önce soruları oku. Cevabın türünü (isim, sayı, yer) önceden tahmin etmek, onu daha hızlı yakalamana yardımcı olur.","fa":"قبل از شروع صدا سؤال‌ها را بخوان. حدس زدن نوع پاسخ (اسم، عدد، مکان) به تو کمک می‌کند سریع‌تر آن را بشنوی.","owner":"IELTS_STRATEGY"}
+{"en":"Reading — Skim First, Then Scan","tr":"Okuma — Önce Göz Gezdir, Sonra Tara","fa":"خواندن — اول نگاه کلی، بعد جستجوی هدفمند","owner":"IELTS_STRATEGY"}
+{"en":"Skim the passage quickly for the general idea, then scan for keywords from the questions instead of reading every word.","tr":"Metne genel fikri anlamak için hızlıca göz gezdir, sonra her kelimeyi okumak yerine sorulardaki anahtar kelimeleri ara.","fa":"ابتدا سریع متن را برای فهمیدن ایده کلی نگاه کن، بعد به‌جای خواندن کلمه‌به‌کلمه، دنبال کلیدواژه‌های سؤال‌ها بگرد.","owner":"IELTS_STRATEGY"}
+{"en":"Writing Task 2 — Plan Before You Write","tr":"Yazma Görevi 2 — Yazmadan Önce Planla","fa":"نگارش تسک ۲ — قبل از نوشتن برنامه‌ریزی کن","owner":"IELTS_STRATEGY"}
+{"en":"Spend 3-4 minutes planning your essay structure before writing. A clear structure matters more than fancy vocabulary.","tr":"Yazmadan önce denemenin yapısını planlamak için 3-4 dakika ayır. Net bir yapı, gösterişli kelimelerden daha önemlidir.","fa":"قبل از نوشتن، ۳ تا ۴ دقیقه برای برنامه‌ریزی ساختار مقاله وقت بگذار. ساختار روشن مهم‌تر از واژگان پیچیده است.","owner":"IELTS_STRATEGY"}
+{"en":"Grammar — Range Over Perfection","tr":"Dilbilgisi — Mükemmellikten Çok Çeşitlilik","fa":"گرامر — تنوع مهم‌تر از بی‌نقصی","owner":"IELTS_STRATEGY"}
+{"en":"Examiners reward a range of grammar structures, even with small mistakes, more than repeating the same simple sentence correctly.","tr":"Sınav görevlileri, küçük hatalar içerse bile çeşitli dilbilgisi yapılarını, aynı basit cümleyi doğru şekilde tekrarlamaktan daha çok ödüllendirir.","fa":"ممتحنان به تنوع ساختارهای گرامری، حتی با اشتباهات کوچک، بیشتر از تکرار درست یک جمله ساده امتیاز می‌دهند.","owner":"IELTS_STRATEGY"}
+{"en":"General — Manage Your Time","tr":"Genel — Zamanını Yönet","fa":"کلی — زمانت را مدیریت کن","owner":"IELTS_STRATEGY"}
+{"en":"Never spend too long on one question. Move on and come back later if you have time left.","tr":"Bir soruda asla çok fazla zaman harcama. Devam et, zamanın kalırsa daha sonra geri dön.","fa":"هرگز روی یک سؤال زیاد وقت نگذار. جلو برو و اگر وقت باقی ماند، بعداً برگرد.","owner":"IELTS_STRATEGY"}
+{"en":"United States","tr":"Amerika Birleşik Devletleri","fa":"ایالات متحده آمریکا","owner":"IMMIGRATION_CULTURE"}
+{"en":"Small talk is common and expected, even with strangers — a quick \"How's it going?\" is normal, not deeply personal.","tr":"Küçük sohbet çok yaygındır, yabancılarla bile — hızlı bir \"How's it going?\" kişisel bir soru değil, sadece bir nezaket ifadesidir.","fa":"گفتگوی کوتاه حتی با غریبه‌ها معمول است — یک «چطوری؟» سریع صرفاً نزاکت است، نه سؤالی شخصی.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Directness is valued at work — saying what you think clearly is usually seen as honest, not rude.","tr":"İş yerinde açık sözlülük değerlidir — düşündüğünü net söylemek kabalık değil, dürüstlük olarak görülür.","fa":"صراحت در محیط کار ارزشمند است — گفتن واضح نظر خود معمولاً صداقت تلقی می‌شود، نه بی‌ادبی.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Tipping (15-20%) is expected at restaurants — it is part of how service workers are paid.","tr":"Restoranlarda bahşiş (%15-20) beklenir — servis çalışanlarının maaşının bir parçasıdır.","fa":"انعام (۱۵ تا ۲۰ درصد) در رستوران‌ها انتظار می‌رود — بخشی از دستمزد کارکنان است.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Canada","tr":"Kanada","fa":"کانادا","owner":"IMMIGRATION_CULTURE"}
+{"en":"Politeness markers like \"sorry\" and \"thank you\" are used very often, even in small interactions.","tr":"\"Sorry\" ve \"thank you\" gibi nezaket ifadeleri çok sık kullanılır, küçük etkileşimlerde bile.","fa":"عبارات ادب مثل «sorry» و «thank you» حتی در تعاملات کوچک هم زیاد استفاده می‌شوند.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Personal space matters — stand at a comfortable distance and avoid touching people you just met.","tr":"Kişisel alan önemlidir — rahat bir mesafede durun ve yeni tanıştığınız kişilere dokunmaktan kaçının.","fa":"فضای شخصی مهم است — فاصله مناسب را حفظ کنید و از تماس بدنی با افراد تازه‌آشنا خودداری کنید.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Healthcare and workplace culture vary by province — always check local (provincial) rules, not just national ones.","tr":"Sağlık ve iş kültürü eyaletten eyalete değişir — sadece ulusal değil, yerel (eyalet) kurallarını da kontrol edin.","fa":"فرهنگ کاری و بهداشتی بسته به استان فرق دارد — علاوه بر قوانین ملی، قوانین محلی (استانی) را هم بررسی کنید.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Australia","tr":"Avustralya","fa":"استرالیا","owner":"IMMIGRATION_CULTURE"}
+{"en":"Communication is casual and friendly, even in professional settings — first names are used quickly.","tr":"İletişim, profesyonel ortamlarda bile gündelik ve samimidir — isimler hızlıca kullanılmaya başlanır.","fa":"ارتباطات حتی در محیط‌های حرفه‌ای هم غیررسمی و دوستانه است — به‌سرعت از نام کوچک استفاده می‌شود.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Self-deprecating humor is common — people often joke about themselves rather than boast.","tr":"Kendini küçümseyen mizah yaygındır — insanlar övünmek yerine kendileriyle dalga geçmeyi tercih eder.","fa":"شوخی با خود رایج است — افراد اغلب به‌جای فخرفروشی، با خودشان شوخی می‌کنند.","owner":"IMMIGRATION_CULTURE"}
+{"en":"\"No worries\" is used constantly — as a reply to thanks, an apology, or almost any small request.","tr":"\"No worries\" sürekli kullanılır — teşekküre, özüre veya küçük bir isteğe yanıt olarak.","fa":"عبارت «No worries» مدام استفاده می‌شود — در پاسخ به تشکر، عذرخواهی یا هر درخواست کوچک.","owner":"IMMIGRATION_CULTURE"}
+{"en":"United Kingdom","tr":"Birleşik Krallık","fa":"بریتانیا","owner":"IMMIGRATION_CULTURE"}
+{"en":"Queueing (standing in line) is taken very seriously — jumping a queue is considered quite rude.","tr":"Sırada beklemek çok ciddiye alınır — sıra atlamak oldukça kaba karşılanır.","fa":"رعایت نوبت (صف ایستادن) بسیار جدی گرفته می‌شود — جلو زدن از صف بی‌ادبی محسوب می‌شود.","owner":"IMMIGRATION_CULTURE"}
+{"en":"Understatement is common — \"not bad\" can actually mean \"very good,\" and \"quite good\" can mean just okay.","tr":"Az söylemek (understatement) yaygındır — \"not bad\" aslında \"çok iyi\" anlamına gelebilir, \"quite good\" ise sadece \"fena değil\" demektir.","fa":"کم‌گویی رایج است — «not bad» ممکن است در واقع به معنای «خیلی خوب» باشد و «quite good» یعنی فقط «بد نیست».","owner":"IMMIGRATION_CULTURE"}
+{"en":"Punctuality matters for work and appointments — arriving even a few minutes late is noticed.","tr":"İş ve randevularda dakiklik önemlidir — birkaç dakika bile geç kalmak fark edilir.","fa":"وقت‌شناسی برای کار و قرار ملاقات مهم است — حتی چند دقیقه تأخیر هم به چشم می‌آید.","owner":"IMMIGRATION_CULTURE"}
+{"en":"A person you do not know.","tr":"yabancı","fa":"غریبه","owner":"IMMIGRATION_CULTURE"}
+{"en":"Difficult to understand or deal with.","tr":"karmaşık","fa":"پیچیده","owner":"IELTS_STRATEGY"}
+{"en":"The quality of telling the truth.","tr":"dürüstlük","fa":"صداقت","owner":"IMMIGRATION_CULTURE"}
+{"en":"At work","tr":"İş yerinde","fa":"در محیط کار","owner":"IMMIGRATION_CULTURE"}
+{"en":"the person who listens and gives you a score","tr":"sınav görevlisi","fa":"ممتحن","owner":"IELTS_STRATEGY"}
+{"en":"Go!","tr":"Başla!","fa":"برو!","owner":"renderDiagUnlock"}
+{"en":"The letter","tr":"Mektup","fa":"نامه","owner":"renderPracticeRecommendation"}
+{"en":"One way to say it","tr":"Söylemenin bir yolu","fa":"یک راه برای گفتنش","owner":"renderDialogue"}
+{"en":"Words","tr":"Kelime","fa":"واژه‌ها","owner":"IELTS_STRATEGY"}
+{"en":"Leyla Karimi has just become HR specialist at Atlas Logistics. Dubai needs 12 people in English by March. You will do every task with her: job ads, interviews, feedback talks, offers, exits.","tr":"Leyla Karimi, Atlas Logistics'te İK uzmanı olarak yeni başladı. Dubai'nin mart ayına kadar İngilizce çalışacak 12 kişiye ihtiyacı var. Her görevi onunla birlikte yapacaksın: iş ilanları, mülakatlar, geri bildirim görüşmeleri, teklifler, ayrılışlar.","fa":"لیلا کریمی تازه کارشناس منابع انسانی شرکت Atlas Logistics شده است. دبی تا ماه مارس به ۱۲ نفر انگلیسی‌زبان نیاز دارد. هر کار را همراه او انجام می‌دهی: آگهی استخدام، مصاحبه، گفتگوی بازخورد، پیشنهاد کار و خروج.","owner":"COURSE_INTRO"}
+{"en":"You play Leyla: you write her emails, make her calls and run her interviews.","tr":"Leyla sensin: onun e-postalarını yazıyor, aramalarını yapıyor ve mülakatlarını yürütüyorsun.","fa":"تو نقش لیلا را بازی می‌کنی: ایمیل‌هایش را می‌نویسی، تماس‌هایش را می‌گیری و مصاحبه‌هایش را پیش می‌بری.","owner":"COURSE_INTRO"}
+{"en":"You finish with 7 real HR documents and a certificate.","tr":"Sonunda 7 gerçek İK belgen ve bir sertifikan olur.","fa":"در پایان ۷ سند واقعی منابع انسانی و یک گواهی‌نامه داری.","owner":"COURSE_INTRO"}
+{"en":"Vocabulary","tr":"Kelime bilgisi","fa":"واژگان","owner":"IELTS_STRATEGY"}
+{"en":"Your game plan","tr":"Senin oyun planın","fa":"برنامه بازی تو","owner":"renderPracticeRecommendation"}
+{"en":"Start here","tr":"Buradan başla","fa":"از اینجا شروع کن","owner":"renderPracticeRecommendation"}
+{"en":"Ta-da — new badge unlocked!","tr":"İşte bu — yeni rozet açıldı!","fa":"بفرمایید — نشان جدید باز شد!","owner":"renderBadgeUnlockCard"}
+{"en":"First set up your account. Then this course opens:","tr":"Önce hesabını oluştur. Ardından şu kurs açılacak:","fa":"اول حسابت را بساز. بعدش این دوره باز می‌شود:","owner":"courseLinkNoteHtml"}
+{"en":"American English","tr":"Amerikan İngilizcesi","fa":"انگلیسی آمریکایی","owner":"TTS_AUDIO_VOICES"}
+{"en":"British English","tr":"İngiliz İngilizcesi","fa":"انگلیسی بریتانیایی","owner":"TTS_AUDIO_VOICES"}
+{"en":"Argentinian Spanish","tr":"Arjantin İspanyolcası","fa":"اسپانیایی آرژانتینی","owner":"TTS_AUDIO_VOICES"}
+{"en":"Spanish from Spain","tr":"İspanya İspanyolcası","fa":"اسپانیایی اسپانیا","owner":"TTS_AUDIO_VOICES"}
+{"en":"Switch to","tr":"Şuna geç:","fa":"تغییر به","owner":"COURSE_EXTRA"}
+{"en":"Your password needs at least 6 characters.","tr":"Şifren en az 6 karakter olmalı.","fa":"رمزت باید حداقل ۶ کاراکتر باشد.","owner":"pwErrorText"}
+{"en":"The two passwords don't match.","tr":"İki şifre birbirini tutmuyor.","fa":"دو رمز با هم یکی نیستند.","owner":"pwErrorText"}
+{"en":"Someone already uses this name with this password. Please choose a different password.","tr":"Bu ad ve şifreyi zaten başka biri kullanıyor. Lütfen farklı bir şifre seç.","fa":"کس دیگری همین اسم و رمز را دارد. لطفاً رمز دیگری انتخاب کن.","owner":"pwErrorText"}
+{"en":"We couldn't find an account with that name and password.","tr":"Bu ad ve şifreyle bir hesap bulamadık.","fa":"حسابی با این اسم و رمز پیدا نکردیم.","owner":"pwErrorText"}
+{"en":"We couldn't reach the server. Check your connection and try again.","tr":"Sunucuya ulaşamadık. Bağlantını kontrol edip tekrar dene.","fa":"نتوانستیم به سرور وصل شویم. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"pwErrorText"}
+{"en":"Show","tr":"Göster","fa":"نمایش","owner":"STORY_LIBRARY"}
+{"en":"This week: ${Math.min(n, goal)} of ${goal} days","tr":"Bu hafta: ${Math.min(n, goal)}/${goal} gün","fa":"این هفته: ${Math.min(n, goal)} از ${goal} روز","owner":"weekChipHtml"}
+{"en":"Your week","tr":"Haftan","fa":"هفته تو","owner":"openRhythmSheet"}
+{"en":"Week goal reached — lovely rhythm!","tr":"Haftalık hedef tamam — harika bir ritim!","fa":"هدف این هفته کامل شد — ریتم قشنگی است!","owner":"openRhythmSheet"}
+{"en":"${n} of ${goal} days this week","tr":"Bu hafta ${n}/${goal} gün","fa":"${n} از ${goal} روز این هفته","owner":"openRhythmSheet"}
+{"en":"How many days a week?","tr":"Haftada kaç gün?","fa":"هفته‌ای چند روز؟","owner":"openRhythmSheet"}
+{"en":"${g} days","tr":"${g} gün","fa":"${g} روز","owner":"openRhythmSheet"}
+{"en":"weeks in rhythm","tr":"ritimde geçen hafta","fa":"هفته در ریتم","owner":"BADGES"}
+{"en":"day streak","tr":"gün serisi","fa":"روز پشت سر هم","owner":"openRhythmSheet"}
+{"en":"✓ A rest week is saved for you","tr":"✓ Senin için bir dinlenme haftası ayrıldı","fa":"✓ یک هفته استراحت برایت کنار گذاشته شده","owner":"openRhythmSheet"}
+{"en":"Every 4 good weeks save you a rest week","tr":"Her 4 iyi hafta sana bir dinlenme haftası kazandırır","fa":"هر ۴ هفته خوب، یک هفته استراحت برایت ذخیره می‌کند","owner":"openRhythmSheet"}
+{"en":"Done","tr":"Tamam","fa":"باشه","owner":"GRAMMAR_ITEMS"}
+{"en":"Next: shine ${n} souvenir${n===1?'':'s'}","tr":"Sırada: ${n} hatırayı parlat","fa":"بعدی: ${n} یادگاری را بدرخشان","owner":"planStepLabel"}
+{"en":"Start","tr":"Başla","fa":"شروع","owner":"CALIBRATION"}
+{"en":"One quick game","tr":"Kısa bir oyun","fa":"یک بازی کوتاه","owner":"planStepLabel"}
+{"en":"Play","tr":"Oyna","fa":"بازی کن","owner":"STORY_META_P2"}
+{"en":"Next","tr":"Sırada","fa":"بعدی","owner":"GRAMMAR_ITEMS"}
+{"en":"Go","tr":"Git","fa":"برو","owner":"CALIBRATION"}
+{"en":"Tomorrow: ","tr":"Yarın: ","fa":"فردا: ","owner":"tomorrowPreview"}
+{"en":"${k} souvenir${k===1?'':'s'} will be ready to shine.","tr":"${k} hatıra parlamaya hazır olacak.","fa":"${k} یادگاری آماده درخشیدن می‌شود.","owner":"tomorrowPreview"}
+{"en":"How many days a week shall we meet, ${name}?","tr":"Haftada kaç gün buluşalım, ${name}?","fa":"هفته‌ای چند روز همدیگر را ببینیم، ${name}؟","owner":"companionPlanHtml"}
+{"en":"You can change it any time.","tr":"İstediğin zaman değiştirebilirsin.","fa":"هر وقت خواستی می‌توانی عوضش کنی.","owner":"companionPlanHtml"}
+{"en":"${n} souvenir${n===1?' is':'s are'} ready to shine.","tr":"${n} hatıra parlamaya hazır.","fa":"${n} یادگاری آماده درخشیدن است.","owner":"companionPlanHtml"}
+{"en":"Quick stop or full stop today?","tr":"Bugün kısa mı uzun mu?","fa":"امروز توقف کوتاه یا کامل؟","owner":"companionPlanHtml"}
+{"en":"Quick stop · 5 min","tr":"Kısa · 5 dk","fa":"کوتاه – ۵ دقیقه","owner":"companionPlanHtml"}
+{"en":"Full stop · 20 min","tr":"Tam · 20 dk","fa":"کامل – ۲۰ دقیقه","owner":"companionPlanHtml"}
+{"en":"Good stop for today, ${name}!","tr":"Bugünlük güzel bir durak, ${name}!","fa":"برای امروز توقف خوبی بود، ${name}!","owner":"companionPlanHtml"}
+{"en":"One more game?","tr":"Bir oyun daha?","fa":"یک بازی دیگر؟","owner":"companionPlanHtml"}
+{"en":"Move up to ${lab}","tr":"${lab} seviyesine geç","fa":"برو به ${lab}","owner":"calibOfferHtml"}
+{"en":"Start at ${lab}","tr":"${lab} seviyesinden başla","fa":"از ${lab} شروع کن","owner":"calibOfferHtml"}
+{"en":"Stay here","tr":"Burada kal","fa":"همین‌جا بمان","owner":"calibOfferHtml"}
+{"en":"Good to see you, ${name}!","tr":"Seni görmek çok güzel, ${name}!","fa":"چه خوب که دوباره می‌بینمت، ${name}!","owner":"companionBubbleContent"}
+{"en":"Shall we warm up with 3 of your souvenirs?","tr":"3 hatıranla ısınalım mı?","fa":"با ۳ تا از یادگاری‌هایت گرم کنیم؟","owner":"companionBubbleContent"}
+{"en":"Warm up","tr":"Isın","fa":"گرم کنیم","owner":"companionBubbleContent"}
+{"en":"Your roadmap is right where you left it.","tr":"Yol haritan bıraktığın yerde.","fa":"نقشه راهت همان‌جایی است که رهایش کردی.","owner":"companionBubbleContent"}
+{"en":"Which sentence is correct?","tr":"Hangi cümle doğru?","fa":"کدام جمله درست است؟","owner":"srsGrammarQ"}
+{"en":"Which word means this?","tr":"Hangi kelime bu anlama geliyor?","fa":"کدام کلمه این معنی را دارد؟","owner":"srsVocabQ"}
+{"en":"Which word from the story means this?","tr":"Hikayedeki hangi kelime bu anlama geliyor?","fa":"کدام کلمه داستان این معنی را دارد؟","owner":"srsStoryQ"}
+{"en":"Fix the mistake. Which sentence is right?","tr":"Hatayı düzelt. Hangi cümle doğru?","fa":"اشتباه را درست کن. کدام جمله درست است؟","owner":"srsGrammarPools"}
+{"en":"Put the words in order.","tr":"Kelimeleri sıraya koy.","fa":"کلمه‌ها را به ترتیب بچین.","owner":"srsGrammarPools"}
+{"en":"Vocab","tr":"Kelime","fa":"کلمات","owner":"PRIORITY_OPTIONS"}
+{"en":"Slang","tr":"Argo","fa":"اصطلاحات","owner":"LEVEL_OPTIONS"}
+{"en":"Song","tr":"Şarkı","fa":"آهنگ","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"Watch or listen","tr":"İzle veya dinle","fa":"تماشا یا گوش‌کن","owner":"nodeTitle"}
+{"en":"Writing practice","tr":"Yazma pratiği","fa":"تمرین نوشتن","owner":"nodeTitle"}
+{"en":"Speaking practice","tr":"Konuşma pratiği","fa":"تمرین صحبت‌کردن","owner":"nodeTitle"}
+{"en":"Vocab Box","tr":"Kelime Kutusu","fa":"جعبهٔ لغات","owner":"nodeTitle"}
+{"en":"Vocab warm-up","tr":"Kelime ısınması","fa":"گرم‌کردن با کلمات","owner":"nodeTitle"}
+{"en":"Dialogue","tr":"Diyalog","fa":"گفت‌وگو","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"review","tr":"tekrar","fa":"مرور","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"and","tr":"ve","fa":"و","owner":"ARCHETYPES"}
+{"en":"Not set","tr":"Belirtilmemiş","fa":"تنظیم‌نشده","owner":"goalLabel"}
+{"en":"You","tr":"Sen","fa":"تو","owner":"ARCHETYPES"}
+{"en":"Listen","tr":"Dinle","fa":"گوش کن","owner":"GRAMMAR_ITEMS"}
+{"en":"Listen and read","tr":"Dinle ve oku","fa":"گوش کن و بخوان","owner":"renderDialogue"}
+{"en":"Say it","tr":"Söyle","fa":"بگو","owner":"LEVEL_OPTIONS"}
+{"en":"Your turn","tr":"Sıra sende","fa":"نوبت توست","owner":"renderDialogue"}
+{"en":"Culture and perspective","tr":"Kültür ve bakış açısı","fa":"فرهنگ و زاویه‌ی دید","owner":"renderDialogue"}
+{"en":"Step ${step + 1} of ${DLG_STEPS}","tr":"Adım ${step + 1}/${DLG_STEPS}","fa":"مرحله‌ی ${step + 1} از ${DLG_STEPS}","owner":"renderDialogue"}
+{"en":"Listen to the other person. What is happening?","tr":"Diğer kişiyi dinle. Ne oluyor?","fa":"به آن یکی گوش کن. چه اتفاقی می‌افتد؟","owner":"renderDialogue"}
+{"en":"Show the words","tr":"Kelimeleri göster","fa":"کلمه‌ها را نشان بده","owner":"renderDialogue"}
+{"en":"Listen again and read. Your lines are the ones marked You.","tr":"Tekrar dinle ve oku. Senin repliklerin \"Sen\" yazanlar.","fa":"دوباره گوش کن و بخوان. جمله‌های تو آن‌هایی هستند که «تو» دارند.","owner":"renderDialogue"}
+{"en":"Useful expressions","tr":"İşe yarar ifadeler","fa":"عبارت‌های به‌دردبخور","owner":"renderDialogue"}
+{"en":"Listen to each line, then say it out loud the same way.","tr":"Her cümleyi dinle, sonra aynı şekilde yüksek sesle söyle.","fa":"هر جمله را گوش کن، بعد همان‌طور بلند بگو.","owner":"renderDialogue"}
+{"en":"Said it","tr":"Söyledim","fa":"گفتم","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"What do you say?","tr":"Ne dersin?","fa":"چه می‌گویی؟","owner":"MEDIA_EN_ADDITIONS"}
+{"en":"Not quite. Try again.","tr":"Tam değil. Tekrar dene.","fa":"کاملاً درست نیست. دوباره امتحان کن.","owner":"renderDialogue"}
+{"en":"Type what you would say.","tr":"Ne söyleyeceğini yaz.","fa":"بنویس چه می‌گویی.","owner":"renderDialogue"}
+{"en":"Check","tr":"Kontrol et","fa":"بررسی کن","owner":"GRAMMAR_PRACTICE_A1A2"}
+{"en":"Try to use: ","tr":"Şunları kullanmayı dene: ","fa":"سعی کن این‌ها را به کار ببری: ","owner":"renderDialogue"}
+{"en":"Next line","tr":"Sonraki replik","fa":"جمله‌ی بعدی","owner":"renderDialogue"}
+{"en":"Your line ${t + 1} of ${turns.length}","tr":"Replik ${t + 1}/${turns.length}","fa":"جمله‌ی ${t + 1} از ${turns.length}","owner":"renderDialogue"}
+{"en":"Did you know?","tr":"Biliyor muydun?","fa":"می‌دانستی؟","owner":"renderDialogue"}
+{"en":"Through their eyes","tr":"Onun gözünden","fa":"از چشم او","owner":"renderDialogue"}
+{"en":"Think about it for a moment. There is no wrong answer.","tr":"Bir an düşün. Yanlış cevap yok.","fa":"یک لحظه فکر کن. جواب غلط وجود ندارد.","owner":"renderDialogue"}
+{"en":"Dialogue done","tr":"Diyalog tamam","fa":"گفت‌وگو تمام شد","owner":"renderDialogue"}
+{"en":"Again","tr":"Tekrar","fa":"دوباره","owner":"GRAMMAR_ITEMS"}
+{"en":"Done","tr":"Bitti","fa":"تمام","owner":"GRAMMAR_ITEMS"}
+{"en":"Back","tr":"Geri","fa":"قبلی","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"Play","tr":"Oynat","fa":"پخش کن","owner":"renderMediaSession"}
+{"en":"Listen to the podcast","tr":"Podcasti dinle","fa":"گوش‌دادن به پادکست","owner":"renderMediaSession"}
+{"en":"Source","tr":"Kaynak","fa":"منبع","owner":"VOCAB_SETS"}
+{"en":"Enjoy listening!","tr":"İyi dinlemeler!","fa":"از گوش دادن لذت ببر!","owner":"renderMediaSession"}
+{"en":"Enjoy watching!","tr":"İyi seyirler!","fa":"از تماشا لذت ببر!","owner":"renderMediaSession"}
+{"en":"min","tr":"dk","fa":"دقیقه","owner":"GRAMMAR_PRACTICE_A1A2"}
+{"en":"The song needs an internet connection. Try again in a moment.","tr":"Şarkı için internet bağlantısı gerekiyor. Birazdan tekrar dene.","fa":"آهنگ به اینترنت نیاز دارد. چند لحظه بعد دوباره امتحان کن.","owner":"renderSongSession"}
+{"en":"Try again","tr":"Tekrar dene","fa":"دوباره امتحان کن","owner":"COURSE_EXTRA"}
+{"en":"Loading the song…","tr":"Şarkı yükleniyor…","fa":"آهنگ در حال بارگذاری است…","owner":"renderSongSession"}
+{"en":"Back","tr":"Geri","fa":"برگشت","owner":"VOCAB_SETS"}
+{"en":"Original FEschool song","tr":"Özgün FEschool şarkısı","fa":"آهنگ اورجینال FEschool","owner":"renderSongSession"}
+{"en":"Level","tr":"Seviye","fa":"سطح","owner":"CALIBRATION"}
+{"en":"Pause","tr":"Duraklat","fa":"توقف","owner":"VOCAB_SETS"}
+{"en":"Position","tr":"Konum","fa":"موقعیت","owner":"ARCHETYPES"}
+{"en":"Normal view","tr":"Normal görünüm","fa":"نمای معمولی","owner":"renderSongSession"}
+{"en":"Sing along","tr":"Birlikte söyle","fa":"با آهنگ بخوان","owner":"renderSongSession"}
+{"en":"Keep one line? Tap the line you like best.","tr":"Bir satır saklamak ister misin? En sevdiğin satıra dokun.","fa":"یک خط را نگه می‌داری؟ روی خطی که بیشتر دوست داری بزن.","owner":"songComplete"}
+{"en":"Kept in your collection:","tr":"Koleksiyonuna eklendi:","fa":"به مجموعه‌ات اضافه شد:","owner":"songKeepLine"}
+{"en":"${n} of ${total} caught","tr":"${total} ifadeden ${n} yakalandı","fa":"${n} از ${total} شکار شد","owner":"catchCountText"}
+{"en":"Marked as listened ✓","tr":"Dinlendi olarak işaretlendi ✓","fa":"علامت‌زده به‌عنوان شنیده‌شده ✓","owner":"mediaDoneLabel"}
+{"en":"Marked as watched ✓","tr":"İzlendi olarak işaretlendi ✓","fa":"علامت‌زده به‌عنوان دیده‌شده ✓","owner":"mediaDoneLabel"}
+{"en":"I'm done — ${caught} caught","tr":"Bitti — ${caught} yakaladım","fa":"تمام شد — ${caught} تا شکار کردم","owner":"mediaDoneLabel"}
+{"en":"Mark as listened","tr":"Dinlendi olarak işaretle","fa":"علامت‌زدن به‌عنوان شنیده‌شده","owner":"mediaDoneLabel"}
+{"en":"Mark as watched","tr":"İzlendi olarak işaretle","fa":"علامت‌زدن به‌عنوان دیده‌شده","owner":"mediaDoneLabel"}
+{"en":"Catch these","tr":"Bunları yakala","fa":"این‌ها را شکار کن","owner":"catchSheetHtml"}
+{"en":"Tap a phrase when you hear it.","tr":"Duyduğunda ifadeye dokun.","fa":"وقتی شنیدی، روی عبارت بزن.","owner":"catchSheetHtml"}
+{"en":"Write 1 to 3 sentences.","tr":"1 ile 3 cümle yaz.","fa":"۱ تا ۳ جمله بنویس.","owner":"mediaAnswerBodyHtml"}
+{"en":"Save my answer","tr":"Cevabımı kaydet","fa":"پاسخم را ذخیره کن","owner":"mediaAnswerBodyHtml"}
+{"en":"Change my answer","tr":"Cevabımı değiştir","fa":"پاسخم را تغییر بده","owner":"mediaAnswerBodyHtml"}
+{"en":"Answer this one","tr":"Bunu cevapla","fa":"به این جواب بده","owner":"MEDIA_EN_ADDITIONS"}
+{"en":"From your last page · ${t}","tr":"Önceki sayfandan · ${t}","fa":"از صفحهٔ قبلی‌ات · ${t}","owner":"carryEyebrow"}
+{"en":"from the page before","tr":"önceki sayfadan","fa":"از صفحهٔ قبل","owner":"carryEyebrow"}
+{"en":"Speaking: follow-up","tr":"Konuşma: devam","fa":"صحبت: ادامه","owner":"buildRoadmap"}
+{"en":"Hi, I'm Farin.","tr":"Merhaba, ben Farin.","fa":"سلام، من فرین هستم.","owner":"farinHelloHtml"}
+{"en":"I'm your teacher here. Two quick choices and we start.","tr":"Burada senin öğretmeninim. İki kısa seçim yapalım, sonra başlıyoruz.","fa":"اینجا معلمت هستم. دو انتخاب کوتاه داریم و بعد شروع می‌کنیم.","owner":"farinHelloHtml"}
+{"en":"Grammar champion, {name}!","tr":"Dilbilgisi şampiyonu, {name}!","fa":"قهرمان گرامر، {name}!","owner":"celebrationText"}
+{"en":"You beat that grammar trap, {name}!","tr":"O dilbilgisi tuzağını yendin, {name}!","fa":"از اون تله گرامری رد شدی، {name}!","owner":"celebrationText"}
+{"en":"Word power unlocked, {name}!","tr":"Kelime gücü açıldı, {name}!","fa":"قدرت کلمات باز شد، {name}!","owner":"celebrationText"}
+{"en":"Those words are yours now, {name}!","tr":"Bu kelimeler artık senin, {name}!","fa":"این کلمه‌ها حالا مال تو هستند، {name}!","owner":"celebrationText"}
+{"en":"What a reader, {name}! Story done!","tr":"Ne okuyucu, {name}! Hikaye bitti!","fa":"چه خواننده‌ای، {name}! داستان تمام شد!","owner":"celebrationText"}
+{"en":"Memory refreshed, {name}!","tr":"Hafıza tazelendi, {name}!","fa":"حافظه تازه شد، {name}!","owner":"celebrationText"}
+{"en":"Chapter done, {name}! The story goes on.","tr":"Bölüm bitti, {name}! Hikâye devam ediyor.","fa":"فصل تمام شد، {name}! داستان ادامه دارد.","owner":"celebrationText"}
+{"en":"What a song, {name}! You listened all the way.","tr":"Ne şarkı ama, {name}! Sonuna kadar dinledin.","fa":"چه آهنگی، {name}! تا آخرش گوش دادی.","owner":"celebrationText"}
+{"en":"Game won, {name}! You rock!","tr":"Oyunu kazandın, {name}! Harikasın!","fa":"بازی را بردی، {name}! فوق‌العاده‌ای!","owner":"celebrationText"}
+{"en":"Beautiful writing, {name}!","tr":"Harika yazdın, {name}!","fa":"عالی نوشتی، {name}!","owner":"celebrationText"}
+{"en":"You sounded great, {name}!","tr":"Harika konuştun, {name}!","fa":"عالی صحبت کردی، {name}!","owner":"celebrationText"}
+{"en":"Nice listening, {name}!","tr":"Güzel dinledin, {name}!","fa":"خوب گوش دادی، {name}!","owner":"celebrationText"}
+{"en":"Nice effort, {name}! Every round makes you stronger.","tr":"Güzel çaba, {name}! Her tur seni güçlendiriyor.","fa":"تلاش خوبی بود، {name}! هر دور قوی‌ترت می‌کند.","owner":"celebrationText"}
+{"en":"You finished it, {name}! Proud of you.","tr":"Bitirdin, {name}! Seninle gurur duyuyorum.","fa":"تمامش کردی، {name}! بهت افتخار می‌کنم.","owner":"celebrationText"}
+{"en":"Well done, {name}!","tr":"Aferin, {name}!","fa":"آفرین، {name}!","owner":"celebrationText"}
+{"en":"Live session","tr":"Canlı seans","fa":"جلسه زنده","owner":"svTypeMeta"}
+{"en":"Watch","tr":"İzle","fa":"تماشا","owner":"LEARNER_OPTIONS"}
+{"en":"Level start","tr":"Seviye başı","fa":"شروع سطح","owner":"svTypeMeta"}
+{"en":"Your Call","tr":"Karar Senin","fa":"تصمیم با تو","owner":"gameDisplayName"}
+{"en":"Build It","tr":"Cümle Kur","fa":"جمله بساز","owner":"gameDisplayName"}
+{"en":"Mini Cross","tr":"Mini Bulmaca","fa":"جدول کوچک","owner":"gameDisplayName"}
+{"en":"Order Up!","tr":"Sipariş Hazır!","fa":"سفارش حاضر!","owner":"gameDisplayName"}
+{"en":"Passport Desk","tr":"Pasaport Masası","fa":"میز گذرنامه","owner":"gameDisplayName"}
+{"en":"Case Closed","tr":"Dava Kapandı","fa":"پرونده مختومه","owner":"gameDisplayName"}
+{"en":"Magic Words","tr":"Sihirli Kelimeler","fa":"کلمات جادویی","owner":"gameDisplayName"}
+{"en":"Word Bingo","tr":"Kelime Tombalası","fa":"بینگوی کلمات","owner":"gameDisplayName"}
+{"en":"Story Hunt","tr":"Hikaye Avı","fa":"شکار داستان","owner":"gameDisplayName"}
+{"en":"Say It Back","tr":"Tekrar Et","fa":"بگو ببینم","owner":"gameDisplayName"}
+{"en":"Listen & Type","tr":"Dinle ve Yaz","fa":"گوش کن و بنویس","owner":"gameDisplayName"}
+{"en":"Mini Radio","tr":"Mini Radyo","fa":"رادیو کوچک","owner":"gameDisplayName"}
+{"en":"Word Rush","tr":"Kelime Yarışı","fa":"مسابقه کلمات","owner":"gameDisplayName"}
+{"en":"Chapter","tr":"Bölüm","fa":"فصل","owner":"STORY_LIBRARY"}
+{"en":"first try","tr":"ilk denemede","fa":"در اولین تلاش","owner":"gameRecordText"}
+{"en":"clean","tr":"temiz","fa":"بی‌خطا","owner":"gameRecordText"}
+{"en":"perfect","tr":"kusursuz","fa":"بی‌نقص","owner":"IELTS_STRATEGY"}
+{"en":"typed","tr":"yazarak","fa":"تایپی","owner":"gameRecordText"}
+{"en":"golden doors","tr":"altın kapı","fa":"در طلایی","owner":"gameRecordText"}
+{"en":"first tap","tr":"ilk dokunuşta","fa":"با اولین لمس","owner":"gameRecordText"}
+{"en":"lines spoken","tr":"cümle söylendi","fa":"جمله گفته شد","owner":"gameRecordText"}
+{"en":"lines clear","tr":"cümle net","fa":"جمله واضح","owner":"gameRecordText"}
+{"en":"Chapter ${st.chapter} of ${st.total}","tr":"Bölüm ${st.chapter}/${st.total}","fa":"فصل ${st.chapter} از ${st.total}","owner":"gameStatStickers"}
+{"en":"No reveals","tr":"Harf açmadan","fa":"بدون فاش‌کردن حرف","owner":"gameStatStickers"}
+{"en":"${st.right}/${st.total} perfect orders","tr":"${st.right}/${st.total} kusursuz sipariş","fa":"${st.right}/${st.total} سفارش بی‌نقص","owner":"gameStatStickers"}
+{"en":"No tickets","tr":"Fişsiz","fa":"بدون رسید","owner":"gameStatStickers"}
+{"en":"${st.gold} golden doors","tr":"${st.gold} altın kapı","fa":"${st.gold} در طلایی","owner":"gameStatStickers"}
+{"en":"${st.total}/${st.total} by voice","tr":"${st.total}/${st.total} sesle","fa":"${st.total}/${st.total} با صدا","owner":"gameStatStickers"}
+{"en":"${st.clean}/${st.total} cases clean","tr":"${st.clean}/${st.total} temiz dava","fa":"${st.clean}/${st.total} پرونده بی‌خطا","owner":"gameStatStickers"}
+{"en":"No hints","tr":"İpucusuz","fa":"بدون کمک","owner":"gameStatStickers"}
+{"en":"Sharp ears","tr":"Keskin kulak","fa":"گوش تیز","owner":"gameStatStickers"}
+{"en":"Full card","tr":"Tam kart","fa":"کارت کامل","owner":"gameStatStickers"}
+{"en":"clear","tr":"net","fa":"واضح","owner":"LEARNER_OPTIONS"}
+{"en":"hint","tr":"ipucu","fa":"راهنما","owner":"GRAMMAR_ITEMS"}
+{"en":"Score","tr":"Skor","fa":"امتیاز","owner":"VOCAB_SETS"}
+{"en":"heard","tr":"duyuldu","fa":"شنیده شد","owner":"COURSE_EXTRA"}
+{"en":"Say this when…","tr":"Şöyle bir anda söyle…","fa":"این را وقتی بگو که…","owner":"souvenirContent"}
+{"en":"Your words","tr":"Senin sözlerin","fa":"حرف‌های تو","owner":"souvenirFaceHtml"}
+{"en":"From your teacher","tr":"Öğretmeninden","fa":"از طرف معلمت","owner":"souvenirFaceHtml"}
+{"en":"Rare find","tr":"Nadir buluntu","fa":"یافته کمیاب","owner":"souvenirFaceHtml"}
+{"en":"rule","tr":"kural","fa":"قاعده","owner":"GRAMMAR_ITEMS"}
+{"en":"New best!","tr":"Yeni rekor!","fa":"رکورد تازه!","owner":"showCelebration"}
+{"en":"Take the other one","tr":"Diğerini al","fa":"آن یکی را بردار","owner":"showCelebration"}
+{"en":"Back to your games in a moment…","tr":"Birazdan oyunlarına dönüyorsun…","fa":"تا چند لحظه دیگر به بازی‌هات برمی‌گردی…","owner":"showCelebration"}
+{"en":"Back to your roadmap in a moment…","tr":"Birazdan yol haritana dönüyorsun…","fa":"تا چند لحظه دیگر به نقشه راهت برمی‌گردی…","owner":"showCelebration"}
+{"en":"Home","tr":"Ana Sayfa","fa":"خانه","owner":"ARCHETYPES"}
+{"en":"Goals","tr":"Hedefler","fa":"اهداف","owner":"VOCAB_SETS"}
+{"en":"Club","tr":"Kulüp","fa":"باشگاه","owner":"PRACTICE_SECTIONS"}
+{"en":"One sec…","tr":"Bir saniye…","fa":"یک لحظه…","owner":"renderDiagIntro"}
+{"en":"Looking for your saved progress.","tr":"Kayıtlı ilerlemeni arıyoruz.","fa":"در حال جست‌وجوی پیشرفت ذخیره‌شده‌ات هستیم.","owner":"renderDiagIntro"}
+{"en":"Spanish","tr":"İspanyolca","fa":"اسپانیایی","owner":"COURSES"}
+{"en":"English","tr":"İngilizce","fa":"انگلیسی","owner":"ARCHETYPES"}
+{"en":"Your native language","tr":"Ana dilin","fa":"زبان مادری‌ات","owner":"onbBlocksHtml"}
+{"en":"The language you want to learn","tr":"Öğrenmek istediğin","fa":"زبانی که می‌خواهی یاد بگیری","owner":"onbBlocksHtml"}
+{"en":"Switching to the Spanish app…","tr":"İspanyolca uygulamasına geçiyoruz…","fa":"داریم به اپ اسپانیایی می‌رویم…","owner":"onbBlocksHtml"}
+{"en":"Switching to the English app…","tr":"İngilizce uygulamasına geçiyoruz…","fa":"داریم به اپ انگلیسی می‌رویم…","owner":"onbBlocksHtml"}
+{"en":"2 minutes","tr":"2 dakika","fa":"۲ دقیقه","owner":"renderLangPick"}
+{"en":"Let's begin","tr":"Başlayalım","fa":"بیا شروع کنیم","owner":"renderLangPick"}
+{"en":"Continue","tr":"Devam","fa":"ادامه","owner":"GRAMMAR_ITEMS"}
+{"en":"Already have an account? Log in","tr":"Zaten hesabın var mı? Giriş yap","fa":"قبلاً حساب ساختی؟ وارد شو","owner":"renderLangPick"}
+{"en":"Close","tr":"Kapat","fa":"بستن","owner":"VOCAB_SETS"}
+{"en":"Name & password","tr":"Ad ve şifre","fa":"اسم و رمز","owner":"pwErrorText"}
+{"en":"Recovery code","tr":"Kurtarma kodu","fa":"کد بازیابی","owner":"renderRestoreCode"}
+{"en":"Log in","tr":"Giriş yap","fa":"ورود","owner":"VOCAB_SETS"}
+{"en":"Enter the name and password you chose when you started.","tr":"Başlarken seçtiğin adı ve şifreyi gir.","fa":"اسم و رمزی را که اول کار انتخاب کردی وارد کن.","owner":"renderRestoreCode"}
+{"en":"Your name","tr":"Adın","fa":"اسمت","owner":"GRAMMAR_PRACTICE_A1A2"}
+{"en":"Password","tr":"Şifre","fa":"رمز","owner":"VOCAB_SETS"}
+{"en":"Checking…","tr":"Kontrol ediliyor…","fa":"در حال بررسی…","owner":"renderRestoreCode"}
+{"en":"Forgot your password? Log in with your recovery code, then pick a new password in Settings.","tr":"Şifreni mi unuttun? Kurtarma kodunla giriş yap, sonra Ayarlar'dan yeni bir şifre seç.","fa":"رمزت را فراموش کردی؟ با کد بازیابی وارد شو و بعد در تنظیمات رمز جدید بگذار.","owner":"renderRestoreCode"}
+{"en":"Restore your progress","tr":"İlerlemeni geri yükle","fa":"بازگرداندن پیشرفتت","owner":"renderRestoreByCode"}
+{"en":"Enter the recovery code you saved earlier.","tr":"Daha önce kaydettiğin kurtarma kodunu gir.","fa":"کد بازیابی که قبلاً ذخیره کرده بودی را وارد کن.","owner":"renderRestoreByCode"}
+{"en":"We couldn't find that code. Double-check it and try again.","tr":"Bu kodu bulamadık. Kontrol edip tekrar dene.","fa":"این کد را پیدا نکردیم. دوباره بررسی کن و امتحان کن.","owner":"renderRestoreByCode"}
+{"en":"Restore","tr":"Geri yükle","fa":"بازگردانی","owner":"renderRestoreByCode"}
+{"en":"Question","tr":"Soru","fa":"سوال","owner":"VOCAB_SETS"}
+{"en":"of","tr":"/","fa":"از","owner":"ARCHETYPES"}
+{"en":"What's pulling you toward English right now? Pick up to 3.","tr":"Şu anda seni İngilizceye yönelten ne? En fazla 3 seç.","fa":"الان چه چیزی تو را به سمت انگلیسی می‌کشد؟ حداکثر ۳ مورد انتخاب کن.","owner":"renderDiagMotivation"}
+{"en":"How would you describe your English level?","tr":"İngilizce seviyeni nasıl tarif edersin?","fa":"سطح انگلیسی‌ات را چطور توصیف می‌کنی؟","owner":"renderDiagLevel"}
+{"en":"What are your favorite topics? Pick up to 3.","tr":"En sevdiğin konular neler? En fazla 3 seç.","fa":" موضوعات مورد علاقه‌ات چیه؟ حداکثر ۳ مورد انتخاب کن.","owner":"renderDiagTopics"}
+{"en":"When you get something wrong, what helps most?","tr":"Bir şeyi yanlış yaptığında sana en çok ne yardımcı olur?","fa":"وقتی چیزی را اشتباه می‌کنی، چه چیزی بیشتر کمکت می‌کند؟","owner":"renderDiagLearner"}
+{"en":"What trips you up the most?","tr":"Seni en çok ne zorluyor?","fa":"بیشتر چه چیزی گیرت می‌اندازد؟","owner":"renderDiagPriority"}
+{"en":"Almost there!","tr":"Neredeyse bitti!","fa":"تقریباً رسیدیم!","owner":"renderDiagUnlock"}
+{"en":"One last thing and you're in","tr":"Son bir adım ve içeridesin","fa":"یک قدم دیگر و وارد می‌شوی","owner":"renderDiagUnlock"}
+{"en":"Just your name and the whole app swings open — free, right now, no catch.","tr":"Sadece adın yeter, tüm uygulama açılsın — ücretsiz, hemen, hiçbir gizli şart yok.","fa":"فقط اسمت را بگو تا کل اپ باز شود — رایگان، همین الان، بدون هیچ شرطی.","owner":"renderDiagUnlock"}
+{"en":"Just your name and a password, and the whole app swings open — free, right now, no catch.","tr":"Sadece adın ve bir şifre yeter, tüm uygulama açılsın — ücretsiz, hemen, hiçbir gizli şart yok.","fa":"فقط اسمت و یک رمز را بگو تا کل اپ باز شود — رایگان، همین الان، بدون هیچ شرطی.","owner":"renderDiagUnlock"}
+{"en":"What is your beautiful name?","tr":"Senin güzel adın ne?","fa":"اسم زیبای تو چیست؟","owner":"renderDiagUnlock"}
+{"en":"First name","tr":"Adın","fa":"نام","owner":"renderPracticeRecommendation"}
+{"en":"Your password stays the same.","tr":"Şifren aynı kalıyor.","fa":"رمزت همان قبلی می‌ماند.","owner":"renderDiagUnlock"}
+{"en":"Choose a password","tr":"Bir şifre seç","fa":"یک رمز انتخاب کن","owner":"renderDiagUnlock"}
+{"en":"At least 6 characters","tr":"En az 6 karakter","fa":"حداقل ۶ کاراکتر","owner":"pwErrorText"}
+{"en":"With your name and this password you can get back into your account on any device.","tr":"Adın ve bu şifreyle hesabına istediğin cihazdan geri dönebilirsin.","fa":"با اسمت و این رمز می‌توانی از هر دستگاهی به حسابت برگردی.","owner":"renderDiagUnlock"}
+{"en":"Oops — we need your name to continue.","tr":"Hop — devam etmek için adını almamız lazım.","fa":"اوپس — برای ادامه باید اسمت را بگویی.","owner":"renderDiagUnlock"}
+{"en":"Saving…","tr":"Kaydediliyor…","fa":"در حال ذخیره…","owner":"renderDiagUnlock"}
+{"en":"By tapping Go!, you agree to our","tr":"Hadi'ya dokunarak şunu kabul edersin:","fa":"با زدن دکمه برو، این را می‌پذیری:","owner":"renderDiagUnlock"}
+{"en":"Privacy Policy","tr":"Gizlilik Politikası","fa":"حریم خصوصی","owner":"COURSE_EXTRA"}
+{"en":"Last updated: July 28, 2026","tr":"Son güncelleme: 28 Temmuz 2026","fa":"آخرین به‌روزرسانی: ۲۸ ژوئیه ۲۰۲۶","owner":"renderPrivacyPolicy"}
+{"en":"Sessions","tr":"Seans","fa":"جلسات","owner":"ARCHETYPES"}
+{"en":"Day streak","tr":"Gün serisi","fa":"روزهای متوالی","owner":"statRow"}
+{"en":"Student Club","tr":"Öğrenci Kulübü","fa":"باشگاه دانش‌آموزان","owner":"statRow"}
+{"en":"Your souvenirs and today’s plan.","tr":"Hatıraların ve bugünün planı.","fa":"یادگاری‌هایت و برنامه امروز.","owner":"renderReviewHome"}
+{"en":"Souvenir Shuffle","tr":"Hatıra turu","fa":"مرور یادگاری‌ها","owner":"renderReviewHome"}
+{"en":"${ready} ready to shine","tr":"${ready} parlamaya hazır","fa":"${ready} آماده درخشیدن","owner":"renderReviewHome"}
+{"en":"Nothing to review right now.","tr":"Şu an tekrar edecek bir şey yok.","fa":"الان چیزی برای مرور نیست.","owner":"renderReviewHome"}
+{"en":"Your Profile","tr":"Profilin","fa":"پروفایل تو","owner":"renderProfile"}
+{"en":"Your plan, your progress, your bragging rights.","tr":"Planın, ilerlemen ve övünme hakların.","fa":"برنامه‌ات، پیشرفتت و افتخاراتت.","owner":"renderProfile"}
+{"en":"Your trophy case","tr":"Ödül dolabın","fa":"ویترین افتخارات تو","owner":"renderProfile"}
+{"en":"Games","tr":"Oyunlar","fa":"بازی‌ها","owner":"showCelebration"}
+{"en":"Studio Lab","tr":"Stüdyo Lab","fa":"آزمایشگاه استودیو","owner":"renderProfile"}
+{"en":"rounds completed","tr":"tur tamamlandı","fa":"دور تکمیل‌شده","owner":"renderProfile"}
+{"en":"Redo my diagnostic","tr":"Testimi yeniden yap","fa":"دوباره انجام‌دادن آزمون","owner":"renderProfile"}
+{"en":"Settings","tr":"Ayarlar","fa":"تنظیمات","owner":"COURSES"}
+{"en":"Save your recovery code","tr":"Kurtarma kodunu kaydet","fa":"کد بازیابی‌ات را ذخیره کن","owner":"renderDashboard"}
+{"en":"Use this code to get your progress back on another phone or browser.","tr":"Bu kodu başka bir telefonda veya tarayıcıda ilerlemeni geri almak için kullan.","fa":"از این کد برای بازگرداندن پیشرفتت روی گوشی یا مرورگر دیگری استفاده کن.","owner":"renderDashboard"}
+{"en":"Copy","tr":"Kopyala","fa":"کپی","owner":"COURSE_EXTRA"}
+{"en":"Let's keep training","tr":"Hadi antrenmana devam","fa":"بیا تمرین را ادامه بدیم","owner":"renderDashboard"}
+{"en":"Foil cover","tr":"Yaldızlı kapak","fa":"جلد فویلی","owner":"companionPinRowHtml"}
+{"en":"First cover","tr":"İlk kapak","fa":"جلد اول","owner":"companionPinRowHtml"}
+{"en":"New cover","tr":"Yeni kapak","fa":"جلد جدید","owner":"companionPinRowHtml"}
+{"en":"Here we go!","tr":"Başlıyoruz!","fa":"بزن بریم!","owner":"levelStartSouvenir"}
+{"en":"Tap for the translation","tr":"Çeviri için dokun","fa":"برای ترجمه بزن","owner":"companionEntryHtml"}
+{"en":"Write about it","tr":"Bunun hakkında yaz","fa":"درباره‌اش بنویس","owner":"companionEntryHtml"}
+{"en":"Written","tr":"Yazıldı","fa":"نوشته شد","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"Open writing practice","tr":"Yazma pratiğini aç","fa":"تمرین نوشتن را باز کن","owner":"companionEntryHtml"}
+{"en":"Your journal asks","tr":"Günlüğün soruyor","fa":"دفترت می‌پرسد","owner":"studioReflectionCardHtml"}
+{"en":"Pinned for class · remove","tr":"Ders için işaretli · kaldır","fa":"برای کلاس سنجاق شده · بردار","owner":"pinButtonHtml"}
+{"en":"3 already pinned for class","tr":"Ders için zaten 3 tane işaretli","fa":"۳ تا برای کلاس سنجاق شده","owner":"pinButtonHtml"}
+{"en":"Bring to class","tr":"Derse getir","fa":"به کلاس ببر","owner":"pinButtonHtml"}
+{"en":"This one slipped twice — bring it to class?","tr":"Bu iki kez kaçtı — derse getirelim mi?","fa":"این یکی دو بار از دست رفت — به کلاس ببریمش؟","owner":"pinButtonHtml"}
+{"en":"Your teacher left something in your ${j}.","tr":"Öğretmenin ${j} içine sana bir şey bıraktı.","fa":"معلمت یک چیزی برایت در ${j} گذاشته.","owner":"clubArrivalHtml"}
+{"en":"Open","tr":"Aç","fa":"باز کن","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"Slipped twice","tr":"İki kez kaçtı","fa":"دو بار از دستت رفت","owner":"clubPackWhy"}
+{"en":"Your own words","tr":"Kendi sözlerin","fa":"حرف‌های خودت","owner":"clubPackWhy"}
+{"en":"Newest souvenir","tr":"En yeni hatıran","fa":"تازه‌ترین یادگاری‌ات","owner":"clubPackWhy"}
+{"en":"Pack for class","tr":"Derse götür","fa":"برای کلاس ببر","owner":"clubPackHtml"}
+{"en":"All packed. Your teacher can see these.","tr":"Hepsi hazır. Öğretmenin bunları görebilir.","fa":"همه‌چیز آماده است. معلمت این‌ها را می‌بیند.","owner":"clubPackHtml"}
+{"en":"Tap what you want to bring to your next lesson. Your teacher sees it too.","tr":"Bir sonraki derse götürmek istediğine dokun. Öğretmenin de görür.","fa":"روی چیزی که می‌خواهی به کلاس بعدی ببری بزن. معلمت هم می‌بیندش.","owner":"clubPackHtml"}
+{"en":"Take it out of your bag","tr":"Çantandan çıkar","fa":"از کیفت دربیار","owner":"clubPackHtml"}
+{"en":"KEPT","tr":"KALICI","fa":"ماندگار","owner":"VOCAB_SETS"}
+{"en":"Every souvenir on this page is yours for good.","tr":"Bu sayfadaki her hatıra artık hep senin.","fa":"هر یادگاری این صفحه دیگر برای همیشه مال توست.","owner":"showPageKept"}
+{"en":"Tap to close","tr":"Kapatmak için dokun","fa":"برای بستن بزن","owner":"showPageKept"}
+{"en":"${vols} volume${vols===1?'':'s'} on the shelf","tr":"Rafta ${vols} cilt","fa":"${vols} جلد در قفسه","owner":"journalCoverHtml"}
+{"en":"Volume 1, in progress","tr":"1. cilt, devam ediyor","fa":"جلد ۱، در حال نوشتن","owner":"journalCoverHtml"}
+{"en":"${kept} kept","tr":"${kept} kalıcı","fa":"${kept} ماندگار","owner":"journalCoverHtml"}
+{"en":"COMPLETE","tr":"TAMAM","fa":"کامل","owner":"GRAMMAR_ITEMS"}
+{"en":"${ready} souvenir${ready===1?' is':'s are'} ready to shine","tr":"${ready} hatıra parlamaya hazır","fa":"${ready} یادگاری آماده درخشیدن است","owner":"renderJournal"}
+{"en":"A 2-minute Souvenir Shuffle","tr":"2 dakikalık bir hatıra turu","fa":"یک مرور ۲ دقیقه‌ای یادگاری‌ها","owner":"renderJournal"}
+{"en":"Finish a step on your roadmap to collect your first souvenir.","tr":"İlk hatıranı toplamak için yol haritanda bir adımı bitir.","fa":"برای جمع‌کردن اولین یادگاری، یک قدم از نقشه راهت را تمام کن.","owner":"renderJournal"}
+{"en":"Finish a card on your roadmap and your first souvenir lands here.","tr":"Yol haritandaki bir kartı bitir, ilk hatıran buraya gelsin.","fa":"یک کارت از نقشه‌ی راهت را تمام کن تا اولین یادگاری‌ات اینجا بیاید.","owner":"renderJournal"}
+{"en":"Tap the card to flip it · tap outside to close","tr":"Çevirmek için karta, kapatmak için dışarıya dokun","fa":"برای برگرداندن روی کارت، برای بستن بیرون بزن","owner":"openSouvenirModal"}
+{"en":"COMPLETE","tr":"TAMAM","fa":"کامل شد","owner":"openRhythmSheet"}
+{"en":"Go to the next level","tr":"Bir sonraki seviyeye geç","fa":"برو به سطح بعدی","owner":"showPageComplete"}
+{"en":"Speaking session","tr":"Konuşma seansı","fa":"جلسه مکالمه","owner":"renderRoadmapCard"}
+{"en":"Completed","tr":"Tamamlandı","fa":"تکمیل‌شده","owner":"renderProfile"}
+{"en":"Mark done","tr":"Tamamlandı say","fa":"علامت‌زدن به‌عنوان انجام‌شده","owner":"renderRoadmapCard"}
+{"en":"Recommended — see prep, then message on WhatsApp","tr":"Önerilir — önce hazırlığa bak, sonra WhatsApp'tan mesaj at","fa":"پیشنهادی — اول آماده‌سازی را ببین، بعد در واتس‌اپ پیام بده","owner":"renderRoadmapCard"}
+{"en":"You're here","tr":"Buradasın","fa":"اینجایی","owner":"COMPANION_LINES"}
+{"en":"Page complete","tr":"Sayfa tamam","fa":"صفحه کامل شد","owner":"renderRoadmapCard"}
+{"en":"roadmap","tr":"yol haritası","fa":"نقشه راه","owner":"companionBubbleContent"}
+{"en":"Your first souvenir is waiting","tr":"İlk hatıran seni bekliyor","fa":"اولین یادگاری‌ات منتظرت است","owner":"renderRoadmapCard"}
+{"en":"Check everything off to reach","tr":"Hepsini işaretle ve şuraya ulaş:","fa":"همه را علامت بزن تا برسی به","owner":"renderRoadmapCard"}
+{"en":"done","tr":"tamam","fa":"انجام شد","owner":"COURSE_EXTRA"}
+{"en":"to go","tr":"kaldı","fa":"مانده","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"You've made it!","tr":"Başardın!","fa":"موفق شدی!","owner":"renderRoadmapCard"}
+{"en":"First a quick 10-question check (about 4 min). It never stops you.","tr":"Önce 10 soruluk kısa bir kontrol (yaklaşık 4 dk). İlerlemene asla engel olmaz.","fa":"اول یک مرور کوتاه ۱۰ سؤالی (حدود ۴ دقیقه). هیچ‌وقت جلویت را نمی‌گیرد.","owner":"renderRoadmapCard"}
+{"en":"Finish everything above to unlock the next level","tr":"Bir sonraki seviyeyi açmak için yukarıdakilerin hepsini bitir","fa":"برای باز کردن سطح بعدی، همه موارد بالا را تمام کن","owner":"renderRoadmapCard"}
+{"en":"Your Plan","tr":"Planın","fa":"برنامه تو","owner":"COURSE_EXTRA"}
+{"en":"A SELIF culture note","tr":"Bir SELIF kültür notu","fa":"یک یادداشت فرهنگی SELIF","owner":"renderSessionPrep"}
+{"en":"Speaking Session Prep","tr":"Konuşma Seansı Hazırlığı","fa":"آماده‌سازی جلسه مکالمه","owner":"renderSessionPrep"}
+{"en":"Topic","tr":"Konu","fa":"موضوع","owner":"LEVEL_OPTIONS"}
+{"en":"Warm-up","tr":"Isınma","fa":"گرم‌کردن","owner":"nodeTitle"}
+{"en":"Discussion Questions","tr":"Tartışma Soruları","fa":"سؤالات بحث","owner":"renderSessionPrep"}
+{"en":"Follow-up","tr":"Devamı","fa":"ادامه سؤال","owner":"renderSessionPrep"}
+{"en":"Useful Expressions","tr":"Kullanışlı İfadeler","fa":"عبارات کاربردی","owner":"renderSessionPrep"}
+{"en":"Continue on WhatsApp","tr":"WhatsApp'ta devam et","fa":"ادامه در واتس‌اپ","owner":"renderSessionPrep"}
+{"en":"Tweak your profile, language, and data.","tr":"Profilini, dilini ve verilerini ayarla.","fa":"پروفایل، زبان و اطلاعاتت را تنظیم کن.","owner":"renderSettings"}
+{"en":"Sound effects: off","tr":"Ses efektleri: kapalı","fa":"جلوه‌های صوتی: خاموش","owner":"renderSettings"}
+{"en":"Sound effects: on","tr":"Ses efektleri: açık","fa":"جلوه‌های صوتی: روشن","owner":"renderSettings"}
+{"en":"Logging out…","tr":"Çıkış yapılıyor…","fa":"در حال خروج…","owner":"renderSettings"}
+{"en":"Tap again to log out","tr":"Çıkış yapmak için tekrar dokun","fa":"برای خروج دوباره لمس کن","owner":"renderSettings"}
+{"en":"Log out","tr":"Çıkış yap","fa":"خروج","owner":"VOCAB_SETS"}
+{"en":"You haven't set a password. Write down your recovery code first, then tap again to log out.","tr":"Henüz şifre belirlemedin. Önce kurtarma kodunu not et, sonra çıkış yapmak için tekrar dokun.","fa":"هنوز رمز نگذاشته‌ای. اول کد بازیابی‌ات را یادداشت کن، بعد برای خروج دوباره لمس کن.","owner":"renderSettings"}
+{"en":"We couldn't save your latest progress, so you're still logged in. Check your connection and try again.","tr":"Son ilerlemeni kaydedemedik, bu yüzden hâlâ giriş yapmış durumdasın. Bağlantını kontrol edip tekrar dene.","fa":"نتوانستیم آخرین پیشرفتت را ذخیره کنیم، برای همین هنوز وارد حسابت هستی. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"renderSettings"}
+{"en":"Tap again to confirm — this can't be undone","tr":"Onaylamak için tekrar dokun — geri alınamaz","fa":"دوباره لمس کن تا تایید شود — قابل بازگشت نیست","owner":"renderSettings"}
+{"en":"Reset all progress","tr":"Tüm ilerlemeyi sıfırla","fa":"بازنشانی همه پیشرفت","owner":"renderSettings"}
+{"en":"Your recovery code","tr":"Kurtarma kodun","fa":"کد بازیابی‌ات","owner":"renderDashboard"}
+{"en":"Use this on another device to get your progress back.","tr":"Bu kodu başka bir cihazda ilerlemeni geri almak için kullan.","fa":"از این کد در دستگاه دیگری برای بازگرداندن پیشرفتت استفاده کن.","owner":"renderSettings"}
+{"en":"Your profile and progress are saved on this device and backed up to your account so you can pick up where you left off elsewhere.","tr":"Profilin ve ilerlemen bu cihazda saklanır ve hesabına yedeklenir; böylece başka bir yerden devam edebilirsin.","fa":"پروفایل و پیشرفتت روی این دستگاه ذخیره و در حسابت پشتیبان‌گیری می‌شود تا بتوانی از جای دیگری ادامه بدهی.","owner":"renderSettings"}
+{"en":"Voice accent","tr":"Ses aksanı","fa":"لهجه‌ی صدا","owner":"renderAccentSetting"}
+{"en":"Pick the accent you hear in lessons and stories. You can also tap the voice sign while it speaks.","tr":"Derslerde ve hikâyelerde duyduğun aksanı seç. Konuşurken ses işaretine dokunarak da değiştirebilirsin.","fa":"لهجه‌ای را که در درس‌ها و داستان‌ها می‌شنوی انتخاب کن. وقتی صدا پخش می‌شود هم می‌توانی روی نشانش بزنی.","owner":"renderAccentSetting"}
+{"en":"Log in on any device with your name and password.","tr":"Herhangi bir cihazda adın ve şifrenle giriş yap.","fa":"در هر دستگاهی با اسم و رمزت وارد شو.","owner":"renderPasswordSettings"}
+{"en":"Your login name:","tr":"Giriş adın:","fa":"نام ورودت:","owner":"renderPasswordSettings"}
+{"en":"Your password wasn't saved because the app couldn't reach the server. Please set it again here.","tr":"Uygulama sunucuya ulaşamadığı için şifren kaydedilmedi. Lütfen burada tekrar belirle.","fa":"چون اپ به سرور دسترسی نداشت، رمزت ذخیره نشد. لطفاً اینجا دوباره تعیینش کن.","owner":"renderPasswordSettings"}
+{"en":"Set a password so you can log in with your name instead of the recovery code.","tr":"Kurtarma kodu yerine adınla giriş yapabilmek için bir şifre belirle.","fa":"یک رمز بگذار تا به جای کد بازیابی با اسمت وارد شوی.","owner":"renderPasswordSettings"}
+{"en":"New password","tr":"Yeni şifre","fa":"رمز جدید","owner":"renderRestoreCode"}
+{"en":"Repeat the password","tr":"Şifreyi tekrar yaz","fa":"رمز را دوباره بنویس","owner":"renderPasswordSettings"}
+{"en":"Password saved!","tr":"Şifre kaydedildi!","fa":"رمز ذخیره شد!","owner":"renderPasswordSettings"}
+{"en":"Change password","tr":"Şifreyi değiştir","fa":"تغییر رمز","owner":"renderPasswordSettings"}
+{"en":"Save password","tr":"Şifreyi kaydet","fa":"ذخیره رمز","owner":"renderPasswordSettings"}
+{"en":"Stay in touch","tr":"İletişimde kal","fa":"در ارتباط باش","owner":"renderContactOptIn"}
+{"en":"I'd like the teacher to message me directly with tips and offers.","tr":"Öğretmenin bana doğrudan ipuçları ve fırsatlarla ilgili mesaj atmasını isterim.","fa":"دوست دارم معلم مستقیماً برایم نکات و پیشنهادها را پیام بدهد.","owner":"renderContactOptIn"}
+{"en":"Your WhatsApp number","tr":"WhatsApp numaran","fa":"شماره واتس‌اپت","owner":"renderContactOptIn"}
+{"en":"Save","tr":"Kaydet","fa":"ذخیره","owner":"PRACTICE_RECOMMENDATION"}
+{"en":"Saved!","tr":"Kaydedildi!","fa":"ذخیره شد!","owner":"renderPasswordSettings"}
+{"en":"Your VIP corner — check your progress or join the club.","tr":"Senin VIP köşen — ilerlemeni kontrol et ya da kulübe katıl.","fa":"گوشه ویژه تو — پیشرفتت را ببین یا به باشگاه بپیوند.","owner":"renderStudentClub"}
+{"en":"I'm a student","tr":"Ben bir öğrenciyim","fa":"من دانش‌آموز هستم","owner":"GRAMMAR_ITEMS"}
+{"en":"See my progress","tr":"İlerlemimi gör","fa":"دیدن پیشرفتم","owner":"renderStudentClub"}
+{"en":"Enter your pass to open your own private panel.","tr":"Kendi özel panelini açmak için kodunu gir.","fa":"برای باز کردن پنل خصوصی‌ات رمزت را وارد کن.","owner":"renderStudentClub"}
+{"en":"New here","tr":"Yeni misin","fa":"تازه اومدی","owner":"renderStudentClub"}
+{"en":"Join Student Club","tr":"Öğrenci Kulübüne Katıl","fa":"پیوستن به باشگاه دانش‌آموزان","owner":"renderStudentClub"}
+{"en":"Share your name and number so your teacher can reach you.","tr":"Öğretmenin ulaşabilsin diye adını ve numaranı paylaş.","fa":"اسم و شماره‌ات را بگو تا معلمت بتواند بهت برسد.","owner":"renderStudentClub"}
+{"en":"Enter your pass","tr":"Kodunu gir","fa":"رمزت را وارد کن","owner":"renderStudentClub"}
+{"en":"Your teacher gave you a special pass or username.","tr":"Öğretmenin sana özel bir kod ya da kullanıcı adı verdi.","fa":"معلمت یک رمز یا نام کاربری ویژه به تو داده.","owner":"renderStudentClubLogin"}
+{"en":"Your pass / username","tr":"Kodun / kullanıcı adın","fa":"رمز / نام کاربری‌ات","owner":"renderStudentClubLogin"}
+{"en":"We couldn't find that pass. Double-check it and try again.","tr":"Bu kodu bulamadık. Kontrol edip tekrar dene.","fa":"این رمز را پیدا نکردیم. بررسی کن و دوباره امتحان کن.","owner":"renderStudentClubLogin"}
+{"en":"Homework","tr":"Ödev","fa":"تکلیف","owner":"WRITING_TASKS"}
+{"en":"Tip","tr":"İpucu","fa":"نکته","owner":"GRAMMAR_ITEMS"}
+{"en":"Lesson","tr":"Ders","fa":"درس","owner":"ARCHETYPES"}
+{"en":"Goal","tr":"Hedef","fa":"هدف","owner":"GRAMMAR_ITEMS"}
+{"en":"Upcoming","tr":"Yaklaşan","fa":"پیش رو","owner":"courseStatusLabelL"}
+{"en":"Current course","tr":"Şu anki kurs","fa":"دوره‌ی فعلی","owner":"courseStatusLabelL"}
+{"en":"Locked","tr":"Kilitli","fa":"قفل","owner":"DW_C1_MF"}
+{"en":"Archived","tr":"Arşivlendi","fa":"بایگانی‌شده","owner":"courseStatusLabelL"}
+{"en":"Level exam","tr":"Seviye sınavı","fa":"آزمون سطح","owner":"renderLevelExamCard"}
+{"en":"Two short talks you prepare at home, then a short test.","tr":"Evde hazırladığın iki kısa konuşma, ardından kısa bir test.","fa":"دو صحبت کوتاه که در خانه آماده می‌کنی، بعد یک آزمون کوتاه.","owner":"renderLevelExamCard"}
+{"en":"Exam brief","tr":"Sınav rehberi","fa":"راهنمای آزمون","owner":"renderLevelExamCard"}
+{"en":"Take the test","tr":"Teste başla","fa":"شروع آزمون","owner":"renderLevelExamCard"}
+{"en":"My FEschool Journey","tr":"FEschool Yolculuğum","fa":"مسیر من در FEschool","owner":"renderCourseJourney"}
+{"en":"Course report","tr":"Kurs raporu","fa":"گزارش دوره","owner":"renderCourseJourney"}
+{"en":"Course","tr":"Kurs","fa":"دوره","owner":"VOCAB_SETS"}
+{"en":"Course not found.","tr":"Kurs bulunamadı.","fa":"دوره پیدا نشد.","owner":"renderCourseView"}
+{"en":"Everything you learned in this course, in one page.","tr":"Bu kursta öğrendiğin her şey tek sayfada.","fa":"همه‌ی آموخته‌های این دوره، در یک صفحه.","owner":"renderCourseView"}
+{"en":"Open your course report","tr":"Kurs raporunu aç","fa":"مشاهده‌ی گزارش دوره","owner":"renderCourseView"}
+{"en":"Sessions","tr":"Seanslar","fa":"جلسه‌ها","owner":"COURSE_EXTRA"}
+{"en":"No sessions in this course yet.","tr":"Bu kursta henüz seans yok.","fa":"هنوز جلسه‌ای برای این دوره ثبت نشده است.","owner":"renderCourseView"}
+{"en":"Your Progress","tr":"İlerlemen","fa":"پیشرفت تو","owner":"renderStudentPanel"}
+{"en":"Curated by your teacher, just for you.","tr":"Öğretmenin tarafından, sadece senin için hazırlandı.","fa":"معلمت این را فقط برای تو آماده کرده است.","owner":"renderStudentPanel"}
+{"en":"Level not set","tr":"Seviye belirtilmemiş","fa":"سطح هنوز مشخص نشده","owner":"renderStudentPanel"}
+{"en":"Student","tr":"Öğrenci","fa":"دانش‌آموز","owner":"GRAMMAR_ITEMS"}
+{"en":"Lessons paused","tr":"Dersler duraklatıldı","fa":"درس‌ها متوقف شده‌اند","owner":"renderStudentPanel"}
+{"en":"Working on","tr":"Üzerinde çalıştığın","fa":"در حال کار روی","owner":"renderStudentPanel"}
+{"en":"Level progress","tr":"Seviye ilerlemesi","fa":"پیشرفت سطح","owner":"renderStudentPanel"}
+{"en":"You've reached the top of the roadmap!","tr":"Yol haritasının zirvesine ulaştın!","fa":"به بالای نقشه‌ی راه رسیدی!","owner":"renderStudentPanel"}
+{"en":"Course completed","tr":"Kurs tamamlandı","fa":"دوره تکمیل شد","owner":"renderStudentPanel"}
+{"en":"You've completed ${prevCourse.level}. Your next personalized roadmap is ready: ${activeCourse.level}.","tr":"${prevCourse.level} seviyesini tamamladın. Bir sonraki kişisel yol haritan hazır: ${activeCourse.level}.","fa":"سطح ${prevCourse.level} را تمام کردی. نقشه راه شخصی بعدی‌ات آماده است: ${activeCourse.level}.","owner":"renderStudentPanel"}
+{"en":"Open your course report","tr":"Kurs raporunu aç","fa":"باز کردن گزارش دوره","owner":"renderStudentPanel"}
+{"en":"Extra","tr":"Ekstra","fa":"اضافی","owner":"GRAMMAR_ITEMS"}
+{"en":"What you've learned","tr":"Neler öğrendin","fa":"چیزهایی که یاد گرفتی","owner":"renderStudentPanel"}
+{"en":"Nothing added yet — check back soon!","tr":"Henüz bir şey eklenmedi — yakında tekrar bak!","fa":"هنوز چیزی اضافه نشده — به‌زودی دوباره سر بزن!","owner":"renderStudentPanel"}
+{"en":"Performance","tr":"Performans","fa":"عملکرد","owner":"VOCAB_SETS"}
+{"en":"Last updated","tr":"Son güncelleme","fa":"آخرین به‌روزرسانی","owner":"renderPrivacyPolicy"}
+{"en":"Join Student Club","tr":"Kulübe Katıl","fa":"پیوستن به باشگاه","owner":"renderStudentClub"}
+{"en":"You're in!","tr":"Aramıza katıldın!","fa":"به جمع ما پیوستی!","owner":"renderStudentClubJoin"}
+{"en":"Your teacher will be in touch soon.","tr":"Öğretmenin yakında seninle iletişime geçecek.","fa":"معلمت به‌زودی باهات تماس می‌گیرد.","owner":"renderStudentClubJoin"}
+{"en":"Leave your name and number, and your teacher will reach out.","tr":"Adını ve numaranı bırak, öğretmenin seninle iletişime geçsin.","fa":"اسم و شماره‌ات را بگذار تا معلمت باهات تماس بگیرد.","owner":"renderStudentClubJoin"}
+{"en":"Please enter your name and number.","tr":"Lütfen adını ve numaranı gir.","fa":"لطفاً اسم و شماره‌ات را وارد کن.","owner":"renderStudentClubJoin"}
+{"en":"Slang & Expressions","tr":"Argo ve Deyimler","fa":"اصطلاحات و عبارات","owner":"tabLabel"}
+{"en":"Exam Strategy","tr":"Sınav Stratejisi","fa":"استراتژی آزمون","owner":"tabLabel"}
+{"en":"Culture Guide","tr":"Kültür Rehberi","fa":"راهنمای فرهنگی","owner":"tabLabel"}
+{"en":"Pick up to 3 goals — all of them shape your Roadmap, lessons and practice.","tr":"En fazla 3 hedef seç — hepsi Yol Haritanı, derslerini ve alıştırmalarını şekillendirir.","fa":"حداکثر ۳ هدف انتخاب کن — همه آن‌ها نقشه راه، درس‌ها و تمرین‌هایت را شکل می‌دهند.","owner":"renderGoalsList"}
+{"en":"Choose a level to start.","tr":"Başlamak için bir seviye seç.","fa":"برای شروع یک سطح انتخاب کن.","owner":"renderGoalLevels"}
+{"en":"Your level","tr":"Seviyen","fa":"سطح تو","owner":"renderGoalLevels"}
+{"en":"Everything in this level, focused on your goal.","tr":"Bu seviyedeki her şey hedefine göre.","fa":"هر چیزی در این سطح، متمرکز بر هدف تو.","owner":"renderGoalLevelDetail"}
+{"en":"This doesn't look like real English words — try writing an actual sentence, not random letters.","tr":"Bu gerçek İngilizce kelimeler gibi görünmüyor — rastgele harfler değil, gerçek bir cümle yazmayı dene.","fa":"این شبیه کلمات واقعی انگلیسی نیست — به‌جای حروف رندوم، یک جمله واقعی بنویس.","owner":"practiceFeedback"}
+{"en":"This doesn't read like a real sentence yet — make sure it has a clear subject and verb, like \"I ...\" or \"My friend ...\".","tr":"Bu henüz gerçek bir cümle gibi okunmuyor — \"Ben ...\" ya da \"Arkadaşım ...\" gibi net bir özne ve fiil olduğundan emin ol.","fa":"این هنوز مثل یک جمله واقعی خوانده نمی‌شود — مطمئن شو یک فاعل و فعل واضح دارد، مثل «من ...» یا «دوستم ...».","owner":"practiceFeedback"}
+{"en":"All ${round.words.length} target word${round.words.length>1?'s':''} used — nice!","tr":"Hedeflenen ${round.words.length} kelimenin tümünü kullandın — harika!","fa":"همه ${round.words.length} کلمه هدف را استفاده کردی — عالی!","owner":"practiceFeedback"}
+{"en":"Missing: ${biso(result.wordsMissed.join(', '))}. Try working ${result.wordsMissed.length>1?'them':'it'} into your ${round.words.length>1?'sentences':'sentence'}.","tr":"Eksik: ${biso(result.wordsMissed.join(', '))}. Bunları cümlelerine eklemeyi dene.","fa":"کم داری: ${biso(result.wordsMissed.join(', '))}. سعی کن این‌ها را در جمله‌هایت بگنجانی.","owner":"practiceFeedback"}
+{"en":"Good length — ${result.wc} words across ${result.sc} sentence${result.sc>1?'s':''}.","tr":"İyi bir uzunluk — ${result.sc} cümlede ${result.wc} kelime.","fa":"طول خوبی داشت — ${result.wc} کلمه در ${result.sc} جمله.","owner":"practiceFeedback"}
+{"en":"Add more detail — you wrote ${result.wc} word${result.wc===1?'':'s'} in ${result.sc} sentence${result.sc===1?'':'s'}; aim for at least ${round.minWords} words across ${round.minSentences}+ sentences.","tr":"Daha fazla detay ekle — ${result.sc} cümlede ${result.wc} kelime yazdın; en az ${round.minWords} kelime ve ${round.minSentences}+ cümle hedefle.","fa":"جزئیات بیشتری اضافه کن — ${result.wc} کلمه در ${result.sc} جمله نوشتی؛ حداقل ${round.minWords} کلمه و ${round.minSentences}+ جمله هدف بگیر.","owner":"practiceFeedback"}
+{"en":"Check this: ","tr":"Şuna bak: ","fa":"این را بررسی کن: ","owner":"practiceFeedback"}
+{"en":"Try using \"${biso(round.grammar.title)}\" in a full sentence. Check that it follows the rule.","tr":"\"${biso(round.grammar.title)}\" yapısını tam bir cümlede kullanmayı dene. Kurala uyduğundan emin ol.","fa":"سعی کن از «${biso(round.grammar.title)}» در یک جمله کامل استفاده کنی. مطمئن شو با قاعده می‌خواند.","owner":"practiceFeedback"}
+{"en":"Bonus: weave in \"${biso(round.grammar.title)}\" for extra polish — ${round.grammar.exp}","tr":"Bonus: daha parlak olması için \"${biso(round.grammar.title)}\" yapısını ekle — ${round.grammar.exp}","fa":"امتیاز اضافه: «${biso(round.grammar.title)}» را هم اضافه کن — ${round.grammar.exp}","owner":"practiceFeedback"}
+{"en":"Great — you used the slang \"${biso(round.slang.word)}\"!","tr":"Harika — \"${biso(round.slang.word)}\" argosunu kullandın!","fa":"عالی — از اصطلاح «${biso(round.slang.word)}» استفاده کردی!","owner":"practiceFeedback"}
+{"en":"Bonus: try the slang \"${biso(round.slang.word)}\" (${biso(round.slang.meaning)}) next time.","tr":"Bonus: bir dahaki sefere \"${biso(round.slang.word)}\" argosunu dene (${biso(round.slang.meaning)}).","fa":"امتیاز اضافه: دفعه بعد اصطلاح «${biso(round.slang.word)}» را امتحان کن (${biso(round.slang.meaning)}).","owner":"practiceFeedback"}
+{"en":"Bonus tip: ","tr":"Bonus ipucu: ","fa":"نکته اضافه: ","owner":"practiceFeedback"}
+{"en":"Join your ideas","tr":"Fikirlerini bağla","fa":"ایده‌هایت را به هم وصل کن","owner":"writingTaskPlanHtml"}
+{"en":"(use two)","tr":"(ikisini kullan)","fa":"(دو تا را به کار ببر)","owner":"writingTaskPlanHtml"}
+{"en":"Plan it first","tr":"Önce planla","fa":"اول برنامه‌ریزی کن","owner":"writingTaskPlanHtml"}
+{"en":"You joined your ideas: ","tr":"Fikirlerini bağladın: ","fa":"ایده‌هایت را به هم وصل کردی: ","owner":"writingTaskResultHtml"}
+{"en":"Join your ideas with two of: ","tr":"Fikirlerini şunlardan ikisiyle bağla: ","fa":"ایده‌هایت را با دو تا از این‌ها وصل کن: ","owner":"writingTaskResultHtml"}
+{"en":"One way to write it","tr":"Yazmanın bir yolu","fa":"یک راه برای نوشتنش","owner":"writingTaskResultHtml"}
+{"en":"One short sentence","tr":"Kısa bir cümle","fa":"یک جمله کوتاه","owner":"renderStudioSetup"}
+{"en":"A couple of sentences","tr":"Birkaç cümle","fa":"چند جمله","owner":"COURSE_EXTRA"}
+{"en":"A short paragraph","tr":"Kısa bir paragraf","fa":"یک پاراگراف کوتاه","owner":"renderStudioSetup"}
+{"en":"Your journal asks a question. Pick a difficulty and answer it in writing.","tr":"Günlüğün bir soru soruyor. Bir zorluk seç ve yazarak cevapla.","fa":"دفترت یک سؤال دارد. یک سطح انتخاب کن و نوشتاری جواب بده.","owner":"renderStudioSetup"}
+{"en":"Pick a goal and a difficulty to start a round.","tr":"Bir hedef ve zorluk seç, tura başla.","fa":"یک هدف و سطح دشواری انتخاب کن و تمرین را شروع کن.","owner":"renderStudioSetup"}
+{"en":"Set your goals in Profile to personalize this further.","tr":"Bunu kişiselleştirmek için Profilinde hedeflerini ayarla.","fa":"برای شخصی‌سازی بیشتر، هدف‌هایت را در پروفایل تنظیم کن.","owner":"renderStudioSetup"}
+{"en":"All my goals","tr":"Tüm hedeflerim","fa":"همه اهدافم","owner":"renderStudioSetup"}
+{"en":"Difficulty","tr":"Zorluk","fa":"سطح دشواری","owner":"renderStudioSetup"}
+{"en":"Start round","tr":"Tura başla","fa":"شروع تمرین","owner":"renderStudioSetup"}
+{"en":"${wc} of ${minWords} words","tr":"${minWords} kelimeden ${wc}","fa":"${wc} از ${minWords} کلمه","owner":"fillBarLabel"}
+{"en":"Getting started","tr":"Başlıyoruz","fa":"شروع شد","owner":"GRAMMAR_ITEMS"}
+{"en":"Excellent!","tr":"Mükemmel!","fa":"عالی!","owner":"practiceFeedback"}
+{"en":"Nice work!","tr":"Güzel iş!","fa":"کار خوب!","owner":"studioResultHtml"}
+{"en":"Keep practicing","tr":"Pratik yapmaya devam","fa":"به تمرین ادامه بده","owner":"studioResultHtml"}
+{"en":"All of them. Nice.","tr":"Hepsi. Güzel.","fa":"همه‌شان. عالی.","owner":"studioResultHtml"}
+{"en":"Take 2","tr":"2. deneme","fa":"بار دوم","owner":"COMPANION_ENTRIES"}
+{"en":"Take 1","tr":"1. deneme","fa":"بار اول","owner":"COURSE_EXTRA"}
+{"en":"Well spoken!","tr":"Güzel konuştun!","fa":"خوب گفتی!","owner":"speakPanelHtml"}
+{"en":"Want to see your words too? Type what you said below and check it.","tr":"Sözlerini görmek ister misin? Söylediğini aşağıya yaz ve kontrol et.","fa":"می‌خواهی حرف‌هایت را هم ببینی؟ چیزی را که گفتی پایین بنویس و بررسی کن.","owner":"speakPanelHtml"}
+{"en":"Say it out loud","tr":"Yüksek sesle söyle","fa":"بلند بگو","owner":"COURSE_EXTRA"}
+{"en":"Use a starter above if it helps, then tap the button. You can also type it below.","tr":"İstersen yukarıdaki cümlelerden biriyle başla, sonra butona dokun. İstersen aşağıya da yazabilirsin.","fa":"اگر کمکت می‌کند با یکی از جمله‌های بالا شروع کن، بعد دکمه را بزن. می‌توانی پایین هم بنویسی.","owner":"speakPanelHtml"}
+{"en":"Your words will appear here…","tr":"Sözlerin burada görünecek…","fa":"حرف‌هایت اینجا ظاهر می‌شوند…","owner":"speakPanelHtml"}
+{"en":"Start speaking","tr":"Konuşmaya başla","fa":"شروع صحبت","owner":"COURSE_EXTRA"}
+{"en":"Listening… tap to stop","tr":"Dinliyorum… durdurmak için dokun","fa":"دارم گوش می‌دم… برای توقف بزن","owner":"speakPanelHtml"}
+{"en":"Tap to keep talking","tr":"Devam etmek için dokun","fa":"برای ادامه بزن","owner":"speakPanelHtml"}
+{"en":"Tap and speak","tr":"Dokun ve konuş","fa":"بزن و بگو","owner":"COMPANION_ENTRIES"}
+{"en":"Your two takes","tr":"İki denemen","fa":"دو بار گفتنت","owner":"speakTakesHtml"}
+{"en":"Kept","tr":"Seçilen","fa":"نگهش داشتی","owner":"speakTakesHtml"}
+{"en":"${h} of ${n} target words · ${wc} words","tr":"Hedef kelimelerden ${h}/${n} · ${wc} kelime","fa":"${h} از ${n} کلمهٔ هدف – ${wc} کلمه","owner":"speakTakesHtml"}
+{"en":"${wc} words","tr":"${wc} kelime","fa":"${wc} کلمه","owner":"speakTakesHtml"}
+{"en":"Take 2 is stronger, so that's the one you keep.","tr":"2. deneme daha güçlü, onu saklıyoruz.","fa":"بار دوم بهتر گفتی، همین را نگه می‌داریم.","owner":"speakTakesHtml"}
+{"en":"Your first take stays. Saying it twice still counts.","tr":"İlk denemen kalıyor. İki kez söylemek yine de sayılır.","fa":"بار اولت می‌ماند. دو بار گفتنش هم تمرین حساب می‌شود.","owner":"speakTakesHtml"}
+{"en":"Nice! Twice is how it sticks.","tr":"Güzel! İki kez söyleyince akılda kalır.","fa":"عالی! دو بار گفتن یعنی ماندگار شدن.","owner":"speakNextHtml"}
+{"en":"Say it once more, out loud","tr":"Bir kez daha, yüksek sesle söyle","fa":"یک بار دیگر بلند بگو","owner":"speakNextHtml"}
+{"en":"Try to fit in: ","tr":"Şunları da katmayı dene: ","fa":"سعی کن این‌ها را هم بگویی: ","owner":"speakNextHtml"}
+{"en":"Make it a full sentence this time.","tr":"Bu sefer tam bir cümle kur.","fa":"این بار یک جملهٔ کامل بگو.","owner":"speakNextHtml"}
+{"en":"Add one more detail this time.","tr":"Bu sefer bir detay daha ekle.","fa":"این بار یک جزئیات دیگر هم اضافه کن.","owner":"speakNextHtml"}
+{"en":"Say it again, a little better.","tr":"Bir daha söyle, biraz daha iyi.","fa":"دوباره بگو، کمی بهتر.","owner":"speakNextHtml"}
+{"en":"Say it again","tr":"Tekrar söyle","fa":"دوباره بگو","owner":"COURSE_EXTRA"}
+{"en":"Listen","tr":"Dinle","fa":"گوش بده","owner":"COURSE_EXTRA"}
+{"en":"Your topic","tr":"Konun","fa":"موضوع تو","owner":"SPEAKING_TOPICS"}
+{"en":"Useful ways to start","tr":"Başlamak için işe yarar cümleler","fa":"جمله‌های مفید برای شروع","owner":"renderStudioRound"}
+{"en":"Use these words","tr":"Bu kelimeleri kullan","fa":"از این کلمات استفاده کن","owner":"renderStudioRound"}
+{"en":"Try this grammar:","tr":"Bu yapıyı dene:","fa":"این ساختار را امتحان کن:","owner":"renderStudioRound"}
+{"en":"Bonus slang:","tr":"Bonus argo:","fa":"اصطلاح اضافه:","owner":"renderStudioRound"}
+{"en":"Aim for at least ${round.minWords} words.","tr":"En az ${round.minWords} kelime hedefle.","fa":"حداقل ${round.minWords} کلمه هدف بگیر.","owner":"renderStudioRound"}
+{"en":"Type your answer here...","tr":"Cevabını buraya yaz...","fa":"پاسخت را اینجا بنویس...","owner":"renderStudioRound"}
+{"en":"Check my answer","tr":"Cevabımı kontrol et","fa":"پاسخم را بررسی کن","owner":"renderStudioRound"}
+{"en":"New round","tr":"Yeni tur","fa":"تمرین جدید","owner":"renderStudioRound"}
+{"en":"Change difficulty","tr":"Zorluğu değiştir","fa":"تغییر سطح","owner":"renderStudioRound"}
+{"en":"${n} game${n===1?'':'s'} to play any time","tr":"${n} oyun, istediğin zaman oyna","fa":"${n} بازی برای هر وقت که بخواهی","owner":"shelfSubLine"}
+{"en":"Games from your roadmap come here","tr":"Yol haritandaki oyunlar buraya gelir","fa":"بازی‌های نقشه راهت اینجا جمع می‌شوند","owner":"shelfSubLine"}
+{"en":"Tune in, listen part by part, and catch the big picture.","tr":"Radyoyu ayarla, parça parça dinle ve ana fikri yakala.","fa":"رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.","owner":"gameBlurb"}
+{"en":"A summer in ${town}, one choice at a time.","tr":"${town}: bir yaz, her seferinde bir seçim.","fa":"یک تابستان در ${town}، هر بار یک انتخاب.","owner":"gameBlurb"}
+{"en":"Listen to each customer’s order and build it on the tray.","tr":"Her müşterinin siparişini dinle ve tepsiye hazırla.","fa":"سفارش هر مشتری را گوش کن و روی سینی بچین.","owner":"gameBlurb"}
+{"en":"Read the clues carefully and find who did it.","tr":"İpuçlarını dikkatle oku ve kimin yaptığını bul.","fa":"سرنخ‌ها را با دقت بخوان و پیدا کن کار چه کسی بوده.","owner":"gameBlurb"}
+{"en":"Listen to each traveller and fix the mistake on their card.","tr":"Her yolcuyu dinle ve kartındaki hatayı düzelt.","fa":"به هر مسافر گوش کن و اشتباه کارتش را درست کن.","owner":"gameBlurb"}
+{"en":"Say the word out loud to open each magic door.","tr":"Her sihirli kapıyı açmak için kelimeyi yüksek sesle söyle.","fa":"برای باز کردن هر در جادویی، کلمه را بلند بگو.","owner":"gameBlurb"}
+{"en":"Spell the words you learned into a pocket crossword.","tr":"Öğrendiğin kelimeleri mini bir bulmacaya yaz.","fa":"کلمه‌هایی که یاد گرفتی را در یک جدول کوچک بنویس.","owner":"gameBlurb"}
+{"en":"Listen to the clue and tap the word on your card.","tr":"İpucunu dinle, kartındaki kelimeye dokun.","fa":"سرنخ را گوش کن و روی کلمه در کارتت بزن.","owner":"gameBlurb"}
+{"en":"Flip tiles and match each word with its meaning.","tr":"Karoları çevir, her kelimeyi anlamıyla eşleştir.","fa":"کاشی‌ها را برگردان و هر کلمه را با معنی‌اش جفت کن.","owner":"gameBlurb"}
+{"en":"Listen to a sentence and type what you hear.","tr":"Bir cümle dinle, duyduğunu yaz.","fa":"یک جمله گوش کن و همان را تایپ کن.","owner":"gameBlurb"}
+{"en":"Tap the word tiles to build the sentence.","tr":"Kelime karolarına dokunarak cümleyi kur.","fa":"روی کاشی‌های کلمه بزن و جمله را بساز.","owner":"gameBlurb"}
+{"en":"Pick the right form quickly, the traps are waiting.","tr":"Doğru şekli hızla seç, tuzaklar bekliyor.","fa":"سریع شکل درست را انتخاب کن، تله‌ها منتظرند.","owner":"gameBlurb"}
+{"en":"Find the words hidden in a passage from your story.","tr":"Hikayenden bir bölümde gizli kelimeleri bul.","fa":"کلمه‌ها را در بخشی از داستانت پیدا کن.","owner":"gameBlurb"}
+{"en":"Listen to a line and say it back.","tr":"Bir cümle dinle ve tekrar et.","fa":"یک جمله گوش کن و همان را بگو.","owner":"gameBlurb"}
+{"en":"Tidy a room by following the sentences.","tr":"Cümleleri takip ederek bir odayı topla.","fa":"با دنبال‌کردن جمله‌ها یک اتاق را مرتب کن.","owner":"gameBlurb"}
+{"en":"Replay any game you have met, as often as you like. Scores here are just for fun.","tr":"Tanıştığın her oyunu istediğin kadar tekrar oyna. Buradaki skorlar sadece eğlence için.","fa":"هر بازی‌ای که دیده‌ای را هر چند بار که بخواهی دوباره بازی کن. امتیازهای اینجا فقط برای تفریح است.","owner":"renderGamesShelf"}
+{"en":"New","tr":"Yeni","fa":"جدید","owner":"ARCHETYPES"}
+{"en":"Finish a game on your roadmap and it appears here to play again.","tr":"Yol haritandaki bir oyunu bitir, tekrar oynamak için burada görünsün.","fa":"یک بازی از نقشه راهت را تمام کن تا برای بازی دوباره اینجا بیاید.","owner":"renderGamesShelf"}
+{"en":"Back to games","tr":"Oyunlara dön","fa":"بازگشت به بازی‌ها","owner":"gameDoneCta"}
+{"en":"Back to roadmap","tr":"Yol haritasına dön","fa":"بازگشت به نقشه راه","owner":"gameDoneCta"}
+{"en":"Play again","tr":"Tekrar oyna","fa":"دوباره بازی کن","owner":"renderGamesShelf"}
+{"en":"${name} opens once you have finished a story. ","tr":"${name} bir hikaye bitirdiğinde açılır. ","fa":"${name} وقتی یک داستان را تمام کنی باز می‌شود. ","owner":"gameFallbackNote"}
+{"en":"${name} needs more words than this set has. ","tr":"${name} için bu sette yeterli kelime yok. ","fa":"${name} به کلمه‌های بیشتری از این مجموعه نیاز دارد. ","owner":"gameFallbackNote"}
+{"en":"${name} opens after a few more grammar steps. ","tr":"${name} birkaç dilbilgisi adımından sonra açılır. ","fa":"${name} بعد از چند قدم گرامر دیگر باز می‌شود. ","owner":"gameFallbackNote"}
+{"en":"Empty slot","tr":"Boş yer","fa":"جای خالی","owner":"DW_B1C1"}
+{"en":"Flawless!","tr":"Kusursuz!","fa":"بی‌نقص!","owner":"renderGameBuild"}
+{"en":"All built!","tr":"Hepsi kuruldu!","fa":"همه ساخته شد!","owner":"renderGameBuild"}
+{"en":"${round.firstTry} of ${total} built on the first try","tr":"${total} cümleden ${round.firstTry} tanesi ilk denemede","fa":"${round.firstTry} از ${total} در اولین تلاش","owner":"renderGameBuild"}
+{"en":"Sentence ${a} of ${b}","tr":"Cümle ${a}/${b}","fa":"جمله ${a} از ${b}","owner":"renderGameBuild"}
+{"en":"Tap the words in the right order.","tr":"Kelimelere doğru sırayla dokun.","fa":"کلمه‌ها را به ترتیب درست بزن.","owner":"renderGameBuild"}
+{"en":"Hear it","tr":"Dinle","fa":"بشنو","owner":"IELTS_STRATEGY"}
+{"en":"Next: ","tr":"Sıradaki: ","fa":"بعدی: ","owner":"planStepLabel"}
+{"en":"Next sentence","tr":"Sonraki cümle","fa":"جمله بعدی","owner":"renderGameBuild"}
+{"en":"See results","tr":"Sonuçları gör","fa":"دیدن نتایج","owner":"renderGameBuild"}
+{"en":"Full card!","tr":"Tam kart!","fa":"کارت کامل!","owner":"renderGameBingo"}
+{"en":"Call ${a} of 9","tr":"Çağrı ${a}/9","fa":"صدا ${a} از ۹","owner":"renderGameBingo"}
+{"en":"Play the clue","tr":"İpucunu çal","fa":"پخش سرنخ","owner":"renderGameBingo"}
+{"en":"Listen, then tap the word","tr":"Dinle, sonra kelimeye dokun","fa":"گوش کن، بعد روی کلمه بزن","owner":"renderGameBingo"}
+{"en":"Show the clue","tr":"İpucunu göster","fa":"سرنخ را نشان بده","owner":"renderGameBingo"}
+{"en":"Bingo!","tr":"Tombala!","fa":"بینگو!","owner":"renderGameBingo"}
+{"en":"${round.first} of ${BINGO_SCORED_CALLS} on the first tap","tr":"${BINGO_SCORED_CALLS} çağrıdan ${round.first} tanesi ilk dokunuşta","fa":"${round.first} از ${BINGO_SCORED_CALLS} با اولین لمس","owner":"renderGameBingo"}
+{"en":"Across","tr":"Soldan sağa","fa":"افقی","owner":"COURSE_EXTRA"}
+{"en":"Down","tr":"Yukarıdan aşağı","fa":"عمودی","owner":"crossDirName"}
+{"en":"letter ${pos} of ${w.len}","tr":"harf ${pos}/${w.len}","fa":"حرف ${pos} از ${w.len}","owner":"crossGridHtml"}
+{"en":"reveal","tr":"açılan harf","fa":"حرف فاش‌شده","owner":"crossStatusHtml"}
+{"en":"Grid complete!","tr":"Bulmaca tamam!","fa":"جدول کامل شد!","owner":"crossStatusHtml"}
+{"en":"${solved} of ${total} words","tr":"${solved}/${total} kelime","fa":"${solved} از ${total} کلمه","owner":"crossStatusHtml"}
+{"en":"Previous clue","tr":"Önceki ipucu","fa":"سرنخ قبلی","owner":"crossClueHtml"}
+{"en":"Next clue","tr":"Sonraki ipucu","fa":"سرنخ بعدی","owner":"crossClueHtml"}
+{"en":"Keyboard","tr":"Klavye","fa":"صفحه‌کلید","owner":"crossKeyboardHtml"}
+{"en":"Delete","tr":"Sil","fa":"حذف","owner":"GRAMMAR_ITEMS"}
+{"en":"Show meaning","tr":"Anlamı göster","fa":"معنی را نشان بده","owner":"crossHelpHtml"}
+{"en":"Show more","tr":"Daha fazla göster","fa":"بیشتر نشان بده","owner":"crossHelpHtml"}
+{"en":"Reveal a letter","tr":"Bir harf aç","fa":"یک حرف را فاش کن","owner":"crossHelpHtml"}
+{"en":"Time ${t} · your best ${crossTimeText(best)}","tr":"Süre ${t} · en iyin ${crossTimeText(best)}","fa":"زمان ${t} – بهترینت ${crossTimeText(best)}","owner":"crossResultHtml"}
+{"en":"New best time: ${t}!","tr":"Yeni en iyi süre: ${t}!","fa":"بهترین زمان جدید: ${t}!","owner":"crossResultHtml"}
+{"en":"Time ${t}","tr":"Süre ${t}","fa":"زمان ${t}","owner":"crossResultHtml"}
+{"en":"${st.clean} of ${st.total} words clean","tr":"${st.total} kelimeden ${st.clean} tanesi temiz","fa":"${st.clean} از ${st.total} کلمه بی‌خطا","owner":"crossResultHtml"}
+{"en":"Two in a row!","tr":"İki arka arkaya!","fa":"دو تا پشت هم!","owner":"fxCrossSolve"}
+{"en":"Here is one letter for you","tr":"Sana bir harf","fa":"یه حرف از من","owner":"crossAfter"}
+{"en":"One letter is off","tr":"Bir harf yanlış","fa":"یک حرف اشتباهه","owner":"crossAfter"}
+{"en":"${n} letters are off","tr":"${n} harf yanlış","fa":"${n} حرف اشتباهه","owner":"crossAfter"}
+{"en":"Mini Cross with these words","tr":"Bu kelimelerle Mini Bulmaca","fa":"جدول کوچک با همین کلمه‌ها","owner":"crossOfferHtml"}
+{"en":"Remove one","tr":"Birini kaldır","fa":"یکی را بردار","owner":"showCelebration"}
+{"en":"Tap the shelf to build the order","tr":"Siparişi hazırlamak için rafa dokun","fa":"برای چیدن سفارش روی قفسه بزن","owner":"orderTrayHtml"}
+{"en":"Listen again","tr":"Tekrar dinle","fa":"دوباره گوش کن","owner":"renderDialogue"}
+{"en":"Show the ticket","tr":"Fişi göster","fa":"رسید را نشان بده","owner":"orderCardHtml"}
+{"en":"sold out","tr":"bitti","fa":"تمام شده","owner":"GRAMMAR_ITEMS"}
+{"en":"Menu board","tr":"Menü tahtası","fa":"تابلوی منو","owner":"orderBoardHtml"}
+{"en":"${c} in a row","tr":"Arka arkaya ${c}","fa":"${c} پشت سر هم","owner":"orderStatusHtml"}
+{"en":"Closed for today","tr":"Bugünlük kapalı","fa":"امروز بسته است","owner":"orderStatusHtml"}
+{"en":"Customer ${n} of ${ORDER_CUSTOMERS}","tr":"Müşteri ${n} / ${ORDER_CUSTOMERS}","fa":"مشتری ${n} از ${ORDER_CUSTOMERS}","owner":"orderStatusHtml"}
+{"en":"Serve","tr":"Servis et","fa":"سرو کن","owner":"orderCtaHtml"}
+{"en":"1 ticket shown","tr":"1 fiş gösterildi","fa":"۱ رسید دیده شد","owner":"orderResultHtml"}
+{"en":"${n} tickets shown","tr":"${n} fiş gösterildi","fa":"${n} رسید دیده شد","owner":"orderResultHtml"}
+{"en":"Closed","tr":"Kapalı","fa":"بسته","owner":"GRAMMAR_ITEMS"}
+{"en":"Perfect service!","tr":"Kusursuz servis!","fa":"سرویس بی‌نقص!","owner":"orderResultHtml"}
+{"en":"Closing time!","tr":"Kapanış vakti!","fa":"وقت بستنه!","owner":"orderResultHtml"}
+{"en":"${st.right} of ${st.total} orders perfect","tr":"${st.total} siparişten ${st.right} tanesi kusursuz","fa":"${st.right} از ${st.total} سفارش بی‌نقص","owner":"orderResultHtml"}
+{"en":"Order Up","tr":"Sipariş","fa":"سفارش","owner":"LEVEL_OPTIONS"}
+{"en":"No Spanish voice on this phone, so I’ll write it down.","tr":"Bu telefonda İspanyolca ses yok, ben yazayım.","fa":"این گوشی صدای اسپانیایی ندارد، من می‌نویسم.","owner":"orderNoVoiceText"}
+{"en":"No English voice on this phone, so I’ll write it down.","tr":"Bu telefonda İngilizce ses yok, ben yazayım.","fa":"این گوشی صدای انگلیسی ندارد، من می‌نویسم.","owner":"orderNoVoiceText"}
+{"en":"Perfect order!","tr":"Sipariş tam isabet!","fa":"سفارش بی‌نقص!","owner":"fxOrderRight"}
+{"en":"They love it!","tr":"Bayıldılar!","fa":"عاشقش شدند!","owner":"fxOrderRight"}
+{"en":"Not quite — listen to the part they repeat.","tr":"Tam değil — tekrar ettikleri kısma kulak ver.","fa":"نه کاملاً — به بخشی که تکرار می‌کند گوش کن.","owner":"fxOrderWrong"}
+{"en":"FROM","tr":"ÜLKE","fa":"کشور","owner":"ARCHETYPES"}
+{"en":"AGE","tr":"YAŞ","fa":"سن","owner":"GRAMMAR_ITEMS"}
+{"en":"NIGHTS","tr":"GECE","fa":"شب","owner":"GRAMMAR_ITEMS"}
+{"en":"DATE OF BIRTH","tr":"DOĞUM TARİHİ","fa":"تاریخ تولد","owner":"deskLabel"}
+{"en":"FLIGHT TIME","tr":"UÇUŞ SAATİ","fa":"ساعت پرواز","owner":"deskLabel"}
+{"en":"PURPOSE","tr":"AMAÇ","fa":"هدف سفر","owner":"deskLabel"}
+{"en":"LEAVING ON","tr":"ÇIKIŞ TARİHİ","fa":"تاریخ خروج","owner":"deskLabel"}
+{"en":"work","tr":"iş","fa":"کار","owner":"MOTIVATION_OPTIONS"}
+{"en":"study","tr":"eğitim","fa":"تحصیل","owner":"STORY_LIBRARY"}
+{"en":"family","tr":"aile","fa":"خانواده","owner":"LEVEL_OPTIONS"}
+{"en":"holiday","tr":"tatil","fa":"تعطیلات","owner":"COURSES"}
+{"en":"Desk closed","tr":"Masa kapandı","fa":"میز بسته شد","owner":"deskStatusHtml"}
+{"en":"Traveller ${n} of ${DESK_TRAVELLERS}","tr":"Yolcu ${n} / ${DESK_TRAVELLERS}","fa":"مسافر ${n} از ${DESK_TRAVELLERS}","owner":"deskStatusHtml"}
+{"en":"Today","tr":"Bugün","fa":"امروز","owner":"GRAMMAR_ITEMS"}
+{"en":"APPROVED","tr":"ONAYLANDI","fa":"تأیید شد","owner":"COURSES"}
+{"en":"Which question?","tr":"Hangi soru?","fa":"کدام سؤال؟","owner":"deskFixHtml"}
+{"en":"Ask","tr":"Sor","fa":"بپرس","owner":"LEVEL_OPTIONS"}
+{"en":"Show what they said","tr":"Söylediğini göster","fa":"گفته‌اش را نشان بده","owner":"deskBodyHtml"}
+{"en":"Next traveller","tr":"Sonraki yolcu","fa":"مسافر بعدی","owner":"deskBodyHtml"}
+{"en":"All clear!","tr":"Hepsi temiz!","fa":"همه بی‌خطا!","owner":"deskResultHtml"}
+{"en":"Desk closed!","tr":"Masa kapandı!","fa":"میز بسته شد!","owner":"deskResultHtml"}
+{"en":"${st.clean} of ${st.total} travellers clean","tr":"${st.total} yolcudan ${st.clean} tanesi temiz","fa":"${st.clean} از ${st.total} مسافر بی‌خطا","owner":"deskResultHtml"}
+{"en":"Listen to the traveller — they say their own name, age and trip out loud.","tr":"Yolcuyu dinle — adını, yaşını ve gezisini kendi söylüyor.","fa":"به مسافر گوش کن — خودش اسم، سن و سفرش را می‌گوید.","owner":"deskIntroHtml"}
+{"en":"One detail on the card doesn’t match what they said. Tap it.","tr":"Karttaki bir bilgi söylediğiyle uyuşmuyor. Ona dokun.","fa":"یک جای کارت با چیزی که گفت جور نیست. روی آن بزن.","owner":"deskIntroHtml"}
+{"en":"Fix it, then press APPROVED to send them through.","tr":"Düzelt, sonra geçmesi için ONAYLANDI’ya bas.","fa":"درستش کن، بعد برای رد شدنش روی «تأیید شد» بزن.","owner":"deskIntroHtml"}
+{"en":"How to play","tr":"Nasıl oynanır","fa":"چطور بازی می‌شود","owner":"deskIntroHtml"}
+{"en":"That one matches.","tr":"Bu doğru görünüyor.","fa":"این یکی درست است.","owner":"deskFieldTap"}
+{"en":"Not quite — pick the one you heard.","tr":"Tam değil — duyduğunu seç.","fa":"دقیق نبود — همان را که شنیدی انتخاب کن.","owner":"deskMiss"}
+{"en":"Listen to that part again.","tr":"O kısmı tekrar dinle.","fa":"آن قسمت را دوباره گوش کن.","owner":"deskMiss"}
+{"en":"Hmm, something doesn’t match.","tr":"Hmm, bir şey uyuşmuyor.","fa":"هوم، چیزی جور درنمی‌آید.","owner":"deskStamp"}
+{"en":"${cs.clues.length} clues","tr":"${cs.clues.length} ipucu","fa":"${cs.clues.length} راهنمایی","owner":"caseStatusHtml"}
+{"en":"Cases closed","tr":"Davalar kapandı","fa":"پرونده‌ها مختومه","owner":"caseStatusHtml"}
+{"en":"Case ${n} of ${round.cases.length}","tr":"Dava ${n} / ${round.cases.length}","fa":"پرونده ${n} از ${round.cases.length}","owner":"caseStatusHtml"}
+{"en":"CASE FILE","tr":"DAVA","fa":"پرونده","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"confirmed","tr":"onaylı","fa":"تأیید","owner":"GRAMMAR_ITEMS"}
+{"en":"crossed out","tr":"çizili","fa":"خط‌خورده","owner":"caseStateWord"}
+{"en":"not there","tr":"orada değil","fa":"آن‌جا نیست","owner":"caseNbLegendHtml"}
+{"en":"Places","tr":"Yerler","fa":"مکان‌ها","owner":"STAGE_THEMES"}
+{"en":"Objects","tr":"Eşyalar","fa":"اشیا","owner":"GRAMMAR_ITEMS"}
+{"en":"See how you did","tr":"Sonucu gör","fa":"نتیجه را ببین","owner":"caseBottomHtml"}
+{"en":"Next case","tr":"Sonraki dava","fa":"پرونده بعدی","owner":"caseBottomHtml"}
+{"en":"Accuse ${cs.names[cs.pick].name}?","tr":"${cs.names[cs.pick].name} suçlansın mı?","fa":"${cs.names[cs.pick].name} را متهم می‌کنی؟","owner":"caseBottomHtml"}
+{"en":"Accuse","tr":"Suçla","fa":"متهم کن","owner":"caseBottomHtml"}
+{"en":"Not yet","tr":"Henüz değil","fa":"هنوز نه","owner":"COURSES"}
+{"en":"Tap a photo to accuse someone.","tr":"Suçlamak için bir fotoğrafa dokun.","fa":"برای متهم کردن روی یک عکس بزن.","owner":"caseBottomHtml"}
+{"en":"Get a hint","tr":"İpucu al","fa":"یک راهنمایی بگیر","owner":"caseBottomHtml"}
+{"en":"Sharp detective!","tr":"Keskin dedektif!","fa":"کارآگاه تیزبین!","owner":"caseResultHtml"}
+{"en":"Cases closed!","tr":"Davalar kapandı!","fa":"پرونده‌ها مختومه شد!","owner":"caseResultHtml"}
+{"en":"${st.clean} of ${st.total} cases clean","tr":"${st.total} davadan ${st.clean} tanesi temiz","fa":"${st.clean} از ${st.total} پرونده بی‌خطا","owner":"caseResultHtml"}
+{"en":"Confirmed — this is where they were.","tr":"Onaylı — buradaymış.","fa":"تأیید شد — همین‌جا بوده.","owner":"caseIntroDemoWord"}
+{"en":"Crossed out — they were NOT there.","tr":"Çizili — orada değilmiş.","fa":"خط‌خورده — آن‌جا نبوده.","owner":"caseIntroDemoWord"}
+{"en":"Empty — tap to mark what the clues tell you. Try it:","tr":"Boş — ipuçlarının söylediğini işaretlemek için dokun. Dene:","fa":"خالی — چیزی که راهنمایی‌ها می‌گویند را علامت بزن. امتحان کن:","owner":"caseIntroDemoWord"}
+{"en":"Read every clue — each one rules someone in or out.","tr":"Her ipucunu oku — her biri birini eler veya içeri alır.","fa":"هر راهنمایی را بخوان — هر کدام یک نفر را رد یا تأیید می‌کند.","owner":"caseIntroHtml"}
+{"en":"Tap a notebook cell to mark it: empty → crossed out → confirmed → empty again.","tr":"Not defterindeki bir hücreye dokun: boş → çizili → onaylı → tekrar boş.","fa":"روی یک خانه از دفترچه بزن: خالی ← خط‌خورده ← تأیید ← دوباره خالی.","owner":"caseIntroHtml"}
+{"en":"Sure who did it? Tap their photo, then Accuse.","tr":"Kimin yaptığından eminsin? Fotoğrafına dokun, sonra Suçla’ya bas.","fa":"مطمئنی کار کی بوده؟ روی عکسش بزن، بعد «متهم کن» را بزن.","owner":"caseIntroHtml"}
+{"en":"Case closed!","tr":"Dava kapandı!","fa":"پرونده مختومه شد!","owner":"caseAccuse"}
+{"en":"Look at clue ${k + 1} again.","tr":"${k + 1}. ipucuna tekrar bak.","fa":"راهنمایی ${k + 1} را دوباره ببین.","owner":"caseAccuse"}
+{"en":"Build it","tr":"Harflerle oluştur","fa":"با حروف بساز","owner":"spellToTiles"}
+{"en":"Say it!","tr":"Söyle!","fa":"بگو!","owner":"spellTilesBuilt"}
+{"en":"Now you say it.","tr":"Şimdi sen söyle.","fa":"حالا تو بگو.","owner":"spellShow"}
+{"en":"Itu2019ll come back.","tr":"Geri gelecek.","fa":"برمی‌گردد.","owner":"COURSE_EXTRA"}
+{"en":"Every door is open","tr":"Bütün kapılar açık","fa":"همه درها باز شد","owner":"spellStatusHtml"}
+{"en":"Door ${n} again","tr":"Yine ${n}. kapı","fa":"دوباره در ${n}","owner":"spellStatusHtml"}
+{"en":"Door ${n} of ${total}","tr":"Kapı ${n} / ${total}","fa":"در ${n} از ${total}","owner":"spellStatusHtml"}
+{"en":"${chars.filter(c=>c !== ' ').length} letters","tr":"${chars.filter(c=>c !== ' ').length} harf","fa":"${chars.filter(c=>c !== ' ').length} حرف","owner":"spellRunesHtml"}
+{"en":"Clue ${d.clue} of 3","tr":"İpucu ${d.clue} / 3","fa":"راهنمایی ${d.clue} از ۳","owner":"spellClueHtml"}
+{"en":"I hear: “${round.interim}”","tr":"Duyduğum: “${round.interim}”","fa":"می‌شنوم: «${round.interim}»","owner":"spellHeardHtml"}
+{"en":"I’m listening…","tr":"Dinliyorum…","fa":"گوش می‌دهم…","owner":"spellHeardHtml"}
+{"en":"I heard: “${heard}”","tr":"Duyduğum: “${heard}”","fa":"شنیدم: «${heard}»","owner":"spellHeardHtml"}
+{"en":"Type the magic word","tr":"Sihirli kelimeyi yaz","fa":"کلمه جادویی را بنویس","owner":"spellMainHtml"}
+{"en":"Cast","tr":"Büyüle","fa":"طلسم کن","owner":"spellMainHtml"}
+{"en":"Say the word","tr":"Kelimeyi söyle","fa":"کلمه را بگو","owner":"spellMainHtml"}
+{"en":"Use my voice","tr":"Sesimi kullan","fa":"با صدایم","owner":"spellSwitchHtml"}
+{"en":"Type instead","tr":"Yazarak dene","fa":"به‌جایش تایپ کن","owner":"spellSwitchHtml"}
+{"en":"See every door","tr":"Bütün kapıları gör","fa":"همه درها را ببین","owner":"spellControlsHtml"}
+{"en":"Next door","tr":"Sonraki kapı","fa":"در بعدی","owner":"spellControlsHtml"}
+{"en":"Later","tr":"Sonraya bırak","fa":"بعداً","owner":"GRAMMAR_ITEMS"}
+{"en":"Show me","tr":"Göster","fa":"نشانم بده","owner":"VOCAB_SETS"}
+{"en":"Another clue","tr":"Başka ipucu","fa":"یک راهنمایی دیگر","owner":"spellControlsHtml"}
+{"en":"Pure magic!","tr":"Saf büyü!","fa":"جادوی ناب!","owner":"spellResultHtml"}
+{"en":"Every door is open!","tr":"Bütün kapılar açık!","fa":"همه درها باز شد!","owner":"spellResultHtml"}
+{"en":"${st.rescued} rescued","tr":"${st.rescued} kurtarıldı","fa":"${st.rescued} نجات‌یافته","owner":"spellResultHtml"}
+{"en":"Magic","tr":"Sihir","fa":"جادو","owner":"STORY_LIBRARY"}
+{"en":"No microphone here, so type the magic word.","tr":"Burada mikrofon yok, sihirli kelimeyi yaz.","fa":"اینجا میکروفون نیست، کلمه جادویی را تایپ کن.","owner":"spellArrive"}
+{"en":"The microphone isn’t available, so type the magic word.","tr":"Mikrofon kullanılamıyor, sihirli kelimeyi yaz.","fa":"میکروفون در دسترس نیست، کلمه جادویی را تایپ کن.","owner":"spellListen"}
+{"en":"I couldn’t hear anything, so let’s type the magic word.","tr":"Hiçbir şey duyamadım, sihirli kelimeyi yazalım.","fa":"چیزی نشنیدم، بیا کلمه جادویی را تایپ کنیم.","owner":"spellListen"}
+{"en":"I couldn’t hear anything. Try again closer to the phone.","tr":"Hiçbir şey duyamadım. Telefona daha yakın dene.","fa":"چیزی نشنیدم. نزدیک‌تر به گوشی دوباره بگو.","owner":"spellListen"}
+{"en":"Rescued!","tr":"Kurtardın!","fa":"نجاتش دادی!","owner":"spellEchoOpen"}
+{"en":"The door heard you trying.","tr":"Kapı denediğini duydu.","fa":"در تلاش تو را شنید.","owner":"spellOpen"}
+{"en":"Sounds the same — the word was ${d.word}.","tr":"Aynı sesleniyor — kelime ${d.word} idi.","fa":"هم‌صدا بود — کلمه ${d.word} بود.","owner":"spellOpen"}
+{"en":"All found!","tr":"Hepsi bulundu!","fa":"همه پیدا شد!","owner":"renderGameHunt"}
+{"en":"${round.clean} of ${total} found clean","tr":"${total} kelimeden ${round.clean} tanesi temiz bulundu","fa":"${round.clean} از ${total} بدون خطا پیدا شد","owner":"renderGameHunt"}
+{"en":"Word ${a} of ${total}","tr":"Kelime ${a}/${total}","fa":"کلمه ${a} از ${total}","owner":"renderGameHunt"}
+{"en":"Find the word in the story and tap it.","tr":"Kelimeyi hikayede bul ve dokun.","fa":"کلمه را در داستان پیدا کن و رویش بزن.","owner":"renderGameHunt"}
+{"en":"Find the word that means","tr":"Şu anlama gelen kelimeyi bul","fa":"کلمه‌ای را پیدا کن که یعنی","owner":"renderGameHunt"}
+{"en":"Getting warmer","tr":"Yaklaşıyorsun","fa":"داری نزدیک می‌شی","owner":"fxHuntMiss"}
+{"en":"I'm listening…","tr":"Dinliyorum…","fa":"دارم گوش می‌دم…","owner":"speakPanelHtml"}
+{"en":"Let's hear it again","tr":"Bir daha dinleyelim","fa":"بیا دوباره بشنویم","owner":"fxEchoResult"}
+{"en":"Almost!","tr":"Neredeyse!","fa":"نزدیک بود!","owner":"COMPANION_LINES"}
+{"en":"Crystal clear!","tr":"Pırıl pırıl!","fa":"شفاف و واضح!","owner":"renderGameEcho"}
+{"en":"Done!","tr":"Bitti!","fa":"تمام شد!","owner":"celebrationText"}
+{"en":"${total} lines spoken","tr":"${total} cümle söylendi","fa":"${total} جمله گفته شد","owner":"renderGameEcho"}
+{"en":"${round.clear} of ${total} lines clear","tr":"${total} cümleden ${round.clear} tanesi net","fa":"${round.clear} از ${total} جمله واضح","owner":"renderGameEcho"}
+{"en":"Clear!","tr":"Net!","fa":"واضح!","owner":"renderGameEcho"}
+{"en":"Almost","tr":"Neredeyse","fa":"نزدیک بود","owner":"COURSE_EXTRA"}
+{"en":"Once more?","tr":"Bir daha?","fa":"یک بار دیگر؟","owner":"renderGameEcho"}
+{"en":"Line ${a} of ${total}","tr":"Cümle ${a}/${total}","fa":"جمله ${a} از ${total}","owner":"renderGameEcho"}
+{"en":"Listen, then say it out loud.","tr":"Dinle, sonra yüksek sesle söyle.","fa":"گوش کن، بعد بلند بگو.","owner":"renderGameEcho"}
+{"en":"Listen, then tap the mic and say it back.","tr":"Dinle, sonra mikrofona dokun ve tekrar et.","fa":"گوش کن، بعد میکروفون را بزن و تکرار کن.","owner":"renderGameEcho"}
+{"en":"Play","tr":"Çal","fa":"پخش","owner":"COURSES"}
+{"en":"Slow","tr":"Yavaş","fa":"آهسته","owner":"COURSE_EXTRA"}
+{"en":"Listen first…","tr":"Önce dinle…","fa":"اول گوش کن…","owner":"renderGameEcho"}
+{"en":"Tap the line for its meaning","tr":"Anlamı için cümleye dokun","fa":"برای معنی روی جمله بزن","owner":"renderGameEcho"}
+{"en":"Once more","tr":"Bir daha","fa":"یک بار دیگر","owner":"speakNextHtml"}
+{"en":"Speak","tr":"Konuş","fa":"صحبت کن","owner":"LEVEL_OPTIONS"}
+{"en":"Chapter ${n} of ${PATH_CH}","tr":"Bölüm ${n}/${PATH_CH}","fa":"فصل ${n} از ${PATH_CH}","owner":"renderGamePath"}
+{"en":"This summer is part of your story now.","tr":"Bu yaz artık hikâyenin bir parçası.","fa":"این تابستان حالا بخشی از داستان توست.","owner":"renderGamePath"}
+{"en":"Chapter ${n} is finished.","tr":"${n}. bölüm bitti.","fa":"فصل ${n} تمام شد.","owner":"renderGamePath"}
+{"en":"In your words","tr":"Kendi sözlerinle","fa":"با کلمات خودت","owner":"COURSE_EXTRA"}
+{"en":"Read chapter {n}","tr":"{n}. bölümü oku","fa":"فصل {n} را بخوان","owner":"renderGamePath"}
+{"en":"Previously…","tr":"Daha önce…","fa":"پیش‌تر…","owner":"renderGamePath"}
+{"en":"Show text","tr":"Metni göster","fa":"متن را نشان بده","owner":"renderGamePath"}
+{"en":"{n} of {min} words","tr":"{n}/{min} kelime","fa":"{n} از {min} کلمه","owner":"renderGamePath"}
+{"en":"${who} tells it","tr":"${who} anlatıyor","fa":"${who} تعریف می‌کند","owner":"renderGamePath"}
+{"en":"How they remember me","tr":"Beni nasıl hatırlıyorlar","fa":"آن‌ها مرا چطور به یاد می‌آورند","owner":"renderGamePath"}
+{"en":"Your journal will ask you about this summer at your next writing practice.","tr":"Günlüğün bir sonraki yazma pratiğinde sana bu yazı soracak.","fa":"دفترت در تمرین نوشتن بعدی درباره این تابستان از تو می‌پرسد.","owner":"renderGamePath"}
+{"en":"Hide translation","tr":"Çeviriyi gizle","fa":"ترجمه را پنهان کن","owner":"renderGamePath"}
+{"en":"Show translation","tr":"Çeviriyi göster","fa":"ترجمه را نشان بده","owner":"renderGamePath"}
+{"en":"Finish the story","tr":"Hikâyeyi bitir","fa":"داستان را تمام کن","owner":"gameFallbackNote"}
+{"en":"Finish the chapter","tr":"Bölümü bitir","fa":"فصل را تمام کن","owner":"renderGamePath"}
+{"en":"Oops!","tr":"Hoop!","fa":"اوه!","owner":"chRuleLine"}
+{"en":"Soon","tr":"Yakında","fa":"به‌زودی","owner":"DW_A1B2_MF"}
+{"en":"Tap a window.","tr":"Bir pencereye dokun.","fa":"روی یک پنجره بزن.","owner":"renderGameChoresBuilding"}
+{"en":"Start tidying","tr":"Toplamaya başla","fa":"مرتب‌کردن را شروع کن","owner":"chUiHtml"}
+{"en":"Tap a chore.","tr":"Bir işe dokun.","fa":"روی یک کار بزن.","owner":"chUiHtml"}
+{"en":"Meanings","tr":"Anlamlar","fa":"معنی‌ها","owner":"chUiHtml"}
+{"en":"${left} pair${left===1?'':'s'} to go","tr":"${left} çift kaldı","fa":"${left} جفت مانده","owner":"renderGameMatch"}
+{"en":"Time","tr":"Süre","fa":"زمان","owner":"PRIORITY_OPTIONS"}
+{"en":"Mistakes","tr":"Hatalar","fa":"اشتباهات","owner":"IELTS_STRATEGY"}
+{"en":"Tap two tiles to match a word with its meaning.","tr":"Bir kelimeyi anlamıyla eşleştirmek için iki karoya dokun.","fa":"برای جفت‌کردن یک کلمه با معنی‌اش، روی دو کاشی بزن.","owner":"renderGameMatch"}
+{"en":"Matched!","tr":"Eşleştirdin!","fa":"جفت شد!","owner":"renderGameMatch"}
+{"en":"Finished in ${elapsed}s with ${round.mistakes} mistake${round.mistakes===1?'':'s'}.","tr":"${elapsed} saniyede ${round.mistakes} hatayla bitirdin.","fa":"در ${elapsed} ثانیه با ${round.mistakes} اشتباه تمام کردی.","owner":"renderGameMatch"}
+{"en":"Average match: ${avgPct}%","tr":"Ortalama eşleşme: %${avgPct}","fa":"میانگین تطابق: ${avgPct}%","owner":"renderGameDictation"}
+{"en":"Tap to listen","tr":"Dinlemek için dokun","fa":"برای شنیدن بزن","owner":"renderGameDictation"}
+{"en":"Can't hear it? Show the sentence","tr":"Duyamıyor musun? Cümleyi göster","fa":"نمی‌شنوی؟ جمله را نشان بده","owner":"renderGameDictation"}
+{"en":"Type what you heard...","tr":"Duyduğunu yaz...","fa":"چیزی که شنیدی را بنویس...","owner":"renderGameDictation"}
+{"en":"Check","tr":"Kontrol et","fa":"بررسی","owner":"GRAMMAR_ITEMS"}
+{"en":"Match","tr":"Eşleşme","fa":"تطابق","owner":"renderGameDictation"}
+{"en":"Missed:","tr":"Kaçırdığın:","fa":"از دست‌رفته:","owner":"renderGameDictation"}
+{"en":"Score: ${round.score} · ${accuracy}% accuracy","tr":"Skor: ${round.score} · %${accuracy} doğruluk","fa":"امتیاز: ${round.score} – ${accuracy}% دقت","owner":"renderGameTrap"}
+{"en":"Question ${a} of ${b}","tr":"Soru ${a}/${b}","fa":"سوال ${a} از ${b}","owner":"renderGameTrap"}
+{"en":"Short, punchy rounds targeting the exact traps that trip up Turkish speakers.","tr":"Türklerin tam olarak takıldığı tuzaklara odaklanan kısa ve etkili turlar.","fa":"تمرین‌های کوتاه و پرقدرت که دقیقاً روی تله‌های رایج تمرکز دارند.","owner":"renderGrammarList"}
+{"en":"Hear it first","tr":"Önce dinle","fa":"اول بشنو","owner":"grammarContextHtml"}
+{"en":"The coloured words show the rule.","tr":"Renkli kelimeler kuralı gösteriyor.","fa":"کلمه‌های رنگی قاعده را نشان می‌دهند.","owner":"grammarContextHtml"}
+{"en":"Right! You've got it.","tr":"Doğru! Anladın.","fa":"درسته! فهمیدی.","owner":"grammarCheckHtml"}
+{"en":"The answer is: ","tr":"Doğru cevap: ","fa":"جواب درست: ","owner":"grammarCheckHtml"}
+{"en":"Not quite. Look at the example at the top again, then try once more.","tr":"Tam değil. Yukarıdaki örneğe bir daha bak, sonra tekrar dene.","fa":"نه دقیقاً. یک بار دیگر مثال بالا را ببین و دوباره امتحان کن.","owner":"grammarCheckHtml"}
+{"en":"Quick check","tr":"Hızlı kontrol","fa":"یک بررسی کوتاه","owner":"grammarCheckHtml"}
+{"en":"Check yourself","tr":"Kendini dene","fa":"خودت را امتحان کن","owner":"grammarCheckHtml"}
+{"en":"One question before the quiz.","tr":"Testten önce tek bir soru.","fa":"قبل از آزمون، فقط یک سؤال.","owner":"grammarCheckHtml"}
+{"en":"Write here.","tr":"Buraya yaz.","fa":"اینجا بنویس.","owner":"renderStudioRound"}
+{"en":"Check my sentence","tr":"Cümlemi kontrol et","fa":"جمله‌ام را بررسی کن","owner":"yourTurnHtml"}
+{"en":"Check this","tr":"Şuna bak","fa":"این را بررسی کن","owner":"practiceFeedback"}
+{"en":"No common mistake found.","tr":"Yaygın bir hata bulunmadı.","fa":"اشتباه رایجی پیدا نشد.","owner":"yourTurnHtml"}
+{"en":"Look again","tr":"Tekrar bak","fa":"دوباره نگاه کن","owner":"yourTurnHtml"}
+{"en":"Saved as this step’s souvenir.","tr":"Bu adımın hatırası olarak kaydedildi.","fa":"به‌عنوان یادگاری این قدم ذخیره شد.","owner":"yourTurnHtml"}
+{"en":"Change my sentence","tr":"Cümlemi değiştir","fa":"جمله‌ام را عوض کن","owner":"yourTurnHtml"}
+{"en":"Examples","tr":"Örnekler","fa":"مثال‌ها","owner":"GRAMMAR_ITEMS"}
+{"en":"Forms","tr":"Biçimler","fa":"شکل‌ها","owner":"GRAMMAR_ITEMS"}
+{"en":"See it","tr":"Gör","fa":"ببین","owner":"PRACTICE_RECOMMENDATION"}
+{"en":"An example","tr":"Bir örnek","fa":"یک مثال","owner":"COURSE_EXTRA"}
+{"en":"Understand it","tr":"Anla","fa":"بفهم","owner":"COURSE_EXTRA"}
+{"en":"How it works","tr":"Nasıl çalışır","fa":"چطور کار می‌کند","owner":"COURSE_EXTRA"}
+{"en":"Remember","tr":"Unutma","fa":"یادت باشد","owner":"GRAMMAR_ITEMS"}
+{"en":"Wrong vs right","tr":"Yanlış ve doğru","fa":"غلط و درست","owner":"renderGrammarTrap"}
+{"en":"Spot the difference","tr":"Farkı bul","fa":"فرق را پیدا کن","owner":"renderGrammarTrap"}
+{"en":"Example","tr":"Örnek","fa":"مثال","owner":"GRAMMAR_ITEMS"}
+{"en":"💬 Tap any word above to see what it means.","tr":"💬 Anlamını görmek için yukarıdaki bir kelimeye dokun.","fa":"💬 برای دیدن معنی، روی هر کلمه بالا لمس کن.","owner":"renderGrammarTrap"}
+{"en":"Practise: the quiz","tr":"Alıştırma: test","fa":"تمرین: آزمون","owner":"renderGrammarTrap"}
+{"en":"Got it — let's practice!","tr":"Anladım — hadi pratik yapalım!","fa":"فهمیدم — بریم تمرین کنیم!","owner":"renderGrammarTrap"}
+{"en":"Flip through real sentences, then see what actually stuck.","tr":"Gerçek cümlelere göz at, sonra gerçekten aklında kalanı test et.","fa":"جمله‌های واقعی را ورق بزن، بعد ببین چی یادت مونده.","owner":"renderVocabList"}
+{"en":"Use it","tr":"Kullan","fa":"به کار ببر","owner":"GRAMMAR_ITEMS"}
+{"en":"Check my sentences","tr":"Cümlelerimi kontrol et","fa":"جمله‌هایم را بررسی کن","owner":"useItHtml"}
+{"en":"Nice. Next time, try a second phrase from this set.","tr":"Güzel. Bir dahaki sefere bu setten ikinci bir ifade dene.","fa":"خوبه. دفعهٔ بعد یک عبارت دیگر از این مجموعه هم امتحان کن.","owner":"useItHtml"}
+{"en":"Try to use 2 phrases from this set.","tr":"Bu setten 2 ifade kullanmayı dene.","fa":"سعی کن ۲ عبارت از این مجموعه به کار ببری.","owner":"useItHtml"}
+{"en":"Saved on the back of this step’s souvenir.","tr":"Bu adımın hatırasının arkasına kaydedildi.","fa":"پشت یادگاری این قدم ذخیره شد.","owner":"useItHtml"}
+{"en":"Change my sentences","tr":"Cümlelerimi değiştir","fa":"جمله‌هایم را عوض کن","owner":"useItHtml"}
+{"en":"Phrases","tr":"İfadeler","fa":"عبارت‌ها","owner":"ARCHETYPES"}
+{"en":"Cards","tr":"Kartlar","fa":"کارت‌ها","owner":"renderVocabSetIntro"}
+{"en":"Read, listen, notice","tr":"Oku, dinle, fark et","fa":"بخوان، گوش کن، دقت کن","owner":"renderVocabSetIntro"}
+{"en":"Start flashcards","tr":"Kartlara başla","fa":"شروع فلش‌کارت‌ها","owner":"renderVocabSetIntro"}
+{"en":"Meaning","tr":"Anlam","fa":"معنی","owner":"GRAMMAR_ITEMS"}
+{"en":"tap to reveal","tr":"görmek için dokun","fa":"برای دیدن لمس کن","owner":"flashFaceHtml"}
+{"en":"When a word feels shaky, tap \"Practice again\" on its card. I will keep it here for you.","tr":"Bir kelimeden emin olmadığında kartındaki \"Tekrar çalışayım\"a dokun. Onu senin için burada saklarım.","fa":"وقتی کلمه‌ای را خوب بلد نیستی، روی کارتش «دوباره تمرین کنم» را بزن. من برایت اینجا نگهش می‌دارم.","owner":"renderVocabBox"}
+{"en":"Words you knew, now out of the box: ${d.knew}.","tr":"Bildiğin ve kutudan çıkan kelime: ${d.knew}.","fa":"کلمه‌هایی که بلد بودی و از جعبه بیرون رفتند: ${d.knew}.","owner":"renderVocabBox"}
+{"en":"Still in the box for the next review: ${left}.","tr":"Bir sonraki tekrar için kutuda kalan: ${left}.","fa":"در جعبه برای مرور بعدی می‌ماند: ${left}.","owner":"renderVocabBox"}
+{"en":"Box reviewed","tr":"Kutu tekrarlandı","fa":"جعبه مرور شد","owner":"renderVocabBox"}
+{"en":"Your box is empty","tr":"Kutun boş","fa":"جعبه‌ات خالی است","owner":"renderVocabBox"}
+{"en":"Card ${d.pos+1} of ${d.queue.length}","tr":"Kart ${d.pos+1}/${d.queue.length}","fa":"کارت ${d.pos+1} از ${d.queue.length}","owner":"renderVocabBox"}
+{"en":"out of the box ${d.knew}","tr":"kutudan çıkan ${d.knew}","fa":"${d.knew} از جعبه بیرون","owner":"renderVocabBox"}
+{"en":"Tap the card to flip","tr":"Çevirmek için karta dokun","fa":"برای چرخاندن لمس کن","owner":"renderVocabBox"}
+{"en":"Practice again","tr":"Tekrar çalışayım","fa":"دوباره تمرین کنم","owner":"renderVocabBox"}
+{"en":"I knew it","tr":"Biliyordum","fa":"بلد بودم","owner":"GRAMMAR_PRACTICE_A1A2"}
+{"en":"Flip the card","tr":"Kartı çevir","fa":"کارت را برگردان","owner":"renderVocabBox"}
+{"en":"Not here.","tr":"Burada değil.","fa":"اینجا نه.","owner":"slangSayLine"}
+{"en":"Keep this one for friends.","tr":"Bunu arkadaşlarına sakla.","fa":"این را برای دوستانت نگه دار.","owner":"slangSayLine"}
+{"en":"This one works at work too.","tr":"Bu iş yerinde de olur.","fa":"این یکی سر کار هم جواب می‌دهد.","owner":"slangSayLine"}
+{"en":"It works here.","tr":"Burada olur.","fa":"اینجا جواب می‌دهد.","owner":"slangSayLine"}
+{"en":"Go ahead and say it.","tr":"Rahatça söyle.","fa":"راحت بگو.","owner":"slangSayLine"}
+{"en":"Scene ${y.i+1} of ${y.rounds.length}","tr":"Sahne ${y.i+1}/${y.rounds.length}","fa":"صحنه ${y.i+1} از ${y.rounds.length}","owner":"slangSayHtml"}
+{"en":"Would you say this here?","tr":"Bunu burada söyler miydin?","fa":"اینجا این را می‌گویی؟","owner":"slangSayHtml"}
+{"en":"Not here","tr":"Burada değil","fa":"اینجا نه","owner":"slangSayLine"}
+{"en":"Next scene","tr":"Sonraki sahne","fa":"صحنه بعدی","owner":"slangSayHtml"}
+{"en":"Skip to the game","tr":"Oyuna geç","fa":"برو سراغ بازی","owner":"slangSayHtml"}
+{"en":"You placed ${y.right} of ${y.rounds.length} scenes right.","tr":"${y.rounds.length} sahneden ${y.right}'ini doğru yerleştirdin.","fa":"${y.right} از ${y.rounds.length} صحنه را درست گفتی.","owner":"slangSaySummary"}
+{"en":"Deck sorted","tr":"Deste sıralandı","fa":"دسته مرتب شد","owner":"renderVocabSet"}
+{"en":"You kept ${d.kept} straight away.","tr":"${d.kept} kartı hemen tuttun.","fa":"${d.kept} کارت را همان اول بلد بودی.","owner":"renderVocabSet"}
+{"en":"${d.again.length} went to your Vocab Box for a review later.","tr":"${d.again.length} tanesi daha sonra tekrar için Kelime Kutuna gitti.","fa":"${d.again.length} مورد برای مرور بعدی به جعبهٔ لغاتت رفت.","owner":"renderVocabSet"}
+{"en":"Practise the words","tr":"Kelimeleri çalış","fa":"واژه‌ها را تمرین کن","owner":"renderVocabSet"}
+{"en":"Play Game!","tr":"Oyunu Oyna!","fa":"بازی کن!","owner":"renderVocabSet"}
+{"en":"kept ${d.kept}","tr":"${d.kept} tuttun","fa":"${d.kept} بلد بودی","owner":"renderVocabSet"}
+{"en":"Real conversation with a human, or practice on your own.","tr":"Bir insanla gerçek sohbet, ya da kendi başına pratik yap.","fa":"گفتگوی واقعی با یک انسان، یا تمرین به‌تنهایی.","owner":"renderSpeakingClub"}
+{"en":"Speak with a Teacher","tr":"Bir Öğretmenle Konuş","fa":"با یک معلم صحبت کن","owner":"renderSpeakingClub"}
+{"en":"5 live sessions, one message away","tr":"Bir mesaj uzağında 5 canlı seans","fa":"۵ جلسه زنده، فقط یک پیام باهات فاصله دارد","owner":"renderSpeakingClub"}
+{"en":"Lab","tr":"Lab","fa":"آزمایشگاه","owner":"PRACTICE_RECOMMENDATION"}
+{"en":"Writing & speaking rounds, on your own","tr":"Kendi başına yazma ve konuşma turları","fa":"تمرین‌های نوشتن و صحبت‌کردن، به‌تنهایی","owner":"renderSpeakingClub"}
+{"en":"Short rounds that use your goal's grammar, vocab, and slang — write it or say it, then get tips.","tr":"Hedefine göre dilbilgisi, kelime ve argo kullanan kısa turlar — yaz ya da söyle, sonra ipuçları al.","fa":"تمرین‌های کوتاهی که از گرامر، واژگان و اصطلاحات هدفت استفاده می‌کنند — بنویس یا بگو، بعد نکته بگیر.","owner":"renderStudioLab"}
+{"en":"rounds done","tr":"tur tamam","fa":"دور تمام‌شده","owner":"renderStudioLab"}
+{"en":"Not found","tr":"Bulunamadı","fa":"پیدا نشد","owner":"renderCourseView"}
+{"en":"We couldn't find that page","tr":"Bu sayfa bulunamadı","fa":"این صفحه پیدا نشد","owner":"renderNotFound"}
+{"en":"It may have moved or no longer exists. Go back and try again.","tr":"Taşınmış ya da kaldırılmış olabilir. Geri dönüp tekrar dene.","fa":"ممکن است جابه‌جا شده یا حذف شده باشد. برگرد و دوباره امتحان کن.","owner":"renderNotFound"}
+{"en":"Short stories that level up with you — new words, new worlds, one quick check at the end.","tr":"Seninle birlikte seviye atlayan kısa hikayeler — yeni kelimeler, yeni dünyalar, sonunda küçük bir kontrol.","fa":"داستان‌های کوتاهی که با تو سطح‌شان بالا می‌رود — کلمات جدید، دنیاهای جدید، و یک آزمون کوچک در پایان.","owner":"renderStoryList"}
+{"en":"For you","tr":"Sana özel","fa":"مخصوص تو","owner":"renderStoryList"}
+{"en":"Listen to the story","tr":"Hikayeyi dinle","fa":"گوش دادن به داستان","owner":"storyListenLabel"}
+{"en":"You called it","tr":"Bildin","fa":"درست حدس زدی","owner":"storyTurnHtml"}
+{"en":"Not this time — here's what happened.","tr":"Bu sefer değil — işte olanlar.","fa":"این بار نه — ببین چه شد.","owner":"storyTurnHtml"}
+{"en":"Keep reading","tr":"Okumaya devam et","fa":"ادامه بده","owner":"COURSE_EXTRA"}
+{"en":"What happens next?","tr":"Sırada ne var?","fa":"بعدش چه می‌شود؟","owner":"storyTurnHtml"}
+{"en":"You read the whole story.","tr":"Hikayenin tamamını okudun.","fa":"کل داستان را خواندی.","owner":"storyReaderHtml"}
+{"en":"Read again","tr":"Tekrar oku","fa":"دوباره بخوان","owner":"COURSE_EXTRA"}
+{"en":"Page ${R.pg+1} of ${R.n}","tr":"Sayfa ${R.pg+1}/${R.n}","fa":"صفحه ${R.pg+1} از ${R.n}","owner":"storyReaderHtml"}
+{"en":"Turn the last page","tr":"Son sayfayı çevir","fa":"آخرین صفحه را ورق بزن","owner":"storyReaderHtml"}
+{"en":"Next page","tr":"Sonraki sayfa","fa":"صفحه بعد","owner":"storyReaderHtml"}
+{"en":"See what happened","tr":"Ne olduğunu gör","fa":"ببین چه شد","owner":"storyTurnHtml"}
+{"en":"In the story","tr":"Hikayede","fa":"در داستان","owner":"VOCAB_SETS"}
+{"en":"Exam focus","tr":"Sınav odağı","fa":"تمرکز آزمون","owner":"renderStoryDetail"}
+{"en":"Toggle background music","tr":"Arka plan müziğini aç/kapat","fa":"روشن/خاموش کردن موسیقی پس‌زمینه","owner":"renderStoryDetail"}
+{"en":"Tap any highlighted word to see its meaning.","tr":"Anlamını görmek için vurgulanan bir kelimeye dokun.","fa":"برای دیدن معنی، روی کلمه هایلایت‌شده ضربه بزن.","owner":"renderStoryDetail"}
+{"en":"Discussion questions","tr":"Tartışma soruları","fa":"سوالات بحث","owner":"renderStoryDetail"}
+{"en":"Check your understanding","tr":"Anladığını kontrol et","fa":"ببین چقدر فهمیدی","owner":"renderStoryDetail"}
+{"en":"Check what you noticed","tr":"Ne fark ettiğini kontrol et","fa":"ببین چه چیزهایی را متوجه شدی","owner":"renderStoryDetail"}
+{"en":"Which sentence uses this word?","tr":"Bu kelimeyi hangi cümle kullanıyor?","fa":"کدام جمله از این کلمه استفاده می‌کند؟","owner":"vocabQuizQuestions"}
+{"en":"True or false: this word fits the sentence.","tr":"Doğru mu yanlış mı: bu kelime cümleye uyuyor.","fa":"درست یا نادرست: این کلمه با جمله مطابقت دارد.","owner":"vocabQuizQuestions"}
+{"en":"False","tr":"Yanlış","fa":"نادرست","owner":"COURSES"}
+{"en":"${m} · first letter: ${f}","tr":"${m} · ilk harf: ${f}","fa":"${m} · حرف اول: ${f}","owner":"vocabQuizQuestions"}
+{"en":"Warmed up!","tr":"Isındın!","fa":"گرم شدی!","owner":"shuffleRevealCaption"}
+{"en":"This one is still fresh.","tr":"Bu hâlâ taze.","fa":"این یکی هنوز تازه است.","owner":"shuffleRevealCaption"}
+{"en":"Kept!","tr":"Kalıcı oldu!","fa":"ماندگار شد!","owner":"shuffleRevealCaption"}
+{"en":"This one is yours for good.","tr":"Bu artık hep senin.","fa":"این یکی دیگر برای همیشه مال توست.","owner":"shuffleRevealCaption"}
+{"en":"Shining brighter!","tr":"Daha da parlıyor!","fa":"درخشان‌تر شد!","owner":"shuffleRevealCaption"}
+{"en":"It rests longer before it comes back.","tr":"Geri gelmeden önce daha uzun dinlenecek.","fa":"قبل از برگشتن بیشتر استراحت می‌کند.","owner":"shuffleRevealCaption"}
+{"en":"Nearly there!","tr":"Az kaldı!","fa":"تقریباً رسیدی!","owner":"shuffleRevealCaption"}
+{"en":"It comes back in 2 days.","tr":"2 gün sonra geri gelecek.","fa":"۲ روز دیگر برمی‌گردد.","owner":"COMPANION_LINES"}
+{"en":"Good to look again!","tr":"Tekrar bakmak iyi geldi!","fa":"دوباره دیدنش خوب بود!","owner":"shuffleRevealCaption"}
+{"en":"It comes back tomorrow — you'll have it.","tr":"Yarın geri gelecek — kapacaksın.","fa":"فردا برمی‌گردد — یادش می‌گیری.","owner":"shuffleRevealCaption"}
+{"en":"All shined up!","tr":"Hepsi parlıyor!","fa":"همه درخشیدند!","owner":"renderShuffle"}
+{"en":"${n} souvenir${n===1?'':'s'} reviewed","tr":"${n} hatıra tekrar edildi","fa":"${n} یادگاری مرور شد","owner":"renderShuffle"}
+{"en":"Finish","tr":"Bitir","fa":"پایان","owner":"GRAMMAR_ITEMS"}
+{"en":"One more look","tr":"Bir kez daha","fa":"یک نگاه دیگر","owner":"renderShuffle"}
+{"en":"Souvenir ${a} of ${b}","tr":"Hatıra ${a}/${b}","fa":"یادگاری ${a} از ${b}","owner":"renderShuffle"}
+{"en":"${n} left","tr":"${n} kaldı","fa":"${n} تا مانده","owner":"shuffleLeftLabel"}
+{"en":"${k} kept for good","tr":"${k} tanesi artık kalıcı","fa":"${k} تا برای همیشه ماندگار شد","owner":"shuffleKeptLine"}
+{"en":"${mean} · first letter: ${f}","tr":"${mean} · ilk harf: ${f}","fa":"${mean} · حرف اول: ${f}","owner":"buildStageCheck"}
+{"en":"Listen. Which sentence did you hear?","tr":"Dinle. Hangi cümleyi duydun?","fa":"گوش کن. کدام جمله را شنیدی؟","owner":"buildStageCheck"}
+{"en":"Listen carefully. Which one did you hear exactly?","tr":"Dikkatle dinle. Tam olarak hangisini duydun?","fa":"با دقت گوش کن. دقیقاً کدام را شنیدی؟","owner":"buildStageCheck"}
+{"en":"Slower","tr":"Daha yavaş","fa":"آهسته‌تر","owner":"COURSE_EXTRA"}
+{"en":"Quick check · ${a} of ${b}","tr":"Kısa kontrol · ${a}/${b}","fa":"مرور کوتاه – ${a} از ${b}","owner":"scEyebrow"}
+{"en":"${n} short questions: ${ca} about this page and ${cb} from the page before. About 4 minutes. Whatever your score, you go to the next level, and anything you miss comes back in your review.","tr":"${n} kısa soru: ${ca} tanesi bu sayfadan, ${cb} tanesi bir önceki sayfadan. Yaklaşık 4 dakika. Puanın ne olursa olsun bir sonraki seviyeye geçersin; kaçırdıkların tekrarında geri gelir.","fa":"${n} سؤال کوتاه: ${ca} تا از همین صفحه و ${cb} تا از صفحهٔ قبل. حدود ۴ دقیقه. نمره‌ات هر چه باشد به سطح بعدی می‌روی، و هر چیزی را که جا بیندازی در مرورت دوباره می‌بینی.","owner":"renderStageCheckIntro"}
+{"en":"10 short questions about this page. About 4 minutes. Whatever your score, you go to the next level, and anything you miss comes back in your review.","tr":"Bu sayfayla ilgili 10 kısa soru. Yaklaşık 4 dakika. Puanın ne olursa olsun bir sonraki seviyeye geçersin; kaçırdıkların tekrarında geri gelir.","fa":"۱۰ سؤال کوتاه دربارهٔ همین صفحه. حدود ۴ دقیقه. نمره‌ات هر چه باشد به سطح بعدی می‌روی، و هر چیزی را که جا بیندازی در مرورت دوباره می‌بینی.","owner":"renderStageCheckIntro"}
+{"en":"${n} short questions about this page. About 4 minutes. Whatever your score, you go to the next level, and anything you miss comes back in your review.","tr":"Bu sayfayla ilgili ${n} kısa soru. Yaklaşık 4 dakika. Puanın ne olursa olsun bir sonraki seviyeye geçersin; kaçırdıkların tekrarında geri gelir.","fa":"${n} سؤال کوتاه دربارهٔ همین صفحه. حدود ۴ دقیقه. نمره‌ات هر چه باشد به سطح بعدی می‌روی، و هر چیزی را که جا بیندازی در مرورت دوباره می‌بینی.","owner":"renderStageCheckIntro"}
+{"en":"Quick check: {stage}","tr":"Kısa kontrol: {stage}","fa":"مرور کوتاه: {stage}","owner":"renderStageCheckIntro"}
+{"en":"Start","tr":"Başla","fa":"شروع کن","owner":"CALIBRATION"}
+{"en":"Skip and go to the next level","tr":"Atla ve bir sonraki seviyeye geç","fa":"رد شو و برو به سطح بعدی","owner":"renderStageCheckIntro"}
+{"en":"Excellent! This page really stuck.","tr":"Harika! Bu sayfadakiler iyice aklına yerleşmiş.","fa":"عالی! این صفحه حسابی در ذهنت مانده.","owner":"renderStageCheckResults"}
+{"en":"Good work! Most of it stuck.","tr":"Çok iyi! Çoğu aklında kalmış.","fa":"آفرین! بیشترش در ذهنت مانده.","owner":"renderStageCheckResults"}
+{"en":"Good start. A few things need another look, and that's normal.","tr":"İyi bir başlangıç. Birkaç şeye bir daha bakmak gerek, bu çok normal.","fa":"شروع خوبی است. چند چیز یک نگاه دیگر لازم دارد، و این کاملاً عادی است.","owner":"renderStageCheckResults"}
+{"en":"This page needs a little more time, and that's okay. Your review will help.","tr":"Bu sayfa biraz daha zaman istiyor, sorun değil. Tekrarların yardımcı olacak.","fa":"این صفحه کمی وقت بیشتری می‌خواهد، و اشکالی ندارد. مرورهایت کمکت می‌کنند.","owner":"renderStageCheckResults"}
+{"en":"You got ${n} of ${total}","tr":"${total} sorudan ${n} doğru","fa":"${n} از ${total} درست","owner":"renderStageCheckResults"}
+{"en":"Needs a review","tr":"Tekrar gerekli","fa":"مرور لازم دارد","owner":"renderStageCheckResults"}
+{"en":"Listening","tr":"Dinleme","fa":"شنیدن","owner":"IELTS_STRATEGY"}
+{"en":"Words to review: {list}","tr":"Tekrar edilecek kelimeler: {list}","fa":"کلمه‌هایی برای مرور: {list}","owner":"renderStageCheckResults"}
+{"en":", ","tr":", ","fa":"، ","owner":"ARCHETYPES"}
+{"en":"Words","tr":"Kelimeler","fa":"کلمه‌ها","owner":"GRAMMAR_ITEMS"}
+{"en":"The ones marked “Needs a review” come back in your review tomorrow.","tr":"“Tekrar gerekli” olanlar yarın tekrarında geri gelir.","fa":"مواردی که برچسب «مرور لازم دارد» دارند، فردا در مرورت برمی‌گردند.","owner":"renderStageCheckResults"}
+{"en":"Quick check","tr":"Kısa kontrol","fa":"مرور کوتاه","owner":"COMPANION_LINES"}
+{"en":"${n} in a row","tr":"${n} üst üste","fa":"${n} پشت سر هم","owner":"quizStreakChip"}
+{"en":"Correct answer","tr":"Doğru cevap","fa":"پاسخ درست","owner":"answerBannerHtml"}
+{"en":"Not quite. ","tr":"Tam değil. ","fa":"کاملاً درست نیست. ","owner":"renderDialogue"}
+{"en":" Try again.","tr":" Tekrar dene.","fa":" دوباره امتحان کن.","owner":"pwErrorText"}
+{"en":"So close: check the spelling.","tr":"Çok yaklaştın: yazılışına bak.","fa":"خیلی نزدیک بود: املایش را نگاه کن.","owner":"quizHintText"}
+{"en":"The green words are right. Put the rest in order.","tr":"Yeşil kelimeler doğru. Gerisini sıraya koy.","fa":"کلمه‌های سبز درست‌اند. بقیه را به ترتیب بچین.","owner":"quizHintText"}
+{"en":"Look again at the words around the gap.","tr":"Boşluğun çevresindeki kelimelere tekrar bak.","fa":"دوباره به کلمه‌های اطراف جای خالی نگاه کن.","owner":"quizHintText"}
+{"en":"Read each sentence again, one word at a time.","tr":"Her cümleyi tekrar oku, kelime kelime.","fa":"هر جمله را دوباره بخوان، کلمه به کلمه.","owner":"quizHintText"}
+{"en":"Read the sentence again and think about the meaning.","tr":"Cümleyi tekrar oku ve anlamı düşün.","fa":"جمله را دوباره بخوان و درباره معنی فکر کن.","owner":"quizHintText"}
+{"en":"Think back to the story.","tr":"Hikayeyi hatırla.","fa":"داستان را به یاد بیاور.","owner":"quizHintText"}
+{"en":"Nice. Why does it work?","tr":"Güzel. Peki neden işe yarıyor?","fa":"آفرین. چرا درست است؟","owner":"proveHtml"}
+{"en":"Let's see why the right one works.","tr":"Doğru olanın neden işe yaradığına bakalım.","fa":"ببینیم چرا گزینهٔ درست کار می‌کند.","owner":"proveHtml"}
+{"en":"Also right:","tr":"Bu da doğru:","fa":"این هم درسته:","owner":"quizBuildHtml"}
+{"en":"Type it here","tr":"Buraya yaz","fa":"اینجا بنویس","owner":"renderStudioRound"}
+{"en":"Right, watch the accent: ","tr":"Doğru, aksan işaretine dikkat: ","fa":"درسته، به علامت روی حرف دقت کن: ","owner":"quizTypedNoteHtml"}
+{"en":"Right, check the spelling: ","tr":"Doğru, yazılışına dikkat: ","fa":"درسته، به املایش دقت کن: ","owner":"quizTypedNoteHtml"}
+{"en":"Practise again","tr":"Tekrar çalış","fa":"دوباره تمرین کن","owner":"renderVocabBox"}
+{"en":"This one comes back in your review tomorrow.","tr":"Bu soru yarın tekrarında geri gelecek.","fa":"این یکی فردا در مرورت برمی‌گردد.","owner":"renderQuiz"}
+{"en":"Next question","tr":"Sonraki soru","fa":"سوال بعدی","owner":"renderQuiz"}
+{"en":"Nailed it! That was your","tr":"Süperdin! İşte tamamladığın:","fa":"عالی بود! این چیزی بود که تمام کردی:","owner":"resultLead"}
+{"en":"Solid work — that was your","tr":"Gayet iyiydi — işte tamamladığın:","fa":"کار خوبی بود — این چیزی بود که تمام کردی:","owner":"resultLead"}
+{"en":"Getting there! That was your","tr":"Yolun yarısındasın! İşte tamamladığın:","fa":"داری بهش می‌رسی! این چیزی بود که تمام کردی:","owner":"resultLead"}
+{"en":"Tough one, huh? That was your","tr":"Zorlu bir turdu, değil mi? İşte tamamladığın:","fa":"سخت بود، نه؟ این چیزی بود که تمام کردی:","owner":"resultLead"}
+{"en":"What you covered","tr":"Neler tekrar ettin","fa":"چه چیزهایی را مرور کردی","owner":"renderReviewBreakdown"}
+{"en":"Grammar Gym round","tr":"Dilbilgisi Salonu turu","fa":"تمرین باشگاه گرامر","owner":"DAILY_TASK_POOL"}
+{"en":"Vocab quiz","tr":"Kelime testi","fa":"آزمون کلمات","owner":"renderQuizResults"}
+{"en":"Story comprehension check","tr":"Hikaye anlama kontrolü","fa":"آزمون درک داستان","owner":"renderQuizResults"}
+{"en":"Review round","tr":"Tekrar turu","fa":"تمرین مرور","owner":"renderQuizResults"}
+{"en":"Almost there. One more go?","tr":"Neredeyse oldu. Bir tur daha?","fa":"نزدیک بود. یک دور دیگر؟","owner":"renderQuizResults"}
+{"en":"Practise again with the ones you missed plus a few new ones. Then this step is done.","tr":"Kaçırdıklarınla birkaç yeni soruyla tekrar çalış. Sonra bu adım tamamlanır.","fa":"دوباره با سوال‌هایی که اشتباه کردی و چند سوال تازه تمرین کن. بعد این قدم تمام می‌شود.","owner":"renderQuizResults"}
+{"en":"Done. This one will come back in your review tomorrow.","tr":"Tamam. Bu yarın tekrarında geri gelecek.","fa":"تمام شد. این فردا در مرورت برمی‌گردد.","owner":"renderQuizResults"}
+{"en":"Want a real teacher walking you through this?","tr":"Bunu gerçek bir öğretmenle mi çalışmak istersin?","fa":"می‌خواهی این را با یک معلم واقعی مرور کنی؟","owner":"renderQuizResults"}
+{"en":"Message your teacher any time — you already unlocked full access.","tr":"İstediğin zaman öğretmenine mesaj at — tüm erişimin zaten açık.","fa":"هر وقت خواستی به معلمت پیام بده — دسترسی کاملت از قبل باز است.","owner":"renderQuizResults"}
+{"en":"Message teacher","tr":"Öğretmene mesaj at","fa":"پیام به معلم","owner":"renderQuizResults"}
+{"en":"It's the green one","tr":"Doğrusu yeşil olan","fa":"درستش سبزه","owner":"fxQuizAnswer"}
+{"en":"Unstoppable!","tr":"Durdurulamazsın!","fa":"توقف‌ناپذیری!","owner":"comboCheck"}
+{"en":"Hide","tr":"Gizle","fa":"پنهان","owner":"DW_A1B2_MF"}
+{"en":"Finish the step above first","tr":"Önce yukarıdaki adımı bitir","fa":"اول مرحلهٔ بالایی را تمام کن","owner":"HANDLERS"}
+{"en":"3/3 caught","tr":"3/3 yakalandı","fa":"۳/۳ شکار شد","owner":"HANDLERS"}
+{"en":"Put something on the tray first","tr":"Önce tepsiye bir şey koy","fa":"اول چیزی روی سینی بگذار","owner":"HANDLERS"}
+{"en":"The tray is full","tr":"Tepsi dolu","fa":"سینی پر است","owner":"HANDLERS"}
+{"en":"Pick the one you heard.","tr":"Duyduğunu seç.","fa":"همان که شنیدی را انتخاب کن.","owner":"HANDLERS"}
+{"en":"Hmm, that question sounds odd. Try another.","tr":"Hmm, bu soru tuhaf geldi. Başkasını dene.","fa":"هوم، این سؤال عجیب است. یکی دیگر را امتحان کن.","owner":"HANDLERS"}
+{"en":"Look at clue ${h.clue + 1}.","tr":"${h.clue + 1}. ipucuna bak.","fa":"به راهنمایی ${h.clue + 1} نگاه کن.","owner":"HANDLERS"}
+{"en":"Copied!","tr":"Kopyalandı!","fa":"کپی شد!","owner":"HANDLERS"}
+{"en":"Why this mock","tr":"Bu deneme neden","fa":"چرا این آزمون","owner":"courseMockRulesHtml"}
+{"en":"Rules","tr":"Kurallar","fa":"قوانین","owner":"IMMIGRATION_CULTURE"}
+{"en":"Exam conditions: Listening, Reading and Writing run back to back, with no pause.","tr":"Sınav koşulları: Listening, Reading ve Writing ara vermeden art arda.","fa":"شرایط آزمون: لیسنینگ، ریدینگ و رایتینگ پشت سر هم و بدون مکث.","owner":"courseMockRulesHtml"}
+{"en":"Feedback ready","tr":"Geri bildirim hazır","fa":"بازخورد آماده است","owner":"courseReviewReadyPill"}
+{"en":"Sent for review","tr":"İncelemeye gönderildi","fa":"برای بررسی فرستاده شد","owner":"courseReviewBadgeHtml"}
+{"en":"Feedback from Farin is ready","tr":"Farin'in geri bildirimi hazır","fa":"بازخورد فرین آماده است","owner":"courseReviewNoticeHtml"}
+{"en":"Sent!","tr":"Gönderildi!","fa":"ارسال شد!","owner":"courseReviewHtml"}
+{"en":"Farin will send your feedback within 2–3 days. It will appear here.","tr":"Farin geri bildirimini 2–3 gün içinde gönderecek. Burada görünecek.","fa":"فرین ظرف ۲ تا ۳ روز بازخوردش را برایت می‌فرستد و همین‌جا می‌بینی‌اش.","owner":"courseReviewHtml"}
+{"en":"Feedback from Farin","tr":"Farin'den geri bildirim","fa":"بازخورد فرین","owner":"COURSES"}
+{"en":"Sent","tr":"Gönderildi","fa":"ارسال","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"Couldn't send. Check your connection and try again.","tr":"Gönderilemedi. Bağlantını kontrol edip tekrar dene.","fa":"ارسال نشد. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"courseReviewHtml"}
+{"en":"Send this text to Farin? You can't change it after sending.","tr":"Bu metni Farin'e gönderelim mi? Gönderdikten sonra değiştiremezsin.","fa":"این متن را برای فرین بفرستی؟ بعد از ارسال دیگر نمی‌توانی تغییرش بدهی.","owner":"courseReviewHtml"}
+{"en":"Sending…","tr":"Gönderiliyor…","fa":"در حال ارسال…","owner":"courseReviewHtml"}
+{"en":"Cancel","tr":"İptal","fa":"لغو","owner":"GRAMMAR_ITEMS"}
+{"en":"Teacher review","tr":"Öğretmen incelemesi","fa":"بررسی معلم","owner":"courseReviewHtml"}
+{"en":"Farin reads your text and sends feedback within 2–3 days.","tr":"Farin metnini okur ve 2–3 gün içinde geri bildirim gönderir.","fa":"فرین متنت را می‌خواند و ظرف ۲ تا ۳ روز بازخورد می‌فرستد.","owner":"courseReviewHtml"}
+{"en":"Send to Farin for review","tr":"Farin'e incelemeye gönder","fa":"ارسال برای بررسی فرین","owner":"courseReviewHtml"}
+{"en":"Check and save your text first.","tr":"Önce metnini kontrol edip kaydet.","fa":"اول متنت را بررسی و ذخیره کن.","owner":"courseReviewHtml"}
+{"en":"You're on the list. As soon as a spot opens, we'll message you.","tr":"Listedesin. Yer açılır açılmaz sana yazacağız.","fa":"اسمت در لیست است. به‌محض اینکه جا باز شود، به تو پیام می‌دهیم.","owner":"renderCourseWaitlist"}
+{"en":"Back to the course","tr":"Kursa dön","fa":"برگشت به دوره","owner":"renderCourseWaitlist"}
+{"en":"Waiting list","tr":"Bekleme listesi","fa":"لیست انتظار","owner":"renderCourseWaitlist"}
+{"en":"Leave your name and phone number. As soon as a spot opens, we'll message you.","tr":"Adını ve telefon numaranı bırak. Yer açılır açılmaz sana yazacağız.","fa":"اسم و شماره‌ی تلفنت را بگذار. به‌محض اینکه جا باز شود، به تو پیام می‌دهیم.","owner":"renderCourseWaitlist"}
+{"en":"Name and surname","tr":"Ad ve soyad","fa":"نام و نام خانوادگی","owner":"renderCourseWaitlist"}
+{"en":"Write your name and surname.","tr":"Adını ve soyadını yaz.","fa":"نام و نام خانوادگی‌ات را بنویس.","owner":"renderCourseWaitlist"}
+{"en":"Phone number","tr":"Telefon numarası","fa":"شماره‌ی تلفن","owner":"COURSE_EXTRA"}
+{"en":"This number doesn't look right. Use 7 to 15 digits, with an optional + at the start.","tr":"Bu numara doğru görünmüyor. 7 ila 15 rakam yaz; başa + koyabilirsin.","fa":"این شماره درست به نظر نمی‌رسد. ۷ تا ۱۵ رقم بنویس؛ می‌توانی اولش + بگذاری.","owner":"renderCourseWaitlist"}
+{"en":"Please include your country code.","tr":"Lütfen ülke kodunu da yaz.","fa":"لطفاً کد کشور را هم بنویس.","owner":"renderCourseWaitlist"}
+{"en":"Put me on the list","tr":"Beni listeye ekle","fa":"اسمم را در لیست بنویس","owner":"renderCourseWaitlist"}
+{"en":"We couldn't save this. Check your connection and try again.","tr":"Kaydedemedik. Bağlantını kontrol edip tekrar dene.","fa":"ذخیره نشد. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"renderCourseWaitlist"}
+{"en":"We only use your number to message you about this course.","tr":"Numaranı yalnızca bu kurs için sana yazmak üzere kullanırız.","fa":"شماره‌ات را فقط برای پیام دادن درباره‌ی این دوره استفاده می‌کنیم.","owner":"renderCourseWaitlist"}
+{"en":"Try one","tr":"Bir tane dene","fa":"یکی را امتحان کن","owner":"courseTryOneHtml"}
+{"en":"Yes!","tr":"Evet!","fa":"درست است!","owner":"courseTryOneHtml"}
+{"en":"Not quite.","tr":"Tam değil.","fa":"نه دقیقاً.","owner":"grammarCheckHtml"}
+{"en":"From the story","tr":"Hikayeden","fa":"از داستان","owner":"gameBlurb"}
+{"en":"Pick one to see the rule.","tr":"Kuralı görmek için birini seç.","fa":"برای دیدن قاعده، یکی را انتخاب کن.","owner":"courseGrammarExpHtml"}
+{"en":"Quick test","tr":"Hızlı sınama","fa":"محک سریع","owner":"courseGrammarExpHtml"}
+{"en":"Check yourself","tr":"Kendini dene","fa":"خودت را محک بزن","owner":"courseGrammarExpHtml"}
+{"en":"Why do we mix these up?","tr":"Bunları neden karıştırıyoruz?","fa":"چرا این‌ها را قاطی می‌کنیم؟","owner":"courseGrammarExpHtml"}
+{"en":"One more example","tr":"Bir örnek daha","fa":"یک مثال دیگر","owner":"courseGrammarExpHtml"}
+{"en":"Watch for","tr":"Şuna dikkat et","fa":"حواست به این باشد","owner":"courseStoryNoticeHtml"}
+{"en":"Your lesson continues in a moment…","tr":"Dersin birazdan devam ediyor…","fa":"درس تا چند لحظه‌ی دیگر ادامه پیدا می‌کند…","owner":"courseCelebrateHint"}
+{"en":"Premium courses","tr":"Premium kurslar","fa":"دوره‌های ویژه","owner":"coursesDashTile"}
+{"en":"Continue: Final project","tr":"Devam et: Final projesi","fa":"ادامه: پروژه‌ی پایانی","owner":"courseCardHtml"}
+{"en":"Made to make you more professional out there. English isn't a lesson anymore. It's a tool.","tr":"Seni iş hayatında daha profesyonel yapmak için hazırlandı. İngilizce artık bir ders değil, bir araç.","fa":"این دوره‌ها کمکت می‌کنند در کارت حرفه‌ای‌تر باشی. انگلیسی دیگر یک درس نیست، یک ابزار است.","owner":"renderCoursesHome"}
+{"en":"I want this course","tr":"Bu kursu istiyorum","fa":"این دوره را می‌خواهم","owner":"courseRequestBtnHtml"}
+{"en":"Unlocked! The full course is open on this account.","tr":"Açıldı! Tam kurs bu hesapta artık açık.","fa":"باز شد! دوره‌ی کامل روی این حساب فعال است.","owner":"coursePwStatusText"}
+{"en":"That password does not match. Check the letters and dashes, or message Farin.","tr":"Bu şifre eşleşmedi. Harfleri ve tireleri kontrol et ya da Farin'e yaz.","fa":"این رمز درست نیست. حروف و خط تیره‌ها را بررسی کن یا به فرین پیام بده.","owner":"coursePwStatusText"}
+{"en":"This password is for a course in the other app (English/Spanish).","tr":"Bu şifre diğer uygulamadaki (İngilizce/İspanyolca) bir kurs için.","fa":"این رمز برای دوره‌ای در اپ دیگر (انگلیسی/اسپانیایی) است.","owner":"coursePwStatusText"}
+{"en":"This password is no longer active. Message Farin.","tr":"Bu şifre artık etkin değil. Farin'e yaz.","fa":"این رمز دیگر فعال نیست. به فرین پیام بده.","owner":"coursePwStatusText"}
+{"en":"This password has expired. Message Farin to extend it.","tr":"Bu şifrenin süresi dolmuş. Uzatmak için Farin'e yaz.","fa":"مدت این رمز تمام شده است. برای تمدید به فرین پیام بده.","owner":"coursePwStatusText"}
+{"en":"Course password","tr":"Kurs şifresi","fa":"رمز دوره","owner":"coursePasswordBoxHtml"}
+{"en":"Unlock","tr":"Kilidi aç","fa":"باز کردن","owner":"VOCAB_SETS"}
+{"en":"Full course","tr":"Tam kurs","fa":"دوره‌ی کامل","owner":"COURSES"}
+{"en":"access until","tr":"erişim bitişi","fa":"دسترسی تا","owner":"courseAccessLineHtml"}
+{"en":"Message Farin","tr":"Farin'e yaz","fa":"پیام به فرین","owner":"courseAccessLineHtml"}
+{"en":"I already have the password","tr":"Şifrem zaten var","fa":"رمز را دارم","owner":"courseUnlockBoxHtml"}
+{"en":"Test type","tr":"Sınav türü","fa":"نوع آزمون","owner":"courseTrackWord"}
+{"en":"Your version","tr":"Senin versiyonun","fa":"نسخه‌ی تو","owner":"courseTrackWord"}
+{"en":"Start lesson","tr":"Derse başla","fa":"شروع درس","owner":"COURSES"}
+{"en":"Premium course","tr":"Premium kurs","fa":"دوره‌ی ویژه","owner":"renderCourseIntro"}
+{"en":"3 parts: Learn, Practise, Do. You can pause after each part.","tr":"3 kısım: Öğren, Alıştır, Yap. Her kısımdan sonra ara verebilirsin.","fa":"۳ بخش: یاد بگیر، تمرین کن، انجام بده. بعد از هر بخش می‌توانی استراحت کنی.","owner":"renderCourseIntro"}
+{"en":"You can change this later.","tr":"Bunu sonra değiştirebilirsin.","fa":"بعداً می‌توانی عوضش کنی.","owner":"COURSES"}
+{"en":"Final","tr":"Final","fa":"پایانی","owner":"DW_B1C1"}
+{"en":"Also in the story","tr":"Hikayede ayrıca","fa":"دیگر شخصیت‌ها","owner":"renderCourseAbout"}
+{"en":"How this course works","tr":"Bu kurs nasıl işler","fa":"این دوره چطور کار می‌کند","owner":"renderCourseAbout"}
+{"en":"What you finish with","tr":"Sonunda elinde ne olacak","fa":"در پایان چه چیزی به دست می‌آوری","owner":"renderCourseAbout"}
+{"en":"Examples first","tr":"Önce örnekler","fa":"اول نمونه‌ها","owner":"courseTrackPicksHtml"}
+{"en":"Model texts and sentence starters when you write.","tr":"Yazarken örnek metin ve cümle başlangıçları.","fa":"موقع نوشتن، متن نمونه و شروع جمله داری.","owner":"courseTrackPicksHtml"}
+{"en":"The harder version","tr":"Daha zor versiyon","fa":"نسخه‌ی سخت‌تر","owner":"courseTrackPicksHtml"}
+{"en":"Extra B2 grammar, no sentence starters.","tr":"Ek B2 dilbilgisi, cümle başlangıcı yok.","fa":"گرامر اضافه‌ی B2، بدون شروع جمله.","owner":"courseTrackPicksHtml"}
+{"en":"Every lesson","tr":"Her ders","fa":"همه‌ی درس‌ها","owner":"courseTrackPicksHtml"}
+{"en":"The essentials","tr":"Temel olanlar","fa":"نکته‌های اصلی","owner":"COURSE_EXTRA"}
+{"en":"Academic","tr":"Academic","fa":"آکادمیک","owner":"COURSES"}
+{"en":"General Training","tr":"General Training","fa":"جنرال (General Training)","owner":"courseTrackPicksHtml"}
+{"en":"What you'll learn","tr":"Neler öğreneceksin","fa":"چه چیزهایی یاد می‌گیری","owner":"courseOutcomesHtml"}
+{"en":"This course","tr":"Bu kurs","fa":"این دوره","owner":"COURSE_EXTRA"}
+{"en":"Skills and language","tr":"Beceriler ve dil","fa":"مهارت‌ها و زبان","owner":"courseOutcomesHtml"}
+{"en":"After the course, you can","tr":"Kurstan sonra şunları yapabilirsin","fa":"بعد از دوره می‌توانی","owner":"courseOutcomesHtml"}
+{"en":"Your text","tr":"Metnin","fa":"متن تو","owner":"COURSES"}
+{"en":"In their shoes","tr":"Onun yerinde","fa":"جای او","owner":"COURSE_EXTRA"}
+{"en":"Mark the answers as an examiner would","tr":"Cevapları bir sınav görevlisi gibi değerlendir","fa":"پاسخ‌ها را مثل یک ممتحن ارزیابی کن","owner":"courseCardTitle"}
+{"en":"Judge the examples","tr":"Örnekleri değerlendir","fa":"نمونه‌ها را ارزیابی کن","owner":"courseCardTitle"}
+{"en":"Redo","tr":"Tekrar yap","fa":"دوباره انجام بده","owner":"courseMapSheetHtml"}
+{"en":"In the full course","tr":"Tam kursta","fa":"در دوره‌ی کامل","owner":"COURSES"}
+{"en":"This lesson opens after the one before it.","tr":"Bu ders, ondan önceki dersten sonra açılır.","fa":"این درس بعد از درس قبلی‌اش باز می‌شود.","owner":"courseMapSheetHtml"}
+{"en":"Do it again","tr":"Yeniden yap","fa":"دوباره انجامش بده","owner":"courseMapSheetHtml"}
+{"en":"Continue lesson","tr":"Derse devam et","fa":"ادامه‌ی درس","owner":"courseMapSheetHtml"}
+{"en":"See your results","tr":"Sonuçlarını gör","fa":"نتیجه‌هایت را ببین","owner":"courseMapSheetHtml"}
+{"en":"Courses","tr":"Kurslar","fa":"دوره‌ها","owner":"COURSES"}
+{"en":"your certificate","tr":"sertifikan","fa":"گواهی‌نامه‌ات","owner":"courseFinalNodeHtml"}
+{"en":"Final project","tr":"Final projesi","fa":"پروژه‌ی پایانی","owner":"COURSE_EXTRA"}
+{"en":"Your work","tr":"Çalışmaların","fa":"کارهای تو","owner":"courseWorkRowHtml"}
+{"en":"Portfolio and journal","tr":"Portföy ve günlük","fa":"پرونده‌ی کاری و دفترچه","owner":"courseWorkRowHtml"}
+{"en":"Final version","tr":"Son hâli","fa":"نسخه‌ی نهایی","owner":"renderCourseWork"}
+{"en":"In your final project","tr":"Final projende","fa":"در پروژه‌ی پایانی‌ات","owner":"renderCourseWork"}
+{"en":"Your draft from","tr":"Taslağın:","fa":"پیش‌نویس تو از","owner":"renderCourseWork"}
+{"en":"You write a draft in","tr":"Taslağını şurada yazarsın:","fa":"پیش‌نویسش را می‌نویسی در","owner":"renderCourseWork"}
+{"en":"You write it in the final project","tr":"Final projesinde yazarsın","fa":"آن را در پروژه‌ی پایانی می‌نویسی","owner":"renderCourseWork"}
+{"en":"Work on it in the final project","tr":"Final projesinde üzerinde çalış","fa":"در پروژه‌ی پایانی رویش کار کن","owner":"renderCourseWork"}
+{"en":"Your certificate","tr":"Sertifikan","fa":"گواهی‌نامه‌ی تو","owner":"renderCourseWork"}
+{"en":"The pieces of your final project. Drafts you write in the lessons wait here.","tr":"Final projenin parçaları. Derslerde yazdığın taslaklar burada bekler.","fa":"بخش‌های پروژه‌ی پایانی‌ات. پیش‌نویس‌هایی که در درس‌ها می‌نویسی اینجا جمع می‌شوند.","owner":"renderCourseWork"}
+{"en":"What you wrote from another point of view, newest first.","tr":"Başka bir bakış açısından yazdıkların, en yenisi önce.","fa":"چیزهایی که از نگاه دیگری نوشتی، جدیدترین اول.","owner":"renderCourseWork"}
+{"en":"Error log","tr":"Hata kaydı","fa":"فهرست اشتباه‌ها","owner":"courseErrLogHtml"}
+{"en":"Questions you got wrong in Practice and the mock tests. Answer one right later and it leaves the list.","tr":"Uygulama ve deneme sınavlarında yanlış yaptığın sorular. Sonra doğru cevaplarsan listeden çıkar.","fa":"سؤال‌هایی که در تمرین‌ها و آزمون‌های آزمایشی اشتباه جواب دادی. اگر بعداً درست جوابشان بدهی، از فهرست بیرون می‌روند.","owner":"courseErrLogHtml"}
+{"en":"OK","tr":"Tamam","fa":"باشد","owner":"GRAMMAR_ITEMS"}
+{"en":"The lessons are being written. Leave a message and Farin will tell you when it opens.","tr":"Dersler yazılıyor. Mesaj bırak, açılınca Farin haber versin.","fa":"درس‌ها در حال نوشته شدن هستند. پیام بگذار تا فرین وقتی دوره باز شد خبرت کند.","owner":"courseComingSoonHtml"}
+{"en":"Tell me when it opens","tr":"Açılınca haber ver","fa":"وقتی باز شد، خبرم کن","owner":"courseComingSoonHtml"}
+{"en":"This course comes later","tr":"Bu kurs daha sonra gelecek","fa":"این دوره بعداً می‌آید","owner":"renderCourseGate"}
+{"en":"This course is being built","tr":"Bu kurs hazırlanıyor","fa":"این دوره در حال آماده‌سازی است","owner":"renderCourseGate"}
+{"en":"Leave a message and Farin will tell you when it opens.","tr":"Mesaj bırak, açılınca Farin haber versin.","fa":"پیام بگذار تا فرین وقتی دوره باز شد خبرت کند.","owner":"courseComingSoonHtml"}
+{"en":"Go to your next free lesson","tr":"Sıradaki ücretsiz dersine git","fa":"برو سراغ درس رایگان بعدی‌ات","owner":"renderCourseGate"}
+{"en":"You have finished the free lessons.","tr":"Ücretsiz dersleri bitirdin.","fa":"درس‌های رایگان را تمام کردی.","owner":"renderCourseGate"}
+{"en":"Answer out loud:","tr":"Yüksek sesle cevap ver:","fa":"با صدای بلند جواب بده:","owner":"courseSpeakingHeading"}
+{"en":"Your tasks:","tr":"Görevlerin:","fa":"تمرین‌های تو:","owner":"courseSpeakingHeading"}
+{"en":"B2 extra","tr":"B2 ek şartı","fa":"شرط اضافه‌ی مسیر B2","owner":"courseUseInHtml"}
+{"en":"From an earlier lesson","tr":"Önceki bir dersten","fa":"از یک درس قبلی","owner":"courseCardHeadHtml"}
+{"en":"Pick the right form, fast.","tr":"Doğru biçimi hızlıca seç.","fa":"شکل درست را سریع انتخاب کن.","owner":"courseCardHeadHtml"}
+{"en":"The situation: read it, then answer the questions under it.","tr":"Durum: oku, sonra altındaki soruları cevapla.","fa":"موقعیت: بخوانش و بعد به سؤال‌های زیرش جواب بده.","owner":"courseCardHeadHtml"}
+{"en":"Read the exam task again","tr":"Sınav görevini tekrar oku","fa":"تکلیف آزمون را دوباره بخوان","owner":"courseCardHeadHtml"}
+{"en":"Read the situation again","tr":"Durumu tekrar oku","fa":"موقعیت را دوباره بخوان","owner":"courseCardHeadHtml"}
+{"en":"Read the story again","tr":"Hikayeyi tekrar oku","fa":"داستان را دوباره بخوان","owner":"courseCardHeadHtml"}
+{"en":"Stop here. We'll keep your place.","tr":"Burada dur. Kaldığın yeri saklarız.","fa":"همین‌جا بس است. بعداً از همین‌جا ادامه می‌دهی.","owner":"renderCoursePause"}
+{"en":"Your notes","tr":"Notların","fa":"یادداشت‌های تو","owner":"renderCourseSpeaking"}
+{"en":"Record myself","tr":"Sesimi kayda al","fa":"صدایم را ضبط کن","owner":"renderCourseSpeaking"}
+{"en":"You hear it back after each round. It stays on this phone and is not saved.","tr":"Her turdan sonra dinlersin. Bu telefonda kalır, saklanmaz.","fa":"بعد از هر دور دوباره گوشش می‌کنی. ضبطت از همین گوشی بیرون نمی‌رود و ذخیره هم نمی‌شود.","owner":"renderCourseSpeaking"}
+{"en":"Before you start","tr":"Başlamadan önce","fa":"قبل از شروع","owner":"IELTS_STRATEGY"}
+{"en":"Useful phrases","tr":"Faydalı kalıplar","fa":"عبارت‌های مفید","owner":"renderCourseSpeaking"}
+{"en":"Tap the phrases you will use. They go into your notes.","tr":"Kullanacağın kalıplara dokun. Notlarına eklenir.","fa":"عبارت‌هایی را که به کار می‌بری لمس کن تا به یادداشت‌هایت اضافه شوند.","owner":"renderCourseSpeaking"}
+{"en":"As in the test: one minute to make notes on the card, then talk for two minutes. Then do the talk once more, better.","tr":"Sınavdaki gibi: karta bakıp bir dakika not al, sonra iki dakika konuş. Sonra konuşmayı bir kez daha, daha iyi yap.","fa":"مثل آزمون: یک دقیقه روی کارت یادداشت بردار، بعد دو دقیقه حرف بزن. بعد یک بار دیگر، بهتر، همان را بگو.","owner":"renderCourseSpeaking"}
+{"en":"Start · 1 minute of notes","tr":"Başla · 1 dakika not","fa":"شروع: یک دقیقه یادداشت","owner":"renderCourseSpeaking"}
+{"en":"Listen to yourself","tr":"Kendini dinle","fa":"به صدای خودت گوش کن","owner":"renderCourseSpeaking"}
+{"en":"The microphone is off, so this round is not recorded. The timer still works.","tr":"Mikrofon kapalı, bu yüzden tur kaydedilmiyor. Süre yine çalışır.","fa":"میکروفون خاموش است، پس این دور ضبط نمی‌شود. زمان‌سنج همچنان کار می‌کند.","owner":"renderCourseSpeaking"}
+{"en":"Make notes: one or two words for each line of the card.","tr":"Not al: kartın her satırı için bir iki kelime.","fa":"یادداشت بردار: برای هر خط کارت یکی دو کلمه.","owner":"renderCourseSpeaking"}
+{"en":"Talk for the whole two minutes. Cover every line, then the \"explain\" line.","tr":"İki dakikanın tamamını konuş. Her satırı, sonra \"explain\" satırını ele al.","fa":"تمام دو دقیقه حرف بزن. همه‌ی خط‌ها و بعد خط «explain» را بگو.","owner":"renderCourseSpeaking"}
+{"en":"Once more: the same card, better words, no stops.","tr":"Bir kez daha: aynı kart, daha iyi kelimeler, duraksamadan.","fa":"یک بار دیگر: همان کارت، کلمه‌های بهتر، بدون توقف.","owner":"renderCourseSpeaking"}
+{"en":"Same facts, fewer words.","tr":"Aynı bilgiler, daha az kelime.","fa":"همان نکته‌ها، با کلمه‌های کمتر.","owner":"renderCourseSpeaking"}
+{"en":"Start the talk · 2 minutes","tr":"Konuşmaya başla · 2 dakika","fa":"شروع صحبت: دو دقیقه","owner":"renderCourseSpeaking"}
+{"en":"Talk once more · 2 minutes","tr":"Bir kez daha konuş · 2 dakika","fa":"یک بار دیگر بگو: دو دقیقه","owner":"renderCourseSpeaking"}
+{"en":"Check yourself","tr":"Kendini değerlendir","fa":"خودت را ارزیابی کن","owner":"renderCourseSpeaking"}
+{"en":"Notes","tr":"Notlar","fa":"یادداشت","owner":"DW_B1C1"}
+{"en":"seconds","tr":"saniye","fa":"ثانیه","owner":"COURSE_EXTRA"}
+{"en":"Listen to a model","tr":"Bir örnek dinle","fa":"یک نمونه گوش کن","owner":"renderCourseSpeaking"}
+{"en":"Read it","tr":"Metni gör","fa":"متنش را ببین","owner":"renderCourseSpeaking"}
+{"en":"Checklist","tr":"Kontrol listesi","fa":"چک‌لیست","owner":"COURSES"}
+{"en":"For you only. Not graded.","tr":"Yalnızca senin için. Not verilmez.","fa":"فقط برای خودت است؛ نمره‌ی رسمی ندارد.","owner":"renderCourseSpeaking"}
+{"en":"Culture note","tr":"Kültür notu","fa":"نکته‌ی فرهنگی","owner":"renderCourseSpeaking"}
+{"en":"You use what you learned in","tr":"Şu derslerde öğrendiklerini kullanırsın:","fa":"از چیزهایی استفاده می‌کنی که در این درس‌ها یاد گرفتی:","owner":"renderCourseStep"}
+{"en":"This part of the course is not built yet.","tr":"Kursun bu kısmı henüz hazır değil.","fa":"این بخش از دوره هنوز آماده نشده است.","owner":"renderCourseStep"}
+{"en":"What happens next","tr":"Sırada ne var","fa":"بعدش چه می‌شود","owner":"COURSE_EXTRA"}
+{"en":"Now you can say:","tr":"Artık şunları söyleyebilirsin:","fa":"حالا می‌توانی این‌ها را بگویی:","owner":"renderCourseChapterDone"}
+{"en":"Recording coming soon","tr":"Kayıt yakında geliyor","fa":"فایل صوتی به‌زودی می‌آید","owner":"courseWaitingLine"}
+{"en":"Listening is the point of this lesson, so it opens when its recording is ready. You can go on with the rest of the course.","tr":"Bu dersin amacı dinlemek, bu yüzden kaydı hazır olunca açılacak. Kursun geri kalanına devam edebilirsin.","fa":"هدف این درس گوش دادن است، برای همین وقتی فایل صوتی آماده شود باز می‌شود. می‌توانی بقیه‌ی دوره را ادامه بدهی.","owner":"courseWaitingNoteHtml"}
+{"en":"Last reviewed","tr":"Son gözden geçirme","fa":"آخرین بازبینی","owner":"courseLastReviewedHtml"}
+{"en":"Example screen, drawn by FEschool","tr":"Örnek ekran, FEschool çizimi","fa":"صفحه‌ی نمونه، طراحی FEschool","owner":"courseJudgeAiHtml"}
+{"en":"See the example screen","tr":"Örnek ekranı gör","fa":"دیدن صفحه‌ی نمونه","owner":"courseJudgeAiHtml"}
+{"en":"Example image","tr":"Örnek görsel","fa":"تصویر نمونه","owner":"courseJudgeAiHtml"}
+{"en":"Nothing to fix here.","tr":"Burada düzeltilecek bir şey yok.","fa":"اینجا چیزی برای اصلاح نیست.","owner":"courseJudgeAiHtml"}
+{"en":"Right.","tr":"Doğru.","fa":"درست است.","owner":"GRAMMAR_ITEMS"}
+{"en":"Use these facts","tr":"Bu bilgileri kullan","fa":"از این اطلاعات استفاده کن","owner":"courseWritingExtrasHtml"}
+{"en":"Pick your way","tr":"Yolunu seç","fa":"راهت را انتخاب کن","owner":"courseWritingExtrasHtml"}
+{"en":"Use my own work instead","tr":"Bunun yerine kendi işimi kullan","fa":"به‌جایش از کار خودم استفاده کن","owner":"courseWritingExtrasHtml"}
+{"en":"The order line","tr":"Sipariş satırı","fa":"خط سفارش","owner":"courseStorySampleHtml"}
+{"en":"The AI draft","tr":"Yapay zekâ taslağı","fa":"پیش‌نویس هوش مصنوعی","owner":"COURSES"}
+{"en":"Playing. It runs to the end this first time.","tr":"Çalıyor. İlk seferde sonuna kadar sürer.","fa":"در حال پخش. بار اول تا آخر پخش می‌شود.","owner":"courseAudBtnHtml"}
+{"en":"Play again","tr":"Tekrar çal","fa":"پخش دوباره","owner":"courseAudBtnHtml"}
+{"en":"Play the recording","tr":"Kaydı çal","fa":"پخش فایل صوتی","owner":"courseAudBtnHtml"}
+{"en":"The recording did not load. Check your connection and tap again.","tr":"Kayıt yüklenmedi. Bağlantını kontrol et ve tekrar dokun.","fa":"فایل صوتی باز نشد. اتصالت را بررسی کن و دوباره لمس کن.","owner":"courseAudBtnHtml"}
+{"en":"Listen first","tr":"Önce dinle","fa":"اول گوش بده","owner":"renderCourseListening"}
+{"en":"Answer the questions to go on","tr":"Devam etmek için soruları cevapla","fa":"برای ادامه به سؤال‌ها جواب بده","owner":"renderCourseListening"}
+{"en":"Tool guides","tr":"Araç rehberleri","fa":"راهنمای ابزارها","owner":"courseToolsWord"}
+{"en":"What each tool is for, how to start, prompts to copy","tr":"Her araç ne işe yarar, nasıl başlanır, kopyalanacak prompt'lar","fa":"هر ابزار به چه کاری می‌آید، چطور شروع کنی، پرامپت برای کپی","owner":"courseToolRowHtml"}
+{"en":"Messages you may see","tr":"Görebileceğin mesajlar","fa":"پیام‌هایی که ممکن است ببینی","owner":"courseToolListHtml"}
+{"en":"How it helps you","tr":"Sana nasıl yardım eder","fa":"چطور به کارت می‌آید","owner":"courseToolGuideHtml"}
+{"en":"Good for","tr":"Şunlar için iyi","fa":"به این کارها می‌آید","owner":"courseToolGuideHtml"}
+{"en":"Not the best for","tr":"Şunlar için pek uygun değil","fa":"برای این کارها مناسب نیست","owner":"courseToolGuideHtml"}
+{"en":"How to start","tr":"Nasıl başlanır","fa":"چطور شروع کنی","owner":"courseToolRowHtml"}
+{"en":"Words on the screen","tr":"Ekrandaki kelimeler","fa":"کلمه‌های روی صفحه","owner":"courseToolGuideHtml"}
+{"en":"Prompts to copy","tr":"Kopyalanacak prompt'lar","fa":"پرامپت برای کپی","owner":"courseToolRowHtml"}
+{"en":"Four parts of a good request","tr":"İyi bir isteğin dört parçası","fa":"چهار بخش یک درخواست خوب","owner":"courseToolGuideHtml"}
+{"en":"Limits","tr":"Sınırlar","fa":"محدودیت‌ها","owner":"COURSES"}
+{"en":"A line may have none of them. Then just tap Check.","tr":"Bir satırda hiçbiri olmayabilir. O zaman sadece Kontrol et'e dokun.","fa":"ممکن است خطی هیچ‌کدام را نداشته باشد. آن وقت فقط «بررسی کن» را بزن.","owner":"courseJudgeNoneHtml"}
+{"en":"Tap each part you can find in this answer.","tr":"Bu cevapta bulduğun her parçaya dokun.","fa":"هر بخشی را که در این پاسخ می‌بینی لمس کن.","owner":"renderCourseJudge"}
+{"en":"Missing","tr":"Eksik","fa":"جاافتاده","owner":"COURSE_EXTRA"}
+{"en":"A complete answer. All four parts are there.","tr":"Eksiksiz bir cevap. Dört parça da var.","fa":"پاسخی کامل؛ هر چهار بخش در آن هست.","owner":"renderCourseJudge"}
+{"en":"Nothing to fix in this line.","tr":"Bu satırda düzeltilecek bir şey yok.","fa":"این خط نیازی به اصلاح ندارد.","owner":"renderCourseJudge"}
+{"en":"Scene complete","tr":"Sahne tamamlandı","fa":"گفتگو به پایان رسید","owner":"renderCourseBranch"}
+{"en":"Second tries: ","tr":"İkinci denemeler: ","fa":"دفعه‌های دوم: ","owner":"renderCourseBranch"}
+{"en":"Nothing to review yet.","tr":"Henüz tekrar edilecek bir şey yok.","fa":"هنوز چیزی برای مرور نیست.","owner":"renderCourseReview"}
+{"en":"Good start!","tr":"İyi başlangıç!","fa":"شروع خوبی بود!","owner":"renderCourseReview"}
+{"en":"Missed items come back sooner; the ones you know wait longer.","tr":"Kaçırdıkların daha erken, bildiklerin daha geç geri gelir.","fa":"مواردی که اشتباه کردی زودتر دوباره می‌آیند و آن‌هایی که بلدی، دیرتر.","owner":"renderCourseReview"}
+{"en":"Word","tr":"Kelime","fa":"واژه","owner":"IELTS_STRATEGY"}
+{"en":"Model answer","tr":"Örnek cevap","fa":"پاسخ نمونه","owner":"COURSES"}
+{"en":"Leyla's version","tr":"Leyla'nın versiyonu","fa":"نسخه‌ی لیلا","owner":"COURSE_EXTRA"}
+{"en":"Example text","tr":"Örnek metin","fa":"متن نمونه","owner":"COURSES"}
+{"en":"B2 extra (above)","tr":"B2 ek şartı (yukarıda)","fa":"شرط اضافه‌ی B2 (بالای صفحه)","owner":"renderCourseWriting"}
+{"en":"Score each line: 0 = not there, 3 = fully there.","tr":"Her satırı puanla: 0 = yok, 3 = tamamen var.","fa":"به هر خط نمره بده: ۰ = نیست، ۳ = کامل هست.","owner":"renderCourseWriting"}
+{"en":"This score is only for you. Nothing is graded. A low line shows what to change: fix your text and tap Check again.","tr":"Bu puan yalnızca senin için. Not verilmez. Düşük bir satır neyi değiştireceğini gösterir: metnini düzelt ve yeniden Kontrol et'e dokun.","fa":"این نمره فقط برای خودت است و کسی به تو نمره نمی‌دهد. خطی که نمره‌اش کم است نشان می‌دهد چه چیزی را عوض کنی: متنت را درست کن و دوباره «بررسی کن» را بزن.","owner":"renderCourseWriting"}
+{"en":"Compare, then tick what your text does.","tr":"Karşılaştır, sonra metninin yaptıklarını işaretle.","fa":"مقایسه کن و بعد هر چیزی را که متنت دارد تیک بزن.","owner":"renderCourseWriting"}
+{"en":"sentences","tr":"cümle","fa":"جمله","owner":"PRACTICE_RECOMMENDATION"}
+{"en":"Not used yet","tr":"Henüz kullanılmadı","fa":"هنوز استفاده نشده","owner":"renderCourseWriting"}
+{"en":"Write real sentences in English to go on.","tr":"Devam etmek için İngilizce gerçek cümleler yaz.","fa":"برای ادامه، جمله‌های واقعی به انگلیسی بنویس.","owner":"renderCourseWriting"}
+{"en":"Saved as a draft for your final project. You find it in \"Your work\".","tr":"Final projen için taslak olarak saklandı. \"Çalışmaların\" bölümünde bulursun.","fa":"این را به‌عنوان پیش‌نویس پروژه‌ی پایانی‌ات نگه داشتیم. در «کارهای تو» پیدایش می‌کنی.","owner":"renderCourseWriting"}
+{"en":"Score your text","tr":"Metnini puanla","fa":"به متنت نمره بده","owner":"renderCourseWriting"}
+{"en":"You tick it after Check, next to the model answer.","tr":"Kontrol ettikten sonra, örnek metnin yanında işaretlersin.","fa":"بعد از بررسی، کنار نسخه‌ی نمونه تیکش می‌زنی.","owner":"renderCourseWriting"}
+{"en":"It folds when you start writing. Tap to see it again.","tr":"Yazmaya başlayınca kapanır. Tekrar görmek için dokun.","fa":"وقتی نوشتن را شروع کنی، جمع می‌شود. برای دیدن دوباره لمسش کن.","owner":"renderCourseWriting"}
+{"en":"Start like this","tr":"Böyle başla","fa":"این‌طوری شروع کن","owner":"renderCourseWriting"}
+{"en":"Check again","tr":"Tekrar kontrol et","fa":"دوباره بررسی کن","owner":"renderRestoreByCode"}
+{"en":"Save","tr":"Kaydet","fa":"ذخیره کن","owner":"COURSES"}
+{"en":"Something is missing","tr":"Bir şey eksik","fa":"چیزی کم است","owner":"DW_B1C1"}
+{"en":"Is this answer STAR-complete?","tr":"Bu cevap STAR bakımından eksiksiz mi?","fa":"آیا این پاسخ از نظر STAR کامل است؟","owner":"courseExitQuestions"}
+{"en":"Open it in Learn","tr":"Öğren'de aç","fa":"در «یاد بگیر» بازش کن","owner":"courseLookAgainHtml"}
+{"en":"Nothing to check yet.","tr":"Henüz kontrol edilecek bir şey yok.","fa":"هنوز چیزی برای بررسی نیست.","owner":"renderCourseExit"}
+{"en":"All right. You can use this now.","tr":"Hepsi doğru. Bunu artık kullanabilirsin.","fa":"همه درست است. حالا می‌توانی از این استفاده کنی.","owner":"renderCourseExit"}
+{"en":"Your brief","tr":"Görevin","fa":"شرح پروژه","owner":"courseFinalHomeHtml"}
+{"en":"Default vacancy","tr":"Varsayılan pozisyon","fa":"موقعیت شغلی نمونه","owner":"courseFinalHomeHtml"}
+{"en":"You score each part yourself with the checklist. There is no teacher marking in the app.","tr":"Her kısmı kontrol listesiyle kendin puanlarsın. Uygulamada öğretmen değerlendirmesi yok.","fa":"به هر بخش خودت با چک‌لیست نمره می‌دهی. در اپ، معلم نوشته‌ات را تصحیح نمی‌کند.","owner":"courseFinalHomeHtml"}
+{"en":"parts passed","tr":"kısım geçildi","fa":"بخش قبول‌شده","owner":"courseFinalHomeHtml"}
+{"en":"Certificate","tr":"Sertifika","fa":"گواهی‌نامه","owner":"COURSE_INTRO"}
+{"en":"Open your certificate","tr":"Sertifikanı aç","fa":"گواهی‌نامه‌ات را باز کن","owner":"courseCertificateHtml"}
+{"en":"Self-study: evidence check","tr":"Kendi kendine: kanıt kontrolü","fa":"خودآموزی: بررسی شواهد","owner":"courseFinalPartHtml"}
+{"en":"Review first:","tr":"Önce tekrar et:","fa":"پیش از شروع، این‌ها را مرور کن:","owner":"courseFinalPartHtml"}
+{"en":"Show an example","tr":"Bir örnek göster","fa":"دیدن یک نمونه","owner":"courseFinalPartHtml"}
+{"en":"Write it here first. Then say it out loud and record yourself on your phone.","tr":"Önce buraya yaz. Sonra yüksek sesle söyle ve telefonunla kendini kaydet.","fa":"اول اینجا بنویس. بعد با صدای بلند بگو و با گوشی‌ات صدایت را ضبط کن.","owner":"courseFinalPartHtml"}
+{"en":"Score yourself","tr":"Kendini puanla","fa":"به خودت نمره بده","owner":"courseFinalPartHtml"}
+{"en":"Part passed. Well done!","tr":"Bölüm geçildi. Tebrikler!","fa":"این بخش را قبول شدی. آفرین!","owner":"courseFinalPartHtml"}
+{"en":"Score every line of the checklist first.","tr":"Önce kontrol listesinin her satırını puanla.","fa":"اول به همه‌ی ردیف‌های چک‌لیست نمره بده.","owner":"courseFinalPartHtml"}
+{"en":"Not yet: every line needs 2 or more. Revise, then score again.","tr":"Henüz değil: her satır 2 veya üstü olmalı. Düzelt ve yeniden puanla.","fa":"هنوز نه: نمره‌ی هر ردیف باید ۲ یا بیشتر باشد. متن را بازبینی کن و دوباره نمره بده.","owner":"courseFinalPartHtml"}
+{"en":"Check and save","tr":"Kontrol et ve kaydet","fa":"بررسی و ذخیره","owner":"courseReviewHtml"}
+{"en":"This certificate shows that you finished an FEschool course. It is not an official CEFR or IELTS certificate.","tr":"Bu sertifika bir FEschool kursunu bitirdiğini gösterir. Resmî bir CEFR veya IELTS sertifikası değildir.","fa":"این گواهی نشان می‌دهد که یک دوره‌ی FEschool را تمام کرده‌ای. مدرک رسمی CEFR یا IELTS نیست.","owner":"courseCertDisclaimer"}
+{"en":"Which name goes on your certificate?","tr":"Sertifikanda hangi isim yazsın?","fa":"چه اسمی روی گواهی‌نامه‌ات نوشته شود؟","owner":"renderCourseCert"}
+{"en":"Your name","tr":"Adın","fa":"اسم تو","owner":"COURSES"}
+{"en":"Add my name","tr":"Adımı ekle","fa":"اسمم را اضافه کن","owner":"renderCourseCert"}
+{"en":"Save as image","tr":"Resim olarak kaydet","fa":"ذخیره به‌صورت تصویر","owner":"renderCourseCert"}
+{"en":"Share","tr":"Paylaş","fa":"اشتراک‌گذاری","owner":"COURSE_EXTRA"}
+{"en":"Choose","tr":"Seç","fa":"انتخاب کن","owner":"GRAMMAR_ITEMS"}
+{"en":"No answer","tr":"Cevap yok","fa":"بی‌پاسخ","owner":"COURSE_EXTRA"}
+{"en":"Not this time","tr":"Bu sefer olmadı","fa":"این بار نه","owner":"storyTurnHtml"}
+{"en":"too many words","tr":"fazla kelime","fa":"کلمه‌ها زیاد است","owner":"courseQHtml"}
+{"en":"Over time","tr":"Süre doldu","fa":"وقت تمام شد","owner":"courseClockLeftHtml"}
+{"en":"Finish, then check.","tr":"Bitir, sonra kontrol et.","fa":"تمامش کن و بعد بررسی کن.","owner":"courseClockLeftHtml"}
+{"en":"The recording, word for word","tr":"Kaydın tam metni","fa":"متن کامل فایل صوتی","owner":"courseDrillSourceHtml"}
+{"en":"Playing… listen and answer","tr":"Çalıyor… dinle ve cevapla","fa":"در حال پخش… گوش بده و جواب بده","owner":"courseListenBoxHtml"}
+{"en":"The recording has finished. Check your answers.","tr":"Kayıt bitti. Cevaplarını kontrol et.","fa":"فایل صوتی تمام شد. جواب‌هایت را بررسی کن.","owner":"courseListenBoxHtml"}
+{"en":"You hear the recording once. Read the questions first.","tr":"Kaydı bir kez duyacaksın. Önce soruları oku.","fa":"فایل صوتی را فقط یک بار می‌شنوی. اول سؤال‌ها را بخوان.","owner":"courseListenBoxHtml"}
+{"en":"How to do it","tr":"Nasıl yapılır","fa":"چطور انجامش بدهی","owner":"renderCourseDrill"}
+{"en":"The recording plays once, as in the test.","tr":"Kayıt, sınavdaki gibi bir kez çalar.","fa":"فایل صوتی مثل آزمون فقط یک بار پخش می‌شود.","owner":"renderCourseDrill"}
+{"en":"All right. Well done!","tr":"Hepsi doğru. Tebrikler!","fa":"همه درست. آفرین!","owner":"renderCourseDrill"}
+{"en":"Wrong answers go to your error log. The marked words show where the answer is.","tr":"Yanlışlar hata kaydına gider. İşaretli kelimeler cevabın nerede olduğunu gösterir.","fa":"جواب‌های غلط به فهرست اشتباه‌هایت می‌روند. کلمه‌های علامت‌خورده جای جواب را نشان می‌دهند.","owner":"renderCourseDrill"}
+{"en":"(over time)","tr":"(süre aşıldı)","fa":"(بیشتر از زمان)","owner":"renderCourseDrill"}
+{"en":"See the numbers","tr":"Sayıları gör","fa":"عددها را ببین","owner":"courseChartHtml"}
+{"en":"estimate","tr":"tahmini","fa":"تخمینی","owner":"courseEstimateWord"}
+{"en":"You hear it back at the end. It stays on this phone and is not saved.","tr":"Sonunda dinlersin. Bu telefonda kalır, saklanmaz.","fa":"در پایان دوباره گوشش می‌کنی. ضبطت از همین گوشی بیرون نمی‌رود و ذخیره هم نمی‌شود.","owner":"courseMockIntroHtml"}
+{"en":"Find a quiet place. Once you start, the clock runs.","tr":"Sessiz bir yer bul. Başlayınca süre işler.","fa":"یک جای ساکت پیدا کن. وقتی شروع کنی، زمان‌سنج کار می‌کند.","owner":"courseMockIntroHtml"}
+{"en":"Band","tr":"Band","fa":"باند","owner":"STORY_LIBRARY"}
+{"en":"An estimate from the official raw-score anchors, not an IELTS result.","tr":"Resmî ham puan eşiklerinden bir tahmin; IELTS sonucu değildir.","fa":"تخمینی بر اساس جدول رسمی نمره‌ی خام، نه نتیجه‌ی آیلتس.","owner":"courseMockScoreLine"}
+{"en":"The recording stopped when you left. It does not play again: check your answers.","tr":"Ayrıldığında kayıt durdu. Tekrar çalmaz: cevaplarını kontrol et.","fa":"وقتی بیرون رفتی پخش متوقف شد. دوباره پخش نمی‌شود: جواب‌هایت را بررسی کن.","owner":"renderCourseMockListening"}
+{"en":"Submit answers","tr":"Cevapları gönder","fa":"ثبت جواب‌ها","owner":"renderCourseMockListening"}
+{"en":"In my language","tr":"Kendi dilimde","fa":"به زبان خودم","owner":"COURSES"}
+{"en":"No spell-check, as in the test.","tr":"Sınavdaki gibi yazım denetimi yok.","fa":"مثل آزمون، غلط‌یاب نداری.","owner":"renderCourseMockWriting"}
+{"en":"Submit my writing","tr":"Yazımı teslim et","fa":"ثبت نوشته‌ام","owner":"renderCourseMockWriting"}
+{"en":"Tick each line that was true for you. This is your own check, not a band.","tr":"Senin için doğru olan her satırı işaretle. Bu bir band değil, kendi kontrolün.","fa":"هر خطی را که درباره‌ی تو درست بود تیک بزن. این ارزیابی خودت است، نه باند.","owner":"renderCourseMockSpeaking"}
+{"en":"Introduction","tr":"Giriş","fa":"مقدمه","owner":"GRAMMAR_PRACTICE_B1C1"}
+{"en":"You have one minute to make notes on paper.","tr":"Kâğıda not almak için bir dakikan var.","fa":"یک دقیقه وقت داری روی کاغذ یادداشت برداری.","owner":"renderCourseMockSpeaking"}
+{"en":"Talk for up to two minutes. The app stops you at 2:00.","tr":"En fazla iki dakika konuş. Uygulama seni 2:00'de durdurur.","fa":"تا دو دقیقه صحبت کن. اپ در ۲:۰۰ متوقفت می‌کند.","owner":"renderCourseMockSpeaking"}
+{"en":"Answer out loud.","tr":"Yüksek sesle cevap ver.","fa":"با صدای بلند جواب بده.","owner":"renderCourseMockSpeaking"}
+{"en":"Not done","tr":"Yapılmadı","fa":"انجام نشده","owner":"renderCourseMockResult"}
+{"en":"ticked","tr":"işaretli","fa":"تیک خورده","owner":"renderCourseMockResult"}
+{"en":"work on","tr":"çalış:","fa":"روی این کار کن:","owner":"renderCourseMockResult"}
+{"en":"Your own check against the checklist","tr":"Kontrol listesine göre kendi değerlendirmen","fa":"ارزیابی خودت با چک‌لیست","owner":"renderCourseMockResult"}
+{"en":"Your results","tr":"Sonuçların","fa":"نتیجه‌های تو","owner":"renderCourseMockResult"}
+{"en":"Bands are estimates from the official raw-score anchors. They are not an IELTS result, and no course can promise a score.","tr":"Bandlar resmî ham puan eşiklerinden tahminlerdir. IELTS sonucu değildir; hiçbir kurs bir puan sözü veremez.","fa":"باندها تخمین‌هایی بر اساس جدول رسمی نمره‌ی خام هستند. نتیجه‌ی آیلتس نیستند و هیچ دوره‌ای نمی‌تواند نمره را تضمین کند.","owner":"renderCourseMockResult"}
+{"en":"Work on first","tr":"Önce şuna çalış","fa":"اول روی این کار کن","owner":"renderCourseMockResult"}
+{"en":"Lessons to repeat","tr":"Tekrar edilecek dersler","fa":"درس‌هایی که باید تکرار کنی","owner":"renderCourseMockResult"}
+{"en":"Start the chapter finale","tr":"Bölüm finaline başla","fa":"شروع مرور پایان فصل","owner":"renderCourseMockResult"}
+{"en":"Start the next lesson","tr":"Sonraki derse başla","fa":"درس بعدی را شروع کن","owner":"renderCourseMockResult"}
+{"en":"Write","tr":"Yaz","fa":"بنویس","owner":"GRAMMAR_ITEMS"}
+{"en":"Next lesson","tr":"Sıradaki ders","fa":"درس بعدی","owner":"renderCourseMockResult"}
+{"en":"Your goal in this lesson","tr":"Bu dersteki hedefin","fa":"هدفت در این درس","owner":"renderCourseLesson"}
+{"en":"This mock test","tr":"Bu deneme sınavı","fa":"این آزمون آزمایشی","owner":"renderCourseLesson"}
+{"en":"This chapter review","tr":"Bu bölüm tekrarı","fa":"این مرور فصل","owner":"renderCourseLesson"}
+{"en":"By the end you can say","tr":"Sonunda şunu söyleyebilirsin","fa":"در پایان می‌توانی بگویی","owner":"renderCourseLesson"}
+{"en":"Lesson plan","tr":"Ders planı","fa":"برنامه‌ی درس","owner":"renderCourseLesson"}
+{"en":"Next: Chapter review","tr":"Sırada: Bölüm tekrarı","fa":"بعدی: مرور فصل","owner":"courseNextLabel"}
+{"en":"Common mistake","tr":"Sık yapılan hata","fa":"اشتباه رایج","owner":"COURSES"}
+{"en":"Quick check","tr":"Hızlı kontrol","fa":"سؤال سریع","owner":"COURSES"}
+{"en":"Not scored. Tap an answer to see why.","tr":"Puanlanmaz. Nedenini görmek için bir cevaba dokun.","fa":"نمره ندارد. یک جواب را لمس کن تا دلیلش را ببینی.","owner":"courseExplainHtml"}
+{"en":"Watch for","tr":"Şuna dikkat et","fa":"به این دقت کن","owner":"courseStoryOneHtml"}
+{"en":"Do it when you have a quiet slot.","tr":"Sakin bir zamanın olduğunda yap.","fa":"هر وقت سرت خلوت بود انجامش بده.","owner":"renderCourseDone"}
+{"en":"Open the mock test","tr":"Deneme sınavını aç","fa":"باز کردن آزمون آزمایشی","owner":"renderCourseDone"}
+{"en":"You can now say:","tr":"Artık şunu söyleyebilirsin:","fa":"حالا می‌توانی بگویی:","owner":"renderCourseDone"}
+{"en":"Premium","tr":"Premium","fa":"ویژه","owner":"VOCAB_SETS"}
+{"en":"Per lesson","tr":"Ders başına","fa":"هر درس","owner":"COURSES"}
+{"en":"Course complete","tr":"Kurs tamamlandı","fa":"دوره تمام شد","owner":"courseNextCardHtml"}
+{"en":"Unlock the final project","tr":"Final projesini aç","fa":"باز کردن پروژه‌ی پایانی","owner":"courseNextCardHtml"}
+{"en":"Start the chapter review","tr":"Bölüm tekrarına başla","fa":"شروع مرور فصل","owner":"courseNextCardHtml"}
+{"en":"Your next step","tr":"Sıradaki adımın","fa":"قدم بعدی تو","owner":"COURSES"}
+{"en":"Skills","tr":"Beceriler","fa":"مهارت‌ها","owner":"COURSES"}
+{"en":"Four skills","tr":"Dört beceri","fa":"چهار مهارت","owner":"courseSkillTilesHtml"}
+{"en":"After the course","tr":"Kurstan sonra","fa":"بعد از دوره","owner":"courseOutcomesHtml"}
+{"en":"What you'll be able to do","tr":"Neler yapabileceksin","fa":"چه کارهایی از تو برمی‌آید","owner":"courseLifeHtml"}
+{"en":"Show less","tr":"Daha az göster","fa":"کمتر نشان بده","owner":"courseLifeHtml"}
+{"en":"Where it comes from","tr":"Nereden geliyor","fa":"از کجا آمده","owner":"courseSourcesHtml"}
+{"en":"optional, when you have a quiet slot","tr":"isteğe bağlı, sakin bir zamanında","fa":"اختیاری، هر وقت سرت خلوت بود","owner":"courseRowHtml"}
+{"en":"Exam goal","tr":"Sınav hedefi","fa":"هدف آزمون","owner":"courseChapterCardHtml"}
+{"en":"Chapter goal","tr":"Bölüm hedefi","fa":"هدف فصل","owner":"courseChapterCardHtml"}
+{"en":"Now","tr":"Şimdi","fa":"الان","owner":"GRAMMAR_ITEMS"}
+{"en":"Change","tr":"Değiştir","fa":"عوض کن","owner":"GRAMMAR_ITEMS"}
+{"en":"The course map","tr":"Kurs haritası","fa":"نقشه‌ی دوره","owner":"renderCourseDetail"}
+{"en":"Chapters","tr":"Bölümler","fa":"فصل‌ها","owner":"COURSES"}
+{"en":"Review mode is on. Every lesson is open on this device.","tr":"İnceleme modu açık. Bu cihazda bütün dersler açık.","fa":"حالت بررسی روشن است. همه‌ی درس‌ها روی این دستگاه باز است.","owner":"renderCourseDetail"}
+{"en":"Opening the exam…","tr":"Sınav açılıyor…","fa":"آزمون باز می‌شود…","owner":"courseLazyOpening"}
+{"en":"Opening the lesson…","tr":"Ders açılıyor…","fa":"درس باز می‌شود…","owner":"courseLazyOpening"}
+{"en":"This exam could not be loaded. Check your connection and try again.","tr":"Bu sınav yüklenemedi. Bağlantını kontrol edip tekrar dene.","fa":"این آزمون باز نشد. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"courseLazyFailHtml"}
+{"en":"This lesson could not be loaded. Check your connection and try again.","tr":"Bu ders yüklenemedi. Bağlantını kontrol edip tekrar dene.","fa":"این درس باز نشد. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"courseLazyFailHtml"}
+{"en":"Parts 1, 2 and 3 in order, with the real timings.","tr":"Part 1, 2 ve 3 sırayla, gerçek sürelerle.","fa":"Part 1، 2 و 3 به ترتیب، با زمان‌بندی واقعی.","owner":"courseIeStepLine"}
+{"en":"Each part opens with its context card.","tr":"Her kısım kendi bağlam kartıyla açılır.","fa":"هر بخش با کارت زمینه‌ی خودش شروع می‌شود.","owner":"courseIeStepLine"}
+{"en":"Your self-rating","tr":"Öz puanın","fa":"نمره‌ای که به خودت دادی","owner":"courseIeDoneWork"}
+{"en":"Check the words","tr":"Kelimeleri kontrol et","fa":"یک امتحان کوتاه از کلمه‌ها","owner":"courseIeMatchHtml"}
+{"en":"On the paper you see the word above. Which words could you hear or read instead?","tr":"Kâğıtta üstteki kelimeyi görüyorsun. Onun yerine hangi kelimeleri duyabilir ya da okuyabilirsin?","fa":"روی برگه کلمه‌ی بالا را می‌بینی. به‌جایش چه کلمه‌هایی ممکن است بشنوی یا بخوانی؟","owner":"courseIeMatchHtml"}
+{"en":"This exam","tr":"Bu sınav","fa":"این آزمون","owner":"COURSES"}
+{"en":"Across the real tests","tr":"Gerçek sınavlarda","fa":"در آزمون‌های واقعی","owner":"courseIeCardHtml"}
+{"en":"Show answer","tr":"Cevabı göster","fa":"جواب را نشان بده","owner":"courseIeCardHtml"}
+{"en":"1 The context","tr":"1 Bağlam","fa":"۱ زمینه","owner":"courseIeContextHtml"}
+{"en":"Swipe for the next card","tr":"Sonraki kart için kaydır","fa":"برای کارت بعدی بکش","owner":"courseIeContextHtml"}
+{"en":"2 The technique","tr":"2 Teknik","fa":"۲ تکنیک","owner":"courseIeContextHtml"}
+{"en":"no answer","tr":"cevap yok","fa":"بی‌جواب","owner":"COURSE_EXTRA"}
+{"en":"you wrote","tr":"senin cevabın","fa":"جواب تو","owner":"COURSE_EXTRA"}
+{"en":"Open the text","tr":"Metni aç","fa":"متن را باز کن","owner":"courseIeGroupHtml"}
+{"en":"Announcer","tr":"Anons","fa":"گوینده‌ی آزمون","owner":"courseIeAudioRun"}
+{"en":"Check your answers","tr":"Cevaplarını kontrol et","fa":"جواب‌هایت را بررسی کن","owner":"courseListenBoxHtml"}
+{"en":"Reading time: look at the next questions","tr":"Okuma süresi: sıradaki sorulara bak","fa":"زمان خواندن: سؤال‌های بعدی را نگاه کن","owner":"courseIeAudioRun"}
+{"en":"Listen and answer","tr":"Dinle ve cevapla","fa":"گوش بده و جواب بده","owner":"courseListenBoxHtml"}
+{"en":"Sound","tr":"Ses","fa":"صدا","owner":"GRAMMAR_ITEMS"}
+{"en":"Play the recording (once)","tr":"Kaydı çal (bir kez)","fa":"پخش فایل صوتی (فقط یک بار)","owner":"courseIePlayerInner"}
+{"en":"The recording has finished. It plays only once, as in the exam.","tr":"Kayıt bitti. Sınavdaki gibi yalnızca bir kez çalar.","fa":"فایل تمام شد. مثل آزمون فقط یک بار پخش می‌شود.","owner":"courseIePlayerInner"}
+{"en":"It starts with the announcer and plays once, with the real reading pauses. Keep the questions open while you listen.","tr":"Anons ile başlar ve gerçek okuma araları ile bir kez çalar. Dinlerken sorular açık kalsın.","fa":"با صدای گوینده شروع می‌شود و با همان مکث‌های واقعی برای خواندن، فقط یک بار پخش می‌شود. موقع گوش دادن سؤال‌ها را باز نگه دار.","owner":"courseIePlayerInner"}
+{"en":"Skip","tr":"Geç","fa":"رد شو","owner":"GRAMMAR_PRACTICE_A1A2"}
+{"en":"Voices","tr":"Sesler","fa":"صداها","owner":"courseIePlayerInner"}
+{"en":"This device has no voices. Answer, check, then read what was said.","tr":"Bu cihazda ses yok. Cevapla, kontrol et, sonra söyleneni oku.","fa":"این دستگاه صدا ندارد. جواب بده، بررسی کن و بعد متن گفت‌وگو را بخوان.","owner":"courseIePlayerInner"}
+{"en":"Studio voices where recorded; your device’s voice for the rest.","tr":"Kaydedilen yerlerde stüdyo sesleri; geri kalanında cihazının sesi.","fa":"هر جا ضبط شده باشد صدای استودیو پخش می‌شود و بقیه با صدای دستگاه خودت.","owner":"courseIePlayerInner"}
+{"en":"Your device’s voices stand in for the studio recording here.","tr":"Burada stüdyo kaydının yerine cihazının sesleri çalar.","fa":"اینجا به‌جای ضبط استودیویی، صدای دستگاه خودت پخش می‌شود.","owner":"courseIePlayerInner"}
+{"en":"Next: Check","tr":"Sırada: Kontrol et","fa":"بعدی: بسنج","owner":"courseIeDrillHtml"}
+{"en":"Check answers","tr":"Cevapları kontrol et","fa":"جواب‌ها را بررسی کن","owner":"courseIeDrillHtml"}
+{"en":"Hide the text","tr":"Metni gizle","fa":"پنهان کردن متن","owner":"courseIeDrillHtml"}
+{"en":"Show what you heard","tr":"Duyduğunu göster","fa":"متن چیزی که شنیدی را نشان بده","owner":"courseIeDrillHtml"}
+{"en":"Passage","tr":"Metin","fa":"متن","owner":"GRAMMAR_ITEMS"}
+{"en":"Hide the marks","tr":"İşaretleri gizle","fa":"پنهان کردن علامت‌ها","owner":"courseIeDrillHtml"}
+{"en":"Show where the answers are","tr":"Cevapların yerini göster","fa":"جای جواب‌ها را نشان بده","owner":"courseIeDrillHtml"}
+{"en":"Go to the questions","tr":"Sorulara geç","fa":"برو سراغ سؤال‌ها","owner":"courseIeDrillHtml"}
+{"en":"The answer moves","tr":"Cevabın adımları","fa":"قدم‌های جواب","owner":"COURSES"}
+{"en":"Model answer","tr":"Örnek cevap","fa":"جواب نمونه","owner":"COURSES"}
+{"en":"Hide the model answer","tr":"Örnek cevabı gizle","fa":"پنهان کردن جواب نمونه","owner":"courseIeWritingHtml"}
+{"en":"Show the model answer","tr":"Örnek cevabı göster","fa":"جواب نمونه را نشان بده","owner":"courseIeWritingHtml"}
+{"en":"Rate your answer","tr":"Cevabını puanla","fa":"به جوابت نمره بده","owner":"courseIeWritingHtml"}
+{"en":"Rate all four lines to go on.","tr":"Devam etmek için dört satırın hepsini puanla.","fa":"برای ادامه به هر چهار خط نمره بده.","owner":"courseIeWritingHtml"}
+{"en":"Hide the translation","tr":"Çeviriyi gizle","fa":"پنهان کردن ترجمه","owner":"courseIeWritingHtml"}
+{"en":"Read the task in my language","tr":"Görevi kendi dilimde oku","fa":"تکلیف را به زبان خودم بخوانم","owner":"courseIeWritingHtml"}
+{"en":"I’m done: compare and rate","tr":"Bitirdim: karşılaştır ve puanla","fa":"تمام شد: مقایسه کن و نمره بده","owner":"courseIeWritingHtml"}
+{"en":"Write a few sentences first (10+ words).","tr":"Önce birkaç cümle yaz (10+ kelime).","fa":"اول چند جمله بنویس (۱۰ کلمه یا بیشتر).","owner":"courseIeWritingHtml"}
+{"en":"You hear it back after each part. It stays on this phone and is not saved.","tr":"Her kısımdan sonra dinlersin. Bu telefonda kalır, saklanmaz.","fa":"بعد از هر بخش دوباره گوشش می‌کنی. ضبطت از همین گوشی بیرون نمی‌رود و ذخیره هم نمی‌شود.","owner":"courseIeSetsHtml"}
+{"en":"Start: 1 minute to prepare","tr":"Başla: 1 dakika hazırlık","fa":"شروع: ۱ دقیقه آماده‌سازی","owner":"courseIeSetsHtml"}
+{"en":"Prepare. Make notes if you want.","tr":"Hazırlan. İstersen not al.","fa":"آماده شو. اگر خواستی یادداشت بردار.","owner":"courseIeSetsHtml"}
+{"en":"Start talking now","tr":"Şimdi konuşmaya başla","fa":"همین حالا شروع کن","owner":"courseIeSetsHtml"}
+{"en":"Talk now: 1 to 2 minutes","tr":"Şimdi konuş: 1-2 dakika","fa":"حالا حرف بزن: ۱ تا ۲ دقیقه","owner":"courseIeSetsHtml"}
+{"en":"Recording","tr":"Kaydediliyor","fa":"در حال ضبط","owner":"courseIeSetsHtml"}
+{"en":"The microphone is off, so this part is not recorded. The timer still works.","tr":"Mikrofon kapalı, bu yüzden bu kısım kaydedilmiyor. Süre yine çalışır.","fa":"میکروفون خاموش است، پس این بخش ضبط نمی‌شود. زمان‌سنج همچنان کار می‌کند.","owner":"courseIeSetsHtml"}
+{"en":"I’m done","tr":"Bitirdim","fa":"تمام شد","owner":"GRAMMAR_ITEMS"}
+{"en":"Then the examiner asks","tr":"Sonra sınav görevlisi sorar","fa":"بعد ممتحن می‌پرسد","owner":"courseIeSetsHtml"}
+{"en":"Check yourself","tr":"Kendini kontrol et","fa":"خودت را بسنج","owner":"COURSES"}
+{"en":"Hear the examiner","tr":"Sınav görevlisini dinle","fa":"صدای ممتحن را بشنو","owner":"courseIeSetsHtml"}
+{"en":"Hide the context","tr":"Bağlamı gizle","fa":"پنهان کردن زمینه","owner":"courseIePartCtxHtml"}
+{"en":"Show the context","tr":"Bağlamı göster","fa":"نشان دادن زمینه","owner":"courseIePartCtxHtml"}
+{"en":"Copied","tr":"Kopyalandı","fa":"کپی شد","owner":"HANDLERS"}
+{"en":"It did not load. Check your connection and try again.","tr":"Yüklenmedi. Bağlantını kontrol et ve tekrar dene.","fa":"باز نشد. اتصالت را بررسی کن و دوباره امتحان کن.","owner":"courseLazyFailHtml"}
+{"en":"Saved. Look in your downloads or photos.","tr":"Kaydedildi. İndirilenlere ya da fotoğraflarına bak.","fa":"ذخیره شد. آن را در پوشه‌ی دانلودها یا عکس‌هایت پیدا می‌کنی.","owner":"courseIeBind"}
