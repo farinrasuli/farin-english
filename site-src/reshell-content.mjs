@@ -21,6 +21,7 @@ const CHECK = args.includes('--check');
 const files = args.filter((a) => !a.startsWith('--'));
 
 /* which homepage goal panel to show at the end of each page (default: konusma = free app + 1:1 lessons) */
+const NO_OFFER = /gizlilik|privacy/; // legal pages get the shell but no course card
 const OFFER = [
   [/ielts/, 'ielts'],
   [/insan-kaynaklari|manabe-ensani/, 'is'],
@@ -91,7 +92,7 @@ for (const rel of files) {
 
   // 4. offer panel at the end of the article (before the related-posts band, else before </main>); v4 pages already sell
   h = h.replace(/\n?<!-- offer -->[\s\S]*?<!-- \/offer -->/, '');
-  const g = offerFor(pagePath); let panel = v4 ? null : T.panels[g];
+  const g = offerFor(pagePath); let panel = (v4 || NO_OFFER.test(pagePath)) ? null : T.panels[g];
   if (panel) {
     panel = panel.replace(new RegExp(`<a class="tlink more" href="${pagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">[^<]*</a>`), ''); // no self-link
     const offer = `\n  <!-- offer -->\n  <section class="offer" data-loc="blog-offer-${g}"><div class="wrap">\n${panel}\n  </div></section>\n  <!-- /offer -->`;
