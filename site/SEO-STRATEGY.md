@@ -82,6 +82,19 @@ Rule: a new small domain should target queries where page 1 is thin or off-langu
 
 Not chased (owned by big players): "online ingilizce özel ders fiyatları" (armut.com city pages fill the SERP; marketplaces are the lever there, see LINK-BUILDING §F3), "iş görüşmesinde ingilizce kendini tanıtma" (TR job portals). hreflang pairs: TR HR ↔ FA HR post, TR GT letter ↔ FA GT letter.
 
+### 2d. FA course landing pages (2026-11-07)
+
+Before this, Persian searchers had no indexable page that sells a course. The `/fa/c/` sale pages are noindex. Evidence and the courses I skipped are in `keyword-research/README.md` (last section) and `fa-course-pages.csv`.
+
+| Page | Primary query | Secondary | Sells (CTA) |
+|---|---|---|---|
+| `/fa/dore-ielts-online.html` | دوره آیلتس آنلاین | آزمون آزمایشی آیلتس آنلاین, آمادگی آیلتس در خانه, آیلتس جنرال برای کانادا | `/fa/c/ielts.html`. hreflang pair with `/ielts-hazirlik.html` |
+| `/fa/dore-zaban-englisi-tejari.html` | دوره زبان انگلیسی تجاری | کلاس زبان انگلیسی تجاری, آموزش انگلیسی تجاری و بازرگانی, دوره مکاتبات تجاری به زبان انگلیسی | `/fa/c/business.html` |
+| `/fa/dore-englisi-manabe-ensani.html` | آموزش زبان تخصصی منابع انسانی | زبان تخصصی مدیریت منابع انسانی, دوره انگلیسی منابع انسانی | `/fa/c/hr.html` |
+| `/fa/amadegi-mosahebe-kari-englisi.html` | آمادگی مصاحبه کاری به انگلیسی | سوالات رایج در مصاحبه شغلی به زبان انگلیسی, آموزش مصاحبه شغلی به زبان انگلیسی | `/fa/c/interview.html` |
+
+No cannibalisation: the 3 FA posts keep their informational queries, and each one now links to its course page. Each page shows the price exactly as its sale page does. The `Course` JSON-LD offer is the first-20 price in IRR (toman x 10). **When the first-20 offer ends, update the `/fa/c/` page, the visible price card and the JSON-LD on these pages together.**
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:

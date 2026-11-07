@@ -215,25 +215,25 @@ const GOALS = {
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr')],
-      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'], pageFa: ['/fa/dore-englisi-manabe-ensani.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
     live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
       [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing', true],
       [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales', 'sales', FREE2_1],
       [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true],
-      [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'], 'biz', 'business', true]] },
+      [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'], 'biz', 'business', true, '/fa/dore-zaban-englisi-tejari.html']] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
       price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('ielts')],
-      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'], pageFa: ['/fa/dore-ielts-online.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
     self: { key: 'interview', name: ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'],
       for: ['En sık sorulan sorular ve güçlü cevaplar.', 'The most common questions and strong answers.', 'رایج‌ترین سؤال‌ها و جواب‌های قوی.'],
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma', 'Introducing yourself', 'معرفی خودت'], OWN],
       price: ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('interview')],
-      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'], pageFa: ['/fa/amadegi-mosahebe-kari-englisi.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
     live: 'biz', also: [['is', ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'], ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'], 'hr']] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
@@ -489,12 +489,14 @@ function card(l, c, live, also) {
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>`
     : l === 'fa' && c.moreFa ? `<a class="tlink more" href="${c.moreFa[0]}">${esc(c.moreFa[1])}</a>` : '';
-  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true (or its own label, e.g. FREE2_1) if it also has a free lessons link]; one row per course, one 'Also' label */
-  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc((a[5] === true ? FREE2 : a[5])[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
+  /* 2026-11-07 (farin-seo): indexable FA course pages (/fa/<slug>.html), linked above the guide */
+  const pageFa = l === 'fa' && c.pageFa ? `<a class="tlink more" href="${c.pageFa[0]}">${esc(c.pageFa[1])}</a>` : '';
+  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true (or its own label, e.g. FREE2_1) if it also has a free lessons link, optional FA course page that the name links to]; one row per course, one 'Also' label */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : l === 'fa' && a[6] ? `<a href="${a[6]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc((a[5] === true ? FREE2 : a[5])[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
-        <div class="ctas">${ctas}</div>${more}</div>${alsoRow}`;
+        <div class="ctas">${ctas}</div>${pageFa}${more}</div>${alsoRow}`;
 }
 
 /* company panel: same goal-picker panel as the courses, one small card per course */
