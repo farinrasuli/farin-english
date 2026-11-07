@@ -1,0 +1,195 @@
+{
+  "id": "bus-m8",
+  "weeks": [
+    15,
+    16
+  ],
+  "title": {
+    "en": "Operations: how the work gets done",
+    "tr": "Operasyon: işler nasıl yapılır",
+    "fa": "عملیات: کارها چطور انجام می‌شود"
+  },
+  "blurb": {
+    "en": "Explain a process and its slowest step, buy well by comparing total cost, fix a quality problem at its root and plan a project with milestones and risks.",
+    "tr": "Bir süreci ve en yavaş adımını anlat, toplam maliyeti karşılaştırarak iyi satın al, bir kalite sorununu kökünden çöz ve kilometre taşları ve risklerle bir proje planla.",
+    "fa": "یک فرایند و کندترین مرحله‌اش را توضیح بده، با مقایسه‌ی هزینه‌ی کل درست خرید کن، یک مشکل کیفی را از ریشه حل کن و پروژه‌ای را با نقطه‌های عطف و ریسک‌ها برنامه‌ریزی کن."
+  },
+  "units": [
+    {
+      "id": "bus-29",
+      "episode": {
+        "en": "Why \"modern and efficient\" tells a visiting buyer nothing, and how to walk them from order to shipping.",
+        "tr": "\"Modern ve verimli\" ziyarete gelen bir alıcıya neden hiçbir şey söylemez ve onu siparişten sevkiyata nasıl gezdirirsin.",
+        "fa": "چرا «مدرن و کارآمد» چیزی به خریدارِ بازدیدکننده نمی‌گوید و چطور او را از سفارش تا ارسال همراهی کنی."
+      },
+      "title": {
+        "en": "Explain a process and find the slowest step",
+        "tr": "Bir süreci anlat ve en yavaş adımı bul",
+        "fa": "یک فرایند را توضیح بده و کندترین مرحله را پیدا کن"
+      },
+      "cando": {
+        "en": "I can explain a work process step by step, with times, and name the slowest step and one fix.",
+        "tr": "Bir iş sürecini adım adım ve sürelerle anlatabilir, en yavaş adımı ve bir çözümü söyleyebilirim.",
+        "fa": "می‌توانم یک فرایند کاری را مرحله به مرحله و با زمان‌ها توضیح بدهم و کندترین مرحله و یک راه‌حل را بگویم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can explain a work process step by step, with times, and name the slowest step and one fix.",
+        "tr": "Bu dersin sonunda bir iş sürecini adım adım ve sürelerle anlatabilecek, en yavaş adımı ve bir çözümü söyleyebileceksin.",
+        "fa": "بعد از این درس می‌توانی یک فرایند کاری را مرحله به مرحله و با زمان‌ها توضیح بدهی و کندترین مرحله و یک راه‌حل را بگویی."
+      }
+    },
+    {
+      "id": "bus-30",
+      "episode": {
+        "en": "Why the cheapest price is often not the cheapest supplier, and how to ask for quotes you can compare.",
+        "tr": "En ucuz fiyat neden çoğu zaman en ucuz tedarikçi değildir ve karşılaştırabileceğin teklifleri nasıl istersin.",
+        "fa": "چرا ارزان‌ترین قیمت اغلب ارزان‌ترین تأمین‌کننده نیست و چطور پیشنهاد قیمت‌هایی بخواهی که بشود مقایسه‌شان کرد."
+      },
+      "title": {
+        "en": "Buy well: compare total cost",
+        "tr": "İyi satın al: toplam maliyeti karşılaştır",
+        "fa": "درست خرید کن: هزینه‌ی کل را مقایسه کن"
+      },
+      "cando": {
+        "en": "I can ask suppliers for comparable quotes, compare them on total cost and recommend one.",
+        "tr": "Tedarikçilerden karşılaştırılabilir teklifler isteyebilir, onları toplam maliyete göre karşılaştırıp birini önerebilirim.",
+        "fa": "می‌توانم از تأمین‌کننده‌ها پیشنهاد قیمتِ قابل مقایسه بخواهم، آن‌ها را بر اساس هزینه‌ی کل مقایسه کنم و یکی را پیشنهاد بدهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can ask suppliers for comparable quotes, compare them on total cost and recommend one.",
+        "tr": "Bu dersin sonunda tedarikçilerden karşılaştırılabilir teklifler isteyebilecek, onları toplam maliyete göre karşılaştırıp birini önerebileceksin.",
+        "fa": "بعد از این درس می‌توانی از تأمین‌کننده‌ها پیشنهاد قیمتِ قابل مقایسه بخواهی، آن‌ها را بر اساس هزینه‌ی کل مقایسه کنی و یکی را پیشنهاد بدهی."
+      }
+    },
+    {
+      "id": "bus-31",
+      "episode": {
+        "en": "Why \"we told the workers to be careful\" fails an audit, and the four steps a buyer expects.",
+        "tr": "\"İşçilere dikkatli olmalarını söyledik\" neden denetimden geçmez ve bir alıcının beklediği dört adım.",
+        "fa": "چرا «به کارگرها گفتیم مراقب باشند» در ممیزی رد می‌شود و چهار مرحله‌ای که خریدار انتظار دارد."
+      },
+      "title": {
+        "en": "Fix a quality problem at the root",
+        "tr": "Bir kalite sorununu kökünden çöz",
+        "fa": "یک مشکل کیفی را از ریشه حل کن"
+      },
+      "cando": {
+        "en": "I can write a corrective action report: what we did at once, the root cause, the fix and how we'll check it.",
+        "tr": "Bir düzeltici faaliyet raporu yazabilirim: hemen ne yaptık, kök neden, çözüm ve nasıl kontrol edeceğimiz.",
+        "fa": "می‌توانم گزارش اقدام اصلاحی بنویسم: فوراً چه کردیم، علت ریشه‌ای، راه‌حل و اینکه چطور چکش می‌کنیم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a corrective action report: what you did at once, the root cause, the fix and how you'll check it.",
+        "tr": "Bu dersin sonunda bir düzeltici faaliyet raporu yazabileceksin: hemen ne yaptığın, kök neden, çözüm ve nasıl kontrol edeceğin.",
+        "fa": "بعد از این درس می‌توانی گزارش اقدام اصلاحی بنویسی: فوراً چه کردی، علت ریشه‌ای، راه‌حل و اینکه چطور چکش می‌کنی."
+      }
+    },
+    {
+      "id": "bus-32",
+      "episode": {
+        "en": "Why most projects slip in the first week, and the one-page plan that prevents it: scope, milestones, risks.",
+        "tr": "Çoğu proje neden ilk haftada kayar ve bunu önleyen tek sayfalık plan: kapsam, kilometre taşları, riskler.",
+        "fa": "چرا بیشترِ پروژه‌ها از هفته‌ی اول عقب می‌افتند و برنامه‌ی یک‌صفحه‌ای که جلویش را می‌گیرد: دامنه، نقطه‌های عطف، ریسک‌ها."
+      },
+      "title": {
+        "en": "Plan a project on one page",
+        "tr": "Bir projeyi tek sayfada planla",
+        "fa": "یک پروژه را در یک صفحه برنامه‌ریزی کن"
+      },
+      "cando": {
+        "en": "I can plan a project on one page: what is in and out, milestones with owners, the main risks and how we report.",
+        "tr": "Bir projeyi tek sayfada planlayabilirim: neyin dahil olup olmadığı, sorumlularıyla kilometre taşları, ana riskler ve nasıl rapor verdiğimiz.",
+        "fa": "می‌توانم یک پروژه را در یک صفحه برنامه‌ریزی کنم: چه چیزی داخل و چه چیزی بیرون است، نقطه‌های عطف با مسئول، ریسک‌های اصلی و نحوه‌ی گزارش."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can plan a project on one page: what is in and out, milestones with owners, the main risks and how you'll report.",
+        "tr": "Bu dersin sonunda bir projeyi tek sayfada planlayabileceksin: neyin dahil olup olmadığı, sorumlularıyla kilometre taşları, ana riskler ve nasıl rapor vereceğin.",
+        "fa": "بعد از این درس می‌توانی یک پروژه را در یک صفحه برنامه‌ریزی کنی: چه چیزی داخل و چه چیزی بیرون است، نقطه‌های عطف با مسئول، ریسک‌های اصلی و اینکه چطور گزارش می‌دهی."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-8",
+    "finale": {
+      "en": "A failed audit: the report and the call",
+      "tr": "Başarısız bir denetim: rapor ve görüşme",
+      "fa": "ممیزیِ ردشده: گزارش و تماس"
+    },
+    "scene": {
+      "en": "A buyer from Spain audited a tile factory in Kütahya and found two problems. Write the corrective action report, then call the buyer's quality manager.",
+      "tr": "İspanyol bir alıcı Kütahya'daki bir karo fabrikasını denetledi ve iki sorun buldu. Düzeltici faaliyet raporunu yaz, sonra alıcının kalite müdürünü ara.",
+      "fa": "یک خریدار اسپانیایی کارخانه‌ی کاشی‌ای در کوتاهیه را ممیزی کرد و دو مشکل پیدا کرد. گزارش اقدام اصلاحی را بنویس و بعد به مدیر کیفیتِ خریدار زنگ بزن."
+    },
+    "title": {
+      "en": "Chapter 8 finale: The failed audit",
+      "tr": "8. Bölüm finali: Başarısız denetim",
+      "fa": "پایان فصل ۸: ممیزیِ ردشده"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to walk a buyer through your process, choose a supplier on total cost, write a corrective action report and plan a project on one page.",
+    "tr": "Bu bölümün sonunda bir alıcıyı sürecinde gezdirebilecek, tedarikçiyi toplam maliyete göre seçebilecek, bir düzeltici faaliyet raporu yazabilecek ve bir projeyi tek sayfada planlayabileceksin.",
+    "fa": "در پایان این فصل می‌توانی خریدار را در فرایندت همراهی کنی، تأمین‌کننده را بر اساس هزینه‌ی کل انتخاب کنی، گزارش اقدام اصلاحی بنویسی و یک پروژه را در یک صفحه برنامه‌ریزی کنی."
+  }
+}

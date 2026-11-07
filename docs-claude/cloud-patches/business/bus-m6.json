@@ -1,0 +1,195 @@
+{
+  "id": "bus-m6",
+  "weeks": [
+    11,
+    12
+  ],
+  "title": {
+    "en": "Money: read and use the numbers",
+    "tr": "Para: rakamları oku ve kullan",
+    "fa": "پول: عددها را بخوان و به کار ببر"
+  },
+  "blurb": {
+    "en": "Read a profit and loss statement, explain why profit is not cash, work out the real cost of a discount and make the case for spending money.",
+    "tr": "Gelir tablosunu oku, kârın neden nakit olmadığını açıkla, bir indirimin gerçek maliyetini hesapla ve para harcamanın gerekçesini yaz.",
+    "fa": "صورت سود و زیان را بخوان، توضیح بده چرا سود همان پول نقد نیست، هزینه‌ی واقعی یک تخفیف را حساب کن و برای خرج کردنِ پول طرح توجیهی بنویس."
+  },
+  "units": [
+    {
+      "id": "bus-21",
+      "episode": {
+        "en": "Five lines tell you how a year went, and one question everyone asks: why did profit move?",
+        "tr": "Beş satır bir yılın nasıl geçtiğini söyler ve herkesin sorduğu tek soru: kâr neden değişti?",
+        "fa": "پنج خط می‌گوید یک سال چطور گذشت و یک سؤال که همه می‌پرسند: چرا سود تغییر کرد؟"
+      },
+      "title": {
+        "en": "Read a profit and loss statement",
+        "tr": "Gelir tablosunu oku",
+        "fa": "صورت سود و زیان را بخوان"
+      },
+      "cando": {
+        "en": "I can walk someone through a profit and loss statement and explain why profit moved.",
+        "tr": "Birine gelir tablosunu satır satır anlatabilir ve kârın neden değiştiğini açıklayabilirim.",
+        "fa": "می‌توانم صورت سود و زیان را برای کسی خط به خط توضیح بدهم و بگویم چرا سود تغییر کرد."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can walk someone through a profit and loss statement and explain why profit moved.",
+        "tr": "Bu dersin sonunda birine gelir tablosunu satır satır anlatabilecek ve kârın neden değiştiğini açıklayabileceksin.",
+        "fa": "بعد از این درس می‌توانی صورت سود و زیان را برای کسی خط به خط توضیح بدهی و بگویی چرا سود تغییر کرد."
+      }
+    },
+    {
+      "id": "bus-22",
+      "episode": {
+        "en": "How a profitable company runs out of money, and how to explain the gap to a bank or a customer.",
+        "tr": "Kârlı bir şirketin parası nasıl biter ve bu açığı bir bankaya ya da müşteriye nasıl anlatırsın.",
+        "fa": "چطور یک شرکتِ سودده بی‌پول می‌شود و چطور این شکاف را برای بانک یا مشتری توضیح بدهی."
+      },
+      "title": {
+        "en": "Profit is not cash",
+        "tr": "Kâr, nakit değildir",
+        "fa": "سود همان پول نقد نیست"
+      },
+      "cando": {
+        "en": "I can explain why a profitable company runs short of cash, and ask a customer for better payment terms.",
+        "tr": "Kârlı bir şirketin neden nakitsiz kaldığını açıklayabilir ve bir müşteriden daha iyi ödeme koşulları isteyebilirim.",
+        "fa": "می‌توانم توضیح بدهم چرا یک شرکتِ سودده کم‌پول می‌شود و از مشتری شرایط پرداخت بهتری بخواهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can explain why a profitable company runs short of cash, and ask a customer for better payment terms.",
+        "tr": "Bu dersin sonunda kârlı bir şirketin neden nakitsiz kaldığını açıklayabilecek ve bir müşteriden daha iyi ödeme koşulları isteyebileceksin.",
+        "fa": "بعد از این درس می‌توانی توضیح بدهی چرا یک شرکتِ سودده کم‌پول می‌شود و از مشتری شرایط پرداخت بهتری بخواهی."
+      }
+    },
+    {
+      "id": "bus-23",
+      "episode": {
+        "en": "Why 10% off can cost a third of your margin, and the one line that shows it.",
+        "tr": "%10 indirim neden marjının üçte birine mal olabilir ve bunu gösteren tek satır.",
+        "fa": "چرا ۱۰٪ تخفیف ممکن است یک‌سوم حاشیه‌ی سودت را ببرد و یک خطی که این را نشان می‌دهد."
+      },
+      "title": {
+        "en": "Break-even and the real cost of a discount",
+        "tr": "Başabaş noktası ve indirimin gerçek maliyeti",
+        "fa": "نقطه‌ی سربه‌سر و هزینه‌ی واقعی تخفیف"
+      },
+      "cando": {
+        "en": "I can work out break-even and the real cost of a discount, and say it in one clear line.",
+        "tr": "Başabaş noktasını ve bir indirimin gerçek maliyetini hesaplayıp tek net bir cümleyle söyleyebilirim.",
+        "fa": "می‌توانم نقطه‌ی سربه‌سر و هزینه‌ی واقعی یک تخفیف را حساب کنم و در یک خط روشن بگویم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can work out break-even and the real cost of a discount, and say it in one clear line.",
+        "tr": "Bu dersin sonunda başabaş noktasını ve bir indirimin gerçek maliyetini hesaplayıp tek net bir cümleyle söyleyebileceksin.",
+        "fa": "بعد از این درس می‌توانی نقطه‌ی سربه‌سر و هزینه‌ی واقعی یک تخفیف را حساب کنی و در یک خط روشن بگویی."
+      }
+    },
+    {
+      "id": "bus-24",
+      "episode": {
+        "en": "Why \"a good investment for the future\" gets a no, and the one page that gets a yes.",
+        "tr": "\"Gelecek için iyi bir yatırım\" neden hayır alır ve evet aldıran tek sayfa.",
+        "fa": "چرا «سرمایه‌گذاری خوب برای آینده» جواب منفی می‌گیرد و یک صفحه‌ای که «بله» می‌گیرد."
+      },
+      "title": {
+        "en": "Make the case for spending money",
+        "tr": "Para harcamanın gerekçesini yaz",
+        "fa": "برای خرج کردنِ پول دلیل بیاور"
+      },
+      "cando": {
+        "en": "I can write a one-page business case: the cost, the payback, the risks and the decision I need.",
+        "tr": "Tek sayfalık bir yatırım gerekçesi yazabilirim: maliyet, geri ödeme süresi, riskler ve istediğim karar.",
+        "fa": "می‌توانم یک طرح توجیهی یک‌صفحه‌ای بنویسم: هزینه، دوره‌ی بازگشت سرمایه، ریسک‌ها و تصمیمی که لازم دارم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a one-page business case: the cost, the payback, the risks and the decision you need.",
+        "tr": "Bu dersin sonunda tek sayfalık bir yatırım gerekçesi yazabileceksin: maliyet, geri ödeme süresi, riskler ve istediğin karar.",
+        "fa": "بعد از این درس می‌توانی یک طرح توجیهی یک‌صفحه‌ای بنویسی: هزینه، دوره‌ی بازگشت سرمایه، ریسک‌ها و تصمیمی که لازم داری."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-6",
+    "finale": {
+      "en": "Answer a lender's questions on one page of figures",
+      "tr": "Bir kredi verenin sorularını tek sayfalık rakamlarla cevapla",
+      "fa": "به سؤال‌های وام‌دهنده با یک صفحه عدد جواب بده"
+    },
+    "scene": {
+      "en": "A family firm in Kayseri that makes kitchen textiles asks its bank for a €250,000 credit line. Read the one-page figures, then answer the credit manager in writing and on a call.",
+      "tr": "Kayseri'de mutfak tekstili üreten bir aile şirketi bankasından 250.000 avroluk kredi limiti istiyor. Tek sayfalık rakamları oku, sonra kredi müdürüne yazılı ve telefonda cevap ver.",
+      "fa": "یک شرکت خانوادگی در قیصریه که منسوجات آشپزخانه می‌سازد، از بانکش یک خط اعتباری ۲۵۰٬۰۰۰ یورویی می‌خواهد. عددهای یک‌صفحه‌ای را بخوان و بعد کتبی و تلفنی به مدیر اعتبارات جواب بده."
+    },
+    "title": {
+      "en": "Chapter 6 finale: The lender's questions",
+      "tr": "6. Bölüm finali: Kredi verenin soruları",
+      "fa": "پایان فصل ۶: سؤال‌های وام‌دهنده"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to explain a company's results, a cash gap, break-even and a business case to anyone, in plain English, with figures that add up.",
+    "tr": "Bu bölümün sonunda bir şirketin sonuçlarını, nakit açığını, başabaş noktasını ve bir yatırım gerekçesini herkese sade bir İngilizceyle ve tutarlı rakamlarla anlatabileceksin.",
+    "fa": "در پایان این فصل می‌توانی نتیجه‌های یک شرکت، کمبود نقدینگی، نقطه‌ی سربه‌سر و یک طرح توجیهی را با انگلیسیِ ساده و عددهایی که با هم جورند برای هر کسی توضیح بدهی."
+  }
+}

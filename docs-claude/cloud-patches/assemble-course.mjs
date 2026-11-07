@@ -6,7 +6,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-const here = path.dirname(new URL(import.meta.url).pathname);
+import { fileURLToPath } from 'node:url';
+const here = path.dirname(fileURLToPath(import.meta.url));   // new URL().pathname gave C:\C:\... on Windows
 const app = path.join(here, '..', '..', 'app');
 const appFile = path.join(app, 'farin-english-app.html');
 const which = process.argv[2];
@@ -32,13 +33,16 @@ function cpPush(course, mods, upto) {
 let html = fs.readFileSync(appFile, 'utf8');
 if (which === 'business') {
   const C = JSON.parse(fs.readFileSync(path.join(here, 'business', 'course.json'), 'utf8'));
-  const mods = ['bus-m1', 'bus-m2', 'bus-m3', 'bus-m4'].filter(id => fs.existsSync(path.join(here, 'business', id + '.json'))).map(id => chapter('business', id));
+  const mods = ['bus-m1', 'bus-m2', 'bus-m3', 'bus-m4', 'bus-m5', 'bus-m6', 'bus-m7', 'bus-m8', 'bus-m9', 'bus-m10'].filter(id => fs.existsSync(path.join(here, 'business', id + '.json'))).map(id => chapter('business', id));
   const course = Object.assign({}, C.course, {modules: mods});
   // rubric bands: the Copywriting course's, with a business tone line
   const mk = html.split('\n').find(l => l.startsWith('COURSES.push(Object.assign({"id":"marketing"'));
   const mko = JSON.parse(mk.slice('COURSES.push(Object.assign('.length, mk.lastIndexOf('}, {') + 1));
   course.rubricBands = Object.assign({}, mko.rubricBands, {tone: C.course.rubricTone}); delete course.rubricTone;
   const proj = Object.assign({}, C.project); proj.defaultProduct = proj.defaultCompany; delete proj.defaultCompany;
+  // the engine reads rubric as the English list + rubricI18n {tr, fa} (as Copywriting/Sales); a {en, tr, fa} rubric crashed the final
+  // project page (pd.rubric.map is not a function), found by the review walk 2026-11-07
+  if (proj.rubric && !Array.isArray(proj.rubric)) { const r = proj.rubric; proj.rubricI18n = Object.assign({}, proj.rubricI18n, {tr: r.tr, fa: r.fa}); proj.rubric = r.en; }
   const appF = C.app;
   const block = ['/* BUS-COURSE-BEGIN: Complete Business English, written in the cloud session 2026-11-03 (docs-claude/cloud-patches/business/,',
     '   assembled by assemble-course.mjs). Lesson data is lazy: courses/business/<chapter>/<lesson>.js. Port to Claude/specs/lxd-course-business/. */']

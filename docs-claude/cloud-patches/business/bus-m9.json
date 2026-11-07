@@ -1,0 +1,195 @@
+{
+  "id": "bus-m9",
+  "weeks": [
+    17,
+    18
+  ],
+  "title": {
+    "en": "Lead people and teams",
+    "tr": "İnsanlara ve ekiplere liderlik et",
+    "fa": "رهبری آدم‌ها و تیم‌ها"
+  },
+  "blurb": {
+    "en": "Delegate so the work comes back right, set priorities and say no to more work, announce a change to your team, and say no when you are asked to do the wrong thing. Hiring and appraisals are in the HR & Business English course.",
+    "tr": "İşin doğru dönmesi için iş devret, öncelik belirle ve fazla işe hayır de, ekibine bir değişikliği duyur ve yanlış bir şey yapman istendiğinde hayır de. İşe alım ve performans değerlendirmesi HR & Business English kursundadır.",
+    "fa": "کار را طوری واگذار کن که درست برگردد، اولویت تعیین کن و به کارِ اضافه «نه» بگو، تغییری را به تیمت اعلام کن و وقتی از تو کار نادرستی خواستند «نه» بگو. استخدام و ارزیابی عملکرد در دوره‌ی ⁨HR & Business English⁩ است."
+  },
+  "units": [
+    {
+      "id": "bus-33",
+      "episode": {
+        "en": "Why \"can you look at this?\" comes back wrong, and the five things every handover needs.",
+        "tr": "\"Şuna bir bakabilir misin?\" neden yanlış döner ve her iş devrinde olması gereken beş şey.",
+        "fa": "چرا «می‌شود یک نگاهی به این بیندازی؟» اشتباه برمی‌گردد و پنج چیزی که هر واگذاری لازم دارد."
+      },
+      "title": {
+        "en": "Delegate a task so it gets done",
+        "tr": "Bir işi yapılacak şekilde devret",
+        "fa": "کاری را طوری واگذار کن که انجام شود"
+      },
+      "cando": {
+        "en": "I can hand over a task clearly: the result, why it matters, what \"done\" looks like, the deadline and a check-in.",
+        "tr": "Bir işi net biçimde devredebilirim: sonuç, neden önemli olduğu, \"bitti\"nin neye benzediği, son tarih ve bir ara kontrol.",
+        "fa": "می‌توانم کاری را روشن واگذار کنم: نتیجه، چرا مهم است، «تمام شده» یعنی چه، مهلت و یک جلسه‌ی پیگیری."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can hand over a task clearly: the result, why it matters, what \"done\" looks like, the deadline and a check-in.",
+        "tr": "Bu dersin sonunda bir işi net biçimde devredebileceksin: sonuç, neden önemli olduğu, \"bitti\"nin neye benzediği, son tarih ve bir ara kontrol.",
+        "fa": "بعد از این درس می‌توانی کاری را روشن واگذار کنی: نتیجه، چرا مهم است، «تمام شده» یعنی چه، مهلت و یک جلسه‌ی پیگیری."
+      }
+    },
+    {
+      "id": "bus-34",
+      "episode": {
+        "en": "Why \"yes, no problem\" is the most expensive answer at work, and how to say no without saying no.",
+        "tr": "\"Evet, sorun değil\" neden işteki en pahalı cevaptır ve hayır demeden nasıl hayır dersin.",
+        "fa": "چرا «باشه، مشکلی نیست» گران‌ترین جواب در کار است و چطور بدون گفتنِ «نه»، نه بگویی."
+      },
+      "title": {
+        "en": "Set priorities and say no to more work",
+        "tr": "Öncelik belirle ve fazla işe hayır de",
+        "fa": "اولویت تعیین کن و به کارِ اضافه «نه» بگو"
+      },
+      "cando": {
+        "en": "I can answer a new request by showing what it would push back, and agree priorities with my manager.",
+        "tr": "Yeni bir talebe, neyi geciktireceğini göstererek cevap verebilir ve yöneticimle öncelikler konusunda anlaşabilirim.",
+        "fa": "می‌توانم به یک درخواست تازه با نشان دادنِ اینکه چه چیزی را عقب می‌اندازد جواب بدهم و با مدیرم سرِ اولویت‌ها توافق کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can answer a new request by showing what it would push back, and agree priorities with your manager.",
+        "tr": "Bu dersin sonunda yeni bir talebe, neyi geciktireceğini göstererek cevap verebilecek ve yöneticinle öncelikler konusunda anlaşabileceksin.",
+        "fa": "بعد از این درس می‌توانی به یک درخواست تازه با نشان دادنِ اینکه چه چیزی را عقب می‌اندازد جواب بدهی و با مدیرت سرِ اولویت‌ها توافق کنی."
+      }
+    },
+    {
+      "id": "bus-35",
+      "episode": {
+        "en": "Why people fear a change more when they hear it late, and the four things every announcement needs.",
+        "tr": "İnsanlar bir değişikliği geç duyunca neden daha çok korkar ve her duyuruda olması gereken dört şey.",
+        "fa": "چرا آدم‌ها وقتی خبر تغییر را دیر می‌شنوند بیشتر می‌ترسند و چهار چیزی که هر اعلامیه لازم دارد."
+      },
+      "title": {
+        "en": "Announce a change to your team",
+        "tr": "Ekibine bir değişikliği duyur",
+        "fa": "تغییری را به تیمت اعلام کن"
+      },
+      "cando": {
+        "en": "I can announce a change: why, what changes and when, what stays the same, and how I'll answer questions.",
+        "tr": "Bir değişikliği duyurabilirim: neden, ne ve ne zaman değişiyor, ne aynı kalıyor ve soruları nasıl cevaplayacağım.",
+        "fa": "می‌توانم تغییری را اعلام کنم: چرا، چه چیزی و از کی عوض می‌شود، چه چیزی ثابت می‌ماند و چطور به سؤال‌ها جواب می‌دهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can announce a change: why, what changes and when, what stays the same, and how you'll answer questions.",
+        "tr": "Bu dersin sonunda bir değişikliği duyurabileceksin: neden, ne ve ne zaman değişiyor, ne aynı kalıyor ve soruları nasıl cevaplayacağın.",
+        "fa": "بعد از این درس می‌توانی تغییری را اعلام کنی: چرا، چه چیزی و از کی عوض می‌شود، چه چیزی ثابت می‌ماند و چطور به سؤال‌ها جواب می‌دهی."
+      }
+    },
+    {
+      "id": "bus-36",
+      "episode": {
+        "en": "A gift, a \"commission\", a figure to change: how to refuse firmly, stay polite and protect yourself.",
+        "tr": "Bir hediye, bir \"komisyon\", değiştirilecek bir rakam: kararlı biçimde reddetmek, kibar kalmak ve kendini korumak.",
+        "fa": "یک هدیه، یک «پورسانت»، یک عدد که باید عوض شود: چطور محکم رد کنی، مؤدب بمانی و از خودت محافظت کنی."
+      },
+      "title": {
+        "en": "Say no to the wrong thing",
+        "tr": "Yanlış olana hayır de",
+        "fa": "به کار نادرست «نه» بگو"
+      },
+      "cando": {
+        "en": "I can refuse a gift, a payment or a request to change figures, politely and clearly, and report it the same day.",
+        "tr": "Bir hediyeyi, bir ödemeyi ya da rakamları değiştirme talebini kibar ve net biçimde reddedebilir ve aynı gün bildirebilirim.",
+        "fa": "می‌توانم هدیه، پول یا درخواستِ تغییر عددها را مؤدبانه و روشن رد کنم و همان روز گزارشش بدهم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can refuse a gift, a payment or a request to change figures, politely and clearly, and report it the same day.",
+        "tr": "Bu dersin sonunda bir hediyeyi, bir ödemeyi ya da rakamları değiştirme talebini kibar ve net biçimde reddedebilecek ve aynı gün bildirebileceksin.",
+        "fa": "بعد از این درس می‌توانی هدیه، پول یا درخواستِ تغییر عددها را مؤدبانه و روشن رد کنی و همان روز گزارشش بدهی."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-9",
+    "finale": {
+      "en": "A new rule starts on Monday: lead the team through it",
+      "tr": "Pazartesi yeni bir kural başlıyor: ekibine yol göster",
+      "fa": "از دوشنبه قاعده‌ی تازه‌ای شروع می‌شود: تیم را در آن همراهی کن"
+    },
+    "scene": {
+      "en": "You lead eight buyers at a logistics company in Izmir. From 1 April, a new rule limits gifts from suppliers and adds an approval step. Announce it, hand over the rollout, handle a clash with your director and answer a supplier's invitation.",
+      "tr": "İzmir'deki bir lojistik şirketinde sekiz satın almacıya liderlik ediyorsun. 1 Nisan'dan itibaren yeni bir kural tedarikçi hediyelerini sınırlıyor ve bir onay adımı ekliyor. Bunu duyur, uygulamayı devret, direktörünle bir çakışmayı çöz ve bir tedarikçinin davetine cevap ver.",
+      "fa": "تو سرپرست هشت کارشناس خرید در یک شرکت لجستیک در ازمیر هستی. از ۱ آوریل یک قاعده‌ی تازه هدیه‌ی تأمین‌کننده‌ها را محدود می‌کند و یک مرحله‌ی تأیید اضافه می‌کند. اعلامش کن، اجرایش را واگذار کن، یک تداخل با مدیرت را حل کن و به دعوت یک تأمین‌کننده جواب بده."
+    },
+    "title": {
+      "en": "Chapter 9 finale: Leading through a new rule",
+      "tr": "9. Bölüm finali: Yeni bir kuralda liderlik",
+      "fa": "پایان فصل ۹: رهبری در اجرای یک قاعده‌ی تازه"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to hand over tasks clearly, protect your team's priorities, announce a change honestly and refuse an improper request firmly and politely.",
+    "tr": "Bu bölümün sonunda işleri net biçimde devredebilecek, ekibinin önceliklerini koruyabilecek, bir değişikliği dürüstçe duyurabilecek ve uygunsuz bir talebi kararlı ve kibar bir şekilde reddedebileceksin.",
+    "fa": "در پایان این فصل می‌توانی کارها را روشن واگذار کنی، از اولویت‌های تیمت محافظت کنی، یک تغییر را صادقانه اعلام کنی و درخواستِ نادرست را محکم و مؤدبانه رد کنی."
+  }
+}

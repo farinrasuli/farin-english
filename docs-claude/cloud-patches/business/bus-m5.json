@@ -1,0 +1,195 @@
+{
+  "id": "bus-m5",
+  "weeks": [
+    9,
+    10
+  ],
+  "title": {
+    "en": "How the business works",
+    "tr": "İş nasıl yürür",
+    "fa": "کسب‌وکار چطور کار می‌کند"
+  },
+  "blurb": {
+    "en": "Explain how your business makes money, read your market, say why customers choose you and recommend a way into a new market.",
+    "tr": "İşinin nasıl para kazandığını anlat, pazarını oku, müşterilerin seni neden seçtiğini söyle ve yeni bir pazara giriş yolu öner.",
+    "fa": "توضیح بده کسب‌وکارت چطور پول درمی‌آورد، بازارت را بخوان، بگو مشتری‌ها چرا تو را انتخاب می‌کنند و برای ورود به یک بازار تازه راهی پیشنهاد بده."
+  },
+  "units": [
+    {
+      "id": "bus-17",
+      "episode": {
+        "en": "Why \"we are a leading company\" says nothing, and the four lines that explain any business.",
+        "tr": "\"Lider bir şirketiz\" neden hiçbir şey söylemez ve her işi anlatan dört satır.",
+        "fa": "چرا «ما یک شرکت پیشرو هستیم» هیچ چیزی نمی‌گوید و چهار خطی که هر کسب‌وکاری را توضیح می‌دهد."
+      },
+      "title": {
+        "en": "Explain how your business makes money",
+        "tr": "İşinin nasıl para kazandığını anlat",
+        "fa": "توضیح بده کسب‌وکارت چطور پول درمی‌آورد"
+      },
+      "cando": {
+        "en": "I can explain how a business makes money: the customer, the offer, the money in and the main costs.",
+        "tr": "Bir işin nasıl para kazandığını anlatabilirim: müşteri, teklif, gelen para ve ana maliyetler.",
+        "fa": "می‌توانم توضیح بدهم یک کسب‌وکار چطور پول درمی‌آورد: مشتری، پیشنهاد، پولی که می‌آید و هزینه‌های اصلی."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can explain how a business makes money in four plain lines: the customer, the offer, the money in and the main costs.",
+        "tr": "Bu dersin sonunda bir işin nasıl para kazandığını dört sade satırla anlatabileceksin: müşteri, teklif, gelen para ve ana maliyetler.",
+        "fa": "بعد از این درس می‌توانی در چهار خط ساده توضیح بدهی یک کسب‌وکار چطور پول درمی‌آورد: مشتری، پیشنهاد، پولی که می‌آید و هزینه‌های اصلی."
+      }
+    },
+    {
+      "id": "bus-18",
+      "episode": {
+        "en": "Why \"the market is big\" convinces no one, and the four facts every market snapshot needs.",
+        "tr": "\"Pazar büyük\" demek neden kimseyi ikna etmez ve her pazar özetinde olması gereken dört bilgi.",
+        "fa": "چرا «بازار بزرگ است» کسی را قانع نمی‌کند و چهار واقعیتی که هر تصویر کوتاه از بازار لازم دارد."
+      },
+      "title": {
+        "en": "Read your market",
+        "tr": "Pazarını oku",
+        "fa": "بازارت را بخوان"
+      },
+      "cando": {
+        "en": "I can describe a market in a short snapshot: size and growth, buyers, rivals and substitutes, each with a source.",
+        "tr": "Bir pazarı kısa bir özetle anlatabilirim: büyüklük ve büyüme, alıcılar, rakipler ve ikameler, her biri kaynağıyla.",
+        "fa": "می‌توانم یک بازار را در یک تصویر کوتاه توضیح بدهم: اندازه و رشد، خریدارها، رقیب‌ها و جایگزین‌ها، هر کدام با منبعش."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can describe a market in a short snapshot: size and growth, buyers, rivals and substitutes, each with a source.",
+        "tr": "Bu dersin sonunda bir pazarı kısa bir özetle anlatabileceksin: büyüklük ve büyüme, alıcılar, rakipler ve ikameler, her biri kaynağıyla.",
+        "fa": "بعد از این درس می‌توانی یک بازار را در یک تصویر کوتاه توضیح بدهی: اندازه و رشد، خریدارها، رقیب‌ها و جایگزین‌ها، هر کدام با منبعش."
+      }
+    },
+    {
+      "id": "bus-19",
+      "episode": {
+        "en": "Why \"quality and good prices\" is what every rival says, and the three sentences that set you apart.",
+        "tr": "\"Kalite ve uygun fiyat\" neden her rakibin söylediği şeydir ve seni ayıran üç cümle.",
+        "fa": "چرا «کیفیت و قیمت مناسب» حرفِ همه‌ی رقیب‌هاست و سه جمله‌ای که تو را متمایز می‌کند."
+      },
+      "title": {
+        "en": "Why customers choose you",
+        "tr": "Müşteriler seni neden seçer",
+        "fa": "چرا مشتری‌ها تو را انتخاب می‌کنند"
+      },
+      "cando": {
+        "en": "I can write a positioning statement: one buyer, one difference a rival can't copy fast, and the proof.",
+        "tr": "Bir konumlandırma cümlesi yazabilirim: tek bir alıcı, rakibin hızla taklit edemeyeceği tek bir fark ve kanıtı.",
+        "fa": "می‌توانم یک جمله‌ی جایگاه‌یابی بنویسم: یک خریدار، یک تفاوت که رقیب نتواند سریع تقلیدش کند و مدرکش."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can write a positioning statement: one buyer, one difference a rival can't copy fast, and the proof.",
+        "tr": "Bu dersin sonunda bir konumlandırma cümlesi yazabileceksin: tek bir alıcı, rakibin hızla taklit edemeyeceği tek bir fark ve kanıtı.",
+        "fa": "بعد از این درس می‌توانی یک جمله‌ی جایگاه‌یابی بنویسی: یک خریدار، یک تفاوت که رقیب نتواند سریع تقلیدش کند و مدرکش."
+      }
+    },
+    {
+      "id": "bus-20",
+      "episode": {
+        "en": "Why a list of options is not a recommendation, and the memo that gets a decision.",
+        "tr": "Bir seçenek listesi neden öneri değildir ve karar aldıran not.",
+        "fa": "چرا فهرست گزینه‌ها پیشنهاد نیست و یادداشتی که تصمیم می‌گیرد."
+      },
+      "title": {
+        "en": "Recommend a way into a new market",
+        "tr": "Yeni bir pazara giriş yolu öner",
+        "fa": "برای ورود به یک بازار تازه راه پیشنهاد بده"
+      },
+      "cando": {
+        "en": "I can compare ways into a new market and recommend one in a short memo: the answer first, the reasons, the cost and the main risk.",
+        "tr": "Yeni bir pazara giriş yollarını karşılaştırıp kısa bir notla birini önerebilirim: önce cevap, sonra nedenler, maliyet ve ana risk.",
+        "fa": "می‌توانم راه‌های ورود به یک بازار تازه را مقایسه کنم و در یک یادداشت کوتاه یکی را پیشنهاد بدهم: اول جواب، بعد دلیل‌ها، هزینه و ریسک اصلی."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can compare ways into a new market and recommend one in a short memo: the answer first, the reasons, the cost and the main risk.",
+        "tr": "Bu dersin sonunda yeni bir pazara giriş yollarını karşılaştırıp kısa bir notla birini önerebileceksin: önce cevap, sonra nedenler, maliyet ve ana risk.",
+        "fa": "بعد از این درس می‌توانی راه‌های ورود به یک بازار تازه را مقایسه کنی و در یک یادداشت کوتاه یکی را پیشنهاد بدهی: اول جواب، بعد دلیل‌ها، هزینه و ریسک اصلی."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-5",
+    "finale": {
+      "en": "Agent, distributor or own office? Decide and defend it",
+      "tr": "Acente, distribütör ya da kendi ofisin? Karar ver ve savun",
+      "fa": "نماینده، توزیع‌کننده یا دفتر خودتان؟ تصمیم بگیر و از آن دفاع کن"
+    },
+    "scene": {
+      "en": "A pistachio-paste maker in Gaziantep wants to sell to bakeries and cafés in Dubai. Read the fact sheet, choose the way in, then write the memo and say it to the director.",
+      "tr": "Gaziantep'te fıstık ezmesi üreten bir firma Dubai'deki fırın ve kafelere satmak istiyor. Bilgi notunu oku, giriş yolunu seç, sonra notu yaz ve genel müdüre anlat.",
+      "fa": "یک تولیدکننده‌ی کرم پسته در غازی‌عنتاب می‌خواهد به نانوایی‌ها و کافه‌های دبی بفروشد. برگه‌ی اطلاعات را بخوان، راه ورود را انتخاب کن، بعد یادداشت را بنویس و به مدیر بگو."
+    },
+    "title": {
+      "en": "Chapter 5 finale: Into a new market",
+      "tr": "5. Bölüm finali: Yeni bir pazara",
+      "fa": "پایان فصل ۵: ورود به یک بازار تازه"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to explain a business model, size up a market, write a positioning statement and recommend how to enter a new market.",
+    "tr": "Bu bölümün sonunda bir iş modelini anlatabilecek, bir pazarı değerlendirebilecek, bir konumlandırma cümlesi yazabilecek ve yeni bir pazara nasıl girileceğini önerebileceksin.",
+    "fa": "در پایان این فصل می‌توانی یک مدل کسب‌وکار را توضیح بدهی، یک بازار را بسنجی، یک جمله‌ی جایگاه‌یابی بنویسی و پیشنهاد بدهی چطور وارد یک بازار تازه شوید."
+  }
+}

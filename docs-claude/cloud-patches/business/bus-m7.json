@@ -1,0 +1,195 @@
+{
+  "id": "bus-m7",
+  "weeks": [
+    13,
+    14
+  ],
+  "title": {
+    "en": "Contracts and getting paid",
+    "tr": "Sözleşmeler ve tahsilat",
+    "fa": "قرارداد و وصول پول"
+  },
+  "blurb": {
+    "en": "Read a contract and summarise it, spot the clauses that bite, chase a late payment and send a formal notice when a partner doesn't deliver. Not legal advice: you learn what to check and what to ask.",
+    "tr": "Bir sözleşmeyi okuyup özetle, can yakan maddeleri fark et, geciken bir ödemeyi takip et ve bir ortak teslim etmediğinde resmî ihtar gönder. Hukuki tavsiye değildir: neyi kontrol edeceğini ve neyi soracağını öğrenirsin.",
+    "fa": "قرارداد را بخوان و خلاصه کن، بندهای خطرناک را پیدا کن، پرداختِ عقب‌افتاده را پیگیری کن و وقتی شریکی تحویل نمی‌دهد، اخطار رسمی بفرست. مشاوره‌ی حقوقی نیست: یاد می‌گیری چه چیزی را بررسی کنی و چه بپرسی."
+  },
+  "units": [
+    {
+      "id": "bus-25",
+      "episode": {
+        "en": "Five parts every commercial contract has, and the three small words that decide who must do what.",
+        "tr": "Her ticari sözleşmede olan beş bölüm ve kimin neyi yapmak zorunda olduğunu belirleyen üç küçük kelime.",
+        "fa": "پنج بخشی که هر قرارداد تجاری دارد و سه کلمه‌ی کوچکی که تعیین می‌کنند چه کسی باید چه کند."
+      },
+      "title": {
+        "en": "Read a contract: how it is built",
+        "tr": "Bir sözleşmeyi oku: nasıl kurulur",
+        "fa": "قرارداد را بخوان: چطور ساخته شده"
+      },
+      "cando": {
+        "en": "I can find the five main parts of a contract and summarise it in plain English for a manager.",
+        "tr": "Bir sözleşmenin beş ana bölümünü bulup onu bir yönetici için sade İngilizceyle özetleyebilirim.",
+        "fa": "می‌توانم پنج بخش اصلی یک قرارداد را پیدا کنم و آن را برای یک مدیر به انگلیسیِ ساده خلاصه کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can find the five main parts of a contract and summarise it in plain English for a manager.",
+        "tr": "Bu dersin sonunda bir sözleşmenin beş ana bölümünü bulup onu bir yönetici için sade İngilizceyle özetleyebileceksin.",
+        "fa": "بعد از این درس می‌توانی پنج بخش اصلی یک قرارداد را پیدا کنی و آن را برای یک مدیر به انگلیسیِ ساده خلاصه کنی."
+      }
+    },
+    {
+      "id": "bus-26",
+      "episode": {
+        "en": "Four clauses that decide who pays when things go wrong, and how to ask a lawyer the right question.",
+        "tr": "İşler ters gittiğinde kimin ödeyeceğini belirleyen dört madde ve bir avukata doğru soruyu nasıl sorarsın.",
+        "fa": "چهار بندی که تعیین می‌کنند وقتی کار خراب شد چه کسی پول بدهد و چطور از وکیل سؤال درست بپرسی."
+      },
+      "title": {
+        "en": "The clauses that bite",
+        "tr": "Can yakan maddeler",
+        "fa": "بندهایی که دردسر می‌سازند"
+      },
+      "cando": {
+        "en": "I can spot the clauses that carry risk and write exact questions for a lawyer.",
+        "tr": "Risk taşıyan maddeleri fark edip bir avukat için net sorular yazabilirim.",
+        "fa": "می‌توانم بندهای پرریسک را پیدا کنم و برای وکیل سؤال‌های دقیق بنویسم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can spot the clauses that carry risk and write exact questions for a lawyer.",
+        "tr": "Bu dersin sonunda risk taşıyan maddeleri fark edip bir avukat için net sorular yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی بندهای پرریسک را پیدا کنی و برای وکیل سؤال‌های دقیق بنویسی."
+      }
+    },
+    {
+      "id": "bus-27",
+      "episode": {
+        "en": "Why an angry first email delays payment, and the three-step reminder that gets the money and keeps the customer.",
+        "tr": "Öfkeli bir ilk e-posta ödemeyi neden geciktirir ve hem parayı getiren hem müşteriyi tutan üç adımlı hatırlatma.",
+        "fa": "چرا یک ایمیلِ اولِ عصبانی پرداخت را عقب می‌اندازد و یادآوری سه‌مرحله‌ای که هم پول را می‌آورد و هم مشتری را نگه می‌دارد."
+      },
+      "title": {
+        "en": "Get paid on time",
+        "tr": "Paranı zamanında tahsil et",
+        "fa": "پولت را سر وقت بگیر"
+      },
+      "cando": {
+        "en": "I can chase a late payment step by step, firmly and without losing the customer.",
+        "tr": "Geciken bir ödemeyi adım adım, kararlı bir şekilde ve müşteriyi kaybetmeden takip edebilirim.",
+        "fa": "می‌توانم یک پرداختِ عقب‌افتاده را مرحله به مرحله، محکم و بدون از دست دادنِ مشتری پیگیری کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can chase a late payment step by step, firmly and without losing the customer.",
+        "tr": "Bu dersin sonunda geciken bir ödemeyi adım adım, kararlı bir şekilde ve müşteriyi kaybetmeden takip edebileceksin.",
+        "fa": "بعد از این درس می‌توانی یک پرداختِ عقب‌افتاده را مرحله به مرحله، محکم و بدون از دست دادنِ مشتری پیگیری کنی."
+      }
+    },
+    {
+      "id": "bus-28",
+      "episode": {
+        "en": "Why \"we are very angry\" helps the other side, and the formal notice a lawyer can use.",
+        "tr": "\"Çok kızgınız\" demek neden karşı tarafın işine yarar ve bir avukatın kullanabileceği resmî ihtar.",
+        "fa": "چرا «خیلی عصبانی هستیم» به نفع طرف مقابل است و اخطار رسمی‌ای که وکیل بتواند از آن استفاده کند."
+      },
+      "title": {
+        "en": "When a partner doesn't deliver",
+        "tr": "Bir ortak teslim etmediğinde",
+        "fa": "وقتی شریک تجاری تحویل نمی‌دهد"
+      },
+      "cando": {
+        "en": "I can escalate a missed delivery step by step and write a firm, factual formal notice under the right clause.",
+        "tr": "Yapılmayan bir teslimatı adım adım üst seviyeye taşıyabilir ve doğru maddeye dayanan kararlı, olgulara dayalı bir resmî ihtar yazabilirim.",
+        "fa": "می‌توانم یک تحویلِ انجام‌نشده را مرحله به مرحله پیگیری کنم و بر پایه‌ی بند درست، یک اخطار رسمیِ محکم و مستند بنویسم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can escalate a missed delivery step by step and write a firm, factual formal notice under the right clause.",
+        "tr": "Bu dersin sonunda yapılmayan bir teslimatı adım adım üst seviyeye taşıyabilecek ve doğru maddeye dayanan kararlı, olgulara dayalı bir resmî ihtar yazabileceksin.",
+        "fa": "بعد از این درس می‌توانی یک تحویلِ انجام‌نشده را مرحله به مرحله پیگیری کنی و بر پایه‌ی بند درست، یک اخطار رسمیِ محکم و مستند بنویسی."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-7",
+    "finale": {
+      "en": "A late shipment: read the clauses, send the notice",
+      "tr": "Geciken bir sevkiyat: maddeleri oku, ihtarı gönder",
+      "fa": "محموله‌ی دیرکرده: بندها را بخوان، اخطار را بفرست"
+    },
+    "scene": {
+      "en": "A hotel group in Antalya ordered 300 mattresses from a factory in Poland. They are three weeks late, and the supplier blames a strike. Read four clauses, decide what you can claim, then write the notice and make the call.",
+      "tr": "Antalya'daki bir otel grubu Polonya'daki bir fabrikadan 300 yatak sipariş etti. Yataklar üç hafta gecikti ve tedarikçi bir grevi suçluyor. Dört maddeyi oku, neyi talep edebileceğine karar ver, sonra ihtarı yaz ve telefonu aç.",
+      "fa": "یک گروه هتل‌داری در آنتالیا از کارخانه‌ای در لهستان ۳۰۰ تشک سفارش داد. سفارش سه هفته دیر کرده و تأمین‌کننده تقصیر را گردن یک اعتصاب می‌اندازد. چهار بند را بخوان، تصمیم بگیر چه چیزی را می‌توانی مطالبه کنی، بعد اخطار را بنویس و تماس بگیر."
+    },
+    "title": {
+      "en": "Chapter 7 finale: The late shipment",
+      "tr": "7. Bölüm finali: Geciken sevkiyat",
+      "fa": "پایان فصل ۷: محموله‌ی دیرکرده"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to summarise a contract, write clear questions for a lawyer, get paid without losing the customer and send a firm formal notice.",
+    "tr": "Bu bölümün sonunda bir sözleşmeyi özetleyebilecek, bir avukata net sorular yazabilecek, müşteriyi kaybetmeden paranı tahsil edebilecek ve kararlı bir resmî ihtar gönderebileceksin.",
+    "fa": "در پایان این فصل می‌توانی یک قرارداد را خلاصه کنی، برای وکیل سؤال‌های روشن بنویسی، بدون از دست دادنِ مشتری پولت را بگیری و یک اخطار رسمیِ محکم بفرستی."
+  }
+}

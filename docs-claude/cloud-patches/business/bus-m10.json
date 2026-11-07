@@ -1,0 +1,195 @@
+{
+  "id": "bus-m10",
+  "weeks": [
+    19,
+    20
+  ],
+  "title": {
+    "en": "Across cultures and to the top",
+    "tr": "Kültürler arasında ve en üste",
+    "fa": "بین فرهنگ‌ها و تا بالاترین سطح"
+  },
+  "blurb": {
+    "en": "Check what \"yes\" really means, read data honestly, explain a price rise caused by inflation or currency, and get a decision from senior people.",
+    "tr": "\"Evet\"in gerçekte ne anlama geldiğini kontrol et, verileri dürüstçe oku, enflasyon ya da kur kaynaklı bir zammı açıkla ve üst yönetimden bir karar al.",
+    "fa": "چک کن «بله» واقعاً یعنی چه، داده‌ها را صادقانه بخوان، افزایش قیمتی را که از تورم یا نرخ ارز می‌آید توضیح بده و از مدیران ارشد تصمیم بگیر."
+  },
+  "units": [
+    {
+      "id": "bus-37",
+      "episode": {
+        "en": "Why \"yes\", silence and \"we'll try\" can mean three different things, and how to check without embarrassing anyone.",
+        "tr": "\"Evet\", sessizlik ve \"deneriz\" neden üç farklı anlama gelebilir ve kimseyi mahcup etmeden nasıl kontrol edersin.",
+        "fa": "چرا «بله»، سکوت و «سعی می‌کنیم» ممکن است سه معنای متفاوت داشته باشند و چطور بدون خجالت دادنِ کسی چکشان کنی."
+      },
+      "title": {
+        "en": "Work across cultures: check what \"yes\" means",
+        "tr": "Kültürler arasında çalış: \"evet\"in ne demek olduğunu kontrol et",
+        "fa": "کار بین فرهنگ‌ها: چک کن «بله» یعنی چه"
+      },
+      "cando": {
+        "en": "I can notice when \"yes\" may not mean yes, check it politely, and confirm what was agreed in writing.",
+        "tr": "\"Evet\"in evet anlamına gelmeyebileceğini fark edebilir, bunu kibarca kontrol edebilir ve anlaşılanı yazılı olarak teyit edebilirim.",
+        "fa": "می‌توانم بفهمم کی «بله» ممکن است به معنای بله نباشد، مؤدبانه چکش کنم و توافق را کتبی تأیید کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can notice when \"yes\" may not mean yes, check it politely, and confirm what was agreed in writing.",
+        "tr": "Bu dersin sonunda \"evet\"in evet anlamına gelmeyebileceğini fark edebilecek, bunu kibarca kontrol edebilecek ve anlaşılanı yazılı olarak teyit edebileceksin.",
+        "fa": "بعد از این درس می‌توانی بفهمی کی «بله» ممکن است به معنای بله نباشد، مؤدبانه چکش کنی و توافق را کتبی تأیید کنی."
+      }
+    },
+    {
+      "id": "bus-38",
+      "episode": {
+        "en": "Why \"sales rose after the campaign\" doesn't prove the campaign worked, and four questions to ask any number.",
+        "tr": "\"Kampanyadan sonra satışlar arttı\" neden kampanyanın işe yaradığını kanıtlamaz ve her rakama sorulacak dört soru.",
+        "fa": "چرا «فروش بعد از کمپین بالا رفت» ثابت نمی‌کند کمپین جواب داده و چهار سؤالی که باید از هر عددی پرسید."
+      },
+      "title": {
+        "en": "What the data really says",
+        "tr": "Veriler gerçekte ne söylüyor",
+        "fa": "داده‌ها واقعاً چه می‌گویند"
+      },
+      "cando": {
+        "en": "I can test a claim from data with four questions and say honestly what it shows and what it doesn't.",
+        "tr": "Verilere dayanan bir iddiayı dört soruyla sınayabilir ve neyi gösterip neyi göstermediğini dürüstçe söyleyebilirim.",
+        "fa": "می‌توانم ادعایی را که بر داده تکیه دارد با چهار سؤال امتحان کنم و صادقانه بگویم چه چیزی را نشان می‌دهد و چه چیزی را نه."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can test a claim from data with four questions and say honestly what it shows and what it doesn't.",
+        "tr": "Bu dersin sonunda verilere dayanan bir iddiayı dört soruyla sınayabilecek ve neyi gösterip neyi göstermediğini dürüstçe söyleyebileceksin.",
+        "fa": "بعد از این درس می‌توانی ادعایی را که بر داده تکیه دارد با چهار سؤال امتحان کنی و صادقانه بگویی چه چیزی را نشان می‌دهد و چه چیزی را نه."
+      }
+    },
+    {
+      "id": "bus-39",
+      "episode": {
+        "en": "Why \"due to the current situation\" loses customers, and how to explain inflation and currency in four lines.",
+        "tr": "\"Mevcut koşullar nedeniyle\" neden müşteri kaybettirir ve enflasyonu ve kuru dört satırda nasıl açıklarsın.",
+        "fa": "چرا «به دلیل شرایط فعلی» مشتری را فراری می‌دهد و چطور تورم و نرخ ارز را در چهار خط توضیح بدهی."
+      },
+      "title": {
+        "en": "Explain a price rise",
+        "tr": "Bir zammı açıkla",
+        "fa": "افزایش قیمت را توضیح بده"
+      },
+      "cando": {
+        "en": "I can tell a customer about a price rise early, with the real reason in numbers, the new price and date, and a fair offer.",
+        "tr": "Bir müşteriye zammı erkenden, sayılarla gerçek nedeniyle, yeni fiyat ve tarihle ve adil bir teklifle bildirebilirim.",
+        "fa": "می‌توانم افزایش قیمت را زود به مشتری خبر بدهم، با دلیل واقعی به عدد، قیمت و تاریخ تازه و یک پیشنهاد منصفانه."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can tell a customer about a price rise early, with the real reason in numbers, the new price and date, and a fair offer.",
+        "tr": "Bu dersin sonunda bir müşteriye zammı erkenden, sayılarla gerçek nedeniyle, yeni fiyat ve tarihle ve adil bir teklifle bildirebileceksin.",
+        "fa": "بعد از این درس می‌توانی افزایش قیمت را زود به مشتری خبر بدهی، با دلیل واقعی به عدد، قیمت و تاریخ تازه و یک پیشنهاد منصفانه."
+      }
+    },
+    {
+      "id": "bus-40",
+      "episode": {
+        "en": "Why great presentations still leave with \"let's discuss it later\", and how to leave with a decision.",
+        "tr": "Harika sunumlar neden yine de \"sonra konuşalım\"la biter ve bir kararla nasıl çıkarsın.",
+        "fa": "چرا ارائه‌های عالی هم با «بعداً حرفش را بزنیم» تمام می‌شوند و چطور با یک تصمیم از جلسه بیرون بیایی."
+      },
+      "title": {
+        "en": "Get a decision from senior people",
+        "tr": "Üst yönetimden bir karar al",
+        "fa": "از مدیران ارشد تصمیم بگیر"
+      },
+      "cando": {
+        "en": "I can ask senior people for a clear decision, answer their questions in short, honest answers and agree the next step.",
+        "tr": "Üst düzey yöneticilerden net bir karar isteyebilir, sorularına kısa ve dürüst cevaplar verebilir ve bir sonraki adımda anlaşabilirim.",
+        "fa": "می‌توانم از مدیران ارشد یک تصمیم روشن بخواهم، به سؤال‌هایشان کوتاه و صادقانه جواب بدهم و سرِ قدم بعدی توافق کنم."
+      },
+      "sessions": [
+        [
+          "explain"
+        ],
+        [
+          "judge",
+          "speaking",
+          "writing"
+        ],
+        [
+          "exit"
+        ]
+      ],
+      "objective": {
+        "en": "After this lesson, you can ask senior people for a clear decision, answer their questions in short, honest answers and agree the next step.",
+        "tr": "Bu dersin sonunda üst düzey yöneticilerden net bir karar isteyebilecek, sorularına kısa ve dürüst cevaplar verebilecek ve bir sonraki adımda anlaşabileceksin.",
+        "fa": "بعد از این درس می‌توانی از مدیران ارشد یک تصمیم روشن بخواهی، به سؤال‌هایشان کوتاه و صادقانه جواب بدهی و سرِ قدم بعدی توافق کنی."
+      }
+    }
+  ],
+  "checkpoint": {
+    "id": "bus-cp-10",
+    "finale": {
+      "en": "The board meeting: get the decision",
+      "tr": "Yönetim kurulu toplantısı: kararı al",
+      "fa": "جلسه‌ی هیئت‌مدیره: تصمیم را بگیر"
+    },
+    "scene": {
+      "en": "An olive oil producer in Ayvalık must decide whether to sign a three-year contract with a German supermarket chain. Check the facts, write to the board before the meeting, then present and ask for the decision.",
+      "tr": "Ayvalık'taki bir zeytinyağı üreticisi, Alman bir süpermarket zinciriyle üç yıllık bir sözleşme imzalayıp imzalamayacağına karar vermeli. Bilgileri kontrol et, toplantıdan önce yönetim kuruluna yaz, sonra sunum yap ve kararı iste.",
+      "fa": "یک تولیدکننده‌ی روغن زیتون در آیوالیک باید تصمیم بگیرد با یک زنجیره‌ی سوپرمارکت آلمانی قراردادی سه‌ساله امضا کند یا نه. واقعیت‌ها را بررسی کن، قبل از جلسه به هیئت‌مدیره بنویس و بعد ارائه بده و تصمیم را بخواه."
+    },
+    "title": {
+      "en": "Chapter 10 finale: The board decision",
+      "tr": "10. Bölüm finali: Yönetim kurulu kararı",
+      "fa": "پایان فصل ۱۰: تصمیم هیئت‌مدیره"
+    },
+    "sessions": [
+      [
+        "exit"
+      ],
+      [
+        "writing",
+        "speaking"
+      ]
+    ]
+  },
+  "goal": {
+    "en": "By the end of this chapter you will be able to work with partners who communicate differently, use data honestly, explain a price rise without losing the customer and ask a board for a clear decision.",
+    "tr": "Bu bölümün sonunda farklı iletişim kuran ortaklarla çalışabilecek, verileri dürüstçe kullanabilecek, bir zammı müşteriyi kaybetmeden açıklayabilecek ve bir yönetim kurulundan net bir karar isteyebileceksin.",
+    "fa": "در پایان این فصل می‌توانی با شریک‌هایی که جور دیگری ارتباط می‌گیرند کار کنی، داده‌ها را صادقانه به کار ببری، افزایش قیمت را بدون از دست دادنِ مشتری توضیح بدهی و از هیئت‌مدیره یک تصمیم روشن بخواهی."
+  }
+}
