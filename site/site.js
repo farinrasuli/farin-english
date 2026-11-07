@@ -347,11 +347,11 @@ document.querySelectorAll('.tile-expandable').forEach(function(tile){
    "sınav" goal and the outgoing WhatsApp text are localized.
    ================================================================== */
 var GOALS = [
-  { id:'kariyer', label:'Kariyer / İş Hayatı', desc:'Toplantı, e-posta, sunum', icon:'assets/char-career.png' },
-  { id:'seyahat', label:'Seyahat', desc:'Gezerken rahat konuşmak', icon:'assets/char-travel.png' },
-  { id:'sinav', label:'Sınav', desc:(LANG && LANG.examLabel) || 'Uluslararası sınavlar', icon:'assets/char-exam.png' },
-  { id:'gocyurtdisi', label:'Yurt Dışı Yaşam', desc:'Taşınma, göç, günlük hayat', icon:'assets/char-immigration.png' },
-  { id:'akici', label:'Sadece Akıcı Konuşmak', desc:'Özgüvenle konuşabilmek', icon:'assets/char-everyday.png' },
+  { id:'kariyer', label:'Kariyer / İş Hayatı', desc:'Toplantı, e-posta, sunum', icon:'assets/char-career.webp' },
+  { id:'seyahat', label:'Seyahat', desc:'Gezerken rahat konuşmak', icon:'assets/char-travel.webp' },
+  { id:'sinav', label:'Sınav', desc:(LANG && LANG.examLabel) || 'Uluslararası sınavlar', icon:'assets/char-exam.webp' },
+  { id:'gocyurtdisi', label:'Yurt Dışı Yaşam', desc:'Taşınma, göç, günlük hayat', icon:'assets/char-immigration.webp' },
+  { id:'akici', label:'Sadece Akıcı Konuşmak', desc:'Özgüvenle konuşabilmek', icon:'assets/char-everyday.webp' },
   { id:'yenidenbasla', label:'Yeniden Başlamak', desc:'Yarım kalmıştı, tazelemek istiyorum', badge:'↺' }
 ];
 var LEVELS = [

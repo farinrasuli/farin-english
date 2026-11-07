@@ -527,13 +527,13 @@ function companyPanel(l) {
 function home(l) {
   const i = LANGS[l].i;
   const goalCards = Object.entries(GOALS).map(([k, g]) =>
-    `<a class="goal" href="#kurs-${k}" data-goal="${k}"${k === 'is' ? ' aria-current="true"' : ''} style="--c:var(${g.c})"><span class="tick">${ic('tick')}</span><span class="art"><img src="/assets/${g.img}.png" alt="" width="128" height="128"></span><span><strong>${S[g.label][i]}</strong><small>${S[g.sub][i]}</small></span></a>`).join('\n        ')
+    `<a class="goal" href="#kurs-${k}" data-goal="${k}"${k === 'is' ? ' aria-current="true"' : ''} style="--c:var(${g.c})"><span class="tick">${ic('tick')}</span><span class="art"><img src="/assets/${g.img}.webp" alt="" width="128" height="128"></span><span><strong>${S[g.label][i]}</strong><small>${S[g.sub][i]}</small></span></a>`).join('\n        ')
     + `\n        <a class="goal goal-co" href="#kurs-sirket" data-goal="sirket"><span class="co-ico">${ic('users')}</span><span><strong>${S.coQ[i]}${S.coMark[i]}</strong><small>${S.coS[i]}</small></span><span class="co-arrow" aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a>`;
   const panels = Object.entries(GOALS).map(([k, g]) => {
     const lv = g.live ? LIVES[g.live] : null;
     return `<div class="gres${k === 'is' ? ' on' : ''}" id="kurs-${k}" data-goal="${k}">
     <div class="r-head">
-      <div class="r-who"><span class="r-badge" style="--c:var(${g.c})"><img src="/assets/${g.img}.png" alt="" width="56" height="56" loading="lazy"></span>
+      <div class="r-who"><span class="r-badge" style="--c:var(${g.c})"><img src="/assets/${g.img}.webp" alt="" width="56" height="56" loading="lazy"></span>
         <div><p class="eyebrow">${S.forYou[i]}</p><h2>${esc(g.title[i])}${dot('.')}</h2></div></div>
       <p>${(lv ? S.twoWays : S.oneWay)[i]}</p>
     </div>
