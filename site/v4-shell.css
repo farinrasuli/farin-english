@@ -1,0 +1,20 @@
+/* The 2026-10-07 "app-first" service pages (body.v4: is-ingilizcesi, ielts-hazirlik, english, spanish,
+   german, studio) inside the 2026-10-29 site shell. Load order: /site.css (their content components)
+   -> /feschool.css (header, footer, fonts, tokens) -> this file, which puts back what feschool.css's
+   element resets took from the v4 content and removes old header/footer leftovers.
+   Written by site-src/reshell-content.mjs pages; edit here, not inline. */
+
+body.v4{--sans:var(--body);background:var(--paper);font-family:var(--body)}
+
+/* feschool.css zeroes h1-h3 and p margins site-wide; the v4 content was laid out with site.css margins */
+body.v4 main h1,body.v4 main h2,body.v4 main h3{margin:0 0 .4em}
+body.v4 main p{margin:0 0 1em}
+body.v4 main p:last-child{margin-bottom:0}
+
+/* old header.site / footer.site rules from site.css that feschool.css does not override */
+body.v4 header.site{border-bottom:0;z-index:20}
+body.v4 footer.site{padding-inline:0}
+body.v4 footer.site .wrap{padding-top:0}
+
+/* the shell's header is sticky; keep in-page anchors (#kapsam, #ders, #sss ...) clear of it */
+body.v4 main [id]{scroll-margin-top:84px}

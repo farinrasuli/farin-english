@@ -31,12 +31,17 @@
 <meta name="twitter:title" content="FE School Stüdyo – Eğitici Oyun ve Kısa Film | 100 Kapı">
 <meta name="twitter:description" content="FE School öğrettiği oyunları kendisi yapıyor: 100 Kapı, konuşarak çözülen bir dedektif oyunu. Uygulamadaki on dört oyun ve sıradaki kısa film.">
 <meta name="twitter:image" content="https://thefeschool.com/og-image.jpg">
+
+<link rel="stylesheet" href="/site.css">
 
+<!-- shell:head -->
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
-
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/feschool.css">
+<link rel="stylesheet" href="/v4-shell.css">
+<!-- /shell:head -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -89,33 +94,41 @@
 <script src="consent.js" defer></script>
 </head>
 <body class="v4">
-<div class="topbar">FE School'un yapım tarafı. <a href="#100-kapi">100 Kapı'yı gör →</a></div>
 
-<header class="site" id="siteHeader">
-  <div class="wrap nav">
-    <a href="/" class="brand" aria-label="FE School ana sayfa">
-      <img src="/icon-512.png" alt="FE School logosu" class="mark" width="38" height="38">
-      <span class="word">FE School</span>
-      <span class="lang-chip">Stüdyo</span>
-    </a>
-    <nav aria-label="Ana menü">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#100-kapi">100 Kapı</a></li>
-        <li><a href="#oyunlar">Uygulama oyunları</a></li>
-        <li><a href="#kisa-film">Kısa film</a></li>
-        <li><a href="/">Ana sayfa</a></li>
-      </ul>
-    </nav>
-    <div class="nav-actions">
-      <a class="v-btn v-btn-sun v-btn-sm" data-loc="nav" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">Uygulamayı aç</a>
-      <button class="burger" id="burger" aria-label="Menüyü aç" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</header>
 
-<main id="top">
+<!-- shell:header -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M7.5 12.5l3 3 6-6.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="3"/><path d="M10.5 9.5v5l4-2.5z" fill="currentColor"/></symbol>
+  <symbol id="i-live" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="13" height="12" rx="2.5"/><path d="M15.5 10l6-3.5v10l-6-3.5"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1.5S10 8 12 8c2 0 6 1 6-1.5S14 4 12 8z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M40 6C30 12 18 20 10 38"/><path d="M8 28l2 11 10-5"/></symbol>
+  <symbol id="i-story" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5.5C5.5 4 9 4 12 6c3-2 6.5-2 9-.5V19c-2.5-1.5-6-1.5-9 .5-3-2-6.5-2-9-.5z"/><path d="M12 6v13.5"/></symbol>
+  <symbol id="i-mask" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v6a8 8 0 0 1-16 0z"/><path d="M8.5 10h.01M15.5 10h.01M9 14.5c1.8 1.4 4.2 1.4 6 0"/></symbol>
+  <symbol id="i-game" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10a5 5 0 0 1 4.6 7l-1 2.4a2.4 2.4 0 0 1-4 .6L15 15H9l-1.6 2a2.4 2.4 0 0 1-4-.6l-1-2.4A5 5 0 0 1 7 7z"/><path d="M8 10v3M6.5 11.5h3M15.5 11h.01M17.5 12.5h.01"/></symbol>
+  <symbol id="i-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.8-4.9 4.5 1.3 6.5L12 17l-5.9 3.3 1.3-6.5L2.5 9.3l6.6-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M3 3l18 18"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.8a3.3 3.3 0 0 1 0 6.4M18.5 14.8c1.7.8 2.7 2.5 3 5.2"/></symbol>
+</svg>
+<a class="skip" href="#main">İçeriğe geç</a>
+<header class="site"><div class="wrap">
+  <a class="logo" href="/" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38"><span class="wm" dir="ltr">FE<i>School</i></span></a>
+  <nav class="main" aria-label="Menü">
+    <a href="/">Kurslar</a>
+    <a href="/uygulama.html">Uygulama</a>
+    <a href="/sistem.html">Sistemimiz</a>
+    <a href="/iletisim.html">İletişim</a>
+  </nav>
+  <nav class="langs" aria-label="Dil"><a href="/" hreflang="tr" lang="tr" aria-current="true">TR</a><a href="/en/" hreflang="en" lang="en">EN</a><a href="/fa/" hreflang="fa" lang="fa">فا</a></nav>
+  <a class="btn btn-orange btn-sm" data-loc="nav" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html" target="_blank" rel="noopener">Uygulamayı aç</a>
+</div></header>
+<!-- /shell:header -->
+
+<main id="main">
 
   <section class="v-hero">
     <div class="wrap v-hero-grid">
@@ -233,66 +246,39 @@
 
 </main>
 
-<footer class="site">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <a href="/" class="brand">
-          <img src="/icon-512.png" alt="FE School logosu" class="mark" width="38" height="38">
-          <span class="word">FE School</span>
-        </a>
-        <p>Öğrettiği oyunları ve hikayeleri kendisi üreten bir dil okulu.</p>
-        <div class="footer-social">
-          <a href="https://www.instagram.com/the_feschool/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
-            <svg class="icon-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>FE School</h4>
-          <a href="/">Kurslar</a>
-          <a href="/uygulama.html">Uygulama</a>
-          <a href="/sistem.html">Sistemimiz</a>
-          <a href="/iletisim.html">İletişim</a>
-        </div>
-        <div class="footer-col">
-          <h4>Uygulama</h4>
-          <a data-loc="footer" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html">İngilizce</a>
-          <a data-loc="footer" href="https://farinrasuli.github.io/farin-spanish/app/farin-spanish-app.html">İspanyolca</a>
-          <a data-loc="footer" href="https://farinrasuli.github.io/farin-english-app/farin-english.apk">Android</a>
-        </div>
-        <div class="footer-col">
-          <h4>Özel Ders</h4>
-          <a href="english.html">İngilizce</a>
-          <a href="spanish.html">İspanyolca</a>
-          <a href="german.html">Almanca</a>
-          <a href="is-ingilizcesi.html">İş İngilizcesi</a>
-          <a href="ielts-hazirlik.html">IELTS kursu</a>
-        </div>
-        <div class="footer-col">
-          <h4>Stüdyo</h4>
-          <a href="studio.html#100-kapi">100 Kapı</a>
-          <a href="studio.html#kisa-film">Kısa film</a>
-        </div>
-        <div class="footer-col">
-          <h4>Rehber</h4>
-          <a href="/blog/">Blog</a>
-        </div>
-        <div class="footer-col">
-          <h4>İletişim</h4>
-          <a data-lead="contact" target="_blank" rel="noopener" href="https://wa.me/905467615951">WhatsApp</a>
-          <a href="mailto:farinrasuli@gmail.com">E-posta</a>
-          <a href="gizlilik-politikasi.html">Gizlilik Politikası</a>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year">2026</span> FE School. Tüm hakları saklıdır.</span>
-      <span class="v-foot-tag">Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.</span>
-    </div>
+<!-- shell:footer -->
+<footer class="site"><div class="wrap">
+  <div class="f-top"><a class="logo" href="/" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38" loading="lazy"><span class="wm" dir="ltr">FE<i>School</i></span></a><span class="tag">Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.</span></div>
+  <div class="f-cols">
+    <div><h4>Kurslar ve dersler</h4>
+      <a href="/is-ingilizcesi.html">İş İngilizcesi</a>
+      <a href="/ielts-hazirlik.html">IELTS hazırlık</a>
+      <a href="/english.html">Online İngilizce özel ders</a>
+      <a href="/spanish.html">İspanyolca özel ders</a>
+      <a href="/german.html">Almanca özel ders</a></div>
+    <div><h4>FE School</h4>
+      <a href="/">Kurslar</a>
+      <a href="/uygulama.html">Uygulama</a>
+      <a href="/sistem.html">Sistemimiz</a>
+      <a href="/iletisim.html">İletişim</a>
+      <a href="/#kurs-sirket">Şirketler için</a>
+      <a href="/studio.html">Stüdyo</a></div>
+    <div><h4>Rehber</h4>
+      <a href="/blog/insan-kaynaklari-ingilizcesi.html">İK İngilizcesi terimleri</a>
+      <a href="/blog/ielts-writing-task-2-puanlama.html">IELTS Writing puanlama</a>
+      <a href="/blog/online-ingilizce-ozel-ders-fiyatlari.html">Özel ders fiyatları</a>
+      <a href="/blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği</a>
+      <a href="/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">Öğrenme planı nasıl kurulur?</a>
+      <a href="/blog/">Blog</a></div>
+    <div><h4>İletişim</h4>
+      <a data-lead="contact" href="https://wa.me/905467615951" target="_blank" rel="noopener">WhatsApp</a>
+      <a href="https://www.instagram.com/the_feschool/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:farinrasuli@gmail.com">E-posta</a>
+      <a href="/gizlilik-politikasi.html">Gizlilik Politikası</a></div>
   </div>
-</footer>
+  <div class="footer-bottom"><span>© 2026 FE School. Tüm hakları saklıdır.</span></div>
+</div></footer>
+<!-- /shell:footer -->
 
 <script src="site.js"></script>
 </body>

@@ -62,12 +62,19 @@ for (const rel of files) {
   const T = template(lang);
   const pagePath = '/' + path.relative(path.join(ROOT, 'site'), file).replace(/\\/g, '/');
 
-  // 1. head: drop the old font + site.css links (and a previous shell block), add the shared block
+  // v4 = the 2026-10-07 "app-first" service pages (body.v4): their content components live in site.css,
+  // so site.css stays (loaded BEFORE feschool.css) and v4-shell.css reconciles the two. Blog/guides drop site.css.
+  const v4 = /<body class="v4">/.test(h);
+
+  // 1. head: drop the old font links (+ site.css unless v4, + a previous shell block), add the shared block
   h = h.replace(/\n?<!-- shell:head -->[\s\S]*?<!-- \/shell:head -->/, '');
   h = h.replace(/\n?<link rel="preconnect" href="https:\/\/fonts\.(googleapis|gstatic)\.com"( crossorigin)?>/g, '');
   h = h.replace(/\n?<link href="https:\/\/fonts\.googleapis\.com\/css2\?[^"]*" rel="stylesheet">/g, '');
-  h = h.replace(/\n?<link rel="stylesheet" href="(\.\.\/|\/)?(\.\.\/)?site\.css[^"]*">/g, '');
-  const shellHead = `\n<!-- shell:head -->\n${T.head}\n<link rel="stylesheet" href="/article.css">\n<!-- /shell:head -->`;
+  if (v4) h = h.replace(/<link rel="stylesheet" href="(\.\.\/|\/)?(\.\.\/)?site\.css([^"]*)">/, '<link rel="stylesheet" href="/site.css$3">');
+  else h = h.replace(/\n?<link rel="stylesheet" href="(\.\.\/|\/)?(\.\.\/)?site\.css[^"]*">/g, '');
+  const shellHead = `\n<!-- shell:head -->\n${T.head}\n<link rel="stylesheet" href="/${v4 ? 'v4-shell' : 'article'}.css">\n<!-- /shell:head -->`;
+  // v4: the old promo strip above the header goes (the shell header has its own "open the app" button)
+  if (v4) h = h.replace(/\n?<div class="topbar">[\s\S]*?<\/div>\n?/, '\n');
   const at = ['<style', '<script type="application/ld+json"', '</head>'].map((s) => h.indexOf(s)).filter((i) => i >= 0).sort((a, b) => a - b)[0];
   h = h.slice(0, at) + shellHead.slice(1) + '\n' + h.slice(at);
   h = h.replace(/src="(\.\.\/)+(consent|site)\.js"/g, 'src="/$2.js"');
@@ -78,12 +85,13 @@ for (const rel of files) {
   else h = h.replace(/<header class="site"[^>]*>[\s\S]*?<\/header>/, () => shellHeader);
 
   // 3. main
-  h = h.replace(/<main id="top">/, '<main id="main" class="article">');
-  if (!/<main id="main" class="article">/.test(h)) throw new Error(pagePath + ': <main> not recognised');
+  const mainTag = v4 ? '<main id="main">' : '<main id="main" class="article">';
+  h = h.replace(/<main id="top">/, mainTag);
+  if (!h.includes(mainTag)) throw new Error(pagePath + ': <main> not recognised');
 
-  // 4. offer panel at the end of the article (before the related-posts band, else before </main>)
+  // 4. offer panel at the end of the article (before the related-posts band, else before </main>); v4 pages already sell
   h = h.replace(/\n?<!-- offer -->[\s\S]*?<!-- \/offer -->/, '');
-  const g = offerFor(pagePath); let panel = T.panels[g];
+  const g = offerFor(pagePath); let panel = v4 ? null : T.panels[g];
   if (panel) {
     panel = panel.replace(new RegExp(`<a class="tlink more" href="${pagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">[^<]*</a>`), ''); // no self-link
     const offer = `\n  <!-- offer -->\n  <section class="offer" data-loc="blog-offer-${g}"><div class="wrap">\n${panel}\n  </div></section>\n  <!-- /offer -->`;
