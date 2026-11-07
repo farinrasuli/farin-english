@@ -22,7 +22,8 @@ const WA = t => 'https://wa.me/' + WAN + (t ? '?text=' + encodeURIComponent(t) :
 const ext = 'target="_blank" rel="noopener"';
 /* course requests go to the shared waiting list page (Farin 2026-11-02), not WhatsApp. Ids = the app's course ids. */
 /* 2026-11-07: Persian sales are open for courses complete in the app (Farin via farin-31) -> their /fa/c/ sale page (noindex share pages, not in the sitemap). Others keep the waiting list. */
-const FA_SALE = { hr: 'hr', ielts: 'ielts', 'ai-internet': 'ai', business: 'business' };
+/* Same day: Job Interview, Copywriting & Content and Sales & Trade are live in the app too (Farin: "dont say coming soon, say its on the app"). */
+const FA_SALE = { hr: 'hr', ielts: 'ielts', 'ai-internet': 'ai', business: 'business', interview: 'interview', marketing: 'copywriting', sales: 'sales' };
 const WL = (key, l) => (l === 'fa' && FA_SALE[key]) ? `/fa/c/${FA_SALE[key]}.html` : `/waitlist/?course=${key}&amp;lang=${l}`;
 const dot = c => `<span class="dot">${c}</span>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -187,15 +188,16 @@ const FREE1 = ['İlk analiz seansı hediye', 'Free analysis session', '۱ تا �
 const BOOK = ['Dersini ayarla', 'Book your lessons', 'رزرو کلاس'];
 const OWN = ['Kendi hızında, uygulamada', 'At your own pace, in the app', 'با سرعت خودت، داخل اپ'];
 const FREE2 = ['2 ücretsiz derse başla', 'Start the 2 free lessons', 'شروع ۲ درس رایگان'];
+const FREE2_1 = ['Ücretsiz ilk derse başla', 'Start the free first lesson', 'شروع درس اول رایگان']; /* Sales & Trade has one free lesson (sales-1-1) */
 const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (ترکی) ←'];
 
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'soon', marketing: 'soon', sales: 'soon', ai: 'start', biz: 'start', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
-/* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). */
-const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
-const salePill = k => [SALE[k] === 'now' || SALE[k] === 'start' ? 'free' : 'soon', SALE_TXT[SALE[k]]];
+const SALE = { hr: 'soon', ielts: 'soon', interview: 'start', marketing: 'start', sales: 'start1', ai: 'start', biz: 'start', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
+/* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). 'start1' = the same with one free lesson (Sales & Trade). */
+const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], start1: ['İlk ders ücretsiz', 'First lesson free', 'درس اول رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
+const salePill = k => [SALE[k] === 'now' || SALE[k].startsWith('start') ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
 const LIVES = {
   biz: { key: 'business-live', name: ['Birebir İş İngilizcesi', 'Business English 1-to-1', 'کلاس انگلیسی تجاری'],
@@ -215,8 +217,8 @@ const GOALS = {
       price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr'), ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
-      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing'],
-      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales', 'sales'],
+      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing', true],
+      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'sales', 'sales', FREE2_1],
       [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.690', '₺1,690', '۳٬۸۰۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true],
       [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], ['₺5.990', '₺5,990', '۶٬۹۹۰٬۰۰۰ تومان'], 'biz', 'business', true]] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
@@ -231,7 +233,7 @@ const GOALS = {
       for: ['En sık sorulan sorular ve güçlü cevaplar.', 'The most common questions and strong answers.', 'رایج‌ترین سؤال‌ها و جواب‌های قوی.'],
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma', 'Introducing yourself', 'معرفی خودت'], OWN],
       price: ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('interview')],
-      cta: ['Açılınca haber ver', 'Tell me when it opens', 'وقتی باز شد خبرم کن'], notify: true, more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'] },
+      cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'] },
     live: 'biz', also: [['is', ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'], ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'], 'hr']] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
@@ -488,8 +490,8 @@ function card(l, c, live, also) {
     : `<ul class="lnotes">${note('cal', esc(PACK[i]))}${note('gift', ['<b>Hediye:</b> ödemeden sonra ücretsiz bir analiz seansı (seviye tespiti, hedef belirleme, sana özel yol haritası). Paketinin dışında, ek olarak.', '<b>Free:</b> after you pay, an analysis session (level test, goal setting, your personal roadmap). Extra to your pack.'][i], 'g')}</ul>`;
   const more = l === 'tr' && c.more ? `<a class="tlink more" href="${c.more[0]}">${esc(c.more[1])}</a>`
     : l === 'fa' && c.moreFa ? `<a class="tlink more" href="${c.moreFa[0]}">${esc(c.moreFa[1])}</a>` : '';
-  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true if it also has a free lessons link]; one row per course, one 'Also' label */
-  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc(FREE2[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
+  /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true (or its own label, e.g. FREE2_1) if it also has a free lessons link]; one row per course, one 'Also' label */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc((a[5] === true ? FREE2 : a[5])[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
