@@ -194,9 +194,9 @@ const DETAILS = ['Kurs detayları →', 'Details (Turkish) →', 'جزئیات (
 /* SALE STATUS: one field per premium course. Courses go on sale as soon as they are complete
    (Farin 2026-10-29: the sale-date calendar is gone). Flip 'soon' -> 'now' here and re-run.
    Then also flip the data-sale markers in /kelas/ + /dersler/ and the IELTS block in ielts-hazirlik.html by hand. */
-const SALE = { hr: 'soon', ielts: 'soon', interview: 'start', marketing: 'start', sales: 'start1', ai: 'start', biz: 'start', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
-/* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). 'start1' = the same with one free lesson (Sales & Trade). */
-const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], start1: ['İlk ders ücretsiz', 'First lesson free', 'درس اول رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
+const SALE = { hr: 'startCh1', ielts: 'startEx1', interview: 'start', marketing: 'start', sales: 'start1', ai: 'start', biz: 'start', mktg: 'plan', pro: 'plan', meetings: 'plan', email: 'plan' };
+/* 'start' = in the app with its free lessons, not on sale yet (English for AI and the Internet, 2026-11-02). 'start1' = the same with one free lesson (Sales & Trade). 'startCh1' / 'startEx1' = HR (hr-1-1 + hr-1-2 of Chapter 1's 4) / IELTS (5 of Exam 1's 10 lessons), live in the app, 2026-11-07. */
+const SALE_TXT = { start: ['İlk 2 ders ücretsiz', 'First 2 lessons free', '۲ درس اول رایگان'], start1: ['İlk ders ücretsiz', 'First lesson free', 'درس اول رایگان'], startCh1: ['1. bölümün ilk yarısı ücretsiz', 'First half of Chapter 1 free', 'نیمه‌ی اول فصل ۱ رایگان'], startEx1: ['Sınav 1\'in ilk yarısı ücretsiz', 'First half of Exam 1 free', 'نیمه‌ی اول آزمون ۱ رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
 const salePill = k => [SALE[k] === 'now' || SALE[k].startsWith('start') ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
 const LIVES = {
@@ -214,7 +214,7 @@ const GOALS = {
     self: { key: 'hr', name: ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'],
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
-      price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr'), ['free', ['1. bölümün yarısı ücretsiz', 'Half of Chapter 1 free', 'نیمه‌ی فصل ۱ رایگان']]],
+      price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr')],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'] },
     live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.290', '₺1,290', '۲٬۹۹۰٬۰۰۰ تومان'], 'interview'],
       [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'], 'marketing', 'marketing', true],
@@ -225,7 +225,7 @@ const GOALS = {
     self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
-      price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('ielts'), ['free', ['Sınav 1\'in ilk yarısı ücretsiz', 'First half of Exam 1 free', 'نیمه‌ی اول آزمون ۱ رایگان']]],
+      price: ['₺9.490', '₺9,490', '۹٬۹۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('ielts')],
       cta: ['Ücretsiz başla', 'Start free', 'رایگان شروع کن'], more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
