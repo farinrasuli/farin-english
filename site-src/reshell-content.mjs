@@ -21,7 +21,7 @@ const CHECK = args.includes('--check');
 const files = args.filter((a) => !a.startsWith('--'));
 
 /* which homepage goal panel to show at the end of each page (default: konusma = free app + 1:1 lessons) */
-const NO_OFFER = /gizlilik|privacy/; // legal pages get the shell but no course card
+const NO_OFFER = /gizlilik|privacy|\/fa\/(dore-|amadegi-)/; // legal pages and course landing pages (they already sell) get no course card
 const OFFER = [
   [/ielts/, 'ielts'],
   [/insan-kaynaklari|manabe-ensani/, 'is'],
@@ -86,9 +86,9 @@ for (const rel of files) {
   else h = h.replace(/<header class="site"[^>]*>[\s\S]*?<\/header>/, () => shellHeader);
 
   // 3. main
-  const mainTag = v4 ? '<main id="main">' : '<main id="main" class="article">';
-  h = h.replace(/<main id="top">/, mainTag);
-  if (!h.includes(mainTag)) throw new Error(pagePath + ': <main> not recognised');
+  // keeps any class the page had on <main> (e.g. the FA course pages' "lp")
+  h = h.replace(/<main id="top"(?: class="([^"]*)")?>/, (m, c) => v4 ? `<main id="main"${c ? ` class="${c}"` : ''}>` : `<main id="main" class="article${c ? ' ' + c : ''}">`);
+  if (!/<main id="main"/.test(h)) throw new Error(pagePath + ': <main> not recognised');
 
   // 4. offer panel at the end of the article (before the related-posts band, else before </main>); v4 pages already sell
   h = h.replace(/\n?<!-- offer -->[\s\S]*?<!-- \/offer -->/, '');
