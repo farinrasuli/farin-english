@@ -98,6 +98,8 @@
       name = 'whatsapp_click'; extra.lead_type = lead; extra.location = loc;
     }
     else if (href.indexOf('/waitlist/') === 0) { name = 'waitlist_open'; extra.course = (href.match(/[?&]course=([^&#]+)/) || [])[1] || ''; extra.location = loc; }
+    /* 2026-11-07: Persian sale pages (/fa/c/<course>.html) for courses on sale */
+    else if (href.indexOf('/fa/c/') === 0) { name = 'sale_page_open'; extra.course = (href.match(/\/fa\/c\/([^./?#]+)/) || [])[1] || ''; extra.location = loc; }
     else if (href.indexOf('mailto:') === 0) name = 'email_click';
     else if (href.indexOf('farin-english.apk') !== -1) { name = 'apk_download'; extra.location = loc; }
     else if ((href.indexOf('farin-english-app') !== -1 || href.indexOf('farin-spanish-app') !== -1) && href.indexOf('privacy-policy') === -1) {
@@ -106,7 +108,7 @@
     if (!name) return;
     var params = { page_path: location.pathname, link_text: (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 60), transport_type: 'beacon' };
     for (var k in extra) params[k] = extra[k];
-    if (window.FE_UTM && (name === 'whatsapp_click' || name === 'app_open' || name === 'waitlist_open')){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
+    if (window.FE_UTM && (name === 'whatsapp_click' || name === 'app_open' || name === 'waitlist_open' || name === 'sale_page_open')){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
     window.gtag('event', name, params);
   }, true);
 })();

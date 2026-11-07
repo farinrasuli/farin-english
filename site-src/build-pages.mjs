@@ -21,7 +21,9 @@ const WAN = '905467615951';
 const WA = t => 'https://wa.me/' + WAN + (t ? '?text=' + encodeURIComponent(t) : '');
 const ext = 'target="_blank" rel="noopener"';
 /* course requests go to the shared waiting list page (Farin 2026-11-02), not WhatsApp. Ids = the app's course ids. */
-const WL = (key, l) => `/waitlist/?course=${key}&amp;lang=${l}`;
+/* 2026-11-07: Persian sales are open for courses complete in the app (Farin via farin-31) -> their /fa/c/ sale page (noindex share pages, not in the sitemap). Others keep the waiting list. */
+const FA_SALE = { hr: 'hr', ielts: 'ielts', 'ai-internet': 'ai', business: 'business' };
+const WL = (key, l) => (l === 'fa' && FA_SALE[key]) ? `/fa/c/${FA_SALE[key]}.html` : `/waitlist/?course=${key}&amp;lang=${l}`;
 const dot = c => `<span class="dot">${c}</span>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const strip = s => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&');
