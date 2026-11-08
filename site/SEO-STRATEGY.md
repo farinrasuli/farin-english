@@ -109,6 +109,20 @@ Five question-style guides near the courses we sell. Each one ends with a course
 
 Cannibalisation calls: "cv ingilizce seviyesi nasıl yazılır" stays with `ingilizce-seviyemi-nasil-anlarim.html`, and the CV guide links there. "ielts writing puanı nasıl hesaplanır" stays with `ielts-writing-task-2-puanlama.html`. HR-specific e-mails (job ads, rejections, policy) stay with `insan-kaynaklari-ingilizcesi.html`. Formal letters for the exam stay with `ielts-general-training-mektup.html`. "Academic mi General mı" had too little demand for its own page (3/1), so it is a section of the IELTS score guide. Runner-up for the next TR guide is "ingilizce sunum kalıpları / nasıl yapılır", which needs a business angle because many of its hits are school homework.
 
+### 2f. FA long-tail guides (2026-11-09)
+
+Five Persian guides for informational queries close to what we sell. Evidence and the topics I skipped (meeting phrases, presentations, small talk) are in `keyword-research/README.md` (last section) and `fa-guides.csv`. Each guide links in its body to the matching indexable FA course page, and its end panel (`fe-offer`) sells the matching course.
+
+| Page | Primary query | Secondary | Feeds (body link / panel) |
+|---|---|---|---|
+| `/fa/blog/neveshtan-rezume-englisi.html` | نوشتن رزومه کاری به انگلیسی | نمونه رزومه انگلیسی برای کار, نمونه کاور لتر انگلیسی برای کار | `/fa/amadegi-mosahebe-kari-englisi.html` / mulakat |
+| `/fa/blog/email-rasmi-englisi.html` | ایمیل رسمی به انگلیسی | نمونه ایمیل رسمی انگلیسی به شرکت, جواب ایمیل دعوت به مصاحبه | `/fa/dore-zaban-englisi-tejari.html` / is |
+| `/fa/blog/mokaleme-telefoni-englisi.html` | مکالمه تلفنی به انگلیسی | مکالمه تلفنی انگلیسی با ترجمه فارسی, اصطلاحات تماس تلفنی به انگلیسی | `/fa/dore-zaban-englisi-tejari.html` / is |
+| `/fa/blog/ielts-general-ya-academic.html` | آیلتس جنرال یا آکادمیک | تفاوت آیلتس جنرال و آکادمیک, آیلتس جنرال سخت تره یا آکادمیک, … برای اپلای / استرالیا | `/fa/dore-ielts-online.html` / ielts |
+| `/fa/blog/nomre-ielts-mohajerat.html` | نمره آیلتس برای مهاجرت (کانادا، استرالیا) | حداقل نمره آیلتس برای مهاجرت به کانادا, نمره آیلتس برای مهاجرت کاری به انگلستان | `/fa/dore-ielts-online.html` / ielts |
+
+No cannibalisation: the GT letter post keeps «نامه نویسی آیلتس جنرال»; the IELTS course page keeps the commercial «دوره آیلتس آنلاین / آیلتس جنرال برای کانادا»; the two IELTS guides split choice-of-test from score requirements and link to each other. The self-intro post keeps «معرفی خود در مصاحبه»; the resume guide links to it. **The immigration guide carries official numbers with dates (IRCC page 2026-10-16, Home Affairs and GOV.UK checked 2026-11-09). Re-check them whenever IRCC, Home Affairs or GOV.UK change their pages, and at least every 3 months.**
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:

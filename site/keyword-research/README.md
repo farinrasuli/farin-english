@@ -83,3 +83,22 @@ Same method as the first pull (`hl=tr`, `gl=tr`), with 28 suffixes per seed (bla
 | Phone calls | "telefon görüşmesi ingilizce ne demek" (4/1), "... telefon görüşmesi diyalogları" (3/1). Weak. | Not built. |
 
 Not used as evidence: SERP positions or volumes. WebSearch is US-located, so the SERP notes are directional.
+
+---
+
+## Persian guides, Iran autocomplete (2026-11-09, farin-seo)
+
+Same method as the section above: `hl=fa`, `gl=ir`, 26 suffixes per seed (blank, نمونه, چگونه, چطور, برای, در, با, pdf, آموزش and 17 Persian letters). There were 46 seeds in 8 topics, in two rounds (first the seeds from the brief, then long-tail variants of the topics that showed demand). Raw rows are in **`fa-guides.csv`** (`topic` column, one row per topic + phrase, best hit count kept). Hits are out of 26 and are a demand signal, not a search volume. Several seeds returned nothing at all, which is itself the finding.
+
+| Topic | Strongest phrases (hits/26, best position) | Decision |
+|---|---|---|
+| Resume | نمونه رزومه انگلیسی برای اپلای کاری (5/1), نمونه کاور لتر انگلیسی برای کار (6/1), رزومه کاری به انگلیسی چی میشه (4/1), نمونه رزومه انگلیسی برای کار (4/3). Blank seed «نوشتن رزومه به انگلیسی» suggests نوشتن رزومه کاری / نحوه نوشتن رزومه به انگلیسی. «رزومه انگلیسی» alone gave 93 different suggestions. | Built `/fa/blog/neveshtan-rezume-englisi.html`, with a cover-letter section. Sells the job-interview course. |
+| Formal email | نمونه ایمیل انگلیسی برای درخواست کار (6/1), نمونه ایمیل رسمی انگلیسی به شرکت (4/1), جواب ایمیل دعوت به مصاحبه به انگلیسی (4/1), تشکر رسمی به انگلیسی در ایمیل (3/1), احوالپرسی رسمی در ایمیل به انگلیسی (3/2). «ایمیل کاری» and «ایمیل اداری» returned almost nothing; people say «ایمیل رسمی». | Built `/fa/blog/email-rasmi-englisi.html`. Sells the business course. University/professor emails (apply intent) are left out on purpose. |
+| Phone | مکالمه تلفنی انگلیسی با ترجمه فارسی (4/1), اصطلاحات تماس تلفنی به انگلیسی (2/1), متن مکالمه تلفنی انگلیسی (2/1), قطع شدن تماس تلفنی به انگلیسی (2/1). | Built `/fa/blog/mokaleme-telefoni-englisi.html` (phrase tables with Persian translation + a full dialogue). Sells the business course; links the interview course for phone screens. |
+| IELTS GT vs Academic | آیلتس جنرال یا آکادمیک برای اپلای (4/1), آیلتس آکادمیک یا جنرال برای استرالیا (4/1), آیلتس جنرال سخت تره یا آکادمیک (3/1), برای مهاجرت آیلتس آکادمیک یا جنرال (3/1), تفاوت آیلتس جنرال با آکادمیک (2/1). | Built `/fa/blog/ielts-general-ya-academic.html`. Rules checked on ielts.org, IRCC and Home Affairs on 2026-11-09. |
+| IELTS score for immigration | نمره آیلتس برای مهاجرت تحصیلی به کانادا (5/1), نمره آیلتس برای مهاجرت کاری به انگلستان (4/1), نمره آیلتس برای مهاجرت به استرالیا / کانادا (4/2), حداقل نمره آیلتس برای مهاجرت به کانادا (blank seed). | Built `/fa/blog/nomre-ielts-mohajerat.html` (Canada CLB table, Australia levels + 189 points, UK B2 note, study note). Every number is linked to its official page with a date. |
+| Meeting | Almost all suggestions are «جلسه به انگلیسی چی میشه» (word translation). «جملات کاربردی جلسه به انگلیسی», «اصطلاحات جلسه به انگلیسی», «مکالمه جلسه کاری انگلیسی» returned nothing. | Not built. No phrase-list intent. |
+| Presentation | «ارائه دادن به انگلیسی چی میشه» and «موضوع ارائه به انگلیسی» (word translation, school topics). «جملات ارائه به انگلیسی», «شروع ارائه به انگلیسی» returned nothing. | Not built. |
+| Small talk | Only «اسمال تاک چیست / یعنی چی». | Not built. |
+
+SERP look (WebSearch, US-located, directional only): for the resume query, generic Persian career sites rank (e-estekhdam, faradars, maktabkhooneh, iranestekhdam), mostly about resumes in general rather than English resumes with ready English lines. For the formal email, phone and both IELTS queries the WebSearch results were English-language pages, so there may be a Persian gap, but that could not be confirmed on a real Google Iran SERP from here. No Keyword Planner was used.
