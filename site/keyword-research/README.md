@@ -64,3 +64,22 @@ Same method, but `hl=fa`, `gl=ir`, 26 suffixes per seed (blank, آنلاین, ب
 | Sales | Almost no buyer intent. «مکالمه خرید و فروش انگلیسی» (3/1) is shopping dialogue. | Not built. |
 
 All of this is directional demand, not volume. No Keyword Planner was used. WebSearch is US-located, so the SERP notes are directional too.
+
+---
+
+## Turkish long-tail guides, Türkiye autocomplete (2026-11-09, farin-seo)
+
+Same method as the first pull (`hl=tr`, `gl=tr`), with 28 suffixes per seed (blank, space, 18 letters incl. ö/ş/ü, and "nasıl", "örnek", "örnekleri", "kalıpları", "cümleleri", "için"). There were 33 seeds in 8 clusters close to the courses we sell, 924 queries in total. Raw rows are in **`tr-guides-2026-11.csv`**, with a `cluster` column. Hits are out of 28 per seed and add up across a cluster's seeds, so compare phrases inside a cluster, not across clusters. Demand signal only, no volumes.
+
+| Cluster | Strongest phrases (hits / best position) | Decision |
+|---|---|---|
+| CV | "ingilizce cv de adres / şirket isimleri nasıl yazılır" (11/1), "... üniversite" (9/1), "... referans" (9/2), "... devam ediyor" (8/1), "... yüksek lisans" (6/1), "... sertifikalar" (6/2), "... askerlik durumu" (6/2), "cv ingilizce mi türkçe mi olmalı" (6/1), "ingilizce cv nasıl yazılır" (4/1). "cv ingilizce seviyesi nasıl yazılır" (11/1) is the top phrase, but `ingilizce-seviyemi-nasil-anlarim.html` already answers it. | Built `/blog/ingilizce-cv-nasil-yazilir.html`. Each "... nasıl yazılır" detail has its own H2 or bullet. The CV-level question links to the seviyemi post instead of competing with it. Panel: mulakat. |
+| E-mail | "ingilizce resmi mail kalıpları" (6/1), "... mail bitirme kalıpları" (5/1), "... resmi mail nasıl bitirilir" (5/1), "resmi mail nasıl yazılır ingilizce" (5/2), "... mail başlangıç cümleleri" (4/1), "... e mail örnekleri formal" (4/1) | Built `/blog/ingilizce-resmi-mail-kaliplari.html`. A WebSearch look showed mostly English-language pages (British Council, Blair English). Panel: is. |
+| IELTS score | "ielts puanı kaç yıl geçerli" (6/2), "ielts kaç puan yeterli" (5/1), "ielts puanı kaç üzerinden" (5/1), "ielts puanı nasıl hesaplanır" (5/1), "ielts kaç puan hangi seviye" (4/1), "ielts kaç puan almak gerekir" (4/1), "ielts b2 kaç puan" (3/1), "ielts kaç doğru kaç puan" (2/1) | Built `/blog/ielts-kac-puan-yeterli.html`. Every fact comes from ielts.org, GOV.UK or Canada.ca, and each is linked. "ielts writing puanı nasıl hesaplanır" (3/2) stays with the Writing Task 2 post. Panel: ielts. |
+| IELTS Academic vs GT | "ielts academic mi general mı" (3/1), "ielts academic general farkı" (3/1). The rest is book and PDF searches. | Not built as its own page because demand is thin. It is an H2 + FAQ inside the IELTS score post. |
+| Meetings | "ingilizce toplantı kalıpları" (6/1), "ingilizce toplantı açılış konuşması örnekleri" (6/1), "... toplantı daveti maili" (3/1), "... toplantı diyalogları" (3/1). Noise: "zümre toplantı tutanağı" (teachers' minutes). | Built `/blog/ingilizce-toplanti-kaliplari.html`, with a sample opening speech and "meeting minutes". Panel: is. |
+| Small talk | "ingilizce small talk örnekleri" (10/1), "ingilizce günlük / basit sohbet cümleleri" (3/1) | Built `/blog/ingilizce-small-talk-ornekleri.html`. Lemon Academy is the main TR competitor. Panel: konusma (free app + 1:1 lessons). |
+| Presentations | "ingilizce sunum nasıl yapılır" (6/1), "... sunum örnekleri pdf" (6/2), "... sunum kalıpları" (4/1), "... nasıl bitirilir" (4/1). Many hits are school homework ("hazırlık sunum", "11. sınıf", "sunum kapağı"). | Runner-up. Not built yet; next TR guide if a business angle holds (opening, transitions, Q&A). |
+| Phone calls | "telefon görüşmesi ingilizce ne demek" (4/1), "... telefon görüşmesi diyalogları" (3/1). Weak. | Not built. |
+
+Not used as evidence: SERP positions or volumes. WebSearch is US-located, so the SERP notes are directional.

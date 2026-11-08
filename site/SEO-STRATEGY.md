@@ -95,6 +95,20 @@ Before this, Persian searchers had no indexable page that sells a course. The `/
 
 No cannibalisation: the 3 FA posts keep their informational queries, and each one now links to its course page. Each page shows the price exactly as its sale page does. The `Course` JSON-LD offer is the first-20 price in IRR (toman x 10). **When the first-20 offer ends, update the `/fa/c/` page, the visible price card and the JSON-LD on these pages together.**
 
+### 2e. TR long-tail guides (2026-11-09)
+
+Five question-style guides near the courses we sell. Each one ends with a course panel chosen by `<meta name="fe-offer">`. Evidence is Türkiye autocomplete from 2026-11-09 (`keyword-research/README.md`, last section, and `tr-guides-2026-11.csv`). It is a demand signal, not volume.
+
+| Page | Primary query | Secondary | Panel / service link |
+|---|---|---|---|
+| `/blog/ingilizce-cv-nasil-yazilir.html` | ingilizce cv nasıl yazılır | ingilizce cv'de adres / şirket isimleri / üniversite / devam ediyor / askerlik durumu / referans nasıl yazılır, cv ingilizce mi türkçe mi | mulakat · `/is-ingilizcesi.html` |
+| `/blog/ingilizce-resmi-mail-kaliplari.html` | ingilizce resmi mail kalıpları | mail bitirme kalıpları, resmi mail nasıl bitirilir, mail başlangıç cümleleri, iş maili örneği | is · `/is-ingilizcesi.html` |
+| `/blog/ielts-kac-puan-yeterli.html` | ielts kaç puan yeterli | ielts puanı nasıl hesaplanır / kaç üzerinden / kaç yıl geçerli, kaç puan hangi seviye, academic mi general mı | ielts · `/ielts-hazirlik.html#ielts-kursu` |
+| `/blog/ingilizce-toplanti-kaliplari.html` | ingilizce toplantı kalıpları | toplantı açılış konuşması örnekleri, toplantı tutanağı İngilizce, online toplantı cümleleri | is · `/is-ingilizcesi.html` |
+| `/blog/ingilizce-small-talk-ornekleri.html` | ingilizce small talk örnekleri | ingilizce sohbet başlatma, günlük sohbet cümleleri, small talk ne demek | konusma · `/english.html#paketler` |
+
+Cannibalisation calls: "cv ingilizce seviyesi nasıl yazılır" stays with `ingilizce-seviyemi-nasil-anlarim.html`, and the CV guide links there. "ielts writing puanı nasıl hesaplanır" stays with `ielts-writing-task-2-puanlama.html`. HR-specific e-mails (job ads, rejections, policy) stay with `insan-kaynaklari-ingilizcesi.html`. Formal letters for the exam stay with `ielts-general-training-mektup.html`. "Academic mi General mı" had too little demand for its own page (3/1), so it is a section of the IELTS score guide. Runner-up for the next TR guide is "ingilizce sunum kalıpları / nasıl yapılır", which needs a business angle because many of its hits are school homework.
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
