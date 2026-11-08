@@ -116,3 +116,16 @@ footer.site .f-cols a:hover{color:var(--ink)}
 .also .arow:last-child .alinks{margin-bottom:4px}
 .also .alinks .btn{border-bottom:0;color:#2A1700}
 .also .alinks .btn span{color:inherit}
+
+/* homepage: newest guides band (2026-11-09, build-pages guidesBand) */
+.guides .gcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+@media (max-width:900px){.guides .gcards{grid-template-columns:1fr}}
+.gcard{display:flex;flex-direction:column;gap:10px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px 22px 20px;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:transform .2s ease,box-shadow .2s ease}
+.gcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.gcard b{font-family:var(--display);font-weight:600;font-size:1.12rem;line-height:1.3;color:var(--ink)}
+html[lang="fa"] .gcard b{font-weight:800;line-height:1.6}
+.gcard > span{color:var(--muted);font-size:.95rem;line-height:1.6}
+.gcard .gread{margin-top:auto;color:var(--purple-ink);font-weight:800}
+.gcard:hover .gread{text-decoration:underline}
+.guides .cta-row{margin-top:22px;text-align:center}
+@media (prefers-reduced-motion:reduce){.gcard{transition:none}.gcard:hover{transform:none}}

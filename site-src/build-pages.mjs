@@ -175,7 +175,8 @@ also:['Ayrıca','Also','همچنین'],want:['Bu kursu istiyorum','I want this c
 waHello:['Merhaba Farin! FE School hakkında bilgi almak istiyorum.','Hi Farin! I\'d like to know more about FE School.','سلام فرین! می‌خواهم درباره‌ی FE School بیشتر بدانم.'],
 // footer
 fcCourses:['Kurslar ve dersler','Course pages (in Turkish)','صفحه‌های دوره (به ترکی)'],
-fcSchool:['FE School','FE School','FE School'],fcGuide:['Rehber','Guides','راهنما'],fcContact:['İletişim','Contact','تماس'],
+fcSchool:['FE School','FE School','FE School'],fcGuide:['Rehber','Guides','راهنما'],
+gH:['Yeni rehberler','New guides','راهنماهای تازه'],gRead:['Oku','Read','بخوان'],gAll:['Tüm rehberler','All guides','همه‌ی راهنماها'],fcContact:['İletişim','Contact','تماس'],
 fBiz:['İş İngilizcesi','Business English','انگلیسی تجاری'],fIelts:['IELTS hazırlık','IELTS prep','آمادگی آیلتس'],
 fEn:['Online İngilizce özel ders','English lessons','کلاس انگلیسی'],fEs:['İspanyolca özel ders','Spanish lessons','کلاس اسپانیایی'],fDe:['Almanca özel ders','German lessons','کلاس آلمانی'],
 fStudio:['Stüdyo','Studio','استودیو'],fEmail:['E-posta','Email','ایمیل'],fPrivacy:['Gizlilik Politikası','Privacy policy (Turkish)','سیاست حریم خصوصی (ترکی)'],
@@ -428,15 +429,35 @@ ${ICONS}
 <main id="main">`;
 }
 
+/* Newest guides, read from the blog folders at build time (2026-11-09): the homepage cards and the footer
+   "Guides" column list the latest posts, so a new post is linked from every page as soon as the site is rebuilt
+   (re-run reshell-content.mjs too: it copies this footer onto the content pages). TR reads site/blog, FA site/fa/blog. */
+const POSTS = {};
+const unent = s => String(s).replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+function posts(l) {
+  if (POSTS[l]) return POSTS[l];
+  const dir = l === 'fa' ? 'fa/blog' : (l === 'tr' ? 'blog' : null);
+  const abs = dir && path.join(SITE, dir);
+  const list = abs && fs.existsSync(abs) ? fs.readdirSync(abs).filter(f => f.endsWith('.html') && f !== 'index.html').map(f => {
+    const h = fs.readFileSync(path.join(abs, f), 'utf8');
+    if (/name="robots" content="[^"]*noindex/i.test(h)) return null;
+    const title = unent(strip((h.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1] || '')).replace(/\s+/g, ' ').trim();
+    const desc = unent((h.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '');
+    const date = (h.match(/"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})/) || [])[1] || '0000-00-00';
+    return title ? { href: `/${dir}/${f}`, title, desc, date } : null;
+  }).filter(Boolean) : [];
+  list.sort((a, b) => b.date.localeCompare(a.date) || a.href.localeCompare(b.href));
+  return (POSTS[l] = list);
+}
+/* footer label: the title up to its first colon/dash, or through its first question mark */
+const shortTitle = t => { const q = t.indexOf('?'); const c = t.search(/\s[:—–-]\s|:\s/); const cut = [q >= 0 ? q + 1 : -1, c].filter(n => n > 0).sort((a, b) => a - b)[0]; return (cut ? t.slice(0, cut) : t).trim(); };
+
 function footer(l) {
   const i = LANGS[l].i, tr = l === 'tr' ? '' : ' hreflang="tr"';
-  const guide = l === 'tr' ? `<div><h4>${S.fcGuide[i]}</h4>
-      <a href="/blog/insan-kaynaklari-ingilizcesi.html">İK İngilizcesi terimleri</a>
-      <a href="/blog/ielts-writing-task-2-puanlama.html">IELTS Writing puanlama</a>
-      <a href="/blog/online-ingilizce-ozel-ders-fiyatlari.html">Özel ders fiyatları</a>
-      <a href="/blog/ingilizce-konusma-pratigi-nasil-yapilir.html">Konuşma pratiği</a>
-      <a href="/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html">Öğrenme planı nasıl kurulur?</a>
-      <a href="/blog/">${S.blog[i]}</a></div>` : '';
+  const P = posts(l).slice(0, 5);
+  const guide = P.length ? `<div><h4>${S.fcGuide[i]}</h4>
+      ${P.map(p => `<a href="${p.href}">${esc(shortTitle(p.title))}</a>`).join('\n      ')}
+      <a href="/${l === 'fa' ? 'fa/' : ''}blog/">${S.gAll[i]}</a></div>` : '';
   return `</main>
 <footer class="site"><div class="wrap">
   <div class="f-top"><a class="logo" href="${url(l, 'home')}" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38" loading="lazy"><span class="wm" dir="ltr">FE<i>School</i></span></a><span class="tag">${S.tag[i]}</span></div>
@@ -523,6 +544,23 @@ function companyPanel(l) {
     <p class="co-note">${S.coOffer[i]}</p>
     <div class="ctas co-ctas">${ctas}</div>
   </div>`;
+}
+
+/* homepage: the 3 newest guides (TR and FA homepages only; EN has no posts of its own) */
+function guidesBand(l) {
+  const i = LANGS[l].i, G = posts(l).slice(0, 3);
+  if (!G.length) return '';
+  const arrow = l === 'fa' ? '←' : '→';
+  const cut = (s, n) => s.length > n ? s.slice(0, s.lastIndexOf(' ', n)).replace(/[,،;:]$/, '') + '…' : s;
+  return `
+<div class="wrap guides" id="rehber" style="margin-top:clamp(64px,8vw,104px)">
+  <div class="sec-head c"><p class="eyebrow">${S.fcGuide[i]}</p><h2>${S.gH[i]}</h2></div>
+  <div class="gcards">
+    ${G.map(p => `<a class="gcard" data-loc="home-guides" href="${p.href}"><b>${esc(p.title)}</b><span>${esc(cut(p.desc, 125))}</span><span class="gread">${S.gRead[i]} <span aria-hidden="true">${arrow}</span></span></a>`).join('\n    ')}
+  </div>
+  <div class="cta-row c"><a class="tlink" href="/${l === 'fa' ? 'fa/' : ''}blog/">${S.gAll[i]} ${arrow}</a></div>
+</div>
+`;
 }
 
 function home(l) {
@@ -633,6 +671,7 @@ function home(l) {
   <div class="cta-row" style="margin-top:26px"><a class="tlink" href="${url(l, 'sys')}">${S.howSys[i]}</a></div>
 </div>
 
+${guidesBand(l)}
 <div class="wrap" style="margin-top:clamp(72px,9vw,120px)">
   <section class="close">
     <h2>${S.cH[i]}</h2>
