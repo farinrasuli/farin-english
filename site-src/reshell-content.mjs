@@ -46,7 +46,7 @@ const TPL = {};
 function template(lang) {
   if (TPL[lang]) return TPL[lang];
   const f = path.join(ROOT, 'site', lang === 'fa' ? 'fa/index.html' : 'index.html');
-  const h = fs.readFileSync(f, 'utf8');
+  const h = fs.readFileSync(f, 'utf8').replace(/\r+\n/g, '\n').replace(/\r/g, '\n');
   const head = must(h.match(/<script>document\.documentElement\.classList\.add\('js'\)<\/script>[\s\S]*?<link rel="stylesheet" href="\/feschool\.css">/), 'font/css block', f)[0];
   const sprite = must(h.match(/<svg width="0" height="0"[\s\S]*?<\/svg>/), 'sprite', f)[0];
   const skip = must(h.match(/<a class="skip" href="#main">[^<]*<\/a>/), 'skip link', f)[0];
@@ -63,7 +63,11 @@ function template(lang) {
 const report = [];
 for (const rel of files) {
   const file = path.resolve(ROOT, rel);
-  let h = fs.readFileSync(file, 'utf8');
+  // Line endings: work on LF and always write LF. Some committed pages held mixed CRLF / LF / CR CR LF / lone CR
+  // (autocrlf never normalises a blob that already has CRLF), which made every run look like a big diff.
+  // Writing LF lets git store clean LF; comparing normalised text keeps --check honest on a CRLF checkout.
+  const raw = fs.readFileSync(file, 'utf8');
+  let h = raw.replace(/\r+\n/g, '\n').replace(/\r/g, '\n');
   const before = h;
   const lang = (h.match(/<html[^>]*\blang="([a-z]+)"/) || [])[1] === 'fa' ? 'fa' : 'tr';
   const T = template(lang);
@@ -120,6 +124,6 @@ for (const rel of files) {
     const n = (h.match(re) || []).length; if (n !== 1) throw new Error(`${pagePath}: ${n} × ${name}`);
   }
   report.push(`${pagePath}  lang=${lang} offer=${panel ? g : 'none'} ${h === before ? 'unchanged' : 'updated'}`);
-  if (!CHECK && h !== before) fs.writeFileSync(file, h);
+  if (!CHECK && (h !== before || /\r/.test(raw))) fs.writeFileSync(file, h); // also rewrites a page whose only change is its line endings
 }
 console.log(report.join('\n'));
