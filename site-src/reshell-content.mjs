@@ -100,6 +100,8 @@ for (const rel of files) {
   h = h.replace(/\n?<!-- offer -->[\s\S]*?<!-- \/offer -->/, '');
   const g = offerFor(pagePath, h); let panel = (v4 || NO_OFFER.test(pagePath) || g === 'none') ? null : T.panels[g];
   if (panel) {
+    // the homepage panel links to its sibling panels with in-page anchors (#kurs-mulakat); on a post those must point at the homepage
+    panel = panel.replace(/href="#(kurs-[a-z]+)"/g, `href="${lang === 'fa' ? '/fa/' : '/'}#$1"`);
     panel = panel.replace(new RegExp(`<a class="tlink more" href="${pagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">[^<]*</a>`), ''); // no self-link
     const offer = `\n  <!-- offer -->\n  <section class="offer" data-loc="blog-offer-${g}"><div class="wrap">\n${panel}\n  </div></section>\n  <!-- /offer -->`;
     const mainEnd = h.indexOf('</main>');
