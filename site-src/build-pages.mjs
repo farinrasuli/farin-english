@@ -457,7 +457,7 @@ function posts(l) {
   return (POSTS[l] = list);
 }
 /* footer label: the title up to its first colon/dash, or through its first question mark */
-const shortTitle = t => { const q = t.indexOf('?'); const c = t.search(/\s[:—–-]\s|:\s/); const cut = [q >= 0 ? q + 1 : -1, c].filter(n => n > 0).sort((a, b) => a - b)[0]; return (cut ? t.slice(0, cut) : t).trim(); };
+const shortTitle = t => { const q = t.search(/[?؟]/); const c = t.search(/\s[:—–-]\s|:\s/); const cut = [q >= 0 ? q + 1 : -1, c].filter(n => n > 0).sort((a, b) => a - b)[0]; return (cut ? t.slice(0, cut) : t).trim(); };
 
 function footer(l) {
   const i = LANGS[l].i, tr = l === 'tr' ? '' : ' hreflang="tr"';
