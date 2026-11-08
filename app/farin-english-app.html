@@ -3133,9 +3133,9 @@ const GRAMMAR_ITEMS = [
  {id:'g-A2-5', why:{"rule":{"en":"Positive and offers → some; negatives and questions → any.","tr":"some = olumlu ve teklif; any = olumsuz ve soru.","fa":"some = مثبت و تعارف؛ any = منفی و سؤال."},"wrong":[{"en":"'some' and 'any' mean the same and swap freely.","tr":"'some' ve 'any' aynıdır, serbestçe değişir.","fa":"some و any یکی‌اند و آزادانه جابه‌جا می‌شوند."},{"en":"'any' is only for questions, never after 'not'.","tr":"'any' sadece sorudadır, 'not'tan sonra gelmez.","fa":"any فقط در سؤال است، هرگز بعد از not نمی‌آید."}]}, level:'A2', title:'Some / Any', titleTr:'Some / Any',
   exp:{"en":"“There's some bread, but there isn't any butter.” The rule: use some in positive sentences, and any in negatives and most questions. Positive: I have some time, there are some apples. Negative: we don't have any plans, there aren't any apples. Questions: Is there any milk? Do you have any brothers? Offers and requests are different: they take some, because you expect a yes: Would you like some cake? Can I have some coffee? Remember: after not, use any — “We don't need any help”, not “We don't need some help”.","tr":"“There's some bread, but there isn't any butter.” Kural: olumlu cümlelerde some, olumsuz cümlelerde ve çoğu soruda any kullan. Olumlu: I have some time, there are some apples. Olumsuz: we don't have any plans, there aren't any apples. Soru: Is there any milk? Do you have any brothers? İkram ve ricalar farklıdır: evet cevabı beklediğin için some alır: Would you like some cake? Can I have some coffee? Unutma: not'tan sonra any gelir — “We don't need some help” değil, “We don't need any help”.","fa":"“There's some bread, but there isn't any butter.” قاعده: در جمله‌ی مثبت some بیاور، و در جمله‌ی منفی و بیشتر سؤال‌ها any. مثبت: I have some time, there are some apples. منفی: we don't have any plans, there aren't any apples. سؤال: Is there any milk? Do you have any brothers? تعارف و درخواست فرق دارد: چون انتظار «بله» داری، some می‌گیرد: Would you like some cake? Can I have some coffee? یادت باشد: بعد از not، any بیاور — “We don't need any help”، نه “We don't need some help”."},
   wrong:"I don't have some money.", right:"I don't have any money.", blank:{sentence:"I don't have ___ questions.", word:'any', distractors:['some','no']},
-  wrong2:'Is there some milk left?', right2:'Is there any milk left?', blank2:{sentence:'I need ___ help with this box.', word:'some', distractors:['any','a']},
+  wrong2:'Is there a milk left?', right2:'Is there any milk left?', blank2:{sentence:'I need ___ help with this box.', word:'some', distractors:['any','a']},
   goalVariant:{career:{wrong:"I don't have some experience in sales.", right:"I don't have any experience in sales.", blank:{sentence:"I don't have ___ questions about the role.", word:'any', distractors:['some','no']},
-    wrong2:'Is there some budget left for this project?', right2:'Is there any budget left for this project?', blank2:{sentence:'I need ___ help with this presentation.', word:'some', distractors:['any','a']}}}},
+    wrong2:'Do we have a money left for this project?', right2:'Do we have any money left for this project?', blank2:{sentence:'I need ___ help with this presentation.', word:'some', distractors:['any','a']}}}},
  {id:'g-A2-6', why:{"rule":{"en":"Right now you can; back then you could; never with 'to'.","tr":"can = şimdi; could = geçmişte yapabilme; 'to' yok.","fa":"can = توانایی الان؛ could = توانایی در گذشته؛ بدون to."},"wrong":[{"en":"'can' takes 'to': she can to drive.","tr":"'can' 'to' alır: she can to drive.","fa":"can با to می‌آید: she can to drive."},{"en":"'can' also works for the past: she can swim at five.","tr":"'can' geçmiş için de olur: she can swim at five.","fa":"can برای گذشته هم کار می‌کند: she can swim at five."}]}, level:'A2', title:'Can / Could (Ability)', titleTr:'Can / Could (Yetenek)',
   exp:{"en":"“I can't swim very well, but when I was a child I could swim for hours.” The rule: can + base verb is ability now; could + base verb is ability in the past. Negatives: can't, couldn't. Can is the same for every person, with no -s and no to: she can ski, he can cook. To ask for help, start with Can you ...?: Can you carry this box? Remember: no to after can or could — “He can play the guitar”, not “He can to play the guitar”.","tr":"“I can't swim very well, but when I was a child I could swim for hours.” Kural: can + yalın fiil şimdiki yeteneği, could + yalın fiil geçmişteki yeteneği anlatır. Olumsuz: can't, couldn't. Can her kişi için aynıdır, -s ve to almaz: she can ski, he can cook. Birinden yardım istemek için Can you ...? ile başla: Can you carry this box? Unutma: can ya da could'dan sonra to gelmez — “He can to play the guitar” değil, “He can play the guitar”.","fa":"“I can't swim very well, but when I was a child I could swim for hours.” قاعده: can + شکل ساده‌ی فعل یعنی توانایی الان، و could + شکل ساده‌ی فعل یعنی توانایی در گذشته. منفی: can't, couldn't. can برای همه‌ی شخص‌ها یکی است و ‎-s و to نمی‌گیرد: she can ski, he can cook. برای کمک خواستن با Can you ...? شروع کن: Can you carry this box? یادت باشد: بعد از can یا could، to نمی‌آید — “He can play the guitar”، نه “He can to play the guitar”."},
   wrong:'She can swim when she was five.', right:'She could swim when she was five.', blank:{sentence:'I ___ speak French when I was a child.', word:'could', distractors:['can',"can't"]},
@@ -4221,6 +4221,34 @@ const GRAMMAR_DISTRACTOR_WHY_A1A2 = {
  }
 };
 Object.keys(GRAMMAR_DISTRACTOR_WHY_A1A2).forEach(id=>{ const it = GRAMMAR_ITEMS.find(g=>g.id===id); if(it) it.distractorWhy = GRAMMAR_DISTRACTOR_WHY_A1A2[id]; });
+/* LXD Review 9 READY-1/2 (me 1XwITsnP P2, Farin 2026-11-07): one reason line per roadmap grammar item,
+   shown after a missed grammar question in the stage check (and in review rounds). A1 + A2 so far; B1-C1 use the rule line. */
+const GRAMMAR_CHECK_WHY = {
+"g-A1-1":{"en":"Use am, is or are in every sentence, and match it to the person: I am, he / she / it is, you / we / they are. So: I am a student. They are happy.", "tr":"Her cümlede am, is ya da are kullan ve kişiye uydur: I am, he / she / it is, you / we / they are. Yani: I am a student. They are happy.", "fa":"در هر جمله am، is یا are بیاور و آن را با فاعل جور کن: I am، he / she / it is، you / we / they are. پس: I am a student. They are happy."},
+  "g-A1-2":{"en":"English always needs a subject before the verb, and the subject form is I, you, he, she, it, we, they (not him or her): She is very tall. He called me.", "tr":"İngilizcede fiilden önce her zaman bir özne gerekir. Özne biçimleri I, you, he, she, it, we, they'dir (him ya da her değil): She is very tall. He called me.", "fa":"در انگلیسی همیشه قبل از فعل فاعل لازم است و شکل فاعلی I، you، he، she، it، we، they است (نه him یا her): She is very tall. He called me."},
+  "g-A1-3":{"en":"After a number, the noun is plural. Most nouns add -s or -es (boxes, cities), but some change: child → children, man → men, woman → women.", "tr":"Sayıdan sonra isim çoğul olur. Çoğu isim -s ya da -es alır (boxes, cities), ama bazıları değişir: child → children, man → men, woman → women.", "fa":"بعد از عدد، اسم جمع می‌شود. بیشتر اسم‌ها -s یا -es می‌گیرند (boxes، cities)، ولی بعضی شکلشان عوض می‌شود: child می‌شود children، man می‌شود men، woman می‌شود women."},
+  "g-A1-4":{"en":"One thing: this (near), that (far). Two or more: these (near), those (far). The verb matches too: This is my key. These are my keys.", "tr":"Tek bir şey için this (yakın), that (uzak). İki ya da daha fazlası için these (yakın), those (uzak). Fiil de uyar: This is my key. These are my keys.", "fa":"برای یک چیز this (نزدیک) و that (دور). برای دو یا چند چیز these (نزدیک) و those (دور). فعل هم جور می‌شود: This is my key. These are my keys."},
+  "g-A1-5":{"en":"With he, she, it or one person or thing (my friend, the hotel), the verb takes -s: she goes, the hotel offers. With I, you, we and they, it doesn't: they go.", "tr":"He, she, it ya da tek bir kişi veya şeyle (my friend, the hotel) fiil -s alır: she goes, the hotel offers. I, you, we ve they ile almaz: they go.", "fa":"با he، she، it یا یک نفر یا یک چیز (my friend، the hotel)، فعل -s می‌گیرد: she goes، the hotel offers. با I، you، we و they نمی‌گیرد: they go."},
+  "g-A1-6":{"en":"The owner word (my, your, his, her, our, their) comes before the noun: my car, her bag, our city. Words like you, us or she don't go here.", "tr":"İyelik sözcüğü (my, your, his, her, our, their) ismin önüne gelir: my car, her bag, our city. You, us ya da she gibi sözcükler buraya gelmez.", "fa":"در انگلیسی کلمه‌ی مالکیت (my، your، his، her، our، their) قبل از اسم می‌آید، برعکسِ «ماشینِ من»: my car، her bag، our city. کلمه‌هایی مثل you، us یا she اینجا نمی‌آیند."},
+  "g-A1-7":{"en":"To say that something exists, start with There: There is + one thing, There are + two or more. Don't start with It is: There is a cat in the garden.", "tr":"Bir şeyin var olduğunu söylemek için There ile başla: tek şey için There is, iki ya da daha fazlası için There are. It is ile başlama: There is a cat in the garden.", "fa":"برای گفتن اینکه چیزی هست، با There شروع کن: برای یک چیز There is و برای دو یا چند چیز There are. با It is شروع نکن: There is a cat in the garden."},
+  "g-A1-8":{"en":"Use on for the top of something (on the table, on the shelf), in for inside (in my bag) and under for below (under the bed).", "tr":"Türkçede ikisi de -de ile söylenir (masada, çantada), ama İngilizcede ayrılır: bir şeyin üstü için on (on the table), içi için in (in my bag), altı için under (under the bed).", "fa":"برای روی چیزی on بیاور (on the table، on the shelf)، برای داخل چیزی in (in my bag) و برای زیرِ چیزی under (under the bed)."},
+  "g-A1-9":{"en":"A job or one thing needs a or an: She is an engineer. Use an before a vowel sound (an hour, an honest man) and a before a consonant sound (a university).", "tr":"Bir meslek ya da tek bir şey a veya an ister: She is an engineer. Ünlü sesten önce an (an hour, an honest man), ünsüz sesten önce a kullan (a university).", "fa":"برای شغل یا یک چیزِ مفرد a یا an لازم است: She is an engineer. قبل از صدای مصوت an بیاور (an hour، an honest man) و قبل از صدای صامت a (a university)."},
+  "g-A1-10":{"en":"In a question, the question word comes first, then are, is or do, then the person: Where are you going? What time is it? Where do you live?", "tr":"Soruda önce soru sözcüğü, sonra are, is ya da do, sonra kişi gelir: Where are you going? What time is it? Where do you live?", "fa":"در سؤال اول کلمه‌ی پرسشی می‌آید، بعد are، is یا do و بعد فاعل: Where are you going? What time is it? Where do you live?"},
+  "g-A1-11":{"en":"Say no with don't / doesn't and ask with do / does. After them the verb has no -s: She doesn't like coffee. Does she work here? Use doesn't and does with he, she and it.", "tr":"Olumsuz için don't / doesn't, soru için do / does kullan. Onlardan sonra fiil -s almaz: She doesn't like coffee. Does she work here? He, she ve it ile doesn't ve does gelir.", "fa":"برای منفی don't / doesn't و برای سؤال do / does بیاور. بعد از آن‌ها فعل -s نمی‌گیرد: She doesn't like coffee. Does she work here? با he، she و it از doesn't و does استفاده کن."},
+"g-A2-1":{"en":"For a finished past action, regular verbs add -ed (played, studied) and irregular verbs change (go → went, buy → bought, write → wrote, send → sent). After yesterday or last week, use the past form.", "tr":"Bitmiş geçmiş bir eylemde düzenli fiiller -ed alır (played, studied), düzensiz fiiller değişir (go → went, buy → bought, write → wrote, send → sent). Yesterday ya da last week varsa geçmiş biçimi kullan.", "fa":"برای کاری که در گذشته تمام شده، فعل‌های باقاعده -ed می‌گیرند (played، studied) و فعل‌های بی‌قاعده عوض می‌شوند: go می‌شود went، buy می‌شود bought، write می‌شود wrote، send می‌شود sent. با yesterday یا last week شکل گذشته را بیاور."},
+  "g-A2-2":{"en":"A plan you already made needs all three parts: am / is / are + going to + the base verb: She's going to call you. I'm going to visit my aunt.", "tr":"Önceden yaptığın bir plan üç parçanın hepsini ister: am / is / are + going to + yalın fiil: She's going to call you. I'm going to visit my aunt.", "fa":"برای برنامه‌ای که از قبل گذاشته‌ای هر سه بخش لازم است: am / is / are + going to + فعل ساده: She's going to call you. I'm going to visit my aunt."},
+  "g-A2-3":{"en":"Short adjectives add -er (cheaper, bigger, stronger); long ones take more (more interesting). Never both: not more cheaper. Good becomes better. Then use than.", "tr":"Kısa sıfatlar -er alır (cheaper, bigger, stronger), uzun sıfatlar more alır (more interesting). İkisi birden olmaz: more cheaper denmez. Good, better olur. Ardından than gelir.", "fa":"صفت‌های کوتاه -er می‌گیرند (cheaper، bigger، stronger) و صفت‌های بلند more (more interesting). هر دو با هم نمی‌آیند: more cheaper غلط است. good می‌شود better. بعدش than می‌آید."},
+  "g-A2-4":{"en":"To pick the top one of a group, use the + -est or the + most: the cheapest, the most talented, the best. Not more, and never without the.", "tr":"Bir grup içinde en ... olanı söylerken the + -est ya da the + most kullan: the cheapest, the most talented, the best. More olmaz ve the asla düşmez.", "fa":"برای انتخاب برترینِ یک گروه، the + -est یا the + most بیاور: the cheapest، the most talented، the best. نه more، و the هیچ‌وقت حذف نمی‌شود."},
+  "g-A2-5":{"en":"Use some in positive sentences and offers (I'd like some water), and any after not and in most questions (I don't have any time. Is there any milk?). Not a: milk, money and time take some or any.", "tr":"Olumlu cümlelerde ve tekliflerde some kullan (I'd like some water); not'tan sonra ve çoğu soruda any kullan (I don't have any time. Is there any milk?). A kullanılmaz: milk, money ve time some ya da any alır.", "fa":"در جمله‌ی مثبت و وقتی چیزی تعارف می‌کنی some بیاور (I'd like some water) و بعد از not و در بیشتر سؤال‌ها any (I don't have any time. Is there any milk?). a هم نمی‌آید: milk، money و time با some یا any می‌آیند."},
+  "g-A2-6":{"en":"Can is for now and could is for the past: She can drive. She could swim when she was five. After can and could comes the base verb, with no to and no -s.", "tr":"Can şimdi için, could geçmiş için: She can drive. She could swim when she was five. Can ve could'dan sonra yalın fiil gelir; to ve -s olmaz.", "fa":"can برای حال است و could برای گذشته: She can drive. She could swim when she was five. بعد از can و could فعل ساده می‌آید، بدون to و بدون -s."},
+  "g-A2-7":{"en":"Always, usually, sometimes and never go before the main verb (I always drink coffee) but after am, is and are (I am always late).", "tr":"Always, usually, sometimes ve never ana fiilden önce gelir (I always drink coffee), ama am, is ve are'dan sonra gelir (I am always late).", "fa":"always، usually، sometimes و never قبل از فعل اصلی می‌آیند (I always drink coffee)، ولی بعد از am، is و are (I am always late)."},
+  "g-A2-8":{"en":"For something happening now, use am / is / are + verb-ing: She is waiting for the bus. They are studying right now. Keep am / is / are, and don't use the simple present.", "tr":"Şu an olan bir şey için am / is / are + fiil-ing kullan: She is waiting for the bus. They are studying right now. am / is / are'ı düşürme, geniş zamanı da kullanma.", "fa":"برای کاری که همین الان در جریان است، am / is / are + فعل با -ing بیاور: She is waiting for the bus. They are studying right now. am / is / are را حذف نکن و حال ساده هم نیاور."},
+  "g-A2-9":{"en":"After a verb or a word like to, use the object form: me, him, her, us, them. So: Give it to her. Tell him the news. Call us.", "tr":"Fiilden ya da to gibi bir sözcükten sonra nesne biçimini kullan: me, him, her, us, them. Yani: Give it to her. Tell him the news. Call us.", "fa":"بعد از فعل یا کلمه‌ای مثل to، شکل مفعولی را بیاور: me، him، her، us، them. پس: Give it to her. Tell him the news. Call us."},
+  "g-A2-10":{"en":"An order starts with the base verb and no you: Turn left. Be quiet. Sit down, please. For a negative order, use Don't + the base verb: Don't worry.", "tr":"Emir cümlesi you olmadan, yalın fiille başlar: Turn left. Be quiet. Sit down, please. Olumsuz emir için Don't + yalın fiil kullan: Don't worry.", "fa":"جمله‌ی امری بدون you و با شکل ساده‌ی فعل شروع می‌شود: Turn left. Be quiet. Sit down, please. برای امر منفی Don't + فعل ساده بیاور: Don't worry."}
+};
+Object.keys(GRAMMAR_CHECK_WHY).forEach(id=>{ const it = GRAMMAR_ITEMS.find(g=>g.id===id && !g.course); if(it){ it.why = it.why || {}; it.why.check = GRAMMAR_CHECK_WHY[id]; } });
+// The reason after a miss: LXD's why.check line, else the rule sentence of the explainer (stopgap for B1-C1 until their lines are written).
+function grammarCheckWhy(item){ const c = item && item.why && item.why.check; return c ? trLine(c) : grammarRuleLine(item); }
 
 /* ============================= VOCAB + SLANG (55 sets, A1-C1) ============================= */
 const VOCAB_SETS = [
@@ -8202,7 +8230,7 @@ function srsGoalFor(item){
   return profileGoalKeys(state.profile).find(k=>item.goalVariant && item.goalVariant[k]) || 'base';
 }
 function srsGrammarQ(item, field, goal){
-  const why = grammarRuleLine(item);
+  const why = grammarCheckWhy(item);   // LXD READY-1 A6
   const variants = [goal, 'base'].concat(Object.keys(item.goalVariant || {})).filter((v,i,a)=>v && a.indexOf(v)===i);
   for(const v of variants){
     const src = v === 'base' ? item : (item.goalVariant && item.goalVariant[v]);
@@ -8249,7 +8277,7 @@ function srsStoryQ(story, v){
    from lastQ may come back, never both. The goal version's sentences come first (srsGoalFor). */
 function srsGrammarPools(item, goal){
   const norm = s => String(s||'').toLowerCase().replace(/\s+/g,' ').trim();
-  const why = grammarRuleLine(item);
+  const why = grammarCheckWhy(item);   // LXD READY-1 A6
   const uniq = arr => arr.filter((w,i)=>w && arr.indexOf(w)===i);
   const variant = goal && goal !== 'base' && item.goalVariant && item.goalVariant[goal];
   const practice = ((variant && variant.practice) || []).concat(item.practice || []);
@@ -23541,7 +23569,7 @@ function buildStageCheck(){
     gi.others.forEach(o=>{ const s = verSrc(t, o); if(!s) return; [['blank', s.blank], ['blank2', s.blank2]].forEach(([f, b])=>{ if(b && !gi.seen.has(scNorm(b.sentence))){ const q = fillQ(b, f, o); if(q) t2.push(q); } }); });
     let q = pickFrom(t2); if(q) return q;
     // tier 3: the item's own practice fix item
-    const fixes = (t.practice || []).filter(x=>x && x.type === 'fix' && x.right && x.distractors && x.distractors.length >= 2).map(x=>{ const fq = mk(fixLabel + '\n"' + x.wrong + '"', x.right, uniq(x.distractors).slice(0, 2), x.right, null, x.translation); fq._s = [x.right, x.wrong]; return fq; });
+    const fixes = (t.practice || []).filter(x=>x && x.type === 'fix' && x.right && x.distractors && x.distractors.length >= 2).map(x=>{ const fq = mk(fixLabel + '\n"' + x.wrong + '"', x.right, uniq(x.distractors).slice(0, 2), x.right, o=>dwText(t, x.distractorWhy, o), x.translation); fq._s = [x.right, x.wrong]; return fq; });
     q = pickFrom(fixes); if(q) return q;
     // tier 4: the learner's own blank2
     const b2 = gi.eff.blank2;
@@ -23645,6 +23673,7 @@ function buildStageCheck(){
     if(!q){ s[0] = 'w'; s[1] = s[1] === 'pick' ? 'choose' : 'typed'; return; }
     use(q._s); if(q._a) gramAns.add(scNorm(q._a));
     q.scKind = 'grammar'; q.itemId = g.t.id; q.kind = 'grammar';
+    q.why = grammarCheckWhy(g.t);   // LXD READY-1 A2
     if(g.carry) q.scCarry = true;
     delete q._s; delete q._a;
     out[k] = q;
@@ -23752,7 +23781,10 @@ function renderStageCheckResults(){
   const g = [], w = {}, wOrder = [], l = [], wCarry = {};
   q.questions.forEach((qq, i)=>{
     const ok = !!q.results[i];
-    if(qq.scKind === 'grammar'){ const it = GRAMMAR_ITEMS.find(x=>x.id === qq.itemId); g.push(row(it ? grammarTitle(it) : qq.itemId, ok, qq.scCarry ? carryTag() : '')); }
+    if(qq.scKind === 'grammar'){ const it = GRAMMAR_ITEMS.find(x=>x.id === qq.itemId);
+      // LXD READY-1 A7: a row that needs a review opens its lesson; Back returns here
+      const look = !ok && it ? `<button class="btn btn-ghost btn-sm" style="margin-top:6px;" data-action="sc-look-again" data-id="${esc(it.id)}">${esc(L('Look again','Tekrar bak','دوباره ببین','Repasar'))}</button>` : '';
+      g.push(row(it ? grammarTitle(it) : qq.itemId, ok, qq.scCarry ? carryTag() : '').replace(/<\/div>$/, look + '</div>')); }
     else if(qq.scKind === 'vocab'){ if(!w[qq.itemId]){ w[qq.itemId] = []; wOrder.push(qq.itemId); } if(!ok) w[qq.itemId].push(qq.scWord); if(qq.scCarry) wCarry[qq.itemId] = true; }
     else if(qq.scKind === 'listen'){ const d = DIALOGUES.find(x=>x.id === qq.itemId), t = d && d.title; l.push(row(t ? (typeof t === 'string' ? t : (L(t.en, t.tr, t.fa, t.es) || t.en)) : L('Listening','Dinleme','شنیدن','Comprensión auditiva'), ok)); }
   });
@@ -23911,17 +23943,25 @@ function quizAnswerText(item){
   const right = item.options[item.correct];
   return /_{3,}/.test(body) ? body.replace(/_{3,}/, right) : right;
 }
-function answerBannerHtml(item, ok, sel){
+// extra (LXD READY-1 A4): the stage check's reason + "Look again at the lesson", shown after a miss when the tapped option has no line of its own.
+function answerBannerHtml(item, ok, sel, extra){
   const ans = quizAnswerText(item), tr = trLine(item.answerTr);
   if(ok && !tr && !item.reason) return '';
   // Phase 2b (jljlQLsH): after a miss, the distractorWhy line for the option the learner tapped (UI language; the hint never names the answer).
-  const why = !ok && sel != null && sel !== item.correct && item.hints ? item.hints[sel] : '';
+  const why = !ok ? ((sel != null && sel !== item.correct && item.hints && item.hints[sel]) || extra || '') : '';
   const head = ok ? '' : `<b>${esc(L('Correct answer','Doğru cevap','پاسخ درست','Respuesta correcta'))}:</b> `;
   return `<div class="game-why">${farinImg(ok ? 'face-smile' : 'mood-thinking')}<div dir="ltr">${head}${esc(ans)}${tr ? `<div dir="auto" style="margin-top:4px; opacity:.85;">${esc(tr)}</div>` : ''}${why ? `<div class="quiz-why-miss" dir="auto" style="margin-top:4px; opacity:.85;">${esc(why)}</div>` : ''}${item.reason ? `<div class="quiz-why-item" dir="auto" style="margin-top:4px;">${esc(item.reason)}</div>` : ''}</div></div>`;
 }
 /* P2 (Farin 2026-11-09, card 1XwITsnP: B, "this should apply to the original roadmap lessons too"): in a lesson's grammar quiz a
    wrong answer points back to what teaches it. The free grammar page has no numbered key points, so the pointer is the item's rule
    (why.rule): "Look again at the rule: ...". A question with its own why (practice[].why, item.reason) shows that in the banner instead. */
+// Stage check, after a missed grammar question: the reason, then where to look again (the roadmap's "Look again at key point N"; LXD READY-1 A5).
+function stageCheckMissExtra(item){
+  if(!item || item.scKind !== 'grammar') return '';
+  const it = GRAMMAR_ITEMS.find(x=>x.id === item.itemId);
+  const look = it ? L('Look again at the lesson: {t}.','Derse tekrar bak: {t}.','دوباره درس را ببین: {t}.','Vuelve a mirar la lección: {t}.').replace('{t}', grammarTitle(it)) : '';
+  return [item.why, look].filter(Boolean).join(' ');
+}
 function quizLookAgainHtml(q, item, ok){
   if(ok || !q || q.kind !== 'grammar' || !q.contextId || !item || item.reason || item.carry) return '';
   const it = GRAMMAR_ITEMS.find(g=>g.id === q.contextId), r = it && it.why && it.why.rule;
@@ -24099,7 +24139,7 @@ function renderQuiz(){
     </div>
     ${!q.answered && (q.miss||[]).length ? `<div class="game-why">${farinImg('mood-thinking')}<div dir="ltr">${esc(quizHintText(q, item))}</div></div>` : ''}
     ${q.answered ? `
-      ${answerBannerHtml(item, q.results && q.results[q.index] === true, q.selected)}
+      ${answerBannerHtml(item, q.results && q.results[q.index] === true, q.selected, q.kind === 'stagecheck' ? stageCheckMissExtra(item) : '')}
       ${quizLookAgainHtml(q, item, q.results && q.results[q.index] === true)}
       ${quizTypedNoteHtml(q, item)}
       ${q.kind === 'stagecheck' && !(q.results && q.results[q.index] === true) ? `<p class="game-result-line" dir="auto" style="margin:0;">${esc(L('This one comes back in your review tomorrow.','Bu soru yarın tekrarında geri gelecek.','این یکی فردا در مرورت برمی‌گردد.','Esta pregunta vuelve mañana en tu repaso.'))}</p>` : ''}
@@ -25610,6 +25650,7 @@ const HANDLERS = {
     if(!state.progress.stageChecks[key]) state.progress.stageChecks[key] = {v:1, date:todayISO(), skipped:true};
     HANDLERS['sc-advance']();
   },
+  'sc-look-again'(el){ const id = el.dataset.id; if(GRAMMAR_ITEMS.some(g=>g.id === id)) go('grammar-trap', {id}); },
   'sc-advance'(){
     checkRoadmapStageAdvance();
     markActivity();
