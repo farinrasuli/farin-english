@@ -27,7 +27,13 @@ const OFFER = [
   [/insan-kaynaklari|manabe-ensani/, 'is'],
   [/mulakat|mosahebe/, 'mulakat'],
 ];
-const offerFor = (file) => (OFFER.find(([re]) => re.test(file)) || [null, 'konusma'])[1];
+// A page can choose its panel explicitly in <head>: <meta name="fe-offer" content="is|ielts|mulakat|konusma|none">
+// (is = Work & career, ielts, mulakat = Job interview, konusma = free roadmap + 1:1 lessons). Else the filename rules above.
+const offerFor = (file, html) => {
+  const m = html.match(/<meta name="fe-offer" content="([a-z]+)">/);
+  if (m) return m[1];
+  return (OFFER.find(([re]) => re.test(file)) || [null, 'konusma'])[1];
+};
 
 function balancedDiv(html, start) { // returns the full <div ...>...</div> starting at index `start`
   const re = /<\/?div\b[^>]*>/g; re.lastIndex = start; let depth = 0, m;
@@ -92,7 +98,7 @@ for (const rel of files) {
 
   // 4. offer panel at the end of the article (before the related-posts band, else before </main>); v4 pages already sell
   h = h.replace(/\n?<!-- offer -->[\s\S]*?<!-- \/offer -->/, '');
-  const g = offerFor(pagePath); let panel = (v4 || NO_OFFER.test(pagePath)) ? null : T.panels[g];
+  const g = offerFor(pagePath, h); let panel = (v4 || NO_OFFER.test(pagePath) || g === 'none') ? null : T.panels[g];
   if (panel) {
     panel = panel.replace(new RegExp(`<a class="tlink more" href="${pagePath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}">[^<]*</a>`), ''); // no self-link
     const offer = `\n  <!-- offer -->\n  <section class="offer" data-loc="blog-offer-${g}"><div class="wrap">\n${panel}\n  </div></section>\n  <!-- /offer -->`;
