@@ -146,6 +146,24 @@ Source: Farin's Search Console export (3 months to 2026-11-07). Real positions, 
 
 Not targeted: "refleks ingilizce konuşma" (a competitor brand). Re-check in the next GSC export (~2026-11-23). If the HR post reaches page 1 for the head term, the next lever is the HR course page and the FA HR pair. If the interview post stays past position 30, job portals own that SERP and the Job Interview course landing (Loop 2) should carry the commercial intent instead.
 
+### 2i. TR course pages for the 5 premium courses (2026-11-09, Loop 2, Trello CrWzf1ai)
+
+Turkish searchers had indexable course pages only for HR (inside `/is-ingilizcesi.html`) and IELTS. Evidence (Türkiye autocomplete, 2,000 seed queries + 48 stem probes) and the reasoning per course are in `keyword-research/README.md` (last section), `tr-courses-2026-11.csv` and `tr-courses-stems-2026-11.csv`. Demand signal only.
+
+| Page | Primary query | Secondary | Sells (CTA) | hreflang |
+|---|---|---|---|---|
+| `/ingilizce-mulakat-hazirligi.html` | ingilizce mülakat hazırlığı | mülakata hazırlık eğitimi, mülakat İngilizcesi kursu, mülakat pratiği | interview: free Lesson 1.1 (app) + waiting list | ↔ `/fa/amadegi-mosahebe-kari-englisi.html` |
+| `/dis-ticaret-ingilizcesi.html` | dış ticaret İngilizcesi eğitimi | dış ticaret İngilizcesi, ticari İngilizce kursu, satış / ihracat İngilizcesi, İngilizce fiyat teklifi | sales | none (no FA page) |
+| `/ingilizce-prompt-yazma.html` | ingilizce prompt yazma | prompt yazma eğitimi / kursu, ChatGPT İngilizce prompt | ai-internet | none |
+| `/ingilizce-metin-yazarligi.html` | ingilizce metin yazarlığı (copywriting) | İngilizce içerik üretmek, pazarlama İngilizcesi | marketing | none |
+| `/is-ingilizcesi.html#kapsamli-kurs` (new section, not a page) | online iş İngilizcesi kursu (the page already owns it) | iş İngilizcesi kursu / eğitimi, iş İngilizcesi online eğitim | business | none |
+
+Cannibalisation calls: "ingilizce mülakat soruları ve cevapları" stays with the blog guide. The course page links to it with that anchor, and the guide now links to the course page with "İngilizce mülakat hazırlığı kursu". "ingilizce iş görüşmesi kendini tanıtma" stays with the guide. Complete Business gets no page of its own, because every buyer phrase for it is the head term `/is-ingilizcesi.html` already owns. "yapay zeka ingilizcesi" (word translation) and "yapay zeka ile ingilizce öğrenme" (learning with AI) are not targeted.
+
+**Keep each page exact to the app:** prices from `build-pages.mjs` (₺1.290 / ₺1.690 / ₺1.690 / ₺1.690 / ₺5.990, also in each `Course` JSON-LD), only Lesson 1.1 free, waiting list for the rest, 12 months' access, completion certificate after the final project. The interview page states no lesson count, because the course is being extended from 9 to 11 lessons. When a price, the sale model or a course changes, update the page, its FAQ and its JSON-LD together (plain static HTML, no build step; re-run `reshell-content.mjs` after editing).
+
+Links in: the TR homepage (course names in the "Ayrıca" rows, and "Kurs detayları →" on the interview card, via `build-pages.mjs` `also[7]` / `pageTr`), so every TR guide with the `is` panel carries them too; `/is-ingilizcesi.html`; in-body links from the interview Q&A, CV, formal e-mail, meetings and speaking-practice guides.
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
