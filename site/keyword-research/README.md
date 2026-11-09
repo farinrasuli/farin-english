@@ -102,3 +102,31 @@ Same method as the section above: `hl=fa`, `gl=ir`, 26 suffixes per seed (blank,
 | Small talk | Only «اسمال تاک چیست / یعنی چی». | Not built. |
 
 SERP look (WebSearch, US-located, directional only): for the resume query, generic Persian career sites rank (e-estekhdam, faradars, maktabkhooneh, iranestekhdam), mostly about resumes in general rather than English resumes with ready English lines. For the formal email, phone and both IELTS queries the WebSearch results were English-language pages, so there may be a Persian gap, but that could not be confirmed on a real Google Iran SERP from here. No Keyword Planner was used.
+
+---
+
+## Live online classes, TR + FA autocomplete (2026-11-09, farin-seo)
+
+Goal: one indexable page per language that sells the live classes with Farin. TR `/english.html` was the only TR page and its H1 did not match the query; FA had no indexable class page at all (`/kelas/` and `/dersler/` stay noindex campaign pages).
+
+Method: same as above. TR `hl=tr gl=tr`, 38 suffixes per seed (blank, space, 28 letters incl. ç/ı/ö/ş/ü, and fiyat, ücretsiz, en iyi, nasıl, için, 2026, birebir, öğretmen), 12 seeds in 5 clusters, 456 queries. FA `hl=fa gl=ir`, 34 suffixes per seed (blank, space, 24 Persian letters, and قیمت، هزینه، رایگان، بهترین، با، برای، گروهی، در), 13 seeds in 5 clusters, 442 queries. Raw rows: **`live-classes-tr-2026-11.csv`**, **`live-classes-fa-2026-11.csv`** (hits add up across a cluster's seeds, so compare inside a cluster). Bare-stem suggestion order (Google lists more popular completions higher): **`live-classes-tr-stems-2026-11.csv`**, **`live-classes-fa-stems-2026-11.csv`**. Demand signal only, no volumes, no Keyword Planner.
+
+**Türkiye**
+
+| Evidence | Read |
+|---|---|
+| Stem "online ingilizce": 1 kursu, 2 kursları, 4 dersi, 5 kursu fiyatları, 6 eğitimi, **7 özel ders**, 8 konuşma kursu. Stem "online ingilizce ö": **1 özel ders**, 5 özel ders fiyatları. Stem "ingilizce özel ders": 8 "… online". Stem "birebir ingilizce": 3 özel ders, 5 konuşma dersi. | "online ingilizce kursu" is the bigger phrase, but its suggestions are platform/course shopping (çocuk, ücretsiz, sertifikalı, flalingo, tavsiye). "online ingilizce özel ders" is the exact product (live 1:1 lessons). |
+| Özel ders cluster: "online ingilizce özel ders fiyatları" 4/1, "ingilizce özel ders online yetişkinlere" 4/1, "online ingilizce özel ders ücretleri" 2/1. Noise: "… vermek istiyorum" 8/1 (teachers looking for students). | Buyer intent with price and adult angles. |
+| Birebir cluster: "birebir ingilizce (özel) dersi fiyatları" 4/1, "birebir online ingilizce dersi" 3/1, "birebir ingilizce konuşma dersi" 3/1. Konuşma cluster: "online ingilizce konuşma dersi" 5/1, "… konuşma kursu" 3/1, "… konuşma kulübü ücretsiz" 5/1. "online ingilizce dersi" cluster is mostly teacher-side ("nasıl verilir", "iş ilanları"). | Secondary phrases for the body and for anchors. |
+
+**Decision TR:** `/english.html` targets **"online ingilizce özel ders"** (title "Birebir Online İngilizce Özel Ders | FE School", H1 "Online İngilizce özel ders, tamamen hedefine göre."). Secondary: birebir online İngilizce dersi, online İngilizce konuşma dersi. "… fiyatları" stays with `blog/online-ingilizce-ozel-ders-fiyatlari.html` (kept out of the title/H1; the page shows the real prices). "online ingilizce kursu" is not chased on this page. WebSearch look (US-located, directional): "online ingilizce özel ders birebir" returns marketplaces (armut, preply, italki, verbling, ogretmenbulun, ozeldersalani) and Lingoda, so no single school owns it; "online ingilizce kursu yetişkin" returns platforms and listicles (Lingoda, Udemy, Boenstitu, Lemon Academy).
+
+**Iran**
+
+| Evidence | Read |
+|---|---|
+| Stem "کلاس زبان انگلیسی": 1 itself, **2 «کلاس زبان انگلیسی آنلاین»**, then کودکان and city names. Stem "کلاس زبان": 5 «کلاس زبان آنلاین», 9 «کلاس زبان انگلیسی آنلاین». Stem "کلاس آنلاین": 7 «کلاس آنلاین زبان انگلیسی» (the rest is the driving test and Kanoon). | The main buyer phrase. |
+| Stem "کلاس خصوصی زبان": 1 «کلاس خصوصی زبان انگلیسی», 4 «… قیمت». Cluster: **«قیمت کلاس خصوصی زبان انگلیسی آنلاین» 8/1**, «هزینه کلاس خصوصی (آنلاین) زبان انگلیسی» 4/1, «کلاس خصوصی زبان انگلیسی ساعتی چند است» 5/1. | Strong price intent; we show prices, most Persian results don't. |
+| Stem "کلاس مکالمه": 1 «کلاس مکالمه زبان انگلیسی», 3 «… آنلاین». Cluster: «کلاس آنلاین زبان انگلیسی برای بزرگسالان» 6/2; many kids/Kanoon/free/Eitaa/city queries. «آموزش زبان انگلیسی آنلاین با استاد» returned **nothing**; «آموزش خصوصی آنلاین زبان انگلیسی برای بزرگسالان» 7/1. «تدریس خصوصی زبان انگلیسی» is Divar/Sheypoor listings. | Speaking and adult angles go in the body; "با استاد" is not a search phrase. |
+
+**Decision FA:** new `/fa/kelas-zaban-englisi-online.html` targets **«کلاس زبان انگلیسی آنلاین»** (H1 «کلاس زبان انگلیسی آنلاین با فرین، تنها یا با دوستانت»). The title adds «خصوصی» and «قیمت» for the price query («کلاس زبان انگلیسی آنلاین خصوصی: قیمت و شرایط | FE School»); a single learner gets a private class and a group is always the learner's own 2–4 people, so «خصوصی» is accurate. H2 «قیمت کلاس زبان انگلیسی آنلاین», FAQ «قیمت … چقدر است؟». Not chased: «آموزش زبان انگلیسی آنلاین» (free/kids/pdf intent), «تدریس خصوصی» (marketplaces). WebSearch look (US-located, directional): mostly foreign platforms (QQEng, Berlitz, British Council), no Persian page with toman prices among the results; not confirmed on a real Google Iran SERP.

@@ -27,7 +27,7 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 | Page | Primary keyword | Secondary keywords | Intent | Audience |
 |---|---|---|---|---|
 | `/` (home) | ~~kişiye özel dil eğitimi~~ → **İngilizce öğrenme uygulaması** (see §2b) | ücretsiz İngilizce öğrenme uygulaması, oyunla İngilizce öğrenme | Commercial/brand | App-first since 2026-10-07 |
-| `/english.html` | online İngilizce özel ders | kişiye özel İngilizce, konuşma odaklı İngilizce | Commercial | Ready to book, comparing tutors |
+| `/english.html` | online İngilizce özel ders | birebir online İngilizce dersi, online İngilizce konuşma dersi (see §2g, 2026-11-09) | Commercial | Ready to book, comparing tutors |
 | `/spanish.html` | online İspanyolca özel ders | kişiye özel İspanyolca dersi | Commercial | Smaller volume, same intent as English |
 | `/german.html` | online Almanca özel ders | Almanca özel ders | Commercial | Smallest volume — keep as-is, low investment |
 
@@ -122,6 +122,17 @@ Five Persian guides for informational queries close to what we sell. Evidence an
 | `/fa/blog/nomre-ielts-mohajerat.html` | نمره آیلتس برای مهاجرت (کانادا، استرالیا) | حداقل نمره آیلتس برای مهاجرت به کانادا, نمره آیلتس برای مهاجرت کاری به انگلستان | `/fa/dore-ielts-online.html` / ielts |
 
 No cannibalisation: the GT letter post keeps «نامه نویسی آیلتس جنرال»; the IELTS course page keeps the commercial «دوره آیلتس آنلاین / آیلتس جنرال برای کانادا»; the two IELTS guides split choice-of-test from score requirements and link to each other. The self-intro post keeps «معرفی خود در مصاحبه»; the resume guide links to it. **The immigration guide carries official numbers with dates (IRCC page 2026-10-16, Home Affairs and GOV.UK checked 2026-11-09). Re-check them whenever IRCC, Home Affairs or GOV.UK change their pages, and at least every 3 months.**
+
+### 2g. Live online classes, TR + FA (2026-11-09)
+
+Farin: people looking for English classes or learning English should find the site. The pages that list the classes (`/dersler/`, `/kelas/`) are noindex campaign pages and stay that way, so each language gets one indexable class page. Evidence: Türkiye + Iran autocomplete in `keyword-research/README.md` (last section) and the four `live-classes-*` CSVs. Demand signal only.
+
+| Page | Primary query | Secondary | Links in |
+|---|---|---|---|
+| `/english.html` (rewritten top: H1, how it works, packages with the 3-month line, 6-question FAQ + `FAQPage`, `Service` + `Course` offers incl. the two 3-month prices) | online ingilizce özel ders | birebir online İngilizce dersi, online İngilizce konuşma dersi, İngilizce özel ders online yetişkinlere | footer (every TR page), the homepage general live-lesson card, in-body from 7 TR guides (konuşma korkusu, konuşma pratiği, yapılan hatalar, öğrenme planı, hangi uygulama, seviyemi, özel ders fiyatları) |
+| `/fa/kelas-zaban-englisi-online.html` (new) | کلاس زبان انگلیسی آنلاین | قیمت کلاس خصوصی زبان انگلیسی آنلاین, کلاس مکالمه زبان انگلیسی آنلاین, برای بزرگسالان | the /fa/ live-class card (build-pages `LIVES.*.pageFa`, so every FA `fe-offer` panel carries it too), in-body from 6 FA pages (business, HR and interview course pages; self-intro, phone and formal-email guides) |
+
+Cannibalisation calls: "online ingilizce özel ders fiyatları" stays with `blog/online-ingilizce-ozel-ders-fiyatlari.html` (no "fiyat" in the english.html title/H1; the post now links to the page with the "online İngilizce özel ders" anchor). "online ingilizce kursu" ranks above "özel ders" in autocomplete but is platform/course-shopping intent; not chased on english.html (homepage title proposal in the 11-09 report, not applied). FA: the /fa/ homepage title also says «کلاس و دوره‌ی آنلاین زبان انگلیسی»; watch in GSC which URL Google shows for «کلاس زبان انگلیسی آنلاین», and if the homepage keeps taking it, drop «کلاس» from the homepage title (farin-website, build-pages). «کلاس زبان انگلیسی تجاری» is still listed as a secondary of the self-paced business course page (§2d); the new page names the live business class in an H3 only. Prices on both pages are copied from `business/farin-monetization/08-final-prices.md` (2026-10-29 decisions) and match `/dersler/`, `/kelas/` and the homepages; **when a class price, pack or discount changes, update both pages, their FAQ text and their JSON-LD together.**
 
 ## 3. Page architecture decision
 

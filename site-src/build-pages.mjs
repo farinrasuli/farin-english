@@ -206,15 +206,16 @@ const SALE = { hr: 'start11', ielts: 'start11', interview: 'start11', marketing:
 const SALE_TXT = { start11: ['Ders 1.1 ücretsiz', 'Lesson 1.1 free', 'درس ۱.۱ رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
 const salePill = k => [SALE[k] === 'now' || SALE[k].startsWith('start') ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
+/* 2026-11-09 (farin-seo): pageFa = the indexable FA live-class page, linked under the FA live-class button */
 const LIVES = {
   biz: { key: 'business-live', name: ['Birebir İş İngilizcesi', 'Business English 1-to-1', 'کلاس انگلیسی تجاری'],
     for: ['Senin işin ve senin toplantıların üzerine kurulur.', 'Built around your job and your meetings.', 'بر اساس کار و جلسه‌های کاری خودت ساخته می‌شود.'],
     outs: [['Konuşma ağırlıklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Sektörüne göre içerik, mülakat provası dahil', 'Content for your industry, interview practice included', 'محتوا بر اساس حوزه‌ی کاری، همراه با تمرین مصاحبه'], ['Esnek saatler', 'Flexible hours', 'ساعت‌های منعطف']],
-    toman: '۴٬۵۰۰٬۰۰۰', month: '۱۸٬۰۰۰٬۰۰۰', each: '۱٬۱۲۵٬۰۰۰', more: ['/is-ingilizcesi.html#ders', 'İş İngilizcesi dersleri →'] },
+    toman: '۴٬۵۰۰٬۰۰۰', month: '۱۸٬۰۰۰٬۰۰۰', each: '۱٬۱۲۵٬۰۰۰', more: ['/is-ingilizcesi.html#ders', 'İş İngilizcesi dersleri →'], pageFa: ['/fa/kelas-zaban-englisi-online.html', 'جزئیات کلاس: بسته‌ها، قیمت و سؤال‌ها ←'] },
   gen: { key: 'general-live', name: ['Birebir genel İngilizce', 'General English 1-to-1', 'کلاس انگلیسی عمومی شخصی‌سازی‌شده'],
     for: ['Ders tamamen senin hedefine ve ilgi alanına göre.', 'Lessons built entirely on your goal and interests.', 'کلاس کاملاً بر اساس هدف و علاقه‌های خودت.'],
     outs: [['Konuşma odaklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Senin konuların', 'Your topics', 'موضوع‌های خودت'], ['İspanyolca ve Almanca da var', 'Spanish and German too', 'اسپانیایی و آلمانی هم هست']],
-    toman: '۳٬۵۰۰٬۰۰۰', month: '۱۴٬۰۰۰٬۰۰۰', each: '۸۷۵٬۰۰۰', more: ['/english.html#paketler', 'Online İngilizce özel ders →'] },
+    toman: '۳٬۵۰۰٬۰۰۰', month: '۱۴٬۰۰۰٬۰۰۰', each: '۸۷۵٬۰۰۰', more: ['/english.html#paketler', 'Online İngilizce özel ders →'], pageFa: ['/fa/kelas-zaban-englisi-online.html', 'جزئیات کلاس: بسته‌ها، قیمت و سؤال‌ها ←'] },
 };
 const GOALS = {
   is: { img: 'char-career', c: '--g-career', title: ['İş ve kariyer', 'Work & career', 'کار و شغل'], label: 'gIs', sub: 'gIsS',
