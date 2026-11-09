@@ -182,7 +182,7 @@ waHello:['Merhaba Farin! FE School hakkında bilgi almak istiyorum.','Hi Farin! 
 // footer
 fcCourses:['Kurslar ve dersler','Course pages (in Turkish)','صفحه‌های دوره (به ترکی)'],
 fcSchool:['FE School','FE School','FE School'],fcGuide:['Rehber','Guides','راهنما'],
-gH:['Yeni rehberler','New guides','راهنماهای تازه'],gRead:['Oku','Read','بخوان'],gAll:['Tüm rehberler','All guides','همه‌ی راهنماها'],fcContact:['İletişim','Contact','تماس'],
+gH:['Yeni rehberler','New guides','راهنماهای تازه'],gMore:['Diğer rehberler','More guides','راهنماهای دیگر'],gRead:['Oku','Read','بخوان'],gAll:['Tüm rehberler','All guides','همه‌ی راهنماها'],fcContact:['İletişim','Contact','تماس'],
 fBiz:['İş İngilizcesi','Business English','انگلیسی تجاری'],fIelts:['IELTS hazırlık','IELTS prep','آمادگی آیلتس'],
 fEn:['Online İngilizce özel ders','English lessons','کلاس انگلیسی'],fEs:['İspanyolca özel ders','Spanish lessons','کلاس اسپانیایی'],fDe:['Almanca özel ders','German lessons','کلاس آلمانی'],
 fStudio:['Stüdyo','Studio','استودیو'],fEmail:['E-posta','Email','ایمیل'],fPrivacy:['Gizlilik Politikası','Privacy policy (Turkish)','سیاست حریم خصوصی (ترکی)'],
@@ -558,8 +558,12 @@ function companyPanel(l) {
 
 /* homepage: the 3 newest guides (TR and FA homepages only; EN has no posts of its own) */
 function guidesBand(l) {
-  const i = LANGS[l].i, G = posts(l).slice(0, 3);
+  const i = LANGS[l].i, all = posts(l), G = all.slice(0, 3);
   if (!G.length) return '';
+  /* 2026-11-09: every other guide gets a compact homepage link too. GSC showed 4 older TR guides stuck at
+     "Discovered - currently not indexed" after the newest posts took their footer slots; the homepage is the page
+     Google crawls most, so linking all guides from it is the strongest crawl signal a young site has. */
+  const rest = all.slice(3, 33);
   const arrow = l === 'fa' ? '←' : '→';
   const cut = (s, n) => s.length > n ? s.slice(0, s.lastIndexOf(' ', n)).replace(/[,،;:]$/, '') + '…' : s;
   return `
@@ -567,7 +571,10 @@ function guidesBand(l) {
   <div class="sec-head c"><p class="eyebrow">${S.fcGuide[i]}</p><h2>${S.gH[i]}</h2></div>
   <div class="gcards">
     ${G.map(p => `<a class="gcard" data-loc="home-guides" href="${p.href}"><b>${esc(p.title)}</b><span>${esc(cut(p.desc, 125))}</span><span class="gread">${S.gRead[i]} <span aria-hidden="true">${arrow}</span></span></a>`).join('\n    ')}
-  </div>
+  </div>${rest.length ? `
+  <nav class="glist" aria-label="${esc(S.gMore[i])}"><b>${S.gMore[i]}</b>
+    ${rest.map(p => `<a data-loc="home-guides-list" href="${p.href}">${esc(shortTitle(p.title))}</a>`).join('\n    ')}
+  </nav>` : ''}
   <div class="cta-row c"><a class="tlink" href="/${l === 'fa' ? 'fa/' : ''}blog/">${S.gAll[i]} ${arrow}</a></div>
 </div>
 `;
