@@ -1,9 +1,12 @@
 name: Deploy Pages (thefeschool.com)
 
-# Publishes the repo to GitHub Pages with the marketing site (site/) promoted
-# to the domain root, so https://thefeschool.com/ shows the homepage directly
-# instead of https://thefeschool.com/site/. Everything else in the repo
-# (docs, backups, etc.) is copied through unchanged at its existing path.
+# Publishes the marketing site (site/) at the domain root of https://thefeschool.com/.
+#
+# 2026-11-09: ONLY the site is published now. Before, the whole repo was copied
+# through, which made internal files public (CLAUDE.md, docs-claude/, site-src/,
+# lesson-template/, SEO strategy docs, keyword research) and served a second full
+# copy of the site under /site/ (duplicate content). site/404.html sends old
+# /site/... links to the same page at the root.
 #
 # app/ is deliberately EXCLUDED from this deploy: the learner app now lives
 # in its own repo (farinrasuli/farin-english-app) with no custom domain, so
@@ -37,13 +40,20 @@ jobs:
         run: |
           set -e
           mkdir -p _site
-          # 1. Full parity copy: everything in the repo is reachable at its
-          #    current path, exactly like today's branch-based Pages deploy.
-          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' --exclude='app' ./ _site/
-          # 2. Overlay the marketing site on top of the root, so the
-          #    homepage (and its now root-relative asset/app paths) is
-          #    served at the domain root.
-          rsync -a site/ _site/
+          # 1. The marketing site is the published site. Internal working docs
+          #    that live inside site/ (strategy .md files, keyword research)
+          #    stay in the repo but are not published.
+          rsync -a --exclude='*.md' --exclude='keyword-research/' site/ _site/
+          # 2. The few public files that live at the repo root: the two icons
+          #    every page links (/icon-180.png, /icon-512.png) and the legacy
+          #    app redirect stub + manifest, so old links keep working (they
+          #    hop to site/app/farin-english-app.html -> the app's own origin).
+          #    The app itself is NEVER copied here (HARD RULE, entities.md).
+          cp icon-180.png icon-512.png farin-english-app.html manifest.json _site/
+          # 3. Guard: fail the deploy if internal files ever slip back in.
+          for f in CLAUDE.md docs-claude site-src lesson-template site keyword-research SEO-STRATEGY.md; do
+            if [ -e "_site/$f" ]; then echo "internal path published: $f"; exit 1; fi
+          done
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
