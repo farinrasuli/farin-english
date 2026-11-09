@@ -89,7 +89,7 @@ Before this, Persian searchers had no indexable page that sells a course. The `/
 | Page | Primary query | Secondary | Sells (CTA) |
 |---|---|---|---|
 | `/fa/dore-ielts-online.html` | دوره آیلتس آنلاین | آزمون آزمایشی آیلتس آنلاین, آمادگی آیلتس در خانه, آیلتس جنرال برای کانادا | `/fa/c/ielts.html`. hreflang pair with `/ielts-hazirlik.html` |
-| `/fa/dore-zaban-englisi-tejari.html` | دوره زبان انگلیسی تجاری | کلاس زبان انگلیسی تجاری, آموزش انگلیسی تجاری و بازرگانی, دوره مکاتبات تجاری به زبان انگلیسی | `/fa/c/business.html` |
+| `/fa/dore-zaban-englisi-tejari.html` | دوره زبان انگلیسی تجاری | کلاس زبان انگلیسی تجاری, دوره مکاتبات تجاری به زبان انگلیسی («بازرگانی» phrases moved to the Sales page, §2j) | `/fa/c/business.html` |
 | `/fa/dore-englisi-manabe-ensani.html` | آموزش زبان تخصصی منابع انسانی | زبان تخصصی مدیریت منابع انسانی, دوره انگلیسی منابع انسانی | `/fa/c/hr.html` |
 | `/fa/amadegi-mosahebe-kari-englisi.html` | آمادگی مصاحبه کاری به انگلیسی | سوالات رایج در مصاحبه شغلی به زبان انگلیسی, آموزش مصاحبه شغلی به زبان انگلیسی | `/fa/c/interview.html` |
 
@@ -153,9 +153,9 @@ Turkish searchers had indexable course pages only for HR (inside `/is-ingilizces
 | Page | Primary query | Secondary | Sells (CTA) | hreflang |
 |---|---|---|---|---|
 | `/ingilizce-mulakat-hazirligi.html` | ingilizce mülakat hazırlığı | mülakata hazırlık eğitimi, mülakat İngilizcesi kursu, mülakat pratiği | interview: free Lesson 1.1 (app) + waiting list | ↔ `/fa/amadegi-mosahebe-kari-englisi.html` |
-| `/dis-ticaret-ingilizcesi.html` | dış ticaret İngilizcesi eğitimi | dış ticaret İngilizcesi, ticari İngilizce kursu, satış / ihracat İngilizcesi, İngilizce fiyat teklifi | sales | none (no FA page) |
-| `/ingilizce-prompt-yazma.html` | ingilizce prompt yazma | prompt yazma eğitimi / kursu, ChatGPT İngilizce prompt | ai-internet | none |
-| `/ingilizce-metin-yazarligi.html` | ingilizce metin yazarlığı (copywriting) | İngilizce içerik üretmek, pazarlama İngilizcesi | marketing | none |
+| `/dis-ticaret-ingilizcesi.html` | dış ticaret İngilizcesi eğitimi | dış ticaret İngilizcesi, ticari İngilizce kursu, satış / ihracat İngilizcesi, İngilizce fiyat teklifi | sales | ↔ `/fa/dore-zaban-englisi-bazargani.html` (§2j) |
+| `/ingilizce-prompt-yazma.html` | ingilizce prompt yazma | prompt yazma eğitimi / kursu, ChatGPT İngilizce prompt | ai-internet | ↔ `/fa/dore-prompt-nevisi-englisi.html` (§2j) |
+| `/ingilizce-metin-yazarligi.html` | ingilizce metin yazarlığı (copywriting) | İngilizce içerik üretmek, pazarlama İngilizcesi | marketing | ↔ `/fa/dore-copywriting-englisi.html` (§2j) |
 | `/is-ingilizcesi.html#kapsamli-kurs` (new section, not a page) | online iş İngilizcesi kursu (the page already owns it) | iş İngilizcesi kursu / eğitimi, iş İngilizcesi online eğitim | business | none |
 
 Cannibalisation calls: "ingilizce mülakat soruları ve cevapları" stays with the blog guide. The course page links to it with that anchor, and the guide now links to the course page with "İngilizce mülakat hazırlığı kursu". "ingilizce iş görüşmesi kendini tanıtma" stays with the guide. Complete Business gets no page of its own, because every buyer phrase for it is the head term `/is-ingilizcesi.html` already owns. "yapay zeka ingilizcesi" (word translation) and "yapay zeka ile ingilizce öğrenme" (learning with AI) are not targeted.
@@ -163,6 +163,23 @@ Cannibalisation calls: "ingilizce mülakat soruları ve cevapları" stays with t
 **Keep each page exact to the app:** prices from `build-pages.mjs` (₺1.290 / ₺1.690 / ₺1.690 / ₺1.690 / ₺5.990, also in each `Course` JSON-LD), only Lesson 1.1 free, waiting list for the rest, 12 months' access, completion certificate after the final project. The interview page states no lesson count, because the course is being extended from 9 to 11 lessons. When a price, the sale model or a course changes, update the page, its FAQ and its JSON-LD together (plain static HTML, no build step; re-run `reshell-content.mjs` after editing).
 
 Links in: the TR homepage (course names in the "Ayrıca" rows, and "Kurs detayları →" on the interview card, via `build-pages.mjs` `also[7]` / `pageTr`), so every TR guide with the `is` panel carries them too; `/is-ingilizcesi.html`; in-body links from the interview Q&A, CV, formal e-mail, meetings and speaking-practice guides.
+
+### 2j. FA pages for Sales & Trade, Copywriting, AI + the FA course hub (2026-11-09, Loop 3, Trello odXxoeGB)
+
+The 11-07 pull (§2d) skipped these 3 courses because it probed the skill in Persian. This pull probed the English-learning angle (Iran autocomplete, 54 seeds, 1,836 queries). Evidence and the cannibalisation reasoning are in `keyword-research/README.md` (last section), `fa-courses-loop3-2026-11.csv` and `fa-courses-loop3-stems-2026-11.csv`. Demand signal only, no volumes.
+
+| Page | Primary query | Secondary | Sells (CTA) | hreflang |
+|---|---|---|---|---|
+| `/fa/dore-zaban-englisi-bazargani.html` | دوره زبان انگلیسی بازرگانی | زبان انگلیسی بازرگانی خارجی, آموزش مکالمه زبان انگلیسی بازرگانی, مذاکره تجاری به انگلیسی | `/fa/c/sales.html` + free Lesson 1.1 (`course=sales`) | ↔ `/dis-ticaret-ingilizcesi.html` |
+| `/fa/dore-copywriting-englisi.html` | کپی رایتینگ به انگلیسی | تولید محتوای انگلیسی, تولید محتوای متنی به انگلیسی, نوشتن کپشن به انگلیسی | `/fa/c/copywriting.html` + Lesson 1.1 (`course=marketing`) | ↔ `/ingilizce-metin-yazarligi.html` |
+| `/fa/dore-prompt-nevisi-englisi.html` | پرامپت نویسی به انگلیسی | نوشتن پرامپت به انگلیسی, پرامپت انگلیسی, انگلیسی برای هوش مصنوعی | `/fa/c/ai.html` + Lesson 1.1 (`course=ai-internet`) | ↔ `/ingilizce-prompt-yazma.html` |
+| `/fa/dore-haye-zaban-englisi.html` (hub) | دوره‌های آنلاین زبان انگلیسی | دوره آنلاین زبان انگلیسی, … با مدرک (FAQ), … برای مهاجرت (FAQ + group heading), خرید دوره آنلاین زبان انگلیسی | each course's page and `/fa/c/` page, `/fa/kelas-zaban-englisi-online.html`, the free app | none (x-default self) |
+
+Cannibalisation calls: the Complete Business page keeps «تجاری» (it never used «بازرگانی»); the Sales page takes «بازرگانی» and links to Complete Business for the buying side, and Complete Business links back to it for sellers. «دوره کپی رایتینگ» (Persian copywriting) and «دوره پرامپت نویسی» / «زبان انگلیسی با هوش مصنوعی» (prompting in Persian, learning English with AI) are not targeted; each page says so. The hub title is plural and names the course count, so it differs from the /fa/ homepage title («کلاس و دوره‌ی آنلاین زبان انگلیسی + اپ رایگان»). **Watch in GSC which URL Google shows for «دوره آنلاین زبان انگلیسی»;** if /fa/ keeps it, leave it and let the hub take the plural and «… با قیمت» queries. Copywriting has the weakest evidence of the three; re-check its impressions in the 11-23 export.
+
+Links in: /fa/ «همچنین» rows (build-pages `also[...][6]`, so every FA guide with the `is` panel carries them), the FA blog index course grid + a hub line, the live-classes page (course list + the button now goes to the hub instead of the noindex `/fa/c/`), Complete Business («کارت فقط فروش …»), the email and phone guides (Sales), and the hub in the breadcrumbs (visible + JSON-LD) of all 7 FA course pages.
+
+**Keep exact to the app and `/fa/c/`:** prices (first-20 struck + current, the same wording), `Course` offers in IRR = toman x 10, only Lesson 1.1 free, 12 months' access, completion certificate after the final project. When a price, the first-20 offer or a course changes, update the course page, the hub card and both JSON-LD blocks together (the 9qWkZ6xM chore covers this).
 
 ## 3. Page architecture decision
 
