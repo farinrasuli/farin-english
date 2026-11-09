@@ -473,7 +473,7 @@ function footer(l) {
     <div><h4>${S.fcCourses[i]}</h4>
       <a href="/is-ingilizcesi.html"${tr}>${S.fBiz[i]}</a>
       <a href="/ielts-hazirlik.html"${tr}>${S.fIelts[i]}</a>
-      <a href="/english.html"${tr}>${S.fEn[i]}</a>
+      ${l === 'fa' ? `<a href="/fa/kelas-zaban-englisi-online.html">${S.fEn[i]}</a>` : `<a href="/english.html"${tr}>${S.fEn[i]}</a>`}
       <a href="/spanish.html"${tr}>${S.fEs[i]}</a>
       <a href="/german.html"${tr}>${S.fDe[i]}</a>${l === 'tr' ? '' : `\n      <a href="/blog/"${tr}>${S.blog[i]}</a>`}${l === 'fa' ? `\n      <a href="/fa/blog/">وبلاگ فارسی</a>` : ''}</div>
     <div><h4>${S.fcSchool[i]}</h4>
