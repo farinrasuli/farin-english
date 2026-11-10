@@ -239,6 +239,19 @@ Cannibalisation calls: the formal-mail guide keeps "ingilizce resmi mail kalıpl
 
 Links in (in-body): mail guide ← CV guide (new paragraph after the 30-minute routine), formal-mail guide (after the two samples), interview Q&A guide (thank-you item of the checklist), `/ingilizce-mulakat-hazirligi.html` (questions section), cover letter guide (2 links). Cover letter guide ← mail guide, CV guide, `/ingilizce-mulakat-hazirligi.html`. Plus the `/blog/` index (cards + ItemList 22–23), the TR homepage new-guides band and every TR footer (build-pages). count-inbound-links: mail guide 7 source pages (5 contextual), cover letter guide 5 (3 contextual).
 
+### 2o. Loop 13: TR price quote ↔ FA proforma invoice twin, Sales & Trade (2026-11-11, Trello Md9vf0w3)
+
+Evidence: Türkiye + Iran autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop13-stems-2026-11.csv`, `loop13-tr-full-2026-11.csv`, `loop13-fa-full-2026-11.csv`). Demand signal only, no volumes. Facts from ICC (Incoterms® rules page: Incoterms® 2020 is the most recent edition, in force since 1 January 2020) and trade.gov (Know Your Incoterms: 11 rules in two groups; Pro Forma Invoice: definition, contents, uses), checked 2026-11-11.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-fiyat-teklifi.html` | ingilizce fiyat teklifi (nasıl yazılır / örneği) | fiyat teklifi ingilizce ne demek, fiyat teklifi vermek / almak ingilizce, ingilizce fiyat teklifi isteme maili, ingilizce fiyat teklifi örneği excel (answered as headers, no file), proforma fatura ingilizce | is · `/dis-ticaret-ingilizcesi.html` (chapter 2 "Incoterms ve ödeme koşulları", "Soru bırakmayan bir teklif") | tr ↔ fa `/fa/blog/pish-factor-englisi.html`, x-default = TR |
+| `/fa/blog/pish-factor-englisi.html` | پیش فاکتور به انگلیسی (+ نمونه پیش فاکتور انگلیسی) | پیش فاکتور به انگلیسی چی میشه، فاکتور و پیش فاکتور به انگلیسی، شماره / اعتبار / صدور پیش فاکتور به انگلیسی، استعلام قیمت به انگلیسی، نمونه پیش فاکتور انگلیسی در اکسل (answered as rows, no file) | is · `/fa/dore-zaban-englisi-bazargani.html` (فصل ۲) | fa ↔ tr, x-default = TR |
+
+Cannibalisation calls: "İngilizce fiyat teklifi" moves from the TR Sales course page's secondaries (it is dropped from that page's keywords meta; the page keeps "fiyat teklifi" only as a course feature) to the guide, which links to the course with "dış ticaret İngilizcesi eğitimi"; the course page links back. The formal-mail guides keep general requests (TR "ingilizce resmi mail kalıpları"; FA «ایمیل رسمی به انگلیسی», whose sample 1 is the buyer's price request); the new guides carry only quote/PI-specific phrases and link there for greetings and closings. «نمونه نامه تجاری انگلیسی با ترجمه فارسی» (8/1) is not targeted: it is held for a later commercial-letters guide, so the PI guide carries only the e-mail that sends the PI. Not targeted: "incoterms nedir" / «اینکوترمز چیست» (trade-term definitions), Excel/Word template downloads, «مکاتبات بازرگانی … pdf / کتاب» (book intent). The Complete Business pages keep the buying side.
+
+Links in (in-body): TR guide ← `/dis-ticaret-ingilizcesi.html` ("Bu kurs kimin için"), formal-mail guide (after the request phrases), presentations guide (numbers paragraph). FA guide ← `/fa/dore-zaban-englisi-bazargani.html` (ready-phrases line), `/fa/dore-zaban-englisi-tejari.html` (starter guides line), formal-email guide (after sample 1), phone guide (closing section). Plus both blog indexes (cards + ItemList TR 24, FA 13), both homepage new-guides bands and every footer (build-pages). count-inbound-links: TR 5 source pages (3 contextual), FA 6 (4 contextual). **The Incoterms edition line ("Incoterms® 2020 is the latest") must be re-checked on the ICC page whenever ICC announces a new edition.**
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
