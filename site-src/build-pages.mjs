@@ -63,7 +63,8 @@ selfT:['Kendi hızında kurs','Self-paced course','دوره با سرعت خود
 selfS:['Uygulamada · tek ödeme · 12 ay erişim','In the app · one payment · 12 months\' access','داخل اپ · یک‌بار پرداخت · ۱۲ ماه دسترسی'],
 liveT:['Birebir canlı ders','Live 1-to-1 lessons','کلاس آنلاین با فرین'],
 liveS:['Farin\'le online · ilk analiz seansı hediye','Online with Farin · free analysis session','تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر)'],
-freebar:['Kursun FE App\'in içinde. Uygulamanın kendisi her zaman ücretsiz.','Your course lives inside FE App. The app itself is always free.','دوره‌ات داخل اپ FE است. خود اپ همیشه رایگان است.'],
+/* 2026-11-10 (farin-seo, Loop 5): freebar + fP carry in-body text links to the app / system page of their own language (crawl help: /en/app.html + /en/system.html were nav/tlink-only) */
+freebar:['Kursun <a href="/uygulama.html">FE App</a>\'in içinde. Uygulamanın kendisi her zaman ücretsiz.','Your course lives inside <a href="/en/app.html">FE App</a>. The app itself is always free.','دوره‌ات داخل <a href="/fa/app.html">اپ FE</a> است. خود اپ همیشه رایگان است.'],
 seeApp:['Uygulamayı gör →','See the app →','اپ را ببین ←'],
 appEb:['FE App · ücretsiz','FE App · free','اپ FE · رایگان'],
 appH:['Kart yok, abonelik yok. Sadece başla'+dot('.'),'No card, no subscription. Just start'+dot('.'),'نه کارت، نه اشتراک. فقط شروع کن'+dot('.')],
@@ -93,9 +94,9 @@ l1:['A1 öğrencisi','A1 student','شاگرد سطح A1'],l2:['B1 öğrencisi','
 lCar:['Kariyer hedefi','Career goal','هدف: کار'],lEx:['Sınav hazırlığı','Exam prep','آمادگی آزمون'],
 fEb:['Kurucu eğitmen','Founder &amp; teacher','بنیان‌گذار و معلم'],
 fH:['Merhaba, ben Farin'+dot('.'),'Hi, I\'m Farin'+dot('.'),'سلام، من فرین هستم'+dot('.')],
-fP:['11 yıldır İngilizce öğretiyorum, beş dil konuşuyorum. FE School\'un yöntemini, yol haritasını ve oyunlarını bu deneyimle kurdum.',
-  'I\'ve taught English for 11 years and I speak five languages. I built FE School\'s method, roadmap and games from that experience.',
-  '۱۱ سال است انگلیسی درس می‌دهم و به پنج زبان صحبت می‌کنم. روش، نقشه‌ی راه و بازی‌های FE School را با همین تجربه ساختم.'],
+fP:['11 yıldır İngilizce öğretiyorum, beş dil konuşuyorum. FE School\'un <a href="/sistem.html">yöntemini</a>, yol haritasını ve oyunlarını bu deneyimle kurdum.',
+  'I\'ve taught English for 11 years and I speak five languages. I built FE School\'s <a href="/en/system.html">method</a>, roadmap and games from that experience.',
+  '۱۱ سال است انگلیسی درس می‌دهم و به پنج زبان صحبت می‌کنم. <a href="/fa/system.html">روش</a>، نقشه‌ی راه و بازی‌های FE School را با همین تجربه ساختم.'],
 fAlt:['Farin, FE School kurucu eğitmeni','Farin, founder and teacher at FE School','فرین، بنیان‌گذار و معلم FE School'],
 fa1:['11 yıl','11 years','۱۱ سال'],fa2:['5 dil','5 languages','۵ زبان'],fa3:['Premier TEFL (120 saat)','Premier TEFL (120 hours)','Premier TEFL (۱۲۰ ساعت)'],
 sign:['Farin','Farin','فرین'],
@@ -127,7 +128,7 @@ vB:['Bella · Amerikan İngilizcesi','Bella · American English','بلا · ان
 vM:['Hangi aksanı duyduğun ekranda yazar.','The screen shows which accent you are hearing.','روی صفحه نوشته می‌شود کدام لهجه را می‌شنوی.'],
 cmpEb:['Sana göre','Made for you','مخصوص تو'],
 cmpH:['Aynı seviye. Başka hedef. Başka yol'+dot('.'),'Same level. Different goal. Different path'+dot('.'),'همان سطح. هدف دیگر. مسیر دیگر'+dot('.')],
-cmpL:['Hedeflerin, seviyen ve sevdiğin konular yolunu çizer. Hedefin değişirse yolun da değişir.','Your goals, your level and the topics you enjoy draw your path. Change your goal and your path changes too.','هدف‌ها، سطح و موضوع‌های مورد علاقه‌ات مسیرت را می‌سازند. اگر هدفت عوض شود، مسیرت هم عوض می‌شود.'],
+cmpL:['Hedeflerin, seviyen ve sevdiğin konular yolunu çizer. Hedefin değişirse yolun da değişir. Bir uygulama seçerken neden önce hedef sorusuna bakman gerektiğini <a href="/blog/ingilizce-ogrenmek-icin-hangi-uygulama.html">İngilizce öğrenmek için hangi uygulama daha iyi</a> yazısında anlattım.','Your goals, your level and the topics you enjoy draw your path. Change your goal and your path changes too.','هدف‌ها، سطح و موضوع‌های مورد علاقه‌ات مسیرت را می‌سازند. اگر هدفت عوض شود، مسیرت هم عوض می‌شود.'],
 cap1:['B1 · Seyahat','B1 · Travel','B1 · سفر'],cap2:['B1 · Kariyer ve İş','B1 · Career &amp; work','B1 · کار و شغل'],
 syH:['Diğer dil okullarına benzemiyoruz'+dot('.'),'We\'re not like other language schools'+dot('.'),'ما شبیه بقیه‌ی آموزشگاه‌های زبان نیستیم'+dot('.')],
 syL:['Ezber listesi yok. Yaşadığını daha kolay hatırlarsın.','No lists to memorise. You remember what you live through.','خبری از لیست حفظ‌کردنی نیست. چیزی را که تجربه کنی راحت‌تر یادت می‌ماند.'],
@@ -206,6 +207,8 @@ const SALE = { hr: 'start11', ielts: 'start11', interview: 'start11', marketing:
 const SALE_TXT = { start11: ['Ders 1.1 ücretsiz', 'Lesson 1.1 free', 'درس ۱.۱ رایگان'], soon: ['Yakında satışta', 'Coming soon', 'به‌زودی'], now: ['Şimdi satışta', 'On sale now', 'در حال فروش'], plan: ['Planlanıyor', 'Planned', 'در برنامه'] };
 const salePill = k => [SALE[k] === 'now' || SALE[k].startsWith('start') ? 'free' : 'soon', SALE_TXT[SALE[k]]];
 
+/* 2026-11-10 (farin-seo, Loop 5): TR line links the Spanish + German lesson pages (both had no in-body links); rendered unescaped in card() */
+const ES_DE = ['<a href="/spanish.html">İspanyolca</a> ve <a href="/german.html">Almanca</a> da var', 'Spanish and German too', 'اسپانیایی و آلمانی هم هست'];
 /* 2026-11-09 (farin-seo): pageFa = the indexable FA live-class page, linked under the FA live-class button */
 const LIVES = {
   biz: { key: 'business-live', name: ['Birebir İş İngilizcesi', 'Business English 1-to-1', 'کلاس انگلیسی تجاری'],
@@ -214,7 +217,7 @@ const LIVES = {
     toman: '۴٬۵۰۰٬۰۰۰', month: '۱۸٬۰۰۰٬۰۰۰', each: '۱٬۱۲۵٬۰۰۰', more: ['/is-ingilizcesi.html#ders', 'İş İngilizcesi dersleri →'], pageFa: ['/fa/kelas-zaban-englisi-online.html', 'جزئیات کلاس: بسته‌ها، قیمت و سؤال‌ها ←'] },
   gen: { key: 'general-live', name: ['Birebir genel İngilizce', 'General English 1-to-1', 'کلاس انگلیسی عمومی شخصی‌سازی‌شده'],
     for: ['Ders tamamen senin hedefine ve ilgi alanına göre.', 'Lessons built entirely on your goal and interests.', 'کلاس کاملاً بر اساس هدف و علاقه‌های خودت.'],
-    outs: [['Konuşma odaklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Senin konuların', 'Your topics', 'موضوع‌های خودت'], ['İspanyolca ve Almanca da var', 'Spanish and German too', 'اسپانیایی و آلمانی هم هست']],
+    outs: [['Konuşma odaklı', 'Speaking-focused', 'تمرکز روی مکالمه'], ['Senin konuların', 'Your topics', 'موضوع‌های خودت'], ES_DE],
     toman: '۳٬۵۰۰٬۰۰۰', month: '۱۴٬۰۰۰٬۰۰۰', each: '۸۷۵٬۰۰۰', more: ['/english.html#paketler', 'Online İngilizce özel ders →'], pageFa: ['/fa/kelas-zaban-englisi-online.html', 'جزئیات کلاس: بسته‌ها، قیمت و سؤال‌ها ←'] },
 };
 const GOALS = {
@@ -525,7 +528,7 @@ function card(l, c, live, also) {
   /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true (or its own label) if it also has a free Lesson 1.1 link, optional FA course page that the name links to, optional TR course page that the name links to (2026-11-09)]; one row per course, one 'Also' label */
   const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : l === 'fa' && a[6] ? `<a href="${a[6]}">${esc(a[1][i])}</a>` : l === 'tr' && a[7] ? `<a href="${a[7]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc((a[5] === true ? FREE11 : a[5])[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
-        <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${esc(o[i])}</li>`).join('')}</ul>
+        <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${o === ES_DE ? o[i] : esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
         <div class="ctas">${ctas}</div>${pageFa}${more}</div>${alsoRow}`;
 }
