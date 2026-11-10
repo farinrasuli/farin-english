@@ -226,6 +226,19 @@ Cannibalisation calls: no other FA page targets speaking or Task 2 scoring. The 
 
 Links in (in-body): `/fa/dore-ielts-online.html` (how-the-course-works paragraph, both), GT-vs-Academic guide (Speaking line + Task 2 paragraph), immigration guide (4-week cycle, both), GT letter guide (Task 1 weight paragraph, writing), and the two guides link each other. Plus the `/fa/blog/` index, the /fa/ new-guides band and FA footers (build-pages). count-inbound-links: speaking 6 source pages (4 contextual), writing 7 (5 contextual).
 
+### 2n. Loop 10: TR job application e-mail ↔ FA twin, + TR cover letter (2026-11-10, Trello KwUlssH2)
+
+Evidence: Türkiye autocomplete on 2026-11-10 (`keyword-research/README.md` last section, `tr-basvuru-maili-2026-11.csv`, `loop10-stems-2026-11.csv`). Demand signal only, no volumes.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-is-basvurusu-maili.html` | ingilizce iş başvurusu maili (+ "... mail örneği") | ingilizce iş başvuru maili, iş başvurusu mailinde konuya ne yazılır, CV gönderme maili, ilansız başvuru, takip maili, mülakat sonrası teşekkür maili, iş teklifi kabul maili | mulakat · `/ingilizce-mulakat-hazirligi.html` (thank-you e-mail and the reply to an offer are in the course) | tr ↔ fa `/fa/blog/email-darkhast-kar-englisi.html`, x-default = TR |
+| `/blog/ingilizce-on-yazi-cover-letter.html` | ingilizce ön yazı örnekleri / ingilizce cover letter örneği | cover letter nasıl yazılır ingilizce, iş başvurusu cover letter örneği, CV ön yazı İngilizce, başvuru mektubu | mulakat · `/ingilizce-mulakat-hazirligi.html` | none (self) |
+
+Cannibalisation calls: the formal-mail guide keeps "ingilizce resmi mail kalıpları" and "iş maili örneği" (general greetings, closings, requests); the new mail guide carries only application-specific phrases and sends the general ones there. The CV guide keeps the CV itself. The cover letter guide keeps the 3-paragraph letter; the mail guide covers the e-mail that carries it and links there (the same split as FA: e-mail guide vs the cover letter section of the resume guide). Interview questions stay with the Q&A guide, self-introduction with the kendini tanıtma guide. Not targeted: school homework ("11 sınıf ingilizce iş başvurusu", "diyalogları", "örneği kısa"), visa and journal cover letters, study motivation letters (the cover letter guide names them once to send that intent elsewhere).
+
+Links in (in-body): mail guide ← CV guide (new paragraph after the 30-minute routine), formal-mail guide (after the two samples), interview Q&A guide (thank-you item of the checklist), `/ingilizce-mulakat-hazirligi.html` (questions section), cover letter guide (2 links). Cover letter guide ← mail guide, CV guide, `/ingilizce-mulakat-hazirligi.html`. Plus the `/blog/` index (cards + ItemList 22–23), the TR homepage new-guides band and every TR footer (build-pages). count-inbound-links: mail guide 7 source pages (5 contextual), cover letter guide 5 (3 contextual).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
