@@ -475,3 +475,8 @@ html[lang="fa"] .gcard b{font-weight:800;line-height:1.6}
 html[lang="fa"] .guides .glist b{letter-spacing:0;font-size:.9rem}
 .guides .glist a{display:inline-block;padding:7px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-weight:700;font-size:.9rem;color:var(--ink);text-decoration:none;transition:border-color .15s,color .15s}
 .guides .glist a:hover{border-color:var(--purple);color:var(--purple-ink)}
+/* speed (Loop 11, 2026-11-11): blocks far below the first screen are laid out and painted only when they come near it.
+   Same look; less work before the first paint and on every scroll frame. "auto" keeps the real height once seen.
+   Only blocks with no jump target after them: the generated main pages' lower blocks, a blog post's closing offer + related
+   band, and the footer. Not the v4 service pages or course pages (their #paketler/#sss/#fiyat links land by real heights). */
+section.appband,section.sec#ogrenciler,div#hakkimda,div#rehber,section.close,main.article>section.offer,main.article>section.offer+section.tint,footer.site{content-visibility:auto;contain-intrinsic-size:auto 900px}
