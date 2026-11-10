@@ -196,6 +196,21 @@ Cannibalisation calls: the TR guide is written for work and interviews; school-h
 
 Links in: TR homepage "New guides" band + every TR footer (build-pages, newest first), `/blog/` index, `/is-ingilizcesi.html` related guides (now 6 cards: + sunum, toplantı, resmi mail), `/ingilizce-mulakat-hazirligi.html` (questions section), meetings guide, interview Q&A guide (English assessment section), speaking-anxiety guide. FA: /fa/ band + every FA footer, `/fa/blog/` index, `/fa/amadegi-mosahebe-kari-englisi.html`, resume guide (after the cover letter), formal-email guide (after the six samples).
 
+### 2l. Loop 7 paired guides: TR self-introduction ↔ FA interview intro, FA meetings ↔ TR meetings (2026-11-10, Trello YcwcM9lS)
+
+Evidence: Türkiye + Iran autocomplete on 2026-11-10 (`keyword-research/README.md` last section, `tr-kendini-tanitma-2026-11.csv`, `fa-jalase-2026-11.csv`, `loop7-stems-2026-11.csv`). Demand signal only, no volumes.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-kendini-tanitma-mulakat.html` | mülakat için ingilizce kendini tanıtma | ingilizce kendini tanıtma iş görüşmesi, ingilizce mülakatta kendini tanıtma, tell me about yourself ne demek / cevapları, işe ilk gün kendini tanıtma | mulakat · `/ingilizce-mulakat-hazirligi.html` (Ders 1.1 "Bana kendinden bahset") | tr ↔ fa `/fa/blog/moarefi-khod-mosahebe-englisi.html`, x-default = TR |
+| `/fa/blog/jalase-kari-englisi.html` | جلسه کاری به انگلیسی | جلسه کاری به انگلیسی چی میشه، صورت‌جلسه / دستور جلسه به انگلیسی، جلسه‌ی آنلاین به انگلیسی، شروع / پایان جلسه به انگلیسی، میتینگ | is · `/fa/dore-zaban-englisi-tejari.html` (chapter 2 «جلسه‌ها و تصمیم‌ها») | fa ↔ tr `/blog/ingilizce-toplanti-kaliplari.html`, x-default = TR |
+
+Cannibalisation calls: the interview Q&A guide keeps "ingilizce mülakat soruları ve cevapları" (its TMAY answer stays; it now links to the new guide for career-stage samples). The new TR guide is self-introduction only and sends every other question back to the Q&A guide. School homework phrases ("10 cümle", "5. sınıf", "ödevi") are not targeted. The FA meetings guide is the only FA page on meetings; the business course page keeps the buyer queries («دوره زبان انگلیسی تجاری») and the phone guide keeps phone calls (the two guides link to each other).
+
+Why the FA meetings guide was built although phrase-list queries return nothing in Iran: the existing demand is word translation («جلسه کاری به انگلیسی چی میشه», «دستور کار جلسه», «صورت جلسه», 148 "… جلسه به انگلیسی" phrases on 11-09), so the page answers those first (glossary + FAQ) and then teaches the phrases. It is also the strongest uncovered topic in `fa-guides.csv`, so the fallback rule would have picked it anyway. Weaker evidence than the TR guide.
+
+Links in: TR: interview Q&A guide (TMAY answer), CV guide (last step), `/ingilizce-mulakat-hazirligi.html` (questions section), small-talk guide (after the event dialogue), `/blog/` index, TR homepage "New guides" band + footers (build-pages). FA: `/fa/dore-zaban-englisi-tejari.html` (after the final project box), formal e-mail guide (after the reschedule sample), phone guide (video-call section), `/fa/blog/` index, /fa/ band + footers.
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
