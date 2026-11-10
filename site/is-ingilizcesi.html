@@ -97,10 +97,17 @@
       "offers": {
         "@type": "AggregateOffer",
         "priceCurrency": "TRY",
-        "lowPrice": "3400",
-        "highPrice": "9960",
+        "lowPrice": "830",
+        "highPrice": "850",
         "offerCount": "3",
-        "url": "https://thefeschool.com/english.html#paketler"
+        "url": "https://thefeschool.com/english.html#paketler",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "minPrice": "830",
+          "maxPrice": "850",
+          "priceCurrency": "TRY",
+          "unitText": "ders"
+        }
       },
       "isRelatedTo": {
         "@id": "https://thefeschool.com/#uygulama"
@@ -117,9 +124,9 @@
       },
       "teaches": "Toplantı, sunum ve mülakat İngilizcesi",
       "educationalLevel": "A2–C1",
-      "inLanguage": [
-        "tr",
-        "en"
+      "inLanguage": "en",
+      "availableLanguage": [
+        "tr"
       ],
       "hasCourseInstance": {
         "@type": "CourseInstance",
@@ -128,32 +135,22 @@
           "@id": "https://thefeschool.com/#farin"
         }
       },
-      "offers": [
-        {
-          "@type": "Offer",
-          "name": "Keşif: 4 ders / ay (₺850 / ders)",
-          "category": "Paid",
-          "price": "3400",
+      "offers": {
+        "@type": "AggregateOffer",
+        "category": "Paid",
+        "priceCurrency": "TRY",
+        "lowPrice": "830",
+        "highPrice": "850",
+        "offerCount": "3",
+        "url": "https://thefeschool.com/english.html#paketler",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "minPrice": "830",
+          "maxPrice": "850",
           "priceCurrency": "TRY",
-          "url": "https://thefeschool.com/english.html#paketler"
-        },
-        {
-          "@type": "Offer",
-          "name": "Macera: 8 ders / ay (₺840 / ders)",
-          "category": "Paid",
-          "price": "6720",
-          "priceCurrency": "TRY",
-          "url": "https://thefeschool.com/english.html#paketler"
-        },
-        {
-          "@type": "Offer",
-          "name": "Kahraman Yolculuğu: 12 ders / ay (₺830 / ders)",
-          "category": "Paid",
-          "price": "9960",
-          "priceCurrency": "TRY",
-          "url": "https://thefeschool.com/english.html#paketler"
+          "unitText": "ders"
         }
-      ]
+      }
     },
     {
       "@type": "Course",
@@ -174,13 +171,15 @@
         "Bir ekibe iş devretmek, bir değişikliği duyurmak ve üst yönetimden karar almak"
       ],
       "educationalLevel": "B1",
-      "inLanguage": "tr",
+      "inLanguage": "en",
+      "availableLanguage": [
+        "tr"
+      ],
       "isAccessibleForFree": false,
       "educationalCredentialAwarded": "FEschool tamamlama sertifikası",
       "hasCourseInstance": {
         "@type": "CourseInstance",
-        "courseMode": "Online",
-        "inLanguage": "tr"
+        "courseMode": "Online"
       },
       "offers": {
         "@type": "Offer",
