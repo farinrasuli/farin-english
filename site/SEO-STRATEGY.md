@@ -181,6 +181,21 @@ Links in: /fa/ «همچنین» rows (build-pages `also[...][6]`, so every FA gu
 
 **Keep exact to the app and `/fa/c/`:** prices (first-20 struck + current, the same wording), `Course` offers in IRR = toman x 10, only Lesson 1.1 free, 12 months' access, completion certificate after the final project. When a price, the first-20 offer or a course changes, update the course page, the hub card and both JSON-LD blocks together (the 9qWkZ6xM chore covers this).
 
+### 2k. Loop 4 guides: TR presentations + FA job application email (2026-11-10, Trello s7F3AVhv / KIdi0nHJ)
+
+Evidence: Türkiye + Iran autocomplete re-probed on 2026-11-10 (`keyword-research/README.md` last section, `tr-sunum-2026-11.csv`, `loop4-stems-2026-11.csv`). Demand signal only, no volumes.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-sunum-kaliplari.html` | ingilizce sunum kalıpları | ingilizce sunum yaparken nasıl başlanır, giriş / bitirme cümleleri, nasıl yapılır, nasıl bitirilir, sunum sonu teşekkür, mülakatta İngilizce sunum | is · `/is-ingilizcesi.html#kapsamli-kurs` (chapter 3 "Sunum yap, rapor ver") | none (self) |
+| `/fa/blog/email-darkhast-kar-englisi.html` | ایمیل درخواست کار به انگلیسی | نمونه ایمیل انگلیسی برای درخواست کار, متن ایمیل ارسال رزومه به انگلیسی, ایمیل بدون آگهی, پیگیری, تشکر بعد از مصاحبه | mulakat · `/fa/amadegi-mosahebe-kari-englisi.html` | none (self) |
+
+Why not an FA presentations guide: in Iran «جملات ارائه به انگلیسی», «شروع ارائه به انگلیسی», «جملات کنفرانس انگلیسی», «عبارات / اصطلاحات ارائه» return no completion at all; «ارائه به انگلیسی» completes to word translations, school «کنفرانس انگلیسی درباره …» topics and thesis defences. The two guides are different topics, so there is no TR ↔ FA pair.
+
+Cannibalisation calls: the TR guide is written for work and interviews; school-homework phrases ("sunum örnekleri pdf", "sunum kapağı", "7. sınıf", "konuları") are not targeted. Meeting phrases stay with the meetings guide (it now links to the presentations guide for status updates that become slides). The FA guide covers the e-mail only: the 3-paragraph cover letter stays with the resume guide (secondary «نمونه کاور لتر انگلیسی برای کار»), and the reply to an interview invitation stays with the formal-email guide; both are linked, not repeated. University / professor e-mails (apply intent) are still left out.
+
+Links in: TR homepage "New guides" band + every TR footer (build-pages, newest first), `/blog/` index, `/is-ingilizcesi.html` related guides (now 6 cards: + sunum, toplantı, resmi mail), `/ingilizce-mulakat-hazirligi.html` (questions section), meetings guide, interview Q&A guide (English assessment section), speaking-anxiety guide. FA: /fa/ band + every FA footer, `/fa/blog/` index, `/fa/amadegi-mosahebe-kari-englisi.html`, resume guide (after the cover letter), formal-email guide (after the six samples).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
