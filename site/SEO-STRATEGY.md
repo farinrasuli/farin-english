@@ -213,6 +213,19 @@ Why the FA meetings guide was built although phrase-list queries return nothing 
 
 Links in: TR: interview Q&A guide (TMAY answer), CV guide (last step), `/ingilizce-mulakat-hazirligi.html` (questions section), small-talk guide (after the event dialogue), `/blog/` index, TR homepage "New guides" band + footers (build-pages). FA: `/fa/dore-zaban-englisi-tejari.html` (after the final project box), formal e-mail guide (after the reschedule sample), phone guide (video-call section), `/fa/blog/` index, /fa/ band + footers.
 
+### 2m. Loop 9 paired FA IELTS guides: Speaking ↔ TR speaking prep, Writing Task 2 scoring ↔ TR Task 2 puanlama (2026-11-10, Trello xy0zrcIW)
+
+Evidence: Iran autocomplete on 2026-11-10 (`keyword-research/README.md` last section, `fa-ielts-sw-2026-11.csv`, `loop9-stems-2026-11.csv`). Demand signal only, no volumes. Facts checked on ielts.org (Speaking format page, Academic + GT Writing format pages, IELTS scoring in detail, public Speaking and Writing band descriptors, Writing updated May 2023) on 2026-11-10.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/fa/blog/soalat-speaking-ielts.html` | سوالات اسپیکینگ آیلتس با جواب | سوالات اسپیکینگ آیلتس پارت اول / پارت ۲ / پارت ۳، اسپیکینگ آیلتس چند دقیقه است / چند بخش دارد، معیارهای نمره دهی اسپیکینگ آیلتس، تقویت / تمرین اسپیکینگ آیلتس | ielts · `/fa/dore-ielts-online.html` (Speaking lesson: Part 1–3, cue card, real timing) | fa ↔ tr `/blog/ielts-speaking-nasil-hazirlanilir.html`, x-default = TR |
+| `/fa/blog/nomre-dehi-writing-task-2-ielts.html` | نمره دهی رایتینگ آیلتس (Task 2) | جدول نمره دهی رایتینگ آیلتس، نحوه نمره دهی رایتینگ آیلتس، محاسبه نمره رایتینگ آیلتس، رایتینگ تسک ۲ آیلتس | ielts · `/fa/dore-ielts-online.html` (Task 2 lesson, sample answers, self-scoring, Farin feedback in the full course) | fa ↔ tr `/blog/ielts-writing-task-2-puanlama.html`, x-default = TR |
+
+Cannibalisation calls: no other FA page targets speaking or Task 2 scoring. The GT letter guide keeps Task 1 (نامه نویسی آیلتس جنرال), the GT-vs-Academic guide keeps the version choice, the immigration guide keeps score minimums; each now links to the new guides instead of covering them. Not targeted: PDF-download phrases (نمونه سوالات … pdf), AI-tool phrases (تمرین اسپیکینگ با هوش مصنوعی، سایت نمره دهی رایتینگ), book phrases. «تصحیح رایتینگ آیلتس» (correction-service intent, incl. «قیمت تصحیح رایتینگ آیلتس») is a buyer signal: served by the course paragraph only; a dedicated page would need a real correction offer first.
+
+Links in (in-body): `/fa/dore-ielts-online.html` (how-the-course-works paragraph, both), GT-vs-Academic guide (Speaking line + Task 2 paragraph), immigration guide (4-week cycle, both), GT letter guide (Task 1 weight paragraph, writing), and the two guides link each other. Plus the `/fa/blog/` index, the /fa/ new-guides band and FA footers (build-pages). count-inbound-links: speaking 6 source pages (4 contextual), writing 7 (5 contextual).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
