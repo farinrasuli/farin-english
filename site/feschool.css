@@ -353,13 +353,16 @@ html:not(.js) .result:has(.gres:target) .gres.on:not(:target){display:none}
 html:not(.js) .gres:target{display:block}
 html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="is"],
 html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="is"],
-html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"]{box-shadow:0 2px 0 rgba(0,0,0,.08),0 18px 30px -18px rgba(0,0,0,.5);transform:none}
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"],
+html:not(.js) body:has(#kurs-sirket:target) .goal[data-goal="is"]{box-shadow:0 2px 0 rgba(0,0,0,.08),0 18px 30px -18px rgba(0,0,0,.5);transform:none}
 html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="is"] .tick,
 html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="is"] .tick,
-html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"] .tick{opacity:0}
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="is"] .tick,
+html:not(.js) body:has(#kurs-sirket:target) .goal[data-goal="is"] .tick{opacity:0}
 html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="ielts"],
 html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="mulakat"],
-html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"]{box-shadow:0 0 0 4px var(--orange),0 22px 40px -18px rgba(0,0,0,.55);transform:translateY(-4px)}
+html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"],
+html:not(.js) body:has(#kurs-sirket:target) .goal[data-goal="sirket"]{box-shadow:0 0 0 4px var(--orange),0 22px 40px -18px rgba(0,0,0,.55);transform:translateY(-4px)}
 html:not(.js) body:has(#kurs-ielts:target) .goal[data-goal="ielts"] .tick,
 html:not(.js) body:has(#kurs-mulakat:target) .goal[data-goal="mulakat"] .tick,
 html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"] .tick{opacity:1;transform:scale(1)}

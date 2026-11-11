@@ -12,6 +12,7 @@
 <meta property="og:title" content="Get the FE App 🚀">
 <meta property="og:description" content="English + Spanish. Your goal, your roadmap. Android & iPhone.">
 <meta property="og:image" content="https://thefeschool.com/og-image.jpg">
+<script src="/consent.js" defer></script>
 <style>
 :root{
   --bg:#fdfbf8; --card:#ffffff; --ink:#14332e; --ink-soft:#4d6b66; --line:#eeebe3;
@@ -55,7 +56,7 @@ h1 span{color:var(--primary)}
 </style>
 </head>
 <body>
-<main class="wrap">
+<main class="wrap" data-loc="get">
   <img class="logo" src="/assets/app-icon.png" alt="FE App">
   <h1>Your goal.<br><span>Your roadmap.</span></h1>
   <p class="sub">English 🇬🇧 + Spanish 🇪🇸 · 100% personalized<br>Pick your phone 👇</p>
@@ -73,8 +74,41 @@ h1 span{color:var(--primary)}
     <p dir="rtl">تو Safari بازش کن ← Share ← <b>Add to Home Screen</b></p>
   </div>
 
-  <p class="foot">Made by <a href="/">FE School</a> 💛</p>
+  <p class="foot footer-bottom">Made by <a href="/">FE School</a> 💛</p>
 </main>
+<script>
+/* GA4 click tracking (website DBUCrZ9g, 2026-11-11). Same rules as the click block in /site.js,
+   cut down to the links on this page (site.js itself is not loaded: its page effects would change
+   this layout). GA4 only exists after "Accept" in the consent.js banner, so without consent this
+   is a no-op. iPhone = app_open (lang en), Android APK = apk_download, both with location=get.
+   UTM: a visit with ?utm_source= is saved in sessionStorage (fe_utm) and added to app_open, as on the site. */
+(function(){
+  try {
+    var sp = new URLSearchParams(location.search);
+    if (sp.get("utm_source")) sessionStorage.setItem("fe_utm", JSON.stringify({
+      source: sp.get("utm_source") || "", campaign: sp.get("utm_campaign") || "", content: sp.get("utm_content") || ""
+    }));
+    window.FE_UTM = JSON.parse(sessionStorage.getItem("fe_utm") || "null");
+  } catch (e) { window.FE_UTM = null; }
+  document.addEventListener("click", function(e){
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a || typeof window.gtag !== "function") return;
+    var href = a.getAttribute("href") || "";
+    var name = null, extra = {};
+    var locEl = a.closest("[data-loc]");
+    var loc = locEl ? locEl.getAttribute("data-loc") : "page";
+    if (href.indexOf("farin-english.apk") !== -1) { name = "apk_download"; extra.location = loc; }
+    else if ((href.indexOf("farin-english-app") !== -1 || href.indexOf("farin-spanish-app") !== -1) && href.indexOf("privacy-policy") === -1) {
+      name = "app_open"; extra.lang = href.indexOf("farin-spanish") !== -1 ? "es" : "en"; extra.location = loc;
+    }
+    if (!name) return;
+    var params = { page_path: location.pathname, link_text: (a.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60), transport_type: "beacon" };
+    for (var k in extra) params[k] = extra[k];
+    if (window.FE_UTM && name === "app_open"){ params.utm_source = window.FE_UTM.source; params.utm_content = window.FE_UTM.content; }
+    window.gtag("event", name, params);
+  }, true);
+})();
+</script>
 <script>
 (function(){
   var ua = navigator.userAgent || "";
