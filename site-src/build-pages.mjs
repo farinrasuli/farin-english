@@ -117,7 +117,7 @@ pmH:['Premium kursların da burada'+dot('.'),'Your premium courses are here too'
 pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. Her kursta Ders 1.1 ücretsiz; gerisi için bekleme listesine yazılırsın, yer açılınca şifreni WhatsApp\'tan alırsın.','The Business English and IELTS courses open inside the app. Lesson 1.1 of each course is free; for the rest, join the waiting list; when a spot opens, you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. درس ۱.۱ هر دوره رایگان است. برای بقیه‌اش، دکمه‌ی «این دوره را می‌خواهم» صفحه‌ی ثبت‌نام دوره را باز می‌کند؛ بعد از پرداخت، رمز دوره را از واتس‌اپ می‌گیری.'],
 pmBtn:['Hedefime uygun kurs','Find my course','دوره‌ی مناسب من'],
 gamesEb:['Oyunlar','Games','بازی‌ها'],
-gamesH:['Her durakta bir oyun'+dot('.'),'A game at every stop'+dot('.'),'در هر ایستگاه یک بازی'+dot('.')],
+gamesH:['Yol haritanın yarısı oyun'+dot('.'),'Half your roadmap is games'+dot('.'),'نیمی از نقشه‌ی راهت بازی است'+dot('.')],  /* 2026-11-12: app rot:5 'Learn, then play' puts a game between every two lessons, at least half of every roadmap page (was 'A game at every stop') */
 gamesL:['Siparişi hazırla, davayı çöz, odayı topla. On beş oyun, hepsi İngilizce, A1\'den C1\'e her seviyede.','Prepare the order, solve the case, tidy the room. Fifteen games, all in English, at every level from A1 to C1.','سفارش را آماده کن، پرونده را حل کن، اتاق را مرتب کن. پانزده بازی، همه به انگلیسی، در همه‌ی سطح‌ها از A1 تا C1.'],
 gmore:['Ve 11 oyun daha','And 11 more games','و ۱۱ بازی دیگر'],
 /* natural-voice band (brief 5.1 §4b, gate G1 cleared 2026-11-09: audio/en/manifest.json + alt/manifest.json live on the deployed app, words, sentences and stories voiced, accent pill on screen) */
@@ -410,7 +410,7 @@ function schema(l, page) {
       { '@type': 'WebSite', '@id': ORIGIN + '/#website', name: 'FE School', alternateName: ['FEschool', 'The FE School', 'thefeschool'], url: ORIGIN + '/', inLanguage: ['tr', 'en', 'fa'], publisher: { '@id': ORIGIN + '/#fe-school' } },
       { '@type': 'SoftwareApplication', '@id': ORIGIN + '/#uygulama', name: 'FE App', alternateName: 'Farin English', applicationCategory: 'EducationalApplication', operatingSystem: 'Web, Android',
         url: APP, downloadUrl: APK, inLanguage: ['tr', 'en', 'fa'],
-        description: 'Hedeflerine göre kişisel yol haritası kuran, her durağında bir oyun olan ücretsiz İngilizce öğrenme uygulaması.',
+        description: 'Hedeflerine göre kişisel yol haritası kuran, yol haritasının yarısı oyunlardan oluşan ücretsiz İngilizce öğrenme uygulaması.',
         featureList: ['Hedefe göre kişisel yol haritası', 'Dilbilgisi ve kelime oyunları', 'Aralıklı tekrar', 'Seviyeye göre hikâye kütüphanesi'],
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' }, publisher: { '@id': ORIGIN + '/#fe-school' } },
       { '@type': 'ItemList', name: 'FE School ile öğrenilebilecek diller', itemListElement: [
@@ -436,7 +436,7 @@ function header(l, page) {
 ${ICONS}
 <a class="skip" href="#main">${S.skip[i]}</a>
 <header class="site"><div class="wrap">
-  <a class="logo" href="${url(l, 'home')}" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38"><span class="wm" dir="ltr">FE<i>School</i></span></a>
+  <a class="logo" href="${url(l, 'home')}" aria-label="FE School"><img src="/assets/app-icon-128.png" alt="" width="38" height="38"><span class="wm" dir="ltr">FE<i>School</i></span></a>
   <nav class="main" aria-label="${S.menu[i]}">
     ${nav}
   </nav>
@@ -469,6 +469,9 @@ function posts(l) {
 /* footer label: the title up to its first colon/dash, or through its first question mark */
 const shortTitle = t => { const q = t.search(/[?؟]/); const c = t.search(/\s[:—–-]\s|:\s/); const cut = [q >= 0 ? q + 1 : -1, c].filter(n => n > 0).sort((a, b) => a - b)[0]; return (cut ? t.slice(0, cut) : t).trim(); };
 
+// The mail link sits inside <!--email_off--> (2026-11-12 speed pass): otherwise Cloudflare's Email Obfuscation
+// rewrites it and injects a parser-blocking email-decode.min.js before site.js on every page (~180 ms of main
+// thread on a slow phone). The address is public in the JSON-LD anyway, so the obfuscation protected nothing.
 function footer(l) {
   const i = LANGS[l].i, tr = l === 'tr' ? '' : ' hreflang="tr"';
   const P = posts(l).slice(0, 5);
@@ -477,7 +480,7 @@ function footer(l) {
       <a href="/${l === 'fa' ? 'fa/' : ''}blog/">${S.gAll[i]}</a></div>` : '';
   return `</main>
 <footer class="site"><div class="wrap">
-  <div class="f-top"><a class="logo" href="${url(l, 'home')}" aria-label="FE School"><img src="/assets/app-icon.png" alt="" width="38" height="38" loading="lazy"><span class="wm" dir="ltr">FE<i>School</i></span></a><span class="tag">${S.tag[i]}</span></div>
+  <div class="f-top"><a class="logo" href="${url(l, 'home')}" aria-label="FE School"><img src="/assets/app-icon-128.png" alt="" width="38" height="38" loading="lazy"><span class="wm" dir="ltr">FE<i>School</i></span></a><span class="tag">${S.tag[i]}</span></div>
   <div class="f-cols">
     <div><h4>${S.fcCourses[i]}</h4>
       <a href="/is-ingilizcesi.html"${tr}>${S.fBiz[i]}</a>
@@ -496,7 +499,7 @@ function footer(l) {
     <div><h4>${S.fcContact[i]}</h4>
       <a data-lead="contact" href="${WA()}" ${ext}>WhatsApp</a>
       <a href="https://www.instagram.com/the_feschool/" ${ext}>Instagram</a>
-      <a href="mailto:farinrasuli@gmail.com">${S.fEmail[i]}</a>
+      <!--email_off--><a href="mailto:farinrasuli@gmail.com">${S.fEmail[i]}</a><!--/email_off-->
       <a href="/gizlilik-politikasi.html"${tr}>${S.fPrivacy[i]}</a></div>
   </div>
   <div class="footer-bottom"><span>© 2026 ${S.rights[i]}</span></div>

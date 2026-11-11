@@ -21,14 +21,15 @@
   if (l !== 'en' && l !== 'fa') l = 'tr';
   var h = document.documentElement;
   h.lang = l; h.dir = l === 'fa' ? 'rtl' : 'ltr'; h.classList.add('js');
+  (l === 'fa' ? ['vazirmatn-arabic','vazirmatn-latin'] : ['nunito-latin','fredoka-latin','nunito-latin-ext','fredoka-latin-ext']).forEach(function(n){
+    var p = document.createElement('link'); p.rel = 'preload'; p.as = 'font'; p.type = 'font/woff2'; p.crossOrigin = 'anonymous';
+    p.href = '/fonts/' + n + '.woff2'; document.head.appendChild(p);
+  });
   var f = document.createElement('link'); f.rel = 'stylesheet';
-  f.href = l === 'fa' ? 'https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap'
-                      : 'https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap';
+  f.href = l === 'fa' ? '/fonts/fa.css' : '/fonts/tr.css';  /* self-hosted copies of the same Google families + weights */
   document.head.appendChild(f);
 })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="/feschool.css">
 <style>
 [hidden]{display:none!important}
