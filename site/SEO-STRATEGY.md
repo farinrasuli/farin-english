@@ -311,6 +311,18 @@ Links in (in-body): `/fa/blog/moarefi-khod-mosahebe-englisi.html` (follow-up que
 
 Same loop, two existing guides paired (they were built separately on 2026-11-09 with self-only hreflang; same topic, same intent, same panel on both sides): `/blog/ingilizce-cv-nasil-yazilir.html` (tr, x-default) ↔ `/fa/blog/neveshtan-rezume-englisi.html` (fa), both mulakat; `/blog/ingilizce-resmi-mail-kaliplari.html` (tr, x-default) ↔ `/fa/blog/email-rasmi-englisi.html` (fa), both is. Local differences are market localisation (the FA resume guide also carries a short cover letter; TR has a separate cover-letter guide), which hreflang allows. If either side is ever retargeted to a different intent, remove the pair on both pages.
 
+### 2t. Loop 19: TR guide "İngilizce kaç ayda öğrenilir" for people choosing a teacher or format (2026-11-11)
+
+Evidence: Türkiye autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop19-stems-2026-11.csv`, `loop19-tr-full-2026-11.csv`). Demand signal only, no volumes. Of the seven stems in the brief, the timeframe stems were the only ones with broad demand (10 completions each, 74 phrases in the full probe). Teacher-selection and "verimli mi" returned no completion. "birebir ingilizce ders" is commercial and already owned by `/english.html` and the prices guide.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-kac-ayda-ogrenilir.html` | ingilizce kaç ayda öğrenilir (stem with 10 completions) | ingilizce ne kadar sürede öğrenilir, sıfırdan / b1 / b2 / c1 ingilizce kaç ayda öğrenilir, ingilizce kaç ayda konuşulur, **ingilizce özel ders haftada kaç saat olmalı (9/1)**, **ingilizce öğrenmek için kurs mu özel ders mi (10/1)**, 3 ayda ingilizce öğrenilir mi | konusma · `/english.html` (anchor "online İngilizce özel ders") + `/english.html#paketler`; prices guide; seviye, plan, konuşma pratiği guides | none (no FA twin) |
+
+Cannibalisation calls: `/english.html` keeps "online İngilizce özel ders" and "birebir …" (the guide links there with that anchor). The prices guide keeps every price phrase ("… saat ücreti", "… kaç tl", "fiyatları") and the price side of group vs 1:1. The guide's "kurs mu özel ders mi" H2 is about speaking time and pace, and links to the prices guide for cost. The plan guide keeps "çalışma programı / haftalık tempo" (the guide links there for building the week). The speaking-practice guide keeps "günde kaç dakika konuşma pratiği" and "konuşma refleksi ne kadar sürede gelişir" (its FAQ). Facts only from the Cambridge English Helpdesk "Guided learning hours" and Cambridge University Press 2013 "Introductory Guide to the CEFR"; month figures are our own arithmetic, labelled as such. Offer facts copied from `/english.html`: 50-minute 1:1 lessons, 4/8/12 a month, homework page after each lesson, free FE App, no trial lesson, free analysis session after payment (outside the package). No prices in the text.
+
+Links in (in-body): `/blog/ingilizce-ogrenme-plani-nasil-olusturulur.html` (section 4, weekly tempo), `/blog/ingilizce-seviyemi-nasil-anlarim.html` ("Seviyeni öğrendin. Şimdi ne yapacaksın?"), `/blog/online-ingilizce-ozel-ders-fiyatlari.html` ("Paket büyüklüğü fiyatı nasıl etkiler?"). Plus the `/blog/` index (card + ItemList 26), the TR homepage new-guides band and every TR footer (build-pages).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
