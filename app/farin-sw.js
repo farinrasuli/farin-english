@@ -129,7 +129,9 @@ const APP_ART_PRECACHE = [
 ];
 // Natural voice clips (Claude/tts): audio/<lang>/<key>.mp3 never change under one name -> cache-first;
 // audio/<lang>/manifest.json changes when clips are added -> network-first, cached copy offline.
-// audio/<lang>/alt/ holds the same lines in the other accent (accent switch).
+// audio/<lang>/alt/ holds the same lines in the other accent (accent switch). English: since 2026-11-11 the alt clips come
+// from the app-only site farinrasuli.github.io/farin-english-voice/audio/en/alt/ (same origin, so the origin check below
+// lets them through and this rule still caches them); the old copies under this app's audio/en/alt/ are dropped on activate.
 const AUDIO_RE = /\/audio\/[a-z]{2}\/(alt\/)?[0-9a-f]{16}\.mp3$/;
 const MANIFEST_RE = /\/audio\/[a-z]{2}\/(alt\/)?manifest\.json$/;
 /* Offline: the app's own images, the Google Fonts files and the pinned Firebase SDK are
@@ -172,9 +174,17 @@ self.addEventListener('activate', (e) => {
     // and clips whenever one of them updated (found 2026-10-14, AlgNvFej).
     caches.keys().then((keys) => Promise.all(
       keys.filter((k) => k !== CACHE && (k.indexOf(CACHE_PREFIX) === 0 || !/^farin-(english|spanish)-v\d+$/.test(k))).map((k) => caches.delete(k))
-    )).then(() => self.clients.claim())
+    )).then(() => dropOldAltClips()).catch(() => {}).then(() => self.clients.claim())
   );
 });
+// The George clips moved to farin-english-voice (2026-11-11): copies saved under this app's old audio/en/alt/ are never asked
+// for again, so free that space; the same clips are cached again under the new address the first time they play.
+function dropOldAltClips() {
+  const old = new URL('audio/en/alt/', PAGE_URL).href;
+  return caches.open(CACHE).then((c) => c.keys().then((reqs) => Promise.all(
+    reqs.filter((r) => r.url.indexOf(old) === 0).map((r) => c.delete(r))
+  )));
+}
 
 // Audio clips: a media element asks for byte ranges, and a 206 can't be cached, so fetch the whole
 // file (no Range header), cache that 200 and answer with it.

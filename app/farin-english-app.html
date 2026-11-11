@@ -7615,6 +7615,11 @@ function ttsUtter(text, rate){
    back to the device voice (ttsUtter). ttsNorm/ttsKey must stay identical to
    Claude/tts/corpus.mjs, or clips will not be found. */
 const TTS_AUDIO_BASE = 'audio/' + TTS_LANG.slice(0, 2) + '/';
+/* The second voice (George) lives on its own app-only Pages site since 2026-11-11, so this site stays under
+   GitHub's 1 GB cap: same origin (farinrasuli.github.io), same path shape audio/en/alt/<key>.mp3 + manifest.json,
+   so farin-sw.js still caches the clips. Absolute, so the APK and file:// copies find it too.
+   New George clips are published to the farin-english-voice repo (Claude/tts/README.md), never back here. */
+const TTS_ALT_BASE = 'https://farinrasuli.github.io/farin-english-voice/audio/en/alt/';
 const TTS_AUDIO_VOICES = {
   b:{name:'Bella', flag:'us', label:()=>L('American English','Amerikan İngilizcesi','انگلیسی آمریکایی','inglés americano')},
   g:{name:'George', flag:'uk', label:()=>L('British English','İngiliz İngilizcesi','انگلیسی بریتانیایی','inglés británico')},
@@ -7629,7 +7634,7 @@ const TTS_FLAGS = {
 };
 let ttsClips = null, ttsAudio = null, ttsBadgeTimer = 0;
 /* Accent switch (2026-10-10, Farin: "there is no accent button switch"). Every line also has a clip in the
-   other voice under audio/<lang>/alt/ (alt/manifest.json = {key: code}). state.profile.accent = 'b'|'g'
+   other voice under TTS_ALT_BASE (its manifest.json = {key: code}). state.profile.accent = 'b'|'g'
    (or 'd'|'v' in Spanish) plays every line in that voice; '' keeps the mixed narrators. */
 let ttsAlt = null, ttsLast = null;
 const TTS_ACCENTS = TTS_LANG.slice(0, 2) === 'es' ? ['d','v'] : ['b','g'];
@@ -7651,7 +7656,7 @@ function ttsKey(t){
 }
 let ttsClipsWait = null;
 try{ ttsClipsWait = fetch(TTS_AUDIO_BASE + 'manifest.json').then(r=>r.ok ? r.json() : null).then(m=>{ ttsClips = m; }).catch(()=>{}).then(()=>{ ttsClipsWait = null; }); }catch(e){}
-try{ fetch(TTS_AUDIO_BASE + 'alt/manifest.json').then(r=>r.ok ? r.json() : null).then(m=>{ if(m && Object.keys(m).length){ ttsAlt = m; if(state.view === 'settings') render(); } }).catch(()=>{}); }catch(e){}
+try{ fetch(TTS_ALT_BASE + 'manifest.json').then(r=>r.ok ? r.json() : null).then(m=>{ if(m && Object.keys(m).length){ ttsAlt = m; if(state.view === 'settings') render(); } }).catch(()=>{}); }catch(e){}
 function ttsHasClip(text){ return !!(ttsClips && (ttsClips[ttsKey(text)] || ttsPlan(text).ok)); }
 function ttsBadge(code){
   clearTimeout(ttsBadgeTimer);
@@ -7727,7 +7732,7 @@ function ttsSpeak(text, rate, cb, opt){
   // the other voice's clip when this line's narrator is not the one wanted
   const alt = !!(want && want !== main && ttsAlt && ttsAlt[key] === want), code = alt ? want : main;
   ttsLast = {text, rate, cb, opt};
-  const a = new Audio(TTS_AUDIO_BASE + (alt ? 'alt/' : '') + key + '.mp3');
+  const a = new Audio((alt ? TTS_ALT_BASE : TTS_AUDIO_BASE) + key + '.mp3');
   // clips are recorded at their level's pace (A1 / A2 slower), so only an explicit slow replay stretches them
   a.playbackRate = (rate && rate <= 0.75) ? rate / 0.92 : 1; a.preservesPitch = true;
   ttsAudio = a; ttsBadge(code);
@@ -7801,7 +7806,7 @@ function ttsPlayPlan(plan, rate, cb, want){
   const code = want || ttsClips[plan.pieces[0].k], my = ++ttsSeqTok;
   const list = plan.pieces.map(p=>{
     const alt = code !== ttsClips[p.k] && ttsAlt && ttsAlt[p.k] === code;
-    const a = new Audio(TTS_AUDIO_BASE + (alt ? 'alt/' : '') + p.k + '.mp3'); a.preload = 'auto';
+    const a = new Audio((alt ? TTS_ALT_BASE : TTS_AUDIO_BASE) + p.k + '.mp3'); a.preload = 'auto';
     a.playbackRate = (rate && rate <= 0.75) ? rate / 0.92 : 1; a.preservesPitch = true;
     return {a, pause:p.pause};
   });
