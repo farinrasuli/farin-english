@@ -91,7 +91,7 @@ Before this, Persian searchers had no indexable page that sells a course. The `/
 | `/fa/dore-ielts-online.html` | دوره آیلتس آنلاین | آزمون آزمایشی آیلتس آنلاین, آمادگی آیلتس در خانه, آیلتس جنرال برای کانادا | `/fa/c/ielts.html`. hreflang pair with `/ielts-hazirlik.html` |
 | `/fa/dore-zaban-englisi-tejari.html` | دوره زبان انگلیسی تجاری | کلاس زبان انگلیسی تجاری, دوره مکاتبات تجاری به زبان انگلیسی («بازرگانی» phrases moved to the Sales page, §2j) | `/fa/c/business.html` |
 | `/fa/dore-englisi-manabe-ensani.html` | آموزش زبان تخصصی منابع انسانی | زبان تخصصی مدیریت منابع انسانی, دوره انگلیسی منابع انسانی | `/fa/c/hr.html` |
-| `/fa/amadegi-mosahebe-kari-englisi.html` | آمادگی مصاحبه کاری به انگلیسی | سوالات رایج در مصاحبه شغلی به زبان انگلیسی, آموزش مصاحبه شغلی به زبان انگلیسی | `/fa/c/interview.html` |
+| `/fa/amadegi-mosahebe-kari-englisi.html` | آمادگی مصاحبه کاری به انگلیسی | آموزش مصاحبه شغلی به زبان انگلیسی («سوالات رایج در مصاحبه شغلی به زبان انگلیسی» moved to the FA questions guide on 2026-11-11, §2s) | `/fa/c/interview.html` |
 
 No cannibalisation: the 3 FA posts keep their informational queries, and each one now links to its course page. Each page shows the price exactly as its sale page does. The `Course` JSON-LD offer is the first-20 price in IRR (toman x 10). **When the first-20 offer ends, update the `/fa/c/` page, the visible price card and the JSON-LD on these pages together.**
 
@@ -296,6 +296,20 @@ Cannibalisation calls: the self-introduction guide keeps the phone-screen answer
 Links in (in-body): `/blog/ingilizce-toplanti-kaliplari.html` (after the online-meeting list), `/blog/ingilizce-small-talk-ornekleri.html` (after dialogue 2), `/blog/ingilizce-kendini-tanitma-mulakat.html` (after the phone-screen sample), `/blog/ingilizce-resmi-mail-kaliplari.html` (after the opening-sentence list). Plus the `/blog/` index (card + ItemList 25), the TR homepage new-guides band and every TR footer (build-pages).
 
 Same loop, Trello tCtcNf3H: `/blog/ingilizce-resmi-mail-kaliplari.html` now carries "İngilizce resmi yazışma kuralları" in the meta/Article description, "İngilizce resmi yazışmalarda hitap" as the greeting H2, and one intro sentence; the title is unchanged ("ingilizce resmi mail" returns 9 completions against 4 for "ingilizce resmi yazışma").
+
+### 2s. Loop 17: FA interview questions guide ↔ TR interview Q&A twin, + 2 hreflang pairs (2026-11-11)
+
+Evidence: Iran autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop17-stems-2026-11.csv`, `loop17-fa-full-2026-11.csv`). Demand signal only, no volumes. Of the four candidates (cover letter, interview questions, presentations, small talk), interview questions had the most job-intent phrases and the closest buyer intent (the Job Interview course, sold on `/fa/c/interview.html`). Cover letter demand is mostly journal, visa and study-apply intent; presentations and small talk return no completion (third probe).
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/fa/blog/soalat-mosahebe-kari-englisi.html` | سوالات مصاحبه کاری به انگلیسی (با جواب) (8/1) | نمونه مصاحبه کاری به زبان انگلیسی (9/1), متن / مکالمه مصاحبه کاری به انگلیسی, سوالات رایج در مصاحبه شغلی به زبان انگلیسی (6/1), سوالات مصاحبه انگلیسی با جواب, سوالات مصاحبه استخدامی / شغلی به انگلیسی, مصاحبه کاری به انگلیسی چه می شود | mulakat · `/fa/amadegi-mosahebe-kari-englisi.html` + `/fa/c/interview.html` | fa ↔ tr `/blog/is-ingilizcesi-mulakat-sorulari.html`, x-default = TR |
+
+Cannibalisation calls: the question queries move from the FA course page (§2d) to the guide, the same split as TR (Q&A guide vs `/ingilizce-mulakat-hazirligi.html`); the course page keeps «آمادگی مصاحبه کاری به انگلیسی» and links to the guide from its questions section. The self-intro guide keeps «معرفی خود در مصاحبه» (the new guide has one short TMAY answer and links there). The resume guide keeps the cover letter section («نمونه کاور لتر انگلیسی برای کار»). Not targeted: embassy and visa interviews (سفارت), placement-test interviews (تعیین سطح), teaching-job and PhD interviews, PDF downloads (answered as Print → Save as PDF). Facts only from National Careers Service (STAR method) and nidirect (common interview questions, asking about pay, questions to ask), both checked 2026-11-11. No prices in the text; only Lesson 1.1 is named as free.
+
+Links in (in-body): `/fa/blog/moarefi-khod-mosahebe-englisi.html` (follow-up questions section), `/fa/blog/email-darkhast-kar-englisi.html` («بعد از ایمیل: مصاحبه»), `/fa/blog/neveshtan-rezume-englisi.html` («بعد از رزومه: مصاحبه», resume-gap angle), `/fa/amadegi-mosahebe-kari-englisi.html` (questions section). Plus the `/fa/blog/` index (card + ItemList 15), the /fa/ new-guides band and every FA footer (build-pages).
+
+Same loop, two existing guides paired (they were built separately on 2026-11-09 with self-only hreflang; same topic, same intent, same panel on both sides): `/blog/ingilizce-cv-nasil-yazilir.html` (tr, x-default) ↔ `/fa/blog/neveshtan-rezume-englisi.html` (fa), both mulakat; `/blog/ingilizce-resmi-mail-kaliplari.html` (tr, x-default) ↔ `/fa/blog/email-rasmi-englisi.html` (fa), both is. Local differences are market localisation (the FA resume guide also carries a short cover letter; TR has a separate cover-letter guide), which hreflang allows. If either side is ever retargeted to a different intent, remove the pair on both pages.
 
 ## 3. Page architecture decision
 
