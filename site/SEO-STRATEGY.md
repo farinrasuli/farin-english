@@ -252,6 +252,20 @@ Cannibalisation calls: "İngilizce fiyat teklifi" moves from the TR Sales course
 
 Links in (in-body): TR guide ← `/dis-ticaret-ingilizcesi.html` ("Bu kurs kimin için"), formal-mail guide (after the request phrases), presentations guide (numbers paragraph). FA guide ← `/fa/dore-zaban-englisi-bazargani.html` (ready-phrases line), `/fa/dore-zaban-englisi-tejari.html` (starter guides line), formal-email guide (after sample 1), phone guide (closing section). Plus both blog indexes (cards + ItemList TR 24, FA 13), both homepage new-guides bands and every footer (build-pages). count-inbound-links: TR 5 source pages (3 contextual), FA 6 (4 contextual). **The Incoterms edition line ("Incoterms® 2020 is the latest") must be re-checked on the ICC page whenever ICC announces a new edition.**
 
+### 2p. Loop 14: FA business and official letters guide, no TR twin (2026-11-11, Trello q7mFWhmr / a4Q93xSu)
+
+Evidence: Iran + Türkiye autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop14-stems-2026-11.csv`, `loop14-fa-full-2026-11.csv`, `loop14-tr-full-2026-11.csv`). Demand signal only, no volumes. The re-probe moved the head term: the «اداری» phrasing is stronger than «تجاری», so the guide targets both.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/fa/blog/nameh-edari-tejari-englisi.html` | نمونه نامه اداری انگلیسی با ترجمه فارسی (14/1) + نمونه نامه تجاری انگلیسی با ترجمه فارسی (8/1) | نمونه نامه اداری انگلیسی به یک شرکت (12/1), نامه اداری به انگلیسی چی میشه (6/1), نمونه نامه رسمی اداری انگلیسی (6/1), نمونه نامه رسمی انگلیسی به شرکت (4/1), فرمت / شروع / فونت نامه اداری انگلیسی (3), مکاتبات تجاری انگلیسی (2/1) | is · `/fa/dore-zaban-englisi-bazargani.html` + `/fa/dore-zaban-englisi-tejari.html` | fa only (x-default = itself) |
+
+Cannibalisation calls: the formal-email guide keeps «ایمیل رسمی به انگلیسی» and e-mail greetings/closings (the new guide links there for short daily mail); the PI guide keeps the proforma and the RFQ e-mail (letter 3 links there); the job-application guide keeps «نامه رسمی انگلیسی برای درخواست کار»; the IELTS GT guide keeps exam letters (both get a routing link). The Business course page keeps the course intent «دوره مکاتبات تجاری به زبان انگلیسی». Not targeted: «نامه رسمی انگلیسی به دانشگاه / استاد / سفارت» (academic and visa intent, not what we sell), «نامه نگاری تجاری انگلیسی pdf» / «کتاب مکاتبات تجاری / بازرگانی» (download and book intent), «پاکت / سربرگ نامه اداری» (2/2, layout only; letterhead is a row of the structure table).
+
+TR twin skipped: "ingilizce ticari mektup", "ingilizce ticari mektup örnekleri", "ingilizce ticari yazışma örnekleri", "ticari mektup örnekleri" return no completion; "ticari ingilizce yazışma" / "ingilizce ticari yazışma" only complete to "ingilizce ticari yazışmalar (pdf)" (1 hit each in the full probe). The one real formal family, "ingilizce resmi yazışma örnekleri" 5/1 and "... kuralları" 3/1 (plus "resmi yazışmalarda hitap"), is greetings/closings/rules territory that `/blog/ingilizce-resmi-mail-kaliplari.html` already owns; "ingilizce şikayet mektubu" is school homework ("11 sınıf", "kısa"). A twin would split the formal-mail guide. Follow-up proposal: add the "resmi yazışma" wording to that guide (Trello, Keywords & Research).
+
+Links in (in-body): `/fa/blog/email-rasmi-englisi.html` (after the six samples), `/fa/blog/pish-factor-englisi.html` (before sources), `/fa/dore-zaban-englisi-bazargani.html` (ready-phrases line), `/fa/dore-zaban-englisi-tejari.html` (starter guides line). Plus the FA blog index (card + ItemList 14), the /fa/ new-guides band and every FA footer (build-pages).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
