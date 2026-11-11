@@ -283,6 +283,20 @@ Iran: real demand for online/private German classes («کلاس زبان آلم�
 
 Watch: `/german.html` was "Discovered – currently not indexed". Re-check in GSC by 2026-11-25 (Trello card).
 
+### 2r. Loop 16: TR phone-call guide ↔ FA phone guide twin, + "resmi yazışma" wording (2026-11-11, Trello tCtcNf3H)
+
+Evidence: Türkiye autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop16-stems-2026-11.csv`, `loop16-tr-full-2026-11.csv`). Demand signal only, no volumes. The 11-09 pull had phone calls at 4/1 at best; the targeted re-probe found more adult-usable phrases, under heavy 8th-grade homework noise.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-telefon-konusmasi-ornekleri.html` | ingilizce telefon konuşması örnekleri (5/1; stem with 9 completions) | ingilizce telefonda kendini tanıtma (6/1), ingilizce telefon görüşmesi diyalogları (4/1), telefon görüşmesi ingilizce ne demek (4/1), ingilizce sekreter telefon konuşması örnekleri (4/2), ingilizce telefon konuşması diyalog örnekleri (7/3), telefon açmak ingilizce, ingilizce telefon numarası nasıl istenir | is · `/is-ingilizcesi.html#kapsamli-kurs` (chapter 1 lesson "Telefon ve görüntülü toplantılar", Ders 1.1 free) + `/is-ingilizcesi.html` | tr ↔ fa `/fa/blog/mokaleme-telefoni-englisi.html`, x-default = TR |
+
+Cannibalisation calls: the self-introduction guide keeps the phone-screen answer ("phone screen" = 30-second career summary); the new guide covers only the call mechanics and links there. The meetings guide keeps online-meeting phrases (the new guide routes video calls there); the formal-mail guide keeps the confirmation e-mail. Not targeted: homework phrases ("… diyalog 8 sınıf", "eodev", "kısa", "karşılıklı telefon konuşması"), phone-settings phrases ("telefonda ingilizce klavye", "… türkçeye çevirme"), and "ingilizce telefon mülakatı" (no completion). "iş yerinde ingilizce telefon" and "… kalıpları" have no completion, so they appear only in the H1.
+
+Links in (in-body): `/blog/ingilizce-toplanti-kaliplari.html` (after the online-meeting list), `/blog/ingilizce-small-talk-ornekleri.html` (after dialogue 2), `/blog/ingilizce-kendini-tanitma-mulakat.html` (after the phone-screen sample), `/blog/ingilizce-resmi-mail-kaliplari.html` (after the opening-sentence list). Plus the `/blog/` index (card + ItemList 25), the TR homepage new-guides band and every TR footer (build-pages).
+
+Same loop, Trello tCtcNf3H: `/blog/ingilizce-resmi-mail-kaliplari.html` now carries "İngilizce resmi yazışma kuralları" in the meta/Article description, "İngilizce resmi yazışmalarda hitap" as the greeting H2, and one intro sentence; the title is unchanged ("ingilizce resmi mail" returns 9 completions against 4 for "ingilizce resmi yazışma").
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
