@@ -11,28 +11,51 @@ var goals=[].slice.call(document.querySelectorAll('.goal[data-goal]'));
 var panels={};
 [].slice.call(document.querySelectorAll('.gres[data-goal]')).forEach(function(p){panels[p.getAttribute('data-goal')]=p;});
 
-function pick(g,scroll){
-  if(!panels[g]) return;
-  Object.keys(panels).forEach(function(k){panels[k].classList.toggle('on',k===g);});
+/* INP (2026-11-11, website c50kTr0f): a tap only marks the card (aria-current + tick)
+   in the click task, so that frame paints at once. Showing the new panel and the
+   scroll to it (style + layout of the panel, forced by scrollIntoView, and the big
+   repaint below it) run in a new task after that paint. End state is the same. */
+var job=0;
+function afterPaint(fn){
+  var done=false;
+  function run(){ if(!done){ done=true; fn(); } }
+  if(window.requestAnimationFrame) requestAnimationFrame(function(){ setTimeout(run,0); });
+  setTimeout(run,250); /* safety net if no frame comes (hidden tab) */
+}
+function mark(g){
   goals.forEach(function(b){
     if(b.getAttribute('data-goal')===g) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current');
   });
-  if(scroll){
+}
+function show(g){
+  Object.keys(panels).forEach(function(k){panels[k].classList.toggle('on',k===g);});
+}
+function pick(g,scroll){
+  if(!panels[g]) return;
+  mark(g);
+  if(!scroll){ show(g); return; }
+  var id=++job;
+  afterPaint(function(){
+    if(id!==job) return; /* a newer tap won */
+    show(g);
     var r=document.getElementById('dersler')||panels[g];
     var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
     r.scrollIntoView({block:'start',behavior:reduce?'auto':'smooth'});
-  }
+    try{localStorage.setItem(KEY,g);}catch(err){}
+  });
 }
 
 if(goals.length){
   document.addEventListener('click',function(e){
-    var a=e.target.closest&&e.target.closest('a[href^="#kurs-"]');
+    var a=e.target.closest&&e.target.closest('a[href*="#kurs-"]');
     if(!a) return;
-    var g=a.getAttribute('href').slice(6);
+    var href=a.getAttribute('href'), at=href.indexOf('#kurs-');
+    /* '/#kurs-sirket' (footer) on this same page: switch in place too; other pages navigate */
+    if(at>0&&(a.host!==location.host||a.pathname!==location.pathname||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey)) return;
+    var g=href.slice(at+6);
     if(!panels[g]) return;
     e.preventDefault();
     pick(g,true);
-    try{localStorage.setItem(KEY,g);}catch(err){}
     try{history.replaceState(null,'','#kurs-'+g);}catch(err){}
   });
   var start='is', h=location.hash.replace('#kurs-','');
