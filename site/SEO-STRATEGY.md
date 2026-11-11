@@ -28,8 +28,8 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 |---|---|---|---|---|
 | `/` (home) | ~~kişiye özel dil eğitimi~~ → **İngilizce öğrenme uygulaması** (see §2b) | ücretsiz İngilizce öğrenme uygulaması, oyunla İngilizce öğrenme | Commercial/brand | App-first since 2026-10-07 |
 | `/english.html` | online İngilizce özel ders | birebir online İngilizce dersi, online İngilizce konuşma dersi (see §2g, 2026-11-09) | Commercial | Ready to book, comparing tutors |
-| `/spanish.html` | online İspanyolca özel ders | kişiye özel İspanyolca dersi | Commercial | Smaller volume, same intent as English |
-| `/german.html` | online Almanca özel ders | Almanca özel ders | Commercial | Smallest volume — keep as-is, low investment |
+| `/spanish.html` | online İspanyolca özel ders | İspanyolca özel ders fiyatları, online İspanyolca dersi, İspanyolca öğrenme uygulaması ücretsiz (app H2) | Commercial | Thin demand, same intent as English (Loop 1 pattern applied 2026-11-11, §2q) |
+| `/german.html` | online Almanca özel ders | Almanca özel ders fiyatları, birebir online Almanca dersi, online Almanca konuşma dersi | Commercial | More TR demand than Spanish, schools compete (FL Deutsch, Hedefim Almanca); Loop 1 pattern applied 2026-11-11, §2q |
 
 ### Commercial intent — NEW goal-specific pages (see §3 for whether to build)
 
@@ -266,6 +266,23 @@ TR twin skipped: "ingilizce ticari mektup", "ingilizce ticari mektup örnekleri"
 
 Links in (in-body): `/fa/blog/email-rasmi-englisi.html` (after the six samples), `/fa/blog/pish-factor-englisi.html` (before sources), `/fa/dore-zaban-englisi-bazargani.html` (ready-phrases line), `/fa/dore-zaban-englisi-tejari.html` (starter guides line). Plus the FA blog index (card + ItemList 14), the /fa/ new-guides band and every FA footer (build-pages).
 
+### 2q. Loop 15: Spanish and German 1:1 lesson pages (2026-11-11, Trello 8t0EOUVw)
+
+Evidence: Türkiye + Iran autocomplete on 2026-11-11 (`keyword-research/README.md` last section, `loop15-stems-2026-11.csv`, `loop15-tr-full-2026-11.csv`, `loop15-fa-full-2026-11.csv`). Demand signal only, no volumes.
+
+| Page | Primary query | Title / H1 | Secondary |
+|---|---|---|---|
+| `/spanish.html` | online İspanyolca özel ders (head "ispanyolca özel ders": stem 1; "online ispanyolca ö" → 2) | "Online İspanyolca Özel Ders ve Fiyatları | FE School" / "Online İspanyolca özel ders, tamamen hedefine göre." | İspanyolca özel ders fiyatları (4/1, H2 + FAQ), online İspanyolca dersi; app query moved from the title to the app H2 "Ücretsiz İspanyolca öğrenme uygulaması." |
+| `/german.html` | online Almanca özel ders ("almanca özel ders" cluster 79 phrases; "online almanca ö" → 2) | "Birebir Online Almanca Özel Ders ve Fiyatları | FE School" / "Online Almanca özel ders, birebir ve hedefine göre." | Almanca özel ders fiyatları (4/1, H2 + FAQ), birebir online Almanca dersi (6/1, how-it-works lead), online Almanca konuşma dersi (3/1, meta keywords only) |
+
+Both pages (inside `<main>` + head metas/JSON-LD only, shells untouched): "… özel ders nasıl işler?" block (WhatsApp → free analysis session after payment, extra to the pack → 50-minute lessons; ayda 4/8/12), packages moved up under "… özel ders fiyatları." with the 3-month −20% lines (₺16.128 / ₺23.904), 6-question FAQ = FAQPage, Course offers + the two 3-month offers, Course name = the visible H1 phrase (was NOT-IN-BODY in check-schema). Prices: `business/farin-monetization/02-monetization-model.md` line 36 ("1-to-1 online lesson (EN/ES/DE)": ₺850/840/830, 3 months of 8 or 12 = −20%) + `08-final-prices.md` item 5; 50 min from the TR homepage live-lesson card (the card that links Spanish + German) and the 08 table header. No testimonials added (the two on english.html are English students).
+
+Links in: `/english.html` founder line now uses "online İspanyolca özel ders" / "Almanca özel ders" as anchors; `/blog/online-ingilizce-ozel-ders-fiyatlari.html` (FE School pricing section) adds "Aynı paketler ve fiyatlar İspanyolca özel ders ve online Almanca özel ders için de geçerli." Both pages now link `/english.html` from the founder line. In-body inbound sources: 3 → 4 each. The homepage line ("İspanyolca ve Almanca da var", build-pages `ES_DE`) was left alone: it renders in every offer panel, so a query anchor there would be a sitewide repeated anchor.
+
+Iran: real demand for online/private German classes («کلاس زبان آلمانی آنلاین», «کلاس خصوصی آنلاین زبان آلمانی», «هزینه کلاس آنلاین زبان آلمانی»), thin for Spanish. No FA page: FA live classes are English only.
+
+Watch: `/german.html` was "Discovered – currently not indexed". Re-check in GSC by 2026-11-25 (Trello card).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
@@ -342,7 +359,7 @@ Current: `EducationalOrganization`, `Person`, `Service`, `SoftwareApplication`, 
 
 **Status 2026-10-08 (Trello Orkb8jpq):** all of the above is live, plus:
 - Homepage `EducationalOrganization` (`/#fe-school`) now carries `logo` (icon-512, 512x512), `image`, `description`, `alternateName`, `areaServed`, `contactPoint` (WhatsApp URL + e-mail, no raw phone number) and `sameAs` (the footer's Instagram). `WebSite` got `inLanguage` + `publisher`.
-- `Course` (`#kurs`) on the 5 lesson pages (`english`, `spanish`, `german`, `is-ingilizcesi`, `ielts-hazirlik`), instructor `/#farin`, `courseMode` Online, offers = the 4 published packages (İlk Adım free, ₺3.400 / ₺6.720 / ₺9.960). Every value is copied from the page itself. No lesson duration or `courseSchedule`/`courseWorkload` is published because the site doesn't state one ("Süre ve sıklığı birlikte belirleriz"), so Google's Course-info rich result may still call those fields missing. That is deliberate. Don't invent them; add them only if Farin fixes a lesson length on the page.
+- `Course` (`#kurs`) on the 5 lesson pages (`english`, `spanish`, `german`, `is-ingilizcesi`, `ielts-hazirlik`), instructor `/#farin`, `courseMode` Online, offers = the 4 published packages (İlk Adım free, ₺3.400 / ₺6.720 / ₺9.960). Every value is copied from the page itself. No lesson duration or `courseSchedule`/`courseWorkload` is published because the site didn't state one at the time ("Süre ve sıklığı birlikte belirleriz"; since Loop 1 / Loop 15 the english/spanish/german pages say 50 minutes and 4/8/12 a month, in visible text and the Course description only), so Google's Course-info rich result may still call those fields missing. That is deliberate. Don't invent them; add them only if Farin fixes a lesson length on the page.
 - `Article` on all 8 posts now has `@id`, `description` (= meta description), `inLanguage`, author `@id` `/#farin`, publisher `EducationalOrganization` with logo, `mainEntityOfPage` as `WebPage`, `isPartOf` `/blog/`.
 
 **Status 2026-11-10 (Loop 8, Trello NiF6LVXL + btaeQE6n): Course markup on the 16 course pages + the FA live-class page.**
