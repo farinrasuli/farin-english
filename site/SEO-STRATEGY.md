@@ -335,6 +335,20 @@ Cannibalisation calls: the class page keeps «کلاس زبان انگلیسی �
 
 Links in (in-body): `/fa/kelas-zaban-englisi-online.html` (price section, «نمی‌دانی ۴، ۸ یا ۱۲ جلسه؟»), `/fa/blog/nomre-ielts-mohajerat.html` («چه نمره‌ای را هدف بگیری؟»), `/fa/dore-haye-zaban-englisi.html` (level FAQ, visible link; JSON-LD text identical without the tag). Plus the `/fa/blog/` index (card + ItemList 16), the /fa/ guides list and every FA footer (build-pages).
 
+### 2v. Loop 22: TR reminder and follow-up e-mail guide (2026-11-12)
+
+Evidence: Türkiye autocomplete on 2026-11-12 (`keyword-research/README.md` last section, `loop22-stems-2026-11.csv`, `loop22-tr-full-2026-11.csv`). Demand signal only, no volumes. The reminder cluster beat thank-you, speaking partner, complaint/apology, resignation and mail-reply phrases; top phrases "ingilizce hatırlatma maili örneği" 10/1, "… nasıl atılır" 9/1, "… nasıl yazılır" 7/1, "nazik hatırlatma maili ingilizce" 6/1.
+
+| Page | Primary query | Secondary | Panel / body links | hreflang |
+|---|---|---|---|---|
+| `/blog/ingilizce-hatirlatma-maili.html` | ingilizce hatırlatma maili (örneği, nasıl yazılır, nasıl atılır) | nazik / kibar hatırlatma maili İngilizce, İngilizce takip maili, İngilizce follow up maili, İngilizce ödeme hatırlatma maili, İngilizce mail hatırlatma kalıpları | is / `/is-ingilizcesi.html#kapsamli-kurs` (lessons "Harekete geçiren e-postalar" and "Paranı zamanında tahsil et"), `/is-ingilizcesi.html#ders`, resmi mail, toplantı, fiyat teklifi and iş başvurusu guides | none (no FA reminder guide) |
+
+Cannibalisation calls: `/blog/ingilizce-resmi-mail-kaliplari.html` keeps the general mail phrases and its one follow-up sample (it now links to the guide from "Cevap gelmediyse"). `/blog/ingilizce-is-basvurusu-maili.html` keeps the job-application follow-up and the interview thank-you mail (its keywords meta now says "İngilizce başvuru takip maili"; it links to the guide for work reminders). The quote follow-up sample continues the quote guide's own example and links back to it. "fuar sonrası teşekkür maili ingilizce" (4/1) is a possible Sales & Trade section later, not a page.
+
+Links in (in-body): `/blog/ingilizce-resmi-mail-kaliplari.html` (Ek, takip ve gecikme kalıpları), `/blog/ingilizce-fiyat-teklifi.html` (Teklifi gönderen mail), `/blog/ingilizce-toplanti-kaliplari.html` (Toplantı ayarlamak, ertelemek ve iptal etmek), `/blog/ingilizce-is-basvurusu-maili.html` (Başvuru sonrası takip maili). Plus the `/blog/` index (card + ItemList 27), the TR homepage guide cards and the footer Rehber column on every TR page (build-pages + reshell). Facts: GOV.UK late commercial payments (2 pages) and Your Europe B2B late payment, opened 2026-11-12; re-check if either page changes.
+
+Same commit: English for AI and the Internet switched to Three Rounds on `/ingilizce-prompt-yazma.html` and `/fa/dore-prompt-nevisi-englisi.html` (app commit bf5cf29c, `rounds:true` on the AI literal), and the FA hub line now names five rounds courses with IELTS and HR to follow (JSON-LD text identical to the visible text).
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
