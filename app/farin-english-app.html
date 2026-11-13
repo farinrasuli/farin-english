@@ -287,6 +287,7 @@
   .rm2-node.rm2-poster{display:flex; flex-direction:column; justify-content:flex-end; align-items:flex-start; padding:40px 14px 46px !important;}
   .rm2-poster .roadmap-study{position:relative; z-index:1; flex:0 0 auto; width:fit-content !important; max-width:60%; box-sizing:border-box; padding:10px 12px !important; margin:0; background:rgba(255,255,255,.85) !important; -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border-radius:16px !important; box-shadow:0 6px 16px -8px rgba(20,51,46,.35);}
   .rm2-poster .rm2-title{padding-inline-end:0 !important; color:#14332e !important; font-size:16px !important; margin-top:4px !important;}
+  @media (max-width:370px){ .rm2-poster .roadmap-study{max-width:66%;} }   /* 360 px phones: a long single word (Spanish "Minicrucigrama") fits the panel instead of running into its edge; fit-content keeps short titles small */
   .rm2-poster .rm2-sub{color:#4d6b66 !important; font-size:10.5px !important;}
   .rm2-poster .rm2-chev{color:#4d6b66 !important;}
   /* a poster whose subject stands right of centre (Your Call cover) keeps the panel on the left in RTL too, so it never covers her */
