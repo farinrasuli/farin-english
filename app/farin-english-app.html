@@ -29431,7 +29431,9 @@ function msgBubbleHtml(m, side, d, repaint){
       ${c.receipt ? imgHtml(c.receipt, true) : ''}
       ${c.note ? `<p dir="auto">${esc(c.note)}</p>` : ''}
       ${time}</div></div>`
-      + (side === 'learner' && d && d.status !== 'done' ? `<div class="msg-sys">${esc(CL('Sent. Farin checks the payment and sends your password here.','Gönderildi. Farin ödemeyi kontrol edip şifreni buraya gönderecek.','فرستاده شد. فرین پرداخت را بررسی می‌کند و رمزت را همین‌جا می‌فرستد.','Enviado. Farin revisa el pago y te envía la contraseña aquí.'))}</div>` : '');
+      + (side === 'learner' && d && d.status !== 'done' ? `<div class="msg-sys">${esc(c.receipt
+        ? CL('Sent. Farin checks the payment and sends your password here.','Gönderildi. Farin ödemeyi kontrol edip şifreni buraya gönderecek.','فرستاده شد. فرین پرداخت را بررسی می‌کند و رمزت را همین‌جا می‌فرستد.','Enviado. Farin revisa el pago y te envía la contraseña aquí.')
+        : CL('Sent. Farin will send you the price and payment details here.','Gönderildi. Farin fiyatı ve ödeme bilgilerini buradan gönderecek.','فرستاده شد. فرین قیمت و اطلاعات پرداخت را همین‌جا برایت می‌فرستد.','Enviado. Farin te enviará aquí el precio y los datos de pago.'))}</div>` : '');
   }
   if(c && c.type === 'password'){
     const until = c.until ? msgDateLong(c.until, side) : '';
@@ -29612,15 +29614,16 @@ function renderMsgRequest(){
         <div class="msg-tile"><span>${CL('Password','Şifre','رمز','Contraseña')}</span><b>${CL('in chat','sohbette','در گفتگو','en el chat')}</b></div>
       </div>
       ${modes.length > 1 ? `<div class="msg-paysw" role="group">${modes.map(p=>`<button class="${r.pay === p ? 'on' : ''}" data-action="msg-pay" data-pay="${p}">${p === 'toman' ? CL('Pay in toman','Tomanla öde','پرداخت با تومان','Pagar en tomanes') : CL('Pay in TL','TL ile öde','پرداخت با لیر','Pagar en TL')}</button>`).join('')}</div>` : ''}
-      ${modes.length ? `<div class="card-flat msg-step">${pay}</div>` : `<div class="card-flat msg-step"><p class="msg-hint">${CL('Farin will send you the payment details here.','Farin ödeme bilgilerini buradan gönderecek.','فرین اطلاعات پرداخت را همین‌جا برایت می‌فرستد.','Farin te enviará aquí los datos de pago.')}</p></div>`}
+      ${modes.length ? `<div class="card-flat msg-step">${pay}</div>
       <div class="card-flat msg-step"><div class="msg-step-h"><i class="msg-num">2</i><b>${CL('Add your receipt','Dekontunu ekle','رسیدت را اضافه کن','Añade tu comprobante')}</b></div>${receipt}
-        <input type="file" id="msg-req-file" accept="image/*" hidden></div>
-      <div class="card-flat msg-step"><div class="msg-step-h"><i class="msg-num">3</i><b>${CL('Get your password here','Şifren buraya gelir','رمزت همین‌جا می‌آید','Tu contraseña llega aquí')}</b></div>
+        <input type="file" id="msg-req-file" accept="image/*" hidden></div>`
+        : `<div class="card-flat msg-step"><p class="msg-hint" style="color:var(--ink-soft);">${CL('Farin will send you the price and payment details here. Send your request first.','Farin fiyatı ve ödeme bilgilerini buradan gönderecek. Önce talebini gönder.','فرین قیمت و اطلاعات پرداخت را همین‌جا برایت می‌فرستد. اول درخواستت را بفرست.','Farin te enviará aquí el precio y los datos de pago. Primero envía tu solicitud.')}</p></div>`}
+      <div class="card-flat msg-step"><div class="msg-step-h">${modes.length ? '<i class="msg-num">3</i>' : ''}<b>${CL('Get your password here','Şifren buraya gelir','رمزت همین‌جا می‌آید','Tu contraseña llega aquí')}</b></div>
         <p class="msg-hint" style="color:var(--ink-soft);">${CL('Farin checks the payment and sends your password to Messages, usually within a day. The course opens by itself, no typing.','Farin ödemeyi kontrol edip şifreni Mesajlar\'a gönderir, genelde bir gün içinde. Kurs kendiliğinden açılır, bir şey yazmana gerek yok.','فرین پرداخت را بررسی می‌کند و رمزت را معمولاً تا یک روز به پیام‌ها می‌فرستد. دوره خودش باز می‌شود و لازم نیست چیزی تایپ کنی.','Farin revisa el pago y te envía la contraseña a Mensajes, normalmente en un día. El curso se abre solo, sin escribir nada.')}</p></div>
       <label class="msg-note-lbl" for="msg-note">${CL('Message to Farin','Farin\'e mesaj','پیام به فرین','Mensaje para Farin')} <small style="color:var(--ink-faint); font-weight:700;">${CL('(optional)','(isteğe bağlı)','(اختیاری)','(opcional)')}</small></label>
       <textarea class="msg-note" id="msg-note" rows="2" maxlength="1000" dir="auto" placeholder="${esc(CL('Anything to add?','Eklemek istediğin bir şey var mı?','چیزی می‌خواهی اضافه کنی؟','¿Algo que añadir?'))}">${esc(r.note || '')}</textarea>
       ${msgUi.err ? `<p class="msg-err" role="alert">${esc(msgUi.err)}</p>` : ''}
-      <button class="cu-btn cu-orange msg-send-req" data-action="msg-send-request" ${r.receipt && !msgUi.busy ? '' : 'disabled'}>${msgUi.busy ? CL('Sending…','Gönderiliyor…','در حال ارسال…','Enviando…') : CL('Send request','Talebi gönder','ارسال درخواست','Enviar solicitud')}</button>
+      <button class="cu-btn cu-orange msg-send-req" data-action="msg-send-request" ${(r.receipt || !modes.length) && !msgUi.busy ? '' : 'disabled'}>${msgUi.busy ? CL('Sending…','Gönderiliyor…','در حال ارسال…','Enviando…') : CL('Send request','Talebi gönder','ارسال درخواست','Enviar solicitud')}</button>
       <button class="msg-link" data-action="msg-ask-first" data-cid="${esc(cid)}">${CL('I have a question first','Önce bir sorum var','اول یک سؤال دارم','Primero tengo una pregunta')}</button>
     </div>
   </div>`;
@@ -29712,10 +29715,11 @@ Object.assign(HANDLERS, {
   'msg-req-pick'(){ const f = document.getElementById('msg-req-file'); if(f) f.click(); },
   'msg-send-request'(){
     const cid = (state.viewParams || {}).cid, r = msgUi.req;
-    if(!r || r.cid !== cid || !r.receipt || msgUi.busy) return;
+    if(!r || r.cid !== cid || msgUi.busy) return;
+    if(!r.receipt && msgPayModes(cid).length) return;   // no price on file: the request goes without a receipt and Farin sends the details
     const n = document.getElementById('msg-note'); if(n) r.note = n.value;
     msgUi.busy = true; msgUi.err = ''; render();
-    msgUploadImg(r.receipt, '', 'learner').then(img=>{
+    (r.receipt ? msgUploadImg(r.receipt, '', 'learner') : Promise.resolve('')).then(img=>{
       const card = {type:'request', c:cid, price:r.pay ? msgPrice(cid, r.pay) : '', pay:r.pay || '', receipt:img, ref:msgRef(cid), note:String(r.note || '').trim().slice(0, 1000)};
       return msgCreate({topic:{t:'course', c:cid}, type:'request', req:'buy'}, [{id:msgMsgId(), at:Date.now(), card}]);
     }).then(id=>{ msgUi.busy = false; msgUi.req = null; msgGoThread(id); })
