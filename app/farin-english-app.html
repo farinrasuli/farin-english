@@ -1696,6 +1696,33 @@
   .ap-cta{all:unset; box-sizing:border-box; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; width:100%; border-radius:999px; padding:13px 18px; font-weight:800; font-size:15px; background:var(--fs-orange); color:var(--fs-cta-ink); box-shadow:0 8px 16px -8px rgba(168,90,5,.5); text-align:center;}
   .ap-cta::after{content:"\2192"; font-weight:800;}
   .ap-btns{display:flex; flex-direction:column; gap:8px; margin-top:16px;}
+  /* Course access (2026-11-13): One course / All premium courses switch, the end-date picker, the password rows */
+  .acc-scope{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:14px 0 16px;}
+  .acc-opt{all:unset; box-sizing:border-box; cursor:pointer; display:flex; flex-direction:column; gap:3px; min-width:0; padding:12px 14px; border-radius:16px; border:1.5px solid var(--border); background:var(--bg-elevated); color:var(--ink); -webkit-tap-highlight-color:transparent;}
+  .acc-opt b{font-weight:800; font-size:14px;}
+  .acc-opt small{font-size:12px; line-height:1.35; color:var(--ink-soft);}
+  .acc-opt.on{border-color:var(--fs-purple); background:var(--fs-purple-soft); box-shadow:inset 0 0 0 1px var(--fs-purple);}
+  .acc-opt.on b{color:var(--fs-purple-ink);}
+  .acc-opt:focus-visible{outline:2px solid var(--fs-purple); outline-offset:2px;}
+  .acc-form{display:flex; flex-direction:column; gap:10px;}
+  .acc-l{display:block; font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:6px 2px -4px;}
+  .acc-in{display:block; width:100%; box-sizing:border-box; padding:11px 14px; border-radius:14px; border:1.5px solid var(--border); font-size:14.5px; background:var(--bg-elevated); color:var(--ink); font-family:inherit;}
+  .acc-in[type="date"]{width:auto; min-width:180px; max-width:100%;}
+  .acc-span{font-size:12.5px; font-weight:700; color:var(--ink-soft);}
+  .acc-all{padding:12px 14px; border-radius:16px; background:var(--fs-purple-soft); color:var(--fs-purple-ink); font-size:13px; line-height:1.5;}
+  .acc-all b{font-weight:800;}
+  .acc-err{color:var(--error); font-size:12.5px; font-weight:700; margin:0;}
+  .acc-ok{color:var(--success); font-size:12.5px; font-weight:700; margin:0;}
+  .acc-go{margin-top:6px;}
+  .acc-go[disabled]{opacity:.55; cursor:default;}
+  .acc-row{align-items:flex-start;}
+  .acc-row .ap-p-meta{-webkit-line-clamp:3;}
+  .acc-btns{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+  .acc-btns .btn{text-decoration:none;}
+  .acc-edit{margin-top:10px; padding:12px 14px; border-radius:16px; background:var(--bg-sunken); display:flex; flex-direction:column; gap:10px;}
+  .acc-edit p{margin:0; font-size:12px; line-height:1.45; color:var(--ink-soft);}
+  .acc-left.soon{color:var(--fs-orange-ink); font-weight:800;}
+  @media (max-width:420px){ .acc-scope{grid-template-columns:1fr;} }
   /* sign in */
   .ap.ap-solo{display:block;}
   .ap-signin{max-width:420px; margin:0 auto; padding-top:12px;}
@@ -29601,7 +29628,7 @@ function courseUnitAccess(c, uid){ return (c.freeUnits || []).includes(uid) || c
 const COURSE_ACCESS_SALT = 'farin-course-access-v1';
 const COURSE_ACCESS_PREFIX = 'ca-';
 const COURSE_ACCESS_RECHECK_MS = 12 * 3600 * 1000;
-const COURSE_PW_PREFIX = {'ai-internet':'AI', hr:'HR', travel:'TR', 'travel-es':'ES', ielts:'IE', interview:'JI', marketing:'MK', sales:'SC', business:'BE'};
+const COURSE_PW_PREFIX = {'ai-internet':'AI', hr:'HR', travel:'TR', 'travel-es':'ES', ielts:'IE', interview:'JI', marketing:'MK', sales:'SC', business:'BE', '*':'ALL'};
 // Every sellable course on both sides, so one admin can issue passwords for either app.
 const COURSE_CATALOG_ALL = [
   {id:'ai-internet', app:'en', title:'English for AI and the Internet'},
@@ -29610,8 +29637,24 @@ const COURSE_CATALOG_ALL = [
   {id:'interview', app:'en', title:'Job Interview English'}, {id:'sales', app:'en', title:'Sales & Trade English'}, {id:'business', app:'en', title:'Complete Business English'}, {id:'travel-es', app:'es', title:'Travel Spanish'}
 ];
 function courseAccessMap(){ const pr = state.progress; if(!pr.courseAccess || typeof pr.courseAccess !== 'object') pr.courseAccess = {}; return pr.courseAccess; }
-function courseAccessInfo(cid){ const a = courseAccessMap()[cid]; return a && typeof a === 'object' ? a : null; }
-function courseUnlocked(cid){ const a = courseAccessInfo(cid); return !!a && a.status === 'active' && (!a.expiresAt || a.expiresAt > Date.now()); }
+/* All-courses password (Farin 2026-11-13): a courseAccess doc with course '*' opens every premium course on its side (app),
+   also courses added later. Redeemed in any course's password box, it is kept as progress.courseAccess['*'] beside the
+   per-course entries, and is re-read, revoked and extended exactly like them. */
+const COURSE_ACCESS_ALL = '*';
+function courseAccessEntry(key){ const a = courseAccessMap()[key]; return a && typeof a === 'object' ? a : null; }
+function courseAccessLive(a){ return !!a && a.status === 'active' && (!a.expiresAt || a.expiresAt > Date.now()); }
+// The entry behind a course: its own password or the all-courses one. An open one wins; with both open (or both closed), the later end date.
+function courseAccessInfo(cid){
+  const own = courseAccessEntry(cid), all = cid === COURSE_ACCESS_ALL ? null : courseAccessEntry(COURSE_ACCESS_ALL);
+  if(!all || !own) return own || all;
+  const lo = courseAccessLive(own), la = courseAccessLive(all);
+  if(lo !== la) return lo ? own : all;
+  const end = a=>a.expiresAt ? Number(a.expiresAt) : Infinity;
+  return end(all) > end(own) ? all : own;
+}
+function courseAccessIsAll(cid){ const a = courseAccessInfo(cid); return !!a && a === courseAccessEntry(COURSE_ACCESS_ALL); }
+function courseAccessLabel(cid){ return courseAccessIsAll(cid) ? CL('All courses','Tüm kurslar','همه‌ی دوره‌ها','Todos los cursos') : CL('Full course','Tam kurs','دوره‌ی کامل','Curso completo'); }
+function courseUnlocked(cid){ return courseAccessLive(courseAccessInfo(cid)); }
 function courseAccessDaysLeft(cid){ const a = courseAccessInfo(cid); return a && a.expiresAt ? Math.ceil((a.expiresAt - Date.now()) / 86400000) : null; }
 function courseNormalizePw(pw){ return String(pw||'').toUpperCase().replace(/İ/g,'I').replace(/[^A-Z0-9]/g,''); }
 function courseSha256Hex(text){
@@ -29653,7 +29696,7 @@ function courseAccessRedeem(cid, pw){
       const d = doc.data() || {};
       if(d.kind !== 'courseAccess' || !d.course) return {status:'wrong'};
       if(d.app && d.app !== LOGIN_APP) return {status:'other-app', course:d.course};
-      if(!courseGet(d.course)) return {status:'other-app', course:d.course};
+      if(d.course !== COURSE_ACCESS_ALL && !courseGet(d.course)) return {status:'other-app', course:d.course};
       if(d.status !== 'active') return {status:'revoked', course:d.course};
       if(d.expiresAt && Number(d.expiresAt) < Date.now()) return {status:'expired', course:d.course};
       const now = Date.now();
@@ -29668,12 +29711,16 @@ function courseAccessRedeem(cid, pw){
     });
   }).catch(()=>({status:'offline'}));
 }
-// Re-reads the password doc every 12 h (revoke / expiry from the admin side). Silent; re-renders only when something changed.
+// Re-reads the password docs behind a course (its own and the all-courses one) every 12 h: a revoke or a new end date from admin.
+// Once an active password has ended, or ends within 7 days, every 10 min, so an extension reaches the learner soon. Silent; re-renders only when something changed.
+const COURSE_ACCESS_RECHECK_SOON_MS = 10 * 60 * 1000;
 const courseAccessChecking = {};
-function courseAccessRefresh(cid){
-  const a = courseAccessInfo(cid);
+function courseAccessRefresh(cid){ courseAccessRefreshKey(cid); if(cid !== COURSE_ACCESS_ALL) courseAccessRefreshKey(COURSE_ACCESS_ALL); }
+function courseAccessRefreshKey(cid){
+  const a = courseAccessEntry(cid);
   if(!a || !a.id || typeof firebase === 'undefined' || courseAccessChecking[cid]) return;
-  if(a.checkedAt && Date.now() - a.checkedAt < COURSE_ACCESS_RECHECK_MS) return;
+  const soon = a.status === 'active' && !!a.expiresAt && a.expiresAt - Date.now() < 7 * 86400000;
+  if(a.checkedAt && Date.now() - a.checkedAt < (soon ? COURSE_ACCESS_RECHECK_SOON_MS : COURSE_ACCESS_RECHECK_MS)) return;
   courseAccessChecking[cid] = true;
   firebase.firestore().collection('progress').doc(a.id).get().then(doc=>{
     const d = doc.exists ? (doc.data() || {}) : {};
@@ -31020,6 +31067,7 @@ function courseRequestBtnHtml(c){
 }
 function coursePwStatusText(st){
   if(!st) return '';
+  if(st.status==='ok' && st.course === COURSE_ACCESS_ALL) return CL('Unlocked! Every course is open on this account.','Açıldı! Bütün kurslar bu hesapta artık açık.','باز شد! همه‌ی دوره‌ها روی این حساب فعال است.','¡Desbloqueado! Todos los cursos están abiertos en esta cuenta.');
   if(st.status==='ok') return CL('Unlocked! The full course is open on this account.','Açıldı! Tam kurs bu hesapta artık açık.','باز شد! دوره‌ی کامل روی این حساب فعال است.','¡Desbloqueado! El curso completo está abierto en esta cuenta.');
   if(st.status==='wrong') return CL('That password does not match. Check the letters and dashes, or message Farin.','Bu şifre eşleşmedi. Harfleri ve tireleri kontrol et ya da Farin\'e yaz.','این رمز درست نیست. حروف و خط تیره‌ها را بررسی کن یا به فرین پیام بده.','Esa contraseña no coincide. Revisa las letras y los guiones o escribe a Farin.');
   if(st.status==='other-app') return CL('This password is for a course in the other app (English/Spanish).','Bu şifre diğer uygulamadaki (İngilizce/İspanyolca) bir kurs için.','این رمز برای دوره‌ای در اپ دیگر (انگلیسی/اسپانیایی) است.','Esta contraseña es para un curso de la otra app (inglés/español).');
@@ -31042,7 +31090,7 @@ function courseAccessLineHtml(c){
   const until = a.expiresAt ? localDateStr(new Date(a.expiresAt)) : '';
   const warn = days !== null && days <= 7;
   return `<div class="card-flat" style="margin-top:12px; background:${warn ? 'var(--cat-gram-soft)' : 'var(--cat-voc-soft)'}; border-color:transparent;">
-    <p style="margin:0; font-size:13px; font-weight:700;">${CL('Full course','Tam kurs','دوره‌ی کامل','Curso completo')}${until ? ' · '+CL('access until','erişim bitişi','دسترسی تا','acceso hasta')+' '+esc(until) : ''}</p>
+    <p style="margin:0; font-size:13px; font-weight:700;">${courseAccessLabel(c.id)}${until ? ' · '+CL('access until','erişim bitişi','دسترسی تا','acceso hasta')+' '+esc(until) : ''}</p>
     ${warn ? `<p style="margin:6px 0 8px; font-size:13px;">${CL('Your access ends in '+days+' days. Your progress stays; message Farin to extend it.','Erişimin '+days+' gün içinde bitiyor. İlerlemen kalır; uzatmak için Farin\'e yaz.','دسترسی‌ات '+days+' روز دیگر تمام می‌شود. پیشرفتت می‌ماند؛ برای تمدید به فرین پیام بده.','Tu acceso termina en '+days+' días. Tu progreso se queda; escribe a Farin para ampliarlo.')}</p>
       <a class="btn btn-whatsapp btn-sm" target="_top" rel="noopener" href="${esc(whatsappLink('Hi Farin, I\'m '+(state.profile.name||'...')+'. My access to '+c.title.en+' ('+c.id+') ends soon. Can I extend it? ['+LOGIN_APP+'-app, '+LANG+']'))}">${ICONS.whatsapp} ${CL('Message Farin','Farin\'e yaz','پیام به فرین','Escribir a Farin')}</a>` : ''}
   </div>`;
@@ -33868,7 +33916,7 @@ function courseFinalRowHtml(c, nx){
 function courseFootHtml(c){
   const tracks = c.tracks || [], track = courseTrack(c.id), a = courseUnlocked(c.id) ? courseAccessInfo(c.id) : null;
   const ver = tracks.length ? `<span>${esc(courseTrackWord(c))}: <b>${esc(courseTrackShown(c, track))}</b> <button class="link-btn" data-action="course-track-toggle">${CL('Change','Değiştir','عوض کن','Cambiar')}</button></span>` : '';
-  const acc = a ? `<span>${CL('Full course','Tam kurs','دوره‌ی کامل','Curso completo')}${a.expiresAt ? courseSep()+CL('access until','erişim bitişi','دسترسی تا','acceso hasta')+' '+esc(localDateStr(new Date(a.expiresAt))) : ''}</span>` : '';
+  const acc = a ? `<span>${courseAccessLabel(c.id)}${a.expiresAt ? courseSep()+CL('access until','erişim bitişi','دسترسی تا','acceso hasta')+' '+esc(localDateStr(new Date(a.expiresAt))) : ''}</span>` : '';
   return `<div class="cp-foot cd-foot">
       ${ver}${ver && acc ? '<span aria-hidden="true">·</span>' : ''}${acc}
       <span class="cd-foot-how"><button class="link-btn" data-action="course-intro-open" data-cid="${c.id}">${CL('How this course works','Bu kurs nasıl işler','این دوره چطور کار می‌کند','Cómo funciona este curso')}</button></span>
@@ -36019,6 +36067,17 @@ Object.assign(HANDLERS, {
    courseAccess* helpers above). The password itself is shown once, right after Generate, together with
    a copy button and the delivery message (template T2, business/farin-monetization/06). Admin UI is English only. */
 let adminAccessList = null, adminAccessLoading = false, adminAccessError = '', adminAccessLast = null, adminAccessBusy = false, adminAccessNote = '';
+/* 2026-11-13 (Farin: "a password that can be entered for all premium courses, and I can change the expiration date"):
+   - New password has a One course / All premium courses switch. All = course '*' (COURSE_ACCESS_ALL) with scope:'all', app = this
+     admin's side; the learner types it in any course's password box and every course on that side opens (courseAccessInfo).
+   - The end date is a date (shortcuts 1 month … 2 years), saved as the end of that day (local time).
+   - Change end date on every password: a merge write of expiresAt + endChangedAt + endLog [{from, to, at}] (last 20); every other
+     field (activations, chat, note…) stays. The learner's app picks it up when it re-reads the doc (courseAccessRefresh).
+   - Re-issue keeps the current end date (it used to start a fresh 12 months); an ended password gets its months again from today.
+   The form keeps what was typed in adminAccessDraft, so a re-render (a list reload, the switch) never empties it. */
+let adminAccessFilter = 'all', adminAccessEdit = null, adminAccessEditErr = '', adminAccessSaved = '';
+let adminAccessDraft = {scope:'one', name:'', phone:'', course:'', note:'', until:''};
+const ADMIN_MONTH_MS = 30.4375 * 86400000;
 function adminAccessLoad(){
   adminAccessLoading = true; adminAccessError = '';
   renderAdminPage();
@@ -36027,7 +36086,36 @@ function adminAccessLoad(){
     adminAccessLoading = false; renderAdminPage();
   }).catch(err=>{ adminAccessError = err.message || String(err); adminAccessLoading = false; renderAdminPage(); });
 }
-function adminAccessCourse(id){ return COURSE_CATALOG_ALL.find(c=>c.id===id) || {id, app:'?', title:id}; }
+function adminAccessCourse(id){
+  if(id === COURSE_ACCESS_ALL) return {id, app:'', title:'All premium courses'};
+  return COURSE_CATALOG_ALL.find(c=>c.id===id) || {id, app:'?', title:id};
+}
+function adminAccessDefaultCourse(){ return (COURSE_CATALOG_ALL.find(c=>c.app===LOGIN_APP && c.id===(COURSES[0]||{}).id) || COURSE_CATALOG_ALL.find(c=>c.app===LOGIN_APP) || COURSE_CATALOG_ALL[0]).id; }
+// Dates: the <input type="date"> value (YYYY-MM-DD, local) <-> ms; an end date means the end of that day.
+function adminDayValue(ms){ const d = new Date(Number(ms) || Date.now()); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+function adminDayEnd(v){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(v || '')); if(!m) return null;
+  const d = new Date(+m[1], +m[2] - 1, +m[3], 23, 59, 59, 999);
+  return d.getMonth() === +m[2] - 1 && d.getDate() === +m[3] ? d.getTime() : null;
+}
+// Same day n months later (31 Jan + 1 month = 28/29 Feb).
+function adminAddMonths(ms, n){
+  const d = new Date(Number(ms) || Date.now()), day = d.getDate();
+  d.setDate(1); d.setMonth(d.getMonth() + n);
+  d.setDate(Math.min(day, new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate()));
+  return d.getTime();
+}
+function adminAccessDefaultUntil(){ return adminDayValue(adminAddMonths(Date.now(), 12)); }
+// "12 months from today", "3 months 4 days from today", "9 days from today"
+function adminAccessSpan(end){
+  const start = adminDayEnd(adminDayValue(Date.now()));
+  if(!end) return 'Pick a date';
+  if(end < start) return 'That date has passed';
+  let m = 0; while(m < 600 && adminAddMonths(start, m + 1) <= end + 1000) m++;
+  const days = Math.round((end - adminAddMonths(start, m)) / 86400000), part = (n, w)=>n + ' ' + w + (n === 1 ? '' : 's');
+  if(!m && !days) return 'Ends tonight';
+  return (m ? part(m, 'month') + (days ? ' ' : '') : '') + (days ? part(days, 'day') : '') + ' from today';
+}
 // Business rule 6: more than 3 distinct devices (recovery codes) in 30 days is flagged, never blocked.
 function adminAccessDevices(d){
   const since = Date.now() - 30*86400000, codes = {};
@@ -36039,72 +36127,150 @@ function adminAccessStatus(d){
   if(d.expiresAt && d.expiresAt < Date.now()) return 'expired';
   return 'active';
 }
+const ADMIN_ACCESS_STATE = {active:['ok', 'Active'], expired:['new', 'Ended'], revoked:['', 'Revoked'], reissued:['', 'Replaced']};
+function adminAccessLeft(d){
+  const st = adminAccessStatus(d); if(!d.expiresAt) return '';
+  const days = Math.ceil((d.expiresAt - Date.now()) / 86400000);
+  if(st === 'expired'){ const ago = Math.max(1, Math.floor((Date.now() - d.expiresAt) / 86400000)); return 'ended ' + ago + ' day' + (ago === 1 ? '' : 's') + ' ago'; }
+  if(st !== 'active') return '';
+  return days <= 1 ? 'last day' : days + ' days left';
+}
+function adminAccessMatches(d, f){
+  const st = adminAccessStatus(d);
+  if(f === 'allpass') return d.course === COURSE_ACCESS_ALL;
+  if(f === 'ending') return st === 'active' && !!d.expiresAt && d.expiresAt - Date.now() < 14 * DAY_MS;
+  if(f === 'ended') return st === 'expired';
+  if(f === 'shared') return st === 'active' && adminAccessDevices(d) > 3;
+  return true;
+}
 function adminAccessT2(d, pw){
-  const c = adminAccessCourse(d.course);
-  return 'Welcome aboard, ' + (d.name||'') + '! Open the Farin app › Courses › ' + c.title + ' › "I have a password" and enter:\n' + pw +
-    '\nYour access runs until ' + adminDate(d.expiresAt) + '. Log in with your name and password on any device and the course follows you. Start with "How this course works" and Unit 1. If anything blocks you, send me a screenshot and I\'ll fix it the same day.';
+  const all = d.course === COURSE_ACCESS_ALL, c = adminAccessCourse(d.course);
+  return 'Welcome aboard, ' + (d.name||'') + '! Open the Farin app › Courses › ' + (all ? 'any course' : c.title) + ' › "I already have the password" and enter:\n' + pw +
+    '\n' + (all ? 'This one password opens every premium course in the app. ' : '') + 'Your access runs until ' + adminDate(d.expiresAt) + '. Log in with your name and password on any device and ' + (all ? 'your courses follow' : 'the course follows') + ' you. Start with "How this course works" and Unit 1. If anything blocks you, send me a screenshot and I\'ll fix it the same day.';
 }
 function adminAccessCopy(text){
   const done = ()=>{ adminAccessNote = 'Copied.'; renderAdminPage(); setTimeout(()=>{ if(adminAccessNote === 'Copied.'){ adminAccessNote = ''; renderAdminPage(); } }, 1500); };
   if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(()=>{ window.prompt('Copy:', text); });
   else window.prompt('Copy:', text);
 }
+// fields: {name, phone, course (an id or COURSE_ACCESS_ALL), note, app (for '*'), expiresAt (ms) | months}
 function adminAccessGenerate(fields, replacing){
   if(adminAccessBusy) return;
-  const name = String(fields.name||'').trim(), course = fields.course, months = Math.max(1, Number(fields.months) || 12);
-  const cat = adminAccessCourse(course);
-  if(!name || !course){ adminAccessError = 'Name and course are needed.'; renderAdminPage(); return; }
-  adminAccessBusy = true; adminAccessError = ''; renderAdminPage();
-  const pw = courseMakePassword(course, name), now = Date.now();
-  const doc = {kind:'courseAccess', app:cat.app, course, name, phone:String(fields.phone||'').trim(), note:String(fields.note||'').trim(),
-    mask:pw.replace(/[A-Z0-9]{4}$/, '****'), issuedAt:now, expiresAt:now + months*30.4375*86400000, months, status:'active', activations:[], savedAt:now};
+  const course = fields.course, all = course === COURSE_ACCESS_ALL, name = String(fields.name||'').trim(), now = Date.now();
+  const cat = adminAccessCourse(course), app = all ? (fields.app || LOGIN_APP) : cat.app;
+  const expiresAt = Number(fields.expiresAt) || (now + Math.max(1, Number(fields.months) || 12) * ADMIN_MONTH_MS);
+  if(!name || !course){ adminAccessError = all ? 'A name is needed: the learner, team or company this password is for.' : 'Name and course are needed.'; renderAdminPage(); return; }
+  if(!(expiresAt > now)){ adminAccessError = 'Pick an end date from today on.'; renderAdminPage(); return; }
+  adminAccessBusy = true; adminAccessError = ''; adminAccessSaved = ''; renderAdminPage();
+  const pw = courseMakePassword(course, name);
+  const doc = {kind:'courseAccess', app, course, name, phone:String(fields.phone||'').trim(), note:String(fields.note||'').trim(),
+    mask:pw.replace(/[A-Z0-9]{4}$/, '****'), issuedAt:now, expiresAt, months:Math.max(1, Math.round((expiresAt - now) / ADMIN_MONTH_MS)), status:'active', activations:[], savedAt:now};
+  if(all) doc.scope = 'all';
   if(replacing) doc.replaces = replacing;
   courseAccessDocId(pw).then(id=>{
     const ref = firebase.firestore().collection('progress').doc(id);
-    return ref.get().then(ex=>{ if(ex.exists) throw new Error('Collision, tap Generate again.'); return ref.set(doc).then(()=>id); });
+    return ref.get().then(ex=>{ if(ex.exists) throw new Error('Collision, tap Create again.'); return ref.set(doc).then(()=>id); });
   }).then(id=>{
     adminAccessLast = {pw, id, doc};
     adminAccessBusy = false;
+    if(!replacing) adminAccessDraft = {scope:adminAccessDraft.scope, name:'', phone:'', course:adminAccessDraft.course, note:'', until:''};
     adminAccessLoad();
+    window.scrollTo(0, 0);
   }).catch(err=>{ adminAccessError = err.message || String(err); adminAccessBusy = false; renderAdminPage(); });
 }
 function adminAccessSetStatus(id, status){
   if(adminAccessBusy) return;
-  adminAccessBusy = true; renderAdminPage();
+  adminAccessBusy = true; adminAccessSaved = ''; renderAdminPage();
   firebase.firestore().collection('progress').doc(id).set({status, statusAt:Date.now()}, {merge:true})
     .then(()=>{ adminAccessBusy = false; adminAccessLoad(); })
     .catch(err=>{ adminAccessError = err.message || String(err); adminAccessBusy = false; renderAdminPage(); });
 }
+// A new end date for one password (later = extend, earlier = shorten). Merge write: nothing else on the doc changes.
+function adminAccessSetEnd(id, value){
+  const d = (adminAccessList||[]).find(x=>x.id===id), exp = adminDayEnd(value), now = Date.now();
+  if(!d || adminAccessBusy) return;
+  if(!exp){ adminAccessEditErr = 'Pick a date.'; renderAdminPage(); return; }
+  if(exp <= now){ adminAccessEditErr = 'The end date has to be today or later. To stop a password now, use Revoke.'; renderAdminPage(); return; }
+  const log = (Array.isArray(d.endLog) ? d.endLog : []).concat([{from:Number(d.expiresAt) || 0, to:exp, at:now}]).slice(-20);
+  const patch = {expiresAt:exp, endChangedAt:now, endLog:log};
+  adminAccessBusy = true; adminAccessEditErr = ''; adminAccessSaved = ''; renderAdminPage();
+  firebase.firestore().collection('progress').doc(id).set(patch, {merge:true}).then(()=>{
+    Object.assign(d, patch); adminAccessEdit = null; adminAccessBusy = false;
+    adminAccessSaved = (d.name || 'This password') + ': open until ' + adminDate(exp) + '. ' + (d.status === 'active'
+      ? 'Their app picks up the new date the next time they open a course (within 10 minutes if their access had ended or ends this week, otherwise within 12 hours).'
+      : 'This password is ' + (ADMIN_ACCESS_STATE[d.status] || ['', d.status])[1].toLowerCase() + ', so it still opens nothing' + (d.status === 'revoked' ? ': tap Reactivate if they should get back in.' : '.'));
+    renderAdminPage();
+  }).catch(err=>{ adminAccessEditErr = err.message || String(err); adminAccessBusy = false; renderAdminPage(); });
+}
+// What is typed in the form / the date editor right now (also kept on every keystroke by the listener below the tab).
+function adminAccessReadForm(){
+  ['name', 'phone', 'course', 'note', 'until'].forEach(k=>{ const n = document.getElementById('acc-' + k); if(n) adminAccessDraft[k] = n.value; });
+  const e = document.getElementById('acc-edit-until'); if(e && adminAccessEdit) adminAccessEdit.until = e.value;
+}
 function adminAccessAction(action, el){
   if(action === 'tab-access'){ adminTab = 'access'; renderAdminPage(); if(adminAccessList === null) adminAccessLoad(); return; }
+  adminAccessReadForm();
+  if(action !== 'access-generate' && adminAccessList) adminAccessError = '';   // a form error goes once Farin does anything else (a load error stays: there is no list)
+  const find = ()=>(adminAccessList||[]).find(x=>x.id===el.dataset.id);
   if(action === 'access-reload'){ adminAccessLoad(); return; }
+  if(action === 'access-scope'){ adminAccessDraft.scope = el.dataset.scope === 'all' ? 'all' : 'one'; adminAccessError = ''; renderAdminPage(); return; }
+  if(action === 'access-months'){ adminAccessDraft.until = adminDayValue(adminAddMonths(Date.now(), Number(el.dataset.months) || 12)); renderAdminPage(); return; }
   if(action === 'access-generate'){
-    const v = id=>{ const n = document.getElementById(id); return n ? n.value : ''; };
-    adminAccessGenerate({name:v('acc-name'), phone:v('acc-phone'), course:v('acc-course'), note:v('acc-note'), months:v('acc-months')});
+    const f = adminAccessDraft, all = f.scope === 'all';
+    adminAccessGenerate({name:f.name, phone:f.phone, course:all ? COURSE_ACCESS_ALL : (f.course || adminAccessDefaultCourse()), note:f.note, app:all ? LOGIN_APP : '', expiresAt:adminDayEnd(f.until || adminAccessDefaultUntil())});
     return;
   }
   if(action === 'access-copy-pw' && adminAccessLast){ adminAccessCopy(adminAccessLast.pw); return; }
   if(action === 'access-copy-t2' && adminAccessLast){ adminAccessCopy(adminAccessT2(adminAccessLast.doc, adminAccessLast.pw)); return; }
   if(action === 'access-dismiss'){ adminAccessLast = null; renderAdminPage(); return; }
-  if(action === 'access-revoke'){ if(confirm('Revoke this password? The learner keeps their progress but the course locks again.')) adminAccessSetStatus(el.dataset.id, 'revoked'); return; }
+  if(action === 'access-filter'){ adminAccessFilter = el.dataset.filter || 'all'; adminAccessEdit = null; adminAccessSaved = ''; renderAdminPage(); return; }
+  if(action === 'access-edit'){
+    const d = find(); if(!d) return;
+    adminAccessEdit = adminAccessEdit && adminAccessEdit.id === d.id ? null : {id:d.id, until:adminDayValue(Math.max(Number(d.expiresAt) || 0, Date.now()))};
+    adminAccessEditErr = ''; adminAccessSaved = ''; renderAdminPage(); return;
+  }
+  if(action === 'access-edit-add' && adminAccessEdit){
+    const base = Math.max(adminDayEnd(adminAccessEdit.until) || 0, Date.now());
+    adminAccessEdit.until = adminDayValue(adminAddMonths(base, Number(el.dataset.months) || 1)); adminAccessEditErr = ''; renderAdminPage(); return;
+  }
+  if(action === 'access-edit-cancel'){ adminAccessEdit = null; adminAccessEditErr = ''; renderAdminPage(); return; }
+  if(action === 'access-edit-save' && adminAccessEdit){ adminAccessSetEnd(adminAccessEdit.id, adminAccessEdit.until); return; }
+  if(action === 'access-revoke'){ const d = find(); if(confirm('Revoke this password? The learner keeps their progress but ' + (d && d.course === COURSE_ACCESS_ALL ? 'every course locks' : 'the course locks') + ' again.')) adminAccessSetStatus(el.dataset.id, 'revoked'); return; }
   if(action === 'access-reactivate'){ adminAccessSetStatus(el.dataset.id, 'active'); return; }
   if(action === 'access-reissue'){
-    const d = (adminAccessList||[]).find(x=>x.id===el.dataset.id); if(!d) return;
-    if(!confirm('Re-issue: a new password for ' + d.name + ' / ' + adminAccessCourse(d.course).title + ' (same end date rules, counted from today). The old one stops working.')) return;
+    const d = find(); if(!d) return;
+    const keep = Number(d.expiresAt) > Date.now(), until = keep ? Number(d.expiresAt) : Date.now() + Math.max(1, Number(d.months) || 12) * ADMIN_MONTH_MS;
+    if(!confirm('Re-issue: a new password for ' + d.name + ' / ' + adminAccessCourse(d.course).title + ', open until ' + adminDate(until) + (keep ? ' (the same end date)' : '') + '. The old one stops working.')) return;
     adminAccessBusy = true; renderAdminPage();
     firebase.firestore().collection('progress').doc(d.id).set({status:'reissued', statusAt:Date.now()}, {merge:true}).then(()=>{
       adminAccessBusy = false;
-      adminAccessGenerate({name:d.name, phone:d.phone, course:d.course, note:d.note, months:d.months || 12}, d.id);
+      adminAccessGenerate({name:d.name, phone:d.phone, course:d.course, note:d.note, app:d.app, expiresAt:until}, d.id);
     }).catch(err=>{ adminAccessError = err.message || String(err); adminAccessBusy = false; renderAdminPage(); });
     return;
   }
 }
+// Keeps the form while typing (no re-render): the draft, the "N months from today" line and the lit shortcut.
+function adminAccessPaintSpan(id){
+  const i = document.getElementById(id), sp = document.getElementById(id + '-span'); if(!i || !sp) return;
+  sp.textContent = adminAccessSpan(adminDayEnd(i.value));
+  if(id === 'acc-until') document.querySelectorAll('[data-admin-action="access-months"]').forEach(b=>b.classList.toggle('on', adminDayValue(adminAddMonths(Date.now(), Number(b.dataset.months))) === i.value));
+}
+['input', 'change'].forEach(type=>document.addEventListener(type, e=>{
+  const t = e.target, id = t && t.id; if(!id || id.indexOf('acc-') !== 0) return;
+  if(id === 'acc-edit-until'){ if(adminAccessEdit) adminAccessEdit.until = t.value; adminAccessPaintSpan(id); return; }
+  const k = id.slice(4); if(!(k in adminAccessDraft) || k === 'scope') return;
+  adminAccessDraft[k] = t.value; if(k === 'until') adminAccessPaintSpan(id);
+}));
 function renderAdminAccessTab(){
-  const field = (id, ph, type)=>`<input id="${id}" type="${type||'text'}" placeholder="${esc(ph)}" style="width:100%; box-sizing:border-box; padding:10px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">`;
+  const f = adminAccessDraft, all = f.scope === 'all', busy = adminAccessBusy ? 'disabled' : '', side = LOGIN_APP === 'es' ? 'Spanish' : 'English';
+  const until = f.until || adminAccessDefaultUntil(), course = f.course || adminAccessDefaultCourse(), today = adminDayValue(Date.now());
+  const sideCourses = COURSE_CATALOG_ALL.filter(c=>c.app === LOGIN_APP);
+  const input = (k, ph, type)=>`<input id="acc-${k}" class="acc-in" type="${type || 'text'}" placeholder="${esc(ph)}" value="${esc(f[k] || '')}" autocomplete="off">`;
+  const span = m=>m === 12 ? '1 year' : m === 24 ? '2 years' : m + ' month' + (m === 1 ? '' : 's');
   const last = adminAccessLast ? `<div class="card-flat" style="border:2px solid var(--success); background:var(--success-soft);">
       <div class="eyebrow" style="color:var(--success);">Password created — shown once</div>
       <div dir="ltr" style="font-family:ui-monospace, monospace; font-size:24px; font-weight:900; letter-spacing:.08em; margin:8px 0;">${esc(adminAccessLast.pw)}</div>
-      <p style="font-size:12.5px; margin:0 0 10px; color:var(--ink-soft);">${esc(adminAccessLast.doc.name)} · ${esc(adminAccessCourse(adminAccessLast.doc.course).title)} (${adminAccessLast.doc.app.toUpperCase()}) · until ${adminDate(adminAccessLast.doc.expiresAt)}. It is not stored anywhere else: copy it now.</p>
+      <p style="font-size:12.5px; margin:0 0 10px; color:var(--ink-soft);">${esc(adminAccessLast.doc.name)} · ${esc(adminAccessCourse(adminAccessLast.doc.course).title)} (${esc(adminAccessLast.doc.app.toUpperCase())})${adminAccessLast.doc.course === COURSE_ACCESS_ALL ? ': opens every premium course in the ' + side + ' app' : ''} · until ${adminDate(adminAccessLast.doc.expiresAt)}. It is not stored anywhere else: copy it now.</p>
       <div class="row" style="gap:6px; flex-wrap:wrap;">
         <button class="btn btn-sm btn-primary" data-admin-action="access-copy-pw">Copy password</button>
         <button class="btn btn-sm btn-ghost" data-admin-action="access-copy-t2">Copy delivery message</button>
@@ -36113,48 +36279,72 @@ function renderAdminAccessTab(){
       </div>
       ${adminAccessNote ? `<p style="font-size:12px; color:var(--success); margin:8px 0 0;">${esc(adminAccessNote)}</p>` : ''}
     </div>` : '';
-  const rows = (adminAccessList||[]).map(d=>{
-    const st = adminAccessStatus(d), cat = adminAccessCourse(d.course), dev = adminAccessDevices(d), flag = dev > 3;
-    const color = st === 'active' ? 'var(--success)' : st === 'expired' ? 'var(--cat-gram)' : 'var(--ink-faint)';
-    return `<div class="item-row" style="align-items:flex-start; flex-wrap:wrap;">
-      <div class="item-body" style="min-width:0;">
-        <div class="item-title">${esc(d.name||'—')} <span class="pill" style="background:var(--bg-sunken); color:var(--ink-soft);">${esc(cat.title)} · ${esc((d.app||'').toUpperCase())}</span></div>
-        <div class="item-sub" dir="ltr">${esc(d.mask||'')} · <b style="color:${color};">${esc(st)}</b> · issued ${adminDate(d.issuedAt)} · until ${adminDate(d.expiresAt)}</div>
-        <div class="item-sub">${d.phone ? esc(d.phone)+' · ' : ''}${(d.activations||[]).length} activation${(d.activations||[]).length===1?'':'s'}${dev ? ' · '+dev+' device'+(dev===1?'':'s')+' / 30 d' : ''}${flag ? ' <span class="pill" style="background:var(--error-soft); color:var(--error);">⚠ shared?</span>' : ''}${d.note ? ' · '+esc(d.note) : ''}</div>
+  const form = `<div class="ap-card acc-new">
+      <span class="ap-eb">New password</span>
+      <div class="acc-scope" role="radiogroup" aria-label="What the password opens">
+        <button class="acc-opt${all ? '' : ' on'}" role="radio" aria-checked="${all ? 'false' : 'true'}" data-admin-action="access-scope" data-scope="one"><b>One course</b><small>One learner, one course.</small></button>
+        <button class="acc-opt${all ? ' on' : ''}" role="radio" aria-checked="${all ? 'true' : 'false'}" data-admin-action="access-scope" data-scope="all"><b>All premium courses</b><small>One password opens every course in the ${side} app.</small></button>
       </div>
-      <div class="row" style="gap:6px; flex-wrap:wrap; width:100%; margin-top:6px;">
-        ${st === 'active' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-revoke" data-id="${esc(d.id)}" ${adminAccessBusy?'disabled':''}>Revoke</button>` : (d.status === 'revoked' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-reactivate" data-id="${esc(d.id)}" ${adminAccessBusy?'disabled':''}>Reactivate</button>` : '')}
-        ${d.status !== 'reissued' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-reissue" data-id="${esc(d.id)}" ${adminAccessBusy?'disabled':''}>Re-issue</button>` : ''}
-        ${d.phone ? `<a class="btn btn-sm btn-ghost" target="_blank" rel="noopener" href="${esc(waLinkTo(d.phone, 'Hi ' + (d.name||'') + ', did the password work? If anything blocks you, send me a screenshot and I\'ll fix it today.'))}">WhatsApp</a>` : ''}
+      <div class="acc-form">
+        ${all ? `<div class="acc-all"><b>Opens all ${sideCourses.length} premium courses in the ${side} app</b>, and any course added later: ${esc(sideCourses.map(c=>c.title).join(', '))}. The learner types it in any course's password box.</div>` : ''}
+        <label class="acc-l" for="acc-name">${all ? 'For (learner, team or company)' : 'Learner name (as in the app)'}</label>
+        ${input('name', all ? 'e.g. Ayşe Yılmaz, or Acme team' : 'e.g. Ayşe Yılmaz')}
+        <label class="acc-l" for="acc-phone">WhatsApp number</label>
+        ${input('phone', 'e.g. 905xxxxxxxxx', 'tel')}
+        ${all ? '' : `<label class="acc-l" for="acc-course">Course</label>
+        <select id="acc-course" class="acc-in">${COURSE_CATALOG_ALL.map(c=>`<option value="${esc(c.id)}" ${c.id === course ? 'selected' : ''}>${esc(c.title)} · ${c.app.toUpperCase()} app</option>`).join('')}</select>`}
+        <label class="acc-l" for="acc-until">Access until</label>
+        <div class="row" style="gap:10px; flex-wrap:wrap; align-items:center;"><input id="acc-until" class="acc-in" type="date" value="${esc(until)}" min="${today}"><span id="acc-until-span" class="acc-span">${esc(adminAccessSpan(adminDayEnd(until)))}</span></div>
+        <div class="ap-chips">${[1, 3, 6, 12, 24].map(m=>`<button class="ap-chip${adminDayValue(adminAddMonths(Date.now(), m)) === until ? ' on' : ''}" data-admin-action="access-months" data-months="${m}">${span(m)}</button>`).join('')}</div>
+        <label class="acc-l" for="acc-note">Note (only you see it)</label>
+        ${input('note', 'Price paid, date, bank ref')}
+        ${adminAccessError && adminAccessList ? `<p class="acc-err">${esc(adminAccessError)}</p>` : ''}
+        <button class="ap-cta acc-go" data-admin-action="access-generate" ${busy}>${adminAccessBusy ? 'Working…' : all ? 'Create all-courses password' : 'Create password'}</button>
+        <p class="ap-note" style="margin-top:0;">Create it only after the money is in. The password is shown once, right after you create it. When access ends, the learner keeps their progress.</p>
       </div>
     </div>`;
+  const list = adminAccessList || [], fl = adminAccessFilter;
+  const count = k=>list.filter(d=>adminAccessMatches(d, k)).length;
+  const fchip = (k, label, badge)=>{ const n = count(k); return `<button class="ap-chip${fl === k ? ' on' : ''}" data-admin-action="access-filter" data-filter="${k}">${esc(label)}${badge && n ? '<i>' + n + '</i>' : ' · ' + n}</button>`; };
+  const chips = fchip('all', 'All') + fchip('allpass', 'All courses') + fchip('ending', 'Ending in 14 days', true) + fchip('ended', 'Ended') + (count('shared') || fl === 'shared' ? fchip('shared', '4+ devices', true) : '');
+  const rows = list.filter(d=>adminAccessMatches(d, fl)).map(d=>{
+    const st = adminAccessStatus(d), isAll = d.course === COURSE_ACCESS_ALL, cat = adminAccessCourse(d.course), dev = adminAccessDevices(d), acts = (d.activations||[]).length;
+    const word = ADMIN_ACCESS_STATE[st] || ['', st], left = adminAccessLeft(d), soon = st === 'active' && !!d.expiresAt && d.expiresAt - Date.now() < 14 * DAY_MS;
+    const lc = Array.isArray(d.endLog) && d.endLog.length ? d.endLog[d.endLog.length - 1] : null, editing = !!adminAccessEdit && adminAccessEdit.id === d.id;
+    const editor = editing ? `<div class="acc-edit">
+        <label class="acc-l" for="acc-edit-until">New end date</label>
+        <div class="row" style="gap:10px; flex-wrap:wrap; align-items:center;"><input id="acc-edit-until" class="acc-in" type="date" value="${esc(adminAccessEdit.until)}" min="${today}"><span id="acc-edit-until-span" class="acc-span">${esc(adminAccessSpan(adminDayEnd(adminAccessEdit.until)))}</span></div>
+        <div class="ap-chips">${[1, 3, 6, 12].map(m=>`<button class="ap-chip" data-admin-action="access-edit-add" data-months="${m}">+ ${span(m)}</button>`).join('')}</div>
+        ${adminAccessEditErr ? `<p class="acc-err">${esc(adminAccessEditErr)}</p>` : ''}
+        <div class="acc-btns" style="margin-top:0;"><button class="btn btn-sm btn-primary" data-admin-action="access-edit-save" ${busy}>${adminAccessBusy ? 'Saving…' : 'Save end date'}</button><button class="btn btn-sm btn-ghost" data-admin-action="access-edit-cancel">Cancel</button></div>
+        <p>Now: until ${adminDate(d.expiresAt)}. ${isAll ? 'Every course stays' : 'The course stays'} open to the end of the day you pick: a later date extends it, an earlier one shortens it. Progress is never lost.</p>
+      </div>` : '';
+    return `<div class="ap-person static acc-row">
+      ${adminAvatarHtml(d.name, '', null)}
+      <span class="ap-p-main">
+        <span class="ap-p-name"><b dir="auto">${esc(d.name || '—')}</b><span class="ap-tag${isAll ? ' purple' : ''}">${esc(cat.title)} · ${esc(String(d.app || '').toUpperCase())}</span><span class="ap-tag ${word[0]}">${esc(word[1])}</span>${dev > 3 && st === 'active' ? '<span class="ap-tag warn">⚠ 4+ devices</span>' : ''}</span>
+        <span class="ap-p-meta" dir="ltr" style="text-align:start;">${esc(d.mask || '')} · until <b>${adminDate(d.expiresAt)}</b>${left ? ` · <span class="acc-left${soon ? ' soon' : ''}">${esc(left)}</span>` : ''}</span>
+        <span class="ap-p-meta">issued ${adminDate(d.issuedAt)}${lc ? ' · end date changed ' + adminDate(lc.at) + (lc.from ? ' (was ' + adminDate(lc.from) + ')' : '') : ''} · ${acts} activation${acts === 1 ? '' : 's'}${dev ? ' · ' + dev + ' device' + (dev === 1 ? '' : 's') + ' / 30 d' : ''}${d.phone ? ' · ' + esc(d.phone) : ''}${d.note ? ' · ' + esc(d.note) : ''}</span>
+        <span class="acc-btns">
+          ${d.status !== 'reissued' ? `<button class="btn btn-sm ${editing ? 'btn-primary' : 'btn-ghost'}" data-admin-action="access-edit" data-id="${esc(d.id)}" ${busy}>Change end date</button>` : ''}
+          ${d.status === 'active' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-revoke" data-id="${esc(d.id)}" ${busy}>Revoke</button>` : (d.status === 'revoked' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-reactivate" data-id="${esc(d.id)}" ${busy}>Reactivate</button>` : '')}
+          ${d.status !== 'reissued' ? `<button class="btn btn-sm btn-ghost" data-admin-action="access-reissue" data-id="${esc(d.id)}" ${busy}>Re-issue</button>` : ''}
+          ${d.phone ? `<a class="btn btn-sm btn-ghost" target="_blank" rel="noopener" href="${esc(waLinkTo(d.phone, 'Hi ' + (d.name||'') + ', did the password work? If anything blocks you, send me a screenshot and I\'ll fix it today.'))}">WhatsApp</a>` : ''}
+        </span>
+        ${editor}
+      </span>
+    </div>`;
   }).join('');
-  return `<div class="stack" style="gap:10px;">
+  return `<div class="stack" style="gap:14px;">
     ${last}
-    <div class="card-flat">
-      <div class="eyebrow">New course password</div>
-      <p style="font-size:12px; color:var(--ink-faint); margin:4px 0 10px;">One password = one learner = one course = one side. Create it only after the money is in. Access runs 12 months by default; the learner keeps their progress when it ends.</p>
-      <div class="stack" style="gap:8px;">
-        ${field('acc-name', 'Learner name (as in the app)')}
-        ${field('acc-phone', 'WhatsApp number, e.g. 905xxxxxxxxx', 'tel')}
-        <select id="acc-course" style="width:100%; box-sizing:border-box; padding:10px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
-          ${COURSE_CATALOG_ALL.map(c=>`<option value="${c.id}" ${c.app===LOGIN_APP && c.id===(COURSES[0]||{}).id ? 'selected' : ''}>${esc(c.title)} · ${c.app.toUpperCase()} app</option>`).join('')}
-        </select>
-        <div class="row" style="gap:8px;">
-          <select id="acc-months" style="flex:0 0 120px; padding:10px 13px; border-radius:12px; border:1.5px solid var(--border); font-size:14px; background:var(--bg-elevated); color:var(--ink);">
-            ${[1,3,6,12,24].map(m=>`<option value="${m}" ${m===12?'selected':''}>${m} month${m===1?'':'s'}</option>`).join('')}
-          </select>
-          ${field('acc-note', 'Note: price paid, date, bank ref')}
-        </div>
-        ${adminAccessError ? `<p style="color:var(--error); font-size:12.5px; margin:0;">${esc(adminAccessError)}</p>` : ''}
-        <button class="btn btn-primary" data-admin-action="access-generate" ${adminAccessBusy?'disabled':''}>${adminAccessBusy ? 'Working…' : 'Generate password'}</button>
-      </div>
-    </div>
-    <div class="row between" style="align-items:center;">
-      <div class="eyebrow">Issued passwords (${(adminAccessList||[]).length})</div>
-      <button class="ap-link" data-admin-action="access-reload">${adminAccessLoading ? '…' : '↻ Reload'}</button>
-    </div>
-    ${adminAccessLoading && !adminAccessList ? `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>` : (rows || `<p style="padding:20px; text-align:center; color:var(--ink-faint);">No passwords issued yet.</p>`)}
+    ${form}
+    <section class="ap-sec" style="margin-top:22px;">
+      <div class="ap-sh"><span class="ap-eb">Issued</span><h2 class="display">${list.length} password${list.length === 1 ? '' : 's'}<span class="dot">.</span></h2></div>
+      <div class="ap-tools" style="margin-bottom:12px;"><div class="ap-chips">${chips}</div><button class="ap-link" data-admin-action="access-reload">${adminAccessLoading ? '…' : '↻ Reload'}</button></div>
+      ${adminAccessSaved ? `<p class="acc-ok" role="status" style="margin-bottom:12px;">${esc(adminAccessSaved)}</p>` : ''}
+      ${adminAccessError && !adminAccessList ? `<p class="acc-err">${esc(adminAccessError)}</p>` : ''}
+      ${adminAccessLoading && !adminAccessList ? `<p class="ap-empty">Loading…</p>` : `<div class="ap-list">${rows || `<p class="ap-empty">${list.length ? 'No password matches this filter.' : 'No passwords issued yet.'}</p>`}</div>`}
+    </section>
   </div>`;
 }
 /* ============================= ADMIN: WRITING REVIEWS (Trello ezkJrF5X) =============================
@@ -36710,7 +36900,7 @@ const ADMIN_SECTIONS = [
   {key:'users', title:'Users', eb:'Learners', icon:'users', c:'#7C93FF', sub:'Everyone who uses the app, one row per learner. Tap a name to open the profile.'},
   {key:'waitlist', title:'Waiting list', eb:'Course sign-ups', icon:'star', c:'#FFA53D', sub:'People who tapped “I want this course” and left their number, from both apps. Newest first.'},
   {key:'reviews', title:'Writing reviews', eb:'Feedback', icon:'pen', c:'#FF8FB3', sub:'Course writing sent to you for review. The learner was promised feedback within 2–3 days.'},
-  {key:'access', title:'Course access', eb:'Passwords', icon:'book', c:'#5FC9B8', sub:'Course passwords: create one after the money is in; revoke or re-issue it here.'},
+  {key:'access', title:'Course access', eb:'Passwords', icon:'book', c:'#5FC9B8', sub:'Passwords for one course or for all premium courses. Create one after the money is in; change its end date, revoke or re-issue it here.'},
   {key:'students', title:'1-to-1 students', eb:'Student panels', icon:'compass', c:'#8FAE85', sub:'Your private students: roadmap, sessions, lessons and homework.'},
   {key:'contacts', title:'Contacts', eb:'Leads', icon:'whatsapp', c:'#4FC3E8', sub:'Numbers learners left in the app (Student Club and “contact me”).'}
 ];
@@ -36779,8 +36969,8 @@ function adminTodo(){
   if(adminAccessList){
     const act = adminAccessList.filter(d=>adminAccessStatus(d) === 'active');
     const shared = act.filter(d=>adminAccessDevices(d) > 3), ending = act.filter(d=>d.expiresAt && d.expiresAt - now < 14*DAY_MS);
-    add('access', shared.length, 'Password used on 4+ devices', 'Passwords used on 4+ devices', names(shared.map(d=>d.name || '—')), '', true);
-    add('access', ending.length, 'Course access ends within 14 days', 'Course accesses end within 14 days', names(ending.map(d=>(d.name || '—') + ' (' + adminDate(d.expiresAt) + ')')), '');
+    add('access', shared.length, 'Password used on 4+ devices', 'Passwords used on 4+ devices', names(shared.map(d=>d.name || '—')), 'shared', true);
+    add('access', ending.length, 'Course access ends within 14 days', 'Course accesses end within 14 days', names(ending.map(d=>(d.name || '—') + ' (' + adminDate(d.expiresAt) + ')')), 'ending');
   }
   if(adminStudents){
     const who = [];
@@ -36805,7 +36995,7 @@ function adminGo(key, filter){
   if(key === 'users'){ adminUserOpen = null; if(filter) adminUsersFilter = filter; adminMarkSeen('users'); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'waitlist'){ if(filter) adminWaitlistFilter = filter; if(adminWaitlist === null && !adminWaitlistLoading) adminWaitlistLoad(); }
   if(key === 'reviews'){ if(filter){ adminReviewFilter = filter; adminReviewOpen = null; } if(adminReviews === null && !adminReviewsLoading) adminReviewsLoad(); }
-  if(key === 'access'){ if(adminAccessList === null && !adminAccessLoading) adminAccessLoad(); }
+  if(key === 'access'){ if(filter) adminAccessFilter = filter; adminAccessEdit = null; if(adminAccessList === null && !adminAccessLoading) adminAccessLoad(); }
   if(key === 'students'){ if(adminStudents === null && !adminStudentsLoading) loadAdminStudents(); }
   if(key === 'contacts') adminMarkSeen('contacts');
   renderAdminPage();
