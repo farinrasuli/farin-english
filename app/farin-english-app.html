@@ -37763,14 +37763,13 @@ function renderAdminWaitlistTab(){
      of the newest record (profile.activity.ui: tr / fa / en / es), our best hint for country and time zone.
    - Visits = profile.activity days / opens summed over the learner's records. These are lifetime counts (the app keeps no day-by-day
      history), so "per week" = active days / weeks since the first visit, and the time of day is the time of the latest visit.
-   - Suggested groups: same app + same level (+ same language when "Turkish and Persian apart" is on), then the goal most of them
-     share; 3 to N people a group, the most active together. A level with fewer than 3 left over is listed as "almost a group".
+   - Suggested groups (v2, same day): only learners who fit, each in one group at most, nobody forced in (see adminInsGroups).
    - The only thing stored: "invited" marks for group invitations, progress/admin-seen invited:{accountHash: time} (merge). */
 const ADMIN_INS_GOALS = ['career', 'exam', 'everyday', 'travel', 'immigration'];
 const ADMIN_INS_LANG = {tr:'Turkish', fa:'Persian', en:'English', es:'Spanish'};
 let adminInsApp = null;            // 'en' | 'es' | 'all'; null = this app's side
 let adminInsSeen = 30;             // count learners seen in the last N days (0 = everyone): levels, goals, grid, groups, leads
-let adminInsPhoneOnly = false, adminInsSplitLang = true, adminInsMax = 6;
+let adminInsPhoneOnly = true, adminInsSplitLang = true, adminInsMax = 6;
 let adminInsCell = null;           // 'B1|career' open in the level × goal grid
 let adminInsList = null;           // an open people list: 'tier-regular' | 'lead-ielts' …
 let adminInsNote = '';
@@ -37805,37 +37804,62 @@ function adminInsTier(p){
 }
 function adminInsDaypart(ms){ if(!ms) return ''; const h = new Date(ms).getHours(); return h >= 6 && h < 12 ? 'morning' : h >= 12 && h < 17 ? 'afternoon' : h >= 17 && h < 22 ? 'evening' : 'night'; }
 const ADMIN_INS_DAYPARTS = [{k:'morning', t:'Morning', s:'6–12'}, {k:'afternoon', t:'Afternoon', s:'12–17'}, {k:'evening', t:'Evening', s:'17–22'}, {k:'night', t:'Night', s:'22–6'}];
-// Suggested group classes. Returns {groups:[{app, level, lang, goal, members}], near:[{…, need}], pool}.
+/* Suggested group classes, v2 (Farin 2026-11-14: "you don't have to put everyone in groups; just if available suggest users in one class
+   and don't duplicate them in others; be smart").
+   Who can be suggested: a level and a goal, seen in the page's time window, came back at least once (or joined in the last 14 days),
+   a WhatsApp number (unless "Only with a number" is off). Accounts that share a number are one person (the most recently seen one).
+   A group = same app + same level (+ same app language) + one goal every member has, 3 to "size" people. The best-fitting candidate
+   group is taken first: people whose MAIN goal it is (goals[0] = motivationTag), the same level step (B1.1 / B1.2), seen this week, the
+   same time of day. Its people leave the pool and the search repeats, so nobody is in two groups. A big set is split evenly (7 at size
+   6 = 4 + 3). Whoever fits no group is only counted, never pushed into a mixed one. */
+function adminInsPrimary(p){ const g = adminInsGoals(p), m = p.profile.motivationTag; return g.indexOf(m) >= 0 ? m : (g[0] || ''); }
+function adminInsPhoneKey(p){ const d = adminWaitlistDigits(adminInsPhone(p)); return d.length >= 7 ? d.slice(-10) : ''; }
+function adminInsGroupPool(){
+  const now = Date.now(), byPhone = {}, out = {pool:[], noLevel:0, once:0, noPhone:0, twin:0};
+  adminInsAll().filter(adminInsSeenOk).sort((a,b)=>(b.lastSeen || 0) - (a.lastSeen || 0)).forEach(p=>{
+    if(!adminInsLevel(p) || !adminInsGoals(p).length){ out.noLevel++; return; }
+    if((p.activity.days || 0) < 2 && !(p.joined && now - p.joined < 14 * DAY_MS)){ out.once++; return; }
+    if(adminInsPhoneOnly && !adminInsPhone(p)){ out.noPhone++; return; }
+    const k = adminInsPhoneKey(p);
+    if(k && byPhone[k]){ out.twin++; return; }
+    if(k) byPhone[k] = 1;
+    out.pool.push(p);
+  });
+  return out;
+}
+// How well these learners fit one class around this goal.
+function adminInsFit(members, goal){
+  const n = members.length, now = Date.now(), stages = {}, parts = {};
+  members.forEach(p=>{ const st = adminInsStage(p), d = adminInsDaypart(adminInsLastVisit(p)); stages[st] = (stages[st] || 0) + 1; if(d) parts[d] = (parts[d] || 0) + 1; });
+  const main = members.filter(p=>adminInsPrimary(p) === goal).length, week = members.filter(p=>now - (p.lastSeen || 0) < 7 * DAY_MS).length;
+  const stage = Object.keys(stages).sort((a,b)=>stages[b] - stages[a])[0], stageN = stages[stage];
+  const time = Object.keys(parts).sort((a,b)=>parts[b] - parts[a])[0] || '', timeN = time ? parts[time] : 0;
+  return {n, main, week, stage, stageN, time, timeN, score:n * 10 + main / n * 30 + stageN / n * 15 + week / n * 15 + timeN / n * 10,
+    strong:main === n && stageN >= n - 1 && week >= n - 1};
+}
 function adminInsGroups(){
-  const min = 3, max = Math.max(min, adminInsMax);
-  const pool = adminInsAll().filter(p=>adminInsLevel(p) && adminInsSeenOk(p) && (!adminInsPhoneOnly || adminInsPhone(p)));
-  const buckets = {}, order = [];
-  pool.forEach(p=>{ const k = p.app + '|' + adminInsLevel(p) + '|' + (adminInsSplitLang ? (adminInsLang(p) || '?') : '*'); if(!buckets[k]){ buckets[k] = []; order.push(k); } buckets[k].push(p); });
-  const groups = [], near = [];
-  // n balanced groups of up to max people, each of at least min; people past n * max are handed back for the next round
-  const cut = (list, base)=>{ let n = Math.ceil(list.length / max); while(n > 1 && Math.floor(list.length / n) < min) n--;
-    const take = Math.min(list.length, n * max), size = Math.floor(take / n), extra = take % n; let at = 0;
-    for(let i = 0; i < n; i++){ const s = size + (i < extra ? 1 : 0); groups.push(Object.assign({members:list.slice(at, at + s)}, base)); at += s; }
-    return list.slice(take); };
-  const byActive = (a,b)=>adminInsPerWeek(b) - adminInsPerWeek(a) || (b.lastSeen || 0) - (a.lastSeen || 0);
+  const min = 3, max = Math.max(min, adminInsMax), P = adminInsGroupPool(), buckets = {}, order = [], groups = [];
+  P.pool.forEach(p=>{ const k = p.app + '|' + adminInsLevel(p) + '|' + (adminInsSplitLang ? (adminInsLang(p) || '?') : '*'); if(!buckets[k]){ buckets[k] = []; order.push(k); } buckets[k].push(p); });
+  const byFit = goal=>(a,b)=>(adminInsPrimary(b) === goal) - (adminInsPrimary(a) === goal) || adminInsPerWeek(b) - adminInsPerWeek(a) || (b.lastSeen || 0) - (a.lastSeen || 0);
   order.forEach(k=>{
     const [app, level, lang] = k.split('|'); let left = buckets[k].slice();
-    for(let guard = 0; guard < 20 && left.length >= min; guard++){
-      const count = {}; left.forEach(p=>adminInsGoals(p).forEach(g=>{ count[g] = (count[g] || 0) + 1; }));
-      const goal = Object.keys(count).sort((a,b)=>count[b] - count[a] || ADMIN_INS_GOALS.indexOf(a) - ADMIN_INS_GOALS.indexOf(b))[0];
-      if(!goal || count[goal] < min) break;
-      const members = left.filter(p=>adminInsGoals(p).indexOf(goal) >= 0).sort(byActive);
-      const rest = cut(members, {app, level, lang, goal});
-      left = left.filter(p=>members.indexOf(p) < 0 || rest.indexOf(p) >= 0);
-      if(rest.length === members.length) break;
+    for(let guard = 0; guard < 40 && left.length >= min; guard++){
+      let best = null;
+      ADMIN_INS_GOALS.forEach(goal=>{
+        const has = left.filter(p=>adminInsGoals(p).indexOf(goal) >= 0).sort(byFit(goal));
+        if(has.length < min) return;
+        let n = Math.ceil(has.length / max); while(n > 1 && Math.floor(has.length / n) < min) n--;
+        const members = has.slice(0, Math.min(max, Math.ceil(has.length / n))), fit = adminInsFit(members, goal);
+        if(!best || fit.score > best.fit.score) best = {goal, members, fit};
+      });
+      if(!best) break;
+      groups.push({app, level, lang, goal:best.goal, members:best.members, fit:best.fit});
+      left = left.filter(p=>best.members.indexOf(p) < 0);
     }
-    if(left.length >= min) left = cut(left.sort(byActive), {app, level, lang, goal:''});
-    if(left.length) near.push({app, level, lang, goal:'', members:left, need:Math.max(0, min - left.length)});
   });
-  const avg = g=>g.members.reduce((n, p)=>n + adminInsPerWeek(p), 0) / g.members.length;
-  groups.sort((a,b)=>b.members.length - a.members.length || avg(b) - avg(a));
-  near.sort((a,b)=>b.members.length - a.members.length);
-  return {groups, near, pool};
+  groups.sort((a,b)=>(b.fit.strong - a.fit.strong) || b.fit.score - a.fit.score);
+  const grouped = groups.reduce((n, g)=>n + g.members.length, 0);
+  return {groups, pool:P.pool, left:P.pool.length - grouped, noLevel:P.noLevel, once:P.once, noPhone:P.noPhone, twin:P.twin};
 }
 function adminInsGroupTitle(g){
   return g.level + ' · ' + (g.goal ? GOAL_LABELS[g.goal] || g.goal : 'Mixed goals') + (adminInsSplitLang && ADMIN_INS_LANG[g.lang] ? ' · ' + ADMIN_INS_LANG[g.lang] + ' speakers' : '') + (adminInsAppNow() === 'all' ? ' · ' + g.app.toUpperCase() + ' app' : '');
@@ -37911,7 +37935,7 @@ function adminInsBoxSub(){
   adminInsLinksCache = null;
   if(!adminPeople) return adminUsersError ? 'Could not load' : 'Loading…';
   const n = adminInsGroups().groups.length;
-  return n ? n + ' possible group class' + (n === 1 ? '' : 'es') : 'Levels, goals, who comes most';
+  return n ? n + ' group class' + (n === 1 ? '' : 'es') + ' you could open' : 'Levels, goals, who comes most';
 }
 function renderAdminInsightsTab(){
   if(adminUsersLoading && !adminPeople) return `<p class="ap-empty">Loading learners…</p>`;
@@ -37934,30 +37958,31 @@ function renderAdminInsightsTab(){
       <div class="ap-tile"><span>Regulars</span><b>${all.filter(p=>tierOf[p.key] === 'regular').length}</b></div>
       <div class="ap-tile"><span>Have a number</span><b>${phoneN}<small> ${pct(phoneN, all.length)}</small></b></div>
     </div>`;
-  // 1. suggested group classes
+  // 1. suggested group classes (v2: only learners who fit, one group each)
   const G = adminInsGroups();
   const groupCard = (g, i)=>{
-    const m = g.members, goalsHave = {}; m.forEach(p=>adminInsGoals(p).forEach(x=>{ goalsHave[x] = (goalsHave[x] || 0) + 1; }));
-    const goalLine = Object.keys(goalsHave).sort((a,b)=>goalsHave[b] - goalsHave[a]).slice(0, 3).map(x=>(GOAL_LABELS[x] || x) + ' ' + goalsHave[x] + '/' + m.length).join(' · ');
-    const parts = {}; m.forEach(p=>{ const d = adminInsDaypart(adminInsLastVisit(p)); if(d) parts[d] = (parts[d] || 0) + 1; });
-    const when = Object.keys(parts).sort((a,b)=>parts[b] - parts[a])[0];
-    const withPhone = m.filter(p=>adminInsPhone(p)).length, week = m.filter(p=>now - (p.lastSeen || 0) < 7 * DAY_MS).length;
+    const m = g.members, f = g.fit, gl = GOAL_LABELS[g.goal] || g.goal, of = k=>k === f.n ? 'all ' + f.n : k + ' of ' + f.n;
+    const why = [gl + ' is the main goal of ' + of(f.main), (f.stageN === f.n ? 'all at ' : f.stageN + ' at ') + f.stage, of(f.week) + ' seen this week',
+      f.time ? of(f.timeN) + ' usually in the ' + f.time : '', adminInsPhoneOnly ? '' : m.filter(p=>adminInsPhone(p)).length + '/' + f.n + ' with a number'].filter(Boolean).join(' · ');
     return `<div class="ins-group">
-        <div class="ins-gh"><span class="ins-gn">${m.length}</span><span class="ins-gt"><b>${esc(adminInsGroupTitle(g))}</b>
-          <small>${esc(goalLine || 'No goals set')} · ${week}/${m.length} seen this week · ${withPhone}/${m.length} with a number${when ? ' · mostly ' + when + 's' : ''}</small></span></div>
+        <div class="ins-gh"><span class="ins-gn">${m.length}</span><span class="ins-gt"><b>${esc(adminInsGroupTitle(g))} ${f.strong ? '<span class="ap-tag ok">Strong match</span>' : '<span class="ap-tag purple">Good match</span>'}</b>
+          <small>${esc(why)}</small></span></div>
         ${adminInsPeopleList(m, {invite:true})}
         <div class="ins-gb"><button class="btn btn-sm btn-ghost" data-admin-action="ins-copy" data-i="${i}">Copy names and numbers</button></div>
       </div>`; };
+  const notIn = [G.left ? G.left + ' fit no class yet (not 3 at the same level with the same goal' + (adminInsSplitLang ? ' and app language' : '') + ')' : '',
+    G.once ? G.once + ' came only once' : '', G.noPhone ? G.noPhone + ' left no number' : '', G.noLevel ? G.noLevel + ' have no level or goal yet' : '',
+    G.twin ? G.twin + ' extra account' + (G.twin === 1 ? '' : 's') + ' with a number already in the list' : ''].filter(Boolean);
   const groupsBody = `<div class="ins-gctl">
         <button class="ap-chip${adminInsPhoneOnly ? ' on' : ''}" data-admin-action="ins-phone" aria-pressed="${adminInsPhoneOnly}">Only with a number</button>
         <button class="ap-chip${adminInsSplitLang ? ' on' : ''}" data-admin-action="ins-split" aria-pressed="${adminInsSplitLang}">Turkish and Persian apart</button>
         <span class="ins-gl">Group size up to</span>${[4, 6, 8].map(n=>adminInsChip('ins-max', n, adminInsMax === n, String(n))).join('')}
       </div>
       ${adminInsNote ? `<p class="acc-ok" role="status">${esc(adminInsNote)}</p>` : ''}
-      ${G.groups.length ? G.groups.map(groupCard).join('') : `<p class="ap-empty">No group of 3 or more yet among learners ${esc(seenWord)}. Try “Any time”, or switch “Turkish and Persian apart” off.</p>`}
-      ${G.near.length ? `<div class="ins-near"><span class="ap-eb">Almost a group</span>${G.near.map(g=>`<p><b>${esc(adminInsGroupTitle(g))}</b>: ${esc(g.members.map(p=>p.profile.name || '(no name)').join(', '))}${g.need ? ' · needs ' + g.need + ' more' : ''}</p>`).join('')}</div>` : ''}`;
-  const groups = adminInsCard('Group classes', G.groups.length + ' suggested group' + (G.groups.length === 1 ? '' : 's'), groupsBody,
-    'Same level' + (adminInsSplitLang ? ', same app language' : '') + ' and the goal most of them share, the most active people together. From ' + G.pool.length + ' learners ' + esc(seenWord) + (adminInsPhoneOnly ? ' with a number' : '') + '. <b>Invite</b> opens WhatsApp with a message in their app language and marks them as invited.');
+      ${G.groups.length ? G.groups.map(groupCard).join('') : `<p class="ap-empty">No class fits right now: there are not 3 learners at the same level with the same goal${adminInsSplitLang ? ' and app language' : ''} among learners ${esc(seenWord)}.</p>`}
+      ${notIn.length ? `<p class="ins-note ins-notin">Not suggested: ${esc(notIn.join(' · '))}. Nobody is pushed into a group that doesn't fit.</p>` : ''}`;
+  const groups = adminInsCard('Group classes', G.groups.length ? G.groups.length + ' class' + (G.groups.length === 1 ? '' : 'es') + ' you could open' : 'No class fits yet', groupsBody,
+    'Only learners who really fit together: the same level' + (adminInsSplitLang ? ' and app language' : '') + ', and a goal they all have, as many as possible with it as their main goal. Each learner is in one group at most. From ' + G.pool.length + ' learners ' + esc(seenWord) + ' who came back' + (adminInsPhoneOnly ? ' and left a number' : '') + '. <b>Invite</b> opens WhatsApp with a message in their app language and marks them as invited.');
   // 2. levels + goals
   const levelRows = LEVELS.map(l=>{ const n = seen.filter(p=>adminInsLevel(p) === l); return {label:l, n:n.length, title:l + ': ' + n.length + ' learners (' + n.filter(p=>p.profile.levelStage === 2).length + ' at ' + l + '.2)'}; });
   const noLevel = seen.filter(p=>!adminInsLevel(p)).length;
