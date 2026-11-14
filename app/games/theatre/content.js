@@ -31,14 +31,12 @@ window.THEATRE_CONTENT = {
     order:{
       title:'Rush Hour at Sam’s',
       tagline:'Five customers. One tray. Listen closely.',
-      art:'games/posters/order.webp', artReady:false,
-      palette:{sky:'#fff1e6', sky2:'#ffd2b0', glow:'#fff8ef', ground:'#f19a6b', ink:'#3a1f12', accent:'#1f7a6d', accentInk:'#ffffff'}
+      art:'games/posters/order.webp', artReady:false   // until this portrait key art lands: the card poster + the palette from skins.js
     },
     desk:{
       title:'Arrivals',
       tagline:'Every traveller has a story. Check it.',
-      art:'games/posters/desk.webp', artReady:false,
-      palette:{sky:'#eef6ff', sky2:'#c4e1f6', glow:'#ffffff', ground:'#8dbbe8', ink:'#13304d', accent:'#e2533c', accentInk:'#ffffff'}
+      art:'games/posters/desk.webp', artReady:false   // until this portrait key art lands: the card poster + the palette from skins.js
     },
     radio:{
       // Mini Radio (spec mini-radio-2026-10-21.md 5.3): key art from the poster agent (GW74YH0q queue)
@@ -50,9 +48,18 @@ window.THEATRE_CONTENT = {
     spell:{
       title:'The Word Doors',
       tagline:'Say it right, and the door opens.',
-      art:'games/posters/spell.webp', artReady:false,
-      palette:{sky:'#f4f0ff', sky2:'#d8cbf8', glow:'#fff7d6', ground:'#a592ea', ink:'#2a1d55', accent:'#f2b632', accentInk:'#2a1d55'}
-    }
+      art:'games/posters/spell.webp', artReady:false   // until this portrait key art lands: the card poster + the palette from skins.js
+    },
+    // quick games (2026-11-14): the poster is the live roadmap card art and its palette (skins.js); titles + taglines from the
+    // worlds SPEC section 16 (farin-gamification)
+    match:{title:'The Card Table', tagline:'Flip two. Find the pair. The ferry’s almost in.'},
+    build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.'},
+    cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.'},
+    bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.'},
+    hunt:{title:'The Word Hunt', tagline:'Somewhere in your story, the words are hiding.'},
+    echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.'},
+    dictation:{title:'By the Window', tagline:'Listen closely. Type what you hear.'},
+    trap:{title:'Pier Dash', tagline:'Pick fast. Jump clean.'}
   },
   strings:{
     play:{en:'Play', tr:'Oyna', fa:'بازی کن', es:'Jugar'},
@@ -64,6 +71,10 @@ window.THEATRE_CONTENT = {
     starringYou:{en:'starring {you}', tr:'başrolde {you}', fa:'با بازی {you}', es:'protagonizada por {you}'},
     you:{en:'you', tr:'sen', fa:'تو', es:'ti'},
     level:{en:'Level {level}', tr:'Seviye {level}', fa:'سطح {level}', es:'Nivel {level}'},
-    artSoon:{en:'Poster art in production', tr:'Afiş çiziliyor', fa:'پوستر داره کشیده می‌شه', es:'Cartel en producción'}
+    artSoon:{en:'Poster art in production', tr:'Afiş çiziliyor', fa:'پوستر داره کشیده می‌شه', es:'Cartel en producción'},
+    // the leave sheet while a quick game's round is in progress (the card stays open on the roadmap, so this is true)
+    leaveQ:{en:'Leave the game? You can play it again any time.', tr:'Oyundan çıkıyor musun? İstediğin zaman yeniden oynayabilirsin.', fa:'از بازی می‌ری؟ هر وقت بخوای می‌تونی دوباره بازیش کنی.', es:'¿Sales del juego? Puedes volver a jugarlo cuando quieras.'},
+    stay:{en:'Keep playing', tr:'Oynamaya devam et', fa:'بازی رو ادامه بده', es:'Seguir jugando'},
+    leave:{en:'Leave', tr:'Çık', fa:'خروج', es:'Salir'}
   }
 };
