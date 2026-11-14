@@ -14241,8 +14241,8 @@ function renderDiagUnlock(){
   </div>`;
 }
 /* ---------- In-app privacy policy (short summary) ----------
-   Same facts as the website policy thefeschool.com/privacy-policy.html (+ the Turkish /gizlilik-politikasi.html),
-   updated 2026-11-14 (farin-english a7c1a30c); the full text links out. When the website policy changes, change this
+   Same facts as the website policy thefeschool.com/privacy-policy.html (Turkish /gizlilik-politikasi.html, Persian /fa/privacy.html),
+   updated 2026-11-14 (farin-english a7c1a30c); the full text links out, in the learner's language (es/en: English). When the website policy changes, change this
    too. The block above the credits is the same in the English and Spanish apps (LOGIN_APP picks the IELTS line,
    English app only; it also names each app's Settings button); the credits at the end are each app's own.
    News and offers on WhatsApp = a separate opt-in since 2026-11-14 (see promoSet). */
@@ -14262,8 +14262,7 @@ function renderPrivacyPolicy(){
               "خلاصه‌ای کوتاه از اینکه Farin English و Farin Spanish چه چیزهایی از تو نگه می‌دارند و چرا. متن کامل در سایت ماست.",
               "Un resumen breve de lo que Farin English y Farin Spanish guardan sobre ti, y por qué. La política completa está en nuestra web."))}
         <div class="row" style="flex-wrap:wrap; gap:8px; margin:4px 0 6px;">
-          <a class="btn btn-ghost btn-sm" href="https://thefeschool.com/privacy-policy.html" target="_blank" rel="noopener">${L('Read the full policy','Politikanın tamamı (İngilizce)','متن کامل (به انگلیسی)','Política completa (en inglés)')} ↗</a>
-          ${LANG === 'tr' ? `<a class="btn btn-ghost btn-sm" href="https://thefeschool.com/gizlilik-politikasi.html" target="_blank" rel="noopener">Türkçe gizlilik ve çerez politikası ↗</a>` : ''}
+          <a class="btn btn-ghost btn-sm" href="${L('https://thefeschool.com/privacy-policy.html','https://thefeschool.com/gizlilik-politikasi.html','https://thefeschool.com/fa/privacy.html','https://thefeschool.com/privacy-policy.html')}" target="_blank" rel="noopener">${L('Read the full policy','Politikanın tamamını oku','خواندن متن کامل','Política completa (en inglés)')} ↗</a>
         </div>
 
         ${H(L('1. What the app keeps','1. Uygulamanın sakladıkları','۱. اپ چه چیزهایی نگه می‌دارد','1. Qué guarda la app'))}
