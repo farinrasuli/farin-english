@@ -1739,6 +1739,90 @@
   .acc-edit p{margin:0; font-size:12px; line-height:1.45; color:var(--ink-soft);}
   .acc-left.soon{color:var(--fs-orange-ink); font-weight:800;}
   @media (max-width:420px){ .acc-scope{grid-template-columns:1fr;} }
+  /* Insights (2026-11-14): one filter row, thin one-colour bars with their values as text, the level × goal grid (one hue, light to dark,
+     the count in every box), group cards and people rows */
+  .ins{display:flex; flex-direction:column; gap:16px;}
+  .ins-filters{display:flex; flex-wrap:wrap; gap:8px 16px; justify-content:space-between;}
+  .ins-tiles .ap-tile b small{font-family:inherit; font-size:13px; font-weight:700; color:var(--ink-soft);}
+  .ins-card{min-width:0;}
+  .ins-h{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-weight:700; font-size:20px; line-height:1.2; margin:4px 0 0;}
+  .ins-note{font-size:12.5px; line-height:1.45; color:var(--ink-soft); margin:6px 0 12px;}
+  .ins-sub{font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint); margin:16px 0 4px;}
+  .ins-two{display:grid; grid-template-columns:minmax(0,1fr); gap:16px;}
+  @media (min-width:900px){ .ins-two{grid-template-columns:repeat(2, minmax(0,1fr)); align-items:start;} }
+  .ins-bars{display:flex; flex-direction:column; gap:9px; margin-top:8px;}
+  .ins-bar{display:grid; grid-template-columns:minmax(86px, 38%) minmax(0,1fr) auto; align-items:center; gap:10px;}
+  .ins-bl{font-size:13px; font-weight:800; color:var(--ink); min-width:0; overflow-wrap:anywhere; line-height:1.25;}
+  .ins-bl small{display:block; font-size:11px; font-weight:600; color:var(--ink-faint);}
+  .ins-bt{display:block; height:10px; border-inline-start:1px solid var(--border);}
+  .ins-bt i{display:block; height:100%; background:var(--fs-purple); border-radius:0 4px 4px 0;}
+  .ins-bv{font-size:13.5px; font-weight:800; font-variant-numeric:tabular-nums; text-align:end; min-width:42px; line-height:1.15;}
+  .ins-bv small{display:block; font-size:10.5px; font-weight:700; color:var(--ink-faint);}
+  .ins-gridwrap{overflow-x:auto; margin:4px -4px 0;}
+  .ins-grid{border-collapse:separate; border-spacing:4px; width:100%; min-width:330px; table-layout:fixed;}
+  .ins-grid th{font-size:11px; font-weight:800; color:var(--ink-soft); text-align:center; padding:2px 0; overflow:hidden; text-overflow:ellipsis;}
+  .ins-grid th[scope="row"]{text-align:start; font-size:13px; color:var(--ink); width:34px;}
+  .ins-grid thead th:first-child{width:34px;}
+  .ins-cell{all:unset; box-sizing:border-box; cursor:pointer; display:grid; place-items:center; width:100%; min-height:42px; border-radius:10px; font-weight:800; font-size:14px; color:var(--ink); background:var(--bg-sunken);}
+  .ins-cell[disabled]{cursor:default; color:var(--ink-faint); font-weight:600;}
+  .ins-cell.s1{background:color-mix(in srgb, var(--fs-purple) 14%, var(--bg-elevated));}
+  .ins-cell.s2{background:color-mix(in srgb, var(--fs-purple) 28%, var(--bg-elevated));}
+  .ins-cell.s3{background:color-mix(in srgb, var(--fs-purple) 44%, var(--bg-elevated));}
+  .ins-cell.s4{background:color-mix(in srgb, var(--fs-purple) 62%, var(--bg-elevated));}
+  .ins-cell.s5{background:color-mix(in srgb, var(--fs-purple) 82%, var(--bg-elevated));}
+  .ins-cell.on{box-shadow:inset 0 0 0 2px var(--ink);}
+  .ins-cell:focus-visible, .ins-tier:focus-visible{outline:2px solid var(--fs-purple); outline-offset:2px;}
+  .ins-cellopen{margin-top:12px; padding-top:12px; border-top:1px solid var(--border-soft);}
+  .ins-cellopen > b{font-size:14px;}
+  .ins-gctl{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:2px 0 6px;}
+  .ins-gl{font-size:12.5px; font-weight:800; color:var(--ink-soft); margin-inline-start:4px;}
+  .ins-group{border:1px solid var(--border-soft); border-radius:18px; padding:12px 14px; margin-top:12px; background:color-mix(in srgb, var(--fs-purple) 4%, var(--bg-elevated));}
+  .ins-gh{display:flex; align-items:flex-start; gap:12px; margin-bottom:2px;}
+  .ins-gn{flex:none; min-width:34px; height:34px; border-radius:999px; display:grid; place-items:center; background:var(--fs-purple); color:#fff; font-weight:900; font-size:15px;}
+  .ins-gt{min-width:0; display:flex; flex-direction:column; gap:2px;}
+  .ins-gt b{font-size:15px; font-weight:800; line-height:1.3;}
+  .ins-gt small{font-size:12px; line-height:1.4; color:var(--ink-soft);}
+  .ins-gb{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+  .ins-near{margin-top:14px; padding:12px 14px; border-radius:16px; background:var(--bg-sunken);}
+  .ins-near p{margin:6px 0 0; font-size:13px; line-height:1.45;}
+  .ins-plist{display:flex; flex-direction:column;}
+  .ins-p{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border-soft); min-width:0;}
+  .ins-p:last-child{border-bottom:0;}
+  .ins-p .ap-av{width:38px; height:38px; font-size:16px;}
+  .ins-pm{flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;}
+  .ins-pn{display:flex; align-items:center; gap:6px; flex-wrap:wrap; min-width:0;}
+  .ins-pn b{font-size:14px; font-weight:800; overflow-wrap:anywhere;}
+  .ins-pd{font-size:12px; line-height:1.4; color:var(--ink-soft);}
+  .ins-ph{font-size:12.5px; font-weight:700; color:var(--ink); text-align:start;}
+  .ins-none{color:var(--ink-faint); font-weight:600;}
+  .ins-pa{flex:none; display:flex; align-items:center; gap:4px;}
+  .ins-pa .btn-whatsapp{display:inline-flex; align-items:center; gap:6px; text-decoration:none;}
+  .ins-pa .btn-whatsapp svg{width:16px; height:16px;}
+  @media (max-width:440px){ .ins-p{flex-wrap:wrap;} .ins-pa{width:100%; padding-inline-start:50px;} }
+  .ins-top{display:flex; align-items:center; gap:10px; border-bottom:1px solid var(--border-soft); min-width:0;}
+  .ins-top:last-child{border-bottom:0;}
+  .ins-top .ins-p{flex:1; border-bottom:0;}
+  .ins-rank{flex:none; width:20px; font-weight:900; color:var(--ink-faint); text-align:center;}
+  .ins-topn{flex:none; display:flex; flex-direction:column; align-items:flex-end; max-width:84px; text-align:end;}
+  .ins-topn b{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:20px; font-weight:700; line-height:1;}
+  .ins-topn small{font-size:11px; line-height:1.3; color:var(--ink-soft);}
+  .ins-tiers{display:flex; flex-direction:column; gap:8px;}
+  .ins-tier{all:unset; box-sizing:border-box; cursor:pointer; display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:16px; background:var(--bg-sunken); color:var(--ink); -webkit-tap-highlight-color:transparent;}
+  .ins-tier.on{background:var(--fs-purple-soft);}
+  .ins-tier > b{flex:none; min-width:38px; font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:22px; font-weight:700; text-align:center;}
+  .ins-tier > span:not(.ins-tp){flex:1; min-width:0; display:flex; flex-direction:column; gap:1px;}
+  .ins-tier em{font-style:normal; font-weight:800; font-size:14px;}
+  .ins-tier small{font-size:12px; line-height:1.35; color:var(--ink-soft);}
+  .ins-tp{flex:none; display:grid; place-items:center; font-size:12.5px; font-weight:800; color:var(--ink-soft);}
+  .ins-tp svg{width:16px; height:16px;}
+  .ins-tier.on .ins-tp svg{transform:rotate(90deg);}
+  .ins-tiers > .ins-plist{padding:0 4px;}
+  .ins-cols{display:grid; grid-template-columns:repeat(8, minmax(0,1fr)); gap:6px; align-items:end; margin-top:10px;}
+  .ins-col{display:flex; flex-direction:column; align-items:center; gap:4px; min-width:0;}
+  .ins-col b{font-size:12.5px; font-weight:800;}
+  .ins-ct{display:flex; align-items:flex-end; justify-content:center; width:100%; height:110px; border-bottom:1px solid var(--border);}
+  .ins-ct i{display:block; width:min(24px, 70%); background:var(--fs-purple); border-radius:4px 4px 0 0;}
+  .ins-col small{font-size:10.5px; color:var(--ink-faint); white-space:nowrap;}
   /* sign in */
   .ap.ap-solo{display:block;}
   .ap-signin{max-width:420px; margin:0 auto; padding-top:12px;}
@@ -3463,6 +3547,7 @@ const ICONS = {
   suitcase:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="8" width="19" height="13" rx="2.4"/><path d="M8.5 8V5.5A1.7 1.7 0 0 1 10.2 3.8h3.6A1.7 1.7 0 0 1 15.5 5.5V8"/><path d="M2.5 13.5h19"/><path d="M10.6 13.2h2.8"/></svg>',
   pen:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 4.8 15.8 15.6 5a2 2 0 0 1 2.8 0l1.6 1.6a2 2 0 0 1 0 2.8L9.2 20.2 4 20Z"/><path d="M14 7.2 17.8 11"/></svg>',
   mic:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5v1a6.5 6.5 0 0 0 13 0v-1"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="8.5" y1="22" x2="15.5" y2="22"/></svg>',
+  chart:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><path d="M7 16v-4"/><path d="M12 16V7"/><path d="M17 16v-7"/></svg>',
   users:'<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8.5" cy="8" r="3.2"/><path d="M2.8 19c.6-3.4 3-5.2 5.7-5.2s5.1 1.8 5.7 5.2"/><circle cx="16.8" cy="8.6" r="2.6"/><path d="M15.3 13.9c2.2.2 4 1.7 4.5 4.4"/></svg>'
 };
 
@@ -37588,6 +37673,289 @@ function renderAdminWaitlistTab(){
     ${adminWaitlistLoading && !adminWaitlist ? `<p style="text-align:center; padding:20px; color:var(--ink-faint);">Loading…</p>` : (rows || `<p style="padding:20px; text-align:center; color:var(--ink-faint);">Nobody on the list yet.</p>`)}
   </div>`;
 }
+/* ============================= ADMIN: INSIGHTS (Farin 2026-11-14) =============================
+   "An analysis section: users by level, who comes more, anything good to know, and suggested groups (same level, almost the same
+   goals) that can be offered a group online class, with their names and numbers." Read-only on the data Home already loaded:
+   the merged learners of admin › Users (adminPeople, one entry per learner, hidden ones left out), course passwords, waiting list
+   and Inbox chats (through adminPersonLinks, so the phone is the same one the learner's profile shows).
+   - Level = profile.level (LEVELS) + levelStage; goals = profile.goals (up to 3), else motivationTag; language = the app language
+     of the newest record (profile.activity.ui: tr / fa / en / es), our best hint for country and time zone.
+   - Visits = profile.activity days / opens summed over the learner's records. These are lifetime counts (the app keeps no day-by-day
+     history), so "per week" = active days / weeks since the first visit, and the time of day is the time of the latest visit.
+   - Suggested groups: same app + same level (+ same language when "Turkish and Persian apart" is on), then the goal most of them
+     share; 3 to N people a group, the most active together. A level with fewer than 3 left over is listed as "almost a group".
+   - The only thing stored: "invited" marks for group invitations, progress/admin-seen invited:{accountHash: time} (merge). */
+const ADMIN_INS_GOALS = ['career', 'exam', 'everyday', 'travel', 'immigration'];
+const ADMIN_INS_LANG = {tr:'Turkish', fa:'Persian', en:'English', es:'Spanish'};
+let adminInsApp = null;            // 'en' | 'es' | 'all'; null = this app's side
+let adminInsSeen = 30;             // count learners seen in the last N days (0 = everyone): levels, goals, grid, groups, leads
+let adminInsPhoneOnly = false, adminInsSplitLang = true, adminInsMax = 6;
+let adminInsCell = null;           // 'B1|career' open in the level × goal grid
+let adminInsList = null;           // an open people list: 'tier-regular' | 'lead-ielts' …
+let adminInsNote = '';
+let adminInvited = {};             // accountHash -> time the group invitation was sent (progress/admin-seen)
+let adminInsLinksCache = null;
+function adminInsLinks(p){ if(!adminInsLinksCache) adminInsLinksCache = {}; return adminInsLinksCache[p.key] || (adminInsLinksCache[p.key] = adminPersonLinks(p)); }
+function adminInsPhone(p){ return adminInsLinks(p).phone || ''; }
+function adminInsAppNow(){ return adminInsApp || LOGIN_APP; }
+function adminInsAll(){ const app = adminInsAppNow(); return (adminPeople || []).filter(p=>!p.hidden && (app === 'all' || p.app === app)); }
+function adminInsSeenOk(p){ return !adminInsSeen || Date.now() - (p.lastSeen || 0) < adminInsSeen * DAY_MS; }
+function adminInsLevel(p){ const l = String(p.profile.level || '').toUpperCase(); return LEVELS.indexOf(l) >= 0 ? l : ''; }
+function adminInsStage(p){ const l = adminInsLevel(p); return l ? l + '.' + (p.profile.levelStage === 2 ? 2 : 1) : '—'; }
+function adminInsGoals(p){ const pf = p.profile, g = pf.goals && pf.goals.length ? pf.goals : (pf.motivationTag ? [pf.motivationTag] : []); return g.filter((x, i)=>ADMIN_INS_GOALS.indexOf(x) >= 0 && g.indexOf(x) === i); }
+function adminInsLang(p){ const ui = ((p.profile.activity || {}).ui) || ''; return ADMIN_INS_LANG[ui] ? ui : ''; }
+function adminInsLastVisit(p){ return Number((p.profile.activity || {}).last) || p.lastSeen || 0; }
+function adminInsPerWeek(p){ const first = p.activity.first || p.joined || p.lastSeen || Date.now(); return Math.min(7, (p.activity.days || 0) / Math.max(1, (Date.now() - first) / (7 * DAY_MS))); }
+// How often they come: one tier per learner.
+const ADMIN_INS_TIERS = [
+  {k:'regular', t:'Regulars', s:'Seen this week, 4+ days, about 2 days a week or more'},
+  {k:'returning', t:'Come now and then', s:'2+ days, seen in the last 2 weeks'},
+  {k:'new', t:'New this week', s:'Joined in the last 7 days'},
+  {k:'quiet', t:'Went quiet', s:'Came on 2+ days, not seen for 2+ weeks: worth a message'},
+  {k:'once', t:'Tried it once', s:'One day only'}
+];
+function adminInsTier(p){
+  const now = Date.now(), ago = now - (p.lastSeen || 0), days = p.activity.days || 0;
+  if(p.joined && now - p.joined < 7 * DAY_MS) return 'new';
+  if(days <= 1) return 'once';
+  if(ago < 7 * DAY_MS && days >= 4 && adminInsPerWeek(p) >= 1.5) return 'regular';
+  if(ago < 14 * DAY_MS) return 'returning';
+  return 'quiet';
+}
+function adminInsDaypart(ms){ if(!ms) return ''; const h = new Date(ms).getHours(); return h >= 6 && h < 12 ? 'morning' : h >= 12 && h < 17 ? 'afternoon' : h >= 17 && h < 22 ? 'evening' : 'night'; }
+const ADMIN_INS_DAYPARTS = [{k:'morning', t:'Morning', s:'6–12'}, {k:'afternoon', t:'Afternoon', s:'12–17'}, {k:'evening', t:'Evening', s:'17–22'}, {k:'night', t:'Night', s:'22–6'}];
+// Suggested group classes. Returns {groups:[{app, level, lang, goal, members}], near:[{…, need}], pool}.
+function adminInsGroups(){
+  const min = 3, max = Math.max(min, adminInsMax);
+  const pool = adminInsAll().filter(p=>adminInsLevel(p) && adminInsSeenOk(p) && (!adminInsPhoneOnly || adminInsPhone(p)));
+  const buckets = {}, order = [];
+  pool.forEach(p=>{ const k = p.app + '|' + adminInsLevel(p) + '|' + (adminInsSplitLang ? (adminInsLang(p) || '?') : '*'); if(!buckets[k]){ buckets[k] = []; order.push(k); } buckets[k].push(p); });
+  const groups = [], near = [];
+  // n balanced groups of up to max people, each of at least min; people past n * max are handed back for the next round
+  const cut = (list, base)=>{ let n = Math.ceil(list.length / max); while(n > 1 && Math.floor(list.length / n) < min) n--;
+    const take = Math.min(list.length, n * max), size = Math.floor(take / n), extra = take % n; let at = 0;
+    for(let i = 0; i < n; i++){ const s = size + (i < extra ? 1 : 0); groups.push(Object.assign({members:list.slice(at, at + s)}, base)); at += s; }
+    return list.slice(take); };
+  const byActive = (a,b)=>adminInsPerWeek(b) - adminInsPerWeek(a) || (b.lastSeen || 0) - (a.lastSeen || 0);
+  order.forEach(k=>{
+    const [app, level, lang] = k.split('|'); let left = buckets[k].slice();
+    for(let guard = 0; guard < 20 && left.length >= min; guard++){
+      const count = {}; left.forEach(p=>adminInsGoals(p).forEach(g=>{ count[g] = (count[g] || 0) + 1; }));
+      const goal = Object.keys(count).sort((a,b)=>count[b] - count[a] || ADMIN_INS_GOALS.indexOf(a) - ADMIN_INS_GOALS.indexOf(b))[0];
+      if(!goal || count[goal] < min) break;
+      const members = left.filter(p=>adminInsGoals(p).indexOf(goal) >= 0).sort(byActive);
+      const rest = cut(members, {app, level, lang, goal});
+      left = left.filter(p=>members.indexOf(p) < 0 || rest.indexOf(p) >= 0);
+      if(rest.length === members.length) break;
+    }
+    if(left.length >= min) left = cut(left.sort(byActive), {app, level, lang, goal:''});
+    if(left.length) near.push({app, level, lang, goal:'', members:left, need:Math.max(0, min - left.length)});
+  });
+  const avg = g=>g.members.reduce((n, p)=>n + adminInsPerWeek(p), 0) / g.members.length;
+  groups.sort((a,b)=>b.members.length - a.members.length || avg(b) - avg(a));
+  near.sort((a,b)=>b.members.length - a.members.length);
+  return {groups, near, pool};
+}
+function adminInsGroupTitle(g){
+  return g.level + ' · ' + (g.goal ? GOAL_LABELS[g.goal] || g.goal : 'Mixed goals') + (adminInsSplitLang && ADMIN_INS_LANG[g.lang] ? ' · ' + ADMIN_INS_LANG[g.lang] + ' speakers' : '') + (adminInsAppNow() === 'all' ? ' · ' + g.app.toUpperCase() + ' app' : '');
+}
+// The WhatsApp invitation, in the learner's app language.
+function adminInsInviteText(p, level){
+  const n = String(p.profile.name || '').trim().split(/\s+/)[0] || '', lang = adminInsLang(p);
+  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin. Seninle aynı seviyede (' + level + ') ve benzer hedeflere sahip birkaç öğrenciyle küçük bir online grup dersi açmak istiyorum. Katılmak ister misin? İstersen gün ve saat seçeneklerini sana yazayım.';
+  if(lang === 'fa') return 'سلام' + (n ? ' ' + n : '') + '! فرین هستم، از FEschool. می‌خواهم با چند زبان‌آموزِ هم‌سطحِ تو (سطح ⁨' + level + '⁩) که هدف‌های مشابهی دارند، یک کلاس گروهی آنلاینِ کوچک راه بیندازم. دوست داری شرکت کنی؟ اگر بخواهی، روزها و ساعت‌ها را برایت می‌فرستم.';
+  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool. Quiero abrir una pequeña clase online en grupo con algunos estudiantes de tu nivel (' + level + ') y con objetivos parecidos. ¿Te gustaría unirte? Si quieres, te envío los días y horarios.';
+  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool. I\'d like to start a small online group class with a few learners at your level (' + level + ') who have similar goals. Would you like to join? If so, I\'ll send you the days and times.';
+}
+function adminInsWaLink(p, text){ const ph = adminInsPhone(p); return ph ? waLinkTo(adminWaitlistWaNumber({phone:ph, lang:adminInsLang(p)}), text) : ''; }
+function adminInsInvitedAt(p){ return p.accounts.reduce((m, u)=>Math.max(m, (u.hash && Number(adminInvited[u.hash])) || 0), 0); }
+function adminInsCopy(text){
+  const done = ()=>{ adminInsNote = 'Copied.'; renderAdminPage(); setTimeout(()=>{ if(adminInsNote === 'Copied.'){ adminInsNote = ''; renderAdminPage(); } }, 1600); };
+  if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done).catch(()=>{ window.prompt('Copy:', text); });
+  else window.prompt('Copy:', text);
+}
+function adminInsGroupText(g){
+  return adminInsGroupTitle(g) + '\n' + g.members.map((p, i)=>(i + 1) + '. ' + (p.profile.name || '(no name)') + ' (' + adminInsStage(p) + ') · ' + (adminInsPhone(p) || 'no number')).join('\n');
+}
+function adminInsAction(action, el){
+  const re = ()=>{ renderAdminPage(); };
+  if(action === 'ins-app'){ adminInsApp = el.dataset.v; adminInsCell = null; adminInsList = null; return re(); }
+  if(action === 'ins-seen'){ adminInsSeen = Number(el.dataset.v) || 0; adminInsCell = null; return re(); }
+  if(action === 'ins-phone'){ adminInsPhoneOnly = !adminInsPhoneOnly; return re(); }
+  if(action === 'ins-split'){ adminInsSplitLang = !adminInsSplitLang; return re(); }
+  if(action === 'ins-max'){ adminInsMax = Number(el.dataset.v) || 6; return re(); }
+  if(action === 'ins-cell'){ adminInsCell = adminInsCell === el.dataset.v ? null : el.dataset.v; return re(); }
+  if(action === 'ins-list'){ adminInsList = adminInsList === el.dataset.v ? null : el.dataset.v; return re(); }
+  if(action === 'ins-copy'){ const g = adminInsGroups().groups[Number(el.dataset.i)]; if(g) adminInsCopy(adminInsGroupText(g)); return; }
+  if(action === 'ins-invite'){
+    // the link opens WhatsApp by itself (no preventDefault); this only remembers the invitation
+    const p = adminPersonByKey(el.dataset.id), h = p && p.main && p.main.hash;
+    if(!h || !adminSeen) return;
+    adminInvited[h] = Date.now(); adminSeenSave();
+    setTimeout(re, 0);
+    return;
+  }
+}
+// ---------- small views ----------
+// One series of thin bars from one baseline; the value is written beside each bar (the bar is never the only way to read it).
+function adminInsBars(rows, opts){
+  const max = Math.max(1, ...rows.map(r=>r.n)), total = (opts && opts.total) || 0;
+  if(!rows.length) return '<p class="ap-empty">No data yet.</p>';
+  return `<div class="ins-bars">${rows.map(r=>`<div class="ins-bar" title="${esc(r.title || (r.label + ': ' + r.n + (total ? ' (' + Math.round(r.n / total * 100) + '%)' : '')))}">
+      <span class="ins-bl">${esc(r.label)}${r.sub ? `<small>${esc(r.sub)}</small>` : ''}</span>
+      <span class="ins-bt"><i style="width:${r.n ? Math.max(2, Math.round(r.n / max * 100)) : 0}%"></i></span>
+      <b class="ins-bv">${r.n}${total ? `<small>${Math.round(r.n / total * 100)}%</small>` : ''}</b>
+    </div>`).join('')}</div>`;
+}
+function adminInsPersonRow(p, extra){
+  const pf = p.profile, goals = adminInsGoals(p), ph = adminInsPhone(p), invite = !!(extra && extra.invite), inv = invite ? adminInsInvitedAt(p) : 0;
+  const wa = invite ? adminInsWaLink(p, adminInsInviteText(p, adminInsLevel(p))) : adminInsWaLink(p, 'Hi ' + (String(pf.name || '').split(' ')[0]) + '! This is your FEschool teacher.');
+  return `<div class="ins-p">
+      ${adminAvatarHtml(pf.name, adminGoalKey(goals.length ? goals : pf.motivationTag), Date.now() - (p.lastSeen || 0))}
+      <span class="ins-pm">
+        <span class="ins-pn"><b dir="auto">${esc(pf.name || '(no name)')}</b>${inv ? `<span class="ap-tag ok">Invited ${esc(adminAgo(inv))}</span>` : ''}</span>
+        <span class="ins-pd">${esc(adminInsStage(p))} · ${goals.length ? esc(goals.map(g=>GOAL_LABELS[g] || g).join(', ')) : 'no goal'}${adminInsLang(p) ? ' · ' + esc(ADMIN_INS_LANG[adminInsLang(p)]) : ''} · seen ${esc(adminAgo(p.lastSeen))} · ${p.activity.days || 0} day${p.activity.days === 1 ? '' : 's'}</span>
+        <span class="ins-ph" dir="ltr">${ph ? esc(ph) : '<span class="ins-none">no number</span>'}</span>
+      </span>
+      <span class="ins-pa">
+        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="WhatsApp ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Again' : 'Invite'}</span>` : ''}</a>` : ''}
+        <button class="ap-link" data-admin-action="ap-open-learner" data-id="${esc(p.key)}">Profile</button>
+      </span>
+    </div>`;
+}
+function adminInsPeopleList(list, extra){ return list.length ? `<div class="ins-plist">${list.map(p=>adminInsPersonRow(p, extra)).join('')}</div>` : '<p class="ap-empty">Nobody here.</p>'; }
+function adminInsCard(eb, title, body, note){ return `<section class="ap-card ins-card"><span class="ap-eb">${esc(eb)}</span><h3 class="ins-h">${esc(title)}</h3>${note ? `<p class="ins-note">${note}</p>` : ''}${body}</section>`; }
+function adminInsChip(action, v, on, label){ return `<button class="ap-chip${on ? ' on' : ''}" data-admin-action="${action}" data-v="${esc(String(v))}" aria-pressed="${on ? 'true' : 'false'}">${esc(label)}</button>`; }
+function adminInsBoxSub(){
+  adminInsLinksCache = null;
+  if(!adminPeople) return adminUsersError ? 'Could not load' : 'Loading…';
+  const n = adminInsGroups().groups.length;
+  return n ? n + ' possible group class' + (n === 1 ? '' : 'es') : 'Levels, goals, who comes most';
+}
+function renderAdminInsightsTab(){
+  if(adminUsersLoading && !adminPeople) return `<p class="ap-empty">Loading learners…</p>`;
+  if(adminUsersError && !adminPeople) return `<p class="ap-empty">Could not load the learners: ${esc(adminUsersError)}</p>`;
+  adminInsLinksCache = null;
+  const now = Date.now(), all = adminInsAll(), seen = all.filter(adminInsSeenOk), app = adminInsAppNow();
+  const seenWord = adminInsSeen ? 'seen in the last ' + adminInsSeen + ' days' : 'seen at any time';
+  const pct = (a, b)=>b ? Math.round(a / b * 100) + '%' : '—';
+  // filters: one row above everything
+  const filters = `<div class="ins-filters">
+      <div class="ap-chips" role="group" aria-label="App">${adminInsChip('ins-app', 'en', app === 'en', 'English app')}${adminInsChip('ins-app', 'es', app === 'es', 'Spanish app')}${adminInsChip('ins-app', 'all', app === 'all', 'Both')}</div>
+      <div class="ap-chips" role="group" aria-label="Count learners seen in">${[14, 30, 90, 0].map(d=>adminInsChip('ins-seen', d, adminInsSeen === d, d ? 'Seen in ' + d + ' days' : 'Any time')).join('')}</div>
+    </div>`;
+  // headline numbers
+  const tierOf = {}; all.forEach(p=>{ tierOf[p.key] = adminInsTier(p); });
+  const phoneN = all.filter(p=>adminInsPhone(p)).length;
+  const tiles = `<div class="ap-tiles ins-tiles">
+      <div class="ap-tile"><span>Learners</span><b>${all.length}</b></div>
+      <div class="ap-tile"><span>Seen this week</span><b>${all.filter(p=>now - (p.lastSeen || 0) < 7 * DAY_MS).length}</b></div>
+      <div class="ap-tile"><span>Regulars</span><b>${all.filter(p=>tierOf[p.key] === 'regular').length}</b></div>
+      <div class="ap-tile"><span>Have a number</span><b>${phoneN}<small> ${pct(phoneN, all.length)}</small></b></div>
+    </div>`;
+  // 1. suggested group classes
+  const G = adminInsGroups();
+  const groupCard = (g, i)=>{
+    const m = g.members, goalsHave = {}; m.forEach(p=>adminInsGoals(p).forEach(x=>{ goalsHave[x] = (goalsHave[x] || 0) + 1; }));
+    const goalLine = Object.keys(goalsHave).sort((a,b)=>goalsHave[b] - goalsHave[a]).slice(0, 3).map(x=>(GOAL_LABELS[x] || x) + ' ' + goalsHave[x] + '/' + m.length).join(' · ');
+    const parts = {}; m.forEach(p=>{ const d = adminInsDaypart(adminInsLastVisit(p)); if(d) parts[d] = (parts[d] || 0) + 1; });
+    const when = Object.keys(parts).sort((a,b)=>parts[b] - parts[a])[0];
+    const withPhone = m.filter(p=>adminInsPhone(p)).length, week = m.filter(p=>now - (p.lastSeen || 0) < 7 * DAY_MS).length;
+    return `<div class="ins-group">
+        <div class="ins-gh"><span class="ins-gn">${m.length}</span><span class="ins-gt"><b>${esc(adminInsGroupTitle(g))}</b>
+          <small>${esc(goalLine || 'No goals set')} · ${week}/${m.length} seen this week · ${withPhone}/${m.length} with a number${when ? ' · mostly ' + when + 's' : ''}</small></span></div>
+        ${adminInsPeopleList(m, {invite:true})}
+        <div class="ins-gb"><button class="btn btn-sm btn-ghost" data-admin-action="ins-copy" data-i="${i}">Copy names and numbers</button></div>
+      </div>`; };
+  const groupsBody = `<div class="ins-gctl">
+        <button class="ap-chip${adminInsPhoneOnly ? ' on' : ''}" data-admin-action="ins-phone" aria-pressed="${adminInsPhoneOnly}">Only with a number</button>
+        <button class="ap-chip${adminInsSplitLang ? ' on' : ''}" data-admin-action="ins-split" aria-pressed="${adminInsSplitLang}">Turkish and Persian apart</button>
+        <span class="ins-gl">Group size up to</span>${[4, 6, 8].map(n=>adminInsChip('ins-max', n, adminInsMax === n, String(n))).join('')}
+      </div>
+      ${adminInsNote ? `<p class="acc-ok" role="status">${esc(adminInsNote)}</p>` : ''}
+      ${G.groups.length ? G.groups.map(groupCard).join('') : `<p class="ap-empty">No group of 3 or more yet among learners ${esc(seenWord)}. Try “Any time”, or switch “Turkish and Persian apart” off.</p>`}
+      ${G.near.length ? `<div class="ins-near"><span class="ap-eb">Almost a group</span>${G.near.map(g=>`<p><b>${esc(adminInsGroupTitle(g))}</b>: ${esc(g.members.map(p=>p.profile.name || '(no name)').join(', '))}${g.need ? ' · needs ' + g.need + ' more' : ''}</p>`).join('')}</div>` : ''}`;
+  const groups = adminInsCard('Group classes', G.groups.length + ' suggested group' + (G.groups.length === 1 ? '' : 's'), groupsBody,
+    'Same level' + (adminInsSplitLang ? ', same app language' : '') + ' and the goal most of them share, the most active people together. From ' + G.pool.length + ' learners ' + esc(seenWord) + (adminInsPhoneOnly ? ' with a number' : '') + '. <b>Invite</b> opens WhatsApp with a message in their app language and marks them as invited.');
+  // 2. levels + goals
+  const levelRows = LEVELS.map(l=>{ const n = seen.filter(p=>adminInsLevel(p) === l); return {label:l, n:n.length, title:l + ': ' + n.length + ' learners (' + n.filter(p=>p.profile.levelStage === 2).length + ' at ' + l + '.2)'}; });
+  const noLevel = seen.filter(p=>!adminInsLevel(p)).length;
+  const levels = adminInsCard('Levels', 'Learners by level', adminInsBars(levelRows, {total:seen.length}) + (noLevel ? `<p class="ins-note">${noLevel} without a level (placement test not finished).</p>` : ''), esc(seen.length + ' learners ' + seenWord + '.'));
+  const goalRows = ADMIN_INS_GOALS.map(g=>({label:GOAL_LABELS[g] || g, n:seen.filter(p=>adminInsGoals(p).indexOf(g) >= 0).length}));
+  const goals = adminInsCard('Goals', 'What they learn for', adminInsBars(goalRows, {total:seen.length}), 'A learner can pick up to 3 goals, so the bars add up to more than the learners.');
+  // 3. level × goal grid
+  const cellPeople = (l, g)=>seen.filter(p=>adminInsLevel(p) === l && adminInsGoals(p).indexOf(g) >= 0);
+  let cmax = 1; LEVELS.forEach(l=>ADMIN_INS_GOALS.forEach(g=>{ cmax = Math.max(cmax, cellPeople(l, g).length); }));
+  const shade = n=>n ? Math.min(5, 1 + Math.floor(n / cmax * 4.999)) : 0;
+  const grid = `<div class="ins-gridwrap"><table class="ins-grid"><thead><tr><th></th>${ADMIN_INS_GOALS.map(g=>`<th scope="col" title="${esc(GOAL_LABELS[g] || g)}">${esc(GOAL_LABELS[g] || g)}</th>`).join('')}</tr></thead><tbody>
+      ${LEVELS.map(l=>`<tr><th scope="row">${l}</th>${ADMIN_INS_GOALS.map(g=>{ const n = cellPeople(l, g).length, k = l + '|' + g;
+        return `<td><button class="ins-cell s${shade(n)}${adminInsCell === k ? ' on' : ''}" data-admin-action="ins-cell" data-v="${k}" ${n ? '' : 'disabled'} title="${esc(l + ' · ' + (GOAL_LABELS[g] || g) + ': ' + n)}" aria-label="${esc(l + ' ' + (GOAL_LABELS[g] || g) + ': ' + n + ' learners')}">${n || '·'}</button></td>`; }).join('')}</tr>`).join('')}
+    </tbody></table></div>`;
+  let cellList = '';
+  if(adminInsCell){ const [l, g] = adminInsCell.split('|'), list = cellPeople(l, g).sort((a,b)=>adminInsPerWeek(b) - adminInsPerWeek(a));
+    cellList = `<div class="ins-cellopen"><b>${esc(l + ' · ' + (GOAL_LABELS[g] || g))}: ${list.length}</b>${adminInsPeopleList(list, {invite:true})}</div>`; }
+  const matrix = adminInsCard('Who fits together', 'Level × goal', grid + cellList, 'The darker the box, the more learners. Tap a box to see their names and numbers.');
+  // 4. how often they come
+  const tierN = k=>all.filter(p=>tierOf[p.key] === k);
+  const tierRows = ADMIN_INS_TIERS.map(t=>{ const n = tierN(t.k).length, on = adminInsList === 'tier-' + t.k; return `<button class="ins-tier${on ? ' on' : ''}" data-admin-action="ins-list" data-v="tier-${t.k}" aria-expanded="${on}">
+      <b>${n}</b><span><em>${esc(t.t)}</em><small>${esc(t.s)}</small></span><span class="ins-tp">${pct(n, all.length)}</span></button>${on ? adminInsPeopleList(tierN(t.k).sort((a,b)=>(b.lastSeen || 0) - (a.lastSeen || 0))) : ''}`; }).join('');
+  const tiers = adminInsCard('Coming back', 'How often they come', `<div class="ins-tiers">${tierRows}</div>`, 'All ' + all.length + ' learners. Tap a row for the names.');
+  // 5. who comes most
+  const top = all.slice().sort((a,b)=>(b.activity.days || 0) - (a.activity.days || 0) || (b.activity.opens || 0) - (a.activity.opens || 0) || (b.lastSeen || 0) - (a.lastSeen || 0)).slice(0, 10);
+  const topRows = top.map((p, i)=>`<div class="ins-top"><span class="ins-rank">${i + 1}</span>${adminInsPersonRow(p)}<span class="ins-topn"><b>${p.activity.days || 0}</b><small>days · ${adminInsPerWeek(p).toFixed(1)}/wk · 🔥 ${p.streak || 0}</small></span></div>`).join('');
+  const most = adminInsCard('Most active', 'Who comes most', topRows || '<p class="ap-empty">No visits yet.</p>', 'Ranked by the days they opened the app, then by visits.');
+  // 6. from sign-up to sale
+  const L = p=>adminInsLinks(p);
+  const steps = [
+    {label:'Joined', n:all.length},
+    {label:'Finished the level test', n:all.filter(p=>p.profile.completedDiagnostic).length},
+    {label:'Came back another day', n:all.filter(p=>(p.activity.days || 0) >= 2).length},
+    {label:'Active on 5+ days', n:all.filter(p=>(p.activity.days || 0) >= 5).length},
+    {label:'Left a WhatsApp number', n:phoneN},
+    {label:'Asked about a course', n:all.filter(p=>L(p).wait.length || L(p).chats.some(d=>d.topic && d.topic.t === 'course')).length},
+    {label:'Has a course password', n:all.filter(p=>L(p).access.length).length}
+  ];
+  const funnel = adminInsCard('Sign-up to sale', 'Where people stop', adminInsBars(steps, {total:all.length}), 'Each bar is the share of everyone who joined.');
+  // 7. who might buy a course: the goal and level fit, no open password for it yet
+  const hasCourse = (p, ids)=>L(p).access.some(d=>adminAccessStatus(d) === 'active' && (d.course === COURSE_ACCESS_ALL || ids.indexOf(d.course) >= 0));
+  const lv = p=>LEVELS.indexOf(adminInsLevel(p));
+  const leads = app === 'es' ? [] : [
+    {k:'ielts', t:'IELTS', why:'goal Exam or Immigration, B1 and up', f:p=>lv(p) >= 2 && adminInsGoals(p).some(g=>g === 'exam' || g === 'immigration') && !hasCourse(p, ['ielts'])},
+    {k:'business', t:'HR & Business / Complete Business', why:'goal Career, B1 and up', f:p=>lv(p) >= 2 && adminInsGoals(p).indexOf('career') >= 0 && !hasCourse(p, ['hr', 'business'])},
+    {k:'interview', t:'Job Interview English', why:'goal Career or Immigration, A2 and up', f:p=>lv(p) >= 1 && adminInsGoals(p).some(g=>g === 'career' || g === 'immigration') && !hasCourse(p, ['interview'])},
+    {k:'travel', t:'Travel English', why:'goal Travel', f:p=>adminInsGoals(p).indexOf('travel') >= 0 && !hasCourse(p, ['travel'])}
+  ];
+  const leadRows = leads.map(x=>{ const list = seen.filter(p=>p.app === 'en' && x.f(p)), ph = list.filter(p=>adminInsPhone(p)).length, on = adminInsList === 'lead-' + x.k;
+    return `<button class="ins-tier${on ? ' on' : ''}" data-admin-action="ins-list" data-v="lead-${x.k}" aria-expanded="${on}"><b>${list.length}</b><span><em>${esc(x.t)}</em><small>${esc(x.why)} · ${ph} with a number</small></span><span class="ins-tp">${ICONS.chev}</span></button>`
+      + (on ? adminInsPeopleList(list.sort((a,b)=>adminInsPerWeek(b) - adminInsPerWeek(a))) : ''); }).join('');
+  const buy = leads.length ? adminInsCard('Course leads', 'Who might buy a course', `<div class="ins-tiers">${leadRows}</div>`, 'Learners ' + esc(seenWord) + ' whose goal and level fit the course and who have no open password for it yet.') : '';
+  // 8. when + where
+  const recent = all.filter(p=>now - adminInsLastVisit(p) < 30 * DAY_MS);
+  const when = adminInsCard('Best time', 'When they open the app', adminInsBars(ADMIN_INS_DAYPARTS.map(d=>({label:d.t, sub:d.s, n:recent.filter(p=>adminInsDaypart(adminInsLastVisit(p)) === d.k).length})), {total:recent.length}),
+    'The time of each learner\'s latest visit, in this device\'s time zone, for the ' + recent.length + ' seen in the last 30 days. A hint for class times.');
+  const langRows = Object.keys(ADMIN_INS_LANG).map(k=>({label:ADMIN_INS_LANG[k], n:all.filter(p=>adminInsLang(p) === k).length})).filter(r=>r.n);
+  const devs = {}; all.forEach(p=>{ const a = p.profile.activity || {}; const k = (a.os || 'Unknown') + (a.mode === 'app' ? ' · installed app' : a.mode ? ' · browser' : ''); devs[k] = (devs[k] || 0) + 1; });
+  const devRows = Object.keys(devs).sort((a,b)=>devs[b] - devs[a]).slice(0, 6).map(k=>({label:k, n:devs[k]}));
+  const where = adminInsCard('Where from', 'App language and device', '<p class="ins-sub">App language (our hint for the country)</p>' + adminInsBars(langRows, {total:all.length}) + '<p class="ins-sub">Device</p>' + adminInsBars(devRows, {total:all.length}), '');
+  // 9. new learners per week, last 8 weeks
+  const weekStart = t=>{ const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.getTime(); };
+  const w0 = weekStart(now), weeks = [];
+  for(let i = 7; i >= 0; i--){ const s = weekStart(w0 - i * 7 * DAY_MS + 3 * 3600000), e = weekStart(s + 8 * DAY_MS); weeks.push({s, n:all.filter(p=>{ const j = p.joined || p.activity.first || 0; return j >= s && j < e; }).length}); }
+  const wmax = Math.max(1, ...weeks.map(w=>w.n));
+  const growth = adminInsCard('Growth', 'New learners per week', `<div class="ins-cols" role="img" aria-label="${esc(weeks.map(w=>'week of ' + adminDate(w.s) + ': ' + w.n).join('; '))}">${weeks.map((w, i)=>`<div class="ins-col" title="${esc('Week of ' + adminDate(w.s) + ': ' + w.n + ' new')}"><b>${w.n}</b><span class="ins-ct"><i style="height:${w.n ? Math.max(3, Math.round(w.n / wmax * 100)) : 0}%"></i></span><small>${i === 7 ? 'This wk' : esc(new Date(w.s).toLocaleDateString('en-GB', {day:'numeric', month:'short'}))}</small></div>`).join('')}</div>`, 'Weeks start on Monday.');
+  return `<div class="ins">
+    ${filters}
+    ${tiles}
+    ${groups}
+    <div class="ins-two">${levels}${goals}</div>
+    ${matrix}
+    <div class="ins-two">${tiers}${buy || funnel}</div>
+    ${buy ? funnel : ''}
+    ${most}
+    <div class="ins-two">${when}${where}</div>
+    ${growth}
+  </div>`;
+}
 /* ============================= ADMIN PAGE (hidden, reachable via #admin) ============================= */
 function waLinkTo(phone, message){
   const clean = String(phone||'').replace(/[^\d]/g, '');
@@ -37659,6 +38027,7 @@ const ADMIN_SEEN_DOC = 'admin-seen';
 const ADMIN_SECTIONS = [
   {key:'inbox', title:'Inbox', eb:'Messages', icon:'chat', c:'#7C5CFC', sub:'Questions and course requests learners send in the app.'},
   {key:'users', title:'Users', eb:'Learners', icon:'users', c:'#7C93FF', sub:'Everyone who uses the app, one row per learner. Tap a name to open the profile.'},
+  {key:'insights', title:'Insights', eb:'Analysis', icon:'chart', c:'#F07A5A', sub:'Levels, goals and who comes most, plus learners who could share a group class, with their names and numbers.'},
   {key:'waitlist', title:'Waiting list', eb:'Course sign-ups', icon:'star', c:'#FFA53D', sub:'People who tapped “I want this course” and left their number, from both apps. Newest first.'},
   {key:'reviews', title:'Writing reviews', eb:'Feedback', icon:'pen', c:'#FF8FB3', sub:'Course writing sent to you for review. The learner was promised feedback within 2–3 days.'},
   {key:'access', title:'Course access', eb:'Passwords', icon:'book', c:'#5FC9B8', sub:'Passwords for one course or for all premium courses. Create one after the money is in; change its end date, revoke or re-issue it here.'},
@@ -37678,6 +38047,7 @@ function adminSeenLoad(){
     const d = (doc.exists && doc.data()) || {};
     adminSeen = Object.assign({}, d.seen || {});
     adminContacted = Array.isArray(d.contacted) ? d.contacted.slice() : [];
+    adminInvited = d.invited && typeof d.invited === 'object' ? Object.assign({}, d.invited) : {};   // Insights: group-class invitations
     renderAdminPage();
   }).catch(()=>{ adminSeen = {}; renderAdminPage(); });
 }
@@ -37686,7 +38056,7 @@ function adminSeenAt(k){ return adminSeen && adminSeen[k] ? Number(adminSeen[k])
 function adminSeenBefore(k){ return Object.prototype.hasOwnProperty.call(adminSeenPrev, k) ? adminSeenPrev[k] : adminSeenAt(k); }
 function adminSeenSave(){
   if(!adminSeen) return;   // not loaded yet: never overwrite the stored times with nothing
-  firebase.firestore().collection('progress').doc(ADMIN_SEEN_DOC).set({kind:'admin', seen:adminSeen, contacted:adminContacted, savedAt:Date.now()}, {merge:true}).catch(()=>{});
+  firebase.firestore().collection('progress').doc(ADMIN_SEEN_DOC).set({kind:'admin', seen:adminSeen, contacted:adminContacted, invited:adminInvited, savedAt:Date.now()}, {merge:true}).catch(()=>{});
 }
 function adminMarkSeen(k){
   if(!adminSeen) return;
@@ -37756,6 +38126,7 @@ function adminGo(key, filter){
   if(key === 'users'){ adminUserOpen = null; if(filter) adminUsersFilter = filter; adminMarkSeen('users'); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'waitlist'){ if(filter) adminWaitlistFilter = filter; if(adminWaitlist === null && !adminWaitlistLoading) adminWaitlistLoad(); }
   if(key === 'reviews'){ if(filter){ adminReviewFilter = filter; adminReviewOpen = null; } if(adminReviews === null && !adminReviewsLoading) adminReviewsLoad(); }
+  if(key === 'insights'){ adminInsCell = null; adminInsList = null; if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'access'){ if(filter) adminAccessFilter = filter; adminAccessEdit = null; if(adminAccessList === null && !adminAccessLoading) adminAccessLoad(); }
   if(key === 'students'){ if(adminStudents === null && !adminStudentsLoading) loadAdminStudents(); }
   if(key === 'contacts') adminMarkSeen('contacts');
@@ -37811,6 +38182,7 @@ function adminBoxSub(key){
   if(key === 'access'){ if(adminAccessError && !adminAccessList) return 'Could not load'; if(!adminAccessList) return wait(null); const n = adminAccessList.filter(d=>adminAccessStatus(d) === 'active').length; return n + ' active password' + (n === 1 ? '' : 's'); }
   if(key === 'students'){ if(!adminStudents) return wait(null); return adminStudents.length + ' student' + (adminStudents.length === 1 ? '' : 's'); }
   if(key === 'contacts'){ if(!adminContacts) return adminError ? 'Could not load' : wait(null); return adminContacts.length + ' contact' + (adminContacts.length === 1 ? '' : 's'); }
+  if(key === 'insights') return adminInsBoxSub();
   return '';
 }
 function renderAdminHome(todo){
@@ -37865,7 +38237,7 @@ function renderAdminHome(todo){
 }
 function renderAdminSectionPage(s, todo){
   const inner = ({inbox:renderAdminInboxTab, users:renderAdminUsersTab, waitlist:renderAdminWaitlistTab, reviews:renderAdminReviewsTab,
-    access:renderAdminAccessTab, students:renderAdminStudentsTab, contacts:renderAdminContactsTab})[s.key]();
+    access:renderAdminAccessTab, insights:renderAdminInsightsTab, students:renderAdminStudentsTab, contacts:renderAdminContactsTab})[s.key]();
   // A chat, a learner's profile or a student's panel has its own header and back button.
   const deep = (s.key === 'inbox' && adminChatOpen) || (s.key === 'users' && adminUserOpen) || (s.key === 'students' && adminEditingStudent);
   const others = ADMIN_SECTIONS.filter(x=>x.key !== s.key).reduce((n, x)=>n + adminTodoCount(todo, x.key), 0);
@@ -38738,6 +39110,8 @@ function bindAdminActions(root){
         adminWaitlistAction(action, el);
       } else if(action === 'tab-reviews' || action.indexOf('review-') === 0){
         adminReviewAction(action, el);
+      } else if(action.indexOf('ins-') === 0){
+        adminInsAction(action, el);
       } else if(action === 'tab-access' || action.indexOf('access-') === 0){
         adminAccessAction(action, el);
       } else if(action === 'tab-contacts'){
