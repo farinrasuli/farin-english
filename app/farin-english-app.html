@@ -34802,7 +34802,10 @@ function courseLazyBusy(){ return Object.keys(COURSE_LAZY.state).some(k=>COURSE_
 function courseLazyWarm(){
   try{
     const c = courseGet('hr'); if(!c) return;
-    const pr = state.progress || {}, uses = location.hash === '#admin' || courseUnlocked('hr') || !!(pr.courses && pr.courses.hr);
+    // read-only: courseUnlocked() goes through courseAccessMap(), which creates progress.courseAccess; ask it only when the save already
+    // has one, so opening the app never writes to an untouched save (roadmap-half-check "progress untouched", farin-d3 2026-11-15)
+    const pr = state.progress || {}, acc = pr.courseAccess && typeof pr.courseAccess === 'object';
+    const uses = location.hash === '#admin' || (acc && courseUnlocked('hr')) || !!(pr.courses && pr.courses.hr);
     if(!uses) return;
     const mods = (c.modules || []).filter(m=>m.lazy && !courseLazyReady(m));
     const next = ()=>{ const m = mods.shift(); if(!m) return; (COURSE_LAZY.wait[m.lazy.key] || courseLazyLoad(c, m)).then(next, next); };
