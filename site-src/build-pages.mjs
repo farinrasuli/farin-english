@@ -186,7 +186,7 @@ fcSchool:['FE School','FE School','FE School'],fcGuide:['Rehber','Guides','را�
 gH:['Yeni rehberler','New guides','راهنماهای تازه'],gMore:['Diğer rehberler','More guides','راهنماهای دیگر'],gRead:['Oku','Read','بخوان'],gAll:['Tüm rehberler','All guides','همه‌ی راهنماها'],fcContact:['İletişim','Contact','تماس'],
 fBiz:['İş İngilizcesi','Business English','انگلیسی تجاری'],fIelts:['IELTS hazırlık','IELTS prep','آمادگی آیلتس'],
 fEn:['Online İngilizce özel ders','English lessons','کلاس انگلیسی'],fEs:['İspanyolca özel ders','Spanish lessons','کلاس اسپانیایی'],fDe:['Almanca özel ders','German lessons','کلاس آلمانی'],
-fStudio:['Stüdyo','Studio','استودیو'],fEmail:['E-posta','Email','ایمیل'],fPrivacy:['Gizlilik Politikası','Privacy policy (Turkish)','سیاست حریم خصوصی'],
+fStudio:['Stüdyo','Studio','استودیو'],fEmail:['E-posta','Email','ایمیل'],fPrivacy:['Gizlilik Politikası','Privacy policy','سیاست حریم خصوصی'],
 rights:['FE School. Tüm hakları saklıdır.','FE School. All rights reserved.','FE School. همه‌ی حقوق محفوظ است.'],
 };
 
@@ -472,7 +472,7 @@ const shortTitle = t => { const q = t.search(/[?؟]/); const c = t.search(/\s[:�
 // The mail link sits inside <!--email_off--> (2026-11-12 speed pass): otherwise Cloudflare's Email Obfuscation
 // rewrites it and injects a parser-blocking email-decode.min.js before site.js on every page (~180 ms of main
 // thread on a slow phone). The address is public in the JSON-LD anyway, so the obfuscation protected nothing.
-// Privacy link: FA pages -> the Persian policy /fa/privacy.html (2026-11-14, Trello eDtXMaZG); TR + EN keep the Turkish one.
+// Privacy link per language (2026-11-14): TR -> /gizlilik-politikasi.html, EN -> /privacy-policy.html (Trello I0MaSI5K), FA -> /fa/privacy.html (eDtXMaZG).
 function footer(l) {
   const i = LANGS[l].i, tr = l === 'tr' ? '' : ' hreflang="tr"';
   const P = posts(l).slice(0, 5);
@@ -501,7 +501,7 @@ function footer(l) {
       <a data-lead="contact" href="${WA()}" ${ext}>WhatsApp</a>
       <a href="https://www.instagram.com/the_feschool/" ${ext}>Instagram</a>
       <!--email_off--><a href="mailto:farinrasuli@gmail.com">${S.fEmail[i]}</a><!--/email_off-->
-      ${l === 'fa' ? `<a href="/fa/privacy.html">${S.fPrivacy[i]}</a>` : `<a href="/gizlilik-politikasi.html"${tr}>${S.fPrivacy[i]}</a>`}</div>
+      <a href="${{ tr: '/gizlilik-politikasi.html', en: '/privacy-policy.html', fa: '/fa/privacy.html' }[l]}">${S.fPrivacy[i]}</a></div>
   </div>
   <div class="footer-bottom"><span>© 2026 ${S.rights[i]}</span></div>
 </div></footer>

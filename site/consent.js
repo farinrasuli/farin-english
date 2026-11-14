@@ -14,12 +14,12 @@ var KEY = 'fe_analytics_consent';           // 'granted' | 'denied'
 var LANG = (document.documentElement.lang || 'tr').slice(0,2);
 var T = {
   tr: { aria:'Çerez tercihleri', title:'Çerezler ve gizlilik.', body:'Bu site, ziyaretçi istatistiklerini anlamak için Google Analytics çerezleri kullanır. Kabul etmezsen hiçbir analitik çerez kullanılmaz ve site aynı şekilde çalışır.', policy:'Gizlilik politikası', accept:'Kabul et', reject:'Reddet', link:'Çerez tercihleri' },
-  en: { aria:'Cookie preferences', title:'Cookies and privacy.', body:'This site uses Google Analytics cookies to understand visitor statistics. If you decline, no analytics cookies are used and the site works the same.', policy:'Privacy policy (Turkish)', accept:'Accept', reject:'Decline', link:'Cookie preferences' },
+  en: { aria:'Cookie preferences', title:'Cookies and privacy.', body:'This site uses Google Analytics cookies to understand visitor statistics. If you decline, no analytics cookies are used and the site works the same.', policy:'Privacy policy', accept:'Accept', reject:'Decline', link:'Cookie preferences' },
   fa: { aria:'تنظیمات کوکی', title:'کوکی‌ها و حریم خصوصی.', body:'این سایت برای فهم آمار بازدیدکننده‌ها از کوکی‌های Google Analytics استفاده می‌کند. اگر قبول نکنی، هیچ کوکی تحلیلی استفاده نمی‌شود و سایت همان‌طور کار می‌کند.', policy:'سیاست حریم خصوصی', accept:'قبول', reject:'رد', link:'تنظیمات کوکی' }
 }[LANG] || null;
 if (!T) T = { aria:'Çerez tercihleri', title:'Çerezler ve gizlilik.', body:'Bu site, ziyaretçi istatistiklerini anlamak için Google Analytics çerezleri kullanır. Kabul etmezsen hiçbir analitik çerez kullanılmaz ve site aynı şekilde çalışır.', policy:'Gizlilik politikası', accept:'Kabul et', reject:'Reddet', link:'Çerez tercihleri' };
-/* 2026-11-14: Persian pages link the Persian policy (Trello eDtXMaZG); TR and EN keep the Turkish one. */
-var POLICY_URL = LANG === 'fa' ? '/fa/privacy.html' : '/gizlilik-politikasi.html';
+/* 2026-11-14: each language links its own policy: FA /fa/privacy.html (Trello eDtXMaZG), EN /privacy-policy.html (I0MaSI5K), TR (and fallback) the Turkish one. */
+var POLICY_URL = LANG === 'fa' ? '/fa/privacy.html' : LANG === 'en' ? '/privacy-policy.html' : '/gizlilik-politikasi.html';
 
 function read(){ try { return localStorage.getItem(KEY); } catch(e){ return null; } }
 function write(v){ try { localStorage.setItem(KEY, v); } catch(e){} }
