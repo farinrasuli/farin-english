@@ -76,7 +76,7 @@
       <p class="eyebrow" style="text-align:left">Yasal</p>
       <h1>Gizlilik ve Çerez Politikası</h1>
       <p class="lead" style="text-align:left; margin-bottom:8px">Bu metin, thefeschool.com web sitesini kullanırken hangi kişisel verilerin işlendiğini, hangi amaçla ve ne kadar süre saklandığını, ayrıca 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamındaki haklarını açıklar.</p>
-      <p style="color:var(--ink-faint); font-size:.9rem; margin-bottom:32px">Son güncelleme: 2 Kasım 2026</p>
+      <p style="color:var(--ink-faint); font-size:.9rem; margin-bottom:32px">Son güncelleme: 14 Kasım 2026</p>
 
       <h2>1. Veri sorumlusu</h2>
       <p>Bu web sitesinin veri sorumlusu, FE School'un kurucu eğitmeni Farin Rasouli'dir. İletişim: <!--email_off--><a href="mailto:farinrasuli@gmail.com">farinrasuli@gmail.com</a><!--/email_off--></p>
@@ -85,7 +85,7 @@
       <p><strong>a) Bize yazdığında paylaştığın bilgiler.</strong> WhatsApp veya e-posta ile iletişime geçtiğinde paylaştığın bilgiler: adın, telefon numaran veya e-posta adresin, mesajının içeriği, hedefin ve seviyen gibi kendi isteğinle yazdıkların. Bu bilgileri yalnızca sen bir bağlantıya tıklayıp bize yazdığında alırız.</p>
       <p><strong>Kurs bekleme listesi.</strong> Sitedeki bekleme listesi formunu kendi isteğinle doldurursan adın ve soyadın, telefon numaran, kurs, dilin, kayıt tarihi ve kaydın siteden geldiği bilgisi Google Firebase (Firestore) veritabanında saklanır. Numaranı yalnızca bu kurs için sana yazmak üzere kullanırız. Bu form Google Analytics'e adını veya numaranı göndermez.</p>
       <p><strong>b) Site kullanım verileri (yalnızca onay verirsen).</strong> Çerez tercihinde "Kabul et"i seçersen Google Analytics 4 etkinleşir ve şunları kaydeder: görüntülediğin sayfalar, yaklaşık konumun (ülke/şehir düzeyinde), cihaz ve tarayıcı türü, ziyaret süresi ve iletişim/uygulama bağlantılarına (WhatsApp, e-posta, uygulama) yaptığın tıklamalar. Google Analytics IP adreslerini kaydetmez veya saklamaz. Bu veriler adın, telefon numaran veya herhangi bir uygulama profiliyle eşleştirilmez ve reklam amacıyla kullanılmaz.</p>
-      <p><strong>c) Barındırma kayıtları.</strong> Sitemiz GitHub Pages üzerinde barındırılır. Barındırma sağlayıcısı, sitenin çalışması ve güvenliği için standart sunucu kayıtları (ör. IP adresi) tutabilir; bu kayıtlar bizim erişimimizde değildir.</p>
+      <p><strong>c) Barındırma kayıtları.</strong> Sitemiz GitHub Pages üzerinde barındırılır ve ziyaretçilere Cloudflare üzerinden ulaştırılır. Bu sağlayıcılar, sitenin çalışması ve güvenliği için standart sunucu kayıtları (ör. IP adresi) tutabilir; bu kayıtlar bizim erişimimizde değildir.</p>
 
       <h2>3. İşleme amaçları ve hukuki sebepler</h2>
       <ul>
@@ -102,9 +102,10 @@
       <p>Verilerin şu hizmet sağlayıcılarla, ilgili hizmetin gereği olarak paylaşılır; bu sağlayıcıların sunucuları yurt dışında (özellikle ABD ve Avrupa'da) olabilir:</p>
       <ul>
         <li><strong>Google (Google Analytics):</strong> yalnızca analitik onayı verirsen.</li>
-        <li><strong>Google (Firebase Firestore):</strong> yalnızca bekleme listesi formunu gönderirsen.</li>
-        <li><strong>WhatsApp (Meta):</strong> yalnızca WhatsApp bağlantısına tıklayıp bize yazarsan; mesajlaşma WhatsApp'ın kendi koşullarına tabidir.</li>
+        <li><strong>Google (Firebase Firestore):</strong> sitede yalnızca bekleme listesi formunu gönderirsen; uygulamada ise hesap yedeğin, WhatsApp numaran, mesajların ve kurs şifresi kayıtların için (bkz. 8. bölüm).</li>
+        <li><strong>WhatsApp (Meta):</strong> WhatsApp bağlantısına tıklayıp bize yazarsan ya da Farin sana verdiğin WhatsApp numarasına yazarsa; mesajlaşma WhatsApp'ın kendi koşullarına tabidir.</li>
         <li><strong>GitHub:</strong> site barındırma.</li>
+        <li><strong>Cloudflare:</strong> sitenin ziyaretçilere ulaştırılması; ayrıca uygulamanın veritabanına giden istekleri, Google hizmetlerinin engellendiği ülkelerde de çalışsın diye Cloudflare üzerindeki küçük bir aktarıcımızdan geçer.</li>
       </ul>
       <p>Analitik verilerin yurt dışına aktarımı, verdiğin açık rızaya dayanır. Verilerini reklam amacıyla üçüncü kişilere satmıyor veya kiralamıyoruz.</p>
 
@@ -113,6 +114,8 @@
         <li><strong>Ders kayıtları:</strong> özel ders alan öğrencilerin ders dosyaları (ders notları ve ilerleme kayıtları) yalnızca eğitmenin kendi bilgisayarında tutulur, internette yayımlanmaz. Son dersinden sonra 12 ay boyunca saklanır, ardından silinir; daha erken silinmesini istersen silinir.</li>
         <li><strong>Yazışmalar:</strong> talebin sonuçlanmasından ve olası ders sürecinin bitmesinden sonra makul bir süre; silinmesini istersen silinir.</li>
         <li><strong>Bekleme listesi:</strong> kurs süreci bitene kadar; silinmesini istersen silinir.</li>
+        <li><strong>Uygulamadaki WhatsApp numaran ve mesajların:</strong> hesabın durduğu sürece; otomatik olarak silinmez, silinmesini istersen silinir.</li>
+        <li><strong>Mesajlardaki fotoğraflar (ödeme dekontları dahil):</strong> kurs talebindeki fotoğraflar, talep tamamlandı olarak işaretlendikten yaklaşık 90 gün sonra; diğer sohbetlerdeki fotoğraflar gönderildikten yaklaşık 90 gün sonra silinir.</li>
         <li><strong>Analitik veriler:</strong> Google Analytics'te en fazla 14 ay.</li>
       </ul>
 
@@ -121,9 +124,15 @@
       <p>Bu haklarını kullanmak için <!--email_off--><a href="mailto:farinrasuli@gmail.com">farinrasuli@gmail.com</a><!--/email_off--> adresine yazabilirsin; talebini en geç 30 gün içinde yanıtlarız.</p>
 
       <h2>8. Mobil / web uygulaması</h2>
-      <p>FE School uygulaması (Farin English) için ayrı bir gizlilik politikası geçerlidir: <a href="https://farinrasuli.github.io/farin-english-app/privacy-policy.html">Uygulama Gizlilik Politikası</a> (İngilizce). Bu sayfa yalnızca thefeschool.com web sitesini kapsar.</p>
+      <p>FE School uygulamalarının (Farin English ve Farin Spanish) ayrıntılı gizlilik politikası burada: <a href="/privacy-policy.html">Uygulama Gizlilik Politikası</a> (İngilizce). Bu sayfa esas olarak thefeschool.com web sitesini kapsar; uygulamayla ilgili ana noktaları aşağıda özetliyoruz. Uygulama Google Analytics kullanmaz.</p>
       <p>Uygulamada adın ve seçtiğin şifreyle giriş yapabilirsin. İlk kurulumu tamamladığında profilin, ilerlemen ve yol haritan Google Firebase (Firestore) veritabanına otomatik olarak yedeklenir; başka bir cihazda ad ve şifrenle giriş yaptığında hesabının tamamı geri gelir ve Ayarlar'dan «Çıkış yap» diyene kadar o cihazda giriş yapmış kalırsın. Şifren hiçbir zaman saklanmaz; uygulama yalnızca ad ve şifrenden türetilen tek yönlü bir anahtar tutar ve bunu sadece hesabını bulmak için kullanır.</p>
-      <p>Uygulamadaki IELTS kursunda bir yazma görevini «Farin'e incelemeye gönder» düğmesiyle gönderirsen adın, bir hesap kimlik kodu, kurs ve görev bilgisi ve yazdığın metnin tamamı Google Firebase (Firestore) veritabanında saklanır ve sana geri bildirim vermek için Farin tarafından okunur.</p>
+      <p><strong>WhatsApp numaran.</strong> Uygulamada profilini oluştururken WhatsApp numaranı ülke koduyla birlikte isteriz; kaydı tamamlamak için gereklidir. 13 Kasım 2026'dan önce katıldıysan uygulama bunu bir kez «Kulübümüze katıl» penceresiyle sorar; «Şimdi değil» diyebilirsin. Numaranı Ayarlar'dan da ekleyebilir veya değiştirebilirsin. Numaran, Farin'in sana WhatsApp'tan haberler, indirimler, yardım ve kurslarla ilgili bilgiler gönderebilmesi için kullanılır; örneğin bir kursun bekleme listesine katılırsan sana kursun bağlantısını ve nasıl ödeme yapacağını yazar. Bu mesajları Farin kendisi yazar; uygulama otomatik WhatsApp mesajı göndermez.</p>
+      <p>Numaran cihazında, hesabının Google Firebase (Firestore) yedeğinde ve aynı veritabanındaki bir iletişim listesinde; adın, seviyen, hedefin, kurtarma kodun, uygulama dili ve tarih gibi bilgilerle birlikte saklanır. Farin kiminle konuştuğunu bilsin diye mesajlarına, kurs taleplerine, incelemeye gönderdiğin IELTS yazılarına ve kurs şifresi kaydına da eklenir. Numaranı yalnızca Farin, şifreyle korunan yönetim sayfasında görür; diğer öğrencilere asla gösterilmez. Profilinin geri kalanı gibi, kurtarma koduna ya da adına ve şifrene sahip olan biri de görebilir; bu yüzden bunları kimseyle paylaşma. Numaranı satmayız, reklam için kullanmayız ve Google Analytics'e göndermeyiz. Hesabın durduğu sürece saklanır; otomatik olarak silinmez.</p>
+      <p>Numaranı Ayarlar › «İletişimde kal» bölümünden değiştirip «Kaydet»e dokunabilirsin. Kutunun işaretini kaldırarak haber ve fırsat mesajı istemediğini de bildirebilirsin; numaran, değiştirene ya da silinmesini isteyene kadar kayıtlı kalır. Numaranın tamamen silinmesi için uygulamada kullandığın adla <!--email_off--><a href="mailto:farinrasuli@gmail.com">farinrasuli@gmail.com</a><!--/email_off--> adresine ya da uygulamadaki Mesajlar'dan Farin'e yaz.</p>
+      <p><strong>Mesajlar, kurs talepleri ve dekontlar.</strong> Uygulamadaki Mesajlar sekmesinden Farin'e yazdıkların ve onun cevapları; adın, seviyen, uygulama dilin, WhatsApp numaran, hesap kodundan türetilen tek yönlü bir kimlik, cihaz türün ve tarayıcı bilgilerinle birlikte Google Firebase (Firestore) veritabanında saklanır. Bunları yalnızca Farin, yönetim sayfasında okur. «Bu kursu istiyorum» dediğinde talebinde kurs, fiyatı, ödeme yolu, yazarsan notun ve eklersen ödeme dekontunun fotoğrafı bulunur. Uygulama ödeme almaz: ödemeyi banka havalesiyle yapar, Farin kontrol edebilsin diye dekontu gönderirsin. Fotoğraflar gönderilmeden önce telefonunda küçültülür ve 6. bölümdeki sürelerde silinir.</p>
+      <p><strong>Kurs şifresi.</strong> Farin ödemeni kontrol ettikten sonra kursu açan bir şifre oluşturur; bu şifre Mesajlar sekmene gelebilir. Uygulama Firestore'da bu şifrenin kaydını tutar: kurs, adın ve WhatsApp numaran, Farin eklediyse bir not, başlangıç ve bitiş tarihleri, şifrenin etkin olup olmadığı ve hangi hesapla (ad ve kurtarma kodu), ne zaman, hangi cihaz türünde kullanıldığı. Şifrenin kendisi bu kayıtta tutulmaz, yalnızca ondan türetilen tek yönlü bir anahtar tutulur; Mesajlar'dan gönderilen şifre o sohbette de durur.</p>
+      <p>Uygulamadaki IELTS kursunda bir yazma görevini «Farin'e incelemeye gönder» düğmesiyle gönderirsen adın, WhatsApp numaran, bir hesap kimlik kodu, kurs ve görev bilgisi ve yazdığın metnin tamamı Google Firebase (Firestore) veritabanında saklanır ve sana geri bildirim vermek için Farin tarafından okunur.</p>
+      <p><strong>Sesler ve mikrofon.</strong> Uygulamadaki sesli okumalar, açık kaynak seslerle önceden hazırlanmış kayıtlardır ve uygulamanın kendi sitesinden indirilir; yazdığın veya söylediğin hiçbir şey bunun için bir yere gönderilmez. Mikrofon düğmesine dokunduğunda tarayıcının ya da cihazının konuşma tanıma hizmeti sesini yazıya çevirir (Chrome'da ses bu sırada Google'ın konuşma hizmetine gider). Bazı kurs konuşma görevlerinde kendini kaydedip dinleyebilirsin; bu kayıt yalnızca telefonunda kalır, hiçbir yere yüklenmez ve görevden çıkınca silinir.</p>
 
       <h2>9. Çocuklar</h2>
       <p>Sitemiz 13 yaşın altındaki çocuklara yönelik değildir ve bilerek onların kişisel verilerini toplamayız.</p>
