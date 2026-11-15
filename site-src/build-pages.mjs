@@ -312,8 +312,10 @@ const ALT = {
 };
 
 const META = {
-  home: { t: ['Ücretsiz İngilizce Öğrenme Uygulaması ve Kurslar | FE School', 'English Courses and a Free English App | FE School', 'کلاس و دوره‌ی آنلاین زبان انگلیسی + اپ رایگان | FE School'],
-    d: ['Hedefini seç: İş İngilizcesi, IELTS, iş görüşmesi ya da konuşma. Ücretsiz İngilizce öğrenme uygulaması, kendi hızında kurslar ve birebir ders.',
+  /* TR title, farin-seo 2026-11-15 (Loop 6, Trello 00woqQiS): targets 'online ingilizce kursu' (#1 completion of "online ingilizce");
+     GSC 08-01..11-14 shows no non-brand impression for the old app phrase. Keep "Ücretsiz" + "Uygulama" (IG calls to action promise free). */
+  home: { t: ['Online İngilizce Kursu ve Ücretsiz Uygulama | FE School', 'English Courses and a Free English App | FE School', 'کلاس و دوره‌ی آنلاین زبان انگلیسی + اپ رایگان | FE School'],
+    d: ['Hedefini seç: İş İngilizcesi, IELTS, iş görüşmesi ya da konuşma. Ücretsiz İngilizce öğrenme uygulaması, kendi hızında online kurslar ve birebir ders.',
         'Pick your goal: Business English, IELTS, job interviews or confident speaking. Self-paced courses, live lessons with Farin and a free app.',
         'هدفت را انتخاب کن: انگلیسی تجاری، آیلتس، مصاحبه‌ی کاری یا راحت حرف زدن. دوره با سرعت خودت، کلاس آنلاین با فرین و یک اپ رایگان.'] },
   app: { t: ['FE App: Oyunla İngilizce, Sana Özel Yol Haritası | FE School', 'FE App: a Free English App with Games | FE School', 'اپ FE: انگلیسی با بازی و نقشه‌ی راه شخصی | FE School'],

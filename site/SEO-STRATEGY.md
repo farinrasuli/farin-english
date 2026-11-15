@@ -26,7 +26,7 @@ One primary keyword per page (no cannibalization), grouped by intent tier.
 
 | Page | Primary keyword | Secondary keywords | Intent | Audience |
 |---|---|---|---|---|
-| `/` (home) | ~~kişiye özel dil eğitimi~~ → **İngilizce öğrenme uygulaması** (see §2b) | ücretsiz İngilizce öğrenme uygulaması, oyunla İngilizce öğrenme | Commercial/brand | App-first since 2026-10-07 |
+| `/` (home) | ~~kişiye özel dil eğitimi~~ → ~~İngilizce öğrenme uygulaması~~ (§2b) → **online İngilizce kursu** (since 2026-11-15, §2x) | ücretsiz İngilizce öğrenme uygulaması (description + body), online İngilizce kursları, oyunla İngilizce öğrenme | Commercial/brand | App-first since 2026-10-07 |
 | `/english.html` | online İngilizce özel ders | birebir online İngilizce dersi, online İngilizce konuşma dersi (see §2g, 2026-11-09) | Commercial | Ready to book, comparing tutors |
 | `/spanish.html` | online İspanyolca özel ders | İspanyolca özel ders fiyatları, online İspanyolca dersi, İspanyolca öğrenme uygulaması ücretsiz (app H2) | Commercial | Thin demand, same intent as English (Loop 1 pattern applied 2026-11-11, §2q) |
 | `/german.html` | online Almanca özel ders | Almanca özel ders fiyatları, birebir online Almanca dersi, online Almanca konuşma dersi | Commercial | More TR demand than Spanish, schools compete (FL Deutsch, Hedefim Almanca); Loop 1 pattern applied 2026-11-11, §2q |
@@ -363,6 +363,18 @@ Links in (in-body): `/fa/blog/email-rasmi-englisi.html` (after sample 2), `/fa/b
 
 Same loop: two bare "Gulf" mentions on FA pages fixed (Persian Gulf rule): the proforma sample buyer is now "Emirates Fresh Foods LLC", and the job-application thank-you e-mail says "Persian Gulf market".
 
+### 2x. Loop 6: TR homepage title moves to "online İngilizce kursu" (2026-11-15, Trello 00woqQiS, proposal htFI96n1)
+
+Title `Ücretsiz İngilizce Öğrenme Uygulaması ve Kurslar | FE School` (60) → **`Online İngilizce Kursu ve Ücretsiz Uygulama | FE School`** (55). Description gets "online" ("kendi hızında online kurslar", 149). Changed in `site-src/build-pages.mjs` `META.home.t[0]`/`d[0]`, then rebuilt; only `/index.html` changed (title, og/twitter, WebPage `name`). H1 and body untouched (farin-website).
+
+Why (evidence, demand signal only, no volumes):
+- Loop 1 Türkiye autocomplete (`keyword-research/live-classes-tr-stems-2026-11.csv`): stem "online ingilizce" → **1 "online ingilizce kursu"**, 2 "… kursları", 5 "… kursu fiyatları"; stem "ingilizce kursu" → 3 "… online", 9 "… ücretsiz". The "online ingilizce kursu" cluster asks tavsiye / yetişkin / sertifikalı / en iyisi / ücretsiz, i.e. people shopping for a course, which is what the homepage sells (self-paced courses with prices, Lesson 1.1 free, live lessons, free app).
+- GSC (API, 2026-08-01..11-14, real data): every visible query on `/` is brand ("fe school" 6.0, "the fe" 2.0, "feschool" 10, …). The old target "İngilizce öğrenme uygulaması" never earned a visible impression on any page. 28 days to 11-14: `/` 26 impressions, 3 clicks, avg position 10.7. So the switch gives up nothing measurable.
+- SERP look (WebSearch 2026-11-15, US-located, directional): "ücretsiz ingilizce öğrenme uygulaması" is App Store pages, download sites (tamindir) and listicles, where a website homepage can't compete; "online ingilizce kursu" shows course-provider pages (iienstitu, Lingoda, teachable) and listicles (Lemon Academy, Boenstitu), where a course homepage fits.
+- farin-content (2026-11-15): keep "Ücretsiz" and "Uygulama" in the title, because every IG call to action promises free and the bio link opens the homepage.
+
+Cannibalisation calls: `/english.html` keeps "online İngilizce özel ders" (the homepage links it with that anchor); `/is-ingilizcesi.html` keeps "online iş İngilizcesi kursu"; `blog/online-ingilizce-ozel-ders-fiyatlari.html` keeps the price query; "online ingilizce kursu fiyatları" is not chased (the homepage shows prices, but there is no price word in the title). Not changed: EN and FA homepage titles. Watch: at the next GSC check (~2026-11-29) look for non-brand impressions on `/` containing "kurs"; if none by 2026-12-13, the next lever is an on-page phrase (an H2 such as "Online İngilizce kursları" in the courses band), which is a farin-website change.
+
 ## 3. Page architecture decision
 
 Per the "don't build thin pages" principle — only building what earns its keep:
@@ -492,6 +504,7 @@ No vanity metrics (raw traffic alone) — track query-level movement on the actu
 - **2026-10-28, farin-seo (Search Console API, real numbers):** 2026-10-01..10-26: 6 clicks, 82 impressions (Türkiye 6 / 73). September 1-30: 0 clicks, 8 impressions. Clicks: `/` 5 (brand), `/studio.html` 1. Mobile 6 clicks / 40 impr at pos 13.0; desktop 0 / 39 at pos 48.7. Non-brand impressions now on 3 posts: konuşma pratiği (30 impr, "ingilizce konuşma pratiği" pos 65, "ingilizce konuşma refleksi" 16.4), mülakat soruları (8 impr, pos ~70), seviyemi (3). GSC data lags ~2 days.
 - **2026-10-21, brand entity (Trello tsxpN5Rx):** homepage `sameAs` = @the_feschool + LinkedIn company page (retired @fariinrasouli removed; the footer links were already correct), `WebSite.alternateName` = FEschool / The FE School / thefeschool, `SoftwareApplication` name "FE App" (alternateName "Farin English"). Track "fe school"/"feschool" positions (10-21: "fe school" pos 6.0, "fe english" 6.0, 2 impressions each).
 - **2026-11-09, farin-seo (Farin's GSC export, 3 months to 11-07, Trello dMtWXwgn):** 8 clicks / 183 impressions, impressions ~5x up in early November; Türkiye 128 impr at avg pos 29; Iran 14 impr at pos ~5. Near page 1: HR post (18 impr, pos 12.2), `/english.html` (17 impr, pos 11.2). Interview post 17 impr at pos 64 (10 interview queries at 60-77). Speaking post 41 impr at pos 41.6 ("evde ingilizce konuşma pratiği" 19.7, "ingilizce konuşma refleksi" 16). Action: §2h.
+- **2026-11-15, farin-seo (Search Console API works again from this PC; the 403 of 10-29..11-09 is gone, the 11-13 audit already had data):** 28 days 10-18..11-14 (fresh data included): 20 clicks, 356 impressions, avg position 22.9. Iran 14 clicks / 46 impr at pos 5.6; Türkiye 5 / 239 at pos 29.1. Daily impressions jumped from ~10-20 to 42-57 from 11-11. Index: **70 of 79** sitemap URLs indexed (11-13 audit: 52/78). Sitemap last downloaded 2026-11-14 09:46 UTC; a crawl wave on 11-14/15 indexed almost every guide published 11-10..11-13. Not indexed: unknown to Google = `/en/system.html`, `/ingilizce-mulakat-hazirligi.html`, `/ingilizce-metin-yazarligi.html`, `/blog/hedefe-gore-ingilizce-ogrenmek.html`, `/blog/ingilizce-sunum-kaliplari.html`; discovered, not indexed = `ogrenme-plani`, `yapilan-hatalar` (both since October), `ingilizce-kac-ayda-ogrenilir`, `ingilizce-hatirlatma-maili`. The 6 URLs of the 10-29 sprint are all indexed; first impressions (28 d): FA HR terms 16 impr / 1 click at pos 7.9 («کارشناس منابع انسانی به انگلیسی» pos 10), `/fa/blog/` 9 at 4.3, TR Task 2 puanlama 4 at 6.5, FA interview intro 2 at 7.0, TR GT mektup 1 at 8.0, FA IELTS GT letters 0.
 
 ---
 
