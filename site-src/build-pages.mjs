@@ -110,8 +110,8 @@ cP:['Soruların mı var? WhatsApp\'tan yaz, aynı gün dönüyorum.','Got questi
 cBtn:['Cevabını seç ↑','Pick your answer ↑','جوابت را انتخاب کن ↑'],
 apH:['İngilizceni oynayarak kur'+dot('.'),'Build your English by playing'+dot('.'),'انگلیسی‌ات را با بازی بساز'+dot('.')],
 apL:['Hedefini seç, yol haritan kurulsun, durak durak ilerle. Kart istemez, abonelik yok.','Pick your goal, get your roadmap and move forward stop by stop. No card, no subscription.','هدفت را انتخاب کن، نقشه‌ی راهت ساخته شود و ایستگاه به ایستگاه جلو برو. نه کارت لازم است، نه اشتراک.'],
-k1:['Adım 1','Step 1','قدم ۱'],k2:['Adım 2','Step 2','قدم ۲'],k3:['Hikaye oyunu','Story game','بازی داستانی'],k4:['15 oyun','15 games','۱۵ بازی'],
-b2:['Yolun kurulur','Your path is built','مسیرت ساخته می‌شود'],b3:['Kararı sen ver','You make the call','تصمیم با توست'],b4:['Oyunla pekiştir','Lock it in with games','با بازی تثبیتش کن'],
+k1:['Adım 1','Step 1','قدم ۱'],k2:['Adım 2','Step 2','قدم ۲'],k3:['Kırmızı Bavul','The Red Suitcase','چمدان قرمز'],k4:['15 oyun','15 games','۱۵ بازی'],
+b2:['Yolun kurulur','Your path is built','مسیرت ساخته می‌شود'],b3:['Senin seçimin, senin hikâyen','Your choices, your story','انتخاب با تو، داستان مال تو'],b4:['Oyunla pekiştir','Lock it in with games','با بازی تثبیتش کن'],
 andA:['Android\'e indir','Download for Android','دانلود نسخه‌ی اندروید'],andB:['iPhone\'da tarayıcıdan açılır','opens in the browser on iPhone','در آیفون از مرورگر باز می‌شود'],
 pmH:['Premium kursların da burada'+dot('.'),'Your premium courses are here too'+dot('.'),'دوره‌های ویژه‌ات هم همین‌جاست'+dot('.')],
 pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. Her kursta Ders 1.1 ücretsiz; gerisi için bekleme listesine yazılırsın, yer açılınca şifreni WhatsApp\'tan alırsın.','The Business English and IELTS courses open inside the app. Lesson 1.1 of each course is free; for the rest, join the waiting list; when a spot opens, you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. درس ۱.۱ هر دوره رایگان است. برای بقیه‌اش، دکمه‌ی «این دوره را می‌خواهم» صفحه‌ی ثبت‌نام دوره را باز می‌کند؛ بعد از پرداخت، رمز دوره را از واتس‌اپ می‌گیری.'],
@@ -120,6 +120,13 @@ gamesEb:['Oyunlar','Games','بازی‌ها'],
 gamesH:['Yol haritanın yarısı oyun'+dot('.'),'Half your roadmap is games'+dot('.'),'نیمی از نقشه‌ی راهت بازی است'+dot('.')],  /* 2026-11-12: app rot:5 'Learn, then play' puts a game between every two lessons, at least half of every roadmap page (was 'A game at every stop') */
 gamesL:['Siparişi hazırla, davayı çöz, odayı topla. On beş oyun, hepsi İngilizce, A1\'den C1\'e her seviyede.','Prepare the order, solve the case, tidy the room. Fifteen games, all in English, at every level from A1 to C1.','سفارش را آماده کن، پرونده را حل کن، اتاق را مرتب کن. پانزده بازی، همه به انگلیسی، در همه‌ی سطح‌ها از A1 تا C1.'],
 gmore:['Ve 11 oyun daha','And 11 more games','و ۱۱ بازی دیگر'],
+/* homepage games band (#oyunlar, 2026-11-15: IG game posts link /#oyunlar). Art = the games' own key art (app games/posters, The Red Suitcase album 1 cover, Mini Radio sill). */
+hgL:['Hikâyeli dört büyük oyun ve 11 hızlı oyun, hepsi ücretsiz uygulamada. Oyunlar yol haritanın içinde, A1\'den C1\'e.','Four big story games and 11 quick games, all in the free app. They sit on your roadmap, from A1 to C1.','چهار بازی بزرگ داستانی و ۱۱ بازی سریع، همه در اپ رایگان. بازی‌ها داخل نقشه‌ی راهت هستند، از A1 تا C1.'],
+hgBtn:['Ücretsiz oyna →','Play for free →','رایگان بازی کن ←'],
+hgAll:['15 oyunun hepsi','All 15 games','هر ۱۵ بازی'],
+/* app page, games section: The Red Suitcase album 2 (YC_A2_LIVE = true in the English app since 2026-11-15, cbb80ac6; art/istanbul; A2 roadmap cards). Spanish A2 not live yet, the site's app is the English one. */
+gNewP:['Yeni','New','تازه'],
+gNew:['Kırmızı Bavul\'un 2. albümü <b>The Bazaar Key</b>, İstanbul\'da geçiyor: Galata, Pera ve Kapalıçarşı. A2 yol haritanda, ücretsiz.','The Red Suitcase album 2, <b>The Bazaar Key</b>, is set in Istanbul: Galata, Pera and the Grand Bazaar. It is on your A2 roadmap, free.','آلبوم دوم چمدان قرمز، <b>The Bazaar Key</b>، در استانبول می‌گذرد: گالاتا، پرا و بازار بزرگ. در نقشه‌ی راه A2 توست و رایگان است.'],
 /* natural-voice band (brief 5.1 §4b, gate G1 cleared 2026-11-09: audio/en/manifest.json + alt/manifest.json live on the deployed app, words, sentences and stories voiced, accent pill on screen) */
 vEb:['Dinle','Listen','گوش کن'],
 vH:['Doğal ses. İki aksan'+dot('.'),'Natural voices. Two accents'+dot('.'),'صدای طبیعی. دو لهجه'+dot('.')],
@@ -289,7 +296,7 @@ const GAMES_SHOWN = [
 ];
 const GAMES_MORE = [
   [['Ev İşleri', 'Cozy Chores', 'کارهای دنج خانه'], ['Boyalı bir mutfakta cümleleri takip et, odayı sırayla topla.', 'Follow the sentences and tidy a painted kitchen step by step.', 'جمله‌ها را دنبال کن و یک آشپزخانه‌ی نقاشی‌شده را قدم به قدم مرتب کن.']],
-  [['Karar Senin', 'Your Call', 'تصمیم با تو'], ['Ne diyeceğini sen seçersin, hikaye ona göre ilerler.', 'You choose what to say, and the story follows.', 'خودت انتخاب می‌کنی چه بگویی و داستان بر همان اساس جلو می‌رود.']],
+  [['Kırmızı Bavul', 'The Red Suitcase', 'چمدان قرمز'], ['Bir kırmızı bavulla küçük bir İngiliz sahil kasabasına gelirsin. Ne diyeceğini sen seçersin, hikâye ona göre ilerler.', 'You arrive in a small English seaside town with one red suitcase. You choose what to say, and the story follows.', 'با یک چمدان قرمز به یک شهر کوچک ساحلی در انگلیس می‌رسی. خودت انتخاب می‌کنی چه بگویی و داستان بر همان اساس جلو می‌رود.']],   /* was Karar Senin / Your Call (renamed 2026-11-15, Trello qnHV76GG) */
   /* Mini Radio: on for learners since 2026-11-10 (GAMES_V2_LIVE.radio, EN + ES apps); blurb = the app's shelf line (gameBlurb 'radio'). */
   [['Mini Radyo', 'Mini Radio', 'رادیو کوچک'], ['Radyoyu ayarla, parça parça dinle, ana fikri yakala.', 'Tune in, listen part by part and catch the big picture.', 'رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.']],
   [['Mini Bulmaca', 'Mini Cross', 'جدول کوچک'], ['Öğrendiğin kelimeleri bulmacaya yaz.', 'Write the words you learned into the crossword.', 'کلمه‌هایی را که یاد گرفتی در جدول بنویس.']],
@@ -301,12 +308,38 @@ const GAMES_MORE = [
   [['Dinle ve Yaz', 'Listen & Type', 'گوش کن و بنویس'], ['Cümleyi dinle, duyduğunu yaz.', 'Listen to the sentence and type what you hear.', 'به جمله گوش کن و آنچه می‌شنوی را بنویس.']],
   [['Tuzak Kaçışı', 'Trap Dash', 'فرار از تله‌ها'], ['Doğru şekli hızla seç.', 'Pick the right form, fast.', 'شکل درست را سریع انتخاب کن.']],
 ];
+const HOME_GAMES = [
+  { img: 'kirmizi-bavul', c: '--orange-deep', k: ['Çizgi roman macera', 'Comic adventure', 'ماجرای کمیک'], name: ['Kırmızı Bavul', 'The Red Suitcase', 'چمدان قرمز'],
+    d: ['Seçimlerin hikâyeyi değiştirir. 1. albüm Whitby\'de, A2\'deki yeni albüm İstanbul\'da.', 'Your choices change the story. Album 1 is in Whitby, the new A2 album in Istanbul.', 'انتخاب‌هایت داستان را عوض می‌کنند. آلبوم اول در ویتبی است و آلبوم تازه‌ی A2 در استانبول.'],
+    alt: ['Kırmızı Bavul, 1. albüm The Camera: Whitby limanında kırmızı bavullu kahraman', 'The Red Suitcase, album 1 The Camera: the hero with the red suitcase on the Whitby harbour', 'چمدان قرمز، آلبوم اول The Camera: قهرمان با چمدان قرمز در بندر ویتبی'] },
+  { img: 'harbour-files', c: '--purple', k: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], name: ['Harbour Files', 'Harbour Files', 'Harbour Files'],
+    d: ['A1\'den C1\'e her seviyede iki gizem bölümü. İpuçlarını oku, kimin yaptığını bul.', 'Two mystery episodes at every level, A1 to C1. Read the clues, find who did it.', 'در هر سطح از A1 تا C1 دو قسمت معمایی. سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'],
+    alt: ['Harbour Files afişi: liman penceresinin önünde masada bir dava dosyası ve büyüteç', 'Harbour Files key art: a case file and a magnifying glass on a desk by the harbour window', 'پوستر Harbour Files: پرونده و ذره‌بین روی میز، کنار پنجره‌ی رو به بندر'] },
+  { img: 'open-house', c: '--g-career', k: ['Ev İşleri', 'Chores', 'خانه‌داری'], name: ['Open House', 'Open House', 'Open House'],
+    d: ['Bir sokakta küçük işler: kek pişir, çamaşırı yık. Cümleleri takip et, işi bitir.', 'Small jobs on one street: bake a cake, do the laundry. Follow the sentences, finish the job.', 'کارهای کوچک در یک خیابان: کیک بپز، لباس‌ها را بشوی. جمله‌ها را دنبال کن و کار را تمام کن.'],
+    alt: ['Open House afişi: sokakta bir masada doğum günü pastası', 'Open House key art: a birthday cake on a table in the street', 'پوستر Open House: کیک تولد روی میزی در خیابان'] },
+  { img: 'mini-radio', c: '--g-imm', k: ['Dinleme', 'Listening', 'شنیداری'], name: ['Mini Radyo', 'Mini Radio', 'رادیو کوچک'],
+    d: ['Radyoyu ayarla, parça parça dinle ve ana fikri yakala.', 'Tune in, listen part by part, and catch the big picture.', 'رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.'],
+    alt: ['Mini Radyo: pencere kenarında eski bir radyo', 'Mini Radio: an old radio on a window sill', 'رادیو کوچک: یک رادیوی قدیمی کنار پنجره'] },
+];
+function gamesBand(l) {
+  const i = LANGS[l].i;
+  return `
+<section class="sec" id="oyunlar"><div class="wrap">
+  <div class="sec-head c"><p class="eyebrow">${S.gamesEb[i]}</p><h2>${S.gamesH[i]}</h2><p class="lead">${S.hgL[i]}</p></div>
+  <div class="games keyart">
+    ${HOME_GAMES.map(g => `<figure class="fcard" style="--c:var(${g.c})"><div class="scr"><img src="/assets/game/${g.img}.webp" alt="${esc(g.alt[i])}" width="480" height="600" loading="lazy" decoding="async"></div><figcaption><span class="k">${esc(g.k[i])}</span><b>${esc(g.name[i])}</b><p>${esc(g.d[i])}</p></figcaption></figure>`).join('\n    ')}
+  </div>
+  <div class="cta-row"><a class="btn btn-orange" data-loc="home-games" href="${APP}" ${ext}>${S.hgBtn[i]}</a><a class="tlink" href="${url(l, 'app')}#oyunlar">${S.hgAll[i]}</a></div>
+</div></section>
+`;
+}
 const ALT = {
   goals: ['FE App ilk ekranı: hedeflerini seçtiğin ekran', 'FE App first screen: pick your goals', 'صفحه‌ی اول اپ FE: انتخاب هدف‌ها'],
   kariyer: ['FE App yol haritası: B1 Kariyer ve İş hedefi', 'FE App roadmap: B1, career and work goal', 'نقشه‌ی راه اپ FE: سطح B1، هدف کار و شغل'],
   ielts: ['FE App yol haritası: B1 IELTS hedefi', 'FE App roadmap: B1, IELTS goal', 'نقشه‌ی راه اپ FE: سطح B1، هدف آیلتس'],
   seyahat: ['FE App yol haritası: B1 Seyahat hedefi', 'FE App roadmap: B1, travel goal', 'نقشه‌ی راه اپ FE: سطح B1، هدف سفر'],
-  karar: ['Karar Senin oyunu: Whitby\'de bir sahne ve iki İngilizce cevap seçeneği', 'Your Call story game: a scene in Whitby with two English answers to choose from', 'بازی داستانی «تصمیم با تو»: صحنه‌ای در ویتبی با دو جواب انگلیسی'],
+  karar: ['Kırmızı Bavul oyunu: Whitby\'de çizgi roman bir sayfa ve iki İngilizce cevap seçeneği', 'The Red Suitcase story game: a comic page in Whitby with two English answers to choose from', 'بازی داستانی «چمدان قرمز»: یک صفحه‌ی کمیک در ویتبی با دو جواب انگلیسی'],
   ev: ['Ev İşleri oyunu: boyalı bir mutfak ve sırayla yapılacak işler', 'Cozy Chores game: a painted kitchen and tasks to do in order', 'بازی «کارهای دنج خانه»: آشپزخانه‌ی نقاشی‌شده و کارهایی که باید به ترتیب انجام شود'],
   game: ['FE App oyun ekranı: ', 'FE App game screen: ', 'صفحه‌ی بازی در اپ FE: '],
 };
@@ -663,11 +696,11 @@ function home(l) {
       <span class="sticker s2" aria-hidden="true">${S.st2[i]}</span>
       <div class="ph"><img src="/assets/app/screen-goals.webp" alt="${esc(ALT.goals[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
       <div class="ph"><img src="/assets/app/screen-roadmap-b1-kariyer.webp" alt="${esc(ALT.kariyer[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
-      <div class="ph"><img src="/assets/app/screen-game-karar-senin.webp" alt="${esc(ALT.karar[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
+      <div class="ph"><img src="/assets/app/screen-game-kirmizi-bavul.webp" alt="${esc(ALT.karar[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
     </div>
   </section>
 </div>
-
+${gamesBand(l)}
 <section class="sec" id="ogrenciler"><div class="wrap">
   <div class="sec-head c"><p class="eyebrow">${S.prEb[i]}</p><h2>${S.prH[i]}</h2></div>
   <div class="proof">
@@ -727,7 +760,7 @@ function appPage(l) {
   <div class="feat" id="nasil">
     ${fc('screen-goals', ALT.goals[i], '--g-career', S.k1[i], S.s1[i])}
     ${fc('screen-roadmap-b1-ielts', ALT.ielts[i], '--purple', S.k2[i], S.b2[i])}
-    ${fc('screen-game-karar-senin', ALT.karar[i], '--g-imm', S.k3[i], S.b3[i])}
+    ${fc('screen-game-kirmizi-bavul', ALT.karar[i], '--g-imm', S.k3[i], S.b3[i])}
     ${fc('screen-game-ev-isleri', ALT.ev[i], '--orange-deep', S.k4[i], S.b4[i])}
   </div>
   <div class="cta-row">
@@ -738,6 +771,7 @@ function appPage(l) {
 
 <section class="sec" id="oyunlar"><div class="wrap">
   <div class="sec-head c"><p class="eyebrow">${S.gamesEb[i]}</p><h2>${S.gamesH[i]}</h2><p class="lead">${S.gamesL[i]}</p></div>
+  <p class="gnew"><span class="pill dark">${S.gNewP[i]}</span><span>${S.gNew[i]}</span></p>
   <div class="games">
     ${GAMES_SHOWN.map(g => `<figure class="fcard" style="--c:var(${g.c})"><div class="scr"><img src="/assets/app/${g.img}.webp" alt="${esc(ALT.game[i] + g.name[i])}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><b>${esc(g.name[i])}</b><p>${esc(g.d[i])}</p></figcaption></figure>`).join('\n    ')}
   </div>

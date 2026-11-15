@@ -380,6 +380,13 @@ html:not(.js) body:has(#kurs-konusma:target) .goal[data-goal="konusma"] .tick{op
 @media (max-width:960px){.games{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:460px){.games{gap:12px}.fcard{padding:10px 10px 16px;border-radius:22px}.fcard .scr{padding:10px 10px 0}}
 .fcard p{color:var(--muted);font-size:.92rem;font-weight:600}
+/* homepage games band (#oyunlar): key art is 4:5, shown whole */
+.games.keyart .fcard img{aspect-ratio:4/5;object-position:center;border-radius:16px;box-shadow:none}
+.games.keyart .fcard .scr{padding:12px}
+/* app page: one news line above the games (dark pill label) */
+.gnew{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 12px;max-width:760px;margin:-18px auto 28px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:12px 18px;font-weight:600;color:var(--muted);text-align:center}
+.gnew b{color:var(--ink);font-weight:800}
+.pill.dark{background:var(--ink);color:#fff}
 .gmore{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:4px 24px}
 .gmore details{border:0;padding:16px 0}
 .gmore ul{list-style:none;margin:14px 0 4px;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 22px}

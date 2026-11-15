@@ -144,10 +144,11 @@ if (burger && navLinks){
 /* ---------------- Game names ----------------
    The story game's public name lives here, once. Every element with
    data-game-name="your-call" shows it (the HTML carries the same text as a
-   no-JS fallback). App name: EN "Your Call", TR "Karar Senin"
-   (Claude/specs/story-path-name-2026-10-14.md). To rename: change this line
-   and the fallback text found by grepping data-game-name. */
-var GAME_NAMES = { 'your-call': 'Karar Senin' };
+   no-JS fallback). App name since 2026-11-15 (Trello qnHV76GG): EN "The Red
+   Suitcase", TR "Kırmızı Bavul", FA "چمدان قرمز" (was Your Call / Karar Senin).
+   To rename: change this line and the fallback text found by grepping
+   data-game-name. */
+var GAME_NAMES = { 'your-call': 'Kırmızı Bavul' };
 document.querySelectorAll('[data-game-name]').forEach(function(el){
   var n = GAME_NAMES[el.getAttribute('data-game-name')];
   if (n) el.textContent = n;
