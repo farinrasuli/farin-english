@@ -39523,12 +39523,21 @@ function adminInsBars(rows, opts){
       <b class="ins-bv">${r.n}${total ? `<small>${Math.round(r.n / total * 100)}%</small>` : ''}</b>
     </div>`).join('')}</div>`;
 }
-// extra: {offer (a class ready to offer: WhatsApp sends its offer + a link to their own page), byHash, out (class id: ✕),
-//   reply:{c, r} (Yes / No buttons), tags:[html], dim, noWa (no WhatsApp button: a class still gathering)}
+// A plain hello on WhatsApp in their app language (no offer, no link): every learner with a number gets this button
+// (Farin 2026-11-16: "they have numbers but you didnt put their whatsapp message button").
+function adminInsHelloText(p){
+  const n = String(p.profile.name || '').trim().split(/\s+/)[0] || '', lang = adminInsLang(p) || 'en';
+  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin 🌱';
+  if(lang === 'fa') return 'سلام' + (n ? ' ' + n + ' جان' : '') + '! 🌸 فرینم، از FEschool.';
+  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool 🌱';
+  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool 🌱';
+}
+// extra: {offer (a class ready to offer + they may get offers: WhatsApp sends the offer + a link to their own page; otherwise the
+//   button sends a plain hello), byHash, waLabel (text on the plain WhatsApp button), out (class id: ✕), reply:{c, r} (Yes / No), tags:[html], dim}
 function adminInsPersonRow(p, extra){
   extra = extra || {};
   const pf = p.profile, goals = adminInsGoals(p), ph = adminInsPhone(p), invite = !!extra.offer, inv = invite ? adminInsInvitedAt(p) : 0;
-  const wa = extra.noWa ? '' : invite ? adminInsWaLink(p, adminClassOfferText(extra.offer, p, extra.byHash)) : adminInsWaLink(p, 'Hi ' + (String(pf.name || '').split(' ')[0]) + '! This is your FEschool teacher.');
+  const wa = invite ? adminInsWaLink(p, adminClassOfferText(extra.offer, p, extra.byHash)) : adminInsWaLink(p, adminInsHelloText(p));
   const page = invite ? adminClassOfferUrl(extra.offer, p, extra.byHash) : '';
   const rp = extra.reply, rb = (v, label)=>`<button class="ins-rb${rp.r === v ? ' on ' + v : ''}" data-admin-action="ins-reply" data-c="${esc(rp.c)}" data-id="${esc(p.key)}" data-v="${v}" aria-pressed="${rp.r === v}">${label}</button>`;
   return `<div class="ins-p${extra.dim ? ' dim' : ''}">
@@ -39539,7 +39548,7 @@ function adminInsPersonRow(p, extra){
         <span class="ins-ph" dir="ltr">${ph ? esc(ph) : '<span class="ins-none">no number</span>'}</span>
       </span>
       <span class="ins-pa">
-        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="${invite ? 'Send the offer to' : 'WhatsApp'} ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Send again' : 'Send offer'}</span>` : ''}</a>` : ''}
+        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="${invite ? 'Send the offer to' : 'WhatsApp'} ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Send again' : 'Send offer'}</span>` : extra.waLabel ? `<span>${esc(extra.waLabel)}</span>` : ''}</a>` : ''}
         ${rp ? `<span class="ins-rbs" role="group" aria-label="Their answer">${rb('yes', 'Yes')}${rb('no', 'No')}</span>` : ''}
         ${page ? `<a class="ap-link" href="${esc(page)}" target="_blank" rel="noopener" title="The offer page made for ${esc(pf.name || 'them')}">Their page</a>` : ''}
         <button class="ap-link" data-admin-action="ap-open-learner" data-id="${esc(p.key)}">Profile</button>
@@ -39588,7 +39597,7 @@ function adminInsClassesHtml(){
       if(course && adminInsOwns(p, c.theme)) t.push('<span class="ap-tag ok">Has the course</span>');
       const may = offer && adminClassMayOffer(c, p);
       if(offer && !may) t.push('<span class="ap-tag" title="Said no to news and offers, or never chose: a class offer is a promotion">No offers consent</span>');
-      return {offer:may ? c : null, byHash, noWa:gather || (offer && !may), out:open ? c.id : '', reply:offer || (sug && rep) ? {c:c.id, r:rep} : null, tags:t, dim:rep === 'no',
+      return {offer:may ? c : null, byHash, waLabel:'WhatsApp', out:open ? c.id : '', reply:offer || (sug && rep) ? {c:c.id, r:rep} : null, tags:t, dim:rep === 'no',
         isNew:p.accounts.some(u=>u.hash && (c.added || {})[u.hash] > seen && c.createdAt <= seen)}; });
     const acts = sug ? (ready ? `<button class="btn btn-sm btn-primary" data-admin-action="ins-start" data-c="${esc(c.id)}">✓ ${sizes.length > 1 ? 'Start ' + sizes.length + ' classes (' + sizes.join(' + ') + ')' : 'Start with the ' + seated + ' who said yes'}</button>` : '') + `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Remove class</button>`
       : c.status === 'running' ? `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Class finished</button>` : `<button class="btn btn-sm btn-ghost" data-admin-action="ins-reopen" data-c="${esc(c.id)}">Open again</button>`;
