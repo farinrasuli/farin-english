@@ -12861,7 +12861,7 @@ function gamePosterSrc(it){
   if(!it || it.type !== 'game') return '';
   if(it.gameKind !== 'path') return CARD_POSTERS.has(it.gameKind) ? 'art/posters/card-' + it.gameKind + '.webp' : '';
   const r = pathRefParts(it.refId); if(!r) return '';
-  if(YC_COVERS[r.level] && YC_LEVELS.includes(r.level) && ycEligible(it.refId)) return YC_COVERS[r.level];   // a later album's own cover (A2 2026-11-13, B1 2026-11-16)
+  if(YC_COVERS[r.level] && YC_LEVELS.includes(r.level) && ycEligible(it.refId)) return YC_COVERS[r.level];   // a later album's own cover (A2 2026-11-13, B1 2026-11-16, B2 2026-11-17)
   if(CARD_POSTERS.has('path') && typeof YC_LEVELS !== 'undefined' && (YC_LEVELS.includes(r.level) || ycEligible(it.refId))) return YC_POSTER;   // every level opens the comic (2026-11-12)
   const sc = (typeof PATH_SCENES !== 'undefined') && PATH_SCENES['lane-ch' + r.ch + '-1'];
   const plate = sc && sc.layers && sc.layers.find(l=>l.plate);
@@ -23140,9 +23140,12 @@ const YC_A2_LIVE = true;
 // YC_B1_LIVE: B1 "Fire and Ice" (Vík, 1918/2026, engine 0.5.0: Radio Watch, wrong-note tiles, translation on tap, the 1918 silver
 // look). Same rule as A2: on only once all its lines have both natural-voice clips; off, a B1 card borrows the A1 album.
 const YC_B1_LIVE = true;   // on 2026-11-16: all 349 B1 lines have both clips (341 main in audio/en; the other voice in farin-english-voice fdc8704f)
-const YC_LEVELS = TTS_LANG.slice(0, 2) === 'en' ? ['A1'].concat(YC_A2_LIVE ? ['A2'] : [], YC_B1_LIVE ? ['B1'] : []) : ['A1'];
-const YC_ALBUM_FILES = TTS_LANG.slice(0, 2) === 'en' ? {A2:'content-en-A2.js', B1:'content-en-B1.js'} : {};
-const YC_COVERS = TTS_LANG.slice(0, 2) === 'en' ? {A2:'games/your-call/art/istanbul/cover.webp', B1:'games/your-call/art/vik/cover.webp'} : {};
+// YC_B2_LIVE: B2 "The Silent Train" (Tsugaru, 1988/2026, engine 0.5.0: the Rewind step, the 1988 print look). Same rule as A2 / B1:
+// on only once all its lines have both natural-voice clips; off, a B2 card borrows the A1 album.
+const YC_B2_LIVE = false;
+const YC_LEVELS = TTS_LANG.slice(0, 2) === 'en' ? ['A1'].concat(YC_A2_LIVE ? ['A2'] : [], YC_B1_LIVE ? ['B1'] : [], YC_B2_LIVE ? ['B2'] : []) : ['A1'];
+const YC_ALBUM_FILES = TTS_LANG.slice(0, 2) === 'en' ? {A2:'content-en-A2.js', B1:'content-en-B1.js', B2:'content-en-B2.js'} : {};
+const YC_COVERS = TTS_LANG.slice(0, 2) === 'en' ? {A2:'games/your-call/art/istanbul/cover.webp', B1:'games/your-call/art/vik/cover.webp', B2:'games/your-call/art/tsugaru/cover.webp'} : {};
 let ycLoading = null, ycGame = null, ycPending = null;
 // "Read story lines aloud in games" (Farin 2026-11-16; Games 2.0 §5.2, owned by the World Kit): the helper readAloud() once it ships,
 // the provisional profile.readLinesAloud until then, else off. The engine falls back to window.farinReadAloud() itself.
