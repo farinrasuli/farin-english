@@ -39244,7 +39244,8 @@ const ADMIN_LEVEL_IDEAS = {career:'Career English: meetings, e-mails and small t
   immigration:'Moving abroad: calls, forms, renting, the first weeks in a new country.'};
 let adminClasses = null;              // the doc, or null while loading
 let adminClassesError = '', adminClassesSeenBefore = 0, adminClassesStats = null, adminInsKind = 'all';
-function adminClassRules(){ const r = (adminClasses && adminClasses.rules) || {}; return {min:ADMIN_CLASS_MIN, split:r.split !== false, phone:r.phone !== false}; }
+// A WhatsApp number is always required (Farin 2026-11-16: "the users you put in groups should have numbers so i can message on whatsapp").
+function adminClassRules(){ const r = (adminClasses && adminClasses.rules) || {}; return {min:ADMIN_CLASS_MIN, split:r.split !== false, phone:true}; }
 function adminClassesLoad(){
   firebase.firestore().collection('progress').doc(ADMIN_CLASSES_DOC).get().then(doc=>{
     const d = (doc.exists && doc.data()) || {}, obj = v=>v && typeof v === 'object' && !Array.isArray(v) ? Object.assign({}, v) : {};
@@ -39297,6 +39298,11 @@ function adminClassesSync(){
   if(keep.length !== C.classes.length){ C.classes = keep; changed = true; }
   [C.skip, C.skipCourse].forEach(m=>Object.keys(m).forEach(h=>{ if(!(Number(m[h]) > now)){ delete m[h]; changed = true; } }));
   C.classes.forEach(c=>{ if(!adminClassOpen(c)) return; const ok = c.members.filter(h=>byHash[h]); if(ok.length !== c.members.length){ c.members = ok; changed = true; } });
+  // Nobody without a WhatsApp number stays in a class that hasn't started (Farin 2026-11-16, "still some users are in the group classes
+  // with no numbers"). Only once every place a number can come from has loaded (profile, Messages, course passwords, contacts), so a slow
+  // load never drops anyone; running classes never change. They are not rested: once they add a number they can join again.
+  if(adminChats && adminAccessList && adminContacts) C.classes.forEach(c=>{ if(c.status !== 'suggested') return;
+    const ok = c.members.filter(h=>byHash[h] && adminInsPhone(byHash[h])); if(ok.length !== c.members.length){ c.members = ok; changed = true; } });
   adminClassesStats = {};
   ['level', 'course'].forEach(kind=>{ if(adminClassesSyncKind(kind, rules, now, byHash)) changed = true; });
   // ready to offer from 10 who fit: offerAt = when it first got there (the To check "new" row), cleared if it drops below 10
@@ -39460,10 +39466,9 @@ function adminInsAction(action, el){
   if(action === 'ins-cell'){ adminInsCell = adminInsCell === el.dataset.v ? null : el.dataset.v; return re(); }
   if(action === 'ins-list'){ adminInsList = adminInsList === el.dataset.v ? null : el.dataset.v; return re(); }
   // rules for new classes: saved, then the classes are looked for again (the class size is fixed at 4–6, Farin 2026-11-16)
-  if(['ins-phone', 'ins-split'].indexOf(action) >= 0 && C){
+  if(action === 'ins-split' && C){
     const r = adminClassRules();
-    if(action === 'ins-phone') r.phone = !r.phone;
-    if(action === 'ins-split') r.split = !r.split;
+    r.split = !r.split; delete r.phone;
     delete r.min; C.rules = r; adminClassesSave(); adminClassesSync(); return re();
   }
   if(action === 'ins-offer-copy' && cls){ adminInsCopy(adminClassOfferUrl(cls, null)); return; }
@@ -39626,7 +39631,7 @@ function adminInsClassesHtml(){
     scs.left ? scs.left + ' fit no course class yet' : '', sl.once ? sl.once + ' came only once' : '', sl.noPhone ? sl.noPhone + ' left no number' : '',
     sl.resting || scs.resting ? (sl.resting || 0) + (scs.resting || 0) + ' resting after a No, a ✕ or a removed class' : ''].filter(Boolean);
   const body = `<div class="ins-rules"><span class="ins-gl">Rules</span>
-        <button class="ap-chip${r.phone ? ' on' : ''}" data-admin-action="ins-phone" aria-pressed="${r.phone}">Only with a number</button>
+        <span class="ins-fixed">Only with a WhatsApp number</span>
         <button class="ap-chip${r.split ? ' on' : ''}" data-admin-action="ins-split" aria-pressed="${r.split}">Turkish and Persian apart</button>
         <span class="ins-gl">Class size</span><span class="ins-fixed">4–6 people</span><span class="ins-gl">Offer from</span><span class="ins-fixed">10 who fit</span>
       </div>
