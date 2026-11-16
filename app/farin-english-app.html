@@ -1950,6 +1950,32 @@
   .ins-idea{margin:6px 0 0; font-size:12.5px; line-height:1.45; color:var(--ink-soft);}
   .ins-idea b{margin-inline-end:6px; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--fs-purple-ink);}
   .ins-group.is-course{background:color-mix(in srgb, var(--fs-purple) 8%, var(--bg-elevated));}
+  /* v5 (Farin 2026-11-16): gathering under 10, the offer page box, the fixed 4–6 rule */
+  .ins-group.is-gather{background:var(--bg-elevated); border-style:dashed;}
+  .ins-group.is-gather .ins-gn{background:var(--bg-sunken); color:var(--ink-soft);}
+  .ins-gather{margin:8px 0 2px; display:flex; flex-direction:column; gap:6px;}
+  .ins-gather p{margin:0; font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .ins-gather p b{color:var(--ink);}
+  .ins-gbar{display:block; height:8px; border-radius:999px; background:var(--bg-sunken); overflow:hidden;}
+  .ins-gbar i{display:block; height:100%; border-radius:999px; background:var(--fs-orange);}
+  .ins-fixed{font-size:12px; font-weight:800; padding:4px 10px; border-radius:999px; background:var(--bg-elevated); border:1px solid var(--border-soft);}
+  .ins-offer{display:grid; grid-template-columns:minmax(150px, 210px) 1fr; gap:14px; align-items:center; margin:12px 0 4px; padding:12px; border-radius:18px; background:var(--bg-elevated); border:1px solid var(--border-soft);}
+  .ins-odoc{position:relative; overflow:hidden; border-radius:14px; padding:12px 12px 14px; min-height:118px; color:#fff; background:linear-gradient(140deg, #7C5CFC, #5A3FD6); display:flex; flex-direction:column; gap:4px;}
+  .ins-odoc::after{content:""; position:absolute; right:-26px; bottom:-34px; width:96px; height:96px; border-radius:50%; background:var(--g); opacity:.95;}
+  .ins-odoc img{position:absolute; right:2px; bottom:0; width:66px; height:66px; object-fit:contain; z-index:1;}
+  .ins-od-pill{align-self:flex-start; font-size:9.5px; font-weight:800; border-radius:999px; padding:2px 8px; background:rgba(255,255,255,.18);}
+  .ins-odoc b{font-family:'Fredoka', 'Nunito', sans-serif; font-weight:600; font-size:17px; line-height:1.15; max-width:72%; position:relative; z-index:1;}
+  .ins-odoc b i{font-style:normal; color:var(--fs-orange);}
+  .ins-odoc small{font-size:11px; font-weight:800; color:var(--fs-orange); position:relative; z-index:1;}
+  .ins-otxt{display:flex; flex-direction:column; gap:6px; min-width:0;}
+  .ins-otxt>b{font-size:13px;}
+  .ins-otxt>span{font-size:12.5px; line-height:1.5; color:var(--ink-soft);}
+  .ins-obtns{display:flex; flex-wrap:wrap; gap:6px;}
+  @media (max-width:520px){ .ins-offer{grid-template-columns:1fr;} }
+  .ins-pa .btn-whatsapp span{white-space:nowrap;}
+  .ins-pa .ins-rbs, .ins-pa .btn-whatsapp{flex:none;}
+  .ins-pa{flex-wrap:wrap; row-gap:6px; justify-content:flex-end;}
+  @media (max-width:440px){ .ins-pa{justify-content:flex-start;} }
   .ins-group.is-ready{border-color:var(--success); box-shadow:inset 0 0 0 1px var(--success);}
   /* sign in */
   .ap.ap-solo{display:block;}
@@ -39165,7 +39191,20 @@ function adminInsBuildGroups(pool, max, split){
    - Newcomers who fit a suggested class join it; running classes never change; ✕ / a removed class rest the learner 30 days for that kind.
    Doc: {kind:'admin', classes:[{id, kind:'level'|'course', app, level | band, theme, lang, goal, members:[accountHash], added:{hash: t},
    replies:{hash: {r:'yes'|'no', at}}, status:'suggested'|'running'|'closed', createdAt, startedAt, closedAt}], skip:{hash: until} (level),
-   skipCourse:{hash: until}, rules:{min, split, phone}, seenAt}: account hashes and codes only, never names or numbers. */
+   skipCourse:{hash: until}, rules:{min, split, phone}, seenAt}: account hashes and codes only, never names or numbers.
+   v5, Farin 2026-11-16: "make a document having a design and text that i can offer that course to those students and by my click on
+   whatsapp it would be available to send ... the classes i want to be 4-6. so if a group doesnt have at least 10 student in it dont
+   consider it ready to offer."
+   - A class is 4 to 6 people (ADMIN_CLASS_MIN / ADMIN_CLASS_MAX; the old "open at N yes" rule is gone). Start needs 4 yes; 7 yes = the
+     first 6 to say yes, 8+ = two or more classes of 4–6 (c.part), split evenly. A yes who gets no seat stays free for the next class.
+   - A suggested class is "gathering" until 10 fit (ADMIN_CLASS_OFFER_MIN): no invites, no To check row. At 10 it is "ready to offer"
+     (c.offerAt = the first time it reached 10; it falls back to gathering below 10).
+   - The offer = a designed page on the website, thefeschool.com/class/ (+ tr/ fa/ es/ = site/class/), made for each learner from
+     the link alone (adminClassOfferUrl): class, level, their first name, goal, the weak spot they told the app (priorityArea), the
+     group's favourite topics, how many fit. Each learner's WhatsApp button sends adminClassOfferText (their app language) with that
+     link. The page text lives in site/class/offer.js; keep its theme names in step with ADMIN_CLASS_THEMES. */
+const ADMIN_CLASS_MIN = 4, ADMIN_CLASS_MAX = 6, ADMIN_CLASS_OFFER_MIN = 10;
+const ADMIN_CLASS_OFFER_URL = 'https://thefeschool.com/class/';
 const ADMIN_CLASSES_DOC = 'admin-classes';
 const ADMIN_CLASS_POOL_DAYS = 30;
 const ADMIN_CLASS_REST_MS = 30 * 86400000;     // 30 days (DAY_MS is declared further down)
@@ -39193,7 +39232,7 @@ const ADMIN_LEVEL_IDEAS = {career:'Career English: meetings, e-mails and small t
   immigration:'Moving abroad: calls, forms, renting, the first weeks in a new country.'};
 let adminClasses = null;              // the doc, or null while loading
 let adminClassesError = '', adminClassesSeenBefore = 0, adminClassesStats = null, adminInsKind = 'all';
-function adminClassRules(){ const r = (adminClasses && adminClasses.rules) || {}; return {min:[2, 3, 4, 5, 6].indexOf(Number(r.min)) >= 0 ? Number(r.min) : 3, split:r.split !== false, phone:r.phone !== false}; }
+function adminClassRules(){ const r = (adminClasses && adminClasses.rules) || {}; return {min:ADMIN_CLASS_MIN, split:r.split !== false, phone:r.phone !== false}; }
 function adminClassesLoad(){
   firebase.firestore().collection('progress').doc(ADMIN_CLASSES_DOC).get().then(doc=>{
     const d = (doc.exists && doc.data()) || {}, obj = v=>v && typeof v === 'object' && !Array.isArray(v) ? Object.assign({}, v) : {};
@@ -39248,6 +39287,9 @@ function adminClassesSync(){
   C.classes.forEach(c=>{ if(!adminClassOpen(c)) return; const ok = c.members.filter(h=>byHash[h]); if(ok.length !== c.members.length){ c.members = ok; changed = true; } });
   adminClassesStats = {};
   ['level', 'course'].forEach(kind=>{ if(adminClassesSyncKind(kind, rules, now, byHash)) changed = true; });
+  // ready to offer from 10 who fit: offerAt = when it first got there (the To check "new" row), cleared if it drops below 10
+  C.classes.forEach(c=>{ if(c.status !== 'suggested') return; const ok = adminClassMembers(c, byHash).length >= ADMIN_CLASS_OFFER_MIN;
+    if(ok && !c.offerAt){ c.offerAt = now; changed = true; } else if(!ok && c.offerAt){ delete c.offerAt; changed = true; } });
   if(changed) adminClassesSave();
   return changed;
 }
@@ -39306,30 +39348,79 @@ function adminClassesSyncKind(kind, rules, now, byHash){
   adminClassesStats[kind] = st;
   return changed;
 }
-function adminClassesFresh(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>c.status === 'suggested' && c.createdAt > seen); }
-function adminClassesJoined(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>c.status === 'suggested' && c.createdAt <= seen && Object.keys(c.added || {}).some(h=>c.added[h] > seen)); }
-function adminClassYes(c, byHash){ return adminClassMembers(c, byHash || adminClassPeopleByHash()).filter(p=>adminClassReply(c, p) === 'yes'); }
-function adminClassesReady(){ const byHash = adminClassPeopleByHash(), min = adminClassRules().min; return (adminClasses ? adminClasses.classes : []).filter(c=>c.status === 'suggested' && adminClassYes(c, byHash).length >= min); }
+// "New" = ready to offer (10+ fit) since the classes page was last opened; "got a new learner" = an offer-ready class someone joined.
+function adminClassOffer(c){ return !!(c && c.status === 'suggested' && c.offerAt); }
+function adminClassesFresh(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassOffer(c) && c.offerAt > seen); }
+function adminClassesJoined(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassOffer(c) && c.offerAt <= seen && Object.keys(c.added || {}).some(h=>c.added[h] > seen)); }
+// Who said yes, first to answer first (they get the seats).
+function adminClassYes(c, byHash){ const at = p=>p.accounts.reduce((m, u)=>{ const x = u.hash && (c.replies || {})[u.hash]; return x && x.r === 'yes' ? Math.min(m, Number(x.at) || 0) : m; }, Infinity);
+  return adminClassMembers(c, byHash || adminClassPeopleByHash()).filter(p=>adminClassReply(c, p) === 'yes').sort((a,b)=>at(a) - at(b)); }
+function adminClassesReady(){ const byHash = adminClassPeopleByHash(); return (adminClasses ? adminClasses.classes : []).filter(c=>c.status === 'suggested' && adminClassYes(c, byHash).length >= ADMIN_CLASS_MIN); }
+// How the yes-sayers become classes of 4–6: sizes of each class (first to say yes first); who is left over waits for the next class.
+function adminClassSplit(y){ let k = Math.ceil(y / ADMIN_CLASS_MAX); while(k > 1 && y < ADMIN_CLASS_MIN * k) k--; if(y < ADMIN_CLASS_MIN) return []; const seated = Math.min(y, ADMIN_CLASS_MAX * k), base = Math.floor(seated / k);
+  return Array.from({length:k}, (x, i)=>base + (i < seated % k ? 1 : 0)); }
 function adminClassGoal(c){ return GOAL_LABELS[c.goal] || c.goal || ''; }
-function adminClassName(c){ return adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {t:c.theme}).t + ' · ' + c.band : c.level + ' · ' + adminClassGoal(c); }
+function adminClassName(c){ return (adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {t:c.theme}).t + ' · ' + c.band : c.level + ' · ' + adminClassGoal(c)) + (c.part ? ' · group ' + c.part : ''); }
 function adminClassTitle(c){ return adminClassName(c) + (ADMIN_INS_LANG[c.lang] ? ' · ' + ADMIN_INS_LANG[c.lang] + ' speakers' : '') + (adminInsAppNow() === 'all' ? ' · ' + String(c.app || '').toUpperCase() + ' app' : ''); }
 function adminClassIdea(c){ return adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {}).idea || '' : ADMIN_LEVEL_IDEAS[c.goal] || ''; }
 function adminClassSort(c){ return adminClassKind(c) === 'course' ? adminInsByTheme(c.theme) : adminInsByFit(c.goal); }
 // Opening the classes page marks what is there as seen: the New tags show what came since the last visit, for this visit.
 function adminClassesMarkSeen(){ if(!adminClasses) return; adminClassesSeenBefore = adminClasses.seenAt || 0; adminClasses.seenAt = Date.now(); adminClassesSave(); }
-// The WhatsApp invitation, in the learner's app language: a course class names its theme.
-function adminInsInviteText(p, level, theme){
-  const n = String(p.profile.name || '').trim().split(/\s+/)[0] || '', lang = adminInsLang(p), T = theme && ADMIN_CLASS_THEMES[theme];
-  if(T){
-    if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin. ' + T.tr + ' için küçük bir online grup dersi açıyorum ve seviyen (' + level + ') bu gruba uygun. Katılmak ister misin? İstersen gün ve saat seçeneklerini sana yazayım.';
-    if(lang === 'fa') return 'سلام' + (n ? ' ' + n : '') + '! فرین هستم، از FEschool. دارم یک کلاس گروهی آنلاین برای ' + T.fa + ' راه می‌اندازم و سطح تو (سطح ⁨' + level + '⁩) مناسب این کلاس است. دوست داری شرکت کنی؟ اگر بخواهی، روزها و ساعت‌ها را برایت می‌فرستم.';
-    if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool. Voy a abrir una pequeña clase online en grupo de ' + T.es + ' y tu nivel (' + level + ') encaja muy bien. ¿Te gustaría unirte? Si quieres, te envío los días y horarios.';
-    return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool. I\'m opening a small online group class for ' + T.t + ', and your level (' + level + ') fits it well. Would you like to join? If so, I\'ll send you the days and times.';
+// ---------- the offer: a page made for each learner + the WhatsApp message that links it (v5, Farin 2026-11-16) ----------
+// Level-class names in the learner's language ([ui][the language the class teaches][goal]); same words as site/class/offer.js.
+const ADMIN_CLASS_GOAL_T = {
+  en:{en:{career:'Career English', exam:'Exam English', everyday:'Everyday English', travel:'Travel English', immigration:'English for moving abroad'},
+      es:{career:'Career Spanish', exam:'Exam Spanish', everyday:'Everyday Spanish', travel:'Travel Spanish', immigration:'Spanish for moving abroad'}},
+  tr:{en:{career:'Kariyer İngilizcesi', exam:'Sınav İngilizcesi', everyday:'Günlük İngilizce', travel:'Seyahat İngilizcesi', immigration:'Yurt dışına taşınanlar için İngilizce'},
+      es:{career:'Kariyer İspanyolcası', exam:'Sınav İspanyolcası', everyday:'Günlük İspanyolca', travel:'Seyahat İspanyolcası', immigration:'Yurt dışına taşınanlar için İspanyolca'}},
+  fa:{en:{career:'انگلیسی برای کار', exam:'انگلیسی برای آزمون', everyday:'انگلیسی روزمره', travel:'انگلیسی سفر', immigration:'انگلیسی برای مهاجرت'},
+      es:{career:'اسپانیایی برای کار', exam:'اسپانیایی برای آزمون', everyday:'اسپانیایی روزمره', travel:'اسپانیایی سفر', immigration:'اسپانیایی برای مهاجرت'}},
+  es:{en:{career:'inglés para el trabajo', exam:'inglés para exámenes', everyday:'inglés para el día a día', travel:'inglés para viajar', immigration:'inglés para mudarte al extranjero'},
+      es:{career:'español para el trabajo', exam:'español para exámenes', everyday:'español para el día a día', travel:'español para viajar', immigration:'español para mudarte al extranjero'}}
+};
+function adminClassLevelCode(c){ return String(adminClassKind(c) === 'course' ? c.band || '' : c.level || ''); }
+function adminClassNameIn(c, lang){
+  const l = ADMIN_CLASS_GOAL_T[lang] ? lang : 'en';
+  if(adminClassKind(c) === 'course'){ const T = ADMIN_CLASS_THEMES[c.theme] || {}; return (l === 'en' ? T.t : T[l]) || T.t || c.theme; }
+  return ((ADMIN_CLASS_GOAL_T[l][c.app === 'es' ? 'es' : 'en']) || {})[c.goal] || adminClassGoal(c);
+}
+// The group's favourite topics (onboarding question): up to 3 that at least 2 members picked, most picked first.
+function adminClassTopics(c, byHash){
+  const n = {}; adminClassMembers(c, byHash || adminClassPeopleByHash()).forEach(p=>(Array.isArray(p.profile.topics) ? p.profile.topics : []).forEach(t=>{ if(/^[a-z]+$/.test(t)) n[t] = (n[t] || 0) + 1; }));
+  return Object.keys(n).filter(t=>n[t] >= 2).sort((a,b)=>n[b] - n[a]).slice(0, 3);
+}
+// The page's link. With p: made for that learner (their language, first name, goal, weak spot); without: a preview in the class language.
+function adminClassOfferUrl(c, p, byHash){
+  const course = adminClassKind(c) === 'course', lang = p ? (adminInsLang(p) || 'en') : (ADMIN_INS_LANG[c.lang] ? c.lang : 'en');
+  const q = new URLSearchParams();
+  q.set('k', course ? 'c' : 'l');
+  if(course) q.set('t', c.theme);
+  let goal = course ? '' : c.goal;
+  if(course && p){ const mine = adminInsGoals(p); goal = mine.find(g=>(ADMIN_GOAL_THEMES[g] || []).indexOf(c.theme) >= 0) || ''; }
+  if(goal) q.set('g', goal);
+  const lv = adminClassLevelCode(c).replace(/[–—]/g, '-'); if(lv) q.set('lv', lv);
+  if(c.app === 'es') q.set('a', 'es');
+  if(p){
+    const n = String(p.profile.name || '').trim().split(/\s+/)[0]; if(n) q.set('n', n.slice(0, 30));
+    if(c.app !== 'es' && ['grammar', 'vocab', 'listening', 'speaking'].indexOf(p.profile.priorityArea) >= 0) q.set('p', p.profile.priorityArea);
+    if(course && adminInsAsked(p).indexOf(c.theme) >= 0) q.set('w', 'a');
   }
-  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin. Seninle aynı seviyede (' + level + ') ve benzer hedeflere sahip birkaç öğrenciyle küçük bir online grup dersi açmak istiyorum. Katılmak ister misin? İstersen gün ve saat seçeneklerini sana yazayım.';
-  if(lang === 'fa') return 'سلام' + (n ? ' ' + n : '') + '! فرین هستم، از FEschool. می‌خواهم با چند زبان‌آموزِ هم‌سطحِ تو (سطح ⁨' + level + '⁩) که هدف‌های مشابهی دارند، یک کلاس گروهی آنلاینِ کوچک راه بیندازم. دوست داری شرکت کنی؟ اگر بخواهی، روزها و ساعت‌ها را برایت می‌فرستم.';
-  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool. Quiero abrir una pequeña clase online en grupo con algunos estudiantes de tu nivel (' + level + ') y con objetivos parecidos. ¿Te gustaría unirte? Si quieres, te envío los días y horarios.';
-  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool. I\'d like to start a small online group class with a few learners at your level (' + level + ') who have similar goals. Would you like to join? If so, I\'ll send you the days and times.';
+  const tp = adminClassTopics(c, byHash); if(tp.length) q.set('tp', tp.join('.'));
+  q.set('m', String(adminClassMembers(c, byHash || adminClassPeopleByHash()).length));
+  q.set('id', c.id);
+  return ADMIN_CLASS_OFFER_URL + (lang === 'en' ? '' : lang + '/') + '?' + q.toString();
+}
+// Who may get the offer: a class offer is a promotion, so only learners who said yes to news and offers (promoOk, privacy policy
+// "News, discounts and offers on WhatsApp"), or who asked for this course themselves (waiting list / Inbox: an answer to their request).
+function adminClassMayOffer(c, p){ return !!(p.profile && p.profile.promoOk === true) || (adminClassKind(c) === 'course' && adminInsAsked(p).indexOf(c.theme) >= 0); }
+// The WhatsApp message: short and warm in the learner's app language, the page link does the rest.
+function adminClassOfferText(c, p, byHash){
+  const n = String(p.profile.name || '').trim().split(/\s+/)[0] || '', lang = adminInsLang(p) || 'en', url = adminClassOfferUrl(c, p, byHash);
+  const cls = adminClassNameIn(c, lang), lv = adminClassLevelCode(c);
+  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin 🌱\n\nYarı özel bir mini grup açıyorum: ' + cls + '. Sadece 4–6 kişi, hepsi ' + lv + ' seviyesinde ve hepsi seninle aynı hedefte. Yani her ders senin hedefine göre planlanacak.\n\nTüm detayları senin için bir sayfada topladım 👇\n' + url + '\n\nYerini ayırmamı istersen “Varım” yazman yeterli 💜';
+  if(lang === 'fa') return 'سلام' + (n ? ' ' + n + ' جان' : '') + '! 🌸 فرینم، از FEschool.\n\nدارم یه کلاس نیمه‌خصوصیِ «' + cls + '» راه می‌ندازم: فقط ۴ تا ۶ نفر، همه سطح ⁨' + lv + '⁩ و همه با همون هدفی که تو داری. یعنی هر جلسه دقیقاً برای هدف تو برنامه‌ریزی می‌شه.\n\nهمه‌چیز رو برات توی یه صفحه آماده کردم 👇\n' + url + '\n\nاگه دوست داری جات رو نگه دارم، فقط بنویس «هستم» 💜';
+  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool 🌱\n\nVoy a abrir una clase semiprivada de ' + cls.charAt(0).toLowerCase() + cls.slice(1) + ': solo de 4 a 6 personas, todas de nivel ' + lv + ' y con tu mismo objetivo. Así, cada clase se planifica pensando en ti.\n\nTe preparé una página con todos los detalles 👇\n' + url + '\n\nSi quieres una plaza, responde «Me apunto» 💜';
+  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool 🌱\n\nI\'m opening a mid-private ' + cls + ' class: only 4 to 6 people, all at ' + lv + ', all with the same goal as you. So every class is planned around you.\n\nI made a page for you with everything 👇\n' + url + '\n\nIf you\'d like a seat, just reply "I\'m in" 💜';
 }
 function adminInsWaLink(p, text){ const ph = adminInsPhone(p); return ph ? waLinkTo(adminWaitlistWaNumber({phone:ph, lang:adminInsLang(p)}), text) : ''; }
 function adminInsInvitedAt(p){ return p.accounts.reduce((m, u)=>Math.max(m, (u.hash && Number(adminInvited[u.hash])) || 0), 0); }
@@ -39356,14 +39447,14 @@ function adminInsAction(action, el){
   if(action === 'ins-kind'){ adminInsKind = el.dataset.v || 'all'; return re(); }
   if(action === 'ins-cell'){ adminInsCell = adminInsCell === el.dataset.v ? null : el.dataset.v; return re(); }
   if(action === 'ins-list'){ adminInsList = adminInsList === el.dataset.v ? null : el.dataset.v; return re(); }
-  // rules for new classes: saved, then the classes are looked for again
-  if(['ins-phone', 'ins-split', 'ins-min'].indexOf(action) >= 0 && C){
+  // rules for new classes: saved, then the classes are looked for again (the class size is fixed at 4–6, Farin 2026-11-16)
+  if(['ins-phone', 'ins-split'].indexOf(action) >= 0 && C){
     const r = adminClassRules();
     if(action === 'ins-phone') r.phone = !r.phone;
     if(action === 'ins-split') r.split = !r.split;
-    if(action === 'ins-min') r.min = Number(el.dataset.v) || 3;
-    C.rules = r; adminClassesSave(); adminClassesSync(); return re();
+    delete r.min; C.rules = r; adminClassesSave(); adminClassesSync(); return re();
   }
+  if(action === 'ins-offer-copy' && cls){ adminInsCopy(adminClassOfferUrl(cls, null)); return; }
   if(action === 'ins-copy' && cls){ adminInsCopy(adminClassText(cls)); return; }
   if(action === 'ins-reply' && cls){
     const p = adminPersonByKey(el.dataset.id); if(!p || !p.main || !p.main.hash) return;
@@ -39373,16 +39464,27 @@ function adminInsAction(action, el){
     if(v) cls.replies[p.main.hash] = {r:v, at:Date.now()};
     adminClassesSave(); return re();
   }
+  // Start: classes of 4–6 from who said yes, first to answer first (8+ yes = two or more classes, split evenly).
   if(action === 'ins-start' && cls){
     const byHash = adminClassPeopleByHash(), yes = adminClassYes(cls, byHash), all = adminClassMembers(cls, byHash), skip = adminClassSkip(adminClassKind(cls)), t = Date.now();
-    if(!yes.length && !confirm('Nobody has said yes yet. Start the class with everyone on the list?')) return;
-    if(yes.length && !confirm('Start the class with the ' + yes.length + ' who said yes? Who said no is not asked again for 30 days, who didn\'t answer for 14 days.')) return;
-    if(yes.length){
-      all.forEach(p=>{ const r = adminClassReply(cls, p); if(r === 'yes') return; const until = t + (r === 'no' ? ADMIN_CLASS_REST_MS : ADMIN_CLASS_NOANSWER_MS); p.accounts.forEach(u=>{ if(u.hash) skip[u.hash] = until; }); });
-      const keepHashes = {}; yes.forEach(p=>p.accounts.forEach(u=>{ if(u.hash) keepHashes[u.hash] = 1; }));
-      cls.members = cls.members.filter(h=>keepHashes[h]);
-    }
-    cls.status = 'running'; cls.startedAt = t; adminClassesSave(); return re();
+    const sizes = adminClassSplit(yes.length), seated = sizes.reduce((a, b)=>a + b, 0), wait = yes.slice(seated);
+    if(!sizes.length){ alert('A class starts with at least ' + ADMIN_CLASS_MIN + ' who said yes (' + yes.length + ' so far).'); return; }
+    if(!confirm((sizes.length > 1 ? 'Start ' + sizes.length + ' classes (' + sizes.join(' + ') + ') with the ' + seated + ' who said yes?' : 'Start the class with the ' + seated + ' who said yes' + (wait.length ? ' first' : '') + '?')
+      + (wait.length ? ' ' + wait.length + ' more said yes: they stay free for the next class.' : '') + ' Who said no is not asked again for 30 days, who didn\'t answer for 14 days.')) return;
+    all.forEach(p=>{ const r = adminClassReply(cls, p); if(r === 'yes') return; const until = t + (r === 'no' ? ADMIN_CLASS_REST_MS : ADMIN_CLASS_NOANSWER_MS); p.accounts.forEach(u=>{ if(u.hash) skip[u.hash] = until; }); });
+    const hashesOf = list=>{ const h = {}; list.forEach(p=>p.accounts.forEach(u=>{ if(u.hash) h[u.hash] = 1; })); return h; };
+    const orig = cls.members.slice(), replies = Object.assign({}, cls.replies || {});
+    let from = 0;
+    sizes.forEach((size, i)=>{
+      const keep = hashesOf(yes.slice(from, from + size)); from += size;
+      const c = i === 0 ? cls : Object.assign({}, cls, {id:cls.id + 'g' + (i + 1), added:{}});
+      c.members = orig.filter(h=>keep[h]);
+      c.replies = {}; Object.keys(replies).forEach(h=>{ if(keep[h]) c.replies[h] = replies[h]; });
+      c.status = 'running'; c.startedAt = t; delete c.offerAt;
+      if(sizes.length > 1) c.part = i + 1; else delete c.part;
+      if(i > 0) adminClasses.classes.push(c);
+    });
+    adminClassesSave(); return re();
   }
   if(action === 'ins-close' && cls){
     if(!confirm(cls.status === 'running' ? 'Mark this class as finished?' : 'Remove this suggested class? Its learners are not put in a class of this kind again for 30 days.')) return;
@@ -39417,11 +39519,13 @@ function adminInsBars(rows, opts){
       <b class="ins-bv">${r.n}${total ? `<small>${Math.round(r.n / total * 100)}%</small>` : ''}</b>
     </div>`).join('')}</div>`;
 }
-// extra: {invite, theme (the invitation names it), out (class id: ✕), reply:{c, r} (Yes / No buttons), tags:[html], dim}
+// extra: {offer (a class ready to offer: WhatsApp sends its offer + a link to their own page), byHash, out (class id: ✕),
+//   reply:{c, r} (Yes / No buttons), tags:[html], dim, noWa (no WhatsApp button: a class still gathering)}
 function adminInsPersonRow(p, extra){
   extra = extra || {};
-  const pf = p.profile, goals = adminInsGoals(p), ph = adminInsPhone(p), invite = !!extra.invite, inv = invite ? adminInsInvitedAt(p) : 0;
-  const wa = invite ? adminInsWaLink(p, adminInsInviteText(p, adminInsLevel(p), extra.theme)) : adminInsWaLink(p, 'Hi ' + (String(pf.name || '').split(' ')[0]) + '! This is your FEschool teacher.');
+  const pf = p.profile, goals = adminInsGoals(p), ph = adminInsPhone(p), invite = !!extra.offer, inv = invite ? adminInsInvitedAt(p) : 0;
+  const wa = extra.noWa ? '' : invite ? adminInsWaLink(p, adminClassOfferText(extra.offer, p, extra.byHash)) : adminInsWaLink(p, 'Hi ' + (String(pf.name || '').split(' ')[0]) + '! This is your FEschool teacher.');
+  const page = invite ? adminClassOfferUrl(extra.offer, p, extra.byHash) : '';
   const rp = extra.reply, rb = (v, label)=>`<button class="ins-rb${rp.r === v ? ' on ' + v : ''}" data-admin-action="ins-reply" data-c="${esc(rp.c)}" data-id="${esc(p.key)}" data-v="${v}" aria-pressed="${rp.r === v}">${label}</button>`;
   return `<div class="ins-p${extra.dim ? ' dim' : ''}">
       ${adminAvatarHtml(pf.name, adminGoalKey(goals.length ? goals : pf.motivationTag), Date.now() - (p.lastSeen || 0))}
@@ -39431,8 +39535,9 @@ function adminInsPersonRow(p, extra){
         <span class="ins-ph" dir="ltr">${ph ? esc(ph) : '<span class="ins-none">no number</span>'}</span>
       </span>
       <span class="ins-pa">
-        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="WhatsApp ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Again' : 'Invite'}</span>` : ''}</a>` : ''}
+        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="${invite ? 'Send the offer to' : 'WhatsApp'} ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Send again' : 'Send offer'}</span>` : ''}</a>` : ''}
         ${rp ? `<span class="ins-rbs" role="group" aria-label="Their answer">${rb('yes', 'Yes')}${rb('no', 'No')}</span>` : ''}
+        ${page ? `<a class="ap-link" href="${esc(page)}" target="_blank" rel="noopener" title="The offer page made for ${esc(pf.name || 'them')}">Their page</a>` : ''}
         <button class="ap-link" data-admin-action="ap-open-learner" data-id="${esc(p.key)}">Profile</button>
         ${extra.out ? `<button class="ap-link ins-out" data-admin-action="ins-out" data-c="${esc(extra.out)}" data-id="${esc(p.key)}" aria-label="Take ${esc(pf.name || '')} out of this class" title="Take out of this class">✕</button>` : ''}
       </span>
@@ -39443,45 +39548,57 @@ function adminInsCard(eb, title, body, note){ return `<section class="ap-card in
 function adminInsChip(action, v, on, label){ return `<button class="ap-chip${on ? ' on' : ''}" data-admin-action="${action}" data-v="${esc(String(v))}" aria-pressed="${on ? 'true' : 'false'}">${esc(label)}</button>`; }
 function adminInsBoxSub(){
   if(!adminPeople || !adminClasses) return adminUsersError || adminClassesError ? 'Could not load' : 'Loading…';
-  const sug = adminClasses.classes.filter(c=>c.status === 'suggested'), fresh = adminClassesFresh().length, ready = adminClassesReady().length;
-  return sug.length ? sug.length + ' group class' + (sug.length === 1 ? '' : 'es') + ' to fill' + (ready ? ' · ' + ready + ' ready' : '') + (fresh ? ' · ' + fresh + ' new' : '') : 'Levels, goals, who comes most';
+  const sug = adminClasses.classes.filter(c=>c.status === 'suggested'), offer = sug.filter(adminClassOffer).length, fresh = adminClassesFresh().length, ready = adminClassesReady().length;
+  return sug.length ? (offer ? offer + ' group class' + (offer === 1 ? '' : 'es') + ' to offer' : sug.length + ' group class' + (sug.length === 1 ? '' : 'es') + ' gathering') + (ready ? ' · ' + ready + ' ready' : '') + (fresh ? ' · ' + fresh + ' new' : '') : 'Levels, goals, who comes most';
 }
 // ---------- the classes page ----------
 function adminInsClassesHtml(){
   if(!adminClasses) return adminInsCard('Group classes', 'Group classes', `<p class="ap-empty">${adminClassesError ? 'Could not load the classes: ' + esc(adminClassesError) : 'Loading…'}</p>`, '');
   const r = adminClassRules(), byHash = adminClassPeopleByHash(), app = adminInsAppNow(), seen = adminClassesSeenBefore, k = adminInsKind;
   const mine = adminClasses.classes.filter(c=>(app === 'all' || c.app === app) && (k === 'all' || adminClassKind(c) === k));
+  const THEME_GOAL = {business:'career', ielts:'exam', interview:'career', travel:'travel', marketing:'career', sales:'career', 'ai-internet':'everyday'};
   const card = c=>{
-    const course = adminClassKind(c) === 'course', open = adminClassOpen(c), sug = c.status === 'suggested';
+    const course = adminClassKind(c) === 'course', open = adminClassOpen(c), sug = c.status === 'suggested', offer = adminClassOffer(c), gather = sug && !offer;
     const m = adminClassOrdered(c, byHash), n = m.length, yes = m.filter(p=>adminClassReply(c, p) === 'yes').length, no = m.filter(p=>adminClassReply(c, p) === 'no').length;
-    const invited = m.filter(p=>adminInsInvitedAt(p) >= (c.createdAt || 0)).length, isNew = c.createdAt > seen;
-    const asked = course ? m.filter(p=>adminInsAsked(p).indexOf(c.theme) >= 0).length : 0, ready = sug && yes >= r.min;
-    const fit = !course && n ? adminInsFit(m, c.goal) : null;
+    const invited = m.filter(p=>adminInsInvitedAt(p) >= (c.createdAt || 0)).length, isNew = offer && c.offerAt > seen;
+    const asked = course ? m.filter(p=>adminInsAsked(p).indexOf(c.theme) >= 0).length : 0, ready = sug && yes >= ADMIN_CLASS_MIN;
+    const fit = !course && n ? adminInsFit(m, c.goal) : null, sizes = adminClassSplit(yes), seated = sizes.reduce((a, b)=>a + b, 0);
     const tags = [course ? '<span class="ap-tag purple">Course class</span>' : '<span class="ap-tag">Level class</span>',
-      isNew && sug ? '<span class="ap-tag new">New class</span>' : '', ready ? '<span class="ap-tag ok">Ready to start</span>' : '',
-      c.status === 'running' ? '<span class="ap-tag ok">Running</span>' : c.status === 'closed' ? '<span class="ap-tag">Closed</span>' : ''].join('');
+      gather ? '<span class="ap-tag">Gathering · ' + n + ' of ' + ADMIN_CLASS_OFFER_MIN + '</span>' : '', isNew ? '<span class="ap-tag new">New · ready to offer</span>' : offer && !ready ? '<span class="ap-tag purple">Ready to offer</span>' : '',
+      ready ? '<span class="ap-tag ok">Ready to start</span>' : '', c.status === 'running' ? '<span class="ap-tag ok">Running</span>' : c.status === 'closed' ? '<span class="ap-tag">Closed</span>' : ''].join('');
     const why = [course ? (asked ? asked + ' asked for this course' : '') : (fit ? adminClassGoal(c) + ' is the main goal of ' + (fit.main === n ? 'all ' + n : fit.main + ' of ' + n) : ''),
       course ? 'levels ' + Object.entries(m.reduce((o, p)=>{ const s = adminInsLevel(p); o[s] = (o[s] || 0) + 1; return o; }, {})).map(([s, x])=>s + ' ×' + x).join(', ') : (fit ? (fit.stageN === n ? 'all at ' : fit.stageN + ' at ') + fit.stage : ''),
       c.status === 'running' ? 'started ' + adminDate(c.startedAt) : 'made ' + adminDate(c.createdAt)].filter(Boolean).join(' · ');
-    const funnel = sug ? `<p class="ins-fun"><b>${n}</b> fit · <b>${invited}</b> invited · <b class="y">${yes}</b> said yes · <b>${no}</b> said no · ${ready ? 'ready: start whenever you like' : 'opens at ' + r.min + ' yes (' + (r.min - yes) + ' more)'}</p>` : '';
+    const startNote = !ready ? 'starts at ' + ADMIN_CLASS_MIN + ' yes (' + (ADMIN_CLASS_MIN - yes) + ' more)' : sizes.length > 1 ? 'ready: ' + sizes.length + ' classes (' + sizes.join(' + ') + ')' : seated < yes ? 'ready: 6 seats, ' + (yes - seated) + ' waits for the next class' : 'ready: start whenever you like';
+    const funnel = gather ? '<div class="ins-gather"><span class="ins-gbar" role="img" aria-label="' + n + ' of ' + ADMIN_CLASS_OFFER_MIN + '"><i style="width:' + Math.min(100, Math.round(n / ADMIN_CLASS_OFFER_MIN * 100)) + '%"></i></span><p><b>' + n + '</b> of ' + ADMIN_CLASS_OFFER_MIN + ' fit · the offer opens at ' + ADMIN_CLASS_OFFER_MIN + ' (' + (ADMIN_CLASS_OFFER_MIN - n) + ' more). A class is 4–6 and not everyone says yes, so it waits for 10 on the list.</p></div>'
+      : sug ? '<p class="ins-fun"><b>' + n + '</b> fit · <b>' + m.filter(p=>adminClassMayOffer(c, p)).length + '</b> can get the offer · <b>' + invited + '</b> sent the offer · <b class="y">' + yes + '</b> said yes · <b>' + no + '</b> said no · ' + startNote + '</p>' : '';
+    const g = course ? THEME_GOAL[c.theme] || 'everyday' : (COURSE_GOAL_COLORS[c.goal] ? c.goal : 'everyday'), lvc = adminClassLevelCode(c);
+    const offerBox = offer ? `<div class="ins-offer" style="--g:${COURSE_GOAL_COLORS[g]};">
+        <div class="ins-odoc" aria-hidden="true"><span class="ins-od-pill">Mid-private · 4–6 people</span><b>${esc(adminClassNameIn(c, 'en'))}<i>.</i></b>${lvc ? `<small>Level ${esc(lvc)}</small>` : ''}<img src="char-${g}.png" alt="" decoding="async"></div>
+        <div class="ins-otxt"><b>Offer page</b><span><b>Send offer</b> opens WhatsApp with a short message in their language and a link to a page made for them: their name, goal and level, what they told the app they find hard, the group's favourite topics, and only 6 seats. It shows only for learners who said yes to news and offers, or who asked for this course.</span>
+          <span class="ins-obtns"><a class="btn btn-sm btn-ghost" href="${esc(adminClassOfferUrl(c, null, byHash))}" target="_blank" rel="noopener">Open the page</a><button class="btn btn-sm btn-ghost" data-admin-action="ins-offer-copy" data-c="${esc(c.id)}">Copy link</button></span></div>
+      </div>` : '';
     const rows = c.status === 'closed' ? '' : adminInsPeopleList(m, p=>{ const rep = adminClassReply(c, p), t = [];
       if(rep === 'yes') t.push('<span class="ap-tag ok">Said yes</span>'); if(rep === 'no') t.push('<span class="ap-tag">Said no</span>');
       if(course && adminInsAsked(p).indexOf(c.theme) >= 0) t.push('<span class="ap-tag purple">Asked for this course</span>');
       if(course && adminInsOwns(p, c.theme)) t.push('<span class="ap-tag ok">Has the course</span>');
-      return {invite:sug, theme:course ? c.theme : '', out:open ? c.id : '', reply:sug ? {c:c.id, r:rep} : null, tags:t, dim:rep === 'no',
+      const may = offer && adminClassMayOffer(c, p);
+      if(offer && !may) t.push('<span class="ap-tag" title="Said no to news and offers, or never chose: a class offer is a promotion">No offers consent</span>');
+      return {offer:may ? c : null, byHash, noWa:gather || (offer && !may), out:open ? c.id : '', reply:offer || (sug && rep) ? {c:c.id, r:rep} : null, tags:t, dim:rep === 'no',
         isNew:p.accounts.some(u=>u.hash && (c.added || {})[u.hash] > seen && c.createdAt <= seen)}; });
-    const acts = sug ? `<button class="btn btn-sm ${ready ? 'btn-primary' : 'btn-ghost'}" data-admin-action="ins-start" data-c="${esc(c.id)}">${yes ? '✓ Start with the ' + yes + ' who said yes' : 'Start class'}</button><button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Remove class</button>`
+    const acts = sug ? (ready ? `<button class="btn btn-sm btn-primary" data-admin-action="ins-start" data-c="${esc(c.id)}">✓ ${sizes.length > 1 ? 'Start ' + sizes.length + ' classes (' + sizes.join(' + ') + ')' : 'Start with the ' + seated + ' who said yes'}</button>` : '') + `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Remove class</button>`
       : c.status === 'running' ? `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Class finished</button>` : `<button class="btn btn-sm btn-ghost" data-admin-action="ins-reopen" data-c="${esc(c.id)}">Open again</button>`;
-    return `<div class="ins-group${course ? ' is-course' : ''}${isNew && sug ? ' is-new' : ''}${ready ? ' is-ready' : ''}${c.status === 'closed' ? ' is-closed' : ''}">
+    return `<div class="ins-group${course ? ' is-course' : ''}${isNew ? ' is-new' : ''}${ready ? ' is-ready' : ''}${gather ? ' is-gather' : ''}${c.status === 'closed' ? ' is-closed' : ''}">
         <div class="ins-gh"><span class="ins-gn">${n}</span><span class="ins-gt"><b>${esc(adminClassTitle(c))} ${tags}</b><small>${esc(why)}</small></span></div>
-        ${adminClassIdea(c) && c.status !== 'closed' ? `<p class="ins-idea"><b>Class idea</b> ${esc(adminClassIdea(c))}</p>` : ''}
+        ${adminClassIdea(c) && c.status !== 'closed' && !gather ? `<p class="ins-idea"><b>Class idea</b> ${esc(adminClassIdea(c))}</p>` : ''}
         ${funnel}
+        ${offerBox}
         ${rows}
         <div class="ins-gb">${c.status === 'closed' ? '' : `<button class="btn btn-sm btn-ghost" data-admin-action="ins-copy" data-c="${esc(c.id)}">Copy names and numbers</button>`}${acts}</div>
       </div>`; };
-  const order = c=>(c.status === 'suggested' ? (adminClassYes(c, byHash).length >= r.min ? 0 : c.createdAt > seen ? 1 : 2) : c.status === 'running' ? 3 : 4);
+  const order = c=>(c.status === 'suggested' ? (adminClassYes(c, byHash).length >= ADMIN_CLASS_MIN ? 0 : adminClassOffer(c) ? (c.offerAt > seen ? 1 : 2) : 3) : c.status === 'running' ? 4 : 5);
   const list = mine.slice().sort((a,b)=>order(a) - order(b) || adminClassMembers(b, byHash).length - adminClassMembers(a, byHash).length || b.createdAt - a.createdAt);
-  const sug = list.filter(c=>c.status === 'suggested'), run = list.filter(c=>c.status === 'running'), done = list.filter(c=>c.status === 'closed');
+  const sug = list.filter(c=>c.status === 'suggested'), offerL = sug.filter(adminClassOffer), gatherL = sug.filter(c=>!adminClassOffer(c)), run = list.filter(c=>c.status === 'running'), done = list.filter(c=>c.status === 'closed');
   const all = adminClasses.classes.filter(c=>app === 'all' || c.app === app), nk = kk=>all.filter(c=>c.status === 'suggested' && adminClassKind(c) === kk).length;
   const st = adminClassesStats || {}, sl = st.level || {}, scs = st.course || {};
   const notIn = [sl.left ? sl.left + ' fit no level class yet (not 3 at the same level with the same goal' + (r.split ? ' and app language' : '') + ')' : '',
@@ -39490,18 +39607,19 @@ function adminInsClassesHtml(){
   const body = `<div class="ins-rules"><span class="ins-gl">Rules</span>
         <button class="ap-chip${r.phone ? ' on' : ''}" data-admin-action="ins-phone" aria-pressed="${r.phone}">Only with a number</button>
         <button class="ap-chip${r.split ? ' on' : ''}" data-admin-action="ins-split" aria-pressed="${r.split}">Turkish and Persian apart</button>
-        <span class="ins-gl">Open a class at</span>${[2, 3, 4, 5, 6].map(x=>adminInsChip('ins-min', x, r.min === x, x + ' yes')).join('')}
+        <span class="ins-gl">Class size</span><span class="ins-fixed">4–6 people</span><span class="ins-gl">Offer from</span><span class="ins-fixed">10 who fit</span>
       </div>
       <div class="ap-chips" role="group" aria-label="Kind of class" style="margin-top:4px;">${adminInsChip('ins-kind', 'all', k === 'all', 'All')}${adminInsChip('ins-kind', 'course', k === 'course', 'Course classes · ' + nk('course'))}${adminInsChip('ins-kind', 'level', k === 'level', 'Level classes · ' + nk('level'))}</div>
       ${adminInsNote ? `<p class="acc-ok" role="status">${esc(adminInsNote)}</p>` : ''}
       ${adminClassesError ? `<p class="acc-err">${esc(adminClassesError)}</p>` : ''}
-      <h4 class="ins-sh">To fill · ${sug.length}</h4>
-      ${sug.length ? sug.map(card).join('') : '<p class="ap-empty">No class fits right now. New ones appear here by themselves when 3 or more learners fit.</p>'}
+      <h4 class="ins-sh">Ready to offer · ${offerL.length}</h4>
+      ${offerL.length ? offerL.map(card).join('') : '<p class="ap-empty">No class has 10 who fit yet. A class appears here when its list reaches 10.</p>'}
+      ${gatherL.length ? `<h4 class="ins-sh">Gathering, under 10 · ${gatherL.length}</h4>${gatherL.map(card).join('')}` : (sug.length ? '' : '<p class="ap-empty">No class fits right now. New ones start gathering by themselves when 3 or more learners fit.</p>')}
       ${run.length ? `<h4 class="ins-sh">Running · ${run.length}</h4>${run.map(card).join('')}` : ''}
       ${done.length ? `<details class="ins-done"><summary>Closed in the last 30 days · ${done.length}</summary>${done.map(card).join('')}</details>` : ''}
       ${notIn.length ? `<p class="ins-note ins-notin">Not in a class: ${esc(notIn.join(' · '))}. Nobody is pushed into a group that doesn't fit.</p>` : ''}`;
-  return adminInsCard('Group classes', sug.length ? sug.length + ' class' + (sug.length === 1 ? '' : 'es') + ' to fill' : 'No class fits yet', body,
-    'Each class is an invite list of <b>everyone who fits</b>, because not everyone will say yes. Invite them on WhatsApp, tap <b>Yes</b> or <b>No</b> when they answer, and start the class once ' + r.min + ' said yes. <b>Course classes</b> are built around a premium course (people who asked for it first, then their goals) and grouped by level band; <b>level classes</b> around a level and a goal. A learner is in at most one class of each kind. New classes and newcomers arrive by themselves; a running class never changes.');
+  return adminInsCard('Group classes', offerL.length ? offerL.length + ' class' + (offerL.length === 1 ? '' : 'es') + ' ready to offer' : sug.length ? 'Gathering: no class has 10 yet' : 'No class fits yet', body,
+    'A class is <b>4 to 6 people</b>. Its list gathers everyone who fits, and once <b>10</b> fit it is ready to offer: <b>Send offer</b> sends each learner a WhatsApp message with a page made for them. Tap <b>Yes</b> or <b>No</b> when they answer, and start once 4 said yes (8 or more yes make two classes). <b>Course classes</b> are built around a premium course (people who asked for it first, then their goals) and grouped by level band; <b>level classes</b> around a level and a goal. A learner is in at most one class of each kind. New classes and newcomers arrive by themselves; a running class never changes.');
 }
 // ---------- the page: boxes, or one box's page ----------
 function renderAdminInsightsTab(){
@@ -39553,7 +39671,7 @@ function renderAdminInsightsTab(){
   // one entry per box: [key, eyebrow, title, headline, sub, icon, colour, badge, page()]
   const inApp = c=>app === 'all' || c.app === app, sugList = adminClasses ? adminClasses.classes.filter(c=>c.status === 'suggested' && inApp(c)) : [], sugN = sugList.length;
   const readyN = adminClasses ? adminClassesReady().filter(inApp).length : 0, fresh = adminClassesFresh().filter(inApp).length + adminClassesJoined().filter(inApp).length;
-  const courseN = sugList.filter(c=>adminClassKind(c) === 'course').length, groupsSub = [readyN ? readyN + ' ready to start' : '', fresh ? fresh + ' new' : '', courseN + ' course · ' + (sugN - courseN) + ' level'].filter(Boolean).join(' · ');
+  const offerN = sugList.filter(adminClassOffer).length, groupsSub = [readyN ? readyN + ' ready to start' : '', fresh ? fresh + ' new' : '', offerN + ' to offer · ' + (sugN - offerN) + ' gathering'].filter(Boolean).join(' · ');
   const boxes = [
     ['groups', 'Group classes', 'Classes to fill', adminClasses ? String(sugN) : '…', adminClasses ? (sugN ? groupsSub : 'none fits yet: they appear by themselves') : 'loading…', 'users', '#7C5CFC', fresh + readyN, ()=>adminInsClassesHtml()],
     ['levels', 'Levels', 'Learners by level', best(levelRows).n ? best(levelRows).label : '—', best(levelRows).n ? best(levelRows).n + ' of ' + seen.length + ' are here, the most' : 'no levels yet', 'mountain', '#5FC9B8', 0,
@@ -39568,7 +39686,7 @@ function renderAdminInsightsTab(){
         </tbody></table></div>`;
       let cellList = '';
       if(adminInsCell){ const [l, g] = adminInsCell.split('|'), list = cellPeople(l, g).sort((a,b)=>adminInsPerWeek(b) - adminInsPerWeek(a));
-        cellList = `<div class="ins-cellopen"><b>${esc(l + ' · ' + (GOAL_LABELS[g] || g))}: ${list.length}</b>${adminInsPeopleList(list, {invite:true})}</div>`; }
+        cellList = `<div class="ins-cellopen"><b>${esc(l + ' · ' + (GOAL_LABELS[g] || g))}: ${list.length}</b>${adminInsPeopleList(list)}</div>`; }
       return adminInsCard('Who fits together', 'Level × goal', grid + cellList, 'The darker the box, the more learners ' + esc(seenWord) + '. Tap a box to see their names and numbers.'); }],
     ['tiers', 'Coming back', 'How often they come', String(tierN('regular').length), 'regulars · ' + tierN('quiet').length + ' went quiet', 'repeat', '#8FAE85', 0, ()=>{
       const rows = ADMIN_INS_TIERS.map(t=>{ const list = tierN(t.k), on = adminInsList === 'tier-' + t.k; return `<button class="ins-tier${on ? ' on' : ''}" data-admin-action="ins-list" data-v="tier-${t.k}" aria-expanded="${on}">
@@ -39791,7 +39909,7 @@ function adminTodo(){
   if(adminClasses && adminPeople){
     const fresh = adminClassesFresh(), joined = adminClassesJoined(), ready = adminClassesReady(), cn = adminClassName;
     add('insights', ready.length, 'Group class ready to start', 'Group classes ready to start', 'Enough learners said yes · ' + names(ready.map(cn)), 'groups', false, adminTodoFrom(ready.map(cn)));
-    add('insights', fresh.length, 'New group class you could open', 'New group classes you could open', 'Learners at the same level with the same goal · ' + names(fresh.map(cn)), 'groups', false, adminTodoFrom(fresh.map(cn)));
+    add('insights', fresh.length, 'Group class ready to offer', 'Group classes ready to offer', '10 or more fit: send the offer · ' + names(fresh.map(cn)), 'groups', false, adminTodoFrom(fresh.map(cn)));
     add('insights', joined.length, 'Group class got a new learner', 'Group classes got new learners', names(joined.map(cn)), 'groups', false, adminTodoFrom(joined.map(cn)));
   }
   if(adminContacts && adminSeen){
