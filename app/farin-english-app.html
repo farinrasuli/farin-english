@@ -1656,6 +1656,39 @@
   .ap-sh{margin-bottom:14px;}
   .ap-sh h2{font-size:22px; letter-spacing:-.01em; margin-top:4px;}
   .ap-card{background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:22px; padding:16px 18px; box-shadow:0 1px 2px rgba(26,20,16,.05), 0 10px 28px -14px rgba(26,20,16,.18);}
+  /* Admin › Marketing (2026-11-16): offers, packs, the WhatsApp message, phone lines. Source: Claude/tools/marketing/admin-marketing.css */
+  .mk-box .mk-bn{font-size:19px;}
+  .mk-head{border-top:4px solid var(--c, var(--fs-purple));}
+  .mk-head .ap-tiles{margin-top:6px;}
+  .mk-head .ap-tile b.mk-res{font-family:inherit; font-size:13px; font-weight:800; line-height:1.35;}
+  .mk-what{font-size:14px; font-weight:700; line-height:1.45; color:var(--ink); margin:8px 0 0;}
+  .mk-money{font-size:12.5px; font-weight:800; color:var(--fs-orange-ink); margin:6px 0 0; line-height:1.4;}
+  .ap-tag.mk-no{background:var(--bg-sunken); color:var(--ink-faint);}
+  .mk-msg{white-space:pre-wrap; overflow-wrap:anywhere; margin-top:12px; padding:12px 14px; border-radius:4px 18px 18px 18px; font-size:14px; line-height:1.5; color:var(--ink);
+    background:var(--bg-sunken); background:color-mix(in srgb, #25D366 14%, var(--bg-elevated)); border:1px solid color-mix(in srgb, #25D366 28%, transparent);}
+  .mk-msg[dir="rtl"]{border-radius:18px 4px 18px 18px; font-family:Vazirmatn, Tahoma, sans-serif;}
+  .mk-msg.sm{font-size:12.5px; padding:10px 12px; margin-top:6px;}
+  .mk-msg-a{display:flex; justify-content:flex-end; margin-top:6px;}
+  .mk-copy{color:var(--fs-purple-ink);}
+  .mk-lines{display:grid; gap:8px; margin:10px 0 4px;}
+  .mk-line{all:unset; box-sizing:border-box; cursor:pointer; display:flex; flex-direction:column; gap:3px; padding:10px 12px; border-radius:14px; border:1.5px solid var(--border); background:var(--bg-elevated); font-size:13px; line-height:1.4; color:var(--ink-soft);}
+  .mk-line b{color:var(--ink); font-size:13.5px;}
+  .mk-line.on{border-color:var(--fs-purple); background:color-mix(in srgb, var(--fs-purple) 8%, var(--bg-elevated));}
+  .mk-line:focus-visible{outline:2px solid var(--fs-purple); outline-offset:2px;}
+  .mk-plist .ap-kv b{white-space:nowrap;}
+  .mk-plist .mk-sum{border-bottom:0; font-weight:800;}
+  .mk-price{display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:10px; margin-top:4px;}
+  .mk-price label{display:flex; flex-direction:column; gap:5px; font-size:12px; font-weight:800; color:var(--ink-soft); min-width:0;}
+  .mk-btns{flex-direction:row; flex-wrap:wrap; align-items:center;}
+  .mk-btns .ap-cta{width:auto; padding:11px 18px; font-size:14px;}
+  .mk-cb{margin-top:12px;}
+  .mk-cb .ap-tag{margin-inline-end:6px;}
+  .mk-nl{font-size:13px; line-height:1.45; margin:6px 0 0; color:var(--ink-soft);}
+  .mk-nl b{color:var(--ink);}
+  .mk-rules{margin-top:18px;}
+  @media (max-width:440px){ .mk-price{grid-template-columns:1fr;} .mk-box .mk-bn{font-size:17px;} }
+  #mk-nt-reach .nt-big{display:flex; width:auto; aspect-ratio:auto; margin-top:0; border-radius:0;}   /* .nt-big is also the wide picture class */
+  /* /Admin › Marketing */
   .ap-empty{padding:28px 16px; text-align:center; color:var(--ink-faint); font-size:14px;}
   /* Home: To check */
   .ap-todo{display:flex; flex-direction:column; gap:10px;}
@@ -14274,6 +14307,10 @@ function renderPrivacyPolicy(){
             B("Küçük grup dersi teklifleri.")+" Senin seviyende ve hedefinde küçük bir grup dersini (4–6 kişi) dolduracak kadar öğrenci olduğunda Farin sana WhatsApp'tan bir teklif gönderebilir; bunu yalnızca haber ve fırsatlara onay verdiysen ya da o kursu kendin istediysen yapar. Mesajındaki bağlantı thefeschool.com'da senin için hazırlanmış bir sayfayı açar. Sayfa ilk adını, seviyeni ve hedefini, uygulamada seni zorladığını söylediğin konuyu, grubunun en sevdiği konuları ve kaç öğrencinin eşleştiğini gösterir. Bunları kendi bağlantısından okur; hiçbir şey kaydetmez, çerez ya da analiz aracı kullanmaz.",
             B("پیشنهاد کلاس‌های گروهی کوچک.")+" وقتی به اندازهٔ یک کلاس گروهی کوچک (۴ تا ۶ نفر) زبان‌آموز با سطح و هدف تو پیدا شود، فرین ممکن است در واتس‌اپ یک پیشنهاد برایت بفرستد؛ فقط اگر به اخبار و پیشنهادها «بله» گفته باشی یا خودت آن دوره را خواسته باشی. پیامش لینکی به صفحه‌ای در thefeschool.com دارد که برای تو ساخته شده است. این صفحه نام کوچکت، سطح و هدفت، چیزی که در اپ گفته‌ای برایت سخت است، موضوع‌های محبوب گروهت و تعداد زبان‌آموزهای هم‌گروه را نشان می‌دهد. صفحه این‌ها را از خود لینک می‌خواند، چیزی ذخیره نمی‌کند و از کوکی یا ابزار آمار استفاده نمی‌کند.",
             B("Ofertas de clases en grupo pequeño.")+" Cuando haya suficientes estudiantes con tu nivel y tu objetivo para llenar una clase en grupo pequeño (de 4 a 6 personas), Farin puede enviarte una oferta por WhatsApp, pero solo si dijiste que sí a las novedades y ofertas, o si pediste ese curso. Su mensaje enlaza una página en thefeschool.com hecha para ti. Muestra tu nombre, tu nivel y tu objetivo, lo que le dijiste a la app que te cuesta, los temas favoritos de tu grupo y cuántos estudiantes coinciden. La página lee estos datos de su propio enlace; no guarda nada y no usa cookies ni analítica."),
+          L(B("Offers picked for you.")+" When Farin sends you an offer on WhatsApp (only if you said yes to news and offers, or when it answers your own course request), he picks the course, pack or class from your level, your goals and how often you use the app, and the message uses your first name. The admin page notes which offers he sent you and whether you got that course afterwards. The note is saved with a scrambled version of your account code, never your name or number, so you don't get the same offer twice.",
+            B("Sana göre seçilen teklifler.")+" Farin sana WhatsApp'tan bir teklif gönderdiğinde (yalnızca haber ve fırsatlara onay verdiysen ya da kendi kurs talebine yanıt olarak), kursu, paketi ya da dersi seviyene, hedeflerine ve uygulamayı ne sıklıkla kullandığına göre seçer; mesajda adın geçer. Yönetici sayfası sana hangi teklifleri gönderdiğini ve sonrasında o kursu alıp almadığını not eder. Bu not adınla ya da numaranla değil, hesap kodundan türetilen tek yönlü bir kimlikle saklanır; böylece aynı teklif sana iki kez gelmez.",
+            B("پیشنهادهایی که برای تو انتخاب می‌شوند.")+" وقتی فرین در واتس‌اپ پیشنهادی برایت می‌فرستد (فقط اگر با اخبار و پیشنهادها موافقت کرده باشی، یا وقتی جواب درخواست خودت برای یک دوره است)، دوره، بسته یا کلاس را بر اساس سطحت، هدف‌هایت و اینکه چقدر از اپ استفاده می‌کنی انتخاب می‌کند و پیامش با اسم کوچکت شروع می‌شود. صفحهٔ مدیریت یادداشت می‌کند کدام پیشنهادها را برایت فرستاده و آیا بعدش آن دوره را گرفته‌ای یا نه. این یادداشت با نسخهٔ درهم‌شدهٔ کد حسابت ذخیره می‌شود، نه با اسم یا شماره‌ات، تا یک پیشنهاد دو بار برایت فرستاده نشود.",
+            B("Ofertas elegidas para ti.")+" Cuando Farin te envía una oferta por WhatsApp (solo si dijiste que sí a las novedades y ofertas, o cuando responde a tu propia solicitud de un curso), elige el curso, el paquete o la clase según tu nivel, tus objetivos y la frecuencia con la que usas la app, y el mensaje lleva tu nombre. La página de administración anota qué ofertas te envió y si después conseguiste ese curso. La nota se guarda con una versión codificada de tu código de cuenta, nunca con tu nombre ni tu número, para que no recibas la misma oferta dos veces."),
           L(B("Where.")+" On your device, in your account's backup in Google Firebase (Firestore) and in a contact list in the same database, with your name, level, goal, recovery code, the app's language and the date. It is also attached to your chats and course requests in Messages"+(ielts ? ", to IELTS writing you send for review" : "")+" and to the record of any course password you get, so Farin knows who he is talking to.",
             B("Nerede.")+" Cihazında, hesabının Google Firebase (Firestore) yedeğinde ve aynı veritabanındaki bir iletişim listesinde; adın, seviyen, hedefin, kurtarma kodun, uygulama dili ve tarihle birlikte. Farin kiminle konuştuğunu bilsin diye Mesajlar'daki sohbetlerine ve kurs taleplerine"+(ielts ? ", incelemeye gönderdiğin IELTS yazılarına" : "")+" ve aldığın kurs şifresinin kaydına da eklenir.",
             B("کجا.")+" روی دستگاهت، در پشتیبان حسابت در Google Firebase (Firestore) و در یک فهرست تماس در همان پایگاه داده، همراه با اسم، سطح، هدف، کد بازیابی، زبان اپ و تاریخ. به گفتگوها و درخواست‌های دوره‌ات در پیام‌ها"+(ielts ? "، به نوشته‌های آیلتسی که برای بررسی می‌فرستی" : "")+" و به سابقهٔ هر رمز دوره‌ای که می‌گیری هم اضافه می‌شود تا فرین بداند با چه کسی حرف می‌زند.",
@@ -16416,13 +16453,24 @@ function notifNewsFits(b){
   if(f.course === 'has' && !owns) return false;
   if(f.course === 'none' && owns) return false;
   if(f.offer && !notifPromoOn() && p.promoOk !== true) return false;   // offers reach everyone unless turned off (2026-11-16)
+  if(f.goals && f.goals.length && !notifGoals().some(g=>f.goals.indexOf(g) !== -1)) return false;   // Marketing offers aimed at goals (2026-11-16)
+  if(f.nck && notifOwned().indexOf(f.nck) !== -1) return false;   // ... never to someone who has that course
   return true;
+}
+// fe-notify gets nothing about the learner: v=2 only says this app checks goals / courses itself and fills {name} (Marketing 2026-11-16).
+function notifNewsWho(){ return '&v=2'; }
+// {name} in an announcement: the learner's first name, or taken out cleanly ("{name}, imagine…" -> "Imagine…", "Hi {name}!" -> "Hi!").
+function notifNewsName(b){
+  const n = String((state.profile && state.profile.name) || '').trim().split(/\s+/)[0] || '';
+  const f = s=>{ s = String(s || ''); if(s.indexOf('{name}') === -1) return s; if(n) return s.split('{name}').join(n);
+    return s.replace(/\{name\}\s*[,،]\s*/g, '').replace(/\s*[,،]?\s*\{name\}/g, '').replace(/\s{2,}/g, ' ').trim().replace(/^\p{Ll}/u, c=>c.toUpperCase()); };
+  return Object.assign({}, b, {title:f(b.title), body:f(b.body)});
 }
 function notifNewsLoad(force){
   const now = Date.now();
   try{ const c = JSON.parse(localStorage.getItem('farinNews') || 'null'); if(c && c.lang === LANG && c.app === LOGIN_APP){ notifNews = c.list; if(!force && now - c.at < 3600000) return Promise.resolve(notifNews); } }catch(e){}
-  return fetch(NOTIF_URL + '/news?lang=' + encodeURIComponent(LANG) + '&app=' + LOGIN_APP).then(r=>r.json()).then(j=>{
-    notifNews = (j && Array.isArray(j.news) ? j.news : []).filter(notifNewsFits);
+  return fetch(NOTIF_URL + '/news?lang=' + encodeURIComponent(LANG) + '&app=' + LOGIN_APP + notifNewsWho()).then(r=>r.json()).then(j=>{
+    notifNews = (j && Array.isArray(j.news) ? j.news : []).filter(notifNewsFits).map(notifNewsName);
     try{ localStorage.setItem('farinNews', JSON.stringify({at:now, lang:LANG, app:LOGIN_APP, list:notifNews})); }catch(e){}
     return notifNews;
   }).catch(()=>notifNews);
@@ -40008,6 +40056,7 @@ const ADMIN_SEEN_DOC = 'admin-seen';
 const ADMIN_SECTIONS = [
   {key:'inbox', title:'Inbox', eb:'Messages', icon:'chat', c:'#7C5CFC', sub:'Questions and course requests learners send in the app.'},
   {key:'notify', title:'Notifications', eb:'Phones', icon:'bell', c:'#FF7A59', sub:'Send news to learners\' phones, and the automatic reminders that bring them back.'},
+  {key:'marketing', title:'Marketing', eb:'Offers', icon:'megaphone', c:'#F25F7A', sub:'Offers made from your learners: who fits which course, pack or class, their own WhatsApp message and the phone notification, and what sold.'},
   {key:'users', title:'Users', eb:'Learners', icon:'users', c:'#7C93FF', sub:'Everyone who uses the app, one row per learner. Tap a name to open the profile.'},
   {key:'insights', title:'Insights', eb:'Analysis', icon:'chart', c:'#F07A5A', sub:'Your learners in boxes: levels, goals, who comes most, course leads and more.'},
   {key:'classes', title:'Group classes', eb:'Classes of 4–6', icon:'mic', c:'#7C5CFC', sub:'Classes that make themselves when learners fit. Tap a class to open it: who is in it, their answers, the offer page and Start.'},
@@ -40112,6 +40161,7 @@ function adminTodo(){
     const c = adminContacts.filter(x=>Number(x.createdAt) > adminSeenAt('contacts'));
     add('contacts', c.length, 'New contact', 'New contacts', 'Since you last opened Contacts · ' + names(c.map(x=>x.name || '—')), '', false, adminTodoFrom(c.map(x=>adminContactSourceLabel(adminContactDocSource(x)))));
   }
+  if(typeof adminMkTodo === 'function') adminMkTodo(add);   // Marketing: follow-ups due
   return out;
 }
 function adminTodoCount(todo, sec){ return (todo[sec] || []).reduce((n, t)=>n + t.n, 0); }
@@ -40131,6 +40181,7 @@ function adminGo(key, filter){
   if(key === 'classes'){ adminInsCell = null; adminInsList = null; adminClassesMaybeSync(); adminClassView = filter && adminClasses && adminClasses.classes.some(c=>c.id === filter) ? filter : null; adminClassesMarkSeen(); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'access'){ if(filter) adminAccessFilter = filter; adminAccessEdit = null; if(adminAccessList === null && !adminAccessLoading) adminAccessLoad(); }
   if(key === 'students'){ if(adminStudents === null && !adminStudentsLoading) loadAdminStudents(); }
+  if(key === 'marketing'){ adminMkView = filter || null; adminMkFilter = filter === 'followup' ? 'todo' : 'ok'; adminMkLang = ''; adminMkNote = ''; adminMkEnsure(); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'contacts') adminMarkSeen('contacts');
   renderAdminPage();
   window.scrollTo(0, 0);
@@ -40175,6 +40226,7 @@ function renderAdminNav(todo){
 }
 // The one line under each box's name.
 function adminBoxSub(key){
+  if(key === 'marketing') return adminMkBoxSub();
   const wait = v=>v === null ? 'Loading…' : '';
   const live = (adminPeople || []).filter(p=>!p.hidden), now = Date.now();
   if(key === 'inbox'){ if(adminChatsError && !adminChats) return 'Could not load'; if(!adminChats) return wait(null); const n = adminChatTodoList().length; return (n ? n + ' to answer' : 'All answered') + ' · ' + adminChats.length + ' chat' + (adminChats.length === 1 ? '' : 's'); }
@@ -40241,7 +40293,7 @@ function renderAdminHome(todo){
 }
 function renderAdminSectionPage(s, todo){
   const inner = ({inbox:renderAdminInboxTab, users:renderAdminUsersTab, waitlist:renderAdminWaitlistTab, reviews:renderAdminReviewsTab,
-    access:renderAdminAccessTab, insights:renderAdminInsightsTab, classes:renderAdminClassesTab, students:renderAdminStudentsTab, contacts:renderAdminContactsTab, notify:renderAdminNotifyTab})[s.key]();
+    access:renderAdminAccessTab, insights:renderAdminInsightsTab, classes:renderAdminClassesTab, students:renderAdminStudentsTab, contacts:renderAdminContactsTab, notify:renderAdminNotifyTab, marketing:renderAdminMarketingTab})[s.key]();
   // A chat, a learner's profile, a group class or a student's panel has its own header and back button.
   const deep = (s.key === 'inbox' && adminChatOpen) || (s.key === 'users' && adminUserOpen) || (s.key === 'classes' && adminClassView) || (s.key === 'students' && adminEditingStudent);
   const others = ADMIN_SECTIONS.filter(x=>x.key !== s.key).reduce((n, x)=>n + adminTodoCount(todo, x.key), 0);
@@ -40265,6 +40317,683 @@ function renderAdminPage(){
   root.innerHTML = html;
   bindAdminActions(root);
 }
+/* ============================= ADMIN: MARKETING (Farin 2026-11-16) =============================
+   Farin: "design a marketing section on admin that based on the students and packs and what ever we have designs packs or things to offer.
+   and it includes the notif messaging copies and offers, seperate packs, or premium course promotions."
+   Source: Claude/tools/marketing/admin-marketing.js (+ .css), put into the app by patch-marketing.mjs. Change it there, then re-run the patch.
+   - The offers are made from the learners themselves (adminPeople + adminPersonLinks); nothing is typed in by hand:
+       followup     = asked for a course (waiting-list row marked messaged, or an answered Inbox course request) 3+ days ago, no password yet;
+       course-<id>  = each learner's ONE best next course: their goals' courses (NOTIF_PROMO_BY_GOAL, main goal first), B1 and up (every
+                      course starts at B1), seen in the last 60 days, not owned, not asked for (those are follow-ups);
+       pack-<id>    = designed packs (ADMIN_MK_PACKS) for learners who own none of the pack's courses, one pack per learner (best score);
+                      the All-access pass (the ALL- password) is for active B1+ learners with at most one course;
+       live         = classes with Farin for learners who come often: TR/EN 1-to-1 in TL, Persian 1-4 people in toman, 4/8/12 a month
+                      and the one real discount (3 months of 8 or 12 a month in one payment = -20%, business/farin-monetization/08);
+       renew        = course access that ends within 30 days (a message about their own course: no offers consent needed).
+   - Consent (Turkish law 6563; the privacy policy's "News, discounts and offers on WhatsApp"): WhatsApp offers only to promoOk === true;
+     follow-ups answer the learner's own request; phone offers always go with offer:true, so fe-notify skips learners who turned offers off (Farin 2026-11-16: offers go to everyone with notifications on, with an off switch in Settings).
+   - Prices: TL list = WAITLIST_COURSE_INFO, toman list = ADMIN_MK_TOMAN (08-final-prices v4 + Sales 10-29). Rule since 2026-10-29: courses
+     sell at list price, no bundle discount. A pack price is Farin's own number, set on the pack page; without one the message names no price.
+   - Saved in progress/admin-marketing (whole doc, written by set): {kind:'admin', sent:{offerId:{key:time}}, packs:{packId:{tl, tm}},
+     bcs:[{o, id, lang, at, t}]}. Keys are account hashes ("a…") or a hash of number + course ("r…"), never names or numbers.
+   - Phone notifications: a small sender on fe-notify /bc/start with {lang, app, levels, goals, nck, offer:true} (Worker 1.2.0, which fills
+     "{name}" per phone). Lines: the Worker's course spotlight lines (/copy promo, approved 2026-11-16) and ADMIN_MK_NT for packs and classes. */
+const ADMIN_MK_DOC = 'admin-marketing';
+const ADMIN_MK_TOMAN = {hr:4990000, ielts:9990000, interview:2990000, marketing:3490000, sales:3800000, 'ai-internet':3800000, business:6990000};
+const ADMIN_MK_CHAR = {ielts:'graduate', interview:'climber', hr:'climber', business:'climber', sales:'climber', marketing:'explorer', 'ai-internet':'explorer'};
+const ADMIN_MK_SEEN_DAYS = 60;
+// What each course gives, one line, in the learner's language (true to each course's promise text).
+const ADMIN_MK_WHAT = {
+  hr:{en:'32 real HR tasks in English: interviews, job ads, feedback talks and formal letters.', tr:'İngilizce 32 gerçek İK görevi: mülakat, iş ilanı, geri bildirim görüşmesi ve resmî yazışmalar.', fa:'۳۲ کار واقعی منابع انسانی به انگلیسی: مصاحبه، آگهی استخدام، جلسه‌ی بازخورد و نامه‌ی رسمی.'},
+  ielts:{en:'10 full exams in the real format, and I review your writing myself.', tr:'Gerçek formatta 10 tam sınav; yazılarını da ben okuyup değerlendiriyorum.', fa:'۱۰ آزمون کامل دقیقاً مثل آزمون واقعی، و رایتینگ‌هات رو خودم تصحیح می‌کنم.'},
+  interview:{en:'your answers and your stories, ready in English before the day: introducing yourself, strengths, salary talk.', tr:'cevapların ve hikâyelerin, o günden önce İngilizce hazır: kendini tanıtmak, güçlü yönler, maaş konuşması.', fa:'جواب‌ها و تجربه‌هات رو قبل از روز مصاحبه به انگلیسی آماده می‌کنی: معرفی خودت، نقاط قوت، صحبت درباره‌ی حقوق.'},
+  marketing:{en:'brand voice, product copy and social posts in English, and fixing AI drafts.', tr:'İngilizce marka sesi, ürün metni ve sosyal medya; bir de yapay zekâ taslaklarını düzeltmek.', fa:'صدای برند، متن محصول و پست شبکه‌های اجتماعی به انگلیسی، و درست‌کردن متن‌های هوش مصنوعی.'},
+  sales:{en:'pitches, quotes, objections and negotiation in English, plus a sales kit for work.', tr:'İngilizce tanıtım, teklif, itiraz ve pazarlık; üstüne işte kullanacağın bir satış dosyası.', fa:'معرفی محصول، پیشنهاد قیمت، جواب اعتراض‌ها و مذاکره به انگلیسی، به‌علاوه‌ی یه بسته‌ی فروش برای کارت.'},
+  'ai-internet':{en:'how AI tools work, clear prompts in English, and checking what they give you.', tr:'yapay zekâ araçları nasıl çalışır, İngilizce net prompt yazmak ve sonucu kontrol etmek.', fa:'ابزارهای هوش مصنوعی چطور کار می‌کنن، پرامپت روشن به انگلیسی، و سنجیدن جوابی که بهت می‌دن.'},
+  business:{en:'meetings, emails, presenting and negotiating, from your first introduction to board level.', tr:'toplantı, e-posta, sunum ve pazarlık; ilk tanışmadan yönetim kurulu seviyesine kadar.', fa:'جلسه، ایمیل، ارائه و مذاکره؛ از اولین معرفی تا سطح هیئت‌مدیره.'}
+};
+// Their own reason for learning (the main goal), as it sits in the message's first lines.
+const ADMIN_MK_GOAL = {
+  career:{en:'for your work', tr:'İşin için', fa:'برای کارت'}, exam:{en:'for your exam', tr:'Sınavın için', fa:'برای آزمونت'},
+  immigration:{en:'to move abroad', tr:'Yurt dışına taşınmak için', fa:'برای مهاجرتت'}, travel:{en:'for your travels', tr:'Seyahatlerin için', fa:'برای سفرهات'},
+  everyday:{en:'for everyday life', tr:'Günlük hayatın için', fa:'برای زندگی روزمره'}
+};
+/* The packs: courses that belong together, each for the learners whose goals fit. id = the pack, fit(p) = goals fit, why = the one line that
+   says why these go together. No price here: Farin sets one on the pack page (rule 2026-10-29: no bundle discount unless he decides). */
+const ADMIN_MK_PACKS = [
+  {id:'career', courses:['interview', 'business'], ch:'climber', c:'#7C5CFC', who:'Career goal, B1 and up: get the job, then do it in English.',
+    t:{en:'Career Pack', tr:'Kariyer Paketi', fa:'بسته‌ی مسیر شغلی'},
+    why:{en:'One helps you get the job, the other helps you shine in it.', tr:'Biri işi almana, diğeri işte parlamana yardım ediyor.', fa:'یکی کمکت می‌کنه کار رو بگیری، اون یکی کمکت می‌کنه توی کارت بدرخشی.'},
+    fit:g=>g.indexOf('career') >= 0},
+  {id:'abroad', courses:['ielts', 'interview'], ch:'traveller', c:'#4FC3E8', who:'Moving abroad (or exam + career), B1 and up: the score, then the job there.',
+    t:{en:'Moving Abroad Pack', tr:'Yurt Dışı Paketi', fa:'بسته‌ی مهاجرت'},
+    why:{en:'IELTS for the score you need, Job Interview English for the job you want there.', tr:'IELTS ihtiyacın olan puan için, mülakat kursu da orada istediğin iş için.', fa:'آیلتس برای نمره‌ای که لازم داری، مصاحبه‌ی شغلی برای کاری که اونجا می‌خوای.'},
+    fit:g=>g.indexOf('immigration') >= 0 || (g.indexOf('exam') >= 0 && g.indexOf('career') >= 0)},
+  {id:'trade', courses:['sales', 'marketing'], ch:'climber', c:'#FFA53D', who:'Career goal, people who sell or write for a brand: win the client, close the deal.',
+    t:{en:'Sales & Trade Pack', tr:'Satış ve Ticaret Paketi', fa:'بسته‌ی فروش و بازرگانی'},
+    why:{en:'Your writing wins the client, your negotiating closes the deal.', tr:'Yazdıklarınla müşteriyi kazanırsın, pazarlıkla anlaşmayı kapatırsın.', fa:'با متن‌هات مشتری رو جذب می‌کنی و با مذاکره قرارداد رو می‌بندی.'},
+    fit:g=>g.indexOf('career') >= 0},
+  {id:'digital', courses:['marketing', 'ai-internet'], ch:'explorer', c:'#FF8FB3', who:'Career or everyday goal: English for online work and for AI.',
+    t:{en:'Digital Work Pack', tr:'Dijital İş Paketi', fa:'بسته‌ی کار آنلاین'},
+    why:{en:'You write for the internet and get better answers from AI, all in English.', tr:'İnternet için yazarsın, yapay zekâdan daha iyi cevap alırsın; hepsi İngilizce.', fa:'برای اینترنت می‌نویسی و از هوش مصنوعی جواب بهتر می‌گیری، همه به انگلیسی.'},
+    fit:g=>g.indexOf('career') >= 0 || g.indexOf('everyday') >= 0},
+  {id:'all', courses:['*'], ch:'explorer', c:'#5FC9B8', who:'Learners who come often, B1 and up, with at most one course: every course with one code.',
+    t:{en:'All-access pass', tr:'Tüm Kurslar Geçişi', fa:'دسترسی کامل'},
+    why:{en:'Every premium course, and every one I add later, with one code for 12 months.', tr:'Tüm premium kurslar ve sonradan eklenecekler, tek kodla, 12 ay boyunca.', fa:'همه‌ی دوره‌های ویژه، و هر دوره‌ای که بعداً اضافه می‌شه، با یه کد و برای ۱۲ ماه.'},
+    fit:()=>true}
+];
+// Phone lines for packs and classes ({name} is filled per phone by fe-notify). Course offers use the Worker's own spotlight lines.
+const ADMIN_MK_NT = {
+  'pack-career':{en:[{t:'{name}, get the job. Then own it.', b:'Job Interview English + Complete Business English: one path from the interview to your first meetings.'}],
+    tr:[{t:'{name}, önce işi al, sonra yönet', b:'İngilizce İş Mülakatı + Kapsamlı İş İngilizcesi: mülakattan ilk toplantılarına tek bir yol.'}],
+    fa:[{t:'{name}، اول کار رو بگیر، بعد بدرخش', b:'مصاحبه‌ی شغلی + جامع انگلیسی تجاری: یه مسیر کامل از روز مصاحبه تا اولین جلسه‌هات.'}]},
+  'pack-abroad':{en:[{t:'{name}, your move abroad, step by step', b:'IELTS for the score, Job Interview English for the job. Both are in your app, and the first lessons are free.'}],
+    tr:[{t:'{name}, yurt dışı planın adım adım', b:'Puan için IELTS, iş için İngilizce İş Mülakatı. İkisi de uygulamanda, ilk dersleri ücretsiz.'}],
+    fa:[{t:'{name}، مهاجرتت قدم‌به‌قدم', b:'آیلتس برای نمره، مصاحبه‌ی شغلی برای کار. هر دو توی اپته و درس اولشون رایگانه.'}]},
+  'pack-trade':{en:[{t:'{name}, win the client, then close the deal', b:'Copywriting & Content + Sales & Trade English: from the first message to the signed deal.'}],
+    tr:[{t:'{name}, müşteriyi kazan, anlaşmayı kapat', b:'Metin Yazarlığı + Satış ve Dış Ticaret İngilizcesi: ilk mesajdan imzalı anlaşmaya.'}],
+    fa:[{t:'{name}، مشتری رو جذب کن، قرارداد رو ببند', b:'کپی‌رایتینگ + فروش و بازرگانی: از اولین پیام تا قرارداد امضاشده، به انگلیسی.'}]},
+  'pack-digital':{en:[{t:'{name}, English for the work you do online', b:'Copywriting & Content + English for AI: write for the internet and get better answers from AI.'}],
+    tr:[{t:'{name}, internette yaptığın işler için İngilizce', b:'Metin Yazarlığı + Yapay Zekâ İngilizcesi: internet için yaz, yapay zekâdan daha iyi cevap al.'}],
+    fa:[{t:'{name}، انگلیسی برای کارهایی که آنلاین انجام می‌دی', b:'کپی‌رایتینگ + انگلیسی برای هوش مصنوعی: برای اینترنت بنویس و از هوش مصنوعی جواب بهتر بگیر.'}]},
+  'pack-all':{en:[{t:'{name}, every course. One code.', b:'All premium courses, and every new one, for 12 months. Tap to write to me.'}],
+    tr:[{t:'{name}, tüm kurslar tek kodla', b:'Tüm premium kurslar ve eklenecek yenileri, 12 ay boyunca. Bana yazmak için dokun.'}],
+    fa:[{t:'{name}، همه‌ی دوره‌ها با یه کد', b:'همه‌ی دوره‌های ویژه و هر دوره‌ی جدیدی که میاد، برای ۱۲ ماه. برای پیام دادن بهم بزن.'}]},
+  live:{en:[{t:'{name}, want to practise with me, live?', b:'Online classes built around your goal. After you sign up, the first session is free: your level, your goal, your plan.'}],
+    tr:[{t:'{name}, benimle canlı çalışmak ister misin?', b:'Tamamen hedefine göre online dersler. Kayıttan sonra ilk seans ücretsiz: seviyen, hedefin, sana özel planın.'}],
+    fa:[{t:'{name}، دوست داری با خودم کلاس داشته باشی؟', b:'کلاس آنلاین دقیقاً بر اساس هدفت. بعد از ثبت‌نام جلسه‌ی اول رایگانه: سطحت، هدفت و برنامه‌ی مخصوص خودت.'}]}
+};
+const ADMIN_MK_LANGS = {tr:'Turkish', fa:'Persian', en:'English'};
+let adminMk = null;            // the saved doc, or null while loading
+let adminMkLoading = false, adminMkError = '', adminMkView = null, adminMkFilter = 'ok', adminMkLang = '', adminMkNote = '', adminMkCopyLines = null, adminMkCache = null;
+let adminMkNt = {o:'', lang:'', i:0, t:'', b:'', phones:null, countKey:'', confirm:false, sending:null, note:''};
+const adminMkClip = [];
+if(typeof ICONS === 'object' && !ICONS.megaphone) ICONS.megaphone = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.2v3.6c0 .6.4 1 1 1h2.3l7.7 4.4V4.8L6.8 9.2H4.5c-.6 0-1 .4-1 1z"/><path d="M17.5 9a4.2 4.2 0 0 1 0 6"/><path d="M8 15l1.2 4.5"/></svg>';
+
+/* ---------- loading and saving ---------- */
+function adminMkEnsure(){
+  if(adminMk || adminMkLoading || !firebase.auth().currentUser) return;
+  adminMkLoading = true;
+  firebase.firestore().collection('progress').doc(ADMIN_MK_DOC).get().then(doc=>{
+    const d = (doc.exists && doc.data()) || {}, obj = v=>v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+    adminMk = {sent:obj(d.sent), packs:obj(d.packs), bcs:Array.isArray(d.bcs) ? d.bcs : []};
+  }).catch(err=>{ adminMk = {sent:{}, packs:{}, bcs:[]}; adminMkError = 'Could not load your marketing notes: ' + (err.message || err); })
+    .then(()=>{ adminMkLoading = false; adminMkCache = null; renderAdminPage(); });
+  if(!adminMkCopyLines && typeof NOTIF_URL === 'string') fetch(NOTIF_URL + '/copy').then(r=>r.json()).then(j=>{ adminMkCopyLines = j && j.promo ? j.promo : {}; if(adminTab === 'marketing') renderAdminPage(); }).catch(()=>{ adminMkCopyLines = {}; });
+}
+function adminMkSave(){
+  if(!adminMk) return Promise.resolve();
+  adminMkCache = null;
+  return firebase.firestore().collection('progress').doc(ADMIN_MK_DOC).set({kind:'admin', sent:adminMk.sent, packs:adminMk.packs, bcs:adminMk.bcs.slice(-60), savedAt:Date.now()})
+    .then(()=>{ adminMkError = ''; }).catch(err=>{ adminMkError = 'Not saved: ' + (err.message || err); renderAdminPage(); });
+}
+function adminMkHash(s){ let h = 2166136261; s = String(s); for(let i = 0; i < s.length; i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
+
+/* ---------- small helpers ---------- */
+function adminMkLive(){ return COURSES.filter(c=>!c.hidden && ['later', 'soon', 'hidden'].indexOf(c.status) === -1 && WAITLIST_COURSE_INFO[c.id]); }
+function adminMkCourse(id){ return COURSES.find(c=>c.id === id) || null; }
+function adminMkCourseName(id, lang){ if(id === COURSE_ACCESS_ALL) return ({en:'all premium courses', tr:'tüm premium kurslar', fa:'همه‌ی دوره‌های ویژه'})[lang] || 'all premium courses'; const c = adminMkCourse(id); return c ? (c.title[lang] || c.title.en) : ((WAITLIST_COURSE_INFO[id] || {}).nameEn || id); }
+function adminMkTl(id){ const i = WAITLIST_COURSE_INFO[id]; return i ? Number(String(i.tl).replace(/\D/g, '')) || 0 : 0; }
+function adminMkFaNum(n){ return Number(n).toLocaleString('fa-IR'); }
+function adminMkTlText(n, lang){ return '₺' + Number(n).toLocaleString(lang === 'tr' ? 'tr-TR' : 'en-US'); }
+function adminMkUrl(id, lang){ const i = WAITLIST_COURSE_INFO[id]; return i ? WAITLIST_SITE + i[lang === 'fa' || lang === 'tr' ? lang : 'en'] : WAITLIST_SITE + '/'; }
+function adminMkFirst(name){ return String(name || '').trim().split(/\s+/)[0] || ''; }
+function adminMkDays(n){ return n > 1 ? n : 0; }
+// The message language: the phone's country first (+90 Turkish, +98 Persian), else the app language (Farin's waiting-list rule, 2026-11-12).
+function adminMkLangOf(phone, ui){ return adminWaitlistMessageLang({phone:phone || '', lang:ui || ''}); }
+function adminMkPersonLang(p){ return adminMkLangOf(adminInsPhone(p), adminInsLang(p)); }
+function adminMkOwns(p, id){ return adminInsLinks(p).access.some(d=>adminAccessStatus(d) === 'active' && (d.course === COURSE_ACCESS_ALL || d.course === id)); }
+function adminMkOwnedN(p){ const L = adminInsLinks(p).access.filter(d=>adminAccessStatus(d) === 'active'); return L.some(d=>d.course === COURSE_ACCESS_ALL) ? 99 : L.map(d=>d.course).filter((c, i, a)=>a.indexOf(c) === i).length; }
+// Courses the learner asked for: waiting list rows (same number) and Inbox course chats.
+function adminMkAsked(p){
+  const L = adminInsLinks(p), out = [];
+  (L.wait || []).forEach(r=>{ if(r.course) out.push(r.course); });
+  (L.chats || []).forEach(d=>{ if(d.topic && d.topic.t === 'course' && d.topic.c) out.push(d.topic.c); });
+  return out.filter((x, i, a)=>a.indexOf(x) === i);
+}
+function adminMkKey(p){ const u = (p.main && p.main.hash) ? p.main : p.accounts.find(x=>x.hash); return u ? 'a' + u.hash : 'k' + adminMkHash(p.key); }
+function adminMkSentAt(o, key){ const m = adminMk && adminMk.sent[o] || {}; return Number(m[key]) || 0; }
+function adminMkBaseLang(list){ const n = {tr:0, fa:0, en:0}; list.forEach(x=>{ if(n[x.lang] != null) n[x.lang]++; }); return Object.keys(n).sort((a, b)=>n[b] - n[a])[0]; }
+
+/* ---------- the messages (Farin's voice: one learner, first person, their own reason first, true claims only) ---------- */
+function adminMkHello(n, lang){ return lang === 'fa' ? (n ? 'سلام ' + n + ' جان! 🌸' : 'سلام! 🌸') + ' فرینم، از FEschool‏.' : lang === 'tr' ? (n ? 'Merhaba ' + n + '! 🌸' : 'Merhaba! 🌸') + ' Ben FEschool\'dan Farin.' : (n ? 'Hi ' + n + '! 🌸' : 'Hi! 🌸') + ' It\'s Farin from FEschool.'; }
+// "I know you're learning English for your work, and you're at B1 now." + "You've opened the app on 12 days" (real numbers only).
+function adminMkMoment(x, lang){
+  const g = ADMIN_MK_GOAL[x.goal], lv = x.level, d = adminMkDays(x.days);
+  if(lang === 'fa') return [(g ? 'می‌دونم ' + g.fa + ' داری انگلیسی می‌خونی' : 'می‌دونم داری انگلیسی می‌خونی') + (lv ? ' و الان به سطح ⁨' + lv + '⁩ رسیدی.' : '.'), d ? 'تا الان ' + adminMkFaNum(d) + ' روز به اپ سر زدی، دمت گرم! 👏' : ''].filter(Boolean).join(' ');
+  if(lang === 'tr') return [(g ? g.tr + ' İngilizce çalıştığını biliyorum' : 'İngilizce çalıştığını biliyorum') + (lv ? ', seviyen de artık ' + lv + '.' : '.'), d ? 'Uygulamaya şimdiye kadar ' + d + ' farklı günde girdin, helal olsun! 👏' : ''].filter(Boolean).join(' ');
+  return [(g ? 'I know you\'re learning English ' + g.en : 'I know you\'re learning English') + (lv ? ', and you\'re at ' + lv + ' now.' : '.'), d ? 'You\'ve opened the app on ' + d + ' different days so far, well done! 👏' : ''].filter(Boolean).join(' ');
+}
+function adminMkCourseText(x, cid, lang){
+  const name = adminMkCourseName(cid, lang), what = (ADMIN_MK_WHAT[cid] || {})[lang] || '', url = adminMkUrl(cid, lang), tl = adminMkTl(cid);
+  if(lang === 'fa') return [adminMkHello(x.first, 'fa'), adminMkMoment(x, 'fa'), 'فکر می‌کنم قدم بعدیت دوره‌ی «' + name + '» باشه: ' + what,
+    'درس اولش رایگانه و همین الان توی اپ بازه. جزئیات و قیمت هم اینجاست 👇\n' + url, 'هر سؤالی داشتی همین‌جا بپرس 💜'].join('\n\n');
+  if(lang === 'tr') return [adminMkHello(x.first, 'tr'), adminMkMoment(x, 'tr'), 'Bence sıradaki adımın “' + name + '” kursu: ' + what,
+    'İlk dersi ücretsiz ve şu an uygulamanda açık. Tüm detaylar burada 👇\n' + url, tl ? '💳 ' + adminMkTlText(tl, 'tr') + ', tek ödeme, 12 ay erişim.' : '', 'Aklına takılan bir şey olursa buradan yaz 💜'].filter(Boolean).join('\n\n');
+  return [adminMkHello(x.first, 'en'), adminMkMoment(x, 'en'), 'I think your next step is ' + name + ': ' + what,
+    'The first lesson is free and already open in your app. Everything about it is here 👇\n' + url, tl ? '💳 ' + adminMkTlText(tl, 'en') + ', one payment, 12 months of access.' : '', 'Any questions, just ask me here 💜'].filter(Boolean).join('\n\n');
+}
+function adminMkPackPrice(pk){ const v = adminMk && adminMk.packs[pk.id] || {}; return {tl:Number(v.tl) || 0, tm:Number(v.tm) || 0}; }
+function adminMkPackSum(pk){ const ids = pk.courses[0] === '*' ? adminMkLive().map(c=>c.id) : pk.courses; return {tl:ids.reduce((n, id)=>n + adminMkTl(id), 0), tm:ids.reduce((n, id)=>n + (ADMIN_MK_TOMAN[id] || 0), 0)}; }
+// A suggestion only (never used until Farin saves a price): about 15% under the sum, rounded down the way course prices are (…90).
+function adminMkPackSuggest(pk){ const s = adminMkPackSum(pk); return {tl:Math.max(0, Math.floor((s.tl * 0.85 - 90) / 100) * 100 + 90), tm:Math.max(2000000, Math.floor((s.tm * 0.85 - 90000) / 100000) * 100000 + 90000)}; }
+function adminMkPackText(x, pk, lang){
+  const all = pk.courses[0] === '*', ids = all ? adminMkLive().map(c=>c.id) : pk.courses, pr = adminMkPackPrice(pk), sum = adminMkPackSum(pk);
+  const list = ids.map(id=>'• ' + adminMkCourseName(id, lang) + (all ? '' : ': ' + ((ADMIN_MK_WHAT[id] || {})[lang] || ''))).join('\n'), name = pk.t[lang] || pk.t.en;
+  if(lang === 'fa'){
+    const price = pr.tm ? '💳 ' + (all ? 'همه با هم' : 'هر دو با هم') + ': ' + adminMkFaNum(pr.tm) + ' تومان' + (sum.tm > pr.tm ? ' (جدا جدا ' + adminMkFaNum(sum.tm) + ' تومان)' : '') : '';
+    return [adminMkHello(x.first, 'fa'), adminMkMoment(x, 'fa'), 'برات یه مسیر کامل چیدم، «' + name + '»:\n' + list, pk.why.fa, price,
+      (all ? 'درس اول همه‌ی دوره‌ها رایگانه' : 'درس اول هر دو دوره رایگانه') + ' و همین الان توی اپ بازه. اگه دوست داری، جزئیات رو برات بفرستم؟ 💜'].filter(Boolean).join('\n\n');
+  }
+  if(lang === 'tr'){
+    const price = pr.tl ? '💳 ' + (all ? 'Hepsi birlikte' : 'İkisi birlikte') + ': ' + adminMkTlText(pr.tl, 'tr') + (sum.tl > pr.tl ? ' (ayrı ayrı ' + adminMkTlText(sum.tl, 'tr') + ')' : '') : '';
+    return [adminMkHello(x.first, 'tr'), adminMkMoment(x, 'tr'), 'Senin için bir yol hazırladım, “' + name + '”:\n' + list, pk.why.tr, price,
+      (all ? 'Her kursun ilk dersi ücretsiz' : 'İki kursun da ilk dersi ücretsiz') + ' ve şu an uygulamanda açık. İstersen detayları göndereyim mi? 💜'].filter(Boolean).join('\n\n');
+  }
+  const price = pr.tl ? '💳 ' + (all ? 'All together' : 'Both together') + ': ' + adminMkTlText(pr.tl, 'en') + (sum.tl > pr.tl ? ' (' + adminMkTlText(sum.tl, 'en') + ' separately)' : '') : '';
+  return [adminMkHello(x.first, 'en'), adminMkMoment(x, 'en'), 'I put a path together for you, the ' + name + ':\n' + list, pk.why.en, price,
+    (all ? 'The first lesson of every course is free' : 'The first lesson of both courses is free') + ' and already open in your app. Shall I send you the details? 💜'].filter(Boolean).join('\n\n');
+}
+function adminMkLiveText(x, lang){
+  const biz = x.liveKind === 'business', d = adminMkDays(x.days);
+  if(lang === 'fa') return [adminMkHello(x.first, 'fa'), (d ? 'تا الان ' + adminMkFaNum(d) + ' روز با اپ تمرین کردی و واقعاً داری پیشرفت می‌کنی 👏' : 'داری خوب پیش می‌ری 👏'),
+    'اگه دوست داری سریع‌تر جلو بری، کلاس آنلاین ' + (biz ? 'انگلیسی تجاری' : 'انگلیسی عمومی، کاملاً مخصوص خودت') + ' با خودم دارم: تنها، یا در گروه ۲ تا ۴ نفره که هزینه بینتون تقسیم می‌شه.',
+    'بعد از ثبت‌نام، جلسه‌ی اول رایگانه: سطحت رو می‌سنجیم، هدفت رو مشخص می‌کنیم و نقشه‌ی راه شخصیت رو می‌چینیم.',
+    'ماهی ۴، ۸ یا ۱۲ جلسه. اگه بسته‌ی ۸ یا ۱۲ جلسه‌ای رو برای ۳ ماه یکجا بگیری، ۲۰٪ تخفیف داری.', 'اگه بخوای، قیمت‌ها و ساعت‌های خالیم رو برات می‌فرستم 💜'].join('\n\n');
+  if(lang === 'tr') return [adminMkHello(x.first, 'tr'), (d ? 'Uygulamaya şimdiye kadar ' + d + ' farklı günde girdin, gerçekten ilerliyorsun 👏' : 'Çok güzel ilerliyorsun 👏'),
+    'Daha hızlı ilerlemek istersen benimle birebir online ders yapabiliriz: ' + (biz ? 'İş İngilizcesi' : 'tamamen sana göre genel İngilizce') + '.',
+    'Kayıttan sonraki ilk seans ücretsiz: seviyeni ölçüyoruz, hedefini netleştiriyoruz ve sana özel bir yol haritası çıkarıyoruz.',
+    'Ayda 4, 8 ya da 12 ders. 8 ya da 12 derslik paketi 3 ay için tek seferde alırsan %20 indirim var.', 'İstersen fiyatları ve boş saatlerimi göndereyim 💜'].join('\n\n');
+  return [adminMkHello(x.first, 'en'), (d ? 'You\'ve opened the app on ' + d + ' different days so far, and it shows 👏' : 'You\'re doing really well 👏'),
+    'If you\'d like to move faster, we can have 1-to-1 online classes together: ' + (biz ? 'Business English' : 'general English built around you') + '.',
+    'After you sign up, the first session is free: we check your level, set your goal and make your personal roadmap.',
+    '4, 8 or 12 classes a month. Take the 8 or 12 pack for 3 months in one payment and you get 20% off.', 'Shall I send you the prices and my free times? 💜'].join('\n\n');
+}
+function adminMkFollowText(x, lang){
+  const name = adminMkCourseName(x.course, lang), url = adminMkUrl(x.course, lang), long = Date.now() - (x.since || 0) > 10 * DAY_MS;
+  if(lang === 'fa') return [adminMkHello(x.first, 'fa'), (long ? 'چند وقت پیش' : 'چند روز پیش') + ' درباره‌ی دوره‌ی «' + name + '» بهم پیام داده بودی. خواستم ببینم فرصت کردی بهش نگاه کنی؟',
+    'اگه سؤالی برات مونده یا برای ثبت‌نام کمک می‌خوای، همین‌جا بگو، با هم حلش می‌کنیم 💜', 'لینک دوره دوباره اینجاست 👇\n' + url].join('\n\n');
+  if(lang === 'tr') return [adminMkHello(x.first, 'tr'), (long ? 'Bir süre önce' : 'Birkaç gün önce') + ' “' + name + '” kursu için bana yazmıştın. Bakma fırsatın oldu mu diye merak ettim.',
+    'Aklında bir soru kaldıysa ya da kayıtta yardım lazımsa buradan yaz, birlikte hallederiz 💜', 'Kursun bağlantısı yine burada 👇\n' + url].join('\n\n');
+  return [adminMkHello(x.first, 'en'), (long ? 'A while ago' : 'A few days ago') + ' you asked me about ' + name + '. I wanted to check: did you get a chance to look at it?',
+    'If a question is left, or you\'d like help signing up, just tell me here and we\'ll sort it out together 💜', 'Here\'s the course link again 👇\n' + url].join('\n\n');
+}
+function adminMkRenewText(x, lang){
+  const all = x.course === COURSE_ACCESS_ALL, name = adminMkCourseName(x.course, lang), date = new Date(x.ends).toLocaleDateString(lang === 'fa' ? 'fa-IR' : lang === 'tr' ? 'tr-TR' : 'en-GB', {day:'numeric', month:'long', year:'numeric'});
+  if(lang === 'fa') return [adminMkHello(x.first, 'fa'), 'یه یادآوری کوچیک: دسترسی‌ت به ' + (all ? name : 'دوره‌ی «' + name + '»') + ' تا ' + date + ' بازه.',
+    'خواستم زودتر بگم که وقت داشته باشی درس‌های باقی‌مونده رو تموم کنی 💪', 'اگه وقت بیشتری لازم داری، همین‌جا بهم بگو.'].join('\n\n');
+  if(lang === 'tr') return [adminMkHello(x.first, 'tr'), 'Küçük bir hatırlatma: ' + (all ? name : '“' + name + '” kursuna') + (all ? 'a' : '') + ' erişimin ' + date + ' tarihine kadar açık.',
+    'Kalan dersleri bitirmeye vaktin olsun diye şimdiden söylemek istedim 💪', 'Daha fazla zamana ihtiyacın olursa buradan yazman yeterli.'].join('\n\n');
+  return [adminMkHello(x.first, 'en'), 'A small reminder: your access to ' + (all ? name : name) + ' is open until ' + date + '.',
+    'I wanted to tell you early, so you have time to finish the lessons that are left 💪', 'If you need more time, just tell me here.'].join('\n\n');
+}
+function adminMkText(o, x, lang){
+  if(o.kind === 'course') return adminMkCourseText(x, o.course, lang);
+  if(o.kind === 'pack') return adminMkPackText(x, o.pack, lang);
+  if(o.kind === 'live') return adminMkLiveText(x, lang);
+  if(o.kind === 'followup') return adminMkFollowText(x, lang);
+  return adminMkRenewText(x, lang);
+}
+
+/* ---------- who fits what ---------- */
+// One target per learner (or per waiting-list number): what the messages need, plus the person for links, tags and the profile.
+function adminMkTarget(p){
+  const lv = adminInsLevel(p), ph = adminInsPhone(p);
+  return {p, key:adminMkKey(p), name:p.profile.name || '(no name)', first:adminMkFirst(p.profile.name), phone:ph, lang:adminMkPersonLang(p), level:lv, li:LEVELS.indexOf(lv),
+    goal:adminInsPrimary(p), goals:adminInsGoals(p), days:p.activity.days || 0, promo:!!(p.profile && p.profile.promoOk === true), seen:p.lastSeen || 0};
+}
+// Waiting-list rows marked messaged and answered Inbox course requests, 3+ days old, with no password for that course yet.
+function adminMkFollowups(){
+  if(!adminWaitlist && !adminChats) return [];
+  const now = Date.now(), out = {}, acc = (adminAccessList || []).filter(d=>adminAccessStatus(d) === 'active');
+  const bought = (phone, course, chat)=>{ const dg = adminWaitlistDigits(phone); return acc.some(d=>(d.course === course || d.course === COURSE_ACCESS_ALL) && ((chat && d.chat === chat) || (dg.length >= 6 && adminWaitlistDigits(d.phone) === dg))); };
+  const person = phone=>{ const dg = adminWaitlistDigits(phone); return dg.length >= 6 ? (adminPeople || []).find(p=>!p.hidden && adminWaitlistDigits(adminInsPhone(p)) === dg) || null : null; };
+  const put = (o)=>{ const k = 'r' + adminMkHash(adminWaitlistDigits(o.phone) + '|' + o.course); if(!out[k] || out[k].since < o.since) out[k] = Object.assign(o, {key:k}); };
+  adminWaitlistRows().forEach(r=>{
+    if(!r.messaged || !WAITLIST_COURSE_INFO[r.course]) return;
+    const at = Math.max(0, ...(adminWaitlist || []).filter(d=>r.ids.indexOf(d.id) >= 0).map(d=>Number(d.messagedAt) || 0)) || r.createdAt;
+    if(now - at < 3 * DAY_MS || bought(r.phone, r.course)) return;
+    const p = person(r.phone);
+    put({p, name:r.name || (p && p.profile.name) || '—', first:adminMkFirst(r.name || (p && p.profile.name)), phone:r.phone, lang:adminMkLangOf(r.phone, r.lang), course:r.course, since:at, from:r.where.join(' + '), ok:true});
+  });
+  if(adminChats){
+    const todo = adminChatTodoList();
+    adminChats.forEach(d=>{
+      const tp = d.topic || {}, L = d.learner || {};
+      if(d.type !== 'request' || tp.t !== 'course' || !WAITLIST_COURSE_INFO[tp.c] || todo.indexOf(d) >= 0) return;
+      const at = Number(d.lAt) || Number(d.createdAt) || 0;
+      if(now - at < 3 * DAY_MS || !L.phone || bought(L.phone, tp.c, d.id)) return;
+      const p = (adminPeople || []).find(x=>!x.hidden && x.accounts.some(u=>u.hash && u.hash === L.accountHash)) || person(L.phone);
+      put({p, name:L.name || (p && p.profile.name) || '—', first:adminMkFirst(L.name || (p && p.profile.name)), phone:L.phone, lang:adminMkLangOf(L.phone, L.uiLang), course:tp.c, since:at, from:'Inbox' + (d.app === 'es' ? ' · Spanish app' : ''), ok:true});
+    });
+  }
+  return Object.keys(out).map(k=>out[k]).sort((a, b)=>b.since - a.since);
+}
+function adminMkRenewals(){
+  const now = Date.now();
+  return (adminAccessList || []).filter(d=>adminAccessStatus(d) === 'active' && d.expiresAt && d.expiresAt - now < 30 * DAY_MS && d.expiresAt > now).map(d=>{
+    const dg = adminWaitlistDigits(d.phone), p = dg.length >= 6 ? (adminPeople || []).find(x=>!x.hidden && adminWaitlistDigits(adminInsPhone(x)) === dg) || null : null;
+    return {p, key:'r' + adminMkHash(dg + '|' + d.course + '|' + d.id), name:d.name || (p && p.profile.name) || '—', first:adminMkFirst(d.name || (p && p.profile.name)), phone:d.phone || (p ? adminInsPhone(p) : ''),
+      lang:adminMkLangOf(d.phone || (p ? adminInsPhone(p) : ''), p ? adminInsLang(p) : ''), course:d.course, ends:d.expiresAt, ok:true};
+  }).sort((a, b)=>a.ends - b.ends);
+}
+// Everything at once (cached for a few seconds: Home asks for it on every render).
+function adminMkData(){
+  const refs = [adminPeople, adminAccessList, adminWaitlist, adminChats, adminMk];
+  if(adminMkCache && adminMkCache.refs.every((r, i)=>r === refs[i]) && Date.now() - adminMkCache.at < 5000) return adminMkCache.data;
+  adminInsLinksCache = null;
+  const now = Date.now(), live = adminMkLive(), liveIds = live.map(c=>c.id);
+  const base = (adminPeople || []).filter(p=>!p.hidden && p.app === 'en' && now - (p.lastSeen || 0) < ADMIN_MK_SEEN_DAYS * DAY_MS).map(adminMkTarget);
+  const offers = [];
+  // follow-ups and renewals
+  offers.push({id:'followup', kind:'followup', eb:'Follow up', title:'Asked, not bought yet', c:'#F07A5A', icon:'chat',
+    why:'They asked for a course 3+ days ago (waiting list marked messaged, or an answered Inbox request) and have no password for it yet. This answers their own request, so no offers consent is needed.', list:adminMkFollowups()});
+  // course offers: each learner's one best next course
+  const best = {}; liveIds.forEach(id=>{ best[id] = []; });
+  const also = {}; liveIds.forEach(id=>{ also[id] = []; });
+  base.forEach(x=>{
+    if(x.li < 2) return;
+    const asked = adminMkAsked(x.p), order = [];
+    [x.goal].concat(x.goals.filter(g=>g !== x.goal)).forEach(g=>(NOTIF_PROMO_BY_GOAL[g] || []).forEach(id=>{ if(order.indexOf(id) < 0) order.push(id); }));
+    const cand = order.filter(id=>liveIds.indexOf(id) >= 0 && !adminMkOwns(x.p, id) && asked.indexOf(id) < 0);
+    if(!cand.length) return;
+    best[cand[0]].push(Object.assign({}, x, {ok:x.promo}));
+    cand.slice(1).forEach(id=>also[id].push(Object.assign({}, x, {ok:x.promo})));
+  });
+  live.forEach(c=>{
+    const goals = Object.keys(NOTIF_PROMO_BY_GOAL).filter(g=>NOTIF_PROMO_BY_GOAL[g].indexOf(c.id) >= 0);
+    offers.push({id:'course-' + c.id, kind:'course', course:c.id, eb:'Course', title:c.title.en, c:'#7C5CFC', icon:'book', list:best[c.id], also:also[c.id],
+      why:'B1 and up, seen in the last ' + ADMIN_MK_SEEN_DAYS + ' days, goal ' + goals.map(g=>GOAL_LABELS[g] || g).join(' / ') + ', no password for it, did not ask for it. Each learner is in ONE course offer: their best next course.',
+      nt:{goals, nck:c.id, levels:['B1', 'B2', 'C1'], btn:'course', ck:c.id, ch:ADMIN_MK_CHAR[c.id] || 'explorer'}});
+  });
+  // packs: one per learner (best score), the All-access pass on its own
+  const packOf = {};
+  ADMIN_MK_PACKS.forEach(pk=>{ packOf[pk.id] = []; });
+  base.forEach(x=>{
+    if(x.li < 2) return;
+    const asked = adminMkAsked(x.p);
+    let top = null;
+    ADMIN_MK_PACKS.filter(pk=>pk.id !== 'all').forEach((pk, i)=>{
+      if(!pk.fit(x.goals) || pk.courses.some(id=>adminMkOwns(x.p, id))) return;
+      const s = (pk.courses.some(id=>asked.indexOf(id) >= 0) ? 3 : 0) + (pk.fit([x.goal]) ? 2 : 1) - i * 0.01;
+      if(!top || s > top.s) top = {pk, s};
+    });
+    if(top) packOf[top.pk.id].push(Object.assign({}, x, {ok:x.promo}));
+    const tier = adminInsTier(x.p);
+    if((tier === 'regular' || tier === 'returning') && adminMkOwnedN(x.p) <= 1) packOf.all.push(Object.assign({}, x, {ok:x.promo}));
+  });
+  ADMIN_MK_PACKS.forEach(pk=>{
+    const goals = pk.id === 'all' ? [] : ADMIN_INS_GOALS.filter(g=>pk.fit([g]));
+    offers.push({id:'pack-' + pk.id, kind:'pack', pack:pk, eb:'Pack', title:pk.t.en, c:pk.c, icon:'cards', list:packOf[pk.id], why:pk.who + ' They own none of its courses yet. Each learner is in ONE pack (the All-access pass is extra).',
+      nt:{goals, nck:pk.courses[0] === '*' ? '' : pk.courses[0], levels:['B1', 'B2', 'C1'], btn:'msgs', ck:'', ch:pk.ch}});
+  });
+  // classes with Farin: the learners who come most
+  const liveList = base.filter(x=>{ const t = adminInsTier(x.p); return t === 'regular' || (t === 'returning' && x.days >= 4); })
+    .map(x=>Object.assign({}, x, {ok:x.promo, liveKind:x.goals.indexOf('career') >= 0 && x.li >= 2 ? 'business' : 'general'}));
+  offers.push({id:'live', kind:'live', eb:'Classes with you', title:'Live classes with Farin', c:'#8FAE85', icon:'mic', list:liveList,
+    why:'They come often (regulars, or 4+ days and seen in 2 weeks). Career + B1 and up get Business English, the others personal general English. The one real discount: 3 months of the 8 or 12 pack in one payment = 20% off.',
+    nt:{goals:[], nck:'', levels:[], btn:'msgs', ck:'', ch:'friends'}});
+  offers.push({id:'renew', kind:'renew', eb:'Ending soon', title:'Course access ends in 30 days', c:'#5FC9B8', icon:'clock', list:adminMkRenewals(),
+    why:'Their password ends within 30 days. A note about their own course, so no offers consent is needed. They answer if they want more time.'});
+  offers.forEach(o=>{
+    o.list.forEach(x=>{ x.sentAt = adminMkSentAt(o.id, x.key); x.bought = adminMkBought(o, x); });
+    o.reach = o.list.filter(x=>x.ok && x.phone);
+    o.fresh = o.reach.filter(x=>!x.sentAt);
+    o.done = adminMkDone(o);
+    o.sentAll = o.list.filter(x=>x.sentAt).concat(o.done);
+  });
+  const data = {offers, byId:{}, base};
+  offers.forEach(o=>{ data.byId[o.id] = o; });
+  adminMkCache = {refs, at:Date.now(), data};
+  return data;
+}
+// Sent earlier but no longer on the list (usually because they bought, or moved on): found again from the account hash, or for a
+// waiting-list / Inbox follow-up from a password whose number + course give the same key. Kept for the results.
+function adminMkDone(o){
+  const sent = adminMk && adminMk.sent[o.id] || {}, inList = {};
+  o.list.forEach(x=>{ inList[x.key] = 1; });
+  const keys = Object.keys(sent).filter(k=>!inList[k]);
+  if(!keys.length) return [];
+  const byKey = {};
+  (adminPeople || []).forEach(p=>{ if(!p.hidden){ const k = adminMkKey(p); if(keys.indexOf(k) >= 0) byKey[k] = adminMkTarget(p); } });
+  (adminAccessList || []).forEach(d=>{
+    const dg = adminWaitlistDigits(d.phone); if(dg.length < 6) return;
+    (d.course === COURSE_ACCESS_ALL ? Object.keys(WAITLIST_COURSE_INFO) : [d.course]).forEach(c=>{
+      const k = 'r' + adminMkHash(dg + '|' + c);
+      if(keys.indexOf(k) >= 0 && !byKey[k]) byKey[k] = {p:null, key:k, name:d.name || '—', first:adminMkFirst(d.name), phone:d.phone || '', lang:adminMkLangOf(d.phone, ''), course:c};
+    });
+  });
+  return keys.filter(k=>byKey[k]).map(k=>{ const x = Object.assign({}, byKey[k], {ok:false, gone:true}); if(!x.course) x.course = o.course; x.sentAt = Number(sent[k]) || 0; x.bought = adminMkBought(o, x); return x; });
+}
+// Bought after the offer: a password for one of the offer's courses issued after it was sent.
+function adminMkBought(o, x){
+  if(!x.sentAt || o.kind === 'renew' || o.kind === 'live') return 0;
+  const ids = o.kind === 'pack' ? (o.pack.courses[0] === '*' ? [COURSE_ACCESS_ALL] : o.pack.courses) : [o.course || x.course];
+  const dg = adminWaitlistDigits(x.phone), acc = x.p ? adminInsLinks(x.p).access : (adminAccessList || []).filter(d=>dg.length >= 6 && adminWaitlistDigits(d.phone) === dg);
+  const hit = acc.filter(d=>(ids.indexOf(d.course) >= 0 || d.course === COURSE_ACCESS_ALL) && Number(d.issuedAt) > x.sentAt).sort((a, b)=>a.issuedAt - b.issuedAt)[0];
+  return hit ? Number(hit.issuedAt) : 0;
+}
+
+/* ---------- Home: the box, the To check row ---------- */
+function adminMkBoxSub(){
+  adminMkEnsure();
+  if(!adminPeople) return adminUsersError ? 'Could not load' : 'Loading…';
+  const d = adminMkData(), ready = d.offers.filter(o=>o.reach.length), n = ready.reduce((s, o)=>s + o.fresh.length, 0);
+  return ready.length ? ready.length + ' offer' + (ready.length === 1 ? '' : 's') + ' ready · ' + n + ' message' + (n === 1 ? '' : 's') + ' to send' : 'Offers appear by themselves when learners fit';
+}
+// To check: people who asked for a course and did not buy (once per follow-up; sent ones leave the list).
+function adminMkTodo(add){
+  if(!adminMk || !adminPeople || (!adminWaitlist && !adminChats)) return;
+  const due = adminMkFollowups().filter(x=>!adminMkSentAt('followup', x.key));
+  const names = due.slice(0, 3).map(x=>x.name).join(', ') + (due.length > 3 ? ' +' + (due.length - 3) : '');
+  add('marketing', due.length, 'Learner to follow up', 'Learners to follow up', 'Asked for a course 3+ days ago, no password yet · ' + names, 'followup', false, adminTodoFrom(due.map(x=>adminMkCourseName(x.course, 'en'))));
+}
+
+/* ---------- the page ---------- */
+function adminMkMoney(o){
+  if(o.kind === 'course'){ const tl = adminMkTl(o.course), tm = ADMIN_MK_TOMAN[o.course]; return (tl ? '₺' + tl.toLocaleString('en-US') : '') + (tm ? ' · ' + tm.toLocaleString('en-US') + ' toman' : '') + (MSG_TOMAN[o.course] ? ' (first 20 Persian buyers: ' + String(MSG_TOMAN[o.course]).replace(/[۰-۹]/g, c=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(c)).replace(/٬/g, ',') + ')' : ''); }
+  if(o.kind === 'pack'){ const s = adminMkPackSum(o.pack), pr = adminMkPackPrice(o.pack); return (pr.tl || pr.tm ? 'Pack price ' + (pr.tl ? '₺' + pr.tl.toLocaleString('en-US') : '') + (pr.tm ? ' · ' + pr.tm.toLocaleString('en-US') + ' toman' : '') + ' · ' : 'No pack price yet · ') + 'list total ₺' + s.tl.toLocaleString('en-US') + ' · ' + s.tm.toLocaleString('en-US') + ' toman'; }
+  if(o.kind === 'live') return 'TR/EN 1-to-1: ₺850 / ₺840 / ₺830 a lesson (4 / 8 / 12 a month) · Iran, 1–4 people: Business 4,500,000 · General 3,500,000 toman a session · 3 months of 8 or 12 in one payment: −20%';
+  return '';
+}
+function adminMkRow(o, x){
+  const p = x.p, lang = x.lang, wa = x.ok && x.phone ? waLinkTo(adminWaitlistWaNumber({phone:x.phone, lang}), adminMkText(o, x, lang)) : '';
+  const tags = [];
+  if(o.kind === 'followup') tags.push(`<span class="ap-tag">${esc(adminMkCourseName(x.course, 'en'))} · ${esc(x.from)} · ${esc(adminAgo(x.since))}</span>`);
+  if(o.kind === 'renew') tags.push(`<span class="ap-tag">${esc(adminMkCourseName(x.course, 'en'))} · ends ${esc(adminDate(x.ends))}</span>`);
+  if(o.kind === 'live') tags.push(`<span class="ap-tag">${x.liveKind === 'business' ? 'Business English' : 'General English'}</span>`);
+  if(!x.ok && !x.gone) tags.push('<span class="ap-tag mk-no">No offers consent</span>');
+  if(x.gone && !x.bought) tags.push('<span class="ap-tag mk-no">No longer fits</span>');
+  if(x.bought) tags.push(`<span class="ap-tag ok">Bought ${esc(adminAgo(x.bought))}</span>`);
+  else if(x.sentAt) tags.push(`<span class="ap-tag">Sent ${esc(adminAgo(x.sentAt))}</span>`);
+  const sub = p ? `${esc(adminInsStage(p))} · ${x.goals && x.goals.length ? esc(x.goals.map(g=>GOAL_LABELS[g] || g).join(', ')) : 'no goal'} · ${esc(ADMIN_MK_LANGS[lang] || lang)} message · seen ${esc(adminAgo(p.lastSeen))} · ${p.activity.days || 0} day${p.activity.days === 1 ? '' : 's'}`
+    : `${esc(ADMIN_MK_LANGS[lang] || lang)} message · not in the app list`;
+  return `<div class="ins-p${x.ok ? '' : ' dim'}">
+      ${adminAvatarHtml(x.name, p ? adminGoalKey(x.goals && x.goals.length ? x.goals : p.profile.motivationTag) : 'everyday', p ? Date.now() - (p.lastSeen || 0) : null)}
+      <span class="ins-pm">
+        <span class="ins-pn"><b dir="auto">${esc(x.name)}</b>${tags.join('')}</span>
+        <span class="ins-pd">${sub}</span>
+        <span class="ins-ph" dir="ltr">${x.phone ? esc(x.phone) : '<span class="ins-none">no number</span>'}</span>
+      </span>
+      <span class="ins-pa">
+        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" data-admin-action="mk-sent" data-o="${esc(o.id)}" data-k="${esc(x.key)}" aria-label="Send on WhatsApp to ${esc(x.name)}">${ICONS.whatsapp}<span>${x.sentAt ? 'Send again' : 'Send'}</span></a>` : ''}
+        ${x.sentAt ? `<button class="ap-link" data-admin-action="mk-unsent" data-o="${esc(o.id)}" data-k="${esc(x.key)}" title="Take the Sent mark off">Not sent</button>` : ''}
+        ${p ? `<button class="ap-link" data-admin-action="ap-open-learner" data-id="${esc(p.key)}">Profile</button>` : ''}
+      </span>
+    </div>`;
+}
+function adminMkCopyBtn(text, label){ const i = adminMkClip.push(text) - 1; return `<button class="ap-link mk-copy" data-admin-action="mk-copy" data-i="${i}">${esc(label || 'Copy')}</button>`; }
+function adminMkLangChips(act, cur){ return `<div class="ap-chips" role="group" aria-label="Language">${Object.keys(ADMIN_MK_LANGS).map(l=>`<button class="ap-chip${cur === l ? ' on' : ''}" data-admin-action="${act}" data-v="${l}" aria-pressed="${cur === l}">${ADMIN_MK_LANGS[l]}</button>`).join('')}</div>`; }
+// A sample learner for the message preview: the first one in the list who gets it in this language, else a made-up one.
+function adminMkSample(o, lang){
+  const x = o.list.find(y=>y.lang === lang && y.ok) || o.list.find(y=>y.lang === lang);
+  if(x) return x;
+  const first = {tr:'Ayşe', fa:'سارا', en:'Sam'}[lang];
+  return {first, name:first, lang, level:'B1', li:2, goal:o.kind === 'pack' ? (ADMIN_INS_GOALS.find(g=>o.pack.fit([g])) || 'career') : o.kind === 'course' ? (Object.keys(NOTIF_PROMO_BY_GOAL).find(g=>NOTIF_PROMO_BY_GOAL[g][0] === o.course) || 'career') : 'career',
+    goals:[], days:9, course:o.course || 'interview', since:Date.now() - 4 * DAY_MS, ends:Date.now() + 12 * DAY_MS, liveKind:'business', sample:true};
+}
+function adminMkMsgHtml(o){
+  const lang = adminMkLang || adminMkBaseLang(o.list) || 'tr', x = adminMkSample(o, lang), text = adminMkText(o, x, lang);
+  return `<section class="ap-card ins-card">
+      <span class="ap-eb">WhatsApp</span><h3 class="ins-h">The message</h3>
+      <p class="ins-note">Each learner's own message is made from their name, goal, level and days in the app, in their language (the number's country first, then the app language). This preview is ${x.sample ? 'an example' : 'the one for ' + esc(x.name)}.</p>
+      ${adminMkLangChips('mk-lang', lang)}
+      <div class="mk-msg" dir="${lang === 'fa' ? 'rtl' : 'ltr'}">${esc(text)}</div>
+      <div class="mk-msg-a">${adminMkCopyBtn(text, 'Copy this message')}</div>
+    </section>`;
+}
+function adminMkNtLines(o, lang){
+  if(o.kind === 'course'){ const c = (adminMkCopyLines || {})[o.course]; return c && c[lang] ? c[lang] : []; }
+  return ((ADMIN_MK_NT[o.id] || ADMIN_MK_NT[o.kind] || {})[lang]) || [];
+}
+function adminMkNtFilter(o){
+  const f = {lang:adminMkNt.lang, app:'en', levels:o.nt.levels || [], offer:true};
+  if(o.nt.goals && o.nt.goals.length) f.goals = o.nt.goals;
+  if(o.nt.nck) f.nck = o.nt.nck;
+  return f;
+}
+// Learners who would see it as a pop-up (no notifications on their phone): same language, consent, level, goal, not the course.
+function adminMkPopupN(o){
+  const f = adminMkNtFilter(o);
+  return (adminPeople || []).filter(p=>{
+    const pf = p.profile || {}, ui = (pf.activity && pf.activity.ui) || 'en';
+    if(p.hidden || p.app !== 'en' || ui !== f.lang || (pf.notif && pf.notif.on)) return false;
+    if(pf.notif && (pf.notif.promoOff || (pf.notif.promo === false && pf.notif.promoSource === 'settings')) && pf.promoOk !== true) return false;   // same rule as the app (farin-d0, 2026-11-16)
+    if(f.levels.length && f.levels.indexOf(pf.level) < 0) return false;
+    if(f.goals && !adminInsGoals(p).some(g=>f.goals.indexOf(g) >= 0)) return false;
+    if(f.nck && adminMkOwns(p, f.nck)) return false;
+    return true;
+  }).length;
+}
+function adminMkNtPrep(o){
+  const s = adminMkNt;
+  if(s.o === o.id && s.lang) return;
+  const lang = adminMkBaseLang(o.list) || 'tr', l = adminMkNtLines(o, lang)[0] || {t:'', b:''};
+  Object.assign(s, {o:o.id, lang, i:0, t:l.t, b:l.b, phones:null, countKey:'', confirm:false, note:''});
+  adminMkNtCount(o);
+}
+let adminMkNtTimer = null;
+function adminMkNtCount(o){
+  if(typeof NOTIF_LIVE === 'undefined' || !NOTIF_LIVE) return;
+  clearTimeout(adminMkNtTimer);
+  adminMkNtTimer = setTimeout(()=>{
+    const key = JSON.stringify(adminMkNtFilter(o));
+    adminNtFetch('/count?f=' + encodeURIComponent(key)).then(j=>{ if(JSON.stringify(adminMkNtFilter(o)) === key){ adminMkNt.phones = j.phones; adminMkNt.countKey = key; adminMkNtPaint(o); } }).catch(()=>{});
+  }, 250);
+}
+function adminMkNtReady(){ const s = adminMkNt; return !!(typeof NOTIF_LIVE !== 'undefined' && NOTIF_LIVE && s.t.trim() && s.b.trim() && !s.sending); }
+function adminMkNtReachHtml(o){
+  const s = adminMkNt, same = s.countKey === JSON.stringify(adminMkNtFilter(o)), ph = same && s.phones != null ? s.phones : null;
+  return `<div class="nt-reach"><div class="nt-big"><b>${ph == null ? '…' : ph}</b><span>phone${ph === 1 ? '' : 's'} get it now</span></div>
+      <div class="nt-row"><span>About ${adminPeople ? adminMkPopupN(o) : '…'} more see it as a pop-up the next time they open the app</span></div></div>`;
+}
+function adminMkNtPreview(){
+  const s = adminMkNt, fa = s.lang === 'fa', o = adminMkData().byId[s.o], ch = o && o.nt ? o.nt.ch : 'none', nm = {tr:'Ayşe', fa:'سارا', en:'Sam'}[s.lang] || 'Sam';
+  const fill = t=>String(t || '').split('{name}').join(nm);
+  return `<div class="nt-pv"><div class="nt-card${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><img src="icon-180.png" alt=""><span class="nt-h">Farin English · now</span>
+      <span class="nt-b"><b>${esc(fill(s.t) || 'Title')}</b><span>${esc(fill(s.b) || 'Your message')}</span></span>${ch && ch !== 'none' ? `<img class="nt-lic" src="notif/${ch}-icon.png" alt="">` : ''}</div>${ch && ch !== 'none' ? `<img class="nt-big" src="notif/${ch}-wide.jpg" alt="">` : ''}</div>`;
+}
+function adminMkNtPaint(o){
+  const r = document.getElementById('mk-nt-reach'); if(r) r.innerHTML = adminMkNtReachHtml(o);
+  const pv = document.getElementById('mk-nt-pv'); if(pv) pv.innerHTML = adminMkNtPreview();
+  const tc = document.getElementById('mk-nt-tc'); if(tc) tc.textContent = adminMkNt.t.length + '/50';
+  const bc = document.getElementById('mk-nt-bc'); if(bc) bc.textContent = adminMkNt.b.length + '/170';
+  const b = document.getElementById('mk-nt-send'); if(b) b.disabled = !adminMkNtReady();
+}
+function adminMkNtInput(el){
+  const o = adminMkData().byId[adminMkNt.o]; if(!o) return;
+  if(el.id === 'mk-nt-t') adminMkNt.t = el.value; else adminMkNt.b = el.value;
+  adminMkNt.confirm = false; adminMkNtPaint(o);
+}
+function adminMkNtHtml(o){
+  if(!o.nt) return '';
+  adminMkNtPrep(o);
+  const s = adminMkNt, lines = adminMkNtLines(o, s.lang), fa = s.lang === 'fa';
+  const pick = lines.length ? `<div class="mk-lines">${lines.map((l, i)=>`<button class="mk-line${s.t === l.t && s.b === l.b ? ' on' : ''}" data-admin-action="mk-nt-line" data-i="${i}" dir="auto"><b>${esc(l.t)}</b><span>${esc(l.b)}</span></button>`).join('')}</div>`
+    : `<p class="ins-note">${o.kind === 'course' && !adminMkCopyLines ? 'Loading the approved lines from the notification server…' : 'No ready line in this language: write one below.'}</p>`;
+  return `<section class="ap-card ins-card">
+      <span class="ap-eb">Phone notification</span><h3 class="ins-h">Tell them on their phones</h3>
+      <p class="ins-note">It goes to everyone with notifications on, except learners who turned “Course news and offers” off in Settings. Only ${o.nt.levels && o.nt.levels.length ? o.nt.levels.join(', ') : 'all levels'}${o.nt.goals && o.nt.goals.length ? ', main goal ' + o.nt.goals.map(g=>GOAL_LABELS[g] || g).join(' / ') : ''}${o.nt.nck ? ', never someone who has ' + esc(adminMkCourseName(o.nt.nck, 'en')) : ''}. {name} becomes each learner's first name. ${o.kind === 'course' ? 'These are the course lines you approved for the reminders.' : ''}</p>
+      ${adminMkLangChips('mk-nt-lang', s.lang)}
+      ${pick}
+      <label class="nt-lbl" for="mk-nt-t">Title <small id="mk-nt-tc">${s.t.length}/50</small></label>
+      <input class="nt-in${fa ? ' fa' : ''}" id="mk-nt-t" maxlength="60" dir="auto" value="${esc(s.t)}" oninput="adminMkNtInput(this)">
+      <label class="nt-lbl" for="mk-nt-b">Message <small id="mk-nt-bc">${s.b.length}/170</small></label>
+      <textarea class="nt-in${fa ? ' fa' : ''}" id="mk-nt-b" maxlength="170" rows="3" dir="auto" oninput="adminMkNtInput(this)">${esc(s.b)}</textarea>
+      <div id="mk-nt-reach">${adminMkNtReachHtml(o)}</div>
+      <div class="nt-lbl" style="margin:12px 0 6px;">How it looks on a phone</div>
+      <div id="mk-nt-pv">${adminMkNtPreview()}</div>
+      ${s.note ? `<p class="nt-ok" role="status">${esc(s.note)}</p>` : ''}
+      ${s.sending ? `<p class="nt-ok" role="status">Sending… ${s.sending.sent} phones so far.</p>`
+        : s.confirm ? `<div class="nt-confirm"><p>Send “${esc(s.t)}” to these phones now? You can't take it back.</p><div class="ap-btns" style="flex-direction:row; margin-top:8px;"><button class="ap-cta" data-admin-action="mk-nt-go">Yes, send it</button><button class="btn btn-ghost" data-admin-action="mk-nt-cancel">Cancel</button></div></div>`
+        : `<button class="ap-cta" id="mk-nt-send" data-admin-action="mk-nt-send" style="margin-top:12px;" ${adminMkNtReady() ? '' : 'disabled'}>Send to their phones</button>`}
+    </section>`;
+}
+function adminMkNtSend(o){
+  const s = adminMkNt, f = adminMkNtFilter(o), title = s.t.trim(), body = s.b.trim(), lang = s.lang;
+  s.confirm = false; s.note = ''; s.sending = {sent:0}; renderAdminPage();
+  adminNtFetch('/bc/start', {title, body, lang, filter:f, btn:o.nt.btn, ck:o.nt.ck || '', ch:o.nt.ch || 'none'}).then(j=>{
+    if(adminMk){ adminMk.bcs.push({o:o.id, id:j.id, lang, at:Date.now(), t:title}); adminMkSave(); }
+    const step = ()=>adminNtFetch('/bc/step', {id:j.id}).then(r=>{ s.sending.sent += r.sent; renderAdminPage(); return r.done ? null : step(); });
+    return step();
+  }).then(()=>{ s.note = 'Sent to ' + s.sending.sent + ' phone' + (s.sending.sent === 1 ? '' : 's') + '. The others in this group see it as a pop-up the next time they open the app.'; })
+    .catch(e=>{ s.note = 'Not sent: ' + (e.message || e); })
+    .then(()=>{ s.sending = null; if(typeof adminNt === 'object'){ adminNt.stats = null; if(typeof adminNtLoad === 'function') adminNtLoad(); } renderAdminPage(); });
+}
+function adminMkPackHtml(o){
+  const pk = o.pack, s = adminMkPackSum(pk), pr = adminMkPackPrice(pk), sg = adminMkPackSuggest(pk), ids = pk.courses[0] === '*' ? adminMkLive().map(c=>c.id) : pk.courses;
+  return `<section class="ap-card ins-card">
+      <span class="ap-eb">Pack price</span><h3 class="ins-h">${esc(pk.t.en)}: ${ids.length} course${ids.length === 1 ? '' : 's'}</h3>
+      <div class="mk-plist">${ids.map(id=>`<div class="ap-kv"><span dir="auto">${esc(adminMkCourseName(id, 'en'))}</span><b>₺${adminMkTl(id).toLocaleString('en-US')} · ${(ADMIN_MK_TOMAN[id] || 0).toLocaleString('en-US')} toman</b></div>`).join('')}
+        <div class="ap-kv mk-sum"><span>List total</span><b>₺${s.tl.toLocaleString('en-US')} · ${s.tm.toLocaleString('en-US')} toman</b></div></div>
+      <p class="ins-note">Your rule since 29 Oct: courses sell at list price, no bundle discount. If you want a pack price, type it here; the messages then show it next to the list total. Empty = the message names no price and asks if they want the details. ${pk.id === 'all' ? 'To sell it: create an “All premium courses” password in Course access.' : 'To sell it: create one password per course in Course access.'}</p>
+      <div class="mk-price">
+        <label><span>Pack price, TL</span><input class="nt-in" id="mk-pk-tl" inputmode="numeric" placeholder="${sg.tl.toLocaleString('en-US')}" value="${pr.tl ? pr.tl : ''}"></label>
+        <label><span>Pack price, toman</span><input class="nt-in" id="mk-pk-tm" inputmode="numeric" placeholder="${sg.tm.toLocaleString('en-US')}" value="${pr.tm ? pr.tm : ''}"></label>
+      </div>
+      <div class="ap-btns mk-btns"><button class="ap-cta" data-admin-action="mk-pack-save" data-p="${pk.id}">Save pack price</button>
+        <button class="btn btn-ghost btn-sm" data-admin-action="mk-pack-sugg" data-p="${pk.id}">Use the suggestion (about −15%: ₺${sg.tl.toLocaleString('en-US')} · ${sg.tm.toLocaleString('en-US')} toman)</button>
+        ${pr.tl || pr.tm ? `<button class="btn btn-ghost btn-sm" data-admin-action="mk-pack-clear" data-p="${pk.id}">No pack price</button>` : ''}
+        <button class="btn btn-ghost btn-sm" data-admin-action="ap-go" data-section="access">Course access ›</button></div>
+    </section>`;
+}
+function adminMkResultLine(o){
+  const sent = o.sentAll || [], b = sent.filter(x=>x.bought);
+  return sent.length ? sent.length + ' sent' + (o.kind === 'renew' || o.kind === 'live' ? '' : ' · ' + b.length + ' bought after (' + Math.round(b.length / sent.length * 100) + '%)') : 'Nothing sent yet';
+}
+function adminMkOfferPage(o){
+  const L = adminMkFilter === 'all' ? o.list : adminMkFilter === 'todo' ? o.fresh : adminMkFilter === 'done' ? o.sentAll : o.reach;
+  const chip = (v, label, n)=>`<button class="ap-chip${adminMkFilter === v ? ' on' : ''}" data-admin-action="mk-filter" data-v="${v}" aria-pressed="${adminMkFilter === v}">${esc(label)} <b>${n}</b></button>`;
+  const money = adminMkMoney(o), what = o.kind === 'course' ? (ADMIN_MK_WHAT[o.course] || {}).en : o.kind === 'pack' ? o.pack.why.en : '';
+  const also = o.also && o.also.length ? `<p class="ins-note">${o.also.length} more learner${o.also.length === 1 ? ' fits' : 's fit'} this course as a second choice; they are in the offer of their first choice.</p>` : '';
+  const bcs = adminMk ? adminMk.bcs.filter(b=>b.o === o.id).slice(-5).reverse() : [];
+  const st = typeof adminNt === 'object' && adminNt.stats && adminNt.stats.bcs || [];
+  return `<div class="ins">
+      <div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All offers</button></div>
+      <section class="ap-card ins-card mk-head" style="--c:${o.c};">
+        <span class="ap-eb">${esc(o.eb)}</span><h3 class="ins-h">${esc(o.title)}</h3>
+        ${what ? `<p class="mk-what" dir="auto">${esc(what.charAt(0).toUpperCase() + what.slice(1))}</p>` : ''}
+        ${money ? `<p class="mk-money">${esc(money)}</p>` : ''}
+        <p class="ins-note">${esc(o.why)}</p>
+        <div class="ap-tiles"><div class="ap-tile"><span>Fit</span><b>${o.list.length}</b></div><div class="ap-tile"><span>You can message</span><b>${o.reach.length}</b></div>
+          <div class="ap-tile"><span>Not sent yet</span><b>${o.fresh.length}</b></div><div class="ap-tile"><span>Results</span><b class="mk-res">${esc(adminMkResultLine(o))}</b></div></div>
+      </section>
+      ${o.kind === 'pack' ? adminMkPackHtml(o) : ''}
+      ${o.list.length ? adminMkMsgHtml(o) : ''}
+      <section class="ap-card ins-card">
+        <span class="ap-eb">Who gets it</span><h3 class="ins-h">Learners</h3>
+        <div class="ap-chips" role="group" aria-label="Show">${chip('ok', 'Can get it', o.reach.length)}${chip('todo', 'Not sent yet', o.fresh.length)}${chip('all', 'Everyone who fits', o.list.length)}${o.sentAll.length ? chip('done', 'Sent', o.sentAll.length) : ''}</div>
+        ${L.length ? `<div class="ins-plist">${L.map(x=>adminMkRow(o, x)).join('')}</div>` : `<p class="ap-empty">${o.list.length ? 'Nobody in this view.' : 'Nobody fits right now. This offer fills by itself when learners do.'}</p>`}
+        ${also}
+      </section>
+      ${adminMkNtHtml(o)}
+      ${bcs.length ? `<section class="ap-card ins-card"><span class="ap-eb">Sent to phones</span>${bcs.map(b=>{ const x = st.find(y=>y.id === b.id); return `<div class="ap-kv"><span dir="auto"><b>${esc(b.t)}</b><small> · ${esc(ADMIN_MK_LANGS[b.lang] || b.lang)} · ${esc(adminDate(b.at))}</small></span><b>${x ? x.sent + ' sent · ' + x.opened + ' opened' : '—'}</b></div>`; }).join('')}</section>` : ''}
+    </div>`;
+}
+function adminMkCopyPage(d){
+  const langs = Object.keys(ADMIN_MK_LANGS);
+  const block = o=>{
+    const wa = langs.map(l=>{ const t = adminMkText(o, adminMkSample(o, l), l); return `<div class="mk-cb"><span class="ap-tag">${l.toUpperCase()}</span>${adminMkCopyBtn(t)}<div class="mk-msg sm" dir="${l === 'fa' ? 'rtl' : 'ltr'}">${esc(t)}</div></div>`; }).join('');
+    const nt = o.nt ? langs.map(l=>adminMkNtLines(o, l).map(x=>`<div class="mk-cb"><span class="ap-tag">${l.toUpperCase()} · phone</span>${adminMkCopyBtn(x.t + '\n' + x.b)}<p class="mk-nl" dir="auto"><b>${esc(x.t)}</b> ${esc(x.b)}</p></div>`).join('')).join('') : '';
+    return `<section class="ap-card ins-card"><span class="ap-eb">${esc(o.eb)}</span><h3 class="ins-h">${esc(o.title)}</h3>${wa}${nt}</section>`;
+  };
+  return `<div class="ins"><div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All offers</button></div>
+      <p class="ins-note">Every message in the three languages, with an example name. On an offer's page each learner gets their own version.</p>
+      ${d.offers.map(block).join('')}</div>`;
+}
+function adminMkResultsPage(d){
+  const rows = d.offers.map(o=>{ const sent = o.sentAll || [], m = Date.now() - 30 * DAY_MS;
+    return `<div class="ap-kv"><span><b>${esc(o.title)}</b><small> · ${esc(o.eb)}</small></span><b>${sent.filter(x=>x.sentAt > m).length} in 30 days · ${esc(adminMkResultLine(o))}</b></div>`; }).join('');
+  const st = typeof adminNt === 'object' && adminNt.stats && adminNt.stats.bcs || [];
+  const bcs = adminMk ? adminMk.bcs.slice().reverse().slice(0, 20) : [];
+  return `<div class="ins"><div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All offers</button></div>
+      <section class="ap-card ins-card"><span class="ap-eb">WhatsApp</span><h3 class="ins-h">Sent and bought</h3><p class="ins-note">“Bought after” = a password for that course (or all courses) was created after you sent it. Counts the learners still on each offer's list.</p>${rows}</section>
+      <section class="ap-card ins-card"><span class="ap-eb">Phones</span><h3 class="ins-h">Notifications from Marketing</h3>${bcs.length ? bcs.map(b=>{ const x = st.find(y=>y.id === b.id), o = d.byId[b.o];
+        return `<div class="ap-kv"><span dir="auto"><b>${esc(b.t)}</b><small> · ${esc(o ? o.title : b.o)} · ${esc(ADMIN_MK_LANGS[b.lang] || b.lang)} · ${esc(adminDate(b.at))}</small></span><b>${x ? x.sent + ' sent · ' + x.opened + ' opened' : '—'}</b></div>`; }).join('') : '<p class="ap-empty">Nothing sent to phones from here yet.</p>'}</section></div>`;
+}
+function renderAdminMarketingTab(){
+  adminMkEnsure();
+  adminMkClip.length = 0;
+  if(adminUsersLoading && !adminPeople) return `<p class="ap-empty">Loading learners…</p>`;
+  if(adminUsersError && !adminPeople) return `<p class="ap-empty">Could not load the learners: ${esc(adminUsersError)}</p>`;
+  if(!adminPeople) return `<p class="ap-empty">Loading learners…</p>`;
+  if(typeof adminNt === 'object' && !adminNt.stats && !adminNt.loading && typeof adminNtLoad === 'function' && typeof NOTIF_LIVE !== 'undefined' && NOTIF_LIVE) setTimeout(adminNtLoad, 0);
+  const d = adminMkData();
+  const err = adminMkError ? `<div class="ap-card" style="border-color:var(--error);"><span class="nt-faint">${esc(adminMkError)}</span></div>` : '';
+  const note = adminMkNote ? `<p class="nt-ok" role="status">${esc(adminMkNote)}</p>` : '';
+  if(adminMkView === 'copy') return err + note + adminMkCopyPage(d);
+  if(adminMkView === 'results') return err + adminMkResultsPage(d);
+  if(adminMkView && d.byId[adminMkView]) return err + note + adminMkOfferPage(d.byId[adminMkView]);
+  adminMkView = null;
+  const now = Date.now(), base = d.base, canMsg = base.filter(x=>x.promo && x.phone).length;
+  const sent30 = d.offers.reduce((n, o)=>n + o.sentAll.filter(x=>x.sentAt > now - 30 * DAY_MS).length, 0), bought = d.offers.reduce((n, o)=>n + o.sentAll.filter(x=>x.bought).length, 0);
+  const news = typeof adminNt === 'object' && adminNt.stats ? adminNt.stats.subs.promo : '…';
+  const box = o=>{ const big = o.kind === 'pack' ? o.pack.t.en : o.title;
+    return `<button class="ins-box mk-box" data-admin-action="mk-view" data-v="${esc(o.id)}" style="--c:${o.c};" aria-label="${esc(big + ': ' + o.list.length + ' fit, ' + o.reach.length + ' you can message')}">
+      ${o.id === 'followup' && o.fresh.length ? `<span class="ap-badge" aria-hidden="true">${o.fresh.length}</span>` : ''}
+      <span class="fs-ico" style="--c:${o.c};">${ICONS[o.icon] || ''}</span>
+      <span class="ins-be">${esc(o.eb)}</span>
+      <b class="ins-bn mk-bn" dir="auto">${esc(big)}</b>
+      <small>${o.list.length} fit · ${o.reach.length} you can message${o.fresh.length && o.fresh.length !== o.reach.length ? ' · ' + o.fresh.length + ' not sent' : ''}</small>
+    </button>`; };
+  const offers = d.offers.filter(o=>o.kind !== 'pack'), packs = d.offers.filter(o=>o.kind === 'pack');
+  const order = offers.slice().sort((a, b)=>(b.id === 'followup') - (a.id === 'followup') || b.fresh.length - a.fresh.length || b.list.length - a.list.length);
+  return `${err}${note}<div class="ins">
+      <div class="ap-tiles ins-tiles">
+        <div class="ap-tile"><span>Can get offers on WhatsApp</span><b>${canMsg}<small> of ${base.length}</small></b></div>
+        <div class="ap-tile"><span>Phones that get offers</span><b>${esc(String(news))}</b></div>
+        <div class="ap-tile"><span>Sent in 30 days</span><b>${sent30}</b></div>
+        <div class="ap-tile"><span>Bought after an offer</span><b>${bought}</b></div>
+      </div>
+      <section class="ap-sec"><div class="ap-sh"><span class="ap-eb">From your learners</span><h2 class="display">Offers ready<span class="dot">.</span></h2></div>
+        <div class="ins-boxes">${order.map(box).join('')}</div></section>
+      <section class="ap-sec"><div class="ap-sh"><span class="ap-eb">Courses together</span><h2 class="display">Packs<span class="dot">.</span></h2></div>
+        <div class="ins-boxes">${packs.map(box).join('')}</div></section>
+      <section class="ap-sec"><div class="ap-sh"><span class="ap-eb">Copy and numbers</span><h2 class="display">Messages and results<span class="dot">.</span></h2></div>
+        <div class="ins-boxes">
+          <button class="ins-box mk-box" data-admin-action="mk-view" data-v="copy" style="--c:#FF7A59;"><span class="fs-ico" style="--c:#FF7A59;">${ICONS.megaphone}</span><span class="ins-be">All copy</span><b class="ins-bn mk-bn">Messages</b><small>Every WhatsApp and phone message, Turkish, Persian and English, ready to copy</small></button>
+          <button class="ins-box mk-box" data-admin-action="mk-view" data-v="results" style="--c:#7C93FF;"><span class="fs-ico" style="--c:#7C93FF;">${ICONS.chart}</span><span class="ins-be">What worked</span><b class="ins-bn mk-bn">Results</b><small>${sent30} sent in 30 days · ${bought} bought after</small></button>
+        </div></section>
+      <p class="ins-note mk-rules">WhatsApp offers go only to learners who ticked “news and offers” (follow-ups and end-date notes are answers about their own course). Phone offers go to everyone with notifications on, except learners who turned “Course news and offers” off in Settings. Prices are the list prices; a pack price is yours to set.</p>
+    </div>`;
+}
+function adminMkAction(action, el){
+  const d = adminPeople ? adminMkData() : null, o = d && adminMkView ? d.byId[adminMkView] : null;
+  if(action === 'mk-view'){ adminMkView = el.dataset.v || null; adminMkFilter = 'ok'; adminMkLang = ''; adminMkNote = ''; renderAdminPage(); window.scrollTo(0, 0); return; }
+  if(action === 'mk-filter'){ adminMkFilter = el.dataset.v || 'ok'; renderAdminPage(); return; }
+  if(action === 'mk-lang'){ adminMkLang = el.dataset.v; renderAdminPage(); return; }
+  if(action === 'mk-copy'){
+    const t = adminMkClip[Number(el.dataset.i)]; if(t == null) return;
+    const done = ()=>{ adminMkNote = 'Copied.'; renderAdminPage(); setTimeout(()=>{ if(adminMkNote === 'Copied.'){ adminMkNote = ''; renderAdminPage(); } }, 1600); };
+    if(navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(done).catch(()=>{ window.prompt('Copy:', t); }); else window.prompt('Copy:', t);
+    return;
+  }
+  if((action === 'mk-sent' || action === 'mk-unsent') && adminMk){
+    const oid = el.dataset.o, k = el.dataset.k; if(!oid || !k) return;
+    const m = adminMk.sent[oid] = adminMk.sent[oid] || {};
+    if(action === 'mk-sent') m[k] = Date.now(); else delete m[k];
+    adminMkSave(); setTimeout(renderAdminPage, 0);   // the link still opens WhatsApp
+    return;
+  }
+  if(action.indexOf('mk-pack-') === 0 && adminMk){
+    const pk = ADMIN_MK_PACKS.find(x=>x.id === el.dataset.p); if(!pk) return;
+    const num = id=>{ const i = document.getElementById(id); return i ? Number(String(i.value).replace(/[^\d]/g, '')) || 0 : 0; };
+    if(action === 'mk-pack-save') adminMk.packs[pk.id] = {tl:num('mk-pk-tl'), tm:num('mk-pk-tm')};
+    if(action === 'mk-pack-sugg') adminMk.packs[pk.id] = adminMkPackSuggest(pk);
+    if(action === 'mk-pack-clear') delete adminMk.packs[pk.id];
+    if(adminMk.packs[pk.id] && !adminMk.packs[pk.id].tl && !adminMk.packs[pk.id].tm) delete adminMk.packs[pk.id];
+    adminMkNote = action === 'mk-pack-clear' ? 'Pack price removed: the messages name no price.' : 'Pack price saved. The messages show it now.';
+    adminMkSave(); renderAdminPage(); return;
+  }
+  if(!o || !o.nt) return;
+  const s = adminMkNt;
+  if(action === 'mk-nt-lang'){ const l = adminMkNtLines(o, el.dataset.v)[0] || {t:'', b:''}; Object.assign(s, {lang:el.dataset.v, i:0, t:l.t, b:l.b, phones:null, confirm:false, note:''}); adminMkNtCount(o); renderAdminPage(); return; }
+  if(action === 'mk-nt-line'){ const l = adminMkNtLines(o, s.lang)[Number(el.dataset.i)]; if(l){ s.t = l.t; s.b = l.b; s.confirm = false; } renderAdminPage(); return; }
+  if(action === 'mk-nt-send'){ if(adminMkNtReady()) s.confirm = true; renderAdminPage(); return; }
+  if(action === 'mk-nt-cancel'){ s.confirm = false; renderAdminPage(); return; }
+  if(action === 'mk-nt-go'){ adminMkNtSend(o); return; }
+}
+/* ============================= /ADMIN: MARKETING ============================= */
 /* Contacts sorts (Farin 2026-11-14: "sorts on contact part by levels, by place they put their numbers and time they have joined; I can
    change"): Newest / Oldest (group by month), Level (A1…C1, then without a level), Where they left it (adminContactDocSource). The level is
    the one on the contact, else the learner's own level (same recovery code). The row itself is unchanged. */
@@ -41071,6 +41800,7 @@ function bindAdminActions(root){
       // Admin v2 (2026-11-13): Home, section pages, a learner's profile. Every older 'tab-…' action opens its section page.
       if(action === 'ap-home'){ adminTab = 'home'; renderAdminPage(); window.scrollTo(0, 0); return; }
       if(action.indexOf('nt-') === 0){ adminNotifyAction(action, el); return; }
+      if(action.indexOf('mk-') === 0){ adminMkAction(action, el); return; }   // admin › Marketing
       if(action === 'ap-go'){ adminGo(el.dataset.section, el.dataset.filter || ''); return; }
       if(action.indexOf('tab-') === 0){ adminGo(action.slice(4)); return; }
       if(action === 'ap-user-back'){ adminUserOpen = null; renderAdminPage(); window.scrollTo(0, adminUsersScrollY); return; }
