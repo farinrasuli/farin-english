@@ -1884,6 +1884,13 @@
   .ins-pd{font-size:12px; line-height:1.4; color:var(--ink-soft);}
   .ins-ph{font-size:12.5px; font-weight:700; color:var(--ink); text-align:start;}
   .ins-none{color:var(--ink-faint); font-weight:600;}
+  /* the name opens the profile, the number opens WhatsApp (Farin 2026-11-16: "users with whatsapp number and clickable not just names") */
+  .ins-pname{all:unset; cursor:pointer; color:var(--ink); border-radius:6px;}
+  .ins-pname:hover b, .ins-pname:focus-visible b{text-decoration:underline; text-underline-offset:2px;}
+  .ins-pname:focus-visible{outline:2px solid var(--fs-purple); outline-offset:2px;}
+  .ins-phl{display:inline-flex; align-items:center; gap:5px; color:#128C7E; text-decoration:none; font-weight:800;}
+  .ins-phl:hover, .ins-phl:focus-visible{text-decoration:underline; text-underline-offset:2px;}
+  .ins-phl svg{width:14px; height:14px; flex:none;}
   .ins-pa{flex:none; display:flex; align-items:center; gap:4px;}
   .ins-pa .btn-whatsapp{display:inline-flex; align-items:center; gap:6px; text-decoration:none;}
   .ins-pa .btn-whatsapp svg{width:16px; height:16px;}
@@ -39659,12 +39666,12 @@ function adminInsPersonRow(p, extra){
   return `<div class="ins-p${extra.dim ? ' dim' : ''}">
       ${adminAvatarHtml(pf.name, adminGoalKey(goals.length ? goals : pf.motivationTag), Date.now() - (p.lastSeen || 0))}
       <span class="ins-pm">
-        <span class="ins-pn"><b dir="auto">${esc(pf.name || '(no name)')}</b>${extra.isNew ? '<span class="ap-tag new">New</span>' : ''}${(extra.tags || []).join('')}${inv ? `<span class="ap-tag">Invited ${esc(adminAgo(inv))}</span>` : ''}</span>
+        <span class="ins-pn"><button class="ins-pname" data-admin-action="ap-open-learner" data-id="${esc(p.key)}" title="Open the profile"><b dir="auto">${esc(pf.name || '(no name)')}</b></button>${extra.isNew ? '<span class="ap-tag new">New</span>' : ''}${(extra.tags || []).join('')}${inv ? `<span class="ap-tag">Invited ${esc(adminAgo(inv))}</span>` : ''}</span>
         <span class="ins-pd">${esc(adminInsStage(p))} · ${goals.length ? esc(goals.map(g=>GOAL_LABELS[g] || g).join(', ')) : 'no goal'}${adminInsLang(p) ? ' · ' + esc(ADMIN_INS_LANG[adminInsLang(p)]) : ''} · seen ${esc(adminAgo(p.lastSeen))} · ${p.activity.days || 0} day${p.activity.days === 1 ? '' : 's'}</span>
-        <span class="ins-ph" dir="ltr">${ph ? esc(ph) : '<span class="ins-none">no number</span>'}</span>
+        <span class="ins-ph" dir="ltr">${ph ? (adminInsWaLink(p, adminInsHelloText(p)) ? `<a class="ins-phl" href="${esc(adminInsWaLink(p, adminInsHelloText(p)))}" target="_blank" rel="noopener" title="WhatsApp ${esc(pf.name || '')}">${ICONS.whatsapp}${esc(ph)}</a>` : esc(ph)) : '<span class="ins-none">no number</span>'}</span>
       </span>
       <span class="ins-pa">
-        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="${invite ? 'Send the offer to' : 'WhatsApp'} ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Send again' : 'Send offer'}</span>` : extra.waLabel ? `<span>${esc(extra.waLabel)}</span>` : ''}</a>` : ''}
+        ${wa ? `<a class="btn btn-whatsapp btn-sm" target="_blank" rel="noopener" href="${esc(wa)}" ${invite ? `data-admin-action="ins-invite" data-id="${esc(p.key)}"` : ''} aria-label="${invite ? 'Send the offer to' : 'WhatsApp'} ${esc(pf.name || '')}">${ICONS.whatsapp}${invite ? `<span>${inv ? 'Send again' : 'Send offer'}</span>` : `<span>${esc(extra.waLabel || 'WhatsApp')}</span>`}</a>` : ''}
         ${rp ? `<span class="ins-rbs" role="group" aria-label="Their answer">${rb('yes', 'Yes')}${rb('no', 'No')}</span>` : ''}
         ${page ? `<a class="ap-link" href="${esc(page)}" target="_blank" rel="noopener" title="The offer page made for ${esc(pf.name || 'them')}">Their page</a>` : ''}
         <button class="ap-link" data-admin-action="ap-open-learner" data-id="${esc(p.key)}">Profile</button>
