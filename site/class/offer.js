@@ -119,11 +119,17 @@ const T = {
     saidLabel:'You told us',
     said:{speaking:'I freeze up when I need to speak', listening:'Native speakers talk too fast', vocab:'I don\'t know enough words', grammar:'Grammar rules trip me up'},
     fix:{speaking:'With only 4–6 people you speak in every round, in a friendly room, until it feels normal.', listening:'We train your ear with real audio from your goal, step by step, until fast speech makes sense.', vocab:'You leave every class with the exact words your goal needs, and you use them straight away.', grammar:'I correct you live, kindly, one mistake at a time, so the rules finally stick.'},
+    usEb:'Why FEschool', usH:'Built for you, not for everyone',
+    usLead:'Most schools give everyone the same book and the same plan. Here the plan starts with you: your goals, your level, your life.',
+    usT:['Your goals lead', 'Your personal VIP roadmap', 'I track your path myself', 'Personal, even in a group'],
+    usGoal:{career:'Everything we practise comes from your work: the meetings, e-mails and conversations you really have.', exam:'Everything we practise comes from your exam: the tasks you\'ll face and the score you need.', everyday:'Everything we practise comes from your life: the conversations you want to have and the things you want to say.', travel:'Everything we practise comes from your trips: the places you\'re going and the moments you\'ll face there.', immigration:'Everything we practise comes from your move: the calls, forms and first weeks in a new country.'},
+    usSkip:'If it doesn\'t help your goal, we skip it.',
+    usB:['', 'Built from your level and your goals: what you learn, in what order, and why. It\'s yours, not the group\'s, and it grows with you.', 'I follow each learner\'s path personally: what you\'ve got, where you get stuck, what should come next. Your next steps are planned from that, not from a textbook.', 'Same goal, same level, but your own focus. Your mistakes, your words and your situations come into every class.'],
     midEb:'Mid-private', midH:'Not a crowd. Not alone.', best:'Your class',
     rooms:[['A big class', ['20+ people', 'You speak for a few minutes', 'One plan for everyone']], ['Private lessons', ['Just you', 'Costs the most', 'Nobody to practise with']], ['FEschool mid-private', ['4–6 people', 'You speak again and again', 'Planned around your goals']]],
     pracEb:'What we\'ll practise', pracH:'Real moments from your goal',
     howEb:'How it works', howH:'Every class starts with you',
-    how:[['Your goal first', 'Before we start, I ask each of you what exactly you need {S} for. The plan comes from your answers.'], ['Your real situations', 'We practise the moments you will really face, not textbook dialogues.'], ['Your mistakes, fixed live', 'In a group this small I hear everyone. You get corrected by name, kindly, right there.'], ['The app in between', 'Your FEschool roadmap keeps you practising between classes.']],
+    how:[['Your goal first', 'Before we start, I check each person\'s level and ask what exactly you need {S} for. Your own roadmap and the group\'s plan come from your answers.'], ['Your real situations', 'We practise the moments you will really face, not textbook dialogues.'], ['Your mistakes, fixed live', 'In a group this small I hear everyone. You get corrected by name, kindly, right there.'], ['The app in between', 'Your FEschool roadmap keeps you practising between classes.']],
     grpEb:'Your group', grpH:'{m} matched, 6 seats', grpHNo:'Only 6 seats',
     grp:'I matched {m} learners with your level and goal. The class takes 6 at most, and seats go in the order people say yes.',
     grpNo:'The class takes 6 at most, and seats go in the order people say yes.',
@@ -143,11 +149,17 @@ const T = {
     saidLabel:'Bize şunu söyledin',
     said:{speaking:'Konuşmam gerektiğinde donup kalıyorum', listening:'Anadili İngilizce olanlar çok hızlı konuşuyor', vocab:'Yeterince kelime bilmiyorum', grammar:'Dilbilgisi kuralları kafamı karıştırıyor'},
     fix:{speaking:'Sadece 4–6 kişiyle her turda konuşursun; samimi bir ortamda, doğal gelene kadar.', listening:'Hedefinden gerçek seslerle kulağını adım adım eğitiriz; hızlı konuşma anlam kazanana kadar.', vocab:'Her dersten hedefinin ihtiyaç duyduğu kelimelerle çıkarsın ve onları hemen kullanırsın.', grammar:'Seni canlı, nazikçe ve her seferinde tek bir hatayla düzeltirim; böylece kurallar sonunda yerine oturur.'},
+    usEb:'Neden FEschool', usH:'Herkes için değil, senin için',
+    usLead:'Çoğu okul herkese aynı kitabı ve aynı planı verir. Burada plan seninle başlar: hedeflerinle, seviyenle, hayatınla.',
+    usT:['Hedeflerin yön verir', 'Kişisel VIP yol haritan', 'Yolunu bizzat ben takip ediyorum', 'Grupta bile kişisel'],
+    usGoal:{career:'Çalıştığımız her şey işinden gelir: gerçekten yaşadığın toplantılar, e-postalar ve konuşmalar.', exam:'Çalıştığımız her şey sınavından gelir: karşına çıkacak görevler ve ihtiyacın olan puan.', everyday:'Çalıştığımız her şey hayatından gelir: yapmak istediğin sohbetler ve söylemek istediğin şeyler.', travel:'Çalıştığımız her şey seyahatlerinden gelir: gideceğin yerler ve orada yaşayacağın anlar.', immigration:'Çalıştığımız her şey taşınma planından gelir: yeni bir ülkedeki telefonlar, formlar ve ilk haftalar.'},
+    usSkip:'Hedefine yardım etmeyen bir şeyle vakit kaybetmeyiz.',
+    usB:['', 'Seviyene ve hedeflerine göre hazırlanır: ne öğreneceğin, hangi sırayla ve neden. Grubun değil, senin; ve seninle birlikte büyür.', 'Her öğrencinin yolunu kendim takip ediyorum: neyi öğrendin, nerede takılıyorsun, sırada ne olmalı. Sonraki adımların ders kitabına göre değil, buna göre planlanır.', 'Aynı hedef, aynı seviye, ama odak senin. Hataların, kelimelerin ve kendi durumların her derse girer.'],
     midEb:'Yarı özel', midH:'Ne kalabalık ne yalnız.', best:'Senin sınıfın',
     rooms:[['Kalabalık sınıf', ['20+ kişi', 'Birkaç dakika konuşursun', 'Herkese tek bir plan']], ['Özel ders', ['Sadece sen', 'En pahalısı', 'Pratik yapacak kimse yok']], ['FEschool yarı özel', ['4–6 kişi', 'Tekrar tekrar konuşursun', 'Hedeflerine göre planlanır']]],
     pracEb:'Ne çalışacağız', pracH:'Hedefinden gerçek anlar',
     howEb:'Nasıl işliyor', howH:'Her ders seninle başlar',
-    how:[['Önce senin hedefin', 'Başlamadan önce her birinize {S} ile tam olarak ne yapmak istediğinizi soruyorum. Plan sizin cevaplarınızdan çıkıyor.'], ['Senin gerçek durumların', 'Ders kitabı diyaloglarını değil, gerçekten karşılaşacağın anları çalışıyoruz.'], ['Hataların, anında düzeltilir', 'Bu kadar küçük bir grupta herkesi duyuyorum. Adınla, nazikçe, o anda düzeltilirsin.'], ['Aralarda uygulama', 'FEschool yol haritan, dersler arasında da pratik yapmanı sağlar.']],
+    how:[['Önce senin hedefin', 'Başlamadan önce her birinizin seviyesine bakıyorum ve {S} ile tam olarak ne yapmak istediğinizi soruyorum. Hem kişisel yol haritan hem grubun planı cevaplarınızdan çıkıyor.'], ['Senin gerçek durumların', 'Ders kitabı diyaloglarını değil, gerçekten karşılaşacağın anları çalışıyoruz.'], ['Hataların, anında düzeltilir', 'Bu kadar küçük bir grupta herkesi duyuyorum. Adınla, nazikçe, o anda düzeltilirsin.'], ['Aralarda uygulama', 'FEschool yol haritan, dersler arasında da pratik yapmanı sağlar.']],
     grpEb:'Grubun', grpH:'{m} eşleşme, 6 yer', grpHNo:'Sadece 6 yer',
     grp:'Seviyen ve hedefinle {m} öğrenciyi eşleştirdim. Sınıf en fazla 6 kişilik ve yerler “evet” diyenlere sırayla veriliyor.',
     grpNo:'Sınıf en fazla 6 kişilik ve yerler “evet” diyenlere sırayla veriliyor.',
@@ -167,11 +179,17 @@ const T = {
     saidLabel:'خودت گفتی',
     said:{speaking:'وقتی باید صحبت کنم یخ می‌زنم', listening:'انگلیسی‌زبان‌های بومی خیلی سریع صحبت می‌کنند', vocab:'کلمات کافی بلد نیستم', grammar:'قواعد گرامری گیجم می‌کنند'},
     fix:{speaking:'با فقط ۴ تا ۶ نفر، توی هر دور حرف می‌زنی؛ توی یه فضای دوستانه، تا وقتی که برات عادی بشه.', listening:'گوشت رو با صداهای واقعی از هدف خودت قدم‌به‌قدم تمرین می‌دیم، تا حرف‌های سریع رو هم بفهمی.', vocab:'از هر جلسه با همون کلمه‌هایی بیرون میای که هدفت لازم داره، و همون موقع ازشون استفاده می‌کنی.', grammar:'همون لحظه و با مهربونی اصلاحت می‌کنم، هر بار فقط یه اشتباه، تا قاعده‌ها بالاخره توی ذهنت بشینن.'},
+    usEb:'چرا FEschool', usH:'برای تو ساخته شده، نه برای همه',
+    usLead:'بیشتر آموزشگاه‌ها به همه یه کتاب و یه برنامه‌ی یکسان می‌دن. اینجا برنامه از خود تو شروع می‌شه: از هدف‌هات، سطحت و زندگیت.',
+    usT:['هدف‌هات مسیر رو تعیین می‌کنن', 'نقشه‌ی راه VIP شخصی تو', 'مسیرت رو خودم دنبال می‌کنم', 'حتی توی گروه، شخصی'],
+    usGoal:{career:'هر چی تمرین می‌کنیم از دل کار خودت میاد: همون جلسه‌ها، ایمیل‌ها و صحبت‌هایی که واقعاً داری.', exam:'هر چی تمرین می‌کنیم از دل آزمونت میاد: همون تسک‌هایی که باهاشون روبه‌رو می‌شی و نمره‌ای که لازم داری.', everyday:'هر چی تمرین می‌کنیم از دل زندگی خودت میاد: گفت‌وگوهایی که دوست داری داشته باشی و حرف‌هایی که می‌خوای بزنی.', travel:'هر چی تمرین می‌کنیم از دل سفرهات میاد: جاهایی که می‌ری و لحظه‌هایی که اونجا برات پیش میاد.', immigration:'هر چی تمرین می‌کنیم از دل مهاجرتت میاد: تماس‌ها، فرم‌ها و هفته‌های اول توی یه کشور جدید.'},
+    usSkip:'هر چیزی که به هدفت کمک نکنه، کنار می‌ذاریمش.',
+    usB:['', 'بر اساس سطح و هدف‌های خودت ساخته می‌شه: چی یاد بگیری، به چه ترتیبی و چرا. مال خودته، نه مال گروه، و هر چی جلوتر بری باهات به‌روز می‌شه.', 'مسیر یادگیری تک‌تک زبان‌آموزها رو خودم دنبال می‌کنم: چی رو یاد گرفتی، کجا گیر می‌کنی و بعدش باید سراغ چی بری. ادامه‌ی راهت رو از روی همین می‌چینم، نه از روی کتاب.', 'هدف یکی، سطح یکی، ولی تمرکز روی خود تو. اشتباه‌هات، کلمه‌هات و موقعیت‌های خودت میان سر هر جلسه.'],
     midEb:'نیمه‌خصوصی', midH:'نه شلوغ، نه تنها.', best:'کلاس تو',
     rooms:[['کلاس شلوغ', ['بیشتر از ۲۰ نفر', 'فقط چند دقیقه حرف می‌زنی', 'یه برنامه برای همه']], ['کلاس خصوصی', ['فقط خودت', 'گرون‌ترین گزینه', 'کسی نیست باهاش تمرین کنی']], ['نیمه‌خصوصی FEschool', ['۴ تا ۶ نفر', 'بارها و بارها حرف می‌زنی', 'برنامه بر اساس هدف‌های تو']]],
     pracEb:'چی تمرین می‌کنیم', pracH:'لحظه‌های واقعی از هدف تو',
     howEb:'چطور پیش می‌ریم', howH:'هر جلسه با تو شروع می‌شه',
-    how:[['اول هدف تو', 'قبل از شروع، از تک‌تکتون می‌پرسم دقیقاً برای چی {S} می‌خواین. برنامه از جواب‌های خودتون درمیاد.'], ['موقعیت‌های واقعی خودت', 'به‌جای دیالوگ‌های کتابی، همون لحظه‌هایی رو تمرین می‌کنیم که واقعاً برات پیش میان.'], ['اشتباه‌هات، همون لحظه درست می‌شن', 'توی گروهی به این کوچیکی صدای همه رو می‌شنوم. با اسم خودت، با مهربونی و همون لحظه اصلاح می‌شی.'], ['اپ، بین جلسه‌ها', 'نقشه‌ی راهت توی اپ FEschool بین جلسه‌ها هم تمرینت رو ادامه می‌ده.']],
+    how:[['اول هدف تو', 'قبل از شروع، سطح تک‌تکتون رو می‌سنجم و می‌پرسم دقیقاً برای چی {S} می‌خواین. هم نقشه‌ی راه شخصی خودت و هم برنامه‌ی گروه از جواب‌های خودتون درمیاد.'], ['موقعیت‌های واقعی خودت', 'به‌جای دیالوگ‌های کتابی، همون لحظه‌هایی رو تمرین می‌کنیم که واقعاً برات پیش میان.'], ['اشتباه‌هات، همون لحظه درست می‌شن', 'توی گروهی به این کوچیکی صدای همه رو می‌شنوم. با اسم خودت، با مهربونی و همون لحظه اصلاح می‌شی.'], ['اپ، بین جلسه‌ها', 'نقشه‌ی راهت توی اپ FEschool بین جلسه‌ها هم تمرینت رو ادامه می‌ده.']],
     grpEb:'گروه تو', grpH:'{m} نفر پیدا شدن، ۶ صندلی', grpHNo:'فقط ۶ صندلی',
     grp:'{m} زبان‌آموز با سطح و هدف تو پیدا کردم. کلاس حداکثر ۶ نفره‌ست و جاها به ترتیبِ کسایی که «هستم» می‌گن پر می‌شه.',
     grpNo:'کلاس حداکثر ۶ نفره‌ست و جاها به ترتیبِ کسایی که «هستم» می‌گن پر می‌شه.',
@@ -191,11 +209,17 @@ const T = {
     saidLabel:'Nos dijiste',
     said:{speaking:'Me bloqueo cuando tengo que hablar', listening:'Los nativos hablan demasiado rápido', vocab:'No sé suficientes palabras', grammar:'Las reglas de gramática me confunden'},
     fix:{speaking:'Con solo 4–6 personas hablas en cada ronda, en un ambiente amable, hasta que te salga natural.', listening:'Entrenamos tu oído con audio real de tu objetivo, paso a paso, hasta que entiendas el habla rápida.', vocab:'Sales de cada clase con las palabras exactas que necesita tu objetivo, y las usas enseguida.', grammar:'Te corrijo en vivo, con cariño, un error cada vez, para que por fin se te queden las reglas.'},
+    usEb:'Por qué FEschool', usH:'Hecho para ti, no para todos',
+    usLead:'La mayoría de las escuelas dan a todos el mismo libro y el mismo plan. Aquí el plan empieza por ti: tus objetivos, tu nivel, tu vida.',
+    usT:['Tus objetivos mandan', 'Tu ruta VIP personal', 'Sigo tu camino yo mismo', 'Personal, incluso en grupo'],
+    usGoal:{career:'Todo lo que practicamos sale de tu trabajo: las reuniones, los correos y las conversaciones que tienes de verdad.', exam:'Todo lo que practicamos sale de tu examen: las tareas que vas a encontrar y la nota que necesitas.', everyday:'Todo lo que practicamos sale de tu vida: las conversaciones que quieres tener y lo que quieres decir.', travel:'Todo lo que practicamos sale de tus viajes: los lugares adonde vas y los momentos que vivirás allí.', immigration:'Todo lo que practicamos sale de tu mudanza: las llamadas, los formularios y las primeras semanas en un país nuevo.'},
+    usSkip:'Si algo no ayuda a tu objetivo, lo dejamos fuera.',
+    usB:['', 'Hecha a partir de tu nivel y tus objetivos: qué aprendes, en qué orden y por qué. Es tuya, no del grupo, y avanza contigo.', 'Sigo personalmente el camino de cada estudiante: qué ya dominas, dónde te atascas, qué debería venir después. Tus próximos pasos salen de ahí, no de un libro.', 'Mismo objetivo, mismo nivel, pero con tu propio enfoque. Tus errores, tus palabras y tus situaciones entran en cada clase.'],
     midEb:'Semiprivada', midH:'Ni una multitud, ni a solas.', best:'Tu clase',
     rooms:[['Una clase grande', ['Más de 20 personas', 'Hablas unos pocos minutos', 'Un mismo plan para todos']], ['Clases particulares', ['Solo tú', 'Lo más caro', 'Nadie con quien practicar']], ['Semiprivada FEschool', ['4–6 personas', 'Hablas una y otra vez', 'Planificada según tus objetivos']]],
     pracEb:'Qué practicaremos', pracH:'Momentos reales de tu objetivo',
     howEb:'Cómo funciona', howH:'Cada clase empieza por ti',
-    how:[['Primero, tu objetivo', 'Antes de empezar, le pregunto a cada persona para qué necesita exactamente el {S}. El plan sale de sus respuestas.'], ['Tus situaciones reales', 'Practicamos los momentos que de verdad vas a vivir, no diálogos de libro.'], ['Tus errores, corregidos al momento', 'En un grupo tan pequeño oigo a todos. Te corrijo por tu nombre, con amabilidad, en el momento.'], ['La app entre clases', 'Tu ruta en la app de FEschool te mantiene practicando entre clases.']],
+    how:[['Primero, tu objetivo', 'Antes de empezar, compruebo el nivel de cada persona y le pregunto para qué necesita exactamente el {S}. Tu ruta personal y el plan del grupo salen de sus respuestas.'], ['Tus situaciones reales', 'Practicamos los momentos que de verdad vas a vivir, no diálogos de libro.'], ['Tus errores, corregidos al momento', 'En un grupo tan pequeño oigo a todos. Te corrijo por tu nombre, con amabilidad, en el momento.'], ['La app entre clases', 'Tu ruta en la app de FEschool te mantiene practicando entre clases.']],
     grpEb:'Tu grupo', grpH:'{m} coincidencias, 6 plazas', grpHNo:'Solo 6 plazas',
     grp:'Encontré {m} estudiantes con tu nivel y tu objetivo. La clase tiene 6 plazas como máximo, y se asignan por orden de respuesta.',
     grpNo:'La clase tiene 6 plazas como máximo, y se asignan por orden de respuesta.',
@@ -269,6 +293,27 @@ const why = `
     </div>
   </section>`;
 
+// Why FEschool (Farin 2026-11-16: "mention why they should choose us and how personalization we make and that they focus on goals they
+// have, and that they have personal VIP roadmap and my personal tracking of their learn path"). Four promises; the VIP roadmap in the
+// hero's purple with a little drawn route (flipped for RTL in the CSS).
+const US_ICON = {
+  goal:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>',
+  track:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20.5h18"/><path d="M4 16l5-5 4 3 6-7"/><circle cx="19" cy="7" r="1.8" fill="currentColor" stroke="none"/></svg>',
+  group:'<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c.6-3.3 2.8-5.2 5.5-5.2s4.9 1.9 5.5 5.2"/><circle cx="17.2" cy="9" r="2.4"/><path d="M16 14.3c2.3.2 4 1.8 4.6 4.9"/></svg>'
+};
+const ROUTE = '<svg class="route" viewBox="0 0 300 56" aria-hidden="true"><path d="M14 40C52 40 66 16 106 18S166 46 204 38 252 22 278 30" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="3" stroke-dasharray="1 9" stroke-linecap="round"/><circle cx="14" cy="40" r="7" fill="#fff"/><circle cx="106" cy="18" r="7" fill="#fff"/><circle cx="204" cy="38" r="8" fill="#FFA53D" stroke="rgba(255,165,61,.38)" stroke-width="8" paint-order="stroke"/><path d="M280 32V7" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><path d="M281.5 8 296 13l-14.5 5z" fill="#FFA53D"/></svg>';
+const usRow = (k, i, body)=>`<div class="u u-${k}"><span class="ic">${US_ICON[k]}</span><div><h3>${fill(W.usT[i])}</h3><p>${body}</p></div></div>`;
+const us = `
+  <section class="sec wrap">
+    <div class="head"><span class="eb">${fill(W.usEb)}</span><h2>${fill(W.usH)}<span class="dot">.</span></h2><p class="sub">${fill(W.usLead)}</p></div>
+    <div class="us" style="--goal:${GOAL_COLOR[goal]}">
+      ${usRow('goal', 0, fill(W.usGoal[goal]) + ' ' + fill(W.usSkip))}
+      <div class="u u-vip"><span class="vip">VIP</span><h3>${fill(W.usT[1])}</h3><p>${fill(W.usB[1])}</p>${ROUTE}</div>
+      ${usRow('track', 2, fill(W.usB[2]))}
+      ${usRow('group', 3, fill(W.usB[3]))}
+    </div>
+  </section>`;
+
 const rooms = `
   <section class="sec wrap">
     <div class="head"><span class="eb">${fill(W.midEb)}</span><h2>${fill(W.midH)}</h2></div>
@@ -317,6 +362,6 @@ const cta = `
 
 document.title = plain(W.title);
 const root = document.getElementById('offer');
-root.innerHTML = hero + why + rooms + prac + how + group + note;
+root.innerHTML = hero + why + us + rooms + prac + how + group + note;
 root.insertAdjacentHTML('afterend', cta);
 })();

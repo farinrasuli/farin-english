@@ -128,6 +128,26 @@ html[dir="rtl"] .flow .arrow{transform:scaleX(-1)}
 html[lang="fa"] .loves small{letter-spacing:0;font-size:.85rem}
 .loves .chip{background:var(--orange-soft);border-color:color-mix(in srgb,var(--orange) 40%,var(--line));color:var(--orange-ink)}
 
+/* why FEschool: four promises; the VIP roadmap card wears the hero's purple with its orange dots and a drawn route */
+.us{display:flex;flex-direction:column;gap:10px}
+.u{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px}
+.u .ic{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center}
+.u .ic svg{width:25px;height:25px}
+.u h3{font-size:1.08rem;margin-bottom:3px}
+.u p{color:var(--muted);font-size:.93rem;line-height:1.5}
+html[lang="fa"] .u p{line-height:1.85}
+.u-goal .ic{background:color-mix(in srgb,var(--goal) 15%,#fff);color:var(--goal)}
+.u-track .ic{background:var(--purple-soft);color:var(--purple-ink)}
+.u-group .ic{background:var(--orange-soft);color:var(--orange-ink)}
+.u-vip{position:relative;overflow:hidden;flex-direction:column;gap:8px;border:0;color:#fff;background:linear-gradient(140deg,#7C5CFC,#5A3FD6);box-shadow:var(--shadow);padding:20px 20px 14px}
+.u-vip::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,165,61,.5) 0 2.5px,transparent 3px),radial-gradient(circle,rgba(255,255,255,.22) 0 2px,transparent 2.5px);background-size:170px 140px,120px 110px;background-position:30px 20px,90px 70px}
+.u-vip>*{position:relative}
+.u-vip h3{font-size:1.32rem;color:#fff;margin:0}
+.u-vip p{color:rgba(255,255,255,.92);font-size:.97rem}
+.vip{align-self:flex-start;background:var(--orange);color:var(--on-orange);font-family:"Fredoka","Nunito",system-ui,sans-serif;font-weight:700;font-size:.8rem;letter-spacing:.12em;border-radius:999px;padding:2px 12px}
+.route{display:block;width:100%;height:auto;max-height:58px;margin-top:4px}
+html[dir="rtl"] .route{transform:scaleX(-1)}
+
 /* time box */
 .time{display:flex;gap:16px;align-items:flex-start;background:var(--sunk);border-radius:22px;padding:20px}
 .time svg{flex:none;width:40px;height:40px}
