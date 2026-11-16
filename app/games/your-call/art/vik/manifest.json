@@ -1,0 +1,1076 @@
+{
+ "town": "vik",
+ "album": "Your Call B1 \"Fire and Ice\" (Vík, Iceland), English app",
+ "built": "2026-11-16",
+ "items": {
+  "COVER": {
+   "src": "cover.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 31320,
+   "ch": 0,
+   "dev": false,
+   "alpha": false
+  },
+  "THUMB": {
+   "src": "thumb.webp",
+   "w": 300,
+   "h": 375,
+   "bytes": 7950,
+   "ch": 0,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_1": {
+   "src": "c1_1.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 29512,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_2": {
+   "src": "c1_2.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 36950,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_3": {
+   "src": "c1_3.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 41862,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_4": {
+   "src": "c1_4.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 42810,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_5A": {
+   "src": "c1_5a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 40064,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_5B": {
+   "src": "c1_5b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 38982,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_6": {
+   "src": "c1_6.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 44506,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_7": {
+   "src": "c1_7.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 21526,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "RADIO_C1": {
+   "src": "radio_c1.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 36666,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_8": {
+   "src": "c1_8.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 88142,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_TNN": {
+   "src": "c1_tnn.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 80632,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_TNT": {
+   "src": "c1_tnt.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 72792,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_9": {
+   "src": "c1_9.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 59298,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_10": {
+   "src": "c1_10.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 52014,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_11A": {
+   "src": "c1_11a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 50952,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_11B": {
+   "src": "c1_11b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 28524,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_12": {
+   "src": "c1_12.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 32204,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C1_13": {
+   "src": "c1_13.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 47664,
+   "ch": 1,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_1": {
+   "src": "c2_1.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 41168,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_2": {
+   "src": "c2_2.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 38500,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "RADIO_C2": {
+   "src": "radio_c2.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 51432,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_3": {
+   "src": "c2_3.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 41680,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_4": {
+   "src": "c2_4.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 54886,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_5": {
+   "src": "c2_5.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 58072,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_6": {
+   "src": "c2_6.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 49296,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_7": {
+   "src": "c2_7.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 44418,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_8A": {
+   "src": "c2_8a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 49462,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_8B": {
+   "src": "c2_8b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 52106,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_9": {
+   "src": "c2_9.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 63592,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_TNN": {
+   "src": "c2_tnn.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 87960,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_TNT": {
+   "src": "c2_tnt.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 82270,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_11": {
+   "src": "c2_11.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 62340,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_12A": {
+   "src": "c2_12a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 64138,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_12B": {
+   "src": "c2_12b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 43658,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C2_14": {
+   "src": "c2_14.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 50344,
+   "ch": 2,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_1": {
+   "src": "c3_1.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 25804,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_2": {
+   "src": "c3_2.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 57082,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_T1": {
+   "src": "c3_t1.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 94840,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_T2": {
+   "src": "c3_t2.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 80964,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_T3": {
+   "src": "c3_t3.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 93540,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_3": {
+   "src": "c3_3.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 116954,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_4": {
+   "src": "c3_4.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 29028,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_5A": {
+   "src": "c3_5a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 32172,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_5B": {
+   "src": "c3_5b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 48844,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_6": {
+   "src": "c3_6.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 40664,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_7A": {
+   "src": "c3_7a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 49252,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_7B": {
+   "src": "c3_7b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 49030,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C3_8": {
+   "src": "c3_8.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 103546,
+   "ch": 3,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_1": {
+   "src": "c4_1.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 62730,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_2": {
+   "src": "c4_2.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 50412,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_3A": {
+   "src": "c4_3a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 57366,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_3B": {
+   "src": "c4_3b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 54920,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_4": {
+   "src": "c4_4.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 61342,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_TNN": {
+   "src": "c4_tnn.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 90522,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_TNT": {
+   "src": "c4_tnt.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 85658,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_5": {
+   "src": "c4_5.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 53004,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_6A": {
+   "src": "c4_6a.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 52230,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_6B": {
+   "src": "c4_6b.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 49012,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_7": {
+   "src": "c4_7.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 58554,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C4_8": {
+   "src": "c4_8.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 51304,
+   "ch": 4,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_1A": {
+   "src": "c5_1a.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 32634,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_1B": {
+   "src": "c5_1b.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 31566,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "RADIO_C5": {
+   "src": "radio_c5.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 47526,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "RADIO_C5B": {
+   "src": "radio_c5b.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 21394,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_2": {
+   "src": "c5_2.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 26304,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_3": {
+   "src": "c5_3.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 49416,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_4": {
+   "src": "c5_4.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 65944,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_5A": {
+   "src": "c5_5a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 64512,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_5B": {
+   "src": "c5_5b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 67346,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_6": {
+   "src": "c5_6.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 53020,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_7": {
+   "src": "c5_7.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 94692,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_8": {
+   "src": "c5_8.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 53234,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_9A": {
+   "src": "c5_9a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 61570,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_9B": {
+   "src": "c5_9b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 63180,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_10": {
+   "src": "c5_10.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 97174,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_11": {
+   "src": "c5_11.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 38706,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_12": {
+   "src": "c5_12.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 47968,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_13A": {
+   "src": "c5_13a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 46668,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_13B": {
+   "src": "c5_13b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 46746,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_F1": {
+   "src": "c5_f1.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 50578,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_F2": {
+   "src": "c5_f2.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 42138,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_F4": {
+   "src": "c5_f4.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 22920,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_F5": {
+   "src": "c5_f5.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 53376,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C5_14": {
+   "src": "c5_14.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 86278,
+   "ch": 5,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_1": {
+   "src": "c6_1.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 14508,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_2": {
+   "src": "c6_2.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 13320,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_3A": {
+   "src": "c6_3a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 12570,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_3B": {
+   "src": "c6_3b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 10484,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_4A": {
+   "src": "c6_4a.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 12468,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_4B": {
+   "src": "c6_4b.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 10600,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_5": {
+   "src": "c6_5.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 38504,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_6": {
+   "src": "c6_6.webp",
+   "w": 896,
+   "h": 512,
+   "bytes": 28216,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_7": {
+   "src": "c6_7.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 30100,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_8": {
+   "src": "c6_8.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 53476,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_9": {
+   "src": "c6_9.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 22294,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_10A": {
+   "src": "c6_10a.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 16376,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_10B": {
+   "src": "c6_10b.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 72452,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "LAST18_A": {
+   "src": "last18_a.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 36764,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "LAST18_B": {
+   "src": "last18_b.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 16910,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "LAST26_A": {
+   "src": "last26_a.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 22418,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "LAST26_B": {
+   "src": "last26_b.webp",
+   "w": 864,
+   "h": 1080,
+   "bytes": 107968,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_11": {
+   "src": "c6_11.webp",
+   "w": 640,
+   "h": 704,
+   "bytes": 18108,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  },
+  "C6_12": {
+   "src": "c6_12.webp",
+   "w": 640,
+   "h": 800,
+   "bytes": 54498,
+   "ch": 6,
+   "dev": false,
+   "alpha": false
+  }
+ },
+ "hits": {
+  "C1": {
+   "now": "C1_TNN",
+   "then": "C1_TNT",
+   "changes": {
+    "c1": {
+     "x": 0,
+     "y": 74.07,
+     "w": 47.45,
+     "h": 17.59
+    },
+    "c2": {
+     "x": 59.03,
+     "y": 75.93,
+     "w": 40.51,
+     "h": 15.74
+    },
+    "c3": {
+     "x": 46.3,
+     "y": 1.85,
+     "w": 23.15,
+     "h": 25
+    }
+   },
+   "clue": {
+    "x": 34.72,
+    "y": 59.26,
+    "w": 13.89,
+    "h": 33.33
+   },
+   "clueAt": {
+    "x": 41,
+    "y": 66
+   }
+  },
+  "C2": {
+   "now": "C2_TNN",
+   "then": "C2_TNT",
+   "changes": {
+    "c1": {
+     "x": 0,
+     "y": 46.3,
+     "w": 100,
+     "h": 20.37
+    },
+    "c2": {
+     "x": 76.39,
+     "y": 58.33,
+     "w": 23.61,
+     "h": 23.15
+    },
+    "c3": {
+     "x": 0,
+     "y": 57.41,
+     "w": 38.19,
+     "h": 22.22
+    }
+   },
+   "clue": {
+    "x": 43.98,
+    "y": 59.26,
+    "w": 16.2,
+    "h": 33.33
+   },
+   "clueAt": {
+    "x": 52,
+    "y": 70
+   }
+  },
+  "C3": {
+   "t1": {
+    "x": 43.98,
+    "y": 70.37,
+    "w": 18.52,
+    "h": 12.96
+   },
+   "t2": {
+    "x": 53.24,
+    "y": 64.81,
+    "w": 17.36,
+    "h": 14.81
+   },
+   "reveal": {
+    "x": 39.35,
+    "y": 70.37,
+    "w": 18.52,
+    "h": 14.81
+   }
+  },
+  "C4": {
+   "now": "C4_TNN",
+   "then": "C4_TNT",
+   "changes": {
+    "c1": {
+     "x": 43.98,
+     "y": 0,
+     "w": 56.02,
+     "h": 25.93
+    },
+    "c2": {
+     "x": 64.81,
+     "y": 51.85,
+     "w": 11.57,
+     "h": 38.89
+    },
+    "c3": {
+     "x": 3.47,
+     "y": 59.26,
+     "w": 34.72,
+     "h": 29.63
+    }
+   },
+   "clueAt": {
+    "x": 30,
+    "y": 60
+   },
+   "secret": {
+    "x": 48.61,
+    "y": 87.96,
+    "w": 8.1,
+    "h": 3.7
+   }
+  }
+ }
+}
