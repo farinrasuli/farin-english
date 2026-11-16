@@ -12861,7 +12861,7 @@ function gamePosterSrc(it){
   if(!it || it.type !== 'game') return '';
   if(it.gameKind !== 'path') return CARD_POSTERS.has(it.gameKind) ? 'art/posters/card-' + it.gameKind + '.webp' : '';
   const r = pathRefParts(it.refId); if(!r) return '';
-  if(r.level === 'A2' && YC_LEVELS.includes('A2') && ycEligible(it.refId)) return 'games/your-call/art/istanbul/cover.webp';   // the A2 album's own cover (2026-11-13)
+  if(YC_COVERS[r.level] && YC_LEVELS.includes(r.level) && ycEligible(it.refId)) return YC_COVERS[r.level];   // a later album's own cover (A2 2026-11-13, B1 2026-11-16)
   if(CARD_POSTERS.has('path') && typeof YC_LEVELS !== 'undefined' && (YC_LEVELS.includes(r.level) || ycEligible(it.refId))) return YC_POSTER;   // every level opens the comic (2026-11-12)
   const sc = (typeof PATH_SCENES !== 'undefined') && PATH_SCENES['lane-ch' + r.ch + '-1'];
   const plate = sc && sc.layers && sc.layers.find(l=>l.plate);
@@ -23137,8 +23137,12 @@ const YC_VER = '16';   // 3: GDD 12 sound (sets, 1970 radio, piano, ducking; 7VO
 // off, an A2 card borrows the A1 album. On since 2026-11-15: all 319 A2 lines have both clips (main in audio/en, other voice in
 // farin-english-voice 6703062e). Spanish has no A2 album yet (YC_LEVELS stays A1 there).
 const YC_A2_LIVE = true;
-const YC_LEVELS = TTS_LANG.slice(0, 2) === 'en' && YC_A2_LIVE ? ['A1', 'A2'] : ['A1'];
-const YC_ALBUM_FILES = TTS_LANG.slice(0, 2) === 'en' ? {A2:'content-en-A2.js'} : {};
+// YC_B1_LIVE: B1 "Fire and Ice" (Vík, 1918/2026, engine 0.5.0: Radio Watch, wrong-note tiles, translation on tap, the 1918 silver
+// look). Same rule as A2: on only once all its lines have both natural-voice clips; off, a B1 card borrows the A1 album.
+const YC_B1_LIVE = false;
+const YC_LEVELS = TTS_LANG.slice(0, 2) === 'en' ? ['A1'].concat(YC_A2_LIVE ? ['A2'] : [], YC_B1_LIVE ? ['B1'] : []) : ['A1'];
+const YC_ALBUM_FILES = TTS_LANG.slice(0, 2) === 'en' ? {A2:'content-en-A2.js', B1:'content-en-B1.js'} : {};
+const YC_COVERS = TTS_LANG.slice(0, 2) === 'en' ? {A2:'games/your-call/art/istanbul/cover.webp', B1:'games/your-call/art/vik/cover.webp'} : {};
 let ycLoading = null, ycGame = null, ycPending = null;
 // "Read story lines aloud in games" (Farin 2026-11-16; Games 2.0 §5.2, owned by the World Kit): the helper readAloud() once it ships,
 // the provisional profile.readLinesAloud until then, else off. The engine falls back to window.farinReadAloud() itself.
