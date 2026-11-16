@@ -31,7 +31,7 @@ window.THEATRE_CONTENT = {
     order:{
       title:'Rush Hour at Sam’s',
       tagline:'Five customers. One tray. Listen closely.',
-      art:'games/posters/order.webp', artReady:false   // until this portrait key art lands: the card poster + the palette from skins.js
+      art:'games/posters/order.webp', artReady:true   // the 4:5 key art (2026-11-16; Games 2.0 SPEC 5.1: shown whole), with the palette from skins.js
     },
     desk:{
       title:'Arrivals',
@@ -50,14 +50,15 @@ window.THEATRE_CONTENT = {
       tagline:'Say it right, and the door opens.',
       art:'games/posters/spell.webp', artReady:false   // until this portrait key art lands: the card poster + the palette from skins.js
     },
-    // quick games (2026-11-14): the poster is the live roadmap card art and its palette (skins.js); titles + taglines from the
+    // quick games (2026-11-14): the poster is the live roadmap card art and its palette (skins.js), or the game's own 4:5 key art once it
+    // passes (2026-11-16: Order Up!, Word Bingo, Say It Back; Mini Cross and Build It wait for fixed posters); titles + taglines from the
     // worlds SPEC section 16 (farin-gamification)
     match:{title:'The Card Table', tagline:'Flip two. Find the pair. The ferry’s almost in.'},
     build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.'},
     cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.'},
-    bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.'},
+    bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.', art:'games/posters/bingo.webp', artReady:true},
     hunt:{title:'The Word Hunt', tagline:'Somewhere in your story, the words are hiding.'},
-    echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.'},
+    echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.', art:'games/posters/echo.webp', artReady:true},
     dictation:{title:'By the Window', tagline:'Listen closely. Type what you hear.'},
     trap:{title:'Pier Dash', tagline:'Pick fast. Jump clean.'}
   },
