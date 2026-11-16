@@ -574,7 +574,7 @@
    "src": "c5_1b.webp",
    "w": 896,
    "h": 512,
-   "bytes": 31566,
+   "bytes": 31514,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -826,7 +826,7 @@
    "src": "c6_4b.webp",
    "w": 640,
    "h": 704,
-   "bytes": 10600,
+   "bytes": 9962,
    "ch": 6,
    "dev": false,
    "alpha": false
