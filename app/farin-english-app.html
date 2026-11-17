@@ -42318,7 +42318,13 @@ function adminContactsOtherLoad(){
     adminContactsOther = snap.docs.map(d=>Object.assign({id:d.id}, d.data()));
     adminInsLinksCache = null;
     renderAdminPage();
-  }).catch(()=>{});
+  }).catch(()=>{
+    // can't read the other app's contacts: count them as none, so taking learners without a number out of classes still runs
+    // (it waits for this list; Farin 2026-11-16: nobody without a WhatsApp number in a group class)
+    if(!adminContactsOther) adminContactsOther = [];
+    adminInsLinksCache = null;
+    renderAdminPage();
+  });
 }
 function deleteAdminContact(id){
   if(!confirm('Delete this contact? This cannot be undone.')) return;
