@@ -1504,6 +1504,10 @@
   .msg-pw-code{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:24px; font-weight:700; letter-spacing:.05em; overflow-wrap:anywhere;}
   .msg-pw p{margin:0; font-size:13.5px; line-height:1.45; color:var(--ink-soft);}
   .msg-pw .cu-btn{min-height:46px; font-size:15px; padding:10px 18px;}
+  .msg-offer .cu-btn{min-height:46px; font-size:15px; padding:10px 18px;}   /* an offer from Farin (admin › Marketing v3) */
+  .msg-offer .msg-card-top{background:var(--fs-orange-soft, #FFF0DA);}
+  .msg-offer .msg-card-top .eyebrow{color:var(--fs-orange-ink, #A85A05);}
+  .msg-offer-meta{font-size:12.5px !important; font-weight:700; color:var(--ink-soft);}
   .msg-composer{position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:480px; z-index:20; box-sizing:border-box; padding:12px 12px calc(14px + env(safe-area-inset-bottom, 0px)); background:linear-gradient(to top, var(--bg) 72%, transparent);}
   .msg-composer-in{display:flex; align-items:flex-end; gap:8px;}
   .msg-composer textarea{flex:1; min-width:0; max-height:120px; resize:none; border:1.5px solid var(--border); background:var(--bg-elevated); color:var(--ink); border-radius:22px; padding:11px 16px; font:inherit; font-size:15px; line-height:1.35; box-sizing:border-box;}
@@ -1656,7 +1660,7 @@
   .ap-sh{margin-bottom:14px;}
   .ap-sh h2{font-size:22px; letter-spacing:-.01em; margin-top:4px;}
   .ap-card{background:var(--bg-elevated); border:1px solid var(--border-soft); border-radius:22px; padding:16px 18px; box-shadow:0 1px 2px rgba(26,20,16,.05), 0 10px 28px -14px rgba(26,20,16,.18);}
-  /* Admin › Marketing v2 (2026-11-17): groups, tabs, ready notifications, schedule, analysis. Source: Claude/tools/marketing/admin-marketing.css */
+  /* Admin › Marketing v2 + v3 (2026-11-17): groups, the offer + learner rows, tabs, ready notifications, schedule, analysis. Source: Claude/tools/marketing/admin-marketing.css */
   .ins-box.mk-gbox{overflow:hidden; padding-inline-end:84px; min-height:132px;}
   .ins-box.mk-gbox .mk-bn{font-size:21px; position:relative;}
   .ins-box.mk-gbox > *{position:relative;}
@@ -1712,6 +1716,59 @@
   .ap-kv.mk-kv > span{flex:1 1 220px; min-width:0;}
   .ap-kv.mk-kv > b{white-space:nowrap; margin-inline-start:auto;}
   @media (max-width:440px){ .mk-tab{flex:1 1 0; white-space:normal; line-height:1.2; padding:8px 6px; font-size:12px;} }
+  /* v3 (2026-11-17): the offer per group, learner rows with Message in app + WhatsApp, send to all */
+  .mk-goffer{font-weight:800; color:var(--fs-purple-ink) !important;}
+  .mk-offer{border-top:4px solid var(--c, var(--fs-purple));}
+  .mk-oprice{margin:4px 0 0; font-size:13px; line-height:1.5; color:var(--ink-soft);}
+  .mk-oprice b{color:var(--ink); font-weight:900;}
+  .mk-why{margin-top:6px;}
+  .mk-csw{display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;}
+  .mk-csw small{font-weight:700; opacity:.75; font-size:10.5px;}
+  .mk-olangs{margin-top:10px;}
+  .mk-prevs{margin-top:6px; align-items:start;}
+  .mk-chat{display:flex; flex-direction:column; gap:8px; padding:12px; border-radius:18px; background:var(--bg-sunken);}
+  .mk-chat .msg-b{max-width:92%; font-size:13.5px;}
+  .mk-chat .msg-card{width:88%;}
+  .mk-chat.fa, .mk-wa.fa{font-family:'Vazirmatn', sans-serif;}
+  .mk-fakebtn{display:flex; justify-content:center; align-items:center; text-align:center; min-height:36px; padding:7px 14px; border-radius:999px; font-weight:900; font-size:13px;}
+  .mk-fakebtn.or{background:#FFA53D; color:#1A1410;}
+  .mk-fakebtn.pu{background:#7C5CFC; color:#fff;}
+  .mk-wa{padding:12px; border-radius:18px; background:color-mix(in srgb, #25D366 9%, var(--bg-sunken));}
+  .mk-wa-b{margin-inline-start:auto; max-width:92%; width:fit-content; padding:9px 12px; border-radius:14px; border-end-end-radius:4px; background:color-mix(in srgb, #25D366 24%, var(--bg-elevated)); color:var(--ink); font-size:13.5px; line-height:1.45; white-space:pre-wrap; overflow-wrap:anywhere;}
+  .mk-allwrap{margin-top:14px; padding-top:14px; border-top:1px dashed var(--border);}
+  .mk-allbtn{width:auto; padding:12px 20px;}
+  .mk-allbtn[disabled]{opacity:.45; cursor:not-allowed;}
+  .mk-allrun{margin:0;}
+  .mk-skip{margin:8px 0 0; padding-inline-start:18px; font-size:13px; line-height:1.55; color:var(--ink);}
+  .mk-skip li.sk{color:var(--ink-soft);}
+  .mk-allprev{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:12px; margin-top:10px;}
+  .mk-olist{display:flex; flex-direction:column; margin-top:6px;}
+  .mk-orow{padding:12px 0; border-bottom:1px solid var(--border-soft); min-width:0;}
+  .mk-orow:last-child{border-bottom:0;}
+  .mk-orow.open{background:color-mix(in srgb, var(--fs-purple) 5%, transparent); border-radius:16px; padding-inline:8px; margin-inline:-8px;}
+  .mk-otop{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .mk-oname{all:unset; box-sizing:border-box; cursor:pointer; flex:1 1 220px; min-width:0; display:flex; align-items:center; gap:12px; border-radius:12px;}
+  .mk-oname:focus-visible{outline:2px solid var(--fs-purple); outline-offset:2px;}
+  .mk-oname:hover b{text-decoration:underline; text-underline-offset:2px;}
+  .mk-oname .ap-av{width:40px; height:40px; font-size:16px;}
+  .mk-obtns{display:flex; gap:8px; flex:0 0 auto; margin-inline-start:auto;}
+  .mk-ob{all:unset; box-sizing:border-box; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:40px; padding:8px 15px; border-radius:999px; font-weight:900; font-size:13.5px; white-space:nowrap; text-decoration:none;}
+  .mk-ob svg{width:17px; height:17px; flex:none;}
+  .mk-ob.app{background:#7C5CFC; color:#fff; box-shadow:0 3px 0 #3F2A9E;}
+  .mk-ob.wa{background:#2e9e5b; color:#fff; box-shadow:0 3px 0 #1d6b3c;}
+  .mk-ob:focus-visible{outline:2px solid var(--fs-purple); outline-offset:3px;}
+  .mk-ob:active{transform:translateY(2px); box-shadow:none;}
+  .mk-ob[disabled]{background:var(--bg-sunken); color:var(--ink-faint); box-shadow:none; cursor:not-allowed;}
+  .mk-ometa{display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin-top:8px; padding-inline-start:52px;}
+  .mk-hist{display:inline-flex; flex-wrap:wrap; gap:6px;}
+  .mk-got{font-size:11px; font-weight:800; padding:2px 8px; border-radius:999px; background:var(--bg-sunken); color:var(--ink-soft); white-space:nowrap;}
+  .mk-got.app{background:var(--fs-purple-soft); color:var(--fs-purple-ink);}
+  .mk-got.wa{background:color-mix(in srgb, #25D366 22%, var(--bg-elevated)); color:var(--ink);}
+  .mk-got.none{background:transparent; color:var(--ink-faint); padding-inline:0;}
+  .mk-owhy{margin:6px 0 0; padding-inline-start:52px; font-size:12px; font-weight:700; color:var(--ink-faint);}
+  .mk-rowc{margin-top:10px;}
+  .mk-rowc .mk-chat{margin-top:10px; background:var(--bg-elevated);}
+  @media (max-width:600px){ .mk-ometa, .mk-owhy{padding-inline-start:0;} .mk-obtns{width:100%; margin-inline-start:0;} .mk-ob{flex:1 1 0;} .mk-allbtn{width:100%;} }
   /* /Admin › Marketing */
   .ap-empty{padding:28px 16px; text-align:center; color:var(--ink-faint); font-size:14px;}
   /* Home: To check */
@@ -14358,6 +14415,10 @@ function renderPrivacyPolicy(){
               "Mesajlar'da Farin'e yazdıkların ve onun cevapları; adın, seviyen, uygulama dilin, WhatsApp numaran, hesap kodundan türetilen tek yönlü bir kimlik, cihaz türün ve tarayıcı bilgilerinle birlikte Google Firebase (Firestore) veritabanında saklanır. Bunları yalnızca Farin, yönetim sayfasında okur. Başka bir cihazda giriş yaptığında sohbetlerin geri gelir.",
               "چیزهایی که در پیام‌ها برای فرین می‌نویسی و جواب‌های او در Google Firebase (Firestore) ذخیره می‌شوند، همراه با اسمت، سطحت، زبان اپ، شمارهٔ واتس‌اپت، نسخهٔ درهم‌شدهٔ کد حسابت و نوع دستگاه و اطلاعات مرورگرت. فقط فرین آن‌ها را در صفحهٔ مدیریت می‌خواند. وقتی روی دستگاه دیگری وارد شوی، گفتگوهایت برمی‌گردند.",
               "Lo que escribes a Farin en Mensajes y sus respuestas se guardan en Google Firebase (Firestore), con tu nombre, tu nivel, el idioma de la app, tu número de WhatsApp, una versión cifrada del código de tu cuenta y tu tipo de dispositivo y datos del navegador. Solo Farin los lee, en la página de administración. Tus chats vuelven cuando inicias sesión en otro dispositivo."))}
+        ${P(L(B("Offers from Farin in Messages.")+" Farin may start a chat with you in Messages about one of our courses that fits your main goal and level, for example Job Interview English if you chose a career goal. It comes with a button to see the course, and if notifications are on, your phone shows it. It never goes to someone who already has that course, or to someone who turned off \"Course news and offers\" in Settings › \"Notifications\"; you can also write to Farin in that chat and ask him to stop. So that the chat shows up in your Messages, the app keeps a small mailbox in Google Firebase (Firestore), under a scrambled key made from your account code, which holds only the chats Farin started for you. The chat holds the same details as your other chats (your name, level, the app's language, your WhatsApp number and a scrambled version of your account code). The admin page keeps a record of which course offer it sent you, when, and how (in the app or on WhatsApp), with a scrambled version of your account code and no name or number, so the same offer isn't sent to you twice.",
+              B("Mesajlar'da Farin'den teklifler.")+" Farin, ana hedefine ve seviyene uyan kurslarımızdan biri için Mesajlar'da seninle bir sohbet başlatabilir; örneğin kariyer hedefini seçtiysen İngilizce İş Mülakatı. Mesajda kursu görebileceğin bir düğme olur ve bildirimler açıksa telefonunda da görünür. Bu mesaj o kursa zaten sahip olana ve Ayarlar › «Bildirimler» bölümünde «Kurs haberleri ve fırsatlar»ı kapatan kimseye gitmez; o sohbetten Farin'e yazıp göndermeyi bırakmasını da isteyebilirsin. Sohbetin Mesajlar'ında görünmesi için uygulama, Google Firebase (Firestore) veritabanında, hesap kodundan türetilen tek yönlü bir anahtar altında küçük bir posta kutusu tutar; içinde yalnızca Farin'in senin için başlattığı sohbetler bulunur. Sohbet, diğer sohbetlerinle aynı bilgileri taşır (adın, seviyen, uygulama dilin, WhatsApp numaran ve hesap kodundan türetilen tek yönlü bir kimlik). Aynı teklif sana iki kez gitmesin diye yönetim sayfası, hangi kurs teklifini ne zaman ve nasıl (uygulamada mı, WhatsApp'ta mı) gönderdiğini, hesap kodundan türetilen tek yönlü kimlikle, adın ya da numaran olmadan kaydeder.",
+              B("پیشنهادهای فرین در پیام‌ها.")+" فرین ممکن است دربارهٔ یکی از دوره‌هایمان که با هدف اصلی و سطحت جور است، در «پیام‌ها» با تو گفتگویی شروع کند؛ مثلاً «مصاحبهٔ شغلی به انگلیسی» اگر هدف شغلی را انتخاب کرده باشی. کنار پیام دکمه‌ای برای دیدن دوره هست و اگر اعلان‌ها روشن باشد، گوشی‌ات هم نشانش می‌دهد. این پیام برای کسی که آن دوره را دارد، یا «خبر دوره‌ها و پیشنهادها» را در تنظیمات › «اعلان‌ها» خاموش کرده، فرستاده نمی‌شود؛ می‌توانی در همان گفتگو هم به فرین بنویسی که دیگر نفرستد. برای اینکه این گفتگو در پیام‌هایت بیاید، اپ یک صندوق کوچک در Google Firebase (Firestore) نگه می‌دارد، زیر کلیدی درهم‌شده که از کد حسابت ساخته می‌شود، و در آن فقط گفتگوهایی هست که فرین برایت شروع کرده. این گفتگو همان اطلاعات گفتگوهای دیگرت را دارد (اسمت، سطحت، زبان اپ، شمارهٔ واتس‌اپت و نسخهٔ درهم‌شدهٔ کد حسابت). صفحهٔ مدیریت ثبت می‌کند کدام پیشنهاد دوره را کی و از چه راهی (داخل اپ یا واتس‌اپ) برایت فرستاده، با نسخهٔ درهم‌شدهٔ کد حسابت و بدون اسم یا شماره، تا یک پیشنهاد دو بار برایت فرستاده نشود.",
+              B("Ofertas de Farin en Mensajes.")+" Farin puede iniciar un chat contigo en Mensajes sobre uno de nuestros cursos que encaje con tu objetivo principal y tu nivel, por ejemplo Job Interview English si elegiste un objetivo profesional. Lleva un botón para ver el curso y, si tienes las notificaciones activadas, tu teléfono lo muestra. Nunca va a quien ya tiene ese curso ni a quien desactivó «Novedades de cursos y ofertas» en Ajustes › «Notificaciones»; también puedes escribir a Farin en ese chat y pedirle que deje de enviarlas. Para que el chat aparezca en tus Mensajes, la app guarda un pequeño buzón en Google Firebase (Firestore), con una clave cifrada hecha a partir del código de tu cuenta, que solo contiene los chats que Farin inició para ti. El chat lleva los mismos datos que tus otros chats (tu nombre, tu nivel, el idioma de la app, tu número de WhatsApp y una versión cifrada del código de tu cuenta). La página de administración guarda qué oferta de curso te envió, cuándo y por dónde (en la app o por WhatsApp), con una versión cifrada del código de tu cuenta y sin nombre ni número, para no enviarte la misma oferta dos veces."))}
         ${P(L("When you tap “I want this course”, your request holds the course, its price, how you will pay, your note if you write one, and the photo of your payment receipt if you add one. The app doesn't take payments: you pay by bank transfer and send the receipt so Farin can check it. Photos are made smaller on your phone before they are sent.",
               "«Bu kursu istiyorum»a dokunduğunda talebinde kurs, fiyatı, nasıl ödeyeceğin, yazarsan notun ve eklersen ödeme dekontunun fotoğrafı bulunur. Uygulama ödeme almaz: ödemeyi banka havalesiyle yaparsın ve Farin kontrol edebilsin diye dekontu gönderirsin. Fotoğraflar gönderilmeden önce telefonunda küçültülür.",
               "وقتی «این دوره را می‌خواهم» را می‌زنی، درخواستت شامل دوره، قیمتش، روش پرداختت، یادداشتت (اگر بنویسی) و عکس رسید پرداختت (اگر اضافه کنی) است. اپ پولی دریافت نمی‌کند: پرداخت را با انتقال بانکی انجام می‌دهی و رسید را می‌فرستی تا فرین بررسی‌اش کند. عکس‌ها قبل از ارسال روی گوشی‌ات کوچک می‌شوند.",
@@ -16443,7 +16504,11 @@ const NOTIF_HANDLERS = {
 function notifGo(g){
   g = String(g || ''); const i = g.indexOf(':'), kind = i === -1 ? g : g.slice(0, i), arg = i === -1 ? '' : g.slice(i + 1);
   try{
-    if(kind === 'msg' && arg){ msgGoThread(arg); return; }
+    if(kind === 'msg' && arg){
+      // a chat Farin started (an offer) may not be on this phone yet: read the mailbox first
+      if(!msgMap()[arg]){ go('messages'); msgInboxCheck().then(()=>{ if(msgMap()[arg]) msgGoThread(arg); }); return; }
+      msgGoThread(arg); return;
+    }
     if(kind === 'messages'){ go('messages'); return; }
     if(kind === 'bc' && arg){ go('dashboard'); notifNewsOpen(arg); return; }
     if(kind === 'course' && arg && COURSES.some(c=>c.id === arg)){ go('course-detail', {cid:arg}); return; }
@@ -32267,6 +32332,10 @@ document.addEventListener('input', e=>{
        lm:[…], lAt, lSeen                        <- written only by the learner's app
        fm:[…], fAt, aSeen, statusAt, gone:[…]     <- written only by the admin page}
      Each side writes only its own keys with set(…, {merge:true}) (the REST client sends an updateMask of those keys), so they never overwrite each other.
+     Offers (admin › Marketing v3, Farin 2026-11-17): Farin can start a chat, type:'offer', topic {t:'course', c}, learner:{…} copied from the
+       account, fm:[{text, card:{type:'offer', c}}]. The learner's app finds it through its mailbox, progress/inb-<sha256('farin-inbox-v1|' +
+       recovery code)>: {kind:'inbox', v:1, app, c_<chat id without 'ch-'>:{at, t, ty}} (one top-level key per chat, because merge = updateMask
+       of top-level keys). msgInboxCheck() reads it with every refresh and adds new chats to progress.chats.
      A message: {id, at, text} | {id, at, img:'chi-…'} | {id, at, card:{type:'request', c, price, pay:'tl'|'toman', receipt:'chi-…', ref, note}}
        | {id, at, card:{type:'password', c, pw, until}} | {id, at, sys:'done'|'reopened'}.
    - one doc per photo, progress/chi-<22 random>: {kind:'chatImage', v:1, chat, by:'learner'|'farin', data:'data:image/jpeg;base64,…', at}, shrunk on
@@ -32328,6 +32397,7 @@ function msgTopicCls(tp){ tp = tp || {}; return tp.t === 'course' ? 'course' : t
 function msgTopicIcon(tp){ tp = tp || {}; return tp.t === 'course' ? ICONS.book : tp.t === 'club' ? ICONS.users : tp.t === 'app' ? ICONS.warn : ICONS.chat; }
 function msgChip(tp, side){ return `<span class="msg-chip ${msgTopicCls(tp)}">${msgTopicIcon(tp)}<span>${esc(msgTopicName(tp, side))}</span></span>`; }
 function msgKindLabel(type, req, side){
+  if(type === 'offer') return side === 'admin' ? 'Offer (you started it)' : CL('From Farin','Farin\'den','از طرف فرین','De Farin');
   if(type !== 'request') return msgT(side, 'Question','Soru','سؤال','Pregunta');
   return req === 'buy' ? msgT(side, 'Course request','Kurs talebi','درخواست دوره','Solicitud de curso') : msgT(side, 'Join request','Katılım talebi','درخواست عضویت','Solicitud para unirse');
 }
@@ -32386,15 +32456,40 @@ function msgFetch(id){
     return changed;
   }).catch(()=>false).then(ch=>{ msgUi.checking[id] = false; return ch; });
 }
+// The mailbox (admin › Marketing v3, 2026-11-17): chats Farin started for this account (offers). Only someone who knows the recovery code
+// can find it. New ones join progress.chats (so a login on another phone brings them too). Resolves true when it added one.
+const MSG_INBOX_PREFIX = 'inb-';
+let msgInboxBusy = null;
+function msgInboxId(code){ return courseSha256Hex('farin-inbox-v1|' + code).then(h=>MSG_INBOX_PREFIX + h); }
+function msgInboxCheck(){
+  const code = state.profile && state.profile.recoveryCode;
+  if(!code || typeof firebase === 'undefined' || !state.profile.completedDiagnostic) return Promise.resolve(false);
+  if(msgInboxBusy) return msgInboxBusy;
+  msgInboxBusy = msgInboxId(code).then(id=>firebase.firestore().collection('progress').doc(id).get()).then(doc=>{
+    const d = (doc.exists && doc.data()) || {}, map = msgMap(); let added = false;
+    Object.keys(d).forEach(k=>{
+      if(!/^c_[A-Za-z0-9]{22}$/.test(k)) return;
+      const id = MSG_PREFIX + k.slice(2), e = d[k] && typeof d[k] === 'object' ? d[k] : {};
+      if(map[id]) return;
+      const t = e.t && e.t.t === 'course' && typeof e.t.c === 'string' ? {t:'course', c:e.t.c.slice(0, 40)} : {t:'general'};
+      map[id] = {t, ty:'offer', at:Number(e.at) || Date.now(), seen:0}; added = true;
+    });
+    if(added) save();
+    return added;
+  }).catch(()=>false).then(r=>{ msgInboxBusy = null; return r; });
+  return msgInboxBusy;
+}
 // minGap: skip when the last full refresh is younger than this (ms).
 function msgRefreshAll(minGap){
-  const ids = msgIds(); if(!ids.length) return Promise.resolve(false);
   if(Date.now() - msgUi.lastPoll < (minGap || 0)) return Promise.resolve(false);
   msgUi.lastPoll = Date.now();
-  return Promise.all(ids.map(msgFetch)).then(r=>{
-    const changed = r.some(Boolean);
-    if(changed){ msgCacheSave(); msgAutoUnlock(); msgAfterUpdate(); }
-    return changed;
+  return msgInboxCheck().then(added=>{
+    const ids = msgIds(); if(!ids.length) return false;
+    return Promise.all(ids.map(msgFetch)).then(r=>{
+      const changed = added || r.some(Boolean);
+      if(changed){ msgCacheSave(); msgAutoUnlock(); msgAfterUpdate(); }
+      return changed;
+    });
   });
 }
 function msgAfterUpdate(){
@@ -32573,6 +32668,20 @@ function msgBubbleHtml(m, side, d, repaint){
       <div class="msg-pw-code" dir="ltr" translate="no">${esc(c.pw || '')}</div>${foot}${time}</div>`;
   }
   if(m.img) return `<div class="msg-b msg-photo ${cls}">${imgHtml(m.img)}${time}</div>`;
+  // An offer (admin › Marketing v3): Farin's words, then the course with "See the course" + "I want this course" (or "Open the course").
+  if(c && c.type === 'offer'){
+    const crs = courseGet(c.c), name = msgCourseName(c.c, side);
+    const meta = crs ? [crs.entry ? crs.entry + '+' : '', crs.weeks ? msgT(side, crs.weeks + ' weeks', crs.weeks + ' hafta', String(crs.weeks).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]) + ' هفته', crs.weeks + ' semanas') : '', msgT(side, 'lesson 1 free', '1. ders ücretsiz', 'درس ۱ رایگان', 'lección 1 gratis')].filter(Boolean).join(' · ') : '';
+    let btns;
+    if(side === 'admin') btns = `<p>They see two buttons here: See the course · I want this course (it opens the course request with the price and payment).</p>`;
+    else if(crs && courseUnlocked(crs.id)) btns = `<button class="cu-btn cu-orange msg-pw-btn" data-action="msg-open-course" data-cid="${esc(crs.id)}">${CL('Open the course','Kursu aç','باز کردن دوره','Abrir el curso')}</button>`;
+    else if(crs) btns = `<button class="cu-btn cu-orange msg-pw-btn" data-action="msg-open-course" data-cid="${esc(crs.id)}">${CL('See the course','Kursa bak','دیدن دوره','Ver el curso')}</button>
+      <button class="cu-btn cu-purple msg-pw-btn" data-action="course-waitlist" data-cid="${esc(crs.id)}">${CL('I want this course','Bu kursu istiyorum','این دوره را می‌خواهم','Quiero este curso')}</button>`;
+    else btns = '';
+    return `<div class="msg-b ${cls}" dir="auto"><span class="msg-who">${esc(msgT(side, 'Farin','Farin','فرین','Farin'))}</span>${esc(m.text || '')}</div>
+      <div class="msg-card ${cls} msg-offer"><div class="msg-card-top"><span class="eyebrow">${esc(msgT(side, 'Course','Kurs','دوره','Curso'))}</span><b>${esc(name)}</b></div>
+        <div class="msg-card-body">${meta ? `<p class="msg-offer-meta">${esc(meta)}</p>` : ''}${btns}${time}</div></div>`;
+  }
   return `<div class="msg-b ${cls}" dir="auto">${!mine && m.from === 'f' ? `<span class="msg-who">${esc(msgT(side, 'Farin','Farin','فرین','Farin'))}</span>` : ''}${esc(m.text || '')}${time}</div>`;
 }
 
@@ -32592,13 +32701,14 @@ function msgRowHtml(id){
 function renderMessages(){
   setTimeout(()=>msgRefreshAll(8000), 0);
   const ids = msgIds().sort((a,b)=>msgLastAt(b) - msgLastAt(a));
-  const reqs = ids.filter(id=>msgType(id) === 'request'), qs = ids.filter(id=>msgType(id) !== 'request');
+  const reqs = ids.filter(id=>msgType(id) === 'request'), offers = ids.filter(id=>msgType(id) === 'offer'), qs = ids.filter(id=>msgType(id) !== 'request' && msgType(id) !== 'offer');
   return `<div class="fade-in msg-page">
     ${topbar(false)}
     <div class="screen msg-screen">
       <h1 class="display msg-h">${CL('Messages','Mesajlar','پیام‌ها','Mensajes')}<span class="msg-dot">.</span></h1>
       <p class="msg-sub">${CL("Talk to Farin here. Requests show if they're waiting or done.",'Farin\'le burada konuş. Taleplerinin beklediği ya da tamamlandığı burada görünür.','اینجا با فرین حرف بزن. درخواست‌هایت نشان می‌دهند در انتظارند یا انجام شده‌اند.','Habla con Farin aquí. Tus solicitudes muestran si están en espera o listas.')}</p>
       <button class="cu-btn cu-orange msg-new-btn" data-action="nav" data-view="msg-new">+ ${CL('New message','Yeni mesaj','پیام جدید','Mensaje nuevo')}</button>
+      ${offers.length ? `<div class="msg-grp"><div class="eyebrow">${CL('From Farin','Farin\'den','از طرف فرین','De Farin')}</div><div class="msg-list">${offers.map(msgRowHtml).join('')}</div></div>` : ''}
       ${reqs.length ? `<div class="msg-grp"><div class="eyebrow">${CL('Requests','Talepler','درخواست‌ها','Solicitudes')}</div><div class="msg-list msg-list-req">${reqs.map(msgRowHtml).join('')}</div></div>` : ''}
       ${qs.length ? `<div class="msg-grp"><div class="eyebrow">${CL('Questions','Sorular','سؤال‌ها','Preguntas')}</div><div class="msg-list">${qs.map(msgRowHtml).join('')}</div></div>` : ''}
       ${ids.length ? '' : `<div class="card-flat msg-empty">${CL('No messages yet. Ask Farin anything, or ask for a course.','Henüz mesaj yok. Farin\'e her şeyi sorabilir ya da bir kurs isteyebilirsin.','هنوز پیامی نداری. هر سؤالی داری از فرین بپرس، یا یک دوره درخواست کن.','Aún no hay mensajes. Pregúntale a Farin lo que quieras o pide un curso.')}</div>`}
@@ -32893,8 +33003,9 @@ document.addEventListener('change', e=>{
   });
 });
 if(location.hash !== '#admin'){
-  setTimeout(()=>{ if(msgIds().length) msgRefreshAll(0); }, 2500);
-  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden && msgIds().length) msgRefreshAll(MSG_POLL_APP_MS); });
+  // every account checks its mailbox too (a chat Farin started: admin › Marketing v3), so this runs without chats as well
+  setTimeout(()=>{ msgRefreshAll(0); }, 2500);
+  document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) msgRefreshAll(MSG_POLL_APP_MS); });
 }
 
 function courseGameRef(uid){ return 'c-'+uid+'-match'; }   // kept as is for every kind, so units already done stay done
@@ -39137,13 +39248,16 @@ function renderAdminInboxTab(){
   if(adminChatOpen){ const d = adminChatGet(adminChatOpen); if(d) return renderAdminChat(d); adminChatOpen = null; }
   const all = adminChats || [], todo = adminChatTodoList(), f = adminChatFilter;
   const byNew = (a, b)=>Math.max(Number(b.lAt) || 0, Number(b.fAt) || 0) - Math.max(Number(a.lAt) || 0, Number(a.fAt) || 0);
-  const rows = f === 'todo' ? todo : f === 'requests' ? all.filter(d=>d.type === 'request').sort(byNew) : f === 'questions' ? all.filter(d=>d.type !== 'request').sort(byNew)
+  // offers (admin › Marketing v3) have their own filter; one the learner answered shows under Questions too
+  const answered = d=>Array.isArray(d.lm) && d.lm.length > 0;
+  const rows = f === 'todo' ? todo : f === 'requests' ? all.filter(d=>d.type === 'request').sort(byNew) : f === 'questions' ? all.filter(d=>d.type !== 'request' && (d.type !== 'offer' || answered(d))).sort(byNew)
+    : f === 'offers' ? all.filter(d=>d.type === 'offer').sort(byNew)
     : f === 'done' ? all.filter(d=>d.type === 'request' && d.status === 'done').sort(byNew) : all.slice().sort(byNew);
   const fb = (k, label, n)=>`<button class="ap-chip${f === k ? ' on' : ''}" data-admin-action="chat-filter" data-filter="${k}">${label}${n ? '<i>' + n + '</i>' : ''}</button>`;
   const tabbed = rows.some(d=>d.type === 'request');
   return `<div class="stack" style="gap:10px;">
     <div class="row between" style="align-items:center; gap:6px; flex-wrap:wrap;">
-      <div class="row" style="gap:6px; flex-wrap:wrap;">${fb('todo', 'To do', todo.length)}${fb('requests', 'Requests')}${fb('questions', 'Questions')}${fb('done', 'Done')}${fb('all', 'All')}</div>
+      <div class="row" style="gap:6px; flex-wrap:wrap;">${fb('todo', 'To do', todo.length)}${fb('requests', 'Requests')}${fb('questions', 'Questions')}${all.some(d=>d.type === 'offer') ? fb('offers', 'Offers') : ''}${fb('done', 'Done')}${fb('all', 'All')}</div>
       <button class="ap-link" data-admin-action="chat-reload">${adminChatsLoading ? '…' : '↻ Reload'}</button>
     </div>
     ${f === 'todo' ? '<p style="font-size:12px; color:var(--ink-faint); margin:0;">Oldest first. Age turns amber after 24 h and red after 48 h. New messages show up here every 30 s.</p>' : ''}
@@ -39531,7 +39645,8 @@ function adminThemeOfCourse(cid){ return Object.keys(ADMIN_CLASS_THEMES).find(k=
 function adminInsAsked(p){
   const L = adminInsLinks(p), out = [];
   (L.wait || []).forEach(r=>{ const th = adminThemeOfCourse(r.course); if(th) out.push({th, t:Number(r.createdAt) || 0}); });
-  (L.chats || []).forEach(d=>{ const th = d.topic && d.topic.t === 'course' ? adminThemeOfCourse(d.topic.c) : ''; if(th) out.push({th, t:Number(d.lAt) || Number(d.createdAt) || 0}); });
+  // a chat Farin started (a Marketing offer, type 'offer') is not the learner asking
+  (L.chats || []).forEach(d=>{ const th = d.type !== 'offer' && d.topic && d.topic.t === 'course' ? adminThemeOfCourse(d.topic.c) : ''; if(th) out.push({th, t:Number(d.lAt) || Number(d.createdAt) || 0}); });
   return out.sort((a,b)=>b.t - a.t).map(x=>x.th).filter((x, i, a)=>a.indexOf(x) === i);
 }
 function adminInsOwns(p, theme){ const T = ADMIN_CLASS_THEMES[theme]; return !!T && adminInsLinks(p).access.some(d=>adminAccessStatus(d) === 'active' && (d.course === COURSE_ACCESS_ALL || T.courses.indexOf(d.course) >= 0)); }
@@ -39992,7 +40107,7 @@ function renderAdminInsightsTab(){
     {label:'Came back another day', n:all.filter(p=>(p.activity.days || 0) >= 2).length},
     {label:'Active on 5+ days', n:all.filter(p=>(p.activity.days || 0) >= 5).length},
     {label:'Left a WhatsApp number', n:phoneN},
-    {label:'Asked about a course', n:all.filter(p=>L(p).wait.length || L(p).chats.some(d=>d.topic && d.topic.t === 'course')).length},
+    {label:'Asked about a course', n:all.filter(p=>L(p).wait.length || L(p).chats.some(d=>d.type !== 'offer' && d.topic && d.topic.t === 'course')).length},
     {label:'Has a course password', n:all.filter(p=>L(p).access.length).length}
   ];
   const hasCourse = (p, ids)=>L(p).access.some(d=>adminAccessStatus(d) === 'active' && (d.course === COURSE_ACCESS_ALL || ids.indexOf(d.course) >= 0));
@@ -40156,7 +40271,7 @@ const ADMIN_SEEN_DOC = 'admin-seen';
 const ADMIN_SECTIONS = [
   {key:'inbox', title:'Inbox', eb:'Messages', icon:'chat', c:'#7C5CFC', sub:'Questions and course requests learners send in the app.'},
   {key:'notify', title:'Notifications', eb:'Phones', icon:'bell', c:'#FF7A59', sub:'Send news to learners\' phones, and the automatic reminders that bring them back.'},
-  {key:'marketing', title:'Marketing', eb:'Phone offers', icon:'megaphone', c:'#F25F7A', sub:'Phone notifications for groups of learners by main goal: who is in each group, ready notifications, an automatic weekly plan you can edit, and what worked.'},
+  {key:'marketing', title:'Marketing', eb:'Offers', icon:'megaphone', c:'#F25F7A', sub:'Groups of learners by main goal: the premium course offer for each, Message in app or WhatsApp per learner, send to all, ready phone notifications, an automatic weekly plan, and what worked.'},
   {key:'users', title:'Users', eb:'Learners', icon:'users', c:'#7C93FF', sub:'Everyone who uses the app, one row per learner. Tap a name to open the profile.'},
   {key:'insights', title:'Insights', eb:'Analysis', icon:'chart', c:'#F07A5A', sub:'Your learners in boxes: levels, goals, who comes most, course leads and more.'},
   {key:'classes', title:'Group classes', eb:'Classes of 4–6', icon:'mic', c:'#7C5CFC', sub:'Classes that make themselves when learners fit. Tap a class to open it: who is in it, their answers, the offer page and Start.'},
@@ -40280,7 +40395,7 @@ function adminGo(key, filter){
   if(key === 'classes'){ adminInsCell = null; adminInsList = null; adminClassesMaybeSync(); adminClassView = filter && adminClasses && adminClasses.classes.some(c=>c.id === filter) ? filter : null; adminClassesMarkSeen(); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'access'){ if(filter) adminAccessFilter = filter; adminAccessEdit = null; if(adminAccessList === null && !adminAccessLoading) adminAccessLoad(); }
   if(key === 'students'){ if(adminStudents === null && !adminStudentsLoading) loadAdminStudents(); }
-  if(key === 'marketing'){ adminMk.view = ['career', 'exam', 'immigration', 'travel', 'everyday', 'analysis'].indexOf(filter) >= 0 ? filter : null; adminMk.tab = 'learners'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; adminMkEnsure(true); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
+  if(key === 'marketing'){ adminMk.view = ['career', 'exam', 'immigration', 'travel', 'everyday', 'analysis'].indexOf(filter) >= 0 ? filter : null; adminMk.tab = 'learners'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; adminMkReset(); adminMkEnsure(true); if(adminUsers === null && !adminUsersLoading) loadAdminUsers(); }
   if(key === 'contacts') adminMarkSeen('contacts');
   renderAdminPage();
   window.scrollTo(0, 0);
@@ -40430,22 +40545,151 @@ function renderAdminPage(){
    - The plan: fe-notify 1.3 makes one send a week per group and language (the group's day, 19:30 Turkey / 20:00 Iran), always 12 h+ ahead,
      the ready notifications in turn; it skips phones that got a notification in the last 20 h (offers: an offer in the last 7 days) and
      never sends between 22:00 and 10:00 local. Offers only reach phones with offers on; practice nudges only phones with reminders on.
-   - Nothing is stored in Firestore: the plan, the sends and the counts live in fe-notify (GET /plan, POST /plan/auto, /bc/schedule,
-     /bc/update, /bc/cancel, /bc/start + /bc/step). Opens are counted per message, not per person. */
+   - The plan, the sends and the counts live in fe-notify (GET /plan, POST /plan/auto, /bc/schedule, /bc/update, /bc/cancel,
+     /bc/start + /bc/step). Opens are counted per message, not per person.
+   v3, Farin 2026-11-17 17:26: "when you categorize some parts they include the list of the students and the specific exact offer that i should
+   send them also for everyone put the message on app button and the whatsapp button beside eaach other so i descide where to send, also
+   consider a button of send this offer to all!. which it should be in their app message" + "in offers mostly i am talking about premium courses".
+   - The group's first tab, "Offer & learners": the offer card (the premium course for this group, a course switcher where several fit, the
+     exact text in TR / FA / EN, editable and stored per group + course + language, the in-app and WhatsApp previews, "Send this offer to all"),
+     then every learner with "Message in app" and "WhatsApp" side by side and what they already got (when, which channel).
+   - Message in app = a chat Farin starts (type 'offer', the learner side is in MESSAGES: msgInboxCheck + the offer card), put in each of the
+     learner's accounts' mailbox (progress/inb-<sha256('farin-inbox-v1|' + recovery code)>), plus a phone ping through fe-notify /send.
+     A second offer of the same course to the same learner goes into the same chat. Not for owners of the course, nor for learners who turned
+     "Course news and offers" off in Settings (same rule as the phone offers).
+   - WhatsApp = wa.me with the text and the course page link, only with the WhatsApp news-and-offers opt-in (promoOk) and a number.
+   - Send to all = in-app to every learner of the group, minus: got this course's offer in the last 7 days (any channel), has the course,
+     offers off, below the course's level (every course starts at B1). It asks first, with the count and a preview per language.
+   - progress/admin-offers (admin only in practice, but get-by-id is open, so it holds no names, phones or chat ids): one top-level key per
+     send o_<id>:{h:[account hashes], g, c, ch:'app'|'wa', lang, at}, the chosen course per group p_<group>, edited texts x_<group>_<course>_<lang>.
+     Top-level keys because the REST client's merge is an updateMask of top-level fields. */
 const ADMIN_MK_GROUPS = ['career', 'exam', 'immigration', 'travel', 'everyday'];
 const ADMIN_MK_GT = {career:'Career', exam:'Exam', immigration:'Moving abroad', travel:'Travel', everyday:'Everyday'};
 const ADMIN_MK_GSUB = {career:'Main goal: work', exam:'Main goal: an exam (IELTS)', immigration:'Main goal: moving abroad', travel:'Main goal: travel', everyday:'Main goal: everyday English'};
 const ADMIN_MK_LANGS = {tr:'Turkish', fa:'Persian', en:'English'};
 const ADMIN_MK_DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const ADMIN_MK_TABS = [['learners', 'Learners'], ['ready', 'Ready notifications'], ['schedule', 'Schedule'], ['analysis', 'Analysis']];
-let adminMk = {plan:null, copy:null, loading:false, err:'', note:'', view:null, tab:'learners', lang:'', open:'', draft:{}, counts:{}, busy:false, sending:null, confirm:''};
+const ADMIN_MK_TABS = [['learners', 'Offer & learners'], ['ready', 'Ready notifications'], ['schedule', 'Schedule'], ['analysis', 'Analysis']];
+let adminMk = {plan:null, copy:null, loading:false, err:'', note:'', view:null, tab:'learners', lang:'', open:'', draft:{}, counts:{}, busy:false, sending:null, confirm:'',
+  offers:null, offersLoading:false, offersErr:'', oedit:'', odraft:'', row:'', all:false, allRun:null, rowBusy:''};
+
+/* ---------- v3: the offer per group (premium courses) ---------- */
+const ADMIN_MK_OFFERS_DOC = 'admin-offers';
+const ADMIN_MK_EMPTY_PLAN = {items:[], counts:[], auto:{}, days:{}};   // the notification server is unreachable: the pages still draw
+const ADMIN_MK_RECENT_MS = 7 * 86400000;
+const ADMIN_MK_AFTER_MS = 14 * 86400000;
+// The premium courses that fit each group, the default first (Farin picks with the course switcher).
+const ADMIN_MK_COURSES = {career:['business', 'interview', 'sales', 'marketing', 'ai-internet', 'hr'], exam:['ielts'], immigration:['interview', 'ielts', 'business', 'hr'],
+  travel:['ai-internet', 'interview'], everyday:['ai-internet', 'marketing']};
+const ADMIN_MK_CSHORT = {business:'Complete Business', interview:'Job Interview', sales:'Sales & Trade', marketing:'Copywriting', 'ai-internet':'AI & Internet', hr:'HR & Business', ielts:'IELTS'};
+const ADMIN_MK_WHY = {
+  'career|business':'The flagship for a work goal: the whole job in English, from emails and meetings to numbers and negotiating.',
+  'career|interview':'For learners about to change jobs. The lowest price of the career courses, four weeks.',
+  'career|sales':'For learners who sell or trade: pitches, quotes, Incoterms, negotiation.',
+  'career|marketing':'For learners who write for work: posts, product pages, customer emails.',
+  'career|ai-internet':'For learners whose work runs on AI tools and research in English.',
+  'career|hr':'Only for learners in HR or who manage people.',
+  'exam|ielts':'Their main goal is an exam, and IELTS is the exam course (Academic and General Training).',
+  'immigration|interview':'A new country starts with a job: the four-week interview course.',
+  'immigration|ielts':'Many routes abroad ask for an IELTS score; the course has General Training too.',
+  'immigration|business':'For learners who will work in English after the move.',
+  'immigration|hr':'Only for HR people who want to keep doing HR abroad.',
+  'travel|ai-internet':'No travel course is on sale, so this is the closest everyday fit: planning trips online, in English.',
+  'travel|interview':'For travellers thinking about working abroad.',
+  'everyday|ai-internet':'Everyday English online: searches, apps, AI chats.',
+  'everyday|marketing':'For learners who post, write or sell online.'
+};
+// The offers, written as Farin texting one learner ({name} = their first name, {price} = the course price in their currency: TL for TR/EN,
+// toman for FA, from WAITLIST_COURSE_INFO / MSG_TOMAN). Persian written natively, informal تو. Only true claims: lesson 1 is free, one
+// payment, 12 months' access, the course's own promise.
+const ADMIN_MK_COPY = {
+  career:{
+    business:{
+      en:"{name}, I saw that work is your reason for learning English, so this one's for you: Complete Business English. Emails that get answers, meetings you run, numbers you present, deals you negotiate, all in English. The first lesson is free, so try it today. The full course is {price}, one payment, and it's yours for 12 months.",
+      tr:'{name}, İngilizceyi iş için öğrendiğini gördüm, o yüzden bu kurs tam sana göre: Kapsamlı İş İngilizcesi. Cevap alan e-postalar, yönettiğin toplantılar, sunduğun rakamlar, yaptığın pazarlıklar; hepsi İngilizce. İlk ders ücretsiz, bugün bir dene. Kursun tamamı {price}, tek ödeme ve 12 ay senin.',
+      fa:'{name} جان، دیدم هدفت از یاد گرفتن انگلیسی کارته؛ این دوره دقیقاً برای توئه: «دوره‌ی جامع انگلیسی تجاری». ایمیل‌هایی که جواب می‌گیرن، جلسه‌هایی که خودت می‌گردونی، عددهایی که ارائه می‌دی، مذاکره‌هایی که می‌بری؛ همه‌ش به انگلیسی. درس اولش رایگانه، همین امروز امتحانش کن. کل دوره {price}ه، یه بار پرداخت می‌کنی و ۱۲ ماه مال خودته.'},
+    interview:{
+      en:"{name}, picture yourself in that interview: calm, with every answer ready. That's what Job Interview English is for: your introduction, your strengths, your best stories, your answers to the hard questions, even your reply to the offer. It's a four-week course, and the first lesson is free. The full course is {price}, one payment.",
+      tr:'{name}, kendini o mülakatta düşün: sakin ve bütün cevapları hazır. İngilizce İş Mülakatı tam bunun için: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, zor sorulara cevapların, hatta teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، خودت رو توی اون مصاحبه تصور کن: آروم، با همه‌ی جواب‌ها آماده. «مصاحبه‌ی شغلی به انگلیسی» دقیقاً برای همینه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات، جواب سؤال‌های سخت، حتی جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    sales:{
+      en:"{name}, if your work is selling, this one's yours: Sales & Trade English. Pitches, first calls, trade fairs, quotes, Incoterms, objections and negotiation, all in English. You finish with a sales kit you can use at work the next day. The first lesson is free. The full course is {price}, one payment.",
+      tr:'{name}, işin satışsa bu kurs tam senlik: Satış ve Dış Ticaret İngilizcesi. Tanıtım, ilk temas, fuarlar, teklifler, Incoterms, itirazlar ve pazarlık; hepsi İngilizce. Sonunda ertesi gün işte kullanabileceğin bir satış dosyan oluyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، اگه کارت فروشه، این دوره مال خودته: «انگلیسی فروش و بازرگانی». معرفی محصول، اولین تماس، نمایشگاه، پیشنهاد قیمت، اینکوترمز، جواب دادن به اعتراض مشتری و مذاکره؛ همه‌ش به انگلیسی. آخرش یه بسته‌ی فروش دستته که از فرداش سر کار به دردت می‌خوره. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    marketing:{
+      en:'{name}, if you write for work (posts, product pages, emails to customers), Copywriting & Content English will change how your words land. Brand voice, briefs, product copy, social posts, and how to fix an AI draft so it sounds like you. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, iş için yazıyorsan (gönderiler, ürün sayfaları, müşteri e-postaları) Metin Yazarlığı ve İçerik İngilizcesi yazdıklarının etkisini değiştirir. Marka sesi, brief, ürün metni, sosyal medya gönderileri ve bir yapay zekâ taslağını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، اگه برای کارت می‌نویسی (پست، صفحه‌ی محصول، ایمیل به مشتری)، «انگلیسی کپی‌رایتینگ و تولید محتوا» اثر نوشته‌هات رو عوض می‌کنه. صدای برند، بریف، متن محصول، پست شبکه‌های اجتماعی، و اینکه متن هوش مصنوعی رو طوری درست کنی که انگار خودت نوشتی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    'ai-internet':{
+      en:'{name}, more and more work happens with AI, and a lot of it in English. English for AI and the Internet shows you how the tools work, how to write prompts that get good answers, and how to check what comes back. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, iş giderek daha çok yapay zekâyla yapılıyor ve bunun büyük kısmı İngilizce. Yapay Zekâ ve İnternet için İngilizce sana araçların nasıl çalıştığını, iyi cevap getiren promptları nasıl yazacağını ve gelen cevabı nasıl kontrol edeceğini gösteriyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، کارها روزبه‌روز بیشتر با هوش مصنوعی پیش می‌ره و خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده ابزارها چطور کار می‌کنن، چه پرامپتی بنویسی که جواب خوب بگیری و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    hr:{
+      en:'{name}, if you work in HR or manage people, I made this course for you: HR & Business English. 32 real HR tasks in English: interviews, job ads, feedback talks, policy emails, formal letters. The first lesson is free. The full course is {price}, one payment, with 12 months of access.',
+      tr:"{name}, İK'da çalışıyorsan ya da bir ekip yönetiyorsan, bu kursu senin için hazırladım: İK ve İş İngilizcesi. İngilizce 32 gerçek İK görevi: mülakatlar, iş ilanları, geri bildirim görüşmeleri, politika e-postaları, resmî yazışmalar. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme, 12 ay erişim.",
+      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی یا یه تیم رو مدیریت می‌کنی، این دوره رو برای تو ساختم: «انگلیسی منابع انسانی و کسب‌وکار». ۳۲ تا کار واقعی منابع انسانی به انگلیسی: مصاحبه، آگهی استخدام، جلسه‌ی بازخورد، ایمیل آیین‌نامه و نامه‌ی رسمی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت، با ۱۲ ماه دسترسی.'}
+  },
+  exam:{
+    ielts:{
+      en:'{name}, I know how much that IELTS score means to you. My IELTS course has 10 full exams that follow the structure and timing of recent tests, part by part, and I read your writing tasks myself and tell you exactly what to fix. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, o IELTS puanının senin için ne kadar önemli olduğunu biliyorum. IELTS kursumda yakın tarihli sınavların yapısını ve süresini izleyen 10 tam sınav var, kısım kısım; yazma görevlerini de ben okuyorum ve neyi düzeltmen gerektiğini net söylüyorum. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، می‌دونم نمره‌ی آیلتس چقدر برات مهمه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، با همون ساختار و زمان‌بندی آزمون‌های اخیر، بخش به بخش؛ رایتینگ‌هات رو هم خودم می‌خونم و دقیق می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+  },
+  immigration:{
+    interview:{
+      en:'{name}, a new country starts with a job, and a job starts with an interview. Job Interview English gets your answers ready before you walk into the room: your introduction, your strengths, the hardest questions, your reply to the offer. It\'s a four-week course, and the first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, yeni bir ülke bir işle başlar, iş de bir mülakatla. İngilizce İş Mülakatı, o odaya girmeden cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en zor sorular, teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، زندگی توی یه کشور جدید با کار شروع می‌شه و کار با یه مصاحبه. «مصاحبه‌ی شغلی به انگلیسی» قبل از اینکه پات رو توی اون اتاق بذاری، جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، سخت‌ترین سؤال‌ها و جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    ielts:{
+      en:'{name}, for many moves abroad, the IELTS score comes first. My IELTS course has 10 full exams, for both Academic and General Training, and I read your writing myself and tell you what to fix. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, yurt dışına giden birçok yolda ilk adım IELTS puanı. IELTS kursumda hem Academic hem General Training için 10 tam sınav var; yazdıklarını da ben okuyorum ve neyi düzeltmen gerektiğini söylüyorum. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، برای خیلی از مسیرهای مهاجرت، اولین قدم نمره‌ی آیلتسه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، هم برای آکادمیک هم جنرال؛ رایتینگ‌هات رو هم خودم می‌خونم و می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    business:{
+      en:'{name}, after the move, your English has to work at work too. Complete Business English covers what a job abroad really asks of you: emails that get answers, meetings, presenting numbers, negotiating, working across cultures. The first lesson is free. The full course is {price}, one payment, with 12 months of access.',
+      tr:'{name}, taşındıktan sonra İngilizcen iş yerinde de işe yaramalı. Kapsamlı İş İngilizcesi yurt dışındaki bir işin senden gerçekten istediklerini kapsıyor: cevap alan e-postalar, toplantılar, rakam sunmak, pazarlık, farklı kültürlerle çalışmak. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme, 12 ay erişim.',
+      fa:'{name} جان، بعد از مهاجرت، انگلیسیت باید سر کار هم جواب بده. «دوره‌ی جامع انگلیسی تجاری» همون چیزهایی رو پوشش می‌ده که یه کار خارج از کشور واقعاً ازت می‌خواد: ایمیل‌هایی که جواب می‌گیرن، جلسه، ارائه‌ی عددها، مذاکره، و کار کردن با آدم‌هایی از فرهنگ‌های دیگه. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت، با ۱۲ ماه دسترسی.'},
+    hr:{
+      en:'{name}, if you work in HR and want to keep doing it in your new country, HR & Business English is made for that: 32 real HR tasks in English, from interviews and job ads to feedback talks and formal letters. The first lesson is free. The full course is {price}, one payment.',
+      tr:"{name}, İK'da çalışıyorsan ve yeni ülkende de bu işi yapmak istiyorsan, İK ve İş İngilizcesi tam bunun için: mülakatlardan iş ilanlarına, geri bildirim görüşmelerinden resmî yazışmalara İngilizce 32 gerçek İK görevi. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.",
+      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی و می‌خوای توی کشور جدیدت هم همین کار رو ادامه بدی، «انگلیسی منابع انسانی و کسب‌وکار» برای همینه: ۳۲ تا کار واقعی منابع انسانی به انگلیسی، از مصاحبه و آگهی استخدام تا جلسه‌ی بازخورد و نامه‌ی رسمی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+  },
+  travel:{
+    'ai-internet':{
+      en:'{name}, every trip starts long before the airport: bookings, reviews, maps, AI chats, much of it in English. English for AI and the Internet teaches you to research in English, write clear prompts and check the answers you get. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, her seyahat havalimanından çok önce başlar: rezervasyonlar, yorumlar, haritalar, yapay zekâ sohbetleri; çoğu da İngilizce. Yapay Zekâ ve İnternet için İngilizce sana İngilizce araştırma yapmayı, net prompt yazmayı ve gelen cevabı kontrol etmeyi öğretiyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، هر سفری خیلی قبل از فرودگاه شروع می‌شه: رزرو، نظر بقیه، نقشه، چت با هوش مصنوعی؛ خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده به انگلیسی سرچ کنی، پرامپت روشن بنویسی و جوابی رو که می‌گیری چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    interview:{
+      en:"{name}, some trips turn into a new life abroad. If you're thinking of working where you travel, Job Interview English gets your answers ready: your introduction, your strengths, your best stories, your reply to the offer. The first lesson is free. The full course is {price}, one payment.",
+      tr:'{name}, bazı seyahatler yurt dışında yeni bir hayata dönüşür. Gezdiğin yerlerde çalışmayı düşünüyorsan, İngilizce İş Mülakatı cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, teklife vereceğin cevap. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، بعضی سفرها آخرش می‌شن یه زندگی تازه اون‌ور آب. اگه به کار کردن توی جاهایی که می‌ری فکر می‌کنی، «مصاحبه‌ی شغلی به انگلیسی» جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات و جوابت به پیشنهاد کار. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+  },
+  everyday:{
+    'ai-internet':{
+      en:'{name}, so much of your day online is in English: searches, apps, AI chats. English for AI and the Internet makes all of it easier: how the tools work, prompts that get good answers, and how to check what you get back. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, internette geçen gününün büyük kısmı İngilizce: aramalar, uygulamalar, yapay zekâ sohbetleri. Yapay Zekâ ve İnternet için İngilizce bunların hepsini kolaylaştırıyor: araçların nasıl çalıştığı, iyi cevap getiren promptlar ve gelen cevabı kontrol etmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، خیلی از وقتی که آنلاینی به انگلیسی می‌گذره: سرچ، اپ‌ها، چت با هوش مصنوعی. «انگلیسی برای هوش مصنوعی و اینترنت» همه‌ی اینا رو برات راحت‌تر می‌کنه: ابزارها چطور کار می‌کنن، چه پرامپتی جواب خوب می‌گیره، و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+    marketing:{
+      en:'{name}, if you post, write or sell anything online, Copywriting & Content English is a fun next step: brand voice, product copy, social posts, customer stories, and turning AI drafts into something that sounds like you. The first lesson is free. The full course is {price}, one payment.',
+      tr:'{name}, internette bir şeyler paylaşıyor, yazıyor ya da satıyorsan, Metin Yazarlığı ve İçerik İngilizcesi keyifli bir sonraki adım: marka sesi, ürün metni, sosyal medya gönderileri, müşteri hikâyeleri ve yapay zekâ taslaklarını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
+      fa:'{name} جان، اگه آنلاین پست می‌ذاری، می‌نویسی یا چیزی می‌فروشی، «انگلیسی کپی‌رایتینگ و تولید محتوا» قدم بعدی خیلی باحالیه: صدای برند، متن محصول، پست شبکه‌های اجتماعی، داستان مشتری، و اینکه متن‌های هوش مصنوعی رو طوری درست کنی که صدای خودت باشه. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+  }
+};
+// WhatsApp adds the course page (the site: /fa/c/ for Persian with the toman price and card, the Turkish course page, the English page).
+const ADMIN_MK_WA_END = {
+  en:url=>"\n\nHere's the course page 👇\n" + url + '\n\nIf you want it, just reply here 💜',
+  tr:url=>'\n\nKursun sayfası 👇\n' + url + '\n\nİstersen bana buradan yaz, hemen yardımcı olayım 💜',
+  fa:url=>'\n\nصفحه‌ی دوره اینجاست 👇\n' + url + '\n\nاگه خواستی، همین‌جا بهم پیام بده 💜'
+};
+const ADMIN_MK_PING = {en:'Farin sent you a message', tr:'Farin sana bir mesaj gönderdi', fa:'فرین برات پیام فرستاد'};
 if(typeof ICONS === 'object' && !ICONS.megaphone) ICONS.megaphone = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.2v3.6c0 .6.4 1 1 1h2.3l7.7 4.4V4.8L6.8 9.2H4.5c-.6 0-1 .4-1 1z"/><path d="M17.5 9a4.2 4.2 0 0 1 0 6"/><path d="M8 15l1.2 4.5"/></svg>';
 
 /* ---------- loading ---------- */
 function adminMkLive(){ return typeof NOTIF_LIVE !== 'undefined' && NOTIF_LIVE; }
 function adminMkEnsure(force){
+  if(firebase.auth().currentUser && (force || (!adminMk.offers && !adminMk.offersLoading && !adminMk.offersErr))) adminMkOffersLoad();
   if(!adminMkLive() || !firebase.auth().currentUser) return;
-  if(adminMk.loading || (adminMk.plan && !force)) return;
+  // after a failed load, only a forced load tries again (opening Marketing, "Try again"): Home re-renders after every load, and an
+  // unforced retry there looped (fetch, fail, render, fetch …) while the notification server was unreachable (fixed 2026-11-17, v3)
+  if(adminMk.loading || (adminMk.plan && !force) || (adminMk.err && !force)) return;
   adminMk.loading = true;
   const copy = adminMk.copy ? Promise.resolve(adminMk.copy) : fetch(NOTIF_URL + '/copy').then(r=>r.json());
   Promise.all([adminNtFetch('/plan'), copy]).then(([p, c])=>{ adminMk.plan = p; adminMk.copy = c; adminMk.err = ''; })
@@ -40486,6 +40730,128 @@ function adminMkWho(item){
 }
 function adminMkOpens(item){ return item.btn === 'course' ? 'Opens ' + adminMkCourseName(item.ck) : item.btn === 'msgs' ? 'Opens Messages (they write to you)' : item.btn === 'card' ? 'Opens their next card' : item.btn === 'club' ? 'Opens the Student Club' : 'No button'; }
 
+/* ---------- v3 offers: data ---------- */
+function adminMkOffersLoad(){
+  if(adminMk.offersLoading || typeof firebase === 'undefined') return;
+  adminMk.offersLoading = true;
+  firebase.firestore().collection('progress').doc(ADMIN_MK_OFFERS_DOC).get().then(doc=>{ adminMk.offers = (doc.exists && doc.data()) || {}; adminMk.offersErr = ''; })
+    .catch(e=>{ adminMk.offersErr = e.message || String(e); })
+    .then(()=>{ adminMk.offersLoading = false; if(adminTab === 'marketing') renderAdminPage(); });
+}
+function adminMkFk(s){ return String(s).replace(/[^A-Za-z0-9_]/g, '_'); }   // a top-level field name the REST updateMask takes without quoting
+function adminMkLog(){
+  const o = adminMk.offers || {};
+  return Object.keys(o).filter(k=>k.indexOf('o_') === 0 && o[k] && typeof o[k] === 'object').map(k=>Object.assign({id:k}, o[k]))
+    .filter(e=>Array.isArray(e.h) && e.c && e.at).sort((a, b)=>b.at - a.at);
+}
+function adminMkHashes(p){ return p.accounts.map(u=>u.hash).filter(Boolean); }
+function adminMkPersonLog(p, c){ const hs = adminMkHashes(p); return adminMkLog().filter(e=>(!c || e.c === c) && e.h.some(h=>hs.indexOf(h) >= 0)); }
+function adminMkCourse(g){ const list = ADMIN_MK_COURSES[g] || [], pick = (adminMk.offers || {})['p_' + g]; return list.indexOf(pick) >= 0 ? pick : list[0]; }
+function adminMkTextKey(g, c, lang){ return 'x_' + adminMkFk(g) + '_' + adminMkFk(c) + '_' + lang; }
+function adminMkDefaultText(g, c, lang){ const o = (ADMIN_MK_COPY[g] || {})[c] || {}; return o[lang] || o.en || ''; }
+function adminMkOfferText(g, c, lang){ const e = (adminMk.offers || {})[adminMkTextKey(g, c, lang)]; return e && typeof e.t === 'string' && e.t.trim() ? e.t : adminMkDefaultText(g, c, lang); }
+function adminMkEdited(g, c, lang){ const e = (adminMk.offers || {})[adminMkTextKey(g, c, lang)]; return !!(e && typeof e.t === 'string' && e.t.trim()); }
+// The price in the learner's currency: TL list price (the site) for TR / EN, the toman price of the Persian sale page for FA.
+function adminMkPrice(c, lang){
+  const info = WAITLIST_COURSE_INFO[c] || {};
+  if(lang === 'fa') return MSG_TOMAN[c] ? MSG_TOMAN[c] + ' تومان' : '';
+  return info.tl ? '₺' + (lang === 'en' ? info.tl.replace('.', ',') : info.tl) : '';
+}
+function adminMkCourseUrl(c, lang){ const info = WAITLIST_COURSE_INFO[c]; return info && info[lang] ? WAITLIST_SITE + info[lang] : WAITLIST_SITE; }
+function adminMkFirst(name){ return String(name || '').trim().split(/\s+/)[0] || ''; }
+function adminMkFillOffer(text, name, c, lang){
+  const n = adminMkFirst(name);
+  let s = String(text || '');
+  if(!n) s = lang === 'fa' ? s.split('{name} جان').join('سلام') : s.split('{name}').join(lang === 'tr' ? 'Selam' : 'Hi');
+  return s.split('{name}').join(n).split('{price}').join(adminMkPrice(c, lang));
+}
+function adminMkLangOf(p){ const l = adminInsLang(p); return l === 'tr' || l === 'fa' ? l : 'en'; }
+function adminMkSample(g, lang){ const p = adminMkPeople(g).find(x=>adminMkLangOf(x) === lang); return p ? adminMkFirst(p.profile.name) : adminMkSampleName(lang); }
+function adminMkWaText(p, g, c){ const lang = adminMkLangOf(p); return adminMkFillOffer(adminMkOfferText(g, c, lang), p.profile.name, c, lang) + ADMIN_MK_WA_END[lang](adminMkCourseUrl(c, lang)); }
+function adminMkCourseEntry(c){ const x = COURSES.find(y=>y.id === c); return (x && x.entry) || 'B1'; }
+function adminMkOwns(p, c){
+  if(adminPersonLinks(p).access.some(d=>adminAccessStatus(d) === 'active' && (d.course === c || d.course === COURSE_ACCESS_ALL))) return true;
+  return p.accounts.some(u=>{ const ca = (u.progress || {}).courseAccess || {}; return [c, COURSE_ACCESS_ALL].some(k=>{ const a = ca[k]; return !!a && typeof a === 'object' && a.status === 'active' && (!a.expiresAt || a.expiresAt > Date.now()); }); });
+}
+// Offers off = "Course news and offers" unticked in Settings (the phone-offer rule), unless they said yes to WhatsApp offers.
+function adminMkOffersOff(p){ const pf = p.profile || {}, n = pf.notif || {}; return !!(n.promoOff || (n.promo === false && n.promoSource === 'settings')) && pf.promoOk !== true; }
+function adminMkLevelOk(p, c){ return LEVELS.indexOf(adminInsLevel(p)) >= LEVELS.indexOf(adminMkCourseEntry(c)); }
+// Everything a learner row needs to know about this offer.
+function adminMkRow(p, g, c){
+  const lang = adminMkLangOf(p), log = adminMkPersonLog(p, c), now = Date.now(), phone = adminInsPhone(p);
+  const owns = adminMkOwns(p, c), off = adminMkOffersOff(p), low = !adminMkLevelOk(p, c);
+  const lastApp = log.find(e=>e.ch === 'app') || null, lastWa = log.find(e=>e.ch === 'wa') || null, recent = log.find(e=>now - e.at < ADMIN_MK_RECENT_MS) || null;
+  const appWhy = owns ? 'Has this course' : off ? 'Turned offers off in Settings' : !p.accounts.some(u=>u.id && u.hash) ? 'No account to send to' : '';
+  const waWhy = owns ? 'Has this course' : !phone ? 'No WhatsApp number' : p.profile.promoOk !== true ? 'No WhatsApp offers consent' : '';
+  return {lang, log, owns, off, low, lastApp, lastWa, recent, phone, appWhy, waWhy, asked:adminInsAsked(p).indexOf(adminThemeOfCourse(c)) >= 0};
+}
+// Who "Send this offer to all" reaches, and who it skips (and why).
+function adminMkAllPlan(g, c){
+  const out = {send:[], recent:[], owns:[], off:[], low:[], none:[]};
+  adminMkPeople(g).forEach(p=>{ const r = adminMkRow(p, g, c);
+    if(r.owns) out.owns.push(p); else if(r.off) out.off.push(p); else if(r.appWhy) out.none.push(p); else if(r.recent) out.recent.push(p); else if(r.low) out.low.push(p); else out.send.push(p); });
+  return out;
+}
+
+/* ---------- v3 offers: sending ---------- */
+function adminMkChatId(){ const ch = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', r = new Uint32Array(22); crypto.getRandomValues(r); let s = ''; for(let i = 0; i < 22; i++) s += ch[r[i] % 62]; return 'ch-' + s; }
+function adminMkLogAdd(e){
+  const id = 'o_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8).replace(/[^a-z0-9]/g, '');
+  const rec = {h:e.h, g:e.g, c:e.c, ch:e.ch, lang:e.lang, at:e.at || Date.now()};
+  return firebase.firestore().collection('progress').doc(ADMIN_MK_OFFERS_DOC).set({kind:'admin', [id]:rec, savedAt:Date.now()}, {merge:true})
+    .then(()=>{ adminMk.offers = adminMk.offers || {}; adminMk.offers[id] = rec; });
+}
+// The learner's mailbox: one top-level key per chat (c_<id without "ch-">). Their app reads it and adds the chat to Messages.
+function adminMkInboxAdd(code, chatId, c, at){
+  return adminSha256('farin-inbox-v1|' + code).then(h=>firebase.firestore().collection('progress').doc('inb-' + h)
+    .set({kind:'inbox', v:1, app:'en', ['c_' + chatId.slice(3)]:{at, t:{t:'course', c}, ty:'offer'}, savedAt:at}, {merge:true}));
+}
+// The phone ping (fe-notify /send, like Farin's answers): resolves the number of phones that got it.
+function adminMkPing(hashes, lang, body, chatId){
+  if(typeof NOTIF_LIVE === 'undefined' || !NOTIF_LIVE) return Promise.resolve(0);
+  return Promise.all(hashes.filter((h, i, a)=>a.indexOf(h) === i).map(acct=>adminNtFetch('/send', {acct, title:ADMIN_MK_PING[lang] || ADMIN_MK_PING.en, body:String(body).slice(0, 150), go:'msg:' + chatId, tag:'offer-' + chatId.slice(-20), kind:'reply'})
+    .then(j=>j.sent || 0).catch(()=>0))).then(r=>r.reduce((a, b)=>a + b, 0));
+}
+// One learner, in the app: a new offer chat (or the one they already have for this course), their mailbox, the record, the ping.
+function adminMkSendApp(p, g, c){
+  const lang = adminMkLangOf(p), accts = p.accounts.filter(u=>u.id && u.hash), hashes = accts.map(u=>u.hash), now = Date.now();
+  if(!accts.length) return Promise.reject(new Error('no account'));
+  const text = adminMkFillOffer(adminMkOfferText(g, c, lang), p.profile.name, c, lang).trim().slice(0, MSG_TEXT_MAX);
+  const msg = {id:now.toString(36) + '0' + Math.random().toString(36).slice(2, 6), at:now, text, card:{type:'offer', c}};
+  const db = firebase.firestore().collection('progress');
+  const ex = (adminChats || []).find(d=>d.type === 'offer' && d.topic && d.topic.c === c && d.learner && hashes.indexOf(d.learner.accountHash) >= 0);
+  let made;
+  if(ex){
+    const ref = db.doc(ex.id);
+    made = ref.get().then(doc=>{ const cur = (doc.exists && doc.data()) || {}; const fm = (Array.isArray(cur.fm) ? cur.fm : []).concat([msg]);
+      const patch = {fm, fAt:now, aSeen:Math.max(now, Number(cur.lAt) || 0), offer:{g, c}};
+      return ref.set(patch, {merge:true}).then(()=>{ Object.assign(ex, cur, patch, {id:ex.id}); return ex.id; }); });
+  } else {
+    const id = adminMkChatId(), pf = p.profile || {};
+    const doc = {kind:'chat', v:1, app:'en', topic:{t:'course', c}, type:'offer', req:null, status:null,
+      learner:{name:String(pf.name || pf.loginName || '').slice(0, 80), uiLang:lang, level:pf.level || '', phone:adminInsPhone(p) || null, accountHash:accts[0].hash, device:null},
+      createdAt:now, lm:[], lAt:0, lSeen:0, fm:[msg], fAt:now, aSeen:now, statusAt:now, gone:[], offer:{g, c}};
+    made = db.doc(id).set(doc).then(()=>{ if(Array.isArray(adminChats)) adminChats.push(Object.assign({id}, doc)); return id; });
+  }
+  return made.then(chatId=>Promise.all(accts.map(u=>adminMkInboxAdd(u.id, chatId, c, now))).then(()=>chatId))
+    .then(chatId=>adminMkLogAdd({h:hashes, g, c, ch:'app', lang, at:now}).then(()=>adminMkPing(hashes, lang, text, chatId)));
+}
+function adminMkSendAll(g, c){
+  const plan = adminMkAllPlan(g, c), list = plan.send.slice();
+  adminMk.all = false; adminMk.allRun = {total:list.length, done:0, phones:0, failed:[]}; renderAdminPage();
+  const run = adminMk.allRun;
+  return list.reduce((pr, p)=>pr.then(()=>adminMkSendApp(p, g, c).then(n=>{ run.phones += n; }).catch(()=>{ run.failed.push(p.profile.name || '(no name)'); })
+    .then(()=>{ run.done++; if(adminTab === 'marketing') renderAdminPage(); })), Promise.resolve())
+    .then(()=>{
+      const skipped = plan.recent.length + plan.owns.length + plan.off.length + plan.low.length + plan.none.length;
+      adminMk.note = 'Sent "' + adminMkCourseName(c) + '" to ' + (run.total - run.failed.length) + ' learner' + (run.total - run.failed.length === 1 ? '' : 's') + ' in the app'
+        + (run.phones ? ' (' + run.phones + ' phone' + (run.phones === 1 ? '' : 's') + ' notified)' : '') + '.'
+        + (skipped ? ' Skipped ' + skipped + ': ' + [[plan.recent, 'got it in the last 7 days'], [plan.owns, 'have the course'], [plan.off, 'turned offers off'], [plan.low, 'below ' + adminMkCourseEntry(c)], [plan.none, 'no account']].filter(x=>x[0].length).map(x=>x[0].length + ' ' + x[1]).join(', ') + '.' : '')
+        + (run.failed.length ? ' Not sent (try again): ' + run.failed.join(', ') + '.' : '');
+      adminMk.allRun = null; renderAdminPage();
+    });
+}
+
 /* ---------- Home box + To check ---------- */
 function adminMkBoxSub(){
   adminMkEnsure();
@@ -40520,8 +40886,93 @@ function adminMkGroupHead(g){
     </section>`;
 }
 
-/* ---------- tab: learners ---------- */
-function adminMkLearnersTab(g){
+/* ---------- tab: offer & learners (v3) ---------- */
+function adminMkLangCounts(g){ const n = {tr:0, fa:0, en:0}; adminMkPeople(g).forEach(p=>{ n[adminMkLangOf(p)]++; }); return n; }
+function adminMkChatPreview(text, c, lang){
+  const crs = COURSES.find(x=>x.id === c), fa = lang === 'fa';
+  return `<div class="mk-chat${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="msg-b them" dir="auto"><span class="msg-who">${fa ? 'فرین' : 'Farin'}</span>${esc(text)}</div>
+      <div class="msg-card them msg-offer"><div class="msg-card-top"><span class="eyebrow">${fa ? 'دوره' : lang === 'tr' ? 'Kurs' : 'Course'}</span><b>${esc(crs ? (crs.title[lang] || crs.title.en) : c)}</b></div>
+        <div class="msg-card-body"><span class="mk-fakebtn or">${fa ? 'دیدن دوره' : lang === 'tr' ? 'Kursa bak' : 'See the course'}</span><span class="mk-fakebtn pu">${fa ? 'این دوره را می‌خواهم' : lang === 'tr' ? 'Bu kursu istiyorum' : 'I want this course'}</span></div></div></div>`;
+}
+function adminMkWaPreview(text, lang){ const fa = lang === 'fa'; return `<div class="mk-wa${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="mk-wa-b" dir="auto">${esc(text)}</div></div>`; }
+function adminMkOfferCard(g){
+  const c = adminMkCourse(g), list = ADMIN_MK_COURSES[g] || [], lang = adminMk.lang || 'en', key = adminMkTextKey(g, c, lang), fa = lang === 'fa';
+  const crs = COURSES.find(x=>x.id === c) || {title:{en:c}}, counts = adminMkLangCounts(g), sample = adminMkSample(g, lang);
+  const text = adminMkOfferText(g, c, lang), filled = adminMkFillOffer(text, sample, c, lang);
+  const editing = adminMk.oedit === key, plan = adminMkAllPlan(g, c), run = adminMk.allRun, loaded = !!adminMk.offers;
+  const skipN = plan.recent.length + plan.owns.length + plan.off.length + plan.low.length + plan.none.length;
+  const why = ADMIN_MK_WHY[g + '|' + c] || '';
+  const chips = list.length > 1 ? `<div class="mk-csw" role="group" aria-label="Course">${list.map(x=>`<button class="ap-chip${x === c ? ' on' : ''}" data-admin-action="mk-course" data-v="${esc(x)}" aria-pressed="${x === c}">${esc(ADMIN_MK_CSHORT[x] || x)}${x === list[0] ? ' <small>default</small>' : ''}</button>`).join('')}</div>` : '';
+  const langs = `<div class="ap-chips mk-olangs" role="group" aria-label="Language">${Object.keys(ADMIN_MK_LANGS).map(l=>`<button class="ap-chip${lang === l ? ' on' : ''}" data-admin-action="mk-lang" data-v="${l}" aria-pressed="${lang === l}">${ADMIN_MK_LANGS[l]}${counts[l] ? '<i>' + counts[l] + '</i>' : ''}${adminMkEdited(g, c, l) ? ' ✎' : ''}</button>`).join('')}</div>`;
+  const reasons = [[plan.recent, 'got this offer in the last 7 days'], [plan.owns, 'already have the course'], [plan.off, 'turned offers off in Settings'], [plan.low, 'below ' + adminMkCourseEntry(c) + ' (the course starts there)'], [plan.none, 'have no account to send to']].filter(x=>x[0].length);
+  const byLang = l=>plan.send.filter(p=>adminMkLangOf(p) === l);
+  const confirmBox = adminMk.all ? `<div class="nt-confirm mk-allc" role="alertdialog" aria-label="Send to all">
+        <p>Send “${esc(crs.title.en)}” to ${plan.send.length} learner${plan.send.length === 1 ? '' : 's'} in the app now? You can't take it back.</p>
+        <ul class="mk-skip">${Object.keys(ADMIN_MK_LANGS).filter(l=>byLang(l).length).map(l=>`<li>${byLang(l).length} in ${ADMIN_MK_LANGS[l]}</li>`).join('')}${reasons.map(x=>`<li class="sk">Skips ${x[0].length}: ${esc(x[1])}</li>`).join('')}</ul>
+        <div class="mk-allprev">${Object.keys(ADMIN_MK_LANGS).filter(l=>byLang(l).length).map(l=>`<div><p class="mk-sh">${ADMIN_MK_LANGS[l]} · for ${esc(adminMkFirst(byLang(l)[0].profile.name) || 'them')}</p>${adminMkChatPreview(adminMkFillOffer(adminMkOfferText(g, c, l), byLang(l)[0].profile.name, c, l), c, l)}</div>`).join('')}</div>
+        <div class="ap-btns mk-btns"><button class="ap-cta" data-admin-action="mk-all-go">Yes, send to ${plan.send.length}</button><button class="btn btn-ghost btn-sm" data-admin-action="mk-all-cancel">Cancel</button></div></div>` : '';
+  const allBtn = run ? `<p class="nt-ok mk-allrun" role="status">Sending… ${run.done} of ${run.total}</p>`
+    : `<button class="ap-cta mk-allbtn" data-admin-action="mk-all" ${plan.send.length && loaded ? '' : 'disabled'}>Send this offer to all in the app (${plan.send.length})</button>
+       <p class="ins-note">${plan.send.length ? 'Goes to their Messages, in each learner’s app language, with a phone notification where they have them on.' : 'Nobody to send to right now.'}${skipN ? ' Skips ' + skipN + ': ' + reasons.map(x=>x[0].length + ' ' + x[1]).join(', ') + '.' : ''}</p>`;
+  return `<section class="ap-card ins-card mk-offer" style="--c:${COURSE_GOAL_COLORS[g] || '#7C5CFC'};">
+      <span class="ap-eb">The offer for ${esc(ADMIN_MK_GT[g])}</span>
+      <h3 class="ins-h">${esc(crs.title.en)}</h3>
+      <p class="mk-oprice"><b>${esc(adminMkPrice(c, 'tr'))}</b> Turkish and English learners · <b dir="rtl">${esc(adminMkPrice(c, 'fa'))}</b> Persian learners · one payment, 12 months · lesson 1 free</p>
+      ${why ? `<p class="ins-note mk-why">Why this course: ${esc(why)}</p>` : ''}
+      ${chips}
+      ${langs}
+      ${editing ? `<div class="mk-edit">
+          <label class="nt-lbl" for="mk-otext">The ${esc(ADMIN_MK_LANGS[lang])} offer <small>{name} = their first name · {price} = ${esc(adminMkPrice(c, lang))}</small></label>
+          <textarea class="nt-in${fa ? ' fa' : ''}" id="mk-otext" rows="6" maxlength="1500" dir="auto" data-mk-otext="1">${esc(adminMk.odraft)}</textarea>
+          <div class="ap-btns mk-btns"><button class="ap-cta" data-admin-action="mk-osave">Save</button><button class="btn btn-ghost btn-sm" data-admin-action="mk-ocancel">Cancel</button>${adminMkEdited(g, c, lang) ? '<button class="btn btn-ghost btn-sm" data-admin-action="mk-oreset">Back to my first text</button>' : ''}</div></div>` : ''}
+      <div class="mk-two mk-prevs">
+        <div><p class="mk-sh">Message in app · for ${esc(sample)}</p>${adminMkChatPreview(filled, c, lang)}</div>
+        <div><p class="mk-sh">WhatsApp · for ${esc(sample)}</p>${adminMkWaPreview(filled + ADMIN_MK_WA_END[lang](adminMkCourseUrl(c, lang)), lang)}
+          <p class="ins-note">Course page: <a class="ap-link" href="${esc(adminMkCourseUrl(c, lang))}" target="_blank" rel="noopener">${esc(adminMkCourseUrl(c, lang).replace('https://', ''))}</a></p></div>
+      </div>
+      ${editing ? '' : `<div class="ap-btns mk-btns"><button class="btn btn-ghost btn-sm" data-admin-action="mk-oedit">Edit the ${esc(ADMIN_MK_LANGS[lang])} text</button>${adminMkEdited(g, c, lang) ? '<span class="ap-tag purple">Your text</span>' : ''}</div>`}
+      <div class="mk-allwrap">${confirmBox || allBtn}</div>
+      ${adminMk.offersErr ? `<p class="ins-note" style="color:var(--error);">Couldn't load who already got offers: ${esc(adminMk.offersErr)}. <button class="ap-link" data-admin-action="mk-oreload">Try again</button></p>` : !loaded ? '<p class="ins-note">Loading who already got offers…</p>' : ''}
+    </section>`;
+}
+function adminMkWhenShort(t){ return t ? new Date(t).toLocaleDateString('en-GB', {day:'numeric', month:'short'}) : ''; }
+function adminMkLearnerRow(p, g, c){
+  const r = adminMkRow(p, g, c), pf = p.profile, goals = adminInsGoals(p), key = p.key, open = adminMk.row === key, busy = adminMk.rowBusy === key || !!adminMk.allRun;
+  const tags = [r.owns ? '<span class="ap-tag ok">Has this course</span>' : '', r.asked ? '<span class="ap-tag purple">Asked for it</span>' : '', r.low ? `<span class="ap-tag">Below ${esc(adminMkCourseEntry(c))}</span>` : '',
+    r.off ? '<span class="ap-tag warn">Offers off</span>' : '', pf.notif && pf.notif.on ? '<span class="ap-tag">Phone notifications on</span>' : ''].filter(Boolean).join('');
+  const hist = r.log.length ? r.log.slice(0, 3).map(e=>`<span class="mk-got ${e.ch}">${e.ch === 'app' ? 'In app' : 'WhatsApp'} · ${esc(adminMkWhenShort(e.at))}</span>`).join('') : '<span class="mk-got none">Not sent yet</span>';
+  const wa = !r.waWhy && !busy ? adminInsWaLink(p, adminMkWaText(p, g, c)) : '';
+  const appBtn = `<button class="mk-ob app" data-admin-action="mk-app" data-id="${esc(key)}" ${r.appWhy || busy || !adminMk.offers ? 'disabled' : ''} aria-label="Message ${esc(pf.name || '')} in the app">${ICONS.chat}<span>${adminMk.rowBusy === key ? 'Sending…' : 'Message in app'}</span></button>`;
+  const waBtn = wa ? `<a class="mk-ob wa" href="${esc(wa)}" target="_blank" rel="noopener" data-admin-action="mk-wa" data-id="${esc(key)}" aria-label="WhatsApp ${esc(pf.name || '')}">${ICONS.whatsapp}<span>WhatsApp</span></a>`
+    : `<button class="mk-ob wa" disabled aria-label="WhatsApp: ${esc(r.waWhy || 'wait')}">${ICONS.whatsapp}<span>WhatsApp</span></button>`;
+  const whys = r.owns ? [] : [r.appWhy ? 'In app: ' + r.appWhy : '', r.waWhy ? 'WhatsApp: ' + r.waWhy : ''].filter(Boolean);   // owners: the green tag says it
+  const text = open ? adminMkFillOffer(adminMkOfferText(g, c, r.lang), pf.name, c, r.lang) : '';
+  return `<div class="mk-orow${open ? ' open' : ''}">
+      <div class="mk-otop">
+        <button class="mk-oname" data-admin-action="ap-open-learner" data-id="${esc(key)}" title="Open the profile">
+          ${adminAvatarHtml(pf.name, adminGoalKey(goals.length ? goals : pf.motivationTag), Date.now() - (p.lastSeen || 0))}
+          <span class="mk-lm"><b dir="auto">${esc(pf.name || '(no name)')}</b><small>${esc(adminInsStage(p))} · ${esc(ADMIN_MK_LANGS[r.lang])} · seen ${esc(adminAgo(p.lastSeen))}${r.phone ? ' · ' + esc(r.phone) : ''}</small></span>
+        </button>
+        <div class="mk-obtns">${appBtn}${waBtn}</div>
+      </div>
+      <div class="mk-ometa">${tags}<span class="mk-hist">${hist}</span></div>
+      ${whys.length ? `<p class="mk-owhy">${esc(whys.join(' · '))}</p>` : ''}
+      ${open ? `<div class="nt-confirm mk-rowc"><p>Send this to ${esc(adminMkFirst(pf.name) || 'them')} in their Messages, in ${esc(ADMIN_MK_LANGS[r.lang])}?${r.recent ? ' They got this offer ' + esc(adminAgo(r.recent.at)) + ' (' + (r.recent.ch === 'app' ? 'in the app' : 'WhatsApp') + ').' : ''}</p>
+          ${adminMkChatPreview(text, c, r.lang)}
+          <div class="ap-btns mk-btns"><button class="ap-cta" data-admin-action="mk-app-go" data-id="${esc(key)}">Yes, send it</button><button class="btn btn-ghost btn-sm" data-admin-action="mk-app-cancel">Cancel</button></div></div>` : ''}
+    </div>`;
+}
+function adminMkOfferTab(g){
+  const c = adminMkCourse(g), ppl = adminMkPeople(g).sort((a, b)=>(b.lastSeen || 0) - (a.lastSeen || 0));
+  const got = ppl.filter(p=>adminMkPersonLog(p, c).length).length;
+  return adminMkOfferCard(g) + `<section class="ap-card ins-card"><span class="ap-eb">Learners</span><h3 class="ins-h">${ppl.length} learner${ppl.length === 1 ? '' : 's'} · ${got} got this offer</h3>
+      <p class="ins-note">Message in app goes to their Messages tab (and their phone, if notifications are on). WhatsApp opens your WhatsApp with the text and the course page; it needs their “news and offers on WhatsApp” yes. A WhatsApp send is marked when you open it.</p>
+      ${ppl.length ? `<div class="mk-olist">${ppl.map(p=>adminMkLearnerRow(p, g, c)).join('')}</div>` : '<p class="ap-empty">Nobody has this main goal yet.</p>'}</section>`
+    + adminMkLearnersTab(g, true);
+}
+
+/* ---------- tab: learners (v2 insight; v3 shows it under the offer) ---------- */
+function adminMkLearnersTab(g, insightOnly){
   const ppl = adminMkPeople(g).sort((a, b)=>(b.lastSeen || 0) - (a.lastSeen || 0)), now = Date.now();
   const lv = LEVELS.map(l=>({label:l, n:ppl.filter(p=>adminInsLevel(p) === l).length}));
   const langs = Object.keys(ADMIN_MK_LANGS).map(l=>({label:ADMIN_MK_LANGS[l], n:ppl.filter(p=>(adminInsLang(p) || 'en') === l).length})).filter(r=>r.n);
@@ -40536,9 +40987,9 @@ function adminMkLearnersTab(g){
       <div class="ap-tiles"><div class="ap-tile"><span>Seen this week</span><b>${week}</b></div><div class="ap-tile"><span>Notifications on</span><b>${on}</b></div>
         <div class="ap-tile"><span>Turned offers off</span><b>${off}</b></div><div class="ap-tile"><span>B1 and up</span><b>${ppl.filter(p=>LEVELS.indexOf(adminInsLevel(p)) >= 2).length}</b></div></div>
       <div class="mk-two"><div><p class="mk-sh">Levels</p>${adminInsBars(lv, {total:ppl.length})}</div><div><p class="mk-sh">App language</p>${adminInsBars(langs, {total:ppl.length})}</div></div>
-      <p class="ins-note">Course offers go only to B1 and up (every course starts at B1). Learners without notifications see each announcement once as a pop-up when they open the app.</p></section>
-    <section class="ap-card ins-card"><span class="ap-eb">Learners</span><h3 class="ins-h">${ppl.length} learner${ppl.length === 1 ? '' : 's'}</h3>
-      ${ppl.length ? `<div class="mk-llist">${ppl.map(row).join('')}</div>` : '<p class="ap-empty">Nobody has this main goal yet.</p>'}</section>`;
+      <p class="ins-note">Course offers go only to B1 and up (every course starts at B1). Learners without notifications see each announcement once as a pop-up when they open the app.</p></section>`
+    + (insightOnly ? '' : `<section class="ap-card ins-card"><span class="ap-eb">Learners</span><h3 class="ins-h">${ppl.length} learner${ppl.length === 1 ? '' : 's'}</h3>
+      ${ppl.length ? `<div class="mk-llist">${ppl.map(row).join('')}</div>` : '<p class="ap-empty">Nobody has this main goal yet.</p>'}</section>`);
 }
 
 /* ---------- tab: ready notifications ---------- */
@@ -40636,13 +41087,40 @@ function adminMkByItem(list){
   const m = {}; list.forEach(x=>{ const k = (x.item || 'custom') + '|' + x.lang; const o = m[k] = m[k] || {t:x.title, lang:x.lang, n:0, sent:0, opened:0}; o.n++; o.sent += x.sent || 0; o.opened += x.opened || 0; });
   return Object.keys(m).map(k=>m[k]).sort((a, b)=>(b.sent ? b.opened / b.sent : -1) - (a.sent ? a.opened / a.sent : -1) || b.sent - a.sent);
 }
+// v3: the course offers sent from Marketing (in app / WhatsApp), the replies, and course requests or passwords in the 14 days after one.
+function adminMkPersonByHash(){ const m = {}; (adminPeople || []).forEach(p=>p.accounts.forEach(u=>{ if(u.hash) m[u.hash] = p; })); return m; }
+function adminMkOfferAfter(log){
+  const byHash = adminMkPersonByHash(), out = [], seen = {};
+  log.forEach(e=>{
+    const p = e.h.map(h=>byHash[h]).find(Boolean); if(!p) return;
+    const k = p.key + '|' + e.c; if(seen[k]) return;
+    const win = t=>t > e.at && t - e.at < ADMIN_MK_AFTER_MS;
+    const req = (adminChats || []).find(d=>d.type === 'request' && d.topic && d.topic.c === e.c && d.learner && e.h.indexOf(d.learner.accountHash) >= 0 && win(Number(d.createdAt) || 0));
+    const pw = adminPersonLinks(p).access.find(d=>(d.course === e.c || d.course === COURSE_ACCESS_ALL) && win(Number(d.issuedAt) || 0));
+    if(req || pw){ seen[k] = 1; out.push({p, e, what:pw ? 'password' : 'request', at:pw ? Number(pw.issuedAt) : Number(req.createdAt)}); }
+  });
+  return out;
+}
+function adminMkOfferAnalysis(g){
+  const log = adminMkLog().filter(e=>!g || e.g === g), now = Date.now(), m30 = log.filter(e=>now - e.at < 30 * DAY_MS);
+  const replies = (adminChats || []).filter(d=>d.type === 'offer' && (!g || (d.offer && d.offer.g === g)) && Array.isArray(d.lm) && d.lm.length);
+  const courses = (g ? ADMIN_MK_COURSES[g] : Object.keys(ADMIN_MK_CSHORT)).map(c=>{ const L = log.filter(e=>e.c === c); return {label:ADMIN_MK_CSHORT[c] || c, n:L.length, sub:L.filter(e=>e.ch === 'app').length + ' in app · ' + L.filter(e=>e.ch === 'wa').length + ' WhatsApp'}; }).filter(r=>r.n);
+  const after = adminMkOfferAfter(log);
+  if(!log.length) return `<section class="ap-card ins-card"><span class="ap-eb">Course offers</span><h3 class="ins-h">No offers sent yet</h3><p class="ins-note">After the first “Message in app” or WhatsApp offer, this shows how many went out, who wrote back, and course requests or passwords that followed.</p></section>`;
+  return `<section class="ap-card ins-card"><span class="ap-eb">Course offers${g ? '' : ' · all groups'}</span><h3 class="ins-h">${m30.length} sent in 30 days</h3>
+      <div class="ap-tiles"><div class="ap-tile"><span>In app, 30 days</span><b>${m30.filter(e=>e.ch === 'app').length}</b></div><div class="ap-tile"><span>WhatsApp, 30 days</span><b>${m30.filter(e=>e.ch === 'wa').length}</b></div>
+        <div class="ap-tile"><span>Wrote back in the app</span><b>${replies.length}</b></div><div class="ap-tile"><span>Request or password after</span><b>${after.length}</b></div></div>
+      ${courses.length ? `<p class="mk-sh">By course (all time)</p>${adminInsBars(courses, {})}` : ''}
+      ${after.length ? `<p class="mk-sh">Course requests or passwords within 14 days of an offer</p>${after.map(o=>`<button class="ap-kv mk-kvbtn" data-admin-action="ap-open-learner" data-id="${esc(o.p.key)}"><span dir="auto"><b>${esc(o.p.profile.name || '—')}</b><small> · ${esc(ADMIN_MK_CSHORT[o.e.c] || o.e.c)} · offer ${esc(adminMkWhenShort(o.e.at))} (${o.e.ch === 'app' ? 'in app' : 'WhatsApp'})</small></span><b>${o.what === 'password' ? 'Password' : 'Request'} ${esc(adminMkWhenShort(o.at))}</b></button>`).join('')}` : ''}
+      <p class="ins-note">May be linked, not proof. WhatsApp counts the times you opened it from here.</p></section>`;
+}
 function adminMkAnalysisTab(g){
   const sent = adminMkSent(adminMkItems(g)), m30 = sent.filter(x=>Date.now() - (x.at || 0) < 30 * DAY_MS), s30 = adminMkSum(m30), all = adminMkSum(sent);
   const langs = Object.keys(ADMIN_MK_LANGS).map(l=>{ const s = adminMkSum(sent.filter(x=>x.lang === l)); return {label:ADMIN_MK_LANGS[l], n:s.opened, sub:s.sent + ' sent · ' + adminMkPct(s.opened, s.sent)}; }).filter(r=>r.sub[0] !== '0');
   const kinds = [['Offers', sent.filter(x=>x.filter && x.filter.offer)], ['Practice', sent.filter(x=>!(x.filter && x.filter.offer))]].map(([l, L])=>{ const s = adminMkSum(L); return {label:l, n:s.opened, sub:s.sent + ' sent · ' + adminMkPct(s.opened, s.sent)}; });
-  const items = adminMkByItem(sent), after = adminMkAfter(g, sent);
-  if(!sent.length) return `<section class="ap-card ins-card"><span class="ap-eb">Analysis</span><h3 class="ins-h">Nothing sent yet</h3><p class="ins-note">The numbers appear here after the first send: how many got it, how many opened it, which messages work best, by language and by week.</p></section>`;
-  return `<section class="ap-card ins-card"><span class="ap-eb">Last 30 days</span><h3 class="ins-h">${s30.sent} sent · ${adminMkPct(s30.opened, s30.sent)} opened</h3>
+  const items = adminMkByItem(sent), after = adminMkAfter(g, sent), offers = adminMkOfferAnalysis(g);
+  if(!sent.length) return offers + `<section class="ap-card ins-card"><span class="ap-eb">Phone notifications</span><h3 class="ins-h">Nothing sent yet</h3><p class="ins-note">The numbers appear here after the first send: how many got it, how many opened it, which messages work best, by language and by week.</p></section>`;
+  return offers + `<section class="ap-card ins-card"><span class="ap-eb">Phone notifications · last 30 days</span><h3 class="ins-h">${s30.sent} sent · ${adminMkPct(s30.opened, s30.sent)} opened</h3>
       <div class="ap-tiles"><div class="ap-tile"><span>Sent</span><b>${s30.sent}</b></div><div class="ap-tile"><span>Opened</span><b>${s30.opened}</b></div>
         <div class="ap-tile"><span>Skipped (too soon)</span><b>${s30.skipped}</b></div><div class="ap-tile"><span>All time</span><b class="mk-res">${all.sent} sent · ${adminMkPct(all.opened, all.sent)}</b></div></div>
       <p class="mk-sh">By week (opened / sent)</p>${adminMkWeeksHtml(adminMkWeeks(sent))}</section>
@@ -40654,13 +41132,14 @@ function adminMkAnalysisTab(g){
       ${after.map(o=>`<button class="ap-kv mk-kvbtn" data-admin-action="ap-open-learner" data-id="${esc(o.p.key)}"><span dir="auto"><b>${esc(o.p.profile.name || '—')}</b><small> · ${esc(adminMkCourseName(o.d.course === COURSE_ACCESS_ALL ? o.x.ck : o.d.course))} · ${esc(adminDate(o.d.issuedAt))}</small></span><b>${esc(adminMkFill(o.x.title, o.x.lang)).slice(0, 40)}</b></button>`).join('')}</section>`;
 }
 function adminMkAnalysisPage(){
-  const P = adminMk.plan, sent = adminMkSent(P.items), s = adminMkSum(sent.filter(x=>Date.now() - (x.at || 0) < 30 * DAY_MS));
+  const P = adminMk.plan || ADMIN_MK_EMPTY_PLAN, sent = adminMkSent(P.items), s = adminMkSum(sent.filter(x=>Date.now() - (x.at || 0) < 30 * DAY_MS));
   const groups = ADMIN_MK_GROUPS.map(g=>{ const x = adminMkSum(sent.filter(y=>y.grp === g)); return {label:ADMIN_MK_GT[g], n:x.opened, sub:x.sent + ' sent · ' + adminMkPct(x.opened, x.sent)}; });
   const langs = Object.keys(ADMIN_MK_LANGS).map(l=>{ const x = adminMkSum(sent.filter(y=>y.lang === l)); return {label:ADMIN_MK_LANGS[l], n:x.opened, sub:x.sent + ' sent · ' + adminMkPct(x.opened, x.sent)}; });
   const who = [['Automatic', sent.filter(x=>x.auto)], ['Yours', sent.filter(x=>!x.auto)]].map(([l, L])=>{ const x = adminMkSum(L); return {label:l, n:x.opened, sub:x.sent + ' sent · ' + adminMkPct(x.opened, x.sent)}; });
   const top = adminMkByItem(sent).filter(o=>o.sent >= 1).slice(0, 6);
   return `<div class="ins"><div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All groups</button></div>
-      <section class="ap-card ins-card"><span class="ap-eb">All groups · last 30 days</span><h3 class="ins-h">${s.sent} sent · ${adminMkPct(s.opened, s.sent)} opened</h3>
+      ${adminMkOfferAnalysis(null)}
+      <section class="ap-card ins-card"><span class="ap-eb">Phone notifications · all groups · last 30 days</span><h3 class="ins-h">${s.sent} sent · ${adminMkPct(s.opened, s.sent)} opened</h3>
         <p class="mk-sh">By week, all groups (opened / sent)</p>${adminMkWeeksHtml(adminMkWeeks(sent))}
         <div class="mk-two"><div><p class="mk-sh">By group (opened)</p>${adminInsBars(groups, {})}</div><div><p class="mk-sh">By language (opened)</p>${adminInsBars(langs, {})}</div></div>
         <p class="mk-sh">Automatic plan or your own (opened)</p>${adminInsBars(who, {})}</section>
@@ -40673,20 +41152,21 @@ function adminMkAnalysisPage(){
 function renderAdminMarketingTab(){
   adminMkEnsure();
   if(!adminMkLive()) return `<div class="ap-card"><b>Not switched on yet.</b> <span class="nt-faint">Marketing sends phone notifications; it starts when the notification server is online.</span></div>`;
-  if(adminMk.err && !adminMk.plan) return `<div class="ap-card" style="border-color:var(--error);"><b>Could not reach the notification server.</b> <span class="nt-faint">${esc(adminMk.err)}</span> <button class="btn btn-ghost btn-sm" data-admin-action="mk-reload">Try again</button></div>`;
-  if(!adminMk.plan || !adminMk.copy) return `<p class="ap-empty">Loading the groups and the plan…</p>`;
-  const note = adminMk.note ? `<p class="nt-ok" role="status">${esc(adminMk.note)}</p>` : '';
+  // v3: offers need only Firestore, so a notification-server outage shows a banner and the page still works (with an empty plan)
+  const down = adminMk.err && !adminMk.plan ? `<div class="ap-card" style="border-color:var(--error); margin-bottom:12px;"><b>Could not reach the notification server.</b> <span class="nt-faint">${esc(adminMk.err)}. Offers in the app and on WhatsApp still work; phone notifications wait.</span> <button class="btn btn-ghost btn-sm" data-admin-action="mk-reload">Try again</button></div>` : '';
+  if(!down && (!adminMk.plan || !adminMk.copy)) return `<p class="ap-empty">Loading the groups and the plan…</p>`;
+  const note = down + (adminMk.note ? `<p class="nt-ok" role="status">${esc(adminMk.note)}</p>` : '');
   const busy = adminMk.sending ? `<p class="nt-ok" role="status">Sending… ${adminMk.sending.sent} phones so far.</p>` : '';
   if(adminMk.view === 'analysis') return note + adminMkAnalysisPage();
   if(ADMIN_MK_GROUPS.indexOf(adminMk.view) >= 0){
     const g = adminMk.view;
     if(!adminMk.lang){ const n = {tr:0, fa:0, en:0}; adminMkPeople(g).forEach(p=>{ const l = adminInsLang(p) || 'en'; if(n[l] != null) n[l]++; }); adminMk.lang = Object.keys(n).sort((a, b)=>n[b] - n[a])[0]; }
-    const body = adminMk.tab === 'ready' ? adminMkReadyTab(g) : adminMk.tab === 'schedule' ? adminMkScheduleTab(g) : adminMk.tab === 'analysis' ? adminMkAnalysisTab(g) : adminMkLearnersTab(g);
+    const body = adminMk.tab === 'ready' ? adminMkReadyTab(g) : adminMk.tab === 'schedule' ? adminMkScheduleTab(g) : adminMk.tab === 'analysis' ? adminMkAnalysisTab(g) : adminMkOfferTab(g);
     return `<div class="ins"><div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All groups</button></div>
       ${note}${busy}${adminMkGroupHead(g)}${adminMkTabs()}${body}</div>`;
   }
   adminMk.view = null;
-  const P = adminMk.plan, now = Date.now(), tot = P.counts.reduce((o, c)=>({n:o.n + (c.n || 0), promo:o.promo + (c.promo || 0)}), {n:0, promo:0});
+  const P = adminMk.plan || ADMIN_MK_EMPTY_PLAN, now = Date.now(), tot = P.counts.reduce((o, c)=>({n:o.n + (c.n || 0), promo:o.promo + (c.promo || 0)}), {n:0, promo:0});
   const s30 = adminMkSum(adminMkSent(P.items).filter(x=>now - (x.at || 0) < 30 * DAY_MS));
   const coming = P.items.filter(x=>x.status === 'scheduled').sort((a, b)=>a.send_at - b.send_at);
   const box = g=>{ const ppl = adminMkPeople(g).length, ph = adminMkPhones(g), nx = adminMkNext(g), on = P.auto[g] !== false, col = COURSE_GOAL_COLORS[g] || '#7C5CFC';
@@ -40694,6 +41174,7 @@ function renderAdminMarketingTab(){
       <img class="mk-gbchar" src="char-${g}.png" alt="" decoding="async">
       <span class="ins-be">Group</span><b class="ins-bn mk-bn">${esc(ADMIN_MK_GT[g])}</b>
       <small>${ppl} learner${ppl === 1 ? '' : 's'} · ${ph.n} phone${ph.n === 1 ? '' : 's'}</small>
+      <small class="mk-goffer">Offer: ${esc(ADMIN_MK_CSHORT[adminMkCourse(g)] || adminMkCourse(g))}</small>
       <small class="mk-gnext">${on ? (nx ? 'Next: ' + esc(adminMkWhen(nx.send_at)) : 'Plan on') : 'Plan off'}</small>
     </button>`; };
   return `${note}<div class="ins">
@@ -40710,13 +41191,52 @@ function renderAdminMarketingTab(){
       <section class="ap-sec"><div class="ap-sh"><span class="ap-eb">Automatic plan</span><h2 class="display">Coming up<span class="dot">.</span></h2></div>
         <div class="ap-card">${coming.length ? coming.slice(0, 10).map(x=>`<button class="ap-kv mk-kvbtn" data-admin-action="mk-goto" data-g="${esc(x.grp)}"><span dir="auto"><b>${esc(adminMkWhen(x.send_at))} · ${esc(ADMIN_MK_GT[x.grp] || x.grp)}</b><small> · ${esc(ADMIN_MK_LANGS[x.lang] || x.lang)} · ${esc(adminMkFill(x.title, x.lang))}</small></span><span class="ap-chev">${ICONS.chev}</span></button>`).join('')
           : '<p class="ap-empty">Nothing planned yet. The plan fills itself within the hour for every group that has phones.</p>'}</div></section>
-      <p class="ins-note mk-rules">Phone notifications only (WhatsApp offers are in Group classes). Each group gets at most one planned notification a week per language, planned 12 hours ahead so you can edit or skip it. Offers go to everyone with notifications on, except learners who turned “Course news and offers” off in Settings.</p>
+      <p class="ins-note mk-rules">Open a group for its offer: the premium course that fits it, the exact text in Turkish, Persian and English, every learner with “Message in app” and “WhatsApp” side by side, and “Send this offer to all”. WhatsApp needs the learner’s yes to news and offers; in-app offers skip learners who turned “Course news and offers” off in Settings. Group-class offers stay in Group classes. Phone notifications: each group gets at most one planned notification a week per language, planned 12 hours ahead so you can edit or skip it.</p>
     </div>`;
 }
 // Inputs (bindAdminActions calls this after every render: the app code is not global, so no inline handlers).
 function adminMkBind(root){
   root.querySelectorAll('[data-mk-k]').forEach(el=>{ el.oninput = ()=>adminMkDraft(el.dataset.mkK, el.dataset.mkF, el.value); });
   root.querySelectorAll('[data-mk-auto]').forEach(el=>{ el.onchange = ()=>adminMkAuto(el.dataset.mkAuto, el.checked); });
+  root.querySelectorAll('[data-mk-otext]').forEach(el=>{ el.oninput = ()=>{ adminMk.odraft = el.value; }; });   // v3: the offer text being edited
+}
+function adminMkReset(){ adminMk.oedit = ''; adminMk.odraft = ''; adminMk.row = ''; adminMk.all = false; }
+// v3 actions: course switcher, edit the offer text, one learner in the app (asks first), WhatsApp (remembered), send to all (asks first).
+function adminMkOfferAction(action, el){
+  const re = ()=>renderAdminPage(), g = adminMk.view, c = ADMIN_MK_GROUPS.indexOf(g) >= 0 ? adminMkCourse(g) : '', db = ()=>firebase.firestore().collection('progress').doc(ADMIN_MK_OFFERS_DOC);
+  const save = (patch, ok)=>db().set(Object.assign({kind:'admin', savedAt:Date.now()}, patch), {merge:true}).then(()=>{ adminMk.offers = Object.assign(adminMk.offers || {}, patch); adminMk.note = ok; })
+    .catch(e=>{ adminMk.note = 'Not saved: ' + (e.message || e); }).then(re);
+  if(action === 'mk-oreload'){ adminMk.offersErr = ''; adminMkOffersLoad(); re(); return true; }
+  if(!c) return false;
+  if(action === 'mk-course'){ const v = el.dataset.v; if((ADMIN_MK_COURSES[g] || []).indexOf(v) < 0) return true; adminMkReset(); adminMk.note = ''; adminMk.offers = Object.assign(adminMk.offers || {}, {['p_' + g]:v}); re(); save({['p_' + g]:v}, ADMIN_MK_GT[g] + ': the offer is now ' + adminMkCourseName(v) + '.'); return true; }
+  if(action === 'mk-oedit'){ adminMk.oedit = adminMkTextKey(g, c, adminMk.lang); adminMk.odraft = adminMkOfferText(g, c, adminMk.lang); adminMk.row = ''; adminMk.all = false; re(); return true; }
+  if(action === 'mk-ocancel'){ adminMk.oedit = ''; re(); return true; }
+  if(action === 'mk-osave'){
+    const t = String(adminMk.odraft || '').trim(), key = adminMk.oedit; if(!key) return true;
+    if(!t){ adminMk.note = 'The text is empty. Write something, or Cancel.'; re(); return true; }
+    adminMk.oedit = ''; save({[key]:{t, at:Date.now()}}, 'Saved. This is the ' + ADMIN_MK_LANGS[adminMk.lang] + ' offer from now on.'); return true;
+  }
+  if(action === 'mk-oreset'){ const key = adminMkTextKey(g, c, adminMk.lang); if(!confirm('Go back to the first text? Your edit is deleted.')) return true; adminMk.oedit = ''; save({[key]:null}, 'Back to the first text.'); return true; }
+  if(action === 'mk-app'){ adminMk.row = el.dataset.id; adminMk.all = false; adminMk.note = ''; re(); return true; }
+  if(action === 'mk-app-cancel'){ adminMk.row = ''; re(); return true; }
+  if(action === 'mk-app-go'){
+    const p = adminPersonByKey(el.dataset.id); if(!p || adminMk.rowBusy) return true;
+    adminMk.rowBusy = p.key; adminMk.row = ''; re();
+    adminMkSendApp(p, g, c).then(n=>{ adminMk.note = 'Sent to ' + (p.profile.name || 'them') + ' in the app' + (n ? ', and ' + n + ' phone' + (n === 1 ? '' : 's') + ' notified.' : '. No phone notification (they have none on); they see it the next time they open the app.'); })
+      .catch(e=>{ adminMk.note = 'Not sent to ' + (p.profile.name || 'them') + ': ' + (e.message || e); })
+      .then(()=>{ adminMk.rowBusy = ''; re(); });
+    return true;
+  }
+  if(action === 'mk-wa'){
+    // the link opens WhatsApp by itself (no preventDefault); this only remembers it
+    const p = adminPersonByKey(el.dataset.id); if(!p) return true;
+    adminMkLogAdd({h:adminMkHashes(p), g, c, ch:'wa', lang:adminMkLangOf(p), at:Date.now()}).catch(()=>{}).then(()=>setTimeout(re, 0));
+    return true;
+  }
+  if(action === 'mk-all'){ adminMk.all = true; adminMk.row = ''; adminMk.oedit = ''; adminMk.note = ''; re(); return true; }
+  if(action === 'mk-all-cancel'){ adminMk.all = false; re(); return true; }
+  if(action === 'mk-all-go'){ if(adminMk.allRun) return true; adminMkSendAll(g, c); return true; }
+  return false;
 }
 function adminMkAuto(g, on){
   adminNtFetch('/plan/auto', {grp:g, on:!!on}).then(j=>{ adminMk.plan = j; adminMk.note = on ? ADMIN_MK_GT[g] + ': the weekly plan is on.' : ADMIN_MK_GT[g] + ': the weekly plan is off; its planned sends were skipped.'; })
@@ -40730,10 +41250,11 @@ function adminMkPayload(key){
 }
 function adminMkAction(action, el){
   const re = ()=>renderAdminPage(), done = msg=>{ adminMk.note = msg; adminMk.open = ''; adminMk.confirm = ''; adminMkEnsure(true); };
-  if(action === 'mk-view'){ adminMk.view = el.dataset.v || null; adminMk.tab = 'learners'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; re(); window.scrollTo(0, 0); return; }
-  if(action === 'mk-goto'){ adminMk.view = el.dataset.g; adminMk.tab = 'schedule'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; re(); window.scrollTo(0, 0); return; }
-  if(action === 'mk-tab'){ adminMk.tab = el.dataset.v; adminMk.open = ''; adminMk.confirm = ''; re(); return; }
-  if(action === 'mk-lang'){ adminMk.lang = el.dataset.v; adminMk.open = ''; adminMk.confirm = ''; re(); return; }
+  if(adminMkOfferAction(action, el)) return;
+  if(action === 'mk-view'){ adminMk.view = el.dataset.v || null; adminMk.tab = 'learners'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; adminMkReset(); re(); window.scrollTo(0, 0); return; }
+  if(action === 'mk-goto'){ adminMk.view = el.dataset.g; adminMk.tab = 'schedule'; adminMk.lang = ''; adminMk.open = ''; adminMk.note = ''; adminMkReset(); re(); window.scrollTo(0, 0); return; }
+  if(action === 'mk-tab'){ adminMk.tab = el.dataset.v; adminMk.open = ''; adminMk.confirm = ''; adminMkReset(); re(); return; }
+  if(action === 'mk-lang'){ adminMk.lang = el.dataset.v; adminMk.open = ''; adminMk.confirm = ''; adminMk.oedit = ''; re(); return; }
   if(action === 'mk-reload'){ adminMk.err = ''; adminMkEnsure(true); re(); return; }
   if(action === 'mk-open'){ adminMk.open = el.dataset.k; adminMk.confirm = ''; adminMk.note = ''; re(); return; }
   if(action === 'mk-close' || action === 'mk-send-cancel'){ if(action === 'mk-close') adminMk.open = ''; adminMk.confirm = ''; re(); return; }
