@@ -39435,20 +39435,64 @@ let adminClasses = null;              // the doc, or null while loading
 let adminClassesError = '', adminClassesSeenBefore = 0, adminClassesStats = null, adminInsKind = 'all';
 // A WhatsApp number is always required (Farin 2026-11-16: "the users you put in groups should have numbers so i can message on whatsapp").
 function adminClassRules(){ const r = (adminClasses && adminClasses.rules) || {}; return {min:ADMIN_CLASS_MIN, split:r.split !== false, phone:true}; }
+/* Two admins share this doc since 2026-11-17: the English app's and the Spanish app's (Farin 2026-11-16: "seperate spanish insights
+   too"). Same learners (progress), same phone sources (both apps' contacts, see adminContactsOther), same rules, so both make the same
+   classes. A save never overwrites what the other admin (or another window) saved after we read the doc: it reads the doc first; if its
+   classes, rests or rules changed since we read or wrote it, nothing is written, we take the newest doc, load the learners again and look
+   again (a tap that did not land says so). If only the other admin's "last opened" moved, the save goes through and keeps it.
+   Saves run one after the other. Each admin keeps its own "last opened" (seenAt = English admin, seenAtEs = Spanish admin). */
+const ADMIN_CLASSES_SEEN = LOGIN_APP === 'es' ? 'seenAtEs' : 'seenAt', ADMIN_CLASSES_SEEN_OTHER = LOGIN_APP === 'es' ? 'seenAt' : 'seenAtEs';
+let adminClassesRev = 0, adminClassesBase = '', adminClassesQueue = Promise.resolve(), adminClassesClash = 0, adminClassesClashNote = '';
+function adminClassesSeen(){ return (adminClasses && Number(adminClasses[ADMIN_CLASSES_SEEN])) || 0; }
+// The classes this admin's Home counts: the English admin all of them (as before), the Spanish admin the Spanish app's.
+function adminClassHome(c){ return LOGIN_APP !== 'es' || c.app === 'es'; }
+function adminClassesNorm(d){
+  const obj = v=>v && typeof v === 'object' && !Array.isArray(v) ? Object.assign({}, v) : {};
+  return {classes:Array.isArray(d.classes) ? d.classes.filter(c=>c && c.id && Array.isArray(c.members)) : [], skip:obj(d.skip), skipCourse:obj(d.skipCourse), rules:obj(d.rules), seenAt:Number(d.seenAt) || 0, seenAtEs:Number(d.seenAtEs) || 0};
+}
+// The part both admins edit (classes, rests, rules) as one string with sorted keys, to see whether the other admin changed it.
+function adminCanon(v){ return Array.isArray(v) ? '[' + v.map(adminCanon).join(',') + ']' : v && typeof v === 'object' ? '{' + Object.keys(v).filter(k=>v[k] !== undefined).sort().map(k=>JSON.stringify(k) + ':' + adminCanon(v[k])).join(',') + '}' : JSON.stringify(v === undefined ? null : v); }
+function adminClassesCore(c){ return adminCanon([c.classes || [], c.skip || {}, c.skipCourse || {}, c.rules || {}]); }
+function adminClassesFrom(d){
+  adminClasses = adminClassesNorm(d);
+  adminClassesRev = Number(d.savedAt) || 0;
+  adminClassesBase = adminClassesCore(adminClasses);
+}
 function adminClassesLoad(){
   firebase.firestore().collection('progress').doc(ADMIN_CLASSES_DOC).get().then(doc=>{
-    const d = (doc.exists && doc.data()) || {}, obj = v=>v && typeof v === 'object' && !Array.isArray(v) ? Object.assign({}, v) : {};
-    adminClasses = {classes:Array.isArray(d.classes) ? d.classes.filter(c=>c && c.id && Array.isArray(c.members)) : [], skip:obj(d.skip), skipCourse:obj(d.skipCourse), rules:obj(d.rules), seenAt:Number(d.seenAt) || 0};
-    adminClassesSeenBefore = adminClasses.seenAt;
+    adminClassesFrom((doc.exists && doc.data()) || {});
+    adminClassesSeenBefore = adminClassesSeen();
     adminClassesMaybeSync();
     renderAdminPage();
   }).catch(err=>{ adminClassesError = err.message || String(err); renderAdminPage(); });
 }
 function adminClassesSave(){
   if(!adminClasses) return Promise.resolve();
-  const c = adminClasses;
-  return firebase.firestore().collection('progress').doc(ADMIN_CLASSES_DOC).set({kind:'admin', classes:c.classes, skip:c.skip, skipCourse:c.skipCourse, rules:c.rules, seenAt:c.seenAt, savedAt:Date.now()}, {merge:true})
-    .then(()=>{ adminClassesError = ''; }).catch(err=>{ adminClassesError = 'Not saved: ' + (err.message || err); renderAdminPage(); });
+  adminClassesQueue = adminClassesQueue.then(()=>{
+    const ref = firebase.firestore().collection('progress').doc(ADMIN_CLASSES_DOC), base = adminClassesRev;
+    return ref.get().then(doc=>{
+      const d = (doc.exists && doc.data()) || {}, rev = Number(d.savedAt) || 0;
+      if(rev !== base){
+        const fresh = adminClassesNorm(d);
+        if(adminClassesCore(fresh) !== adminClassesBase) return adminClassesClashed(d);
+        adminClasses[ADMIN_CLASSES_SEEN_OTHER] = fresh[ADMIN_CLASSES_SEEN_OTHER];   // only the other admin's "last opened" moved: keep it
+      }
+      const c = adminClasses, at = Math.max(Date.now(), base + 1, rev + 1);
+      // a copy, so a tap while this save is on its way can't slip in unchecked; it is what adminClassesBase describes
+      const data = JSON.parse(JSON.stringify({kind:'admin', classes:c.classes, skip:c.skip, skipCourse:c.skipCourse, rules:c.rules, seenAt:c.seenAt, seenAtEs:c.seenAtEs, savedAt:at}));
+      return ref.set(data, {merge:true})
+        .then(()=>{ adminClassesRev = at; adminClassesBase = adminClassesCore(data); adminClassesClash = 0; adminClassesError = ''; });
+    });
+  }).catch(err=>{ adminClassesError = 'Not saved: ' + (err.message || err); renderAdminPage(); });
+  return adminClassesQueue;
+}
+// The other admin saved in between: keep theirs, reload the learners (that looks for classes again), say a tap may need repeating.
+function adminClassesClashed(d){
+  adminClassesFrom(d);
+  const note = adminClassesClashNote = 'The classes had just changed in the other admin, so this is the newest list. If you just tapped something, tap it again.';
+  setTimeout(()=>{ if(adminClassesClashNote === note){ adminClassesClashNote = ''; renderAdminPage(); } }, 12000);
+  if(++adminClassesClash <= 3) loadAdminUsers();
+  renderAdminPage();
 }
 function adminClassPeopleByHash(){ const m = {}; (adminPeople || []).forEach(p=>{ if(!p.hidden) p.accounts.forEach(u=>{ if(u.hash) m[u.hash] = p; }); }); return m; }
 function adminClassMembers(c, byHash){ const seen = {}; return (c.members || []).map(h=>byHash[h]).filter(p=>p && !seen[p.key] && (seen[p.key] = 1)); }
@@ -39488,9 +39532,9 @@ function adminClassesSync(){
   [C.skip, C.skipCourse].forEach(m=>Object.keys(m).forEach(h=>{ if(!(Number(m[h]) > now)){ delete m[h]; changed = true; } }));
   C.classes.forEach(c=>{ if(!adminClassOpen(c)) return; const ok = c.members.filter(h=>byHash[h]); if(ok.length !== c.members.length){ c.members = ok; changed = true; } });
   // Nobody without a WhatsApp number stays in a class that hasn't started (Farin 2026-11-16, "still some users are in the group classes
-  // with no numbers"). Only once every place a number can come from has loaded (profile, Messages, course passwords, contacts), so a slow
-  // load never drops anyone; running classes never change. They are not rested: once they add a number they can join again.
-  if(adminChats && adminAccessList && adminContacts) C.classes.forEach(c=>{ if(c.status !== 'suggested') return;
+  // with no numbers"). Only once every place a number can come from has loaded (profile, Messages, course passwords, both apps' contacts),
+  // so a slow load never drops anyone; running classes never change. They are not rested: once they add a number they can join again.
+  if(adminChats && adminAccessList && adminContacts && adminContactsOther) C.classes.forEach(c=>{ if(c.status !== 'suggested') return;
     const ok = c.members.filter(h=>byHash[h] && adminInsPhone(byHash[h])); if(ok.length !== c.members.length){ c.members = ok; changed = true; } });
   adminClassesStats = {};
   ['level', 'course'].forEach(kind=>{ if(adminClassesSyncKind(kind, rules, now, byHash)) changed = true; });
@@ -39557,12 +39601,12 @@ function adminClassesSyncKind(kind, rules, now, byHash){
 }
 // "New" = ready to offer (10+ fit) since the classes page was last opened; "got a new learner" = an offer-ready class someone joined.
 function adminClassOffer(c){ return !!(c && c.status === 'suggested' && c.offerAt); }
-function adminClassesFresh(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassOffer(c) && c.offerAt > seen); }
-function adminClassesJoined(){ const seen = (adminClasses && adminClasses.seenAt) || 0; return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassOffer(c) && c.offerAt <= seen && Object.keys(c.added || {}).some(h=>c.added[h] > seen)); }
+function adminClassesFresh(){ const seen = adminClassesSeen(); return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassHome(c) && adminClassOffer(c) && c.offerAt > seen); }
+function adminClassesJoined(){ const seen = adminClassesSeen(); return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassHome(c) && adminClassOffer(c) && c.offerAt <= seen && Object.keys(c.added || {}).some(h=>c.added[h] > seen)); }
 // Who said yes, first to answer first (they get the seats).
 function adminClassYes(c, byHash){ const at = p=>p.accounts.reduce((m, u)=>{ const x = u.hash && (c.replies || {})[u.hash]; return x && x.r === 'yes' ? Math.min(m, Number(x.at) || 0) : m; }, Infinity);
   return adminClassMembers(c, byHash || adminClassPeopleByHash()).filter(p=>adminClassReply(c, p) === 'yes').sort((a,b)=>at(a) - at(b)); }
-function adminClassesReady(){ const byHash = adminClassPeopleByHash(); return (adminClasses ? adminClasses.classes : []).filter(c=>c.status === 'suggested' && adminClassYes(c, byHash).length >= ADMIN_CLASS_MIN); }
+function adminClassesReady(){ const byHash = adminClassPeopleByHash(); return (adminClasses ? adminClasses.classes : []).filter(c=>adminClassHome(c) && c.status === 'suggested' && adminClassYes(c, byHash).length >= ADMIN_CLASS_MIN); }
 // How the yes-sayers become classes of 4–6: sizes of each class (first to say yes first); who is left over waits for the next class.
 function adminClassSplit(y){ let k = Math.ceil(y / ADMIN_CLASS_MAX); while(k > 1 && y < ADMIN_CLASS_MIN * k) k--; if(y < ADMIN_CLASS_MIN) return []; const seated = Math.min(y, ADMIN_CLASS_MAX * k), base = Math.floor(seated / k);
   return Array.from({length:k}, (x, i)=>base + (i < seated % k ? 1 : 0)); }
@@ -39572,7 +39616,7 @@ function adminClassTitle(c){ return adminClassName(c) + (ADMIN_INS_LANG[c.lang] 
 function adminClassIdea(c){ return adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {}).idea || '' : ADMIN_LEVEL_IDEAS[c.goal] || ''; }
 function adminClassSort(c){ return adminClassKind(c) === 'course' ? adminInsByTheme(c.theme) : adminInsByFit(c.goal); }
 // Opening the classes page marks what is there as seen: the New tags show what came since the last visit, for this visit.
-function adminClassesMarkSeen(){ if(!adminClasses) return; adminClassesSeenBefore = adminClasses.seenAt || 0; adminClasses.seenAt = Date.now(); adminClassesSave(); }
+function adminClassesMarkSeen(){ if(!adminClasses) return; adminClassesSeenBefore = adminClassesSeen(); adminClasses[ADMIN_CLASSES_SEEN] = Date.now(); adminClassesSave(); }
 // ---------- the offer: a page made for each learner + the WhatsApp message that links it (v5, Farin 2026-11-16) ----------
 // Level-class names in the learner's language ([ui][the language the class teaches][goal]); same words as site/class/offer.js.
 const ADMIN_CLASS_GOAL_T = {
@@ -39768,7 +39812,7 @@ function adminInsCard(eb, title, body, note){ return `<section class="ap-card in
 function adminInsChip(action, v, on, label){ return `<button class="ap-chip${on ? ' on' : ''}" data-admin-action="${action}" data-v="${esc(String(v))}" aria-pressed="${on ? 'true' : 'false'}">${esc(label)}</button>`; }
 function adminInsBoxSub(){
   if(!adminPeople || !adminClasses) return adminUsersError || adminClassesError ? 'Could not load' : 'Loading…';
-  const sug = adminClasses.classes.filter(c=>c.status === 'suggested'), offer = sug.filter(adminClassOffer).length, fresh = adminClassesFresh().length, ready = adminClassesReady().length;
+  const sug = adminClasses.classes.filter(c=>adminClassHome(c) && c.status === 'suggested'), offer = sug.filter(adminClassOffer).length, fresh = adminClassesFresh().length, ready = adminClassesReady().length;
   return sug.length ? (offer ? offer + ' group class' + (offer === 1 ? '' : 'es') + ' to offer' : sug.length + ' group class' + (sug.length === 1 ? '' : 'es') + ' gathering') + (ready ? ' · ' + ready + ' ready' : '') + (fresh ? ' · ' + fresh + ' new' : '') : 'No class fits yet';
 }
 // ---------- the classes page ----------
@@ -39852,6 +39896,7 @@ function adminInsClassesHtml(openId){
       <div class="ap-chips" role="group" aria-label="Kind of class" style="margin-top:4px;">${adminInsChip('ins-kind', 'all', k === 'all', 'All')}${adminInsChip('ins-kind', 'course', k === 'course', 'Course classes · ' + nk('course'))}${adminInsChip('ins-kind', 'level', k === 'level', 'Level classes · ' + nk('level'))}</div>
       ${adminInsNote ? `<p class="acc-ok" role="status">${esc(adminInsNote)}</p>` : ''}
       ${adminClassesError ? `<p class="acc-err">${esc(adminClassesError)}</p>` : ''}
+      ${adminClassesClashNote ? `<p class="acc-err" role="status">${esc(adminClassesClashNote)}</p>` : ''}
       <h4 class="ins-sh">Ready to offer · ${offerL.length}</h4>
       ${offerL.length ? offerL.map(row).join('') : '<p class="ap-empty">No class has 10 who fit yet. A class appears here when its list reaches 10.</p>'}
       ${gatherL.length ? `<h4 class="ins-sh">Gathering, under 10 · ${gatherL.length}</h4>${gatherL.map(row).join('')}` : (sug.length ? '' : '<p class="ap-empty">No class fits right now. New ones start gathering by themselves when 3 or more learners fit.</p>')}
@@ -39894,7 +39939,7 @@ function renderAdminClassesTab(){
       <div class="fs-art" aria-hidden="true" style="--g:${COURSE_GOAL_COLORS[g]};"><i class="fs-disc"></i><img src="char-${g}.png" alt="" decoding="async"></div>
     </header>
     <div class="lx-stats fs-stats">${stats}</div>
-    <div class="ins cls-page">${adminInsClassesHtml(c.id)}</div>`;
+    <div class="ins cls-page">${adminClassesClashNote ? `<p class="acc-err" role="status">${esc(adminClassesClashNote)}</p>` : ''}${adminInsNote ? `<p class="acc-ok" role="status">${esc(adminInsNote)}</p>` : ''}${adminInsClassesHtml(c.id)}</div>`;
 }
 // ---------- the page: boxes, or one box's page ----------
 function renderAdminInsightsTab(){
@@ -40020,6 +40065,8 @@ function buildHomeworkWhatsAppMessage(student, item){
     + `You can also check the app anytime with your pass for your full lesson and progress:\n${APP_URL}`;
 }
 let adminContacts = null;
+const ADMIN_CONTACTS_OTHER = LOGIN_APP === 'es' ? 'contacts' : 'contactsEs';
+let adminContactsOther = null;   // the other app's contacts, for numbers only (adminContactsOtherLoad)
 let adminError = '';
 let adminLoading = false;
 let adminTab = 'home';   // Admin v2 (2026-11-13): opens on Home (To check + section boxes); the Inbox is its first row and box
@@ -40102,7 +40149,7 @@ function adminLoadAll(){
   const u = firebase.auth().currentUser, uid = (u && (u.uid || u.email)) || 'admin';
   if(adminLoadedFor === uid) return;
   adminLoadedFor = uid;
-  adminSeenLoad(); adminClassesLoad(); loadAdminContacts(); loadAdminUsers(); adminWaitlistLoad(); adminChatsLoad(); adminReviewsLoad(); adminAccessLoad(); loadAdminStudents();
+  adminSeenLoad(); adminClassesLoad(); loadAdminContacts(); adminContactsOtherLoad(); loadAdminUsers(); adminWaitlistLoad(); adminChatsLoad(); adminReviewsLoad(); adminAccessLoad(); loadAdminStudents();
 }
 function adminSeenLoad(){
   firebase.firestore().collection('progress').doc(ADMIN_SEEN_DOC).get().then(doc=>{
@@ -42263,6 +42310,16 @@ function loadAdminContacts(){
     renderAdminPage();
   });
 }
+// The other app's contacts (the English admin reads 'contactsEs', the Spanish admin 'contacts'), only for the number a learner left there:
+// then both admins see the same numbers and make the same group classes (progress/admin-classes is shared, 2026-11-17). Never listed.
+// Stays null if it can't load: then nobody is taken out of a class for "no number" in this visit.
+function adminContactsOtherLoad(){
+  firebase.firestore().collection(ADMIN_CONTACTS_OTHER).orderBy('createdAt','desc').get().then(snap=>{
+    adminContactsOther = snap.docs.map(d=>Object.assign({id:d.id}, d.data()));
+    adminInsLinksCache = null;
+    renderAdminPage();
+  }).catch(()=>{});
+}
 function deleteAdminContact(id){
   if(!confirm('Delete this contact? This cannot be undone.')) return;
   firebase.firestore().collection('contacts').doc(id).delete().then(()=>{
@@ -42661,7 +42718,8 @@ function adminPersonLinks(p){
     || (d.app === p.app && names.indexOf(normalizeLoginName(d.name)) !== -1) || samePhone(d.phone));
   const wait = adminWaitlistRows().filter(r=>samePhone(r.phone));
   const contacts = (adminContacts || []).filter(c=>c.recoveryCode && ids.indexOf(c.recoveryCode) !== -1);
-  const phone = (p.contact && p.contact.profile.contactPhone) || (chats.find(d=>d.learner.phone) || {learner:{}}).learner.phone || (access.find(d=>d.phone) || {}).phone || (contacts.find(c=>c.phone) || {}).phone || '';
+  const other = (adminContactsOther || []).find(c=>c.phone && c.recoveryCode && ids.indexOf(c.recoveryCode) !== -1);   // the other app's contacts: the number only
+  const phone = (p.contact && p.contact.profile.contactPhone) || (chats.find(d=>d.learner.phone) || {learner:{}}).learner.phone || (access.find(d=>d.phone) || {}).phone || (contacts.find(c=>c.phone) || {}).phone || (other || {}).phone || '';
   return {chats, reviews, access, wait, contacts, phone};
 }
 // A learner's profile page (Admin v2, 2026-11-13): hero in the goal colour, the three numbers, then To do (contact), Courses & messages,
