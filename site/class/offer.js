@@ -7,6 +7,8 @@
      g  goal (career, exam, everyday, travel, immigration)    lv  level or band (B1, A1-A2, B2-C1)    a  es = a Spanish class
      n  first name    p  their weak spot (grammar, vocab, listening, speaking)    tp  the group's favourite topics, dot-separated
      m  learners matched    w  a = they asked for this course    id  the class id (goes into the WhatsApp reply)
+     gs the class's 3 goals, main first, dot-separated (2026-11-17: a group-class course is built on 3 goals, the main one leads,
+        Travel always with Everyday life). Old links without gs show the one goal as before.
    The language is the folder (/class/ = English, /class/tr/, /class/fa/, /class/es/), or l=. Keep the theme names in step with
    ADMIN_CLASS_THEMES in app/farin-english-app.html. */
 (function(){
@@ -25,22 +27,29 @@ const THEMES = {
   business:{en:'Business English', tr:'İş İngilizcesi', fa:'انگلیسی تجاری', es:'Inglés de negocios'},
   ielts:{en:'IELTS prep', tr:'IELTS hazırlığı', fa:'آمادگی آیلتس', es:'Preparación para el IELTS'},
   interview:{en:'Job Interview English', tr:'İş görüşmesi İngilizcesi', fa:'انگلیسی مصاحبه‌ی کاری', es:'Inglés para entrevistas de trabajo'},
-  travel:{en:'Travel English', tr:'Seyahat İngilizcesi', fa:'انگلیسی سفر', es:'Inglés para viajar'},
+  travel:{en:'Travel & everyday English', tr:'Seyahat ve günlük İngilizce', fa:'انگلیسی سفر و زندگی روزمره', es:'Inglés para viajar y el día a día'},
   marketing:{en:'Copywriting & Content English', tr:'Metin yazarlığı ve içerik İngilizcesi', fa:'انگلیسی کپی‌رایتینگ و محتوا', es:'Inglés para redacción y contenidos'},
   sales:{en:'Sales & Trade English', tr:'Satış ve ticaret İngilizcesi', fa:'انگلیسی فروش و تجارت', es:'Inglés de ventas y comercio'},
   'ai-internet':{en:'English for AI and the Internet', tr:'Yapay zekâ ve internet İngilizcesi', fa:'انگلیسی برای هوش مصنوعی و اینترنت', es:'Inglés para la IA e internet'}
 };
 // level-class titles: [ui language][the language they learn][goal]
 const GOAL_TITLES = {
-  en:{en:{career:'Career English', exam:'Exam English', everyday:'Everyday English', travel:'Travel English', immigration:'English for moving abroad'},
-      es:{career:'Career Spanish', exam:'Exam Spanish', everyday:'Everyday Spanish', travel:'Travel Spanish', immigration:'Spanish for moving abroad'}},
-  tr:{en:{career:'Kariyer İngilizcesi', exam:'Sınav İngilizcesi', everyday:'Günlük İngilizce', travel:'Seyahat İngilizcesi', immigration:'Yurt dışına taşınanlar için İngilizce'},
-      es:{career:'Kariyer İspanyolcası', exam:'Sınav İspanyolcası', everyday:'Günlük İspanyolca', travel:'Seyahat İspanyolcası', immigration:'Yurt dışına taşınanlar için İspanyolca'}},
-  fa:{en:{career:'انگلیسی برای کار', exam:'انگلیسی برای آزمون', everyday:'انگلیسی روزمره', travel:'انگلیسی سفر', immigration:'انگلیسی برای مهاجرت'},
-      es:{career:'اسپانیایی برای کار', exam:'اسپانیایی برای آزمون', everyday:'اسپانیایی روزمره', travel:'اسپانیایی سفر', immigration:'اسپانیایی برای مهاجرت'}},
-  es:{en:{career:'Inglés para el trabajo', exam:'Inglés para exámenes', everyday:'Inglés para el día a día', travel:'Inglés para viajar', immigration:'Inglés para mudarte al extranjero'},
-      es:{career:'Español para el trabajo', exam:'Español para exámenes', everyday:'Español para el día a día', travel:'Español para viajar', immigration:'Español para mudarte al extranjero'}}
+  en:{en:{career:'Career English', exam:'Exam English', everyday:'Everyday English', travel:'Travel & everyday English', immigration:'English for moving abroad'},
+      es:{career:'Career Spanish', exam:'Exam Spanish', everyday:'Everyday Spanish', travel:'Travel & everyday Spanish', immigration:'Spanish for moving abroad'}},
+  tr:{en:{career:'Kariyer İngilizcesi', exam:'Sınav İngilizcesi', everyday:'Günlük İngilizce', travel:'Seyahat ve günlük İngilizce', immigration:'Yurt dışına taşınanlar için İngilizce'},
+      es:{career:'Kariyer İspanyolcası', exam:'Sınav İspanyolcası', everyday:'Günlük İspanyolca', travel:'Seyahat ve günlük İspanyolca', immigration:'Yurt dışına taşınanlar için İspanyolca'}},
+  fa:{en:{career:'انگلیسی برای کار', exam:'انگلیسی برای آزمون', everyday:'انگلیسی روزمره', travel:'انگلیسی سفر و زندگی روزمره', immigration:'انگلیسی برای مهاجرت'},
+      es:{career:'اسپانیایی برای کار', exam:'اسپانیایی برای آزمون', everyday:'اسپانیایی روزمره', travel:'اسپانیایی سفر و زندگی روزمره', immigration:'اسپانیایی برای مهاجرت'}},
+  es:{en:{career:'Inglés para el trabajo', exam:'Inglés para exámenes', everyday:'Inglés para el día a día', travel:'Inglés para viajar y el día a día', immigration:'Inglés para mudarte al extranjero'},
+      es:{career:'Español para el trabajo', exam:'Español para exámenes', everyday:'Español para el día a día', travel:'Español para viajar y el día a día', immigration:'Español para mudarte al extranjero'}}
 };
+// a class's 3 goals (2026-11-17): the names and the line, main goal first (same words as ADMIN_CLASS_GOAL_W in the app)
+const GOAL_W = {
+  en:{career:'Career', exam:'Exam', everyday:'Everyday life', travel:'Travel', immigration:'Moving abroad'},
+  tr:{career:'Kariyer', exam:'Sınav', everyday:'Günlük hayat', travel:'Seyahat', immigration:'Yurt dışına taşınma'},
+  fa:{career:'کار', exam:'آزمون', everyday:'زندگی روزمره', travel:'سفر', immigration:'مهاجرت'},
+  es:{career:'Trabajo', exam:'Exámenes', everyday:'Día a día', travel:'Viajes', immigration:'Mudarte al extranjero'}};
+const GOALS_L = {en:['Main goal', 'also'], tr:['Ana hedef', 'ayrıca'], fa:['هدف اصلی', 'در کنارش'], es:['Objetivo principal', 'también']};
 const SUBJ = {en:{en:'English', es:'Spanish'}, tr:{en:'İngilizce', es:'İspanyolca'}, fa:{en:'انگلیسی', es:'اسپانیایی'}, es:{en:'inglés', es:'español'}};
 const TOPICS = {
   sport:{en:'Sport', tr:'Spor', fa:'ورزش', es:'Deporte'}, art:{en:'Art & Design', tr:'Sanat ve Tasarım', fa:'هنر و طراحی', es:'Arte y diseño'},
@@ -234,7 +243,11 @@ const T = {
 // ---------------------------------------------------------------- the link
 const kindIn = Q.get('k') === 'c' && THEMES[Q.get('t')] ? 'course' : 'level';
 const theme = kindIn === 'course' ? Q.get('t') : '';
-const goal = GOALS.indexOf(Q.get('g')) >= 0 ? Q.get('g') : (theme ? THEME_GOAL[theme] : 'everyday');
+const gs = String(Q.get('gs') || '').split('.').filter((x, i, a)=>GOALS.indexOf(x) >= 0 && a.indexOf(x) === i).slice(0, 3);
+// the class's main goal leads the page (a course class: its theme's goal; old links: g)
+const goal = gs.length ? gs[0] : GOALS.indexOf(Q.get('g')) >= 0 ? Q.get('g') : (theme ? THEME_GOAL[theme] : 'everyday');
+// Travel is never alone: a Travel-led class always has Everyday life with it
+const goals3 = gs.length ? (goal === 'travel' && gs.indexOf('everyday') < 0 ? [goal, 'everyday'].concat(gs.slice(1, 2)) : gs) : (goal === 'travel' ? ['travel', 'everyday'] : [goal]);
 const lvRaw = String(Q.get('lv') || '').toUpperCase().replace(/[–—]/g, '-');
 const lv = /^[ABC][12](-[ABC][12])?$/.test(lvRaw) ? lvRaw.replace('-', '–') : '';
 const subj = Q.get('a') === 'es' && kindIn === 'level' ? 'es' : 'en';
@@ -269,7 +282,7 @@ const ICON_CAL = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="4" y="7" 
 const dots = (n, cls)=>'<span class="dots" aria-hidden="true">' + Array.from({length:n}, (x, i)=>'<i' + (cls && i === 0 ? ' class="' + cls + '"' : '') + '></i>').join('') + '</span>';
 const QUOTE = L === 'fa' || L === 'es' ? ['«', '»'] : ['“', '”'];
 const reason = asked ? W.reason.asked : W.reason[goal];
-const practise = PRACTISE[theme || goal][L];
+const practise = goals3.length > 1 ? PRACTISE[theme || goal][L].slice(0, 4 - (goals3.length - 1)).concat(goals3.slice(1).map(g=>PRACTISE[g][L][0])) : PRACTISE[theme || goal][L];
 
 const hero = `
   <header class="top">
@@ -279,6 +292,7 @@ const hero = `
         <div class="hero-main">
           <span class="hello">${name ? fill(W.hello) : fill(W.helloNo)}</span>
           <h1>${esc(clsName)}<span class="dot">.</span></h1>
+          ${goals3.length > 1 ? `<p class="goals3"><b>${esc(GOALS_L[L][0])}: ${esc(GOAL_W[L][goals3[0]])}</b><span>${esc(GOALS_L[L][1])}</span>${goals3.slice(1).map(g=>`<i>${esc(GOAL_W[L][g])}</i>`).join('')}</p>` : ''}
           ${lv ? `<span class="lvl">${fill(W.lvl)} <b><bdi dir="ltr">${esc(lv)}</bdi></b></span>` : ''}
           <p class="lead">${fill(W.lead)}</p>
         </div>

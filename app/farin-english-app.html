@@ -2069,6 +2069,12 @@
   .ins-fun b{color:var(--ink);}
   .ins-fun b.y{color:var(--success);}
   .ins-idea{margin:6px 0 0; font-size:12.5px; line-height:1.45; color:var(--ink-soft);}
+  /* a class's 3 goals, main first (2026-11-17) */
+  .cls-goals{display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin:4px 0 2px; font-size:12px; line-height:1.3;}
+  .cls-goals b{padding:3px 10px; border-radius:999px; background:var(--g, var(--fs-purple)); color:#fff; font-weight:900;}
+  .cls-goals span{color:var(--ink-faint); font-weight:700;}
+  .cls-goals i{font-style:normal; padding:2px 9px; border-radius:999px; border:1.5px solid color-mix(in srgb, var(--g, var(--fs-purple)) 45%, transparent); color:var(--ink); font-weight:800;}
+  .ins-odoc small.ins-og{position:relative; z-index:1; max-width:72%; font-size:10.5px; line-height:1.35; opacity:.92;}
   .ins-idea b{margin-inline-end:6px; font-size:10.5px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--fs-purple-ink);}
   .ins-group.is-course{background:color-mix(in srgb, var(--fs-purple) 8%, var(--bg-elevated));}
   /* v5 (Farin 2026-11-16): gathering under 10, the offer page box, the fixed 4–6 rule */
@@ -39556,8 +39562,8 @@ const ADMIN_CLASS_THEMES = {
     idea:'Exam practice together: Speaking parts 1–3 live, a writing task a week with feedback, one timed mock a month.'},
   interview:{t:'Job Interview English', tr:'İş görüşmesi İngilizcesi', fa:'انگلیسی مصاحبه‌ی کاری', es:'inglés para entrevistas de trabajo', courses:['interview'], lv:1,
     idea:'Mock interviews in pairs: tell me about yourself, strengths and weaknesses, salary talk, the follow-up e-mail.'},
-  travel:{t:'Travel English', tr:'Seyahat İngilizcesi', fa:'انگلیسی سفر', es:'inglés para viajar', courses:['travel'], lv:0,
-    idea:'Role-plays for real trips: airport, hotel, directions, ordering food, fixing small problems.'},
+  travel:{t:'Travel & everyday English', tr:'Seyahat ve günlük İngilizce', fa:'انگلیسی سفر و زندگی روزمره', es:'inglés para viajar y el día a día', courses:['travel'], lv:0,
+    idea:'Role-plays for real trips and everyday life: airport, hotel, directions, ordering food, small talk, fixing small problems.'},
   marketing:{t:'Copywriting & Content English', tr:'Metin yazarlığı ve içerik İngilizcesi', fa:'انگلیسی کپی‌رایتینگ و محتوا', es:'inglés para redacción y contenidos', courses:['marketing'], lv:1, ask:true,
     idea:'Write and edit together: posts, ads, product pages, with feedback in class.'},
   sales:{t:'Sales & Trade English', tr:'Satış ve ticaret İngilizcesi', fa:'انگلیسی فروش و تجارت', es:'inglés de ventas y comercio', courses:['sales'], lv:1, ask:true,
@@ -39567,8 +39573,38 @@ const ADMIN_CLASS_THEMES = {
 };
 const ADMIN_GOAL_THEMES = {career:['business', 'interview'], exam:['ielts'], immigration:['ielts', 'interview'], travel:['travel'], everyday:[]};
 const ADMIN_LEVEL_IDEAS = {career:'Career English: meetings, e-mails and small talk at work.', exam:'Exam practice: speaking and writing tasks with feedback.',
-  everyday:'A speaking club: everyday conversations, a new topic each week.', travel:'Travel talk: real situations from airports to hotels.',
+  everyday:'A speaking club: everyday conversations, a new topic each week.', travel:'Travel and everyday talk: real situations from airports to hotels, and the small talk of daily life.',
   immigration:'Moving abroad: calls, forms, renting, the first weeks in a new country.'};
+/* Group-class courses are built on 3 goals (Farin 2026-11-17: "never just put travel goaal alone it should be mixed with everyday life,
+   because we are making a course actually based on 3 goals. not just 1. so create courses like that", "group classes courses i mean",
+   "yes, 1 goal as the main one but also have second and third goals too").
+   - Main goal: a level class's grouping goal (learners at the same level who have it, those whose own main goal it is first), or a
+     course class's theme goal (ADMIN_THEME_GOAL). It leads the course and the name.
+   - 2nd and 3rd: the goals the class's learners share most (a learner's own main goal counts double); ties and empty spots follow
+     ADMIN_CLASS_GOAL_NEXT. Travel is never alone: with Travel as the main goal, Everyday life is always 2nd or 3rd.
+   - Worked out from the members every time (nothing new in progress/admin-classes, so the Spanish admin reads the doc as before);
+     shown as "Main: X · also Y · Z" in the list, on the class page, in the WhatsApp text and on the offer page (link param gs). */
+const ADMIN_THEME_GOAL = {business:'career', ielts:'exam', interview:'career', travel:'travel', marketing:'career', sales:'career', 'ai-internet':'everyday'};
+const ADMIN_CLASS_GOAL_NEXT = {career:['everyday', 'immigration'], exam:['career', 'immigration'], everyday:['travel', 'career'], travel:['everyday', 'career'], immigration:['everyday', 'career']};
+const ADMIN_CLASS_GOAL_W = {
+  en:{career:'Career', exam:'Exam', everyday:'Everyday life', travel:'Travel', immigration:'Moving abroad'},
+  tr:{career:'Kariyer', exam:'Sınav', everyday:'Günlük hayat', travel:'Seyahat', immigration:'Yurt dışına taşınma'},
+  fa:{career:'کار', exam:'آزمون', everyday:'زندگی روزمره', travel:'سفر', immigration:'مهاجرت'},
+  es:{career:'Trabajo', exam:'Exámenes', everyday:'Día a día', travel:'Viajes', immigration:'Mudarte al extranjero'}};
+const ADMIN_CLASS_GOALS_FMT = {en:'Main goal: {a} · also {b} · {c}', tr:'Ana hedef: {a} · ayrıca {b} · {c}', fa:'هدف اصلی: {a} · در کنارش: {b} و {c}', es:'Objetivo principal: {a} · también {b} · {c}'};
+function adminClassMain(c){ return adminClassKind(c) === 'course' ? (ADMIN_THEME_GOAL[c.theme] || 'everyday') : (ADMIN_INS_GOALS.indexOf(c.goal) >= 0 ? c.goal : 'everyday'); }
+function adminClassGoals(c, byHash){
+  const main = adminClassMain(c), n = {}, next = ADMIN_CLASS_GOAL_NEXT[main] || [], rank = g=>{ const i = next.indexOf(g); return i < 0 ? 9 + ADMIN_INS_GOALS.indexOf(g) : i; };
+  adminClassMembers(c, byHash || adminClassPeopleByHash()).forEach(p=>adminInsGoals(p).forEach((g, i)=>{ if(g !== main) n[g] = (n[g] || 0) + (g === adminInsPrimary(p) ? 2 : 1); }));
+  let rest = Object.keys(n).sort((a, b)=>n[b] - n[a] || rank(a) - rank(b));
+  next.concat(ADMIN_INS_GOALS).forEach(g=>{ if(g !== main && rest.indexOf(g) < 0) rest.push(g); });
+  rest = rest.slice(0, 2);
+  if(main === 'travel' && rest.indexOf('everyday') < 0) rest = ['everyday', rest[0]];   // Travel never alone
+  return [main].concat(rest);
+}
+function adminClassGoalsIn(c, lang, byHash){ const W = ADMIN_CLASS_GOAL_W[lang] || ADMIN_CLASS_GOAL_W.en, g = adminClassGoals(c, byHash); return (ADMIN_CLASS_GOALS_FMT[lang] || ADMIN_CLASS_GOALS_FMT.en).replace('{a}', W[g[0]]).replace('{b}', W[g[1]]).replace('{c}', W[g[2]]); }
+function adminClassGoalsHtml(c, byHash){ const W = ADMIN_CLASS_GOAL_W.en, g = adminClassGoals(c, byHash);
+  return `<span class="cls-goals" style="--g:${COURSE_GOAL_COLORS[g[0]] || '#7C5CFC'};"><b>Main: ${esc(W[g[0]])}</b><span>also</span><i>${esc(W[g[1]])}</i><i>${esc(W[g[2]])}</i></span>`; }
 let adminClasses = null;              // the doc, or null while loading
 let adminClassesError = '', adminClassesSeenBefore = 0, adminClassesStats = null, adminInsKind = 'all';
 // A WhatsApp number is always required (Farin 2026-11-16: "the users you put in groups should have numbers so i can message on whatsapp").
@@ -39749,7 +39785,7 @@ function adminClassesReady(){ const byHash = adminClassPeopleByHash(); return (a
 // How the yes-sayers become classes of 4–6: sizes of each class (first to say yes first); who is left over waits for the next class.
 function adminClassSplit(y){ let k = Math.ceil(y / ADMIN_CLASS_MAX); while(k > 1 && y < ADMIN_CLASS_MIN * k) k--; if(y < ADMIN_CLASS_MIN) return []; const seated = Math.min(y, ADMIN_CLASS_MAX * k), base = Math.floor(seated / k);
   return Array.from({length:k}, (x, i)=>base + (i < seated % k ? 1 : 0)); }
-function adminClassGoal(c){ return GOAL_LABELS[c.goal] || c.goal || ''; }
+function adminClassGoal(c){ return c.goal === 'travel' ? 'Travel & everyday life' : GOAL_LABELS[c.goal] || c.goal || ''; }   // Travel never alone (2026-11-17)
 function adminClassName(c){ return (adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {t:c.theme}).t + ' · ' + c.band : c.level + ' · ' + adminClassGoal(c)) + (c.part ? ' · group ' + c.part : ''); }
 function adminClassTitle(c){ return adminClassName(c) + (ADMIN_INS_LANG[c.lang] ? ' · ' + ADMIN_INS_LANG[c.lang] + ' speakers' : '') + (adminInsAppNow() === 'all' ? ' · ' + String(c.app || '').toUpperCase() + ' app' : ''); }
 function adminClassIdea(c){ return adminClassKind(c) === 'course' ? (ADMIN_CLASS_THEMES[c.theme] || {}).idea || '' : ADMIN_LEVEL_IDEAS[c.goal] || ''; }
@@ -39759,14 +39795,14 @@ function adminClassesMarkSeen(){ if(!adminClasses) return; adminClassesSeenBefor
 // ---------- the offer: a page made for each learner + the WhatsApp message that links it (v5, Farin 2026-11-16) ----------
 // Level-class names in the learner's language ([ui][the language the class teaches][goal]); same words as site/class/offer.js.
 const ADMIN_CLASS_GOAL_T = {
-  en:{en:{career:'Career English', exam:'Exam English', everyday:'Everyday English', travel:'Travel English', immigration:'English for moving abroad'},
-      es:{career:'Career Spanish', exam:'Exam Spanish', everyday:'Everyday Spanish', travel:'Travel Spanish', immigration:'Spanish for moving abroad'}},
-  tr:{en:{career:'Kariyer İngilizcesi', exam:'Sınav İngilizcesi', everyday:'Günlük İngilizce', travel:'Seyahat İngilizcesi', immigration:'Yurt dışına taşınanlar için İngilizce'},
-      es:{career:'Kariyer İspanyolcası', exam:'Sınav İspanyolcası', everyday:'Günlük İspanyolca', travel:'Seyahat İspanyolcası', immigration:'Yurt dışına taşınanlar için İspanyolca'}},
-  fa:{en:{career:'انگلیسی برای کار', exam:'انگلیسی برای آزمون', everyday:'انگلیسی روزمره', travel:'انگلیسی سفر', immigration:'انگلیسی برای مهاجرت'},
-      es:{career:'اسپانیایی برای کار', exam:'اسپانیایی برای آزمون', everyday:'اسپانیایی روزمره', travel:'اسپانیایی سفر', immigration:'اسپانیایی برای مهاجرت'}},
-  es:{en:{career:'inglés para el trabajo', exam:'inglés para exámenes', everyday:'inglés para el día a día', travel:'inglés para viajar', immigration:'inglés para mudarte al extranjero'},
-      es:{career:'español para el trabajo', exam:'español para exámenes', everyday:'español para el día a día', travel:'español para viajar', immigration:'español para mudarte al extranjero'}}
+  en:{en:{career:'Career English', exam:'Exam English', everyday:'Everyday English', travel:'Travel & everyday English', immigration:'English for moving abroad'},
+      es:{career:'Career Spanish', exam:'Exam Spanish', everyday:'Everyday Spanish', travel:'Travel & everyday Spanish', immigration:'Spanish for moving abroad'}},
+  tr:{en:{career:'Kariyer İngilizcesi', exam:'Sınav İngilizcesi', everyday:'Günlük İngilizce', travel:'Seyahat ve günlük İngilizce', immigration:'Yurt dışına taşınanlar için İngilizce'},
+      es:{career:'Kariyer İspanyolcası', exam:'Sınav İspanyolcası', everyday:'Günlük İspanyolca', travel:'Seyahat ve günlük İspanyolca', immigration:'Yurt dışına taşınanlar için İspanyolca'}},
+  fa:{en:{career:'انگلیسی برای کار', exam:'انگلیسی برای آزمون', everyday:'انگلیسی روزمره', travel:'انگلیسی سفر و زندگی روزمره', immigration:'انگلیسی برای مهاجرت'},
+      es:{career:'اسپانیایی برای کار', exam:'اسپانیایی برای آزمون', everyday:'اسپانیایی روزمره', travel:'اسپانیایی سفر و زندگی روزمره', immigration:'اسپانیایی برای مهاجرت'}},
+  es:{en:{career:'inglés para el trabajo', exam:'inglés para exámenes', everyday:'inglés para el día a día', travel:'inglés para viajar y el día a día', immigration:'inglés para mudarte al extranjero'},
+      es:{career:'español para el trabajo', exam:'español para exámenes', everyday:'español para el día a día', travel:'español para viajar y el día a día', immigration:'español para mudarte al extranjero'}}
 };
 function adminClassLevelCode(c){ return String(adminClassKind(c) === 'course' ? c.band || '' : c.level || ''); }
 function adminClassNameIn(c, lang){
@@ -39797,6 +39833,7 @@ function adminClassOfferUrl(c, p, byHash){
   }
   const tp = adminClassTopics(c, byHash); if(tp.length) q.set('tp', tp.join('.'));
   q.set('m', String(adminClassMembers(c, byHash || adminClassPeopleByHash()).length));
+  q.set('gs', adminClassGoals(c, byHash).join('.'));   // main goal first, then the 2nd and 3rd (2026-11-17)
   q.set('id', c.id);
   return ADMIN_CLASS_OFFER_URL + (lang === 'en' ? '' : lang + '/') + '?' + q.toString();
 }
@@ -39806,13 +39843,13 @@ function adminClassMayOffer(c, p){ return !!(p.profile && p.profile.promoOk === 
 // The WhatsApp message: short and warm in the learner's app language, the page link does the rest.
 function adminClassOfferText(c, p, byHash){
   const n = String(p.profile.name || '').trim().split(/\s+/)[0] || '', lang = adminInsLang(p) || 'en', url = adminClassOfferUrl(c, p, byHash);
-  const cls = adminClassNameIn(c, lang), lv = adminClassLevelCode(c);
+  const cls = adminClassNameIn(c, lang), lv = adminClassLevelCode(c), goals = '🎯 ' + adminClassGoalsIn(c, lang, byHash) + '\n\n';   // main goal first (2026-11-17)
   // the reply they are asked to send names the course and level, so a "yes" says what it is for (Farin 2026-11-17: "put that for which
   // course they are applying not just yes i want the course"); the page's button sends course, level, name and class code
-  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin 🌱\n\nYarı özel bir mini grup açıyorum: ' + cls + '. Sadece 4–6 kişi, hepsi ' + lv + ' seviyesinde ve hepsi seninle aynı hedefte. Yani her ders senin hedefine göre planlanacak.\n\nTüm detayları senin için bir sayfada topladım 👇\n' + url + '\n\nYerini ayırmamı istersen “Varım – ' + cls + (lv ? ' ' + lv : '') + '” yazman yeterli 💜';
-  if(lang === 'fa') return 'سلام' + (n ? ' ' + n + ' جان' : '') + '! 🌸 فرینم، از FEschool.\n\nدارم یه کلاس نیمه‌خصوصیِ «' + cls + '» راه می‌ندازم: فقط ۴ تا ۶ نفر، همه سطح ⁨' + lv + '⁩ و همه با همون هدفی که تو داری. یعنی هر جلسه دقیقاً برای هدف تو برنامه‌ریزی می‌شه.\n\nهمه‌چیز رو برات توی یه صفحه آماده کردم 👇\n' + url + '\n\nاگه دوست داری جات رو نگه دارم، فقط بنویس «هستم – ' + cls + (lv ? ' ⁨' + lv + '⁩' : '') + '» 💜';
-  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool 🌱\n\nVoy a abrir una clase semiprivada de ' + cls.charAt(0).toLowerCase() + cls.slice(1) + ': solo de 4 a 6 personas, todas de nivel ' + lv + ' y con tu mismo objetivo. Así, cada clase se planifica pensando en ti.\n\nTe preparé una página con todos los detalles 👇\n' + url + '\n\nSi quieres una plaza, responde «Me apunto – ' + cls + (lv ? ' ' + lv : '') + '» 💜';
-  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool 🌱\n\nI\'m opening a mid-private ' + cls + ' class: only 4 to 6 people, all at ' + lv + ', all with the same goal as you. So every class is planned around you.\n\nI made a page for you with everything 👇\n' + url + '\n\nIf you\'d like a seat, just reply "I\'m in – ' + cls + (lv ? ' ' + lv : '') + '" 💜';
+  if(lang === 'tr') return 'Merhaba' + (n ? ' ' + n : '') + '! Ben FEschool\'dan Farin 🌱\n\nYarı özel bir mini grup açıyorum: ' + cls + '. Sadece 4–6 kişi, hepsi ' + lv + ' seviyesinde ve hepsi seninle aynı hedefte. Yani her ders senin hedefine göre planlanacak.\n\n' + goals + 'Tüm detayları senin için bir sayfada topladım 👇\n' + url + '\n\nYerini ayırmamı istersen “Varım – ' + cls + (lv ? ' ' + lv : '') + '” yazman yeterli 💜';
+  if(lang === 'fa') return 'سلام' + (n ? ' ' + n + ' جان' : '') + '! 🌸 فرینم، از FEschool.\n\nدارم یه کلاس نیمه‌خصوصیِ «' + cls + '» راه می‌ندازم: فقط ۴ تا ۶ نفر، همه سطح ⁨' + lv + '⁩ و همه با همون هدفی که تو داری. یعنی هر جلسه دقیقاً برای هدف تو برنامه‌ریزی می‌شه.\n\n' + goals + 'همه‌چیز رو برات توی یه صفحه آماده کردم 👇\n' + url + '\n\nاگه دوست داری جات رو نگه دارم، فقط بنویس «هستم – ' + cls + (lv ? ' ⁨' + lv + '⁩' : '') + '» 💜';
+  if(lang === 'es') return '¡Hola' + (n ? ', ' + n : '') + '! Soy Farin, de FEschool 🌱\n\nVoy a abrir una clase semiprivada de ' + cls.charAt(0).toLowerCase() + cls.slice(1) + ': solo de 4 a 6 personas, todas de nivel ' + lv + ' y con tu mismo objetivo. Así, cada clase se planifica pensando en ti.\n\n' + goals + 'Te preparé una página con todos los detalles 👇\n' + url + '\n\nSi quieres una plaza, responde «Me apunto – ' + cls + (lv ? ' ' + lv : '') + '» 💜';
+  return 'Hi' + (n ? ' ' + n : '') + '! It\'s Farin from FEschool 🌱\n\nI\'m opening a mid-private ' + cls + ' class: only 4 to 6 people, all at ' + lv + ', all with the same goal as you. So every class is planned around you.\n\n' + goals + 'I made a page for you with everything 👇\n' + url + '\n\nIf you\'d like a seat, just reply "I\'m in – ' + cls + (lv ? ' ' + lv : '') + '" 💜';
 }
 function adminInsWaLink(p, text){ const ph = adminInsPhone(p); return ph ? waLinkTo(adminWaitlistWaNumber({phone:ph, lang:adminInsLang(p)}), text) : ''; }
 function adminInsInvitedAt(p){ return p.accounts.reduce((m, u)=>Math.max(m, (u.hash && Number(adminInvited[u.hash])) || 0), 0); }
@@ -39823,7 +39860,7 @@ function adminInsCopy(text){
 }
 function adminClassText(c){
   const m = adminClassOrdered(c, adminClassPeopleByHash());
-  return adminClassTitle(c) + '\n' + m.map((p, i)=>{ const r = adminClassReply(c, p); return (i + 1) + '. ' + (p.profile.name || '(no name)') + ' (' + adminInsStage(p) + ') · ' + (adminInsPhone(p) || 'no number') + (r ? ' · said ' + r : ''); }).join('\n');
+  return adminClassTitle(c) + '\n' + adminClassGoalsIn(c, 'en') + '\n' + m.map((p, i)=>{ const r = adminClassReply(c, p); return (i + 1) + '. ' + (p.profile.name || '(no name)') + ' (' + adminInsStage(p) + ') · ' + (adminInsPhone(p) || 'no number') + (r ? ' · said ' + r : ''); }).join('\n');
 }
 // Members in order: said yes, then not answered (best fit first), then said no.
 function adminClassOrdered(c, byHash){ const rank = p=>({yes:0, '':1, no:2})[adminClassReply(c, p)]; const fit = adminClassSort(c); return adminClassMembers(c, byHash).sort((a,b)=>rank(a) - rank(b) || fit(a, b)); }
@@ -39970,7 +40007,7 @@ function adminInsClassesHtml(openId){
     const tags = [course ? '<span class="ap-tag purple">Course class</span>' : '<span class="ap-tag">Level class</span>',
       gather ? '<span class="ap-tag">Gathering · ' + n + ' of ' + ADMIN_CLASS_OFFER_MIN + '</span>' : '', isNew ? '<span class="ap-tag new">New · ready to offer</span>' : offer && !ready ? '<span class="ap-tag purple">Ready to offer</span>' : '',
       ready ? '<span class="ap-tag ok">Ready to start</span>' : '', c.status === 'running' ? '<span class="ap-tag ok">Running</span>' : c.status === 'closed' ? '<span class="ap-tag">Closed</span>' : ''].join('');
-    const why = [course ? (asked ? asked + ' asked for this course' : '') : (fit ? adminClassGoal(c) + ' is the main goal of ' + (fit.main === n ? 'all ' + n : fit.main + ' of ' + n) : ''),
+    const why = [course ? (asked ? asked + ' asked for this course' : '') : (fit ? (GOAL_LABELS[c.goal] || c.goal) + ' is the own main goal of ' + (fit.main === n ? 'all ' + n : fit.main + ' of ' + n) : ''),
       course ? 'levels ' + Object.entries(m.reduce((o, p)=>{ const s = adminInsLevel(p); o[s] = (o[s] || 0) + 1; return o; }, {})).map(([s, x])=>s + ' ×' + x).join(', ') : (fit ? (fit.stageN === n ? 'all at ' : fit.stageN + ' at ') + fit.stage : ''),
       c.status === 'running' ? 'started ' + adminDate(c.startedAt) : 'made ' + adminDate(c.createdAt)].filter(Boolean).join(' · ');
     const startNote = !ready ? 'starts at ' + ADMIN_CLASS_MIN + ' yes (' + (ADMIN_CLASS_MIN - yes) + ' more)' : sizes.length > 1 ? 'ready: ' + sizes.length + ' classes (' + sizes.join(' + ') + ')' : seated < yes ? 'ready: 6 seats, ' + (yes - seated) + ' waits for the next class' : 'ready: start whenever you like';
@@ -39978,7 +40015,7 @@ function adminInsClassesHtml(openId){
       : sug ? '<p class="ins-fun"><b>' + n + '</b> fit · <b>' + m.filter(p=>adminClassMayOffer(c, p)).length + '</b> can get the offer · <b>' + invited + '</b> sent the offer · <b class="y">' + yes + '</b> said yes · <b>' + no + '</b> said no · ' + startNote + '</p>' : '';
     const g = course ? THEME_GOAL[c.theme] || 'everyday' : (COURSE_GOAL_COLORS[c.goal] ? c.goal : 'everyday'), lvc = adminClassLevelCode(c);
     const offerBox = offer ? `<div class="ins-offer" style="--g:${COURSE_GOAL_COLORS[g]};">
-        <div class="ins-odoc" aria-hidden="true"><span class="ins-od-pill">Mid-private · 4–6 people</span><b>${esc(adminClassNameIn(c, 'en'))}<i>.</i></b>${lvc ? `<small>Level ${esc(lvc)}</small>` : ''}<img src="char-${g}.png" alt="" decoding="async"></div>
+        <div class="ins-odoc" aria-hidden="true"><span class="ins-od-pill">Mid-private · 4–6 people</span><b>${esc(adminClassNameIn(c, 'en'))}<i>.</i></b>${lvc ? `<small>Level ${esc(lvc)}</small>` : ''}<small class="ins-og">${esc(adminClassGoalsIn(c, 'en', byHash))}</small><img src="char-${g}.png" alt="" decoding="async"></div>
         <div class="ins-otxt"><b>Offer page</b><span><b>Send offer</b> opens WhatsApp with a short message in their language and a link to a page made for them: their name, goal and level, what they told the app they find hard, the group's favourite topics, and only 6 seats. It shows only for learners who said yes to news and offers, or who asked for this course.</span>
           <span class="ins-obtns"><a class="btn btn-sm btn-ghost" href="${esc(adminClassOfferUrl(c, null, byHash))}" target="_blank" rel="noopener">Open the page</a><button class="btn btn-sm btn-ghost" data-admin-action="ins-offer-copy" data-c="${esc(c.id)}">Copy link</button></span></div>
       </div>` : '';
@@ -39993,7 +40030,7 @@ function adminInsClassesHtml(openId){
     const acts = sug ? (ready ? `<button class="btn btn-sm btn-primary" data-admin-action="ins-start" data-c="${esc(c.id)}">✓ ${sizes.length > 1 ? 'Start ' + sizes.length + ' classes (' + sizes.join(' + ') + ')' : 'Start with the ' + seated + ' who said yes'}</button>` : '') + `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Remove class</button>`
       : c.status === 'running' ? `<button class="btn btn-sm btn-ghost" data-admin-action="ins-close" data-c="${esc(c.id)}">Class finished</button>` : `<button class="btn btn-sm btn-ghost" data-admin-action="ins-reopen" data-c="${esc(c.id)}">Open again</button>`;
     return `<div class="ins-group${course ? ' is-course' : ''}${isNew ? ' is-new' : ''}${ready ? ' is-ready' : ''}${gather ? ' is-gather' : ''}${c.status === 'closed' ? ' is-closed' : ''}">
-        <div class="ins-gh"><span class="ins-gn">${n}</span><span class="ins-gt"><b>${esc(adminClassTitle(c))} ${tags}</b><small>${esc(why)}</small></span></div>
+        <div class="ins-gh"><span class="ins-gn">${n}</span><span class="ins-gt"><b>${esc(adminClassTitle(c))} ${tags}</b>${adminClassGoalsHtml(c, byHash)}<small>${esc(why)}</small></span></div>
         ${adminClassIdea(c) && c.status !== 'closed' && !gather ? `<p class="ins-idea"><b>Class idea</b> ${esc(adminClassIdea(c))}</p>` : ''}
         ${funnel}
         ${offerBox}
@@ -40016,7 +40053,7 @@ function adminInsClassesHtml(openId){
       : c.status === 'running' ? n + ' in the class · started ' + adminDate(c.startedAt) : 'closed ' + adminDate(c.closedAt || c.createdAt);
     return `<button class="cls-row${course ? ' is-course' : ''}${isNew || joined ? ' is-new' : ''}${ready ? ' is-ready' : ''}${c.status === 'closed' ? ' is-closed' : ''}" data-admin-action="ins-class" data-c="${esc(c.id)}" aria-label="${esc('Open ' + adminClassTitle(c) + ': ' + line)}">
         <span class="ins-gn">${n}</span>
-        <span class="cls-rm"><b>${esc(adminClassTitle(c))}</b><span class="cls-tags">${tags}</span><small>${esc(line)}</small>${gather ? `<span class="ins-gbar" aria-hidden="true"><i style="width:${Math.min(100, Math.round(n / ADMIN_CLASS_OFFER_MIN * 100))}%"></i></span>` : ''}</span>
+        <span class="cls-rm"><b>${esc(adminClassTitle(c))}</b>${adminClassGoalsHtml(c, byHash)}<span class="cls-tags">${tags}</span><small>${esc(line)}</small>${gather ? `<span class="ins-gbar" aria-hidden="true"><i style="width:${Math.min(100, Math.round(n / ADMIN_CLASS_OFFER_MIN * 100))}%"></i></span>` : ''}</span>
         <span class="ap-chev">${ICONS.chev}</span>
       </button>`; };
   const order = c=>(c.status === 'suggested' ? (adminClassYes(c, byHash).length >= ADMIN_CLASS_MIN ? 0 : adminClassOffer(c) ? (c.offerAt > seen ? 1 : 2) : 3) : c.status === 'running' ? 4 : 5);
@@ -40043,7 +40080,7 @@ function adminInsClassesHtml(openId){
       ${done.length ? `<details class="ins-done"><summary>Closed in the last 30 days · ${done.length}</summary>${done.map(row).join('')}</details>` : ''}
       ${notIn.length ? `<p class="ins-note ins-notin">Not in a class: ${esc(notIn.join(' · '))}. Nobody is pushed into a group that doesn't fit.</p>` : ''}`;
   return adminInsCard('Group classes', offerL.length ? offerL.length + ' class' + (offerL.length === 1 ? '' : 'es') + ' ready to offer' : sug.length ? 'Gathering: no class has 10 yet' : 'No class fits yet', body,
-    'A class is <b>4 to 6 people</b>. Its list gathers everyone who fits, and once <b>10</b> fit it is ready to offer: <b>Send offer</b> sends each learner a WhatsApp message with a page made for them. Tap <b>Yes</b> or <b>No</b> when they answer, and start once 4 said yes (8 or more yes make two classes). <b>Course classes</b> are built around a premium course (people who asked for it first, then their goals) and grouped by level band; <b>level classes</b> around a level and a goal. A learner is in at most one class of each kind. New classes and newcomers arrive by themselves; a running class never changes. <b>Tap a class</b> to open it.');
+    'A class is <b>4 to 6 people</b>. Its list gathers everyone who fits, and once <b>10</b> fit it is ready to offer: <b>Send offer</b> sends each learner a WhatsApp message with a page made for them. Tap <b>Yes</b> or <b>No</b> when they answer, and start once 4 said yes (8 or more yes make two classes). <b>Course classes</b> are built around a premium course (people who asked for it first, then their goals) and grouped by level band; <b>level classes</b> around a level and a main goal. Every class covers <b>3 goals</b>: the main one, plus the two its learners share most; Travel always comes with Everyday life. A learner is in at most one class of each kind. New classes and newcomers arrive by themselves; a running class never changes. <b>Tap a class</b> to open it.');
 }
 /* admin › Group classes, its own section since 2026-11-16 (Farin: "make the classes in insight part a seperate section on the menu tab.
    besides make them selectable so i can open them and their info when i click on the course"): the list (app filter, rules, kind
