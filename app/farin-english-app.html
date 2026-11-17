@@ -40765,7 +40765,13 @@ function adminMkFillOffer(text, name, c, lang){
   if(!n) s = lang === 'fa' ? s.split('{name} جان').join('سلام') : s.split('{name}').join(lang === 'tr' ? 'Selam' : 'Hi');
   return s.split('{name}').join(n).split('{price}').join(adminMkPrice(c, lang));
 }
-function adminMkLangOf(p){ const l = adminInsLang(p); return l === 'tr' || l === 'fa' ? l : 'en'; }
+// The offer language = the app language, except: an English-app learner with an Iranian number gets Persian (Farin 2026-11-17: "dont consider
+// english for the users who chose english if their number is from iran consider persiana messaage for them"). +98 after the usual
+// normalisation (courseWaitlistPhone: 0098…, 09…, Persian digits). Turkish numbers with English stay English; Persian/Turkish apps keep theirs.
+function adminMkIranNum(p){ const ph = adminInsPhone(p); if(!ph) return false; const n = courseWaitlistPhone(ph); return n.indexOf('+98') === 0 || /^98\d{10}$/.test(n.replace(/\D/g, '')); }
+function adminMkLangOf(p){ const l = adminInsLang(p); return l === 'tr' || l === 'fa' ? l : adminMkIranNum(p) ? 'fa' : 'en'; }
+function adminMkLangLabel(p){ const l = adminMkLangOf(p); return l === 'fa' && adminInsLang(p) !== 'fa' ? 'Persian (Iran number)' : ADMIN_MK_LANGS[l]; }
+function adminMkUiOf(p){ const l = adminInsLang(p); return l === 'tr' || l === 'fa' ? l : 'en'; }   // the app's own language (button labels)
 function adminMkSample(g, lang){ const p = adminMkPeople(g).find(x=>adminMkLangOf(x) === lang); return p ? adminMkFirst(p.profile.name) : adminMkSampleName(lang); }
 function adminMkWaText(p, g, c){ const lang = adminMkLangOf(p); return adminMkFillOffer(adminMkOfferText(g, c, lang), p.profile.name, c, lang) + ADMIN_MK_WA_END[lang](adminMkCourseUrl(c, lang)); }
 function adminMkCourseEntry(c){ const x = COURSES.find(y=>y.id === c); return (x && x.entry) || 'B1'; }
@@ -40824,13 +40830,13 @@ function adminMkSendApp(p, g, c){
   if(ex){
     const ref = db.doc(ex.id);
     made = ref.get().then(doc=>{ const cur = (doc.exists && doc.data()) || {}; const fm = (Array.isArray(cur.fm) ? cur.fm : []).concat([msg]);
-      const patch = {fm, fAt:now, aSeen:Math.max(now, Number(cur.lAt) || 0), offer:{g, c}};
+      const patch = {fm, fAt:now, aSeen:Math.max(now, Number(cur.lAt) || 0), offer:{g, c, lang}};
       return ref.set(patch, {merge:true}).then(()=>{ Object.assign(ex, cur, patch, {id:ex.id}); return ex.id; }); });
   } else {
     const id = adminMkChatId(), pf = p.profile || {};
     const doc = {kind:'chat', v:1, app:'en', topic:{t:'course', c}, type:'offer', req:null, status:null,
-      learner:{name:String(pf.name || pf.loginName || '').slice(0, 80), uiLang:lang, level:pf.level || '', phone:adminInsPhone(p) || null, accountHash:accts[0].hash, device:null},
-      createdAt:now, lm:[], lAt:0, lSeen:0, fm:[msg], fAt:now, aSeen:now, statusAt:now, gone:[], offer:{g, c}};
+      learner:{name:String(pf.name || pf.loginName || '').slice(0, 80), uiLang:adminMkUiOf(p), level:pf.level || '', phone:adminInsPhone(p) || null, accountHash:accts[0].hash, device:null},
+      createdAt:now, lm:[], lAt:0, lSeen:0, fm:[msg], fAt:now, aSeen:now, statusAt:now, gone:[], offer:{g, c, lang}};
     made = db.doc(id).set(doc).then(()=>{ if(Array.isArray(adminChats)) adminChats.push(Object.assign({id}, doc)); return id; });
   }
   return made.then(chatId=>Promise.all(accts.map(u=>adminMkInboxAdd(u.id, chatId, c, now))).then(()=>chatId))
@@ -40888,11 +40894,11 @@ function adminMkGroupHead(g){
 
 /* ---------- tab: offer & learners (v3) ---------- */
 function adminMkLangCounts(g){ const n = {tr:0, fa:0, en:0}; adminMkPeople(g).forEach(p=>{ n[adminMkLangOf(p)]++; }); return n; }
-function adminMkChatPreview(text, c, lang){
-  const crs = COURSES.find(x=>x.id === c), fa = lang === 'fa';
-  return `<div class="mk-chat${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="msg-b them" dir="auto"><span class="msg-who">${fa ? 'فرین' : 'Farin'}</span>${esc(text)}</div>
-      <div class="msg-card them msg-offer"><div class="msg-card-top"><span class="eyebrow">${fa ? 'دوره' : lang === 'tr' ? 'Kurs' : 'Course'}</span><b>${esc(crs ? (crs.title[lang] || crs.title.en) : c)}</b></div>
-        <div class="msg-card-body"><span class="mk-fakebtn or">${fa ? 'دیدن دوره' : lang === 'tr' ? 'Kursa bak' : 'See the course'}</span><span class="mk-fakebtn pu">${fa ? 'این دوره را می‌خواهم' : lang === 'tr' ? 'Bu kursu istiyorum' : 'I want this course'}</span></div></div></div>`;
+function adminMkChatPreview(text, c, lang, ui){
+  const crs = COURSES.find(x=>x.id === c), u = ui || lang, tfa = lang === 'fa', fa = u === 'fa';   // ui: the app's language (card labels)
+  return `<div class="mk-chat${fa || tfa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="msg-b them" dir="auto"><span class="msg-who">${fa ? 'فرین' : 'Farin'}</span>${esc(text)}</div>
+      <div class="msg-card them msg-offer"><div class="msg-card-top"><span class="eyebrow">${fa ? 'دوره' : u === 'tr' ? 'Kurs' : 'Course'}</span><b>${esc(crs ? (crs.title[u] || crs.title.en) : c)}</b></div>
+        <div class="msg-card-body"><span class="mk-fakebtn or">${fa ? 'دیدن دوره' : u === 'tr' ? 'Kursa bak' : 'See the course'}</span><span class="mk-fakebtn pu">${fa ? 'این دوره را می‌خواهم' : u === 'tr' ? 'Bu kursu istiyorum' : 'I want this course'}</span></div></div></div>`;
 }
 function adminMkWaPreview(text, lang){ const fa = lang === 'fa'; return `<div class="mk-wa${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="mk-wa-b" dir="auto">${esc(text)}</div></div>`; }
 function adminMkOfferCard(g){
@@ -40951,14 +40957,14 @@ function adminMkLearnerRow(p, g, c){
       <div class="mk-otop">
         <button class="mk-oname" data-admin-action="ap-open-learner" data-id="${esc(key)}" title="Open the profile">
           ${adminAvatarHtml(pf.name, adminGoalKey(goals.length ? goals : pf.motivationTag), Date.now() - (p.lastSeen || 0))}
-          <span class="mk-lm"><b dir="auto">${esc(pf.name || '(no name)')}</b><small>${esc(adminInsStage(p))} · ${esc(ADMIN_MK_LANGS[r.lang])} · seen ${esc(adminAgo(p.lastSeen))}${r.phone ? ' · ' + esc(r.phone) : ''}</small></span>
+          <span class="mk-lm"><b dir="auto">${esc(pf.name || '(no name)')}</b><small>${esc(adminInsStage(p))} · ${esc(adminMkLangLabel(p))} · seen ${esc(adminAgo(p.lastSeen))}${r.phone ? ' · ' + esc(r.phone) : ''}</small></span>
         </button>
         <div class="mk-obtns">${appBtn}${waBtn}</div>
       </div>
       <div class="mk-ometa">${tags}<span class="mk-hist">${hist}</span></div>
       ${whys.length ? `<p class="mk-owhy">${esc(whys.join(' · '))}</p>` : ''}
       ${open ? `<div class="nt-confirm mk-rowc"><p>Send this to ${esc(adminMkFirst(pf.name) || 'them')} in their Messages, in ${esc(ADMIN_MK_LANGS[r.lang])}?${r.recent ? ' They got this offer ' + esc(adminAgo(r.recent.at)) + ' (' + (r.recent.ch === 'app' ? 'in the app' : 'WhatsApp') + ').' : ''}</p>
-          ${adminMkChatPreview(text, c, r.lang)}
+          ${adminMkChatPreview(text, c, r.lang, adminMkUiOf(p))}
           <div class="ap-btns mk-btns"><button class="ap-cta" data-admin-action="mk-app-go" data-id="${esc(key)}">Yes, send it</button><button class="btn btn-ghost btn-sm" data-admin-action="mk-app-cancel">Cancel</button></div></div>` : ''}
     </div>`;
 }
@@ -41019,7 +41025,7 @@ function adminMkReadyTab(g){
       </div>`;
   };
   return `<section class="ap-card ins-card"><span class="ap-eb">Ready notifications</span><h3 class="ins-h">${G.items.length} ready for ${esc(ADMIN_MK_GT[g])}</h3>
-      <p class="ins-note">The automatic plan sends these in turn. Open one to change its words, schedule it for a time you choose, or send it now. The approved course lines are the same ones the reminders use.</p>
+      <p class="ins-note">The automatic plan sends these in turn. Open one to change its words, schedule it for a time you choose, or send it now. The approved course lines are the same ones the reminders use. Phones get these in the language of the learner’s app (the notification server doesn’t know numbers), so an English-app learner with an Iranian number gets the English line here, but the Persian offer on the first tab.</p>
       ${adminMkLangChips()}
       <div class="mk-items">${G.items.map(card).join('')}</div></section>`;
 }
@@ -41160,7 +41166,7 @@ function renderAdminMarketingTab(){
   if(adminMk.view === 'analysis') return note + adminMkAnalysisPage();
   if(ADMIN_MK_GROUPS.indexOf(adminMk.view) >= 0){
     const g = adminMk.view;
-    if(!adminMk.lang){ const n = {tr:0, fa:0, en:0}; adminMkPeople(g).forEach(p=>{ const l = adminInsLang(p) || 'en'; if(n[l] != null) n[l]++; }); adminMk.lang = Object.keys(n).sort((a, b)=>n[b] - n[a])[0]; }
+    if(!adminMk.lang){ const n = {tr:0, fa:0, en:0}; adminMkPeople(g).forEach(p=>{ const l = adminMkLangOf(p); if(n[l] != null) n[l]++; }); adminMk.lang = Object.keys(n).sort((a, b)=>n[b] - n[a])[0]; }
     const body = adminMk.tab === 'ready' ? adminMkReadyTab(g) : adminMk.tab === 'schedule' ? adminMkScheduleTab(g) : adminMk.tab === 'analysis' ? adminMkAnalysisTab(g) : adminMkOfferTab(g);
     return `<div class="ins"><div class="ins-back"><button class="ap-link" data-admin-action="mk-view" data-v="">${ICONS.back} All groups</button></div>
       ${note}${busy}${adminMkGroupHead(g)}${adminMkTabs()}${body}</div>`;
