@@ -47,6 +47,7 @@ html[lang="fa"] .hero h1{letter-spacing:0;line-height:1.35}
 .hero h1 .dot,.sec h2 .dot{color:var(--orange)}
 .lvl{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:.86rem;background:#fff;color:var(--purple-ink);border-radius:999px;padding:4px 13px 4px 5px}
 .lvl b{background:var(--orange);color:var(--on-orange);border-radius:999px;padding:1px 9px;font-family:var(--display);font-weight:600}
+.lvls{display:flex;flex-wrap:wrap;gap:6px}  /* level + class code (2026-11-17) */
 /* the class's 3 goals, main first (2026-11-17) */
 .goals3{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;font-size:.86rem;font-weight:800;line-height:1.3}
 .goals3 b{background:var(--orange);color:var(--on-orange);border-radius:999px;padding:4px 12px;font-weight:900}

@@ -7,6 +7,7 @@
      g  goal (career, exam, everyday, travel, immigration)    lv  level or band (B1, A1-A2, B2-C1)    a  es = a Spanish class
      n  first name    p  their weak spot (grammar, vocab, listening, speaking)    tp  the group's favourite topics, dot-separated
      m  learners matched    w  a = they asked for this course    id  the class id (goes into the WhatsApp reply)
+     cc the class code (AA, AB …, 2026-11-17): in the prefilled "I'm in" and "ask" messages and next to the level; old links show the id
      gs the class's 3 goals, main first, dot-separated (2026-11-17: a group-class course is built on 3 goals, the main one leads,
         Travel always with Everyday life). Old links without gs show the one goal as before.
    The language is the folder (/class/ = English, /class/tr/, /class/fa/, /class/es/), or l=. Keep the theme names in step with
@@ -119,7 +120,7 @@ const PRACTISE = {
 // The page text. {lv} level, {S} the language they learn, {m} matched, {n} name, {cls} class name.
 const T = {
   en:{
-    pill:'Mid-private · 4–6 people', hello:'{n}, this one\'s for you', helloNo:'A small class, built around you', lvl:'Level',
+    pill:'Mid-private · 4–6 people', hello:'{n}, this one\'s for you', helloNo:'A small class, built around you', lvl:'Level', codeL:'Class',
     lead:'Only 4 to 6 people, and all of you share the same goal. Small enough that every class is built around you.',
     tiles:[['4–6', 'people, never more'], ['{lv}', 'everyone at your level'], ['Live', 'online, face to face']],
     whyEb:'Why you', whyH:'Matched by your goal',
@@ -149,7 +150,7 @@ const T = {
     waYes:'Hi Farin! I want a seat in this group class 🙌', waL:['Course:', 'Level:', 'My name:', 'Class code:'], waAsk:'Hi Farin! I have a question about the {cls} group class: ',
     title:'{cls} · small group class · FEschool'},
   tr:{
-    pill:'Yarı özel · 4–6 kişi', hello:'{n}, bu sınıf senin için', helloNo:'Senin etrafında kurulan küçük bir sınıf', lvl:'Seviye',
+    pill:'Yarı özel · 4–6 kişi', hello:'{n}, bu sınıf senin için', helloNo:'Senin etrafında kurulan küçük bir sınıf', lvl:'Seviye', codeL:'Sınıf',
     lead:'Sadece 4–6 kişi ve hepiniz aynı hedefi paylaşıyorsunuz. Her ders senin etrafında kurulacak kadar küçük.',
     tiles:[['4–6', 'kişi, asla fazlası değil'], ['{lv}', 'herkes senin seviyende'], ['Canlı', 'online, yüz yüze']],
     whyEb:'Neden sen', whyH:'Hedefine göre eşleştin',
@@ -179,7 +180,7 @@ const T = {
     waYes:'Merhaba Farin! Bu mini grupta yer istiyorum 🙌', waL:['Kurs:', 'Seviye:', 'Adım:', 'Sınıf kodu:'], waAsk:'Merhaba Farin! {cls} mini grubu hakkında bir sorum var: ',
     title:'{cls} · mini grup dersi · FEschool'},
   fa:{
-    pill:'نیمه‌خصوصی · ۴ تا ۶ نفر', hello:'{n} جان، این کلاس مال توئه', helloNo:'یه کلاس کوچیک که دور تو ساخته می‌شه', lvl:'سطح',
+    pill:'نیمه‌خصوصی · ۴ تا ۶ نفر', hello:'{n} جان، این کلاس مال توئه', helloNo:'یه کلاس کوچیک که دور تو ساخته می‌شه', lvl:'سطح', codeL:'کلاس',
     lead:'فقط ۴ تا ۶ نفر، و همه‌تون یه هدف دارین. اون‌قدر کوچیک که هر جلسه دور هدف تو ساخته می‌شه.',
     tiles:[['۴–۶', 'نفر، نه بیشتر'], ['{lv}', 'همه هم‌سطح تو'], ['زنده', 'آنلاین، رودررو']],
     whyEb:'چرا تو', whyH:'بر اساس هدفت انتخاب شدی',
@@ -209,7 +210,7 @@ const T = {
     waYes:'سلام فرین! می‌خوام توی این کلاس گروهی ثبت‌نام کنم 🙌', waL:['دوره:', 'سطح:', 'اسمم:', 'کد کلاس:'], waAsk:'سلام فرین! درباره‌ی کلاس گروهی «{cls}» یه سؤال دارم: ',
     title:'{cls} · کلاس گروهی کوچک · FEschool'},
   es:{
-    pill:'Semiprivada · 4–6 personas', hello:'{n}, esta clase es para ti', helloNo:'Una clase pequeña, hecha a tu medida', lvl:'Nivel',
+    pill:'Semiprivada · 4–6 personas', hello:'{n}, esta clase es para ti', helloNo:'Una clase pequeña, hecha a tu medida', lvl:'Nivel', codeL:'Clase',
     lead:'Solo de 4 a 6 personas, y todas comparten tu objetivo. Tan pequeña que cada clase se construye en torno a ti.',
     tiles:[['4–6', 'personas, nunca más'], ['{lv}', 'todos con tu nivel'], ['En vivo', 'online, cara a cara']],
     whyEb:'Por qué tú', whyH:'Elegido por tu objetivo',
@@ -257,6 +258,8 @@ const topics = String(Q.get('tp') || '').split('.').filter((x, i, a)=>TOPICS[x] 
 const mNum = Math.min(999, Math.max(0, parseInt(Q.get('m'), 10) || 0));
 const asked = Q.get('w') === 'a' && kindIn === 'course';
 const cid = String(Q.get('id') || '').replace(/[^a-z0-9]/gi, '').slice(0, 20);
+const cc = /^[A-Z]{2,4}$/.test(Q.get('cc') || '') ? Q.get('cc') : '';   // the class code (2026-11-17)
+const ref = cc || cid;   // what their messages name the class by
 
 const W = T[L];
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
@@ -270,11 +273,11 @@ function fill(str, extra){
   return esc(num(str)).replace(/\{(\w+)\}/g, (all, k)=>v[k] != null ? v[k] : all);
 }
 const plain = (str, extra)=>{ const d = document.createElement('div'); d.innerHTML = fill(str, extra); return d.textContent; };
-const waLink = text=>'https://wa.me/' + WA + '?text=' + encodeURIComponent(text + (cid ? ' (' + cid + ')' : ''));
+const waLink = text=>'https://wa.me/' + WA + '?text=' + encodeURIComponent(text + (ref ? ' (' + ref + ')' : ''));
 // "I'm in" names the course, the level, their name and the class code, one per line, so Farin sees at once what they are applying
 // for (Farin 2026-11-17: "put that for which course they are applying not just yes i want the course"). Persian isolates Latin bits.
 const iso = s=>L === 'fa' ? '⁨' + s + '⁩' : s;
-const yesText = [plain(W.waYes), W.waL[0] + ' ' + clsName, lv ? W.waL[1] + ' ' + iso(lv) : '', name ? W.waL[2] + ' ' + iso(name) : '', cid ? W.waL[3] + ' ' + iso(cid) : ''].filter(Boolean).join('\n');
+const yesText = [plain(W.waYes), W.waL[0] + ' ' + clsName, lv ? W.waL[1] + ' ' + iso(lv) : '', name ? W.waL[2] + ' ' + iso(name) : '', ref ? W.waL[3] + ' ' + iso(ref) : ''].filter(Boolean).join('\n');
 
 // ---------------------------------------------------------------- the page
 const ICON_WA = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.23-3.28-.68-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.12-1.49-1.12-2.85 0-1.35.71-2.02.96-2.29.25-.27.55-.34.73-.34l.52.01c.17.01.39-.06.61.47.24.55.79 1.9.86 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.27.13.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.22.6-.13.25.09 1.57.74 1.84.88.27.13.45.2.52.31.06.11.06.66-.18 1.33z"/></svg>';
@@ -293,7 +296,7 @@ const hero = `
           <span class="hello">${name ? fill(W.hello) : fill(W.helloNo)}</span>
           <h1>${esc(clsName)}<span class="dot">.</span></h1>
           ${goals3.length > 1 ? `<p class="goals3"><b>${esc(GOALS_L[L][0])}: ${esc(GOAL_W[L][goals3[0]])}</b><span>${esc(GOALS_L[L][1])}</span>${goals3.slice(1).map(g=>`<i>${esc(GOAL_W[L][g])}</i>`).join('')}</p>` : ''}
-          ${lv ? `<span class="lvl">${fill(W.lvl)} <b><bdi dir="ltr">${esc(lv)}</bdi></b></span>` : ''}
+          ${lv || cc ? `<span class="lvls">${lv ? `<span class="lvl">${fill(W.lvl)} <b><bdi dir="ltr">${esc(lv)}</bdi></b></span>` : ''}${cc ? `<span class="lvl">${esc(W.codeL)} <b><bdi dir="ltr">${esc(cc)}</bdi></b></span>` : ''}</span>` : ''}
           <p class="lead">${fill(W.lead)}</p>
         </div>
         <div class="art"><div class="disc"></div><img src="/assets/char-${goal}.webp" alt="" width="360" height="360" decoding="async"></div>
