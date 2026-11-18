@@ -240,6 +240,37 @@ const T = {
     waYes:'¡Hola, Farin! Quiero una plaza en esta clase en grupo 🙌', waL:['Curso:', 'Nivel:', 'Nombre:', 'Código de la clase:'], waAsk:'¡Hola, Farin! Tengo una pregunta sobre la clase en grupo de {cls}: ',
     title:'{cls} · clase en grupo pequeño · FEschool'}
 };
+// Times, sessions and price (Farin 2026-11-18: "the classes that have more than 20 people in they will get 2 options of schedule to choose
+// ... each course has 8 sessions. and the price is 8 millions a course which includes the VIP roadmap check and private analysis of
+// learning path"). {k} time number, {ns} sessions, {d} days a week, {w} weeks. The day words match the app's ADMIN_CLASS_DAY_W.
+const TW = {
+  en:{eb:'When', h1:'Your class time', h2:'Pick your time', hNo:'What you get',
+    sub2:'Same course, two groups. Choose the time that suits you; the seats at each time go in the order people say yes.',
+    zone:{ir:'Iran time', tr:'Turkey time'}, opt:'Time {k}', pick:'Choose this time', picked:'Your pick', need:'Pick one of the two times first.',
+    ses:'{ns} sessions of 50 minutes, {d} a week: the course takes {w} weeks.', priceL:'The whole course', price:'{pr} toman',
+    incL:'Included in the price', incL2:'Included in the course', inc:['Your VIP roadmap check', 'A private analysis of your learning path'], waT:'Time:'},
+  tr:{eb:'Ne zaman', h1:'Ders saatin', h2:'Saatini seç', hNo:'Neler var',
+    sub2:'Aynı kurs, iki grup. Sana uyan saati seç; her saatteki yerler “evet” diyenlere sırayla verilir.',
+    zone:{ir:'İran saati', tr:'Türkiye saati'}, opt:'Seçenek {k}', pick:'Bu saati seç', picked:'Seçimin', need:'Önce iki saatten birini seç.',
+    ses:'50 dakikalık {ns} ders, haftada {d} ders: kurs {w} hafta sürer.', priceL:'Kursun tamamı', price:'{pr} toman',
+    incL:'Fiyata dahil', incL2:'Kursa dahil', inc:['VIP yol haritası kontrolün', 'Öğrenme yolunun özel analizi'], waT:'Saat:'},
+  fa:{eb:'زمان کلاس', h1:'زمان کلاست', h2:'زمانت رو انتخاب کن', hNo:'چی می‌گیری',
+    sub2:'یه دوره، دو تا گروه. زمانی رو که برات بهتره انتخاب کن؛ جاهای هر زمان به ترتیبِ کسایی که «هستم» می‌گن پر می‌شه.',
+    zone:{ir:'به وقت ایران', tr:'به وقت ترکیه'}, opt:'زمان {k}', pick:'همین زمان رو می‌خوام', picked:'انتخاب تو', need:'اول یکی از این دو تا زمان رو انتخاب کن.',
+    ses:'{ns} جلسه‌ی ۵۰ دقیقه‌ای، هفته‌ای {d} جلسه: دوره {w} هفته طول می‌کشه.', priceL:'هزینه‌ی کل دوره', price:'{pr} تومان',
+    incL:'توی همین هزینه', incL2:'همراه دوره', inc:['بررسی نقشه‌ی راه VIP تو', 'تحلیل خصوصی مسیر یادگیریت'], waT:'زمان:'},
+  es:{eb:'Cuándo', h1:'Tu horario', h2:'Elige tu horario', hNo:'Lo que incluye',
+    sub2:'El mismo curso, dos grupos. Elige el horario que mejor te venga; las plazas de cada horario se asignan por orden de respuesta.',
+    zone:{ir:'hora de Irán', tr:'hora de Turquía'}, opt:'Horario {k}', pick:'Elegir este horario', picked:'Tu elección', need:'Primero elige uno de los dos horarios.',
+    ses:'{ns} clases de 50 minutos, {d} por semana: el curso dura {w} semanas.', priceL:'Todo el curso', price:'{pr} tomanes',
+    incL:'Incluido en el precio', incL2:'Incluido en el curso', inc:['La revisión de tu ruta VIP', 'Un análisis privado de tu camino de aprendizaje'], waT:'Horario:'}
+};
+const DAYS = {
+  en:{sat:'Saturdays', sun:'Sundays', mon:'Mondays', tue:'Tuesdays', wed:'Wednesdays', thu:'Thursdays', fri:'Fridays'},
+  tr:{sat:'Cumartesi', sun:'Pazar', mon:'Pazartesi', tue:'Salı', wed:'Çarşamba', thu:'Perşembe', fri:'Cuma'},
+  fa:{sat:'شنبه‌ها', sun:'یکشنبه‌ها', mon:'دوشنبه‌ها', tue:'سه‌شنبه‌ها', wed:'چهارشنبه‌ها', thu:'پنجشنبه‌ها', fri:'جمعه‌ها'},
+  es:{sat:'sábados', sun:'domingos', mon:'lunes', tue:'martes', wed:'miércoles', thu:'jueves', fri:'viernes'}};
+const AND = {en:' & ', tr:' ve ', fa:' و ', es:' y '};
 
 // ---------------------------------------------------------------- the link
 const kindIn = Q.get('k') === 'c' && THEMES[Q.get('t')] ? 'course' : 'level';
@@ -260,6 +291,14 @@ const asked = Q.get('w') === 'a' && kindIn === 'course';
 const cid = String(Q.get('id') || '').replace(/[^a-z0-9]/gi, '').slice(0, 20);
 const cc = /^[A-Z]{2,4}$/.test(Q.get('cc') || '') ? Q.get('cc') : '';   // the class code (2026-11-17)
 const ref = cc || cid;   // what their messages name the class by
+// times (2026-11-18): s = slots in Farin's clock (Turkey), "sunwed-1800.satmon-2040"; z = ir shows them 30 minutes later (Iran);
+// ns = sessions; pr = the price in toman (only for Iran). Old links without them keep "we pick the time together".
+const slotOf = id=>{ const m = /^((?:sat|sun|mon|tue|wed|thu|fri)+)-([01]\d|2[0-3])([0-5]\d)$/.exec(id); return m ? {d:m[1].match(/.{3}/g), at:Number(m[2]) * 60 + Number(m[3])} : null; };
+const slots = String(Q.get('s') || '').split('.').map(slotOf).filter(Boolean).slice(0, 2);
+const zone = Q.get('z') === 'ir' || Q.get('z') === 'tr' ? Q.get('z') : (L === 'fa' ? 'ir' : 'tr');
+const nSes = Math.min(40, Math.max(0, parseInt(Q.get('ns'), 10) || 0));
+const priceT = zone === 'ir' ? Math.min(1e11, Math.max(0, parseInt(Q.get('pr'), 10) || 0)) : 0;
+const two = slots.length > 1;
 
 const W = T[L];
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
@@ -277,7 +316,17 @@ const waLink = text=>'https://wa.me/' + WA + '?text=' + encodeURIComponent(text 
 // "I'm in" names the course, the level, their name and the class code, one per line, so Farin sees at once what they are applying
 // for (Farin 2026-11-17: "put that for which course they are applying not just yes i want the course"). Persian isolates Latin bits.
 const iso = s=>L === 'fa' ? '⁨' + s + '⁩' : s;
-const yesText = [plain(W.waYes), W.waL[0] + ' ' + clsName, lv ? W.waL[1] + ' ' + iso(lv) : '', name ? W.waL[2] + ' ' + iso(name) : '', ref ? W.waL[3] + ' ' + iso(ref) : ''].filter(Boolean).join('\n');
+// a time in their language and zone: "Sundays & Wednesdays", "18:30–19:20" (2026-11-18)
+const X = TW[L];
+const hm = m=>num(String(Math.floor(m / 60) % 24).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
+const slotDays = s=>{ const d = s.d.map(x=>DAYS[L][x]); return (d.length > 1 ? d.slice(0, -1).join(', ') + AND[L] + d[d.length - 1] : d[0]) + (L === 'tr' ? ' günleri' : ''); };
+const slotHrs = s=>{ const a = s.at + (zone === 'ir' ? 30 : 0); return hm(a) + (L === 'fa' ? ' تا ' : '–') + hm(a + 50); };
+const slotLine = (s, k)=>(two ? X.opt.replace('{k}', num(k + 1)) + ' · ' : '') + slotDays(s) + (L === 'fa' ? '، ' : ', ') + slotHrs(s) + ' (' + X.zone[zone] + ')';
+const priceTxt = priceT ? X.price.replace('{pr}', L === 'fa' ? num(priceT.toLocaleString('en-US').replace(/,/g, '٬')) : L === 'en' ? priceT.toLocaleString('en-US') : priceT.toLocaleString('en-US').replace(/,/g, '.')) : '';
+// "I'm in": course, level, the time they picked, name, class code (k = the time; one time = that one)
+const yesFor = k=>[plain(W.waYes), W.waL[0] + ' ' + clsName, lv ? W.waL[1] + ' ' + iso(lv) : '', slots[k] ? X.waT + ' ' + slotLine(slots[k], k) : '', name ? W.waL[2] + ' ' + iso(name) : '', ref ? W.waL[3] + ' ' + iso(ref) : ''].filter(Boolean).join('\n');
+const yesText = yesFor(0);
+const yesHref = k=>'https://wa.me/' + WA + '?text=' + encodeURIComponent(yesFor(k));
 
 // ---------------------------------------------------------------- the page
 const ICON_WA = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.8 14.01c-.24.68-1.42 1.31-1.95 1.36-.5.05-.97.23-3.28-.68-2.78-1.1-4.54-3.95-4.68-4.13-.13-.18-1.12-1.49-1.12-2.85 0-1.35.71-2.02.96-2.29.25-.27.55-.34.73-.34l.52.01c.17.01.39-.06.61.47.24.55.79 1.9.86 2.04.07.14.11.3.02.48-.09.18-.13.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.55.16.27.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.27.13.42.11.58-.07.16-.18.67-.78.85-1.05.18-.27.36-.22.6-.13.25.09 1.57.74 1.84.88.27.13.45.2.52.31.06.11.06.66-.18 1.33z"/></svg>';
@@ -366,7 +415,24 @@ const group = `
       <p>${fill(mNum >= 7 ? W.grp : W.grpNo)}</p>
       ${topics.length ? `<div class="loves"><small>${fill(W.loves)}</small><div class="chips">${topics.map(t=>`<span class="chip">${esc(TOPICS[t][L])}</span>`).join('')}</div><p>${fill(W.lovesP)}</p></div>` : ''}
     </div>
-    <div class="time">${ICON_CAL}<div><h3>${fill(W.timeH)}</h3><p>${fill(W.time)}</p></div></div>
+    ${slots.length ? '' : `<div class="time">${ICON_CAL}<div><h3>${fill(W.timeH)}</h3><p>${fill(W.time)}</p></div></div>`}
+  </section>`;
+
+// When + price (2026-11-18): the class time (two = pick one), the sessions, the price for Iran, what is included.
+const daysPerWeek = slots.length ? slots[0].d.length : 2, weeks = nSes ? Math.ceil(nSes / daysPerWeek) : 0;
+const optCard = (s, k)=>`<${two ? 'button type="button" aria-pressed="false"' : 'div'} class="opt" data-k="${k}">
+        ${two ? `<span class="on-k">${esc(X.opt.replace('{k}', num(k + 1)))}</span>` : ''}
+        <b class="days">${esc(slotDays(s))}</b><span class="hrs">${esc(slotHrs(s))}</span><small>${esc(X.zone[zone])}</small>
+        ${two ? `<span class="pk">${esc(X.pick)}</span>` : ''}</${two ? 'button' : 'div'}>`;
+const when = !slots.length && !nSes && !priceT ? '' : `
+  <section class="sec wrap" id="when">
+    <div class="head"><span class="eb">${esc(X.eb)}</span><h2>${esc(slots.length ? (two ? X.h2 : X.h1) : X.hNo)}<span class="dot">.</span></h2>${two ? `<p class="sub">${esc(X.sub2)}</p>` : ''}</div>
+    ${slots.length ? `<div class="opts${two ? ' two' : ''}">${slots.map(optCard).join('')}</div>${two ? '<p class="needmsg" role="status" aria-live="polite"></p>' : ''}` : ''}
+    ${nSes ? `<p class="ses">${ICON_CAL}<span>${esc(num(X.ses.replace('{ns}', nSes).replace('{d}', daysPerWeek).replace('{w}', weeks)))}</span></p>` : ''}
+    <div class="price${priceT ? '' : ' noprice'}">
+      ${priceT ? `<div class="pr"><small>${esc(X.priceL)}</small><b>${esc(priceTxt)}</b></div>` : ''}
+      <div class="inc"><small>${esc(priceT ? X.incL : X.incL2)}</small><ul>${X.inc.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>
+    </div>
   </section>`;
 
 const note = `
@@ -377,12 +443,24 @@ const note = `
 
 const cta = `
   <div class="cta"><div class="cta-in">
-    <a class="go" href="${esc('https://wa.me/' + WA + '?text=' + encodeURIComponent(yesText))}" target="_blank" rel="noopener">${ICON_WA}<span>${fill(W.cta)}</span><span class="ar" aria-hidden="true">→</span></a>
+    <a class="go" href="${esc(two ? '#when' : 'https://wa.me/' + WA + '?text=' + encodeURIComponent(yesText))}"${two ? '' : ' target="_blank" rel="noopener"'}>${ICON_WA}<span>${fill(W.cta)}</span><span class="ar" aria-hidden="true">→</span></a>
     <a class="ask" href="${esc(waLink(plain(W.waAsk)))}" target="_blank" rel="noopener">${fill(W.ask)}</a>
   </div></div>`;
 
 document.title = plain(W.title);
 const root = document.getElementById('offer');
-root.innerHTML = hero + why + us + rooms + prac + how + group + note;
+root.innerHTML = hero + why + us + rooms + prac + how + group + when + note;
 root.insertAdjacentHTML('afterend', cta);
+// two times: tapping a time picks it and the main button sends it; the main button before a pick takes them to the times (2026-11-18)
+if(two){
+  const go = document.querySelector('.cta .go'), box = document.querySelector('#when .opts'), msg = document.querySelector('#when .needmsg'), opts = [...box.querySelectorAll('.opt')];
+  let picked = -1;
+  opts.forEach(b=>b.addEventListener('click', ()=>{
+    picked = Number(b.dataset.k);
+    opts.forEach(o=>{ const on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); o.querySelector('.pk').textContent = on ? X.picked + ' ✓' : X.pick; });
+    go.href = yesHref(picked); go.target = '_blank'; go.rel = 'noopener';
+    box.classList.remove('need'); msg.textContent = '';
+  }));
+  go.addEventListener('click', e=>{ if(picked >= 0) return; e.preventDefault(); box.classList.add('need'); msg.textContent = X.need; document.getElementById('when').scrollIntoView({block:'start'}); });
+}
 })();

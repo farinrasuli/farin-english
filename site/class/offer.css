@@ -161,6 +161,40 @@ html[dir="rtl"] .route{transform:scaleX(-1)}
 .time h3{font-size:1.15rem;margin-bottom:4px}
 .time p{color:var(--muted)}
 
+/* when + price (2026-11-18): the class time card(s) — two = pick one —, sessions, the price, what is included */
+.opts{display:grid;gap:10px}
+.opts.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:420px){ .opts.two{grid-template-columns:1fr} }
+.opt{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:start;background:var(--card);border:2px solid var(--line);border-radius:22px;padding:16px 18px;box-shadow:var(--shadow);color:var(--ink);font:inherit;min-width:0}
+.opts:not(.two) .opt{border-color:var(--goal)}
+button.opt{cursor:pointer;-webkit-tap-highlight-color:transparent}
+button.opt:hover{border-color:color-mix(in srgb,var(--purple) 55%,var(--line))}
+.opt .on-k{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--purple-ink)}
+html[lang="fa"] .opt .on-k{letter-spacing:0;font-size:.85rem}
+.opt .days{font-weight:800;line-height:1.3;overflow-wrap:anywhere}
+.opt .hrs{font-family:var(--display);font-weight:600;font-size:1.7rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.opt small{font-size:.8rem;font-weight:700;color:var(--muted)}
+.opt .pk{margin-top:6px;font-size:.85rem;font-weight:800;color:var(--purple-ink);border:1.5px solid color-mix(in srgb,var(--purple) 40%,var(--line));border-radius:999px;padding:3px 12px}
+.opt.on{border-color:var(--purple);background:var(--purple-soft)}
+.opt.on .pk{background:var(--purple);border-color:var(--purple);color:#fff}
+.opts.need .opt{border-color:var(--orange);box-shadow:0 0 0 4px color-mix(in srgb,var(--orange) 25%,transparent)}
+.needmsg{font-weight:800;color:var(--orange-ink);margin-top:-8px}
+.needmsg:empty{display:none}
+.ses{display:flex;gap:12px;align-items:center;color:var(--muted);font-weight:700}
+.ses svg{flex:none;width:32px;height:32px}
+.price{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px}
+.price.noprice{grid-template-columns:1fr}
+@media (max-width:420px){ .price{grid-template-columns:1fr} }
+.price small{display:block;font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+html[lang="fa"] .price small{letter-spacing:0;font-size:.85rem}
+.pr{background:var(--orange-soft);border-radius:22px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;justify-content:center}
+.pr small{color:var(--orange-ink)}
+.pr b{font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.15;color:var(--on-orange);overflow-wrap:anywhere}
+.inc{background:var(--purple-soft);border-radius:22px;padding:16px 18px}
+.inc small{color:var(--purple-ink)}
+.inc ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-weight:700;line-height:1.4}
+.inc li::before{content:"✓";color:var(--purple);font-weight:900;margin-inline-end:8px}
+
 /* teacher note */
 .note{background:var(--purple-soft);border-radius:28px;padding:26px 24px;display:flex;gap:18px;align-items:center;position:relative;overflow:hidden}
 .note::after{content:"";position:absolute;z-index:0;inset-inline-end:-46px;top:-46px;width:104px;height:104px;border-radius:50%;background:var(--orange);opacity:.85}
