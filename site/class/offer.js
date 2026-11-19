@@ -442,8 +442,8 @@ const note = `
   <footer class="wrap"><b>FE<i>school</i></b><a href="https://thefeschool.com/">thefeschool.com</a></footer>`;
 
 // Telegram for learners without WhatsApp (Farin 2026-11-19: "put telegram button too, because some students dont have whatsapp"): the same
-// "I'm in" message to Farin's Telegram (t.me/+<number>?text=; his WhatsApp number, TG below, until he gives another one).
-const TG = '905467615951';
+// "I'm in" message to Farin's Telegram (t.me/+<number>?text=). Farin 2026-11-19: "telegram number is this: +989357213326".
+const TG = '989357213326';
 const TGW = {en:'No WhatsApp? Send it on Telegram', tr:'WhatsApp yok mu? Telegram\'dan gönder', fa:'واتس‌اپ نداری؟ از تلگرام بفرست', es:'¿No tienes WhatsApp? Envíalo por Telegram'};
 const ICON_TG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21.2 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.3c.3-1.3-.5-1.8-1.3-1.5zM9.1 14.2l8.7-5.5c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.1-1.5-4.5z"/></svg>';
 const tgHref = k=>'https://t.me/+' + TG + '?text=' + encodeURIComponent(yesFor(k));
