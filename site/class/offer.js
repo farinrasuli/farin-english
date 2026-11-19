@@ -441,10 +441,19 @@ const note = `
   </section>
   <footer class="wrap"><b>FE<i>school</i></b><a href="https://thefeschool.com/">thefeschool.com</a></footer>`;
 
+// Telegram for learners without WhatsApp (Farin 2026-11-19: "put telegram button too, because some students dont have whatsapp"): the same
+// "I'm in" message to Farin's Telegram (t.me/+<number>?text=; his WhatsApp number, TG below, until he gives another one).
+const TG = '905467615951';
+const TGW = {en:'No WhatsApp? Send it on Telegram', tr:'WhatsApp yok mu? Telegram\'dan gönder', fa:'واتس‌اپ نداری؟ از تلگرام بفرست', es:'¿No tienes WhatsApp? Envíalo por Telegram'};
+const ICON_TG = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M21.2 4.3 2.9 11.4c-1.2.5-1.2 1.2-.2 1.5l4.6 1.4 1.8 5.4c.2.6.4.8.9.8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14.3c.3-1.3-.5-1.8-1.3-1.5zM9.1 14.2l8.7-5.5c.4-.3.8-.1.5.2l-7.4 6.7-.3 3.1-1.5-4.5z"/></svg>';
+const tgHref = k=>'https://t.me/+' + TG + '?text=' + encodeURIComponent(yesFor(k));
 const cta = `
   <div class="cta"><div class="cta-in">
     <a class="go" href="${esc(two ? '#when' : 'https://wa.me/' + WA + '?text=' + encodeURIComponent(yesText))}"${two ? '' : ' target="_blank" rel="noopener"'}>${ICON_WA}<span>${fill(W.cta)}</span><span class="ar" aria-hidden="true">→</span></a>
-    <a class="ask" href="${esc(waLink(plain(W.waAsk)))}" target="_blank" rel="noopener">${fill(W.ask)}</a>
+    <div class="cta-alt">
+      <a class="tg" href="${esc(two ? '#when' : tgHref(0))}"${two ? '' : ' target="_blank" rel="noopener"'}>${ICON_TG}<span>${esc(TGW[L])}</span></a>
+      <a class="ask" href="${esc(waLink(plain(W.waAsk)))}" target="_blank" rel="noopener">${fill(W.ask)}</a>
+    </div>
   </div></div>`;
 
 document.title = plain(W.title);
@@ -453,14 +462,16 @@ root.innerHTML = hero + why + us + rooms + prac + how + group + when + note;
 root.insertAdjacentHTML('afterend', cta);
 // two times: tapping a time picks it and the main button sends it; the main button before a pick takes them to the times (2026-11-18)
 if(two){
-  const go = document.querySelector('.cta .go'), box = document.querySelector('#when .opts'), msg = document.querySelector('#when .needmsg'), opts = [...box.querySelectorAll('.opt')];
+  const go = document.querySelector('.cta .go'), tg = document.querySelector('.cta .tg'), box = document.querySelector('#when .opts'), msg = document.querySelector('#when .needmsg'), opts = [...box.querySelectorAll('.opt')];
   let picked = -1;
   opts.forEach(b=>b.addEventListener('click', ()=>{
     picked = Number(b.dataset.k);
     opts.forEach(o=>{ const on = o === b; o.classList.toggle('on', on); o.setAttribute('aria-pressed', on ? 'true' : 'false'); o.querySelector('.pk').textContent = on ? X.picked + ' ✓' : X.pick; });
-    go.href = yesHref(picked); go.target = '_blank'; go.rel = 'noopener';
+    go.href = yesHref(picked); tg.href = tgHref(picked);
+    [go, tg].forEach(a=>{ a.target = '_blank'; a.rel = 'noopener'; });
     box.classList.remove('need'); msg.textContent = '';
   }));
-  go.addEventListener('click', e=>{ if(picked >= 0) return; e.preventDefault(); box.classList.add('need'); msg.textContent = X.need; document.getElementById('when').scrollIntoView({block:'start'}); });
+  // WhatsApp or Telegram before a pick: show the times and ask for one first
+  [go, tg].forEach(a=>a.addEventListener('click', e=>{ if(picked >= 0) return; e.preventDefault(); box.classList.add('need'); msg.textContent = X.need; document.getElementById('when').scrollIntoView({block:'start'}); }));
 }
 })();

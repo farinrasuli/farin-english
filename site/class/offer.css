@@ -220,4 +220,8 @@ footer a{text-decoration:none}
 .go .ar{font-family:var(--display)}
 html[dir="rtl"] .go .ar{transform:scaleX(-1)}
 .ask{font-size:.88rem;font-weight:700;color:var(--purple-ink);text-decoration:underline;text-underline-offset:3px}
+/* Telegram for learners without WhatsApp (2026-11-19) */
+.cta-alt{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px 18px}
+.tg{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:800;color:#13628c;text-decoration:underline;text-underline-offset:3px}
+.tg svg{width:17px;height:17px;flex:none;color:#1d8fcb}
 @media (prefers-reduced-motion:no-preference){ .go{transition:background .15s} }
