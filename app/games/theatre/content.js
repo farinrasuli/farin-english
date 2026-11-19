@@ -54,8 +54,8 @@ window.THEATRE_CONTENT = {
     // passes (2026-11-16: Order Up!, Word Bingo, Say It Back; Mini Cross and Build It wait for fixed posters); titles + taglines from the
     // worlds SPEC section 16 (farin-gamification)
     match:{title:'The Card Table', tagline:'Flip two. Find the pair. The ferry’s almost in.'},
-    build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.'},
-    cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.'},
+    build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.', art:'games/posters/build.webp', artReady:true},   // the 4:5 key art (worlds art 2026-11-19)
+    cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.', art:'games/posters/cross.webp', artReady:true},
     bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.', art:'games/posters/bingo.webp', artReady:true},
     hunt:{title:'The Word Hunt', tagline:'Somewhere in your story, the words are hiding.'},
     echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.', art:'games/posters/echo.webp', artReady:true},
