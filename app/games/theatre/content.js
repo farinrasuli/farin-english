@@ -63,7 +63,7 @@ window.THEATRE_CONTENT = {
     trap:{title:'Pier Dash', tagline:'Pick fast. Jump clean.'}
   },
   // live text on the world art, in the language being learned (World Kit text layers with a key; never mirrored)
-  worldText:{onair:'ON AIR'},
+  worldText:{onair:'ON AIR', closed:'CLOSED'},   // closed: Passport Desk's window sign at the end
   strings:{
     play:{en:'Play', tr:'Oyna', fa:'بازی کن', es:'Jugar'},
     'continue':{en:'Continue', tr:'Devam et', fa:'ادامه بده', es:'Continuar'},
