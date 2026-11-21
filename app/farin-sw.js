@@ -1,4 +1,4 @@
-const CACHE = 'farin-english-v13';   // v13 2026-11-21: onboarding redesign + welcome screen; v11 2026-11-20: FE white (art/fe, notif/*, icon-*.png repainted under the same names), only the clean pose set
+const CACHE = 'farin-english-v14';   // v14 2026-11-21: roadmap cards (purple/white/orange, no symbols, solid circles, page report card, Home opens on the current card, plan bubble off); v13 2026-11-21: onboarding redesign + welcome screen; v11 2026-11-20: FE white (art/fe, notif/*, icon-*.png repainted under the same names), only the clean pose set
 const CACHE_PREFIX = CACHE.replace(/\d+$/, '');   // 'farin-english-v' / 'farin-spanish-v'
 const PAGE_URL = self.registration.scope;
 /* Cozy Chores painted art (Trello 1m2Y0zdU, 8JAiLuV7): the game's plates and cut-outs are sibling files
