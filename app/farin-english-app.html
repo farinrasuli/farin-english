@@ -3924,6 +3924,66 @@
   .rl-pills .pill{font-size:13px; padding:5px 11px;}
   .rl-sheetwrap{position:fixed; inset:0; z-index:45; background:rgba(20,16,40,.42); display:flex; align-items:flex-end; justify-content:center; animation:fadeIn .2s ease;}
   @media (prefers-reduced-motion: reduce){ .rl-sheetwrap{animation:none;} }
+  /* Starter lessons (Spanish from zero, 2026-11-22) + Profile level sheet */
+  .st-body{gap:16px;}
+  .st-teach .lx-eyebrow{color:var(--fs-orange-ink, #C46A00);}
+  .st-h{font-size:22px; margin:4px 0 0; line-height:1.25; color:var(--ink);}
+  .st-p{margin:10px 0 0; font-size:15px; line-height:1.55; color:var(--ink-soft);}
+  .st-tiles{display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px;}
+  .st-tiles.many{grid-template-columns:repeat(2, minmax(0, 1fr));}
+  .st-tile{display:flex; flex-direction:column; align-items:flex-start; gap:3px; text-align:start; padding:14px 14px 13px; border-radius:20px; border:2px solid var(--border-soft); background:var(--bg-elevated); color:var(--ink); box-shadow:var(--shadow); cursor:pointer; font-family:inherit; min-height:96px; transition:border-color .15s, background .15s;}
+  .st-tile:active{transform:scale(.98);}
+  .st-tile.on{border-color:color-mix(in srgb, var(--fs-purple) 55%, transparent); background:color-mix(in srgb, var(--fs-purple) 7%, var(--bg-elevated));}
+  .st-big{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:700; font-size:28px; line-height:1.05; color:var(--fs-purple-ink, #4B2FC4);}
+  .st-tile.num .st-big{font-size:34px;}
+  .st-name{font-weight:800; font-size:14px; color:var(--ink);}
+  .st-ex{font-size:13px; color:var(--ink-soft); line-height:1.35;}
+  .st-ex i{font-style:normal; color:var(--ink-faint);}
+  .st-hint{font-size:12px; line-height:1.35; color:var(--ink-faint); font-weight:700;}
+  .st-words{display:flex; flex-direction:column; gap:10px;}
+  .st-word, .st-q{display:flex; align-items:center; gap:12px; width:100%; text-align:start; padding:14px 16px; border-radius:20px; border:1px solid var(--border-soft); background:var(--bg-elevated); color:var(--ink); box-shadow:var(--shadow); font-family:inherit; cursor:pointer;}
+  .st-wbody{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .st-wbody b, .st-q b{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:700; font-size:19px; line-height:1.25;}
+  .st-wbody small{font-size:13.5px; color:var(--ink-soft); font-weight:700;}
+  .st-spk{flex:none; width:40px; height:40px; border-radius:50%; display:grid; place-items:center; background:var(--fs-purple-soft, #EEE8FF); color:var(--fs-purple-ink, #4B2FC4);}
+  .st-spk svg{width:20px; height:20px;}
+  .st-q{justify-content:center; padding:20px 16px;}
+  .st-q b{font-size:24px;}
+  .st-q-m{cursor:default; flex-direction:column; text-align:center;}
+  .st-q-m b{font-family:inherit; font-size:19px; font-weight:800;}
+  .st-playrow{justify-content:center;}
+  .st-opts.st-short{display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:10px;}
+  .st-opts.st-short .game-opt{font-size:26px; min-height:74px;}
+  .st-opts .game-opt.dim{opacity:.5;}
+  .st-why{align-items:flex-start;}
+  .st-why.ok{background:var(--success-soft);}
+  .st-why.no{background:var(--error-soft);}
+  .st-why-l{margin-top:4px; font-weight:700; opacity:.85;}
+  .st-tip{margin:0; font-size:13.5px; color:var(--ink-soft); text-align:center;}
+  .st-match{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .st-mcol{display:flex; flex-direction:column; gap:10px;}
+  .st-m{min-height:60px; font-size:16px; padding:8px 10px;}
+  .st-m.sel{border-color:var(--fs-purple); background:color-mix(in srgb, var(--fs-purple) 10%, var(--bg-elevated));}
+  .st-line{min-height:58px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; padding:10px 12px; border-radius:18px; border:2px dashed var(--border); background:var(--bg-elevated);}
+  .st-line.ok{border-style:solid; border-color:var(--success); background:var(--success-soft);}
+  .st-line.no{border-style:solid; border-color:var(--error); background:var(--error-soft);}
+  .st-line-ph{display:block; height:30px;}
+  .st-bank{display:flex; flex-wrap:wrap; gap:8px; justify-content:center;}
+  .st-chip{cursor:pointer; font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:17px; font-weight:600; padding:9px 15px; background:var(--bg-elevated); color:var(--ink); box-shadow:var(--clay-shadow-soft, 0 3px 8px -3px rgba(0,0,0,.25)); border:0;}
+  .st-chip.used{visibility:hidden;}
+  .st-chip:disabled{cursor:default;}
+  .st-done{text-align:center;}
+  .st-stampwrap{display:flex; justify-content:center; margin:8px 0 6px;}
+  .st-stampwrap .rl-stamp{width:120px; height:120px;}
+  .st-stampwrap .rl-stamp img{width:100%; height:100%; object-fit:contain;}
+  @media (prefers-reduced-motion: reduce){ .st-tile{transition:none;} .st-tile:active{transform:none;} }
+  .lv-sheet .onb-rows{margin-top:14px;}
+  .lv-note{margin:8px 0 0; font-size:13.5px; line-height:1.5; color:var(--ink-soft);}
+  .lv-sheet .fs-cta{margin-top:18px; width:100%;}
+  .lv-row-ic{font-family:'Fredoka',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-weight:700; font-size:14px;}
+  .lv-sheet .fs-cta{position:sticky; bottom:0; box-shadow:0 -10px 18px -8px var(--bg);}
+  .rl-learn-hook{margin:0; font-size:15.5px; line-height:1.55; color:var(--ink-soft);}
+  .rl-learn .gx-table{margin:0;}
   .rl-sheet .lx-words{margin-top:16px;}
   .rl-resface{display:block; width:96px; height:96px; object-fit:contain; margin:12px auto 0;}
   /* pass 2: the grammar card and the dialogue card in three rounds (SPEC §3.1, §3.5, §11). Grammar keeps the lx-page orange, dialogue is pink. */
@@ -8423,7 +8483,11 @@ function renderBadgeUnlockCard(justEarned){
    a passed practice round, a finished game), never on every render of a
    still-in-progress screen, or an earned badge could be silently dropped
    before anything shows it. */
+// Farin 2026-11-22: "delete those prizes coin like in the profile i dont want that system right now": the trophy case and every
+// "new badge" card / sticker are off; checkBadges() still records them quietly (pr.badgesEarnedAt), so the system can come back.
+const BADGES_ON = false;
 function pullJustEarnedBadges(force){
+  if(!BADGES_ON){ newlyEarnedBadges = []; return []; }
   if(!force && typeof worldKind === 'function' && worldKind() && THEATRE_QUICK_VIEWS.includes(state.view)) return [];   // in a world the celebration shows them
   const justEarned = newlyEarnedBadges.slice();
   newlyEarnedBadges = [];
@@ -15062,56 +15126,14 @@ function renderProfile(){
   const p = state.profile, pr = state.progress;
   const earnedBadgeCount = BADGES.filter(b=>pr.badgesEarnedAt[b.id]).length;
   return `<div class="fade-in">
-    ${sectionHead(L('Your Profile','Profilin','پروفایل تو'), L('Your plan, your progress, your bragging rights.','Planın, ilerlemen ve övünme hakların.','برنامه‌ات، پیشرفتت و افتخاراتت.'), 'dashboard')}
+    ${sectionHead(L('Your Profile','Profilin','پروفایل تو'), L('Your level, your plan, your progress.','Seviyen, planın, ilerlemen.','سطحت، برنامه‌ات، پیشرفتت.','Tu nivel, tu plan, tu progreso.'), 'dashboard')}
     <div class="screen" style="padding-top:0;">
       ${profileHeaderCard(p)}
 
       <div style="margin-top:20px;">${statRow(pr)}</div>
 
-      <div class="row between" style="align-items:baseline; margin:22px 0 10px;">
-        <h3 class="display" style="font-size:14px; margin:0;">${L('Your trophy case','Ödül dolabın','ویترین افتخارات تو')}</h3>
-        <span class="num" style="font-family:'Fredoka',sans-serif; font-size:15px; color:var(--ink-soft);">${earnedBadgeCount}<span style="color:var(--ink-faint); font-weight:600;">/${BADGES.length}</span></span>
-      </div>
-      <div class="badge-grid">
-        ${BADGES.map(b=>{
-          const earned = !!pr.badgesEarnedAt[b.id];
-          const bc = badgeColor(b.id);
-          // Trophy case (2026-09-29, Farin: apply the FULL sparkly-card recipe to
-          // earned cells, not just a tint) — earned cells are now a solid,
-          // full-strength fill of their own badge color (same recipe as
-          // .character-card/.goal-card), with a translucent-white icon chip
-          // (same convention as goal-card/tile-featured-ic's icon-on-solid-color
-          // treatment) and sparkle stars. Locked cells stay muted gray, untouched.
-          const icStyle = earned ? `background:rgba(255,255,255,.26); color:#fff;` : `background:var(--bg-sunken); color:var(--ink-faint);`;
-          const cellStyle = earned ? `background:${bc.bg};` : '';
-          // Real icon assets (2026-09-29, Farin: "YES I WANT THAT DESIGN" — use the
-          // real medal-style PNGs from site/assets, now copied into app/). Every
-          // EARNED badge shows the real icon-trophy.png medal (achievement = trophy,
-          // same image for all types, same pattern most badge/achievement UIs use —
-          // the per-type glyph still does its job on the locked cells right next to
-          // it). Locked book/story-themed badges (Bookworm/Avid Reader/Story
-          // Master) show the real icon-book.png, and locked game badges
-          // (Game On/Arcade Regular) show the real icon-controller.png, instead
-          // of their inline SVG glyphs — extending real-asset usage to this
-          // screen too.
-          // Real-asset icons render at native size with no synthetic circle-chip
-          // background (they're already self-contained medal/badge art); every
-          // other badge keeps the existing inline-SVG-in-a-colored-circle chip.
-          const lockedRealIcon = {book:'icon-book.png', bolt:'icon-controller.png'}[b.icon];
-          const iconContent = earned
-            ? `<img src="icon-trophy.png" alt="" style="width:46px; height:46px; object-fit:contain;">`
-            : (lockedRealIcon
-                ? `<img src="${lockedRealIcon}" alt="" style="width:44px; height:44px; object-fit:contain;">`
-                : `<span class="badge-ic" style="${icStyle}">${ICONS[b.icon]}</span>`);
-          return `<div class="badge-cell ${earned?'earned':'locked'}" style="${cellStyle}">
-            ${earned ? miniSparkles() : ''}
-            ${iconContent}
-            <span class="badge-name">${esc(L(b.title.en,b.title.tr))}</span>
-          </div>`;
-        }).join('')}
-      </div>
-
-      <button class="item-row" data-action="nav" data-view="games-shelf" style="margin-top:20px; cursor:pointer;">
+      ${profileLevelRowHtml(p)}
+      <button class="item-row" data-action="nav" data-view="games-shelf" style="margin-top:10px; cursor:pointer;">
         <span class="item-ic" style="background:var(--cat-review); color:#fff;">${ICONS.bolt}</span>
         <div class="item-body">
           <div class="item-title">${L('Games','Oyunlar','بازی‌ها','Juegos')}</div>
@@ -15149,7 +15171,7 @@ function renderProfile(){
         <button class="btn btn-ghost" data-action="open-settings">${L('Settings','Ayarlar','تنظیمات')}</button>
       </div>
     </div>
-  </div>`;
+  ${levelSheetHtml()}</div>`;
 }
 
 /* ============================= GREETING BANNER ============================= */
@@ -26584,7 +26606,7 @@ function rlItem(id){
 }
 function rlgVk(t, goal){ return goal && t.goalVariant && t.goalVariant[goal] ? goal : null; }
 function rlgEff(t, goal){ const vk = rlgVk(t, goal); return effectiveGrammarItem(t, vk ? t.goalVariant[vk] : null); }
-function rlgScreens(t, e){ const a = []; if(t.context && t.context.lines && t.context.lines.length) a.push('hear'); a.push('p1'); if(e.wrong2 && e.right2) a.push('p2'); a.push('why'); return a; }
+function rlgScreens(t, e){ const a = []; if(t.context && t.context.lines && t.context.lines.length) a.push('hear'); a.push('learn'); a.push('p1'); if(e.wrong2 && e.right2) a.push('p2'); a.push('why'); return a; }
 function renderGrammarRounds(){
   const vp = state.viewParams || {}, t = rlItem(vp.id);
   if(!t || !lpOn('grammar')) return renderGrammarTrap(vp.id);
@@ -26600,6 +26622,7 @@ function rlgKnowScreen(t, e, R){
   const list = rlgScreens(t, e), i = Math.max(0, Math.min(list.length - 1, R.i || 0)), w = list[i], base = {key:'k' + w, i, k:list.length};
   if(w === 'hear') return Object.assign(base, rlgHear(t, R));
   if(w === 'why') return Object.assign(base, rlgWhy(t, e, R));
+  if(w === 'learn') return Object.assign(base, rlgLearn(t, e, R));
   const n = w === 'p1' ? 1 : 2;
   return Object.assign(base, rlgPair(t, e, R, n, list[i + 1] === 'p2' ? rlS('g.nextPair') : rlS('g.why')));
 }
@@ -26619,6 +26642,29 @@ function rlgHear(t, R){
     foot:H.done ? rlCta('rlg-next', rlS('go.next')) : rlGhost('rlg-next', rlS('skip'))};
 }
 // G2 / G3: which one would you say? (stable order per item, so a reload shows the same screen)
+// G1b, learn it (Farin 2026-11-22: "for the cards that are lessons and not practices, better lessons. actually we must have that in
+// learn part, but its not enough"): right after hearing it, Round 1 teaches the rule straight: how it works (the item's explanation),
+// the forms, one example to hear, the tip. The pairs and the why screen then check it. The full page stays behind "See the full lesson".
+function rlgLearn(t, e, R){
+  const st = structureExplanation(L(t.exp.en, t.exp.tr, t.exp.fa, t.exp.es)), ft = t.formsTable;
+  const how = st.rest ? renderLessonText(st.rest, '--cat-gram', {noPatterns:!!ft}) : '';
+  const rt = e.rightTranslation, trT = rt ? L(null, rt.tr, rt.fa) : '';
+  const table = ft ? `<div class="gx-table" translate="no" style="background:var(--bg-elevated); box-shadow:var(--shadow);"><table>
+      <thead><tr>${L(ft.headers.en, ft.headers.tr, ft.headers.fa, ft.headers.es).map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${ft.rows.map(row=>`<tr>${row.map(cell=>`<td dir="ltr">${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+    </table></div>` : '';
+  return {body:`<div class="rl-body rl-learn">
+      <div class="lx-head"><div class="lx-eyebrow">${esc(L('Learn it', 'Öğren', 'یاد بگیر', 'Apréndelo'))}</div><h2 class="display" dir="${courseTD()}">${isoHtml(rlIso(grammarTitle(t)))}<span class="dot">.</span></h2></div>
+      ${st.hook ? `<p class="rl-learn-hook" dir="auto">${esc(st.hook)}</p>` : ''}
+      ${how ? `<div class="lx-card gx-body">${how}</div>` : ''}
+      ${table}
+      ${e.right ? `<div class="lx-card lx-ex">
+        <button type="button" class="icon-btn lx-spk" data-action="speak-sentence" data-text="${esc(e.right)}" aria-label="${esc(L('Listen', 'Dinle', 'گوش کن', 'Escuchar'))}">${ICONS.soundOn}</button>
+        <div style="min-width:0;" translate="no"><div class="lx-ex-line" dir="ltr">${glossify(e.right)}</div>${trT ? `<div class="lx-ex-tr">${esc(trT)}</div>` : ''}</div>
+      </div>` : ''}
+      ${st.tip ? `<div class="lx-remember"><div class="lx-eyebrow">💡 ${esc(L('Remember', 'Unutma', 'یادت باشد', 'Recuerda'))}</div><p dir="auto">${esc(st.tip)}</p></div>` : ''}
+    </div>`, foot:rlCta('rlg-next', rlS('cont'))};
+}
 function rlgPairOrder(t, n){ return dateSeed(t.id + ':pair' + n) % 2 ? ['r', 'w'] : ['w', 'r']; }
 // The right sentence with what differs from the wrong one marked (a word diff, case and punctuation ignored): the words that are not
 // in the wrong sentence; when the right one only leaves words out ("I have finished" -> "I finished"), the word where they were.
@@ -29452,6 +29498,57 @@ function renderQuizResults(){
     </div>
   </div>`;
 }
+
+/* ---- Profile: your level (Farin 2026-11-22: "in the profile put a place that they can change their level to what they want") ----
+   A row on Profile opens a sheet of the onboarding level rows (LEVEL_OPTIONS; the Spanish app's first row is the Starter level).
+   Switching builds the new level's page 1 (regenerateRoadmap); finished lessons, games and stories stay finished. */
+function profileLevelValue(p){ return (typeof starterOn === 'function' && starterOn(p)) ? STARTER_VAL : ((p && p.level) || 'A1'); }
+function levelChoiceName(v){ return (typeof STARTER_VAL !== 'undefined' && v === STARTER_VAL && typeof starterLevelName === 'function') ? starterLevelName() : v; }
+function applyLevelChoice(p, v){
+  if(typeof STARTER_VAL !== 'undefined' && v === STARTER_VAL){ p.level = 'A1'; p.starter = 1; }
+  else { p.level = LEVELS.includes(v) ? v : 'A1'; delete p.starter; }
+  p.levelStage = 1;
+}
+function profileLevelRowHtml(p){
+  const v = profileLevelValue(p), o = LEVEL_OPTIONS.find(x=>x.value === v);
+  const name = (typeof STARTER_VAL !== 'undefined' && v === STARTER_VAL) ? levelChoiceName(v) : displayLevel(p);
+  const sub = (o ? L(o.label.en, o.label.tr, o.label.fa, o.label.es) + ' · ' : '') + L('Tap to change', 'Değiştirmek için dokun', 'برای تغییر بزن', 'Toca para cambiar');
+  return `<button class="item-row lv-row" data-action="level-sheet" style="margin-top:20px; cursor:pointer;">
+        <span class="item-ic lv-row-ic" style="background:var(--fs-purple); color:#fff;" dir="ltr">${esc(v)}</span>
+        <div class="item-body">
+          <div class="item-title">${L('Your level', 'Seviyen', 'سطح تو', 'Tu nivel')}: <bdi>${esc(name)}</bdi></div>
+          <div class="item-sub">${esc(sub)}</div>
+        </div>
+        <span class="chevron">${ICONS.chev}</span>
+      </button>`;
+}
+function levelSheetHtml(){
+  const vp = state.viewParams || {};
+  if(!vp.lvSheet || !state.profile) return '';
+  const cur = profileLevelValue(state.profile), pick = vp.lvPick || cur, same = pick === cur;
+  const rows = LEVEL_OPTIONS.map(o=>onbRowHtml('level-pick', o.value, `<span class="onb-lv">${esc(o.value)}</span>`, L(o.label.en, o.label.tr, o.label.fa, o.label.es), L(o.sub.en, o.sub.tr, o.sub.fa, o.sub.es), o.value === pick, false, false)).join('');
+  const nm = '⁨' + levelChoiceName(pick) + '⁩';
+  return `<div class="rl-sheetwrap" data-action="level-sheet-close" data-quiet="1"><div class="lsh fs-scr lv-sheet" role="dialog" aria-modal="true" aria-labelledby="lv-sheet-t" data-action="level-sheet-noop" data-quiet="1">
+    <div class="lsh-head"><h2 class="onb-h1" id="lv-sheet-t">${L('Change your level', 'Seviyeni değiştir', 'سطحت را عوض کن', 'Cambia tu nivel')}<span class="dot">.</span></h2><button class="lsh-x" data-action="level-sheet-close" aria-label="${esc(L('Close', 'Kapat', 'بستن', 'Cerrar'))}">×</button></div>
+    <p class="lv-note" dir="auto">${esc(L('Your roadmap starts again at the level you pick. Everything you have finished stays finished.', 'Yol haritan seçtiğin seviyeden yeniden başlar. Bitirdiğin her şey bitmiş olarak kalır.', 'نقشهٔ راهت از سطحی که انتخاب کنی دوباره شروع می‌شود. هر چیزی که تمام کرده‌ای، تمام‌شده می‌ماند.', 'Tu hoja de ruta empieza de nuevo en el nivel que elijas. Lo que ya terminaste sigue terminado.'))}</p>
+    <div class="fs-opts onb-rows" role="group">${rows}</div>
+    <button class="btn btn-primary fs-cta" data-action="level-apply"${same ? ' disabled' : ''}>${same ? esc(L('This is your level now', 'Şu anki seviyen bu', 'الان در همین سطح هستی', 'Este es tu nivel ahora')) : isoHtml(L('Switch to ' + nm, nm + ' seviyesine geç', 'برو به ' + nm, 'Cambiar a ' + nm))}</button>
+  </div></div>`;
+}
+const LEVEL_HANDLERS = {
+  'level-sheet'(){ state.viewParams = Object.assign({}, state.viewParams, {lvSheet:true, lvPick:profileLevelValue(state.profile)}); render(); },
+  'level-sheet-close'(){ state.viewParams = Object.assign({}, state.viewParams, {lvSheet:false}); render(); },
+  'level-sheet-noop'(){},
+  'level-pick'(el){ state.viewParams = Object.assign({}, state.viewParams, {lvPick:el.dataset.value}); render(); },
+  'level-apply'(){
+    const v = state.viewParams && state.viewParams.lvPick, p = state.profile;
+    if(!v || !p || v === profileLevelValue(p)) return;
+    applyLevelChoice(p, v);
+    regenerateRoadmap();
+    save();
+    go('dashboard');
+  }
+};
 
 /* ============================= SCREENS TABLE ============================= */
 const screens = {
@@ -32785,7 +32882,8 @@ const HANDLERS = {
   },
   'back'(){ backTap(); }
 };
-Object.assign(HANDLERS, RL_HANDLERS);   // Lessons that play (LESSONS-PLAY block)
+Object.assign(HANDLERS, RL_HANDLERS);
+Object.assign(HANDLERS, LEVEL_HANDLERS);   // Profile: your level (2026-11-22)   // Lessons that play (LESSONS-PLAY block)
 Object.assign(HANDLERS, NOTIF_HANDLERS);   // phone notifications (Settings switches, News from Farin rows)
 notifBoot();
 
