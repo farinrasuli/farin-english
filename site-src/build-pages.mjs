@@ -292,7 +292,7 @@ const GAMES_SHOWN = [
   { img: 'screen-game-siparis', c: '--orange-deep', name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], d: ['Müşteriyi dinle, tepsiyi hazırla.', 'Listen to the customer, fill the tray.', 'به مشتری گوش کن و سینی را آماده کن.'] },
   { img: 'screen-game-dava', c: '--purple', name: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], d: ['İpuçlarını oku, kimin yaptığını bul.', 'Read the clues, find who did it.', 'سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'] },
   { img: 'screen-game-pasaport', c: '--g-imm', name: ['Pasaport Masası', 'Passport Desk', 'میز گذرنامه'], d: ['Yolcuyu dinle, karttaki hatayı düzelt.', 'Listen to the traveller, fix the mistake on the card.', 'به مسافر گوش کن و اشتباه روی کارت را درست کن.'] },
-  { img: 'screen-game-sihirli', c: '--g-career', name: ['Sihirli Kelimeler', 'Magic Words', 'کلمات جادویی'], d: ['Kelimeyi sesli söyle, kapıyı aç.', 'Say the word out loud, open the door.', 'کلمه را بلند بگو و در را باز کن.'] },
+  { img: 'screen-game-sihirli', c: '--g-career', name: ['Sihirli Kelimeler', 'Magic Words', 'کلمات جادویی'], d: ['Eksik kelimeyi harf harf yaz, kapıyı aç.', 'Spell the missing word, open the door.', 'کلمه‌ی جاافتاده را حرف به حرف بچین و در را باز کن.'] },   /* Magic Words v2 (2026-11-22): the letter-tile game, no microphone */
 ];
 const GAMES_MORE = [
   [['Ev İşleri', 'Cozy Chores', 'کارهای دنج خانه'], ['Boyalı bir mutfakta cümleleri takip et, odayı sırayla topla.', 'Follow the sentences and tidy a painted kitchen step by step.', 'جمله‌ها را دنبال کن و یک آشپزخانه‌ی نقاشی‌شده را قدم به قدم مرتب کن.']],
