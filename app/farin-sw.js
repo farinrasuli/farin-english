@@ -134,8 +134,10 @@ const APP_ART_PRECACHE = [
 // audio/<lang>/alt/ holds the same lines in the other accent (accent switch). English: since 2026-11-11 the alt clips come
 // from the app-only site farinrasuli.github.io/farin-english-voice/audio/en/alt/ (same origin, so the origin check below
 // lets them through and this rule still caches them); the old copies under this app's audio/en/alt/ are dropped on activate.
-const AUDIO_RE = /\/audio\/[a-z]{2}\/(alt\/)?[0-9a-f]{16}\.mp3$/;
-const MANIFEST_RE = /\/audio\/[a-z]{2}\/(alt\/)?manifest\.json$/;
+// audio/<lang>/<code>/ (one letter): the game characters' second voices (2026-11-23: English Emma e / Michael m on the voice site,
+// Spanish Lucía l / Aldo a in the app), same rules.
+const AUDIO_RE = /\/audio\/[a-z]{2}\/(alt\/|[a-z]\/)?[0-9a-f]{16}\.mp3$/;
+const MANIFEST_RE = /\/audio\/[a-z]{2}\/(alt\/|[a-z]\/)?manifest\.json$/;
 /* Offline: the app's own images, the Google Fonts files and the pinned Firebase SDK are
    cache-first, filled on first use, so a learner who has opened the app once can open it again
    with no connection. Bump CACHE whenever an image is replaced under the same name. */
