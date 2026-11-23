@@ -190,6 +190,9 @@ html[lang="fa"] .price small{letter-spacing:0;font-size:.85rem}
 .pr{background:var(--orange-soft);border-radius:22px;padding:16px 18px;display:flex;flex-direction:column;gap:4px;justify-content:center}
 .pr small{color:var(--orange-ink)}
 .pr b{font-family:var(--display);font-weight:600;font-size:1.6rem;line-height:1.15;color:var(--on-orange);overflow-wrap:anywhere}
+/* the old price crossed out + "special price" (2026-11-23) */
+.pr .was{font-weight:800;font-size:1rem;line-height:1.2;color:var(--orange-ink);text-decoration:line-through;text-decoration-thickness:2px;overflow-wrap:anywhere}
+.pr .deal{align-self:flex-start;margin-top:6px;background:var(--purple);color:#fff;border-radius:999px;padding:3px 11px;font-size:.78rem;font-weight:900;line-height:1.5}
 .inc{background:var(--purple-soft);border-radius:22px;padding:16px 18px}
 .inc small{color:var(--purple-ink)}
 .inc ul{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-weight:700;line-height:1.4}
