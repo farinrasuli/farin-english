@@ -120,7 +120,7 @@ const PRACTISE = {
 // The page text. {lv} level, {S} the language they learn, {m} matched, {n} name, {cls} class name.
 const T = {
   en:{
-    pill:'Mid-private · 6–8 people', hello:'{n}, this one\'s for you', helloNo:'A small class, built around you', lvl:'Level', codeL:'Class',
+    pill:'Group class · 6–8 people', hello:'{n}, this one\'s for you', helloNo:'A small class, built around you', lvl:'Level', codeL:'Class',
     lead:'Only 6 to 8 people, and all of you share the same goal. Small enough that every class is built around you.',
     tiles:[['6–8', 'people, never more'], ['{lv}', 'everyone at your level'], ['Live', 'online, face to face']],
     whyEb:'Why you', whyH:'Matched by your goal',
@@ -135,8 +135,8 @@ const T = {
     usGoal:{career:'Everything we practise comes from your work: the meetings, e-mails and conversations you really have.', exam:'Everything we practise comes from your exam: the tasks you\'ll face and the score you need.', everyday:'Everything we practise comes from your life: the conversations you want to have and the things you want to say.', travel:'Everything we practise comes from your trips: the places you\'re going and the moments you\'ll face there.', immigration:'Everything we practise comes from your move: the calls, forms and first weeks in a new country.'},
     usSkip:'If it doesn\'t help your goal, we skip it.',
     usB:['', 'Built from your level and your goals: what you learn, in what order, and why. It\'s yours, not the group\'s, and it grows with you.', 'I follow each learner\'s path personally: what you\'ve got, where you get stuck, what should come next. Your next steps are planned from that, not from a textbook.', 'Same goal, same level, but your own focus. Your mistakes, your words and your situations come into every class.'],
-    midEb:'Mid-private', midH:'Not a crowd. Not alone.', best:'Your class',
-    rooms:[['A big class', ['20+ people', 'You speak for a few minutes', 'One plan for everyone']], ['Private lessons', ['Just you', 'Costs the most', 'Nobody to practise with']], ['FEschool mid-private', ['6–8 people', 'You speak again and again', 'Planned around your goals']]],
+    midEb:'Group class', midH:'Not a crowd. Not alone.', best:'Your class',
+    rooms:[['A big class', ['20+ people', 'You speak for a few minutes', 'One plan for everyone']], ['Private lessons', ['Just you', 'Costs the most', 'Nobody to practise with']], ['FEschool group class', ['6–8 people', 'You speak again and again', 'Planned around your goals']]],
     pracEb:'What we\'ll practise', pracH:'Real moments from your goal',
     howEb:'How it works', howH:'Every class starts with you',
     how:[['Your goal first', 'Before we start, I check each person\'s level and ask what exactly you need {S} for. Your own roadmap and the group\'s plan come from your answers.'], ['Your real situations', 'We practise the moments you will really face, not textbook dialogues.'], ['Your mistakes, fixed live', 'In a group this small I hear everyone. You get corrected by name, kindly, right there.'], ['The app in between', 'Your FEschool roadmap keeps you practising between classes.']],
@@ -150,7 +150,7 @@ const T = {
     waYes:'Hi Farin! I want a seat in this group class 🙌', waL:['Course:', 'Level:', 'My name:', 'Class code:'], waAsk:'Hi Farin! I have a question about the {cls} group class: ',
     title:'{cls} · small group class · FEschool'},
   tr:{
-    pill:'Yarı özel · 6–8 kişi', hello:'{n}, bu sınıf senin için', helloNo:'Senin etrafında kurulan küçük bir sınıf', lvl:'Seviye', codeL:'Sınıf',
+    pill:'Grup dersi · 6–8 kişi', hello:'{n}, bu sınıf senin için', helloNo:'Senin etrafında kurulan küçük bir sınıf', lvl:'Seviye', codeL:'Sınıf',
     lead:'Sadece 6–8 kişi ve hepiniz aynı hedefi paylaşıyorsunuz. Her ders senin etrafında kurulacak kadar küçük.',
     tiles:[['6–8', 'kişi, asla fazlası değil'], ['{lv}', 'herkes senin seviyende'], ['Canlı', 'online, yüz yüze']],
     whyEb:'Neden sen', whyH:'Hedefine göre eşleştin',
@@ -165,8 +165,8 @@ const T = {
     usGoal:{career:'Çalıştığımız her şey işinden gelir: gerçekten yaşadığın toplantılar, e-postalar ve konuşmalar.', exam:'Çalıştığımız her şey sınavından gelir: karşına çıkacak görevler ve ihtiyacın olan puan.', everyday:'Çalıştığımız her şey hayatından gelir: yapmak istediğin sohbetler ve söylemek istediğin şeyler.', travel:'Çalıştığımız her şey seyahatlerinden gelir: gideceğin yerler ve orada yaşayacağın anlar.', immigration:'Çalıştığımız her şey taşınma planından gelir: yeni bir ülkedeki telefonlar, formlar ve ilk haftalar.'},
     usSkip:'Hedefine yardım etmeyen bir şeyle vakit kaybetmeyiz.',
     usB:['', 'Seviyene ve hedeflerine göre hazırlanır: ne öğreneceğin, hangi sırayla ve neden. Grubun değil, senin; ve seninle birlikte büyür.', 'Her öğrencinin yolunu kendim takip ediyorum: neyi öğrendin, nerede takılıyorsun, sırada ne olmalı. Sonraki adımların ders kitabına göre değil, buna göre planlanır.', 'Aynı hedef, aynı seviye, ama odak senin. Hataların, kelimelerin ve kendi durumların her derse girer.'],
-    midEb:'Yarı özel', midH:'Ne kalabalık ne yalnız.', best:'Senin sınıfın',
-    rooms:[['Kalabalık sınıf', ['20+ kişi', 'Birkaç dakika konuşursun', 'Herkese tek bir plan']], ['Özel ders', ['Sadece sen', 'En pahalısı', 'Pratik yapacak kimse yok']], ['FEschool yarı özel', ['6–8 kişi', 'Tekrar tekrar konuşursun', 'Hedeflerine göre planlanır']]],
+    midEb:'Grup dersi', midH:'Ne kalabalık ne yalnız.', best:'Senin sınıfın',
+    rooms:[['Kalabalık sınıf', ['20+ kişi', 'Birkaç dakika konuşursun', 'Herkese tek bir plan']], ['Özel ders', ['Sadece sen', 'En pahalısı', 'Pratik yapacak kimse yok']], ['FEschool grup dersi', ['6–8 kişi', 'Tekrar tekrar konuşursun', 'Hedeflerine göre planlanır']]],
     pracEb:'Ne çalışacağız', pracH:'Hedefinden gerçek anlar',
     howEb:'Nasıl işliyor', howH:'Her ders seninle başlar',
     how:[['Önce senin hedefin', 'Başlamadan önce her birinizin seviyesine bakıyorum ve {S} ile tam olarak ne yapmak istediğinizi soruyorum. Hem kişisel yol haritan hem grubun planı cevaplarınızdan çıkıyor.'], ['Senin gerçek durumların', 'Ders kitabı diyaloglarını değil, gerçekten karşılaşacağın anları çalışıyoruz.'], ['Hataların, anında düzeltilir', 'Bu kadar küçük bir grupta herkesi duyuyorum. Adınla, nazikçe, o anda düzeltilirsin.'], ['Aralarda uygulama', 'FEschool yol haritan, dersler arasında da pratik yapmanı sağlar.']],
@@ -180,7 +180,7 @@ const T = {
     waYes:'Merhaba Farin! Bu mini grupta yer istiyorum 🙌', waL:['Kurs:', 'Seviye:', 'Adım:', 'Sınıf kodu:'], waAsk:'Merhaba Farin! {cls} mini grubu hakkında bir sorum var: ',
     title:'{cls} · mini grup dersi · FEschool'},
   fa:{
-    pill:'نیمه‌خصوصی · ۶ تا ۸ نفر', hello:'{n} جان، این کلاس مال توئه', helloNo:'یه کلاس کوچیک که دور تو ساخته می‌شه', lvl:'سطح', codeL:'کلاس',
+    pill:'کلاس گروهی · ۶ تا ۸ نفر', hello:'{n} جان، این کلاس مال توئه', helloNo:'یه کلاس کوچیک که دور تو ساخته می‌شه', lvl:'سطح', codeL:'کلاس',
     lead:'فقط ۶ تا ۸ نفر، و همه‌تون یه هدف دارین. اون‌قدر کوچیک که هر جلسه دور هدف تو ساخته می‌شه.',
     tiles:[['۶–۸', 'نفر، نه بیشتر'], ['{lv}', 'همه هم‌سطح تو'], ['زنده', 'آنلاین، رودررو']],
     whyEb:'چرا تو', whyH:'بر اساس هدفت انتخاب شدی',
@@ -195,8 +195,8 @@ const T = {
     usGoal:{career:'هر چی تمرین می‌کنیم از دل کار خودت میاد: همون جلسه‌ها، ایمیل‌ها و صحبت‌هایی که واقعاً داری.', exam:'هر چی تمرین می‌کنیم از دل آزمونت میاد: همون تسک‌هایی که باهاشون روبه‌رو می‌شی و نمره‌ای که لازم داری.', everyday:'هر چی تمرین می‌کنیم از دل زندگی خودت میاد: گفت‌وگوهایی که دوست داری داشته باشی و حرف‌هایی که می‌خوای بزنی.', travel:'هر چی تمرین می‌کنیم از دل سفرهات میاد: جاهایی که می‌ری و لحظه‌هایی که اونجا برات پیش میاد.', immigration:'هر چی تمرین می‌کنیم از دل مهاجرتت میاد: تماس‌ها، فرم‌ها و هفته‌های اول توی یه کشور جدید.'},
     usSkip:'هر چیزی که به هدفت کمک نکنه، کنار می‌ذاریمش.',
     usB:['', 'بر اساس سطح و هدف‌های خودت ساخته می‌شه: چی یاد بگیری، به چه ترتیبی و چرا. مال خودته، نه مال گروه، و هر چی جلوتر بری باهات به‌روز می‌شه.', 'مسیر یادگیری تک‌تک زبان‌آموزها رو خودم دنبال می‌کنم: چی رو یاد گرفتی، کجا گیر می‌کنی و بعدش باید سراغ چی بری. ادامه‌ی راهت رو از روی همین می‌چینم، نه از روی کتاب.', 'هدف یکی، سطح یکی، ولی تمرکز روی خود تو. اشتباه‌هات، کلمه‌هات و موقعیت‌های خودت میان سر هر جلسه.'],
-    midEb:'نیمه‌خصوصی', midH:'نه شلوغ، نه تنها.', best:'کلاس تو',
-    rooms:[['کلاس شلوغ', ['بیشتر از ۲۰ نفر', 'فقط چند دقیقه حرف می‌زنی', 'یه برنامه برای همه']], ['کلاس خصوصی', ['فقط خودت', 'گرون‌ترین گزینه', 'کسی نیست باهاش تمرین کنی']], ['نیمه‌خصوصی FEschool', ['۶ تا ۸ نفر', 'بارها و بارها حرف می‌زنی', 'برنامه بر اساس هدف‌های تو']]],
+    midEb:'کلاس گروهی', midH:'نه شلوغ، نه تنها.', best:'کلاس تو',
+    rooms:[['کلاس شلوغ', ['بیشتر از ۲۰ نفر', 'فقط چند دقیقه حرف می‌زنی', 'یه برنامه برای همه']], ['کلاس خصوصی', ['فقط خودت', 'گرون‌ترین گزینه', 'کسی نیست باهاش تمرین کنی']], ['کلاس گروهی FEschool', ['۶ تا ۸ نفر', 'بارها و بارها حرف می‌زنی', 'برنامه بر اساس هدف‌های تو']]],
     pracEb:'چی تمرین می‌کنیم', pracH:'لحظه‌های واقعی از هدف تو',
     howEb:'چطور پیش می‌ریم', howH:'هر جلسه با تو شروع می‌شه',
     how:[['اول هدف تو', 'قبل از شروع، سطح تک‌تکتون رو می‌سنجم و می‌پرسم دقیقاً برای چی {S} می‌خواین. هم نقشه‌ی راه شخصی خودت و هم برنامه‌ی گروه از جواب‌های خودتون درمیاد.'], ['موقعیت‌های واقعی خودت', 'به‌جای دیالوگ‌های کتابی، همون لحظه‌هایی رو تمرین می‌کنیم که واقعاً برات پیش میان.'], ['اشتباه‌هات، همون لحظه درست می‌شن', 'توی گروهی به این کوچیکی صدای همه رو می‌شنوم. با اسم خودت، با مهربونی و همون لحظه اصلاح می‌شی.'], ['اپ، بین جلسه‌ها', 'نقشه‌ی راهت توی اپ FEschool بین جلسه‌ها هم تمرینت رو ادامه می‌ده.']],
@@ -210,7 +210,7 @@ const T = {
     waYes:'سلام فرین! می‌خوام توی این کلاس گروهی ثبت‌نام کنم 🙌', waL:['دوره:', 'سطح:', 'اسمم:', 'کد کلاس:'], waAsk:'سلام فرین! درباره‌ی کلاس گروهی «{cls}» یه سؤال دارم: ',
     title:'{cls} · کلاس گروهی کوچک · FEschool'},
   es:{
-    pill:'Semiprivada · 6–8 personas', hello:'{n}, esta clase es para ti', helloNo:'Una clase pequeña, hecha a tu medida', lvl:'Nivel', codeL:'Clase',
+    pill:'Clase en grupo · 6–8 personas', hello:'{n}, esta clase es para ti', helloNo:'Una clase pequeña, hecha a tu medida', lvl:'Nivel', codeL:'Clase',
     lead:'Solo de 6 a 8 personas, y todas comparten tu objetivo. Tan pequeña que cada clase se construye en torno a ti.',
     tiles:[['6–8', 'personas, nunca más'], ['{lv}', 'todos con tu nivel'], ['En vivo', 'online, cara a cara']],
     whyEb:'Por qué tú', whyH:'Elegido por tu objetivo',
@@ -225,8 +225,8 @@ const T = {
     usGoal:{career:'Todo lo que practicamos sale de tu trabajo: las reuniones, los correos y las conversaciones que tienes de verdad.', exam:'Todo lo que practicamos sale de tu examen: las tareas que vas a encontrar y la nota que necesitas.', everyday:'Todo lo que practicamos sale de tu vida: las conversaciones que quieres tener y lo que quieres decir.', travel:'Todo lo que practicamos sale de tus viajes: los lugares adonde vas y los momentos que vivirás allí.', immigration:'Todo lo que practicamos sale de tu mudanza: las llamadas, los formularios y las primeras semanas en un país nuevo.'},
     usSkip:'Si algo no ayuda a tu objetivo, lo dejamos fuera.',
     usB:['', 'Hecha a partir de tu nivel y tus objetivos: qué aprendes, en qué orden y por qué. Es tuya, no del grupo, y avanza contigo.', 'Sigo personalmente el camino de cada estudiante: qué ya dominas, dónde te atascas, qué debería venir después. Tus próximos pasos salen de ahí, no de un libro.', 'Mismo objetivo, mismo nivel, pero con tu propio enfoque. Tus errores, tus palabras y tus situaciones entran en cada clase.'],
-    midEb:'Semiprivada', midH:'Ni una multitud, ni a solas.', best:'Tu clase',
-    rooms:[['Una clase grande', ['Más de 20 personas', 'Hablas unos pocos minutos', 'Un mismo plan para todos']], ['Clases particulares', ['Solo tú', 'Lo más caro', 'Nadie con quien practicar']], ['Semiprivada FEschool', ['6–8 personas', 'Hablas una y otra vez', 'Planificada según tus objetivos']]],
+    midEb:'Clase en grupo', midH:'Ni una multitud, ni a solas.', best:'Tu clase',
+    rooms:[['Una clase grande', ['Más de 20 personas', 'Hablas unos pocos minutos', 'Un mismo plan para todos']], ['Clases particulares', ['Solo tú', 'Lo más caro', 'Nadie con quien practicar']], ['Clase en grupo FEschool', ['6–8 personas', 'Hablas una y otra vez', 'Planificada según tus objetivos']]],
     pracEb:'Qué practicaremos', pracH:'Momentos reales de tu objetivo',
     howEb:'Cómo funciona', howH:'Cada clase empieza por ti',
     how:[['Primero, tu objetivo', 'Antes de empezar, compruebo el nivel de cada persona y le pregunto para qué necesita exactamente el {S}. Tu ruta personal y el plan del grupo salen de sus respuestas.'], ['Tus situaciones reales', 'Practicamos los momentos que de verdad vas a vivir, no diálogos de libro.'], ['Tus errores, corregidos al momento', 'En un grupo tan pequeño oigo a todos. Te corrijo por tu nombre, con amabilidad, en el momento.'], ['La app entre clases', 'Tu ruta en la app de FEschool te mantiene practicando entre clases.']],
@@ -247,22 +247,22 @@ const TW = {
   en:{eb:'When', h1:'Your class time', h2:'Pick your time', hNo:'What you get',
     sub2:'Same course, two groups. Choose the time that suits you; the seats at each time go in the order people say yes.',
     zone:{ir:'Iran time', tr:'Turkey time'}, opt:'Time {k}', pick:'Choose this time', picked:'Your pick', need:'Pick one of the two times first.',
-    ses:'{ns} sessions of 50 minutes, {d} a week: the course takes {w} weeks.', priceL:'The whole course', price:'{pr} toman', priceTr:'₺{pr}', deal:'Special price',
+    ses:'{ns} sessions of 50 minutes, {d} a week: the course takes {w} weeks.', priceL:'The whole course', price:'{pr} toman', priceTr:'₺{pr}', deal:'{p}% off',
     incL:'Included in the price', incL2:'Included in the course', inc:['Your VIP roadmap check', 'A private analysis of your learning path'], waT:'Time:'},
   tr:{eb:'Ne zaman', h1:'Ders saatin', h2:'Saatini seç', hNo:'Neler var',
     sub2:'Aynı kurs, iki grup. Sana uyan saati seç; her saatteki yerler “evet” diyenlere sırayla verilir.',
     zone:{ir:'İran saati', tr:'Türkiye saati'}, opt:'Seçenek {k}', pick:'Bu saati seç', picked:'Seçimin', need:'Önce iki saatten birini seç.',
-    ses:'50 dakikalık {ns} ders, haftada {d} ders: kurs {w} hafta sürer.', priceL:'Kursun tamamı', price:'{pr} toman', priceTr:'{pr} TL', deal:'Özel fiyat',
+    ses:'50 dakikalık {ns} ders, haftada {d} ders: kurs {w} hafta sürer.', priceL:'Kursun tamamı', price:'{pr} toman', priceTr:'{pr} TL', deal:'%{p} indirim',
     incL:'Fiyata dahil', incL2:'Kursa dahil', inc:['VIP yol haritası kontrolün', 'Öğrenme yolunun özel analizi'], waT:'Saat:'},
   fa:{eb:'زمان کلاس', h1:'زمان کلاست', h2:'زمانت رو انتخاب کن', hNo:'چی می‌گیری',
     sub2:'یه دوره، دو تا گروه. زمانی رو که برات بهتره انتخاب کن؛ جاهای هر زمان به ترتیبِ کسایی که «هستم» می‌گن پر می‌شه.',
     zone:{ir:'به وقت ایران', tr:'به وقت ترکیه'}, opt:'زمان {k}', pick:'همین زمان رو می‌خوام', picked:'انتخاب تو', need:'اول یکی از این دو تا زمان رو انتخاب کن.',
-    ses:'{ns} جلسه‌ی ۵۰ دقیقه‌ای، هفته‌ای {d} جلسه: دوره {w} هفته طول می‌کشه.', priceL:'هزینه‌ی کل دوره', price:'{pr} تومان', priceTr:'{pr} لیر', deal:'تخفیف ویژه',
+    ses:'{ns} جلسه‌ی ۵۰ دقیقه‌ای، هفته‌ای {d} جلسه: دوره {w} هفته طول می‌کشه.', priceL:'هزینه‌ی کل دوره', price:'{pr} تومان', priceTr:'{pr} لیر', deal:'{p}٪ تخفیف',
     incL:'توی همین هزینه', incL2:'همراه دوره', inc:['بررسی نقشه‌ی راه VIP تو', 'تحلیل خصوصی مسیر یادگیریت'], waT:'زمان:'},
   es:{eb:'Cuándo', h1:'Tu horario', h2:'Elige tu horario', hNo:'Lo que incluye',
     sub2:'El mismo curso, dos grupos. Elige el horario que mejor te venga; las plazas de cada horario se asignan por orden de respuesta.',
     zone:{ir:'hora de Irán', tr:'hora de Turquía'}, opt:'Horario {k}', pick:'Elegir este horario', picked:'Tu elección', need:'Primero elige uno de los dos horarios.',
-    ses:'{ns} clases de 50 minutos, {d} por semana: el curso dura {w} semanas.', priceL:'Todo el curso', price:'{pr} tomanes', priceTr:'{pr} TL', deal:'Precio especial',
+    ses:'{ns} clases de 50 minutos, {d} por semana: el curso dura {w} semanas.', priceL:'Todo el curso', price:'{pr} tomanes', priceTr:'{pr} TL', deal:'{p} % de descuento',
     incL:'Incluido en el precio', incL2:'Incluido en el curso', inc:['La revisión de tu ruta VIP', 'Un análisis privado de tu camino de aprendizaje'], waT:'Horario:'}
 };
 const DAYS = {
@@ -289,13 +289,17 @@ const topics = String(Q.get('tp') || '').split('.').filter((x, i, a)=>TOPICS[x] 
 const mNum = Math.min(999, Math.max(0, parseInt(Q.get('m'), 10) || 0));
 const asked = Q.get('w') === 'a' && kindIn === 'course';
 const cid = String(Q.get('id') || '').replace(/[^a-z0-9]/gi, '').slice(0, 20);
-const cc = /^[A-Z]{2,4}$/.test(Q.get('cc') || '') ? Q.get('cc') : '';   // the class code (2026-11-17)
+// Classes offered before 2026-11-23 got new codes (E… English, S… Spanish) and one new time each (Farin 2026-11-23): a link sent before still
+// carries the old code (AA …) and times, so it shows the new ones. New links never carry an old code.
+const MOVED = {AA:['EA', 'monwed-2040'], AB:['EB', 'tuethu-1845'], AC:['EC', 'monwed-1830'], AD:['ED', ''], AT:['SA', 'satsun-2040'], AV:['SB', 'satsun-1940']};
+const cc0 = /^[A-Z]{2,4}$/.test(Q.get('cc') || '') ? Q.get('cc') : '', moved = MOVED[cc0] || null;
+const cc = moved ? moved[0] : cc0;   // the class code (2026-11-17)
 const ref = cc || cid;   // what their messages name the class by
 // times (2026-11-18): s = slots in Farin's clock (Turkey), "sunwed-1800.satmon-2040"; z = ir shows them 30 minutes later (Iran);
 // ns = sessions; pr = the price, po = the old price shown crossed out (2026-11-23): toman for Iran, lira for Türkiye. Old links without
 // them keep "we pick the time together".
 const slotOf = id=>{ const m = /^((?:sat|sun|mon|tue|wed|thu|fri)+)-([01]\d|2[0-3])([0-5]\d)$/.exec(id); return m ? {d:m[1].match(/.{3}/g), at:Number(m[2]) * 60 + Number(m[3])} : null; };
-const slots = String(Q.get('s') || '').split('.').map(slotOf).filter(Boolean).slice(0, 2);
+const slots = String(moved ? moved[1] : (Q.get('s') || '')).split('.').map(slotOf).filter(Boolean).slice(0, 2);
 const zone = Q.get('z') === 'ir' || Q.get('z') === 'tr' ? Q.get('z') : (L === 'fa' ? 'ir' : 'tr');
 const nSes = Math.min(40, Math.max(0, parseInt(Q.get('ns'), 10) || 0));
 const qNum = k=>Math.min(1e11, Math.max(0, parseInt(Q.get(k), 10) || 0));
@@ -304,6 +308,8 @@ let priceT = qNum('pr'), priceWas = qNum('po');
 // 8 millions to 5.500 ... change the link").
 if(zone === 'ir' && priceT === 8000000 && !priceWas){ priceT = 5500000; priceWas = 8000000; }
 if(priceWas <= priceT) priceWas = 0;
+// the discount in percent on the tag (Farin 2026-11-23: "how many percent discount is it ... put that on the links"): 8,000,000 → 5,500,000 = 31%, ₺4,400 → ₺3,000 = 32%
+const dealPct = priceWas ? Math.round((priceWas - priceT) / priceWas * 100) : 0;
 const two = slots.length > 1;
 
 const W = T[L];
@@ -437,7 +443,7 @@ const when = !slots.length && !nSes && !priceT ? '' : `
     ${slots.length ? `<div class="opts${two ? ' two' : ''}">${slots.map(optCard).join('')}</div>${two ? '<p class="needmsg" role="status" aria-live="polite"></p>' : ''}` : ''}
     ${nSes ? `<p class="ses">${ICON_CAL}<span>${esc(num(X.ses.replace('{ns}', nSes).replace('{d}', daysPerWeek).replace('{w}', weeks)))}</span></p>` : ''}
     <div class="price${priceT ? '' : ' noprice'}">
-      ${priceT ? `<div class="pr"><small>${esc(X.priceL)}</small>${wasTxt ? `<s class="was">${esc(wasTxt)}</s>` : ''}<b>${esc(priceTxt)}</b>${wasTxt ? `<span class="deal">${esc(X.deal)}</span>` : ''}</div>` : ''}
+      ${priceT ? `<div class="pr"><small>${esc(X.priceL)}</small>${wasTxt ? `<s class="was">${esc(wasTxt)}</s>` : ''}<b>${esc(priceTxt)}</b>${wasTxt ? `<span class="deal">${esc(num(X.deal.replace('{p}', dealPct)))}</span>` : ''}</div>` : ''}
       <div class="inc"><small>${esc(priceT ? X.incL : X.incL2)}</small><ul>${X.inc.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>
     </div>
   </section>`;
