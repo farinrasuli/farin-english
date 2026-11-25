@@ -46797,7 +46797,7 @@ function mbCourseBoxHtml(c){
     ${play ? `<button class="cu-btn cu-purple mb-btn" data-action="mb-open" data-plan="plus">${CL('See what Plus includes','Plus\'ta neler var, bak','ببین Plus چه چیزهایی دارد','Mira qué incluye Plus')}</button>`
       : `<button class="cu-btn cu-orange mb-btn" data-action="mb-buy" data-plan="plus" data-from="${esc(c.id)}">${CL('Get Plus','Plus\'a geç','گرفتن Plus','Obtener Plus')} →</button>`}
     ${waiting ? `<div class="mb-cbox-wait">${waiting}</div>` : ''}
-    <div class="mb-cbox-more"><button class="mb-link" data-action="course-pw-toggle">${CL('I already have a course password','Kurs şifrem var','رمز دوره را دارم','Ya tengo la contraseña del curso')}</button>${play || waiting ? '' : `<button class="mb-link" data-action="course-waitlist" data-cid="${esc(c.id)}">${CL('Only this course? Ask Farin','Sadece bu kurs mu? Farin\'e sor','فقط همین دوره را می‌خواهی؟ از فرین بپرس','¿Solo este curso? Pregunta a Farin')}</button>`}</div>
+    <div class="mb-cbox-more"><button class="mb-link" data-action="course-pw-toggle">${CL('I already have a course password','Kurs şifrem var','رمز دوره را دارم','Ya tengo la contraseña del curso')}</button></div>
     ${courseUi.pwOpen || st ? coursePasswordBoxHtml(c) : ''}
   </div>`;
 }
@@ -46876,7 +46876,7 @@ function mbNotifItem(H, now){
   const m = mbRec(); if(!mbIsActive(m)) return null;
   const t = new Date(Number(m.end) - MB_WARN_MS); t.setHours(Math.max(10, Math.min(20, H - 1)), 40, 0, 0);
   if(t.getTime() <= now) return null;
-  return {at:t.getTime(), k:'mbend', v:{course:mbPlanName(m.plan), day:notifInLang(()=>mbDate(m.end)), go:'membership'}};
+  return {at:t.getTime(), k:'mbend', v:{course:mbPlanName(m.plan), day:typeof notifInLang === 'function' ? notifInLang(()=>mbDate(m.end)) : mbDate(m.end), go:'membership'}};
 }
 
 /* ---------- screens + taps ---------- */
@@ -47122,8 +47122,9 @@ function renderAdminMembersTab(){
 }
 /* ---------- writes ---------- */
 function adminMbPing(acct, uiLang, phone, kind, tag){
-  if(!acct || typeof NOTIF_LIVE === 'undefined' || !NOTIF_LIVE) return;
-  const lang = notifLangFor(uiLang || 'en', phone), T = (en, tr, fa, es)=>({en, tr, fa, es})[lang] || en;
+  if(!acct || typeof NOTIF_LIVE === 'undefined' || !NOTIF_LIVE || typeof adminNtFetch !== 'function') return;
+  // English app + Iranian number = Persian (notifLangFor); the Spanish app has no such helper: its app language
+  const lang = typeof notifLangFor === 'function' ? notifLangFor(uiLang || 'en', phone) : (uiLang || 'en'), T = (en, tr, fa, es)=>({en, tr, fa, es})[lang] || en;
   const msg = {
     accepted:[T('Your membership is on 🎉', 'Üyeliğin açıldı 🎉', 'عضویتت فعال شد 🎉', 'Tu membresía está activa 🎉'), T('Every premium course is open now. Tap to see it.', 'Bütün premium kurslar artık açık. Görmek için dokun.', 'همه‌ی دوره‌های ویژه باز شد. برای دیدن بزن.', 'Todos los cursos premium están abiertos. Toca para verlo.')],
     rejected:[T('About your payment', 'Ödemen hakkında', 'درباره‌ی پرداختت', 'Sobre tu pago'), T('Your payment wasn\'t accepted. Tap to see Farin\'s note.', 'Ödemen onaylanmadı. Farin\'in notunu görmek için dokun.', 'پرداختت تأیید نشد. برای دیدن یادداشت فرین بزن.', 'Tu pago no fue aceptado. Toca para ver la nota de Farin.')],
@@ -47156,7 +47157,7 @@ function adminMbAccept(id){
     Object.assign(p, {status:'accepted', decidedAt:now, act});
     adminMbBusy = ''; adminMbAsk = null;
     adminMbNote = 'Activated: ' + ((p.learner && p.learner.name) || 'the learner') + ' has ' + adminMbPlanLine(act.plan, act.period) + ' until ' + adminDate(act.end) + '.';
-    adminMbPing(acct, p.learner.uiLang, p.learner.phone, 'accepted', 'mb-' + id.slice(-20));
+    try{ adminMbPing(acct, p.learner.uiLang, p.learner.phone, 'accepted', 'mb-' + id.slice(-20)); }catch(e){}   // a ping never undoes or hides an activation
     renderAdminPage(); adminMbLoad();
   }).catch(err=>{ adminMbBusy = ''; adminMbErr = 'Not activated: ' + (err.message || err); renderAdminPage(); });
 }
@@ -47167,7 +47168,7 @@ function adminMbReject(id){
   firebase.firestore().collection('progress').doc(id).set({status:'rejected', decidedAt:now, reason}, {merge:true}).then(()=>{
     Object.assign(p, {status:'rejected', decidedAt:now, reason});
     adminMbBusy = ''; adminMbAsk = null; adminMbReason = ''; adminMbNote = 'Rejected. Their plan stays as it was.';
-    adminMbPing(p.learner && p.learner.accountHash, p.learner && p.learner.uiLang, p.learner && p.learner.phone, 'rejected', 'mb-' + id.slice(-20));
+    try{ adminMbPing(p.learner && p.learner.accountHash, p.learner && p.learner.uiLang, p.learner && p.learner.phone, 'rejected', 'mb-' + id.slice(-20)); }catch(e){}
     renderAdminPage();
   }).catch(err=>{ adminMbBusy = ''; adminMbErr = 'Not saved: ' + (err.message || err); renderAdminPage(); });
 }
@@ -47180,7 +47181,7 @@ function adminMbEdit(mid, key, fn, ping){
     const d = snap.exists ? (snap.data() || {}) : {};
     const next = fn(Array.isArray(d[key]) ? d[key].slice() : []);
     return ref.set({[key]:next, updatedAt:Date.now()}, {merge:true}).then(()=>{ m[key] = next; });
-  }).then(()=>{ adminMbBusy = ''; if(ping) adminMbPing(m.acct, null, m.phone, ping, 'mb-' + ping + '-' + mid.slice(-12)); renderAdminPage(); })
+  }).then(()=>{ adminMbBusy = ''; if(ping){ try{ adminMbPing(m.acct, null, m.phone, ping, 'mb-' + ping + '-' + mid.slice(-12)); }catch(e){} } renderAdminPage(); })
     .catch(err=>{ adminMbBusy = ''; adminMbErr = 'Not saved: ' + (err.message || err); renderAdminPage(); });
 }
 function adminMbAction(action, el){
