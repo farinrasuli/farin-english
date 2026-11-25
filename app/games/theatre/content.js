@@ -31,7 +31,7 @@ window.THEATRE_CONTENT = {
     order:{
       title:'Rush Hour at Sam’s',
       tagline:'Five customers. One tray. Listen closely.',
-      art:'games/posters/order.webp', artReady:true   // the 4:5 key art (2026-11-16; Games 2.0 SPEC 5.1: shown whole), with the palette from skins.js
+      art:'games/posters/order-3d.webp', artReady:true   // the 4:5 key art (3D Sam with a cup and cake, Higgsfield / farin-e9 2026-11-25; first 2026-11-16; Games 2.0 SPEC 5.1: shown whole), with the palette from skins.js
     },
     desk:{
       title:'Arrivals',
