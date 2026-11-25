@@ -35402,7 +35402,8 @@ const SPK_IR_OFFSET_MIN = 210;                          // Iran Standard Time = 
 const SPK_WEEKDAY = 4;                                  // Thursday
 const SPK_FROM_MIN = 13 * 60, SPK_TO_MIN = 19 * 60 + 30, SPK_LEN_MIN = 60;
 const SPK_CAP = 8, SPK_MAX_N = 4, SPK_LOOK_WEEKS = 12;
-// Price per session. PLACEHOLDER until Farin sets it (not part of Plus or Guided). The one place to change it.
+// Price per session for Free and Plus learners. Guided members join free (Farin 2026-11-25, relayed by the membership session: "yes the
+// spesaking club is seperaated but guided package have those for free"). PLACEHOLDER until Farin sets it. The one place to change it.
 const SPK_PRICE = {toman:500000, tl:300};
 const SPK_SEATS_DOC = 'spk-seats', SPK_CACHE_KEY = 'farinSpkSeats';
 const SPK_SLOTS = (()=>{ const s = []; for(let t = SPK_FROM_MIN; t + SPK_LEN_MIN <= SPK_TO_MIN; t += SPK_LEN_MIN) s.push(t); return s; })();
@@ -35491,6 +35492,9 @@ function spkPayOf(){
   if(/^90\d{10}$/.test(d)) return 'tl';
   return LANG === 'fa' ? 'toman' : 'tl';
 }
+// Guided members (membership, 2026-11-25) get their seats free: no price, no payment, no receipt; Farin still confirms the seat.
+function spkGuided(){ try{ return typeof mbPlan === 'function' && mbPlan() === 'guided'; }catch(e){ return false; } }
+function spkFreeWord(){ return L('Free with your Guided','Guided paketinle ücretsiz','با پکیج Guided رایگان','Gratis con tu Guided'); }
 function spkRef(g, n){ const f = typeof msgFirstName === 'function' ? msgFirstName() : ''; return (f ? f + ' · ' : '') + 'SPK-' + g.code + '-' + n; }
 
 /* ---------- seats ---------- */
@@ -35643,7 +35647,7 @@ function renderMyGroups(){
       <div class="spk-eb">${esc(L('Every Thursday · Iran time','Her perşembe · İran saati','هر پنجشنبه · به وقت ایران','Cada jueves · hora de Irán'))}</div>
       <h2 class="display spk-h">${esc(list.length === 1 ? L('Your group','Grubun','گروه تو','Tu grupo') : L('Your groups','Grupların','گروه‌های تو','Tus grupos'))}<span class="spk-dot">.</span></h2>
       <div class="spk-list">${list.map((m, i)=>spkCardHtml(m, i === 0 && !mine.length && list.length > 1)).join('')}</div>
-      <p class="spk-note">${esc(L('Each group has 8 seats and meets for one hour. A seat is yours once Farin confirms your payment.','Her grupta 8 kişilik yer var ve her oturum bir saat sürer. Farin ödemeni onayladığında yer senindir.','هر گروه ۸ جا دارد و هر جلسه یک ساعت است. وقتی فرین پرداختت را تأیید کند، جا مال توست.','Cada grupo tiene 8 plazas y dura una hora. La plaza es tuya cuando Farin confirma tu pago.'))}</p>
+      <p class="spk-note">${spkGuided() ? esc(L('Each group has 8 seats and meets for one hour. Your seats are free with Guided; Farin confirms them in Messages.','Her grupta 8 kişilik yer var ve her oturum bir saat sürer. Yerlerin Guided paketinle ücretsiz; Farin onları Mesajlar\'da onaylar.','هر گروه ۸ جا دارد و هر جلسه یک ساعت است. جاهایت با پکیج Guided رایگان است؛ فرین آن‌ها را در پیام‌ها قطعی می‌کند.','Cada grupo tiene 8 plazas y dura una hora. Tus plazas son gratis con Guided; Farin las confirma en Mensajes.')) : esc(L('Each group has 8 seats and meets for one hour. A seat is yours once Farin confirms your payment.','Her grupta 8 kişilik yer var ve her oturum bir saat sürer. Farin ödemeni onayladığında yer senindir.','هر گروه ۸ جا دارد و هر جلسه یک ساعت است. وقتی فرین پرداختت را تأیید کند، جا مال توست.','Cada grupo tiene 8 plazas y dura una hora. La plaza es tuya cuando Farin confirma tu pago.'))}</p>
     </div>
   </div>`;
 }
@@ -35658,8 +35662,10 @@ function renderSpkGroup(){
   const how = [
     L('One hour, live online, every Thursday at ' + at + ' Iran time.', 'Her perşembe İran saatiyle ' + at + '\'de, bir saat, canlı ve online.', 'هر پنجشنبه ساعت ' + spkNum(at) + ' به وقت ایران، یک ساعت، زنده و آنلاین.', 'Una hora, en directo y en línea, cada jueves a las ' + at + ' (hora de Irán).'),
     L('Up to 8 learners at your level, all speaking ' + lang + '. A FEschool teacher leads the talk, and everyone speaks.', 'Senin seviyende en fazla 8 kişi, hepsi ' + lang + ' konuşuyor. Sohbeti bir FEschool öğretmeni yönetir, herkes konuşur.', 'حداکثر ۸ نفر هم‌سطح تو که همه ' + lang + ' حرف می‌زنند. یک معلم FEschool گفتگو را پیش می‌برد و همه حرف می‌زنند.', 'Hasta 8 estudiantes de tu nivel, todos hablando ' + lang + '. Un profesor de FEschool guía la charla y todos hablan.'),
-    L('Buy 1, 2, 3 or 4 Thursdays. Price per session: ' + per + '.', '1, 2, 3 ya da 4 perşembe al. Oturum başına fiyat: ' + per + '.', '۱، ۲، ۳ یا ۴ پنجشنبه بخر. قیمت هر جلسه: ' + per + '.', 'Compra 1, 2, 3 o 4 jueves. Precio por sesión: ' + per + '.'),
-    L('Your seat is confirmed in Messages once Farin checks your payment.', 'Farin ödemeni kontrol edince yerin Mesajlar\'da onaylanır.', 'وقتی فرین پرداختت را بررسی کند، جایت در پیام‌ها قطعی می‌شود.', 'Tu plaza se confirma en Mensajes cuando Farin revisa tu pago.')
+    spkGuided() ? L('Pick 1, 2, 3 or 4 Thursdays: free with your Guided package.', '1, 2, 3 ya da 4 perşembe seç: Guided paketinle ücretsiz.', '۱، ۲، ۳ یا ۴ پنجشنبه انتخاب کن: با پکیج Guided رایگان است.', 'Elige 1, 2, 3 o 4 jueves: gratis con tu paquete Guided.')
+      : L('Buy 1, 2, 3 or 4 Thursdays. Price per session: ' + per + ' (free with the Guided package).', '1, 2, 3 ya da 4 perşembe al. Oturum başına fiyat: ' + per + ' (Guided paketinde ücretsiz).', '۱، ۲، ۳ یا ۴ پنجشنبه بخر. قیمت هر جلسه: ' + per + ' (با پکیج Guided رایگان).', 'Compra 1, 2, 3 o 4 jueves. Precio por sesión: ' + per + ' (gratis con el paquete Guided).'),
+    spkGuided() ? L('Farin confirms your seat in Messages.', 'Farin yerini Mesajlar\'da onaylar.', 'فرین جایت را در پیام‌ها قطعی می‌کند.', 'Farin confirma tu plaza en Mensajes.')
+      : L('Your seat is confirmed in Messages once Farin checks your payment.', 'Farin ödemeni kontrol edince yerin Mesajlar\'da onaylanır.', 'وقتی فرین پرداختت را بررسی کند، جایت در پیام‌ها قطعی می‌شود.', 'Tu plaza se confirma en Mensajes cuando Farin revisa tu pago.')
   ];
   const cta = booked ? (booked.chat ? `<button class="cu-btn cu-purple" data-action="msg-open" data-id="${esc(booked.chat)}">${esc(L('Open the chat','Sohbeti aç','باز کردن گفتگو','Abrir el chat'))}</button>` : '')
     : pend ? `<button class="cu-btn cu-purple" data-action="msg-open" data-id="${esc(pend)}">${esc(L('Your request is waiting','Talebin bekliyor','درخواستت در انتظار است','Tu solicitud está en espera'))}</button>`
@@ -35702,6 +35708,7 @@ function renderSpkPay(){
   for(let k = 1; k <= SPK_MAX_N; k++) starts[k] = spkUi.seats ? spkFirstStart(g, k, iso) : iso;
   if(!starts[r.n]){ const k = [1, 2, 3, 4].find(x=>starts[x]); if(k) r.n = k; }
   const n = r.n, start = starts[n], ref = spkRef(g, n);
+  if(spkGuided()) return spkPayGuidedHtml(g, r, iso, starts);
   const copyBtn = text=>`<button class="msg-mini" data-action="msg-copy" data-copy="${esc(text)}">${L('Copy','Kopyala','کپی','Copiar')}</button>`;
   const sessW = k=>L(k === 1 ? '1 session' : k + ' sessions', k + ' oturum', spkNum(k) + ' جلسه', k === 1 ? '1 sesión' : k + ' sesiones');
   const rows = [1, 2, 3, 4].map(k=>{
@@ -35748,6 +35755,36 @@ function renderSpkPay(){
     </div>
   </div>`;
 }
+// The Guided member's seat request: pick the Thursdays, send. No price, no payment, no receipt (Guided includes the clubs).
+function spkPayGuidedHtml(g, r, iso, starts){
+  const n = r.n, start = starts[n];
+  const sessW = k=>L(k === 1 ? '1 session' : k + ' sessions', k + ' oturum', spkNum(k) + ' جلسه', k === 1 ? '1 sesión' : k + ' sesiones');
+  const rows = [1, 2, 3, 4].map(k=>{
+    const s = starts[k], when = s ? spkDates(s, k).map(d=>spkDayMonth(d)).join(LANG === 'fa' ? '، ' : ', ') : L('No free seat for all of them','Hepsi için boş yer yok','برای همه‌شان جای خالی نیست','No hay plaza libre para todas');
+    return `<button class="fs-opt spk-nopt${k === n ? ' on' : ''}" data-action="spk-n" data-n="${k}" aria-pressed="${k === n}"${s ? '' : ' disabled'}>
+      <span class="fs-ot"><b>${esc(sessW(k))}</b><small>${esc(when)}</small></span><span class="fs-chk" aria-hidden="true"></span></button>`;
+  }).join('');
+  return `<div class="fade-in msg-page spk-pay">${msgTop()}
+    <div class="screen msg-screen">
+      <div class="eyebrow">${L('Speaking club · seat','Konuşma kulübü · yer','باشگاه مکالمه · رزرو جا','Club de conversación · plaza')}</div>
+      <h1 class="display msg-h" dir="ltr">${esc(g.name)}<span class="msg-dot">.</span></h1>
+      <div class="msg-tiles">
+        <div class="msg-tile"><span>${esc(spkThursdays())}</span><b dir="ltr">${spkTimeIr(g)}</b></div>
+        <div class="msg-tile"><span>${L('Price','Fiyat','قیمت','Precio')}</span><b>${L('Free','Ücretsiz','رایگان','Gratis')}</b></div>
+        <div class="msg-tile"><span>${L('Seats left','Boş yer','جای خالی','Plazas libres')}</span><b>${spkUi.seats ? spkNum(spkLeft(g.id, iso)) + ' / ' + spkNum(SPK_CAP) : spkNum(SPK_CAP)}</b></div>
+      </div>
+      <p class="spk-why" style="margin-top:12px;">${esc(L('Speaking clubs are part of your Guided package: no payment needed.','Konuşma kulüpleri Guided paketine dahil: ödeme gerekmez.','باشگاه‌های مکالمه جزو پکیج Guided توست: پرداختی لازم نیست.','Los clubes de conversación están incluidos en tu paquete Guided: no hace falta pagar.'))}</p>
+      <div class="card-flat msg-step"><div class="msg-step-h"><i class="msg-num">1</i><b>${L('How many sessions?','Kaç oturum?','چند جلسه؟','¿Cuántas sesiones?')}</b></div>
+        <div class="fs-opts" role="group">${rows}</div></div>
+      <div class="card-flat msg-step"><div class="msg-step-h"><i class="msg-num">2</i><b>${L('Your seat is confirmed here','Yerin burada onaylanır','جایت همین‌جا قطعی می‌شود','Tu plaza se confirma aquí')}</b></div>
+        <p class="msg-hint" style="color:var(--ink-soft);">${L('Farin confirms your seat in Messages, usually within a day.','Farin yerini genelde bir gün içinde Mesajlar\'da onaylar.','فرین معمولاً تا یک روز جایت را در پیام‌ها قطعی می‌کند.','Farin confirma tu plaza en Mensajes, normalmente en un día.')}</p></div>
+      <label class="msg-note-lbl" for="msg-note">${L('Message to Farin','Farin\'e mesaj','پیام به فرین','Mensaje para Farin')} <small style="color:var(--ink-faint); font-weight:700;">${L('(optional)','(isteğe bağlı)','(اختیاری)','(opcional)')}</small></label>
+      <textarea class="msg-note" id="msg-note" rows="2" maxlength="1000" dir="auto" placeholder="${esc(L('Anything to add?','Eklemek istediğin bir şey var mı?','چیزی می‌خواهی اضافه کنی؟','¿Algo que añadir?'))}">${esc(r.note || '')}</textarea>
+      ${msgUi.err ? `<p class="msg-err" role="alert">${esc(msgUi.err)}</p>` : ''}
+      <button class="cu-btn cu-orange msg-send-req" data-action="spk-send" ${start && !msgUi.busy ? '' : 'disabled'}>${msgUi.busy ? L('Sending…','Gönderiliyor…','در حال ارسال…','Enviando…') : L('Save my seat','Yerimi ayır','جایم را رزرو کن','Reservar mi plaza')}</button>
+    </div>
+  </div>`;
+}
 function renderSpkInvite(){
   queueFx(spkRefresh);
   const m = spkInviteMatch(); if(!m) return renderMyGroups();
@@ -35766,7 +35803,8 @@ function renderSpkInvite(){
         ${fact(L('Day','Gün','روز','Día'), L('Every Thursday','Her perşembe','هر پنجشنبه','Cada jueves'))}
         ${fact(L('Speaking topics','Konuşma konuları','موضوع‌های گفتگو','Temas de conversación'), g.topics.map(t=>cl(t)).join(LANG === 'fa' ? '، ' : ' · '), true)}
         ${fact(L('Time','Saat','ساعت','Hora'), '<span dir="ltr">' + spkTimeIr(g) + '</span> ' + esc(spkIranWord()) + (loc ? '<small>' + esc(loc) + '</small>' : ''), false, true)}
-        ${fact(L('Price per session','Oturum başına fiyat','قیمت هر جلسه','Precio por sesión'), spkPrice(1, spkPayOf()))}
+        ${spkGuided() ? fact(L('Price per session','Oturum başına fiyat','قیمت هر جلسه','Precio por sesión'), spkFreeWord())
+          : fact(L('Price per session','Oturum başına fiyat','قیمت هر جلسه','Precio por sesión'), esc(spkPrice(1, spkPayOf())) + '<small>' + esc(L('Free with the Guided package','Guided paketinde ücretsiz','با پکیج Guided رایگان','Gratis con el paquete Guided')) + '</small>', false, true)}
         ${fact(L('Available seats','Boş yerler','جای خالی','Plazas libres'), left === null ? L('8 in each group','Her grupta 8','هر گروه ۸ جا','8 en cada grupo') : left > 0 ? spkLeftText(left) + ' · ' + spkDateLabel(iso) : L('Full this Thursday','Bu perşembe dolu','این پنجشنبه پر است','Lleno este jueves'), true)}
       </div>
       ${m.why.length ? `<p class="spk-why">${esc(L('Picked for ', 'Seçilme nedeni: ', 'انتخاب‌شده بر اساس ', 'Elegido por ') + spkWhyText(m))}.</p>` : ''}
@@ -35799,9 +35837,9 @@ function spkPromoSpots(len, cur){
 }
 function spkPromoLine(g){
   const t = spkThursdays() + ' ' + spkTimeIr(g) + ' ' + spkIranWord();
-  if(!spkUi.seats) return t;
+  if(!spkUi.seats) return t + (spkGuided() ? ' · ' + spkFreeWord() : '');
   const left = spkLeft(g.id, spkNextDate(g));
-  return t + ' · ' + (left > 0 ? spkLeftText(left) : L('full this week','bu hafta dolu','این هفته پر است','lleno esta semana'));
+  return t + ' · ' + (spkGuided() ? spkFreeWord() + ' · ' : '') + (left > 0 ? spkLeftText(left) : L('full this week','bu hafta dolu','این هفته پر است','lleno esta semana'));
 }
 function spkPromoCardHtml(pos){
   const m = spkInviteMatch(); if(!m) return '';
@@ -35855,13 +35893,15 @@ function spkBubbleHtml(m, c, side, d, cls, time, imgHtml){
     return `<div class="msg-card ${cls}"><div class="msg-card-top"><span class="eyebrow">${esc(msgKindLabel('request', 'spk', side))}</span><b dir="ltr">${esc(name)}</b></div><div class="msg-card-body">
       ${kv(sess, (side === 'admin' ? n : spkNum(n)) + ' · ' + days)}
       ${g ? kv(when, timeV, true) : ''}
+      ${c.free ? kv(msgT(side, 'Price','Fiyat','قیمت','Precio'), msgT(side, 'Free with Guided','Guided ile ücretsiz','با Guided رایگان','Gratis con Guided')) : ''}
       ${c.price ? kv(msgT(side, 'Total','Toplam','جمع کل','Total'), c.price) : ''}
-      ${c.ref && c.pay !== 'toman' ? kv(msgT(side, 'Transfer note','Açıklama','توضیح واریز','Concepto'), c.ref) : ''}
-      ${side === 'admin' ? kv('Paid by', c.pay === 'toman' ? 'card to card (toman)' : 'bank transfer (TL)') : ''}
+      ${c.ref && c.pay !== 'toman' && !c.free ? kv(msgT(side, 'Transfer note','Açıklama','توضیح واریز','Concepto'), c.ref) : ''}
+      ${side === 'admin' && !c.free ? kv('Paid by', c.pay === 'toman' ? 'card to card (toman)' : 'bank transfer (TL)') : ''}
       ${c.receipt ? imgHtml(c.receipt, true) : ''}
       ${c.note ? `<p dir="auto">${esc(c.note)}</p>` : ''}
       ${time}</div></div>`
-      + (side === 'learner' && d && d.status !== 'done' ? `<div class="msg-sys">${esc(L('Sent. Farin checks the payment and confirms your seat here.','Gönderildi. Farin ödemeyi kontrol edip yerini burada onaylayacak.','فرستاده شد. فرین پرداخت را بررسی می‌کند و جایت را همین‌جا قطعی می‌کند.','Enviado. Farin revisa el pago y confirma tu plaza aquí.'))}</div>` : '');
+      + (side === 'learner' && d && d.status !== 'done' && c.free ? `<div class="msg-sys">${esc(L('Sent. Farin confirms your seat here.','Gönderildi. Farin yerini burada onaylayacak.','فرستاده شد. فرین جایت را همین‌جا قطعی می‌کند.','Enviado. Farin confirma tu plaza aquí.'))}</div>` : '')
+      + (side === 'learner' && d && d.status !== 'done' && !c.free ? `<div class="msg-sys">${esc(L('Sent. Farin checks the payment and confirms your seat here.','Gönderildi. Farin ödemeyi kontrol edip yerini burada onaylayacak.','فرستاده شد. فرین پرداخت را بررسی می‌کند و جایت را همین‌جا قطعی می‌کند.','Enviado. Farin revisa el pago y confirma tu plaza aquí.'))}</div>` : '');
   }
   return `<div class="msg-card ${cls} spk-seatcard"><div class="msg-card-top"><span class="eyebrow">${esc(msgT(side, 'Seat confirmed','Yer onaylandı','جا قطعی شد','Plaza confirmada'))}</span><b dir="ltr">${esc(name)}</b></div><div class="msg-card-body">
     ${kv(sess, days)}
@@ -35897,13 +35937,15 @@ Object.assign(HANDLERS, {
   },
   'spk-send'(){
     const g = spkGroup((state.viewParams || {}).g), r = msgUi.req;
-    if(!g || !r || r.cid !== 'spk:' + g.id || msgUi.busy || !r.receipt) return;
+    const free = spkGuided();
+    if(!g || !r || r.cid !== 'spk:' + g.id || msgUi.busy || (!r.receipt && !free)) return;
     const nt = document.getElementById('msg-note'); if(nt) r.note = nt.value;
     const start = spkUi.seats ? spkFirstStart(g, r.n, spkNextDate(g)) : spkNextDate(g);
     if(!start) return;
     msgUi.busy = true; msgUi.err = ''; render();
-    msgUploadImg(r.receipt, '', 'learner').then(img=>{
-      const card = {type:'spkreq', g:g.id, n:r.n, f:start, dates:spkDates(start, r.n), per:spkPrice(1, r.pay), price:spkPrice(r.n, r.pay), amt:SPK_PRICE[r.pay === 'toman' ? 'toman' : 'tl'] * r.n,
+    (free ? Promise.resolve('') : msgUploadImg(r.receipt, '', 'learner')).then(img=>{
+      const card = free ? {type:'spkreq', g:g.id, n:r.n, f:start, dates:spkDates(start, r.n), free:'guided', note:String(r.note || '').trim().slice(0, 1000)}
+        : {type:'spkreq', g:g.id, n:r.n, f:start, dates:spkDates(start, r.n), per:spkPrice(1, r.pay), price:spkPrice(r.n, r.pay), amt:SPK_PRICE[r.pay === 'toman' ? 'toman' : 'tl'] * r.n,
         pay:r.pay, receipt:img, ref:spkRef(g, r.n), note:String(r.note || '').trim().slice(0, 1000)};
       return msgCreate({topic:{t:'spk', g:g.id}, type:'request', req:'spk'}, [{id:msgMsgId(), at:Date.now(), card}]);
     }).then(id=>{ msgUi.busy = false; msgUi.req = null; msgGoThread(id); })
@@ -35933,12 +35975,25 @@ function adminSpkWrite(gid, change){
   });
 }
 function adminSpkReq(d){ const m = msgAll(d).find(x=>x.card && x.card.type === 'spkreq'); return m ? m.card : null; }
+// A free (Guided) seat request: is their Guided membership really active? 'yes' | 'no' | 'loading' (the membership docs the admin loads).
+function adminSpkGuidedState(d){
+  if(typeof adminMbMembers === 'undefined') return 'no';
+  if(adminMbMembers === null) return 'loading';
+  const h = d.learner && d.learner.accountHash, now = Date.now();
+  return h && adminMbMembers.some(m=>m.acct === h && m.plan === 'guided' && Number(m.end) > now) ? 'yes' : 'no';
+}
+function adminSpkQrKeys(d){ const c = adminSpkReq(d) || {}; return d.status === 'done' ? [] : c.free ? ['when'] : ['checking', 'unclear', 'spkamount']; }
 function adminSpkClock(g){ return spkHm(spkStartMin(g) - 30) + '–' + spkHm(spkStartMin(g) + 30); }   // Farin's clock = Turkey time = Iran − 30 min
 // The Inbox panel of a waiting seat request: check the receipt, then confirm (it picks the first Thursday with a seat in every week).
 function adminSpkActHtml(d){
   const c = adminSpkReq(d) || {}, g = spkGroup(c.g || (d.topic || {}).g), n = Math.max(1, Math.min(SPK_MAX_N, Number(c.n) || 1));
   if(!g) return `<div class="adm-act"><p class="msg-hint" style="color:var(--ink-soft);">This seat request names no group. Ask which group, then mark it done.</p><button class="cu-btn cu-purple" data-admin-action="chat-done" ${adminChatBusy ? 'disabled' : ''}>Mark done</button></div>`;
   const where = g.name + ' (' + g.code + ' · ' + spkLvLabel(g) + ') · Thu ' + spkTimeIr(g, 'admin') + ' Iran · ' + spkHm(spkStartMin(g) - 30) + ' your clock';
+  if(!adminChatConfirm && c.free){ const gs = adminSpkGuidedState(d);
+    return `<div class="adm-act"><div><div class="eyebrow">Guided member: free</div><p class="msg-hint" style="color:var(--ink-soft); margin-top:4px;">${n} session${n === 1 ? '' : 's'}, no payment (the clubs are in Guided). ${esc(where)}.</p>
+      ${gs === 'yes' ? '<p class="msg-hint" style="color:var(--success);">Their Guided membership is active.</p>' : gs === 'loading' ? '<p class="msg-hint">Checking their membership…</p>' : '<p class="msg-err">No active Guided membership found for this account. Ask for payment before you confirm.</p>'}</div>
+      <button class="cu-btn cu-orange" data-admin-action="chat-spk-ok" ${adminChatBusy ? 'disabled' : ''}>Confirm seat (Guided, free)</button>
+      <button class="btn btn-ghost btn-sm" style="align-self:center;" data-admin-action="chat-done" ${adminChatBusy ? 'disabled' : ''}>Mark done without a seat</button></div>`; }
   if(!adminChatConfirm) return `<div class="adm-act"><div><div class="eyebrow">Payment</div><p class="msg-hint" style="color:var(--ink-soft); margin-top:4px;">Check the receipt: <b style="color:var(--ink);">${esc(c.price || '—')}</b> for ${n} session${n === 1 ? '' : 's'}${c.pay !== 'toman' && c.ref ? `, transfer note “<span dir="auto">${esc(c.ref)}</span>”` : ''}. ${esc(where)}.</p></div>
       <button class="cu-btn cu-orange" data-admin-action="chat-spk-ok" ${adminChatBusy ? 'disabled' : ''}>Payment OK · confirm seat</button>
       <button class="btn btn-ghost btn-sm" style="align-self:center;" data-admin-action="chat-done" ${adminChatBusy ? 'disabled' : ''}>Mark done without a seat</button></div>`;
@@ -35950,7 +36005,7 @@ function adminSpkActHtml(d){
   return `<div class="adm-act confirm"><div class="eyebrow">Confirm the seat</div>
     <div class="msg-kv"><span>Group</span><b>${esc(g.name)} · ${esc(g.code)} · ${esc(spkLvLabel(g))} · ${g.app === 'es' ? 'Spanish' : 'English'}</b></div>
     <div class="msg-kv"><span>Time</span><b>Thursdays ${esc(spkTimeIr(g, 'admin'))} Iran · ${esc(adminSpkClock(g))} your clock</b></div>
-    <div class="msg-kv"><span>Sessions</span><b>${n} · ${esc(c.price || '')}</b></div>
+    <div class="msg-kv"><span>Sessions</span><b>${n} · ${esc(c.free ? 'free with Guided' : (c.price || ''))}</b></div>
     ${start ? dates.map(x=>`<div class="msg-kv"><span>${esc(spkDateLabel(x, false, 'admin'))}</span><b>${SPK_CAP - spkTaken(g.id, x, others) - 1} seats left after this one</b></div>`).join('') : ''}
     ${start && start !== want ? `<p class="msg-hint" style="color:var(--fs-orange-ink);">${esc(spkDateLabel(want, false, 'admin'))} has no seat for all ${n} weeks, so it starts ${esc(spkDateLabel(start, false, 'admin'))}. Tell them in the chat if that is a problem.</p>` : ''}
     ${start ? '' : `<p class="msg-err">No Thursday in the next 12 weeks has a free seat in all ${n} weeks. Offer fewer sessions or another group in the chat.</p>`}
@@ -35970,8 +36025,8 @@ function adminSpkConfirm(d){
     const nx = spkNextDate(g), want = c.f && c.f >= nx ? c.f : nx;
     start = spkFirstStart(g, n, want, Object.assign({}, seats, {[g.id]:mine}));
     if(!start) throw new Error('no Thursday in the next 12 weeks has a free seat in all ' + n + ' weeks.');
-    mine[key] = {f:start, n, at:Date.now(), chat:d.id, by:'payment'};
-  }).then(()=>adminChatPost(d, [{text:adminChatQrText('spkpaid', d)}, {card:{type:'spkseat', g:g.id, f:start, n, dates:spkDates(start, n)}}], {status:'done', statusAt:Date.now()}))
+    mine[key] = {f:start, n, at:Date.now(), chat:d.id, by:c.free ? 'guided' : 'payment'};
+  }).then(()=>adminChatPost(d, [{text:adminChatQrText(c.free ? 'spkguided' : 'spkpaid', d)}, {card:{type:'spkseat', g:g.id, f:start, n, dates:spkDates(start, n)}}], {status:'done', statusAt:Date.now()}))
     .then(()=>{ adminChatConfirm = false; adminChatMsg = 'Seat confirmed: ' + adminChatName(d) + ' in ' + g.name + ', ' + n + ' session' + (n === 1 ? '' : 's') + ' from ' + spkDateLabel(start, false, 'admin') + '.'; })
     .catch(err=>{ adminChatMsg = 'Not confirmed: ' + (err.message || err); })
     .then(()=>{ adminChatBusy = false; adminChatRender(); });
@@ -36096,7 +36151,7 @@ function adminSpkSeatRow(g, b, day, by){
   const ch = b.chat ? adminChatGet(b.chat) : null, p = by[b.key];
   const name = p ? (p.profile.name || '(no name)') : ch ? adminChatName(ch) : 'Learner ' + String(b.key).slice(0, 6);
   const k = spkDates(b.f, b.n).indexOf(day) + 1, ask = adminSpkDel === g.id + '|' + b.key;
-  return `<li><span class="t"><b dir="auto">${esc(name)}</b><small>session ${k} of ${b.n} · from ${esc(spkDateLabel(b.f, false, 'admin'))}${b.by === 'farin' ? ' · put in by you' : ''}</small></span>
+  return `<li><span class="t"><b dir="auto">${esc(name)}</b><small>session ${k} of ${b.n} · from ${esc(spkDateLabel(b.f, false, 'admin'))}${b.by === 'farin' ? ' · put in by you' : b.by === 'guided' ? ' · Guided (free)' : ''}</small></span>
     ${ch ? `<button class="btn btn-ghost btn-sm" data-admin-action="chat-open" data-id="${esc(ch.id)}">Chat</button>` : ''}
     ${ask ? `<button class="btn btn-sm" style="background:var(--error); color:#fff; border:0;" data-admin-action="spk-del-yes" data-g="${g.id}" data-k="${esc(b.key)}" ${adminChatBusy ? 'disabled' : ''}>Remove all ${b.n}</button><button class="btn btn-ghost btn-sm" data-admin-action="spk-del-no">Keep</button>`
       : `<button class="btn btn-ghost btn-sm" data-admin-action="spk-del" data-g="${g.id}" data-k="${esc(b.key)}">Remove</button>`}</li>`;
@@ -36126,7 +36181,7 @@ function renderAdminSpeakingTab(){
   const waiting = (adminChats || []).filter(d=>d.type === 'request' && d.req === 'spk' && d.status !== 'done'), act = adminSpkActive(), by = adminSpkPeopleBy();
   const groups = SPK_GROUPS.slice().sort((a, b)=>a.slot - b.slot);
   return `<div class="stack" style="gap:14px;">
-    <div class="row between" style="gap:10px; align-items:flex-start;"><p class="msg-hint" style="color:var(--ink-soft); margin:0;">Thursday ${spkHm(SPK_FROM_MIN)}–${spkHm(SPK_TO_MIN)} Iran time: ${SPK_SLOTS.length} one-hour sessions, ${spkHm(SPK_SLOTS[0])} to ${spkHm(SPK_SLOTS[SPK_SLOTS.length - 1] + SPK_LEN_MIN)} (${spkHm(SPK_SLOTS[0] - 30)}–${spkHm(SPK_SLOTS[SPK_SLOTS.length - 1] + SPK_LEN_MIN - 30)} your clock), one group an hour across both apps. Price ${spkMoney(SPK_PRICE.toman, 'toman', 'admin')} / ${spkMoney(SPK_PRICE.tl, 'tl', 'admin')} a session. A seat counts once you confirm the payment in Inbox, or put the learner in here.</p>
+    <div class="row between" style="gap:10px; align-items:flex-start;"><p class="msg-hint" style="color:var(--ink-soft); margin:0;">Thursday ${spkHm(SPK_FROM_MIN)}–${spkHm(SPK_TO_MIN)} Iran time: ${SPK_SLOTS.length} one-hour sessions, ${spkHm(SPK_SLOTS[0])} to ${spkHm(SPK_SLOTS[SPK_SLOTS.length - 1] + SPK_LEN_MIN)} (${spkHm(SPK_SLOTS[0] - 30)}–${spkHm(SPK_SLOTS[SPK_SLOTS.length - 1] + SPK_LEN_MIN - 30)} your clock), one group an hour across both apps. Price ${spkMoney(SPK_PRICE.toman, 'toman', 'admin')} / ${spkMoney(SPK_PRICE.tl, 'tl', 'admin')} a session; free for Guided members. A seat counts once you confirm the payment in Inbox, or put the learner in here.</p>
       <button class="btn btn-ghost btn-sm" data-admin-action="spk-reload">Reload</button></div>
     ${adminSpkMsg ? `<p class="msg-hint" role="status" style="color:var(--ink);">${esc(adminSpkMsg)}</p>` : ''}
     ${waiting.length ? `<button class="ap-linkrow" data-admin-action="ap-go" data-section="inbox" data-filter="todo"><span class="ap-tag">Inbox</span><span class="t"><b>${waiting.length} seat request${waiting.length === 1 ? '' : 's'} waiting</b><small>Check the receipt, then Payment OK · confirm seat</small></span>${ICONS.chev}</button>` : ''}
@@ -42234,6 +42289,7 @@ const ADMIN_CHAT_QR = {
   welcome:{label:"You're in", en:"You're in! Welcome to the Student Club. I'll send you the session times here.", tr:'Kulübe katıldın! Öğrenci Kulübü\'ne hoş geldin. Oturum saatlerini buradan göndereceğim.', fa:'عضو شدی! به باشگاه دانش‌آموزان خوش آمدی. ساعت جلسه‌ها را همین‌جا برایت می‌فرستم.', es:'¡Ya estás dentro! Te doy la bienvenida al Club de estudiantes. Te enviaré los horarios por aquí.'},
   check:{label:"I'll check today", en:"Good question! I'll check and answer you today.", tr:'Güzel soru! Kontrol edip bugün cevap vereceğim.', fa:'سؤال خوبی است! بررسی می‌کنم و امروز جوابت را می‌دهم.', es:'¡Buena pregunta! Lo reviso y te respondo hoy.'},
   spkamount:{label:"Amount doesn't match", en:'The amount on the receipt is different from the total for your sessions. Could you check it?', tr:'Dekonttaki tutar oturumlarının toplamından farklı. Kontrol edebilir misin?', fa:'مبلغ رسید با جمع جلسه‌هایت فرق دارد. می‌توانی بررسی‌اش کنی؟', es:'El importe del comprobante no coincide con el total de tus sesiones. ¿Puedes revisarlo?'},
+  spkguided:{en:'Your seat is confirmed. It is free with your Guided package.', tr:'Yerin onaylandı. Guided paketinle ücretsiz.', fa:'جایت قطعی شد. با پکیج Guided رایگان است.', es:'Tu plaza está confirmada. Es gratis con tu paquete Guided.'},
   spkpaid:{en:'Payment received, thank you! Your seat is confirmed.', tr:'Ödemen geldi, teşekkürler! Yerin onaylandı.', fa:'پرداختت رسید، ممنون! جایت قطعی شد.', es:'¡Pago recibido, gracias! Tu plaza está confirmada.'},
   paid:{en:'Payment received, thank you! Your course is open.', tr:'Ödemen geldi, teşekkürler! Kursun açıldı.', fa:'پرداختت رسید، ممنون! دوره‌ات باز شد.', es:'¡Pago recibido, gracias! Tu curso ya está abierto.'}
 };
@@ -42503,7 +42559,7 @@ function renderAdminChat(d){
   } else if(d.type === 'request'){
     act = `<div class="adm-act" style="border-color:var(--success); flex-direction:row; align-items:center; justify-content:space-between;">${msgTabHtml(d, 'admin')}<button class="btn btn-ghost btn-sm" data-admin-action="chat-reopen" ${adminChatBusy ? 'disabled' : ''}>Reopen</button></div>`;
   }
-  const keys = d.type === 'request' && d.req === 'spk' ? (d.status !== 'done' ? ['checking', 'unclear', 'spkamount'] : []) : d.type === 'request' && d.req === 'buy' ? (d.status !== 'done' ? ['checking', 'unclear', 'amount'] : []) : d.type === 'request' ? ['when', 'welcome'] : ['check'];
+  const keys = d.type === 'request' && d.req === 'spk' ? adminSpkQrKeys(d) : d.type === 'request' && d.req === 'buy' ? (d.status !== 'done' ? ['checking', 'unclear', 'amount'] : []) : d.type === 'request' ? ['when', 'welcome'] : ['check'];
   const qr = keys.length ? `<div class="msg-kind">Quick replies · sent in ${esc(ADMIN_CHAT_LANGS[lang])}</div><div class="row" style="gap:6px; flex-wrap:wrap;">${keys.map(k=>`<button class="btn btn-sm btn-ghost" data-admin-action="chat-qr" data-k="${k}" title="${esc(ADMIN_CHAT_QR[k].en)}">${esc(ADMIN_CHAT_QR[k].label)}</button>`).join('')}</div>` : '';
   return `<div class="stack" style="gap:14px;">
     <button class="back" style="align-self:flex-start;" data-admin-action="chat-back">${ICONS.back} Inbox</button>
