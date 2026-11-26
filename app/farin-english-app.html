@@ -35148,10 +35148,10 @@ function msgBubbleHtml(m, side, d, repaint, prev){
     const crs = courseGet(c.c), name = msgCourseName(c.c, side);
     const meta = crs ? [crs.entry ? crs.entry + '+' : '', crs.weeks ? msgT(side, crs.weeks + ' weeks', crs.weeks + ' hafta', String(crs.weeks).replace(/\d/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]) + ' هفته', crs.weeks + ' semanas') : '', msgT(side, 'lesson 1 free', '1. ders ücretsiz', 'درس ۱ رایگان', 'lección 1 gratis')].filter(Boolean).join(' · ') : '';
     let btns;
-    if(side === 'admin') btns = `<p>They see two buttons here: See the course · I want this course (it opens the course request with the price and payment).</p>`;
+    if(side === 'admin') btns = `<p>They see two buttons here: See the course · Get Plus (every premium course is in Plus and Guided).</p>`;
     else if(crs && courseUnlocked(crs.id)) btns = `<button class="cu-btn cu-orange msg-pw-btn" data-action="msg-open-course" data-cid="${esc(crs.id)}">${CL('Open the course','Kursu aç','باز کردن دوره','Abrir el curso')}</button>`;
     else if(crs) btns = `<button class="cu-btn cu-orange msg-pw-btn" data-action="msg-open-course" data-cid="${esc(crs.id)}">${CL('See the course','Kursa bak','دیدن دوره','Ver el curso')}</button>
-      <button class="cu-btn cu-purple msg-pw-btn" data-action="course-waitlist" data-cid="${esc(crs.id)}">${CL('I want this course','Bu kursu istiyorum','این دوره را می‌خواهم','Quiero este curso')}</button>`;
+      <button class="cu-btn cu-purple msg-pw-btn" data-action="course-waitlist" data-cid="${esc(crs.id)}">${CL('Get Plus: every course','Plus\'a geç: bütün kurslar','گرفتن Plus: همه‌ی دوره‌ها','Obtener Plus: todos los cursos')}</button>`;
     else btns = '';
     return `<div class="msg-b ${cls}" dir="auto"><span class="msg-who">${esc(msgT(side, 'Farin','Farin','فرین','Farin'))}</span>${esc(m.text || '')}</div>
       <div class="msg-card ${cls} msg-offer"><div class="msg-card-top"><span class="eyebrow">${esc(msgT(side, 'Course','Kurs','دوره','Curso'))}</span><b>${esc(name)}</b></div>
@@ -35278,7 +35278,7 @@ function renderMsgNew(){
       <h1 class="display msg-h">${CL('New message','Yeni mesaj','پیام جدید','Mensaje nuevo')}<span class="msg-dot">.</span></h1>
       <p class="msg-sub">${CL('What is it about?','Ne hakkında?','درباره‌ی چیست؟','¿De qué se trata?')}</p>
       <div class="msg-stack">
-        ${opt('buy', {t:'course'}, CL('Buy a course','Kurs satın al','خرید دوره','Comprar un curso'), CL('See the price, pay and send your receipt. Your password comes here.','Fiyatı gör, öde ve dekontunu gönder. Şifren buraya gelir.','قیمت را ببین، پرداخت کن و رسیدت را بفرست. رمزت همین‌جا می‌آید.','Mira el precio, paga y envía tu comprobante. Tu contraseña llega aquí.'))}
+        ${opt('buy', {t:'course'}, CL('Every course: Plus','Bütün kurslar: Plus','همه‌ی دوره‌ها: Plus','Todos los cursos: Plus'), CL('Premium courses come with Plus and Guided. See the packages.','Premium kurslar Plus ve Guided paketlerinde. Paketlere bak.','دوره‌های ویژه در پکیج‌های Plus و Guided هستند. پکیج‌ها را ببین.','Los cursos premium vienen con Plus y Guided. Mira los paquetes.'))}
         ${opt('club', {t:'club'}, CL('Student Club & live classes','Öğrenci Kulübü ve canlı dersler','باشگاه دانش‌آموزان و کلاس‌های زنده','Club de estudiantes y clases en vivo'), CL('Join the club or ask about classes.','Kulübe katıl ya da dersleri sor.','عضو باشگاه شو یا درباره‌ی کلاس‌ها بپرس.','Únete al club o pregunta por las clases.'))}
         ${opt('question', {t:'general'}, CL('A question about a lesson','Bir ders hakkında soru','سؤال درباره‌ی یک درس','Una pregunta sobre una lección'), CL('Ask about any course or lesson.','Herhangi bir kurs ya da ders hakkında sor.','درباره‌ی هر دوره یا درسی بپرس.','Pregunta sobre cualquier curso o lección.'))}
         ${opt('app', {t:'app'}, CL("Something isn't working",'Bir şey çalışmıyor','چیزی کار نمی‌کند','Algo no funciona'), CL('Your phone and app details are added for you.','Telefon ve uygulama bilgilerin otomatik eklenir.','مشخصات گوشی و اپ خودکار اضافه می‌شود.','Los datos de tu teléfono y de la app se añaden solos.'))}
@@ -35419,7 +35419,7 @@ Object.assign(HANDLERS, {
   'msg-open'(el){ courseSheetRemove(); msgUi.draft = ''; msgUi.err = ''; go('msg-thread', {id:el.dataset.id}); },
   'msg-opt'(el){
     const o = el.dataset.o;
-    if(o === 'buy') go('msg-pick', {mode:'buy'});
+    if(o === 'buy'){ if(HANDLERS['mb-open']){ HANDLERS['mb-open'](); return; } go('msg-pick', {mode:'buy'}); }   // COURSES-IN-PLUS: the packages
     else if(o === 'question') go('msg-pick', {mode:'question'});
     else if(o === 'club') HANDLERS['msg-club']();
     else { msgUi.draft = ''; msgUi.err = ''; go('msg-compose', {t:'app', type:'question'}); }
@@ -40763,7 +40763,7 @@ Object.assign(HANDLERS, {
       });
     });
   },
-  'course-waitlist'(el){ courseSheetRemove(); msgStartRequest(el.dataset.cid); },   // Messages (Farin 2026-11-12): the course request screen (price, payment, receipt); the waiting-list page stays for old links
+  'course-waitlist'(el){ courseSheetRemove(); const ex = msgFindReq(el.dataset.cid); if(ex){ go('msg-thread', {id:ex}); return; } if(HANDLERS['mb-buy']){ HANDLERS['mb-buy']({dataset:{plan:'plus', from:el.dataset.cid || ''}}); return; } msgStartRequest(el.dataset.cid); },   // COURSES-IN-PLUS 2026-11-26 (Farin: "courses can be get through plus and guided"): Get Plus; a request already waiting opens its chat
   'course-waitlist-save'(el){ courseWaitlistSubmit(el.dataset.cid); },
   'course-request-name-save'(){
     const i = document.getElementById('course-req-name'), name = i ? i.value.trim() : '';
@@ -42821,36 +42821,32 @@ function adminWaitlistMessageLang(r){
   if(wa.indexOf('98') === 0) return 'fa';
   return (r.lang === 'tr' || r.lang === 'fa') ? r.lang : 'en';
 }
-function adminWaitlistMessage(r){
+function adminWaitlistMessage(r){   // COURSES-IN-PLUS 2026-11-26: the course is in Plus (and Guided); no course price, no IBAN for one course
   const n = String(r.name || '').trim().split(/\s+/)[0], info = WAITLIST_COURSE_INFO[r.course] || null, lang = adminWaitlistMessageLang(r);
-  const url = info ? WAITLIST_SITE + info[lang] : '', tl = info ? info.tl : '';
+  const P = typeof MB_PRICES !== 'undefined' ? MB_PRICES : {tr:{plus:{month:[319]}}, ir:{plus:{month:[629000]}}};
+  const tl = P.tr.plus.month[0], tm = P.ir.plus.month[0], app = typeof APP_URL !== 'undefined' ? APP_URL : 'https://thefeschool.com/';
   if(lang === 'fa'){
-    const name = info ? info.nameFa : r.title;
+    const name = info ? info.nameFa : r.title, toman = String(tm.toLocaleString('en-US')).replace(/[0-9]/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]).replace(/,/g, '٬');
     return [(n ? 'سلام ' + n + ' جان! 🌸' : 'سلام! 🌸') + '\nامیدوارم حالت خوب باشه.',
-      'به FEschool خیلی خوش اومدی! خوشحالم که برای دوره‌ی ' + name + ' علاقه‌مند بودی و اسمت رو در لیست ثبت‌نام قرار داده بودی.',
-      (url ? 'لینک ثبت‌نام دوره رو برات می‌فرستم. ' : '') + 'بعد از تکمیل ثبت‌نام، کد اختصاصی ورود به دوره برات صادر می‌شه و می‌تونی از همون لحظه به محتوای دوره دسترسی داشته باشی و قدم‌به‌قدم مسیر یادگیریت رو پیش ببری.',
-      url ? '🔗 لینک ثبت‌نام دوره‌ی ' + name + ':\n' + url : '',
-      'بعد از ثبت‌نام، لطفاً تصویر فیش واریزی رو همین‌جا برام ارسال کن تا کد ورود اختصاصی رو برات بفرستم. 💜',
-      'به امید یک تجربه یادگیری مفید و متفاوت در FEschool!'].filter(Boolean).join('\n\n');
+      'به FEschool خیلی خوش اومدی! خوشحالم که برای دوره‌ی ' + name + ' اسمت رو در لیست گذاشته بودی.',
+      'خبر خوب: از این به بعد همه‌ی دوره‌های ویژه، از جمله ' + name + '، توی پکیج Plus هستن. با Plus همه‌ی دوره‌ها برات باز می‌شه و آخر هر صفحه‌ی مسیر یادگیری‌ات هم کارنامه می‌گیری. Plus ماهی ' + toman + ' تومانه و وقتی برای اولین بار صفحه‌ی عضویت رو توی اپ باز کنی، ۴۸ ساعت قیمت ویژه‌ی شروع داری.',
+      '🔗 اپ FEschool:\n' + app + '\nبرو به صفحه‌ی عضویت و Plus رو انتخاب کن.',
+      'اگه سؤالی داشتی همین‌جا بپرس. 💜'].join('\n\n');
   }
   if(lang === 'tr'){
     const name = info ? info.nameTr : r.title;
     return [(n ? 'Merhaba ' + n + '! 🌸' : 'Merhaba! 🌸') + '\nUmarım iyisindir.',
-      'FEschool\'a hoş geldin! ' + name + ' kursuyla ilgilendiğin ve kayıt listesine adını yazdırdığın için çok mutluyum.',
-      (url ? 'Kursun bağlantısını aşağıya bırakıyorum. ' : '') + 'Kaydını tamamladıktan sonra kursa özel giriş kodun oluşturulacak ve o andan itibaren kursun içeriğine erişip öğrenme yolunda adım adım ilerleyebileceksin.',
-      url ? '🔗 ' + name + ':\n' + url : '',
-      tl ? '💳 Kurs ücreti: ₺' + tl + '\nKayıt için ücreti şu hesaba yatırman yeterli:\nIBAN: ' + PAYMENT_IBAN + '\nAlıcı: ' + PAYMENT_IBAN_NAME : '',
-      'Ödemeden sonra lütfen dekontun görüntüsünü buraya gönder, sana özel giriş kodunu göndereyim. 💜',
-      'FEschool\'da faydalı ve farklı bir öğrenme deneyimi yaşaman dileğiyle!'].filter(Boolean).join('\n\n');
+      'FEschool\'a hoş geldin! ' + name + ' kursu için listeye adını yazdırdığın için çok mutluyum.',
+      'Güzel bir haberim var: artık bütün premium kurslar, ' + name + ' da dahil, Plus paketinde. Plus ile bütün kurslar açılır ve her yol haritası sayfasının sonunda bir karne alırsın. Plus aylık ₺' + tl.toLocaleString('tr-TR') + '; uygulamada üyelik sayfasını ilk açtığında 48 saatlik bir başlangıç fiyatı da var.',
+      '🔗 FEschool uygulaması:\n' + app + '\nÜyelik sayfasına gir ve Plus\'ı seç.',
+      'Bir sorun olursa buradan yazabilirsin. 💜'].join('\n\n');
   }
   const name = info ? info.nameEn : r.title;
   return [(n ? 'Hi ' + n + '! 🌸' : 'Hi! 🌸') + '\nI hope you\'re doing well.',
-    'Welcome to FEschool! I\'m really glad you\'re interested in the ' + name + ' course and put your name on the sign-up list.',
-    (url ? 'Here is the course link. ' : '') + 'Once you register, you\'ll get your own access code for the course, and from that moment you can open the course and move through your learning path step by step.',
-    url ? '🔗 ' + name + ':\n' + url : '',
-    tl ? '💳 Course fee: ₺' + tl.replace('.', ',') + '\nTo register, transfer the fee to this account:\nIBAN: ' + PAYMENT_IBAN + '\nName: ' + PAYMENT_IBAN_NAME : '',
-    'After you pay, please send me a photo of the receipt here and I\'ll send you your access code. 💜',
-    'Wishing you a useful and different learning experience at FEschool!'].filter(Boolean).join('\n\n');
+    'Welcome to FEschool! I\'m really glad you put your name down for the ' + name + ' course.',
+    'Good news: every premium course, ' + name + ' included, is now part of Plus. Plus opens all the courses and gives you a report at the end of each roadmap page. Plus is ₺' + tl.toLocaleString('en-US') + ' a month (' + tm.toLocaleString('en-US') + ' toman in Iran), and the app gives you a 48-hour intro price the first time you open the membership page.',
+    '🔗 The FEschool app:\n' + app + '\nOpen the membership page and choose Plus.',
+    'If you have any question, just ask me here. 💜'].join('\n\n');
 }
 function adminWaitlistSetMessaged(key, on){
   const r = adminWaitlistRows().find(x=>x.key === key);
@@ -44670,79 +44666,79 @@ const ADMIN_MK_WHY = {
   'everyday|ai-internet':'Everyday English online: searches, apps, AI chats.',
   'everyday|marketing':'For learners who post, write or sell online.'
 };
-// The offers, written as Farin texting one learner ({name} = their first name, {price} = the course price in their currency: TL for TR/EN,
-// toman for FA, from WAITLIST_COURSE_INFO / MSG_TOMAN). Persian written natively, informal تو. Only true claims: lesson 1 is free, one
+// The offers, written as Farin texting one learner ({name} = their first name, {price} = Plus a month in their currency: TL for TR/EN,
+// toman for FA, from MB_PRICES; since 2026-11-26 courses are only in Plus and Guided). Persian written natively, informal تو. Only true claims: lesson 1 is free, one
 // payment, 12 months' access, the course's own promise.
 const ADMIN_MK_COPY = {
   career:{
     business:{
-      en:"{name}, I saw that work is your reason for learning English, so this one's for you: Complete Business English. Emails that get answers, meetings you run, numbers you present, deals you negotiate, all in English. The first lesson is free, so try it today. The full course is {price}, one payment, and it's yours for 12 months.",
-      tr:'{name}, İngilizceyi iş için öğrendiğini gördüm, o yüzden bu kurs tam sana göre: Kapsamlı İş İngilizcesi. Cevap alan e-postalar, yönettiğin toplantılar, sunduğun rakamlar, yaptığın pazarlıklar; hepsi İngilizce. İlk ders ücretsiz, bugün bir dene. Kursun tamamı {price}, tek ödeme ve 12 ay senin.',
-      fa:'{name} جان، دیدم هدفت از یاد گرفتن انگلیسی کارته؛ این دوره دقیقاً برای توئه: «دوره‌ی جامع انگلیسی تجاری». ایمیل‌هایی که جواب می‌گیرن، جلسه‌هایی که خودت می‌گردونی، عددهایی که ارائه می‌دی، مذاکره‌هایی که می‌بری؛ همه‌ش به انگلیسی. درس اولش رایگانه، همین امروز امتحانش کن. کل دوره {price}ه، یه بار پرداخت می‌کنی و ۱۲ ماه مال خودته.'},
+      en:"{name}, I saw that work is your reason for learning English, so this one's for you: Complete Business English. Emails that get answers, meetings you run, numbers you present, deals you negotiate, all in English. The first lesson is free, so try it today. The full course is in Plus, together with every other premium course, and Plus is {price} a month.",
+      tr:'{name}, İngilizceyi iş için öğrendiğini gördüm, o yüzden bu kurs tam sana göre: Kapsamlı İş İngilizcesi. Cevap alan e-postalar, yönettiğin toplantılar, sunduğun rakamlar, yaptığın pazarlıklar; hepsi İngilizce. İlk ders ücretsiz, bugün bir dene. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، دیدم هدفت از یاد گرفتن انگلیسی کارته؛ این دوره دقیقاً برای توئه: «دوره‌ی جامع انگلیسی تجاری». ایمیل‌هایی که جواب می‌گیرن، جلسه‌هایی که خودت می‌گردونی، عددهایی که ارائه می‌دی، مذاکره‌هایی که می‌بری؛ همه‌ش به انگلیسی. درس اولش رایگانه، همین امروز امتحانش کن. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     interview:{
-      en:"{name}, picture yourself in that interview: calm, with every answer ready. That's what Job Interview English is for: your introduction, your strengths, your best stories, your answers to the hard questions, even your reply to the offer. It's a four-week course, and the first lesson is free. The full course is {price}, one payment.",
-      tr:'{name}, kendini o mülakatta düşün: sakin ve bütün cevapları hazır. İngilizce İş Mülakatı tam bunun için: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, zor sorulara cevapların, hatta teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، خودت رو توی اون مصاحبه تصور کن: آروم، با همه‌ی جواب‌ها آماده. «مصاحبه‌ی شغلی به انگلیسی» دقیقاً برای همینه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات، جواب سؤال‌های سخت، حتی جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:"{name}, picture yourself in that interview: calm, with every answer ready. That's what Job Interview English is for: your introduction, your strengths, your best stories, your answers to the hard questions, even your reply to the offer. It's a four-week course, and the first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.",
+      tr:'{name}, kendini o mülakatta düşün: sakin ve bütün cevapları hazır. İngilizce İş Mülakatı tam bunun için: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, zor sorulara cevapların, hatta teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، خودت رو توی اون مصاحبه تصور کن: آروم، با همه‌ی جواب‌ها آماده. «مصاحبه‌ی شغلی به انگلیسی» دقیقاً برای همینه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات، جواب سؤال‌های سخت، حتی جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     sales:{
-      en:"{name}, if your work is selling, this one's yours: Sales & Trade English. Pitches, first calls, trade fairs, quotes, Incoterms, objections and negotiation, all in English. You finish with a sales kit you can use at work the next day. The first lesson is free. The full course is {price}, one payment.",
-      tr:'{name}, işin satışsa bu kurs tam senlik: Satış ve Dış Ticaret İngilizcesi. Tanıtım, ilk temas, fuarlar, teklifler, Incoterms, itirazlar ve pazarlık; hepsi İngilizce. Sonunda ertesi gün işte kullanabileceğin bir satış dosyan oluyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، اگه کارت فروشه، این دوره مال خودته: «انگلیسی فروش و بازرگانی». معرفی محصول، اولین تماس، نمایشگاه، پیشنهاد قیمت، اینکوترمز، جواب دادن به اعتراض مشتری و مذاکره؛ همه‌ش به انگلیسی. آخرش یه بسته‌ی فروش دستته که از فرداش سر کار به دردت می‌خوره. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:"{name}, if your work is selling, this one's yours: Sales & Trade English. Pitches, first calls, trade fairs, quotes, Incoterms, objections and negotiation, all in English. You finish with a sales kit you can use at work the next day. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.",
+      tr:'{name}, işin satışsa bu kurs tam senlik: Satış ve Dış Ticaret İngilizcesi. Tanıtım, ilk temas, fuarlar, teklifler, Incoterms, itirazlar ve pazarlık; hepsi İngilizce. Sonunda ertesi gün işte kullanabileceğin bir satış dosyan oluyor. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، اگه کارت فروشه، این دوره مال خودته: «انگلیسی فروش و بازرگانی». معرفی محصول، اولین تماس، نمایشگاه، پیشنهاد قیمت، اینکوترمز، جواب دادن به اعتراض مشتری و مذاکره؛ همه‌ش به انگلیسی. آخرش یه بسته‌ی فروش دستته که از فرداش سر کار به دردت می‌خوره. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     marketing:{
-      en:'{name}, if you write for work (posts, product pages, emails to customers), Copywriting & Content English will change how your words land. Brand voice, briefs, product copy, social posts, and how to fix an AI draft so it sounds like you. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, iş için yazıyorsan (gönderiler, ürün sayfaları, müşteri e-postaları) Metin Yazarlığı ve İçerik İngilizcesi yazdıklarının etkisini değiştirir. Marka sesi, brief, ürün metni, sosyal medya gönderileri ve bir yapay zekâ taslağını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، اگه برای کارت می‌نویسی (پست، صفحه‌ی محصول، ایمیل به مشتری)، «انگلیسی کپی‌رایتینگ و تولید محتوا» اثر نوشته‌هات رو عوض می‌کنه. صدای برند، بریف، متن محصول، پست شبکه‌های اجتماعی، و اینکه متن هوش مصنوعی رو طوری درست کنی که انگار خودت نوشتی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, if you write for work (posts, product pages, emails to customers), Copywriting & Content English will change how your words land. Brand voice, briefs, product copy, social posts, and how to fix an AI draft so it sounds like you. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, iş için yazıyorsan (gönderiler, ürün sayfaları, müşteri e-postaları) Metin Yazarlığı ve İçerik İngilizcesi yazdıklarının etkisini değiştirir. Marka sesi, brief, ürün metni, sosyal medya gönderileri ve bir yapay zekâ taslağını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، اگه برای کارت می‌نویسی (پست، صفحه‌ی محصول، ایمیل به مشتری)، «انگلیسی کپی‌رایتینگ و تولید محتوا» اثر نوشته‌هات رو عوض می‌کنه. صدای برند، بریف، متن محصول، پست شبکه‌های اجتماعی، و اینکه متن هوش مصنوعی رو طوری درست کنی که انگار خودت نوشتی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     'ai-internet':{
-      en:'{name}, more and more work happens with AI, and a lot of it in English. English for AI and the Internet shows you how the tools work, how to write prompts that get good answers, and how to check what comes back. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, iş giderek daha çok yapay zekâyla yapılıyor ve bunun büyük kısmı İngilizce. Yapay Zekâ ve İnternet için İngilizce sana araçların nasıl çalıştığını, iyi cevap getiren promptları nasıl yazacağını ve gelen cevabı nasıl kontrol edeceğini gösteriyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، کارها روزبه‌روز بیشتر با هوش مصنوعی پیش می‌ره و خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده ابزارها چطور کار می‌کنن، چه پرامپتی بنویسی که جواب خوب بگیری و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, more and more work happens with AI, and a lot of it in English. English for AI and the Internet shows you how the tools work, how to write prompts that get good answers, and how to check what comes back. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, iş giderek daha çok yapay zekâyla yapılıyor ve bunun büyük kısmı İngilizce. Yapay Zekâ ve İnternet için İngilizce sana araçların nasıl çalıştığını, iyi cevap getiren promptları nasıl yazacağını ve gelen cevabı nasıl kontrol edeceğini gösteriyor. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، کارها روزبه‌روز بیشتر با هوش مصنوعی پیش می‌ره و خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده ابزارها چطور کار می‌کنن، چه پرامپتی بنویسی که جواب خوب بگیری و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     hr:{
-      en:'{name}, if you work in HR or manage people, I made this course for you: HR & Business English. 32 real HR tasks in English: interviews, job ads, feedback talks, policy emails, formal letters. The first lesson is free. The full course is {price}, one payment, with 12 months of access.',
-      tr:"{name}, İK'da çalışıyorsan ya da bir ekip yönetiyorsan, bu kursu senin için hazırladım: İK ve İş İngilizcesi. İngilizce 32 gerçek İK görevi: mülakatlar, iş ilanları, geri bildirim görüşmeleri, politika e-postaları, resmî yazışmalar. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme, 12 ay erişim.",
-      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی یا یه تیم رو مدیریت می‌کنی، این دوره رو برای تو ساختم: «انگلیسی منابع انسانی و کسب‌وکار». ۳۲ تا کار واقعی منابع انسانی به انگلیسی: مصاحبه، آگهی استخدام، جلسه‌ی بازخورد، ایمیل آیین‌نامه و نامه‌ی رسمی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت، با ۱۲ ماه دسترسی.'}
+      en:'{name}, if you work in HR or manage people, I made this course for you: HR & Business English. 32 real HR tasks in English: interviews, job ads, feedback talks, policy emails, formal letters. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:"{name}, İK'da çalışıyorsan ya da bir ekip yönetiyorsan, bu kursu senin için hazırladım: İK ve İş İngilizcesi. İngilizce 32 gerçek İK görevi: mülakatlar, iş ilanları, geri bildirim görüşmeleri, politika e-postaları, resmî yazışmalar. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.",
+      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی یا یه تیم رو مدیریت می‌کنی، این دوره رو برای تو ساختم: «انگلیسی منابع انسانی و کسب‌وکار». ۳۲ تا کار واقعی منابع انسانی به انگلیسی: مصاحبه، آگهی استخدام، جلسه‌ی بازخورد، ایمیل آیین‌نامه و نامه‌ی رسمی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'}
   },
   exam:{
     ielts:{
-      en:'{name}, I know how much that IELTS score means to you. My IELTS course has 10 full exams that follow the structure and timing of recent tests, part by part, and I read your writing tasks myself and tell you exactly what to fix. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, o IELTS puanının senin için ne kadar önemli olduğunu biliyorum. IELTS kursumda yakın tarihli sınavların yapısını ve süresini izleyen 10 tam sınav var, kısım kısım; yazma görevlerini de ben okuyorum ve neyi düzeltmen gerektiğini net söylüyorum. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، می‌دونم نمره‌ی آیلتس چقدر برات مهمه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، با همون ساختار و زمان‌بندی آزمون‌های اخیر، بخش به بخش؛ رایتینگ‌هات رو هم خودم می‌خونم و دقیق می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+      en:'{name}, I know how much that IELTS score means to you. My IELTS course has 10 full exams that follow the structure and timing of recent tests, part by part, and I read your writing tasks myself and tell you exactly what to fix. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, o IELTS puanının senin için ne kadar önemli olduğunu biliyorum. IELTS kursumda yakın tarihli sınavların yapısını ve süresini izleyen 10 tam sınav var, kısım kısım; yazma görevlerini de ben okuyorum ve neyi düzeltmen gerektiğini net söylüyorum. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، می‌دونم نمره‌ی آیلتس چقدر برات مهمه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، با همون ساختار و زمان‌بندی آزمون‌های اخیر، بخش به بخش؛ رایتینگ‌هات رو هم خودم می‌خونم و دقیق می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'}
   },
   immigration:{
     interview:{
-      en:'{name}, a new country starts with a job, and a job starts with an interview. Job Interview English gets your answers ready before you walk into the room: your introduction, your strengths, the hardest questions, your reply to the offer. It\'s a four-week course, and the first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, yeni bir ülke bir işle başlar, iş de bir mülakatla. İngilizce İş Mülakatı, o odaya girmeden cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en zor sorular, teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، زندگی توی یه کشور جدید با کار شروع می‌شه و کار با یه مصاحبه. «مصاحبه‌ی شغلی به انگلیسی» قبل از اینکه پات رو توی اون اتاق بذاری، جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، سخت‌ترین سؤال‌ها و جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, a new country starts with a job, and a job starts with an interview. Job Interview English gets your answers ready before you walk into the room: your introduction, your strengths, the hardest questions, your reply to the offer. It\'s a four-week course, and the first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, yeni bir ülke bir işle başlar, iş de bir mülakatla. İngilizce İş Mülakatı, o odaya girmeden cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en zor sorular, teklife vereceğin cevap. Dört haftalık bir kurs, ilk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، زندگی توی یه کشور جدید با کار شروع می‌شه و کار با یه مصاحبه. «مصاحبه‌ی شغلی به انگلیسی» قبل از اینکه پات رو توی اون اتاق بذاری، جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، سخت‌ترین سؤال‌ها و جوابت به پیشنهاد کار. یه دوره‌ی چهارهفته‌ایه و درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     ielts:{
-      en:'{name}, for many moves abroad, the IELTS score comes first. My IELTS course has 10 full exams, for both Academic and General Training, and I read your writing myself and tell you what to fix. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, yurt dışına giden birçok yolda ilk adım IELTS puanı. IELTS kursumda hem Academic hem General Training için 10 tam sınav var; yazdıklarını da ben okuyorum ve neyi düzeltmen gerektiğini söylüyorum. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، برای خیلی از مسیرهای مهاجرت، اولین قدم نمره‌ی آیلتسه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، هم برای آکادمیک هم جنرال؛ رایتینگ‌هات رو هم خودم می‌خونم و می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, for many moves abroad, the IELTS score comes first. My IELTS course has 10 full exams, for both Academic and General Training, and I read your writing myself and tell you what to fix. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, yurt dışına giden birçok yolda ilk adım IELTS puanı. IELTS kursumda hem Academic hem General Training için 10 tam sınav var; yazdıklarını da ben okuyorum ve neyi düzeltmen gerektiğini söylüyorum. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، برای خیلی از مسیرهای مهاجرت، اولین قدم نمره‌ی آیلتسه. توی دوره‌ی آیلتسم ۱۰ تا آزمون کامل هست، هم برای آکادمیک هم جنرال؛ رایتینگ‌هات رو هم خودم می‌خونم و می‌گم کجاش رو درست کنی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     business:{
-      en:'{name}, after the move, your English has to work at work too. Complete Business English covers what a job abroad really asks of you: emails that get answers, meetings, presenting numbers, negotiating, working across cultures. The first lesson is free. The full course is {price}, one payment, with 12 months of access.',
-      tr:'{name}, taşındıktan sonra İngilizcen iş yerinde de işe yaramalı. Kapsamlı İş İngilizcesi yurt dışındaki bir işin senden gerçekten istediklerini kapsıyor: cevap alan e-postalar, toplantılar, rakam sunmak, pazarlık, farklı kültürlerle çalışmak. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme, 12 ay erişim.',
-      fa:'{name} جان، بعد از مهاجرت، انگلیسیت باید سر کار هم جواب بده. «دوره‌ی جامع انگلیسی تجاری» همون چیزهایی رو پوشش می‌ده که یه کار خارج از کشور واقعاً ازت می‌خواد: ایمیل‌هایی که جواب می‌گیرن، جلسه، ارائه‌ی عددها، مذاکره، و کار کردن با آدم‌هایی از فرهنگ‌های دیگه. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت، با ۱۲ ماه دسترسی.'},
+      en:'{name}, after the move, your English has to work at work too. Complete Business English covers what a job abroad really asks of you: emails that get answers, meetings, presenting numbers, negotiating, working across cultures. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, taşındıktan sonra İngilizcen iş yerinde de işe yaramalı. Kapsamlı İş İngilizcesi yurt dışındaki bir işin senden gerçekten istediklerini kapsıyor: cevap alan e-postalar, toplantılar, rakam sunmak, pazarlık, farklı kültürlerle çalışmak. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، بعد از مهاجرت، انگلیسیت باید سر کار هم جواب بده. «دوره‌ی جامع انگلیسی تجاری» همون چیزهایی رو پوشش می‌ده که یه کار خارج از کشور واقعاً ازت می‌خواد: ایمیل‌هایی که جواب می‌گیرن، جلسه، ارائه‌ی عددها، مذاکره، و کار کردن با آدم‌هایی از فرهنگ‌های دیگه. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     hr:{
-      en:'{name}, if you work in HR and want to keep doing it in your new country, HR & Business English is made for that: 32 real HR tasks in English, from interviews and job ads to feedback talks and formal letters. The first lesson is free. The full course is {price}, one payment.',
-      tr:"{name}, İK'da çalışıyorsan ve yeni ülkende de bu işi yapmak istiyorsan, İK ve İş İngilizcesi tam bunun için: mülakatlardan iş ilanlarına, geri bildirim görüşmelerinden resmî yazışmalara İngilizce 32 gerçek İK görevi. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.",
-      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی و می‌خوای توی کشور جدیدت هم همین کار رو ادامه بدی، «انگلیسی منابع انسانی و کسب‌وکار» برای همینه: ۳۲ تا کار واقعی منابع انسانی به انگلیسی، از مصاحبه و آگهی استخدام تا جلسه‌ی بازخورد و نامه‌ی رسمی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+      en:'{name}, if you work in HR and want to keep doing it in your new country, HR & Business English is made for that: 32 real HR tasks in English, from interviews and job ads to feedback talks and formal letters. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:"{name}, İK'da çalışıyorsan ve yeni ülkende de bu işi yapmak istiyorsan, İK ve İş İngilizcesi tam bunun için: mülakatlardan iş ilanlarına, geri bildirim görüşmelerinden resmî yazışmalara İngilizce 32 gerçek İK görevi. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.",
+      fa:'{name} جان، اگه توی منابع انسانی کار می‌کنی و می‌خوای توی کشور جدیدت هم همین کار رو ادامه بدی، «انگلیسی منابع انسانی و کسب‌وکار» برای همینه: ۳۲ تا کار واقعی منابع انسانی به انگلیسی، از مصاحبه و آگهی استخدام تا جلسه‌ی بازخورد و نامه‌ی رسمی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'}
   },
   travel:{
     'ai-internet':{
-      en:'{name}, every trip starts long before the airport: bookings, reviews, maps, AI chats, much of it in English. English for AI and the Internet teaches you to research in English, write clear prompts and check the answers you get. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, her seyahat havalimanından çok önce başlar: rezervasyonlar, yorumlar, haritalar, yapay zekâ sohbetleri; çoğu da İngilizce. Yapay Zekâ ve İnternet için İngilizce sana İngilizce araştırma yapmayı, net prompt yazmayı ve gelen cevabı kontrol etmeyi öğretiyor. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، هر سفری خیلی قبل از فرودگاه شروع می‌شه: رزرو، نظر بقیه، نقشه، چت با هوش مصنوعی؛ خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده به انگلیسی سرچ کنی، پرامپت روشن بنویسی و جوابی رو که می‌گیری چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, every trip starts long before the airport: bookings, reviews, maps, AI chats, much of it in English. English for AI and the Internet teaches you to research in English, write clear prompts and check the answers you get. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, her seyahat havalimanından çok önce başlar: rezervasyonlar, yorumlar, haritalar, yapay zekâ sohbetleri; çoğu da İngilizce. Yapay Zekâ ve İnternet için İngilizce sana İngilizce araştırma yapmayı, net prompt yazmayı ve gelen cevabı kontrol etmeyi öğretiyor. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، هر سفری خیلی قبل از فرودگاه شروع می‌شه: رزرو، نظر بقیه، نقشه، چت با هوش مصنوعی؛ خیلی‌هاش هم به انگلیسیه. «انگلیسی برای هوش مصنوعی و اینترنت» یادت می‌ده به انگلیسی سرچ کنی، پرامپت روشن بنویسی و جوابی رو که می‌گیری چک کنی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     interview:{
-      en:"{name}, some trips turn into a new life abroad. If you're thinking of working where you travel, Job Interview English gets your answers ready: your introduction, your strengths, your best stories, your reply to the offer. The first lesson is free. The full course is {price}, one payment.",
-      tr:'{name}, bazı seyahatler yurt dışında yeni bir hayata dönüşür. Gezdiğin yerlerde çalışmayı düşünüyorsan, İngilizce İş Mülakatı cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, teklife vereceğin cevap. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، بعضی سفرها آخرش می‌شن یه زندگی تازه اون‌ور آب. اگه به کار کردن توی جاهایی که می‌ری فکر می‌کنی، «مصاحبه‌ی شغلی به انگلیسی» جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات و جوابت به پیشنهاد کار. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+      en:"{name}, some trips turn into a new life abroad. If you're thinking of working where you travel, Job Interview English gets your answers ready: your introduction, your strengths, your best stories, your reply to the offer. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.",
+      tr:'{name}, bazı seyahatler yurt dışında yeni bir hayata dönüşür. Gezdiğin yerlerde çalışmayı düşünüyorsan, İngilizce İş Mülakatı cevaplarını hazırlıyor: kendini tanıtman, güçlü yönlerin, en iyi hikâyelerin, teklife vereceğin cevap. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، بعضی سفرها آخرش می‌شن یه زندگی تازه اون‌ور آب. اگه به کار کردن توی جاهایی که می‌ری فکر می‌کنی، «مصاحبه‌ی شغلی به انگلیسی» جواب‌هات رو آماده می‌کنه: معرفی خودت، نقطه‌قوت‌هات، بهترین تجربه‌هات و جوابت به پیشنهاد کار. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'}
   },
   everyday:{
     'ai-internet':{
-      en:'{name}, so much of your day online is in English: searches, apps, AI chats. English for AI and the Internet makes all of it easier: how the tools work, prompts that get good answers, and how to check what you get back. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, internette geçen gününün büyük kısmı İngilizce: aramalar, uygulamalar, yapay zekâ sohbetleri. Yapay Zekâ ve İnternet için İngilizce bunların hepsini kolaylaştırıyor: araçların nasıl çalıştığı, iyi cevap getiren promptlar ve gelen cevabı kontrol etmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، خیلی از وقتی که آنلاینی به انگلیسی می‌گذره: سرچ، اپ‌ها، چت با هوش مصنوعی. «انگلیسی برای هوش مصنوعی و اینترنت» همه‌ی اینا رو برات راحت‌تر می‌کنه: ابزارها چطور کار می‌کنن، چه پرامپتی جواب خوب می‌گیره، و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'},
+      en:'{name}, so much of your day online is in English: searches, apps, AI chats. English for AI and the Internet makes all of it easier: how the tools work, prompts that get good answers, and how to check what you get back. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, internette geçen gününün büyük kısmı İngilizce: aramalar, uygulamalar, yapay zekâ sohbetleri. Yapay Zekâ ve İnternet için İngilizce bunların hepsini kolaylaştırıyor: araçların nasıl çalıştığı, iyi cevap getiren promptlar ve gelen cevabı kontrol etmek. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، خیلی از وقتی که آنلاینی به انگلیسی می‌گذره: سرچ، اپ‌ها، چت با هوش مصنوعی. «انگلیسی برای هوش مصنوعی و اینترنت» همه‌ی اینا رو برات راحت‌تر می‌کنه: ابزارها چطور کار می‌کنن، چه پرامپتی جواب خوب می‌گیره، و جوابی رو که می‌گیری چطور چک کنی. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'},
     marketing:{
-      en:'{name}, if you post, write or sell anything online, Copywriting & Content English is a fun next step: brand voice, product copy, social posts, customer stories, and turning AI drafts into something that sounds like you. The first lesson is free. The full course is {price}, one payment.',
-      tr:'{name}, internette bir şeyler paylaşıyor, yazıyor ya da satıyorsan, Metin Yazarlığı ve İçerik İngilizcesi keyifli bir sonraki adım: marka sesi, ürün metni, sosyal medya gönderileri, müşteri hikâyeleri ve yapay zekâ taslaklarını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı {price}, tek ödeme.',
-      fa:'{name} جان، اگه آنلاین پست می‌ذاری، می‌نویسی یا چیزی می‌فروشی، «انگلیسی کپی‌رایتینگ و تولید محتوا» قدم بعدی خیلی باحالیه: صدای برند، متن محصول، پست شبکه‌های اجتماعی، داستان مشتری، و اینکه متن‌های هوش مصنوعی رو طوری درست کنی که صدای خودت باشه. درس اولش رایگانه. کل دوره {price}ه، یه بار پرداخت.'}
+      en:'{name}, if you post, write or sell anything online, Copywriting & Content English is a fun next step: brand voice, product copy, social posts, customer stories, and turning AI drafts into something that sounds like you. The first lesson is free. The full course is in Plus, together with every other premium course, and Plus is {price} a month.',
+      tr:'{name}, internette bir şeyler paylaşıyor, yazıyor ya da satıyorsan, Metin Yazarlığı ve İçerik İngilizcesi keyifli bir sonraki adım: marka sesi, ürün metni, sosyal medya gönderileri, müşteri hikâyeleri ve yapay zekâ taslaklarını senin sesine çevirmek. İlk ders ücretsiz. Kursun tamamı Plus\'ta, diğer bütün premium kurslarla birlikte; Plus aylık {price}.',
+      fa:'{name} جان، اگه آنلاین پست می‌ذاری، می‌نویسی یا چیزی می‌فروشی، «انگلیسی کپی‌رایتینگ و تولید محتوا» قدم بعدی خیلی باحالیه: صدای برند، متن محصول، پست شبکه‌های اجتماعی، داستان مشتری، و اینکه متن‌های هوش مصنوعی رو طوری درست کنی که صدای خودت باشه. درس اولش رایگانه. کل دوره توی Plus هست، همراه همه‌ی دوره‌های ویژه‌ی دیگه؛ Plus ماهی {price}ه.'}
   }
 };
 // WhatsApp adds the course page (the site: /fa/c/ for Persian with the toman price and card, the Turkish course page, the English page).
@@ -44824,10 +44820,10 @@ function adminMkDefaultText(g, c, lang){ const o = (ADMIN_MK_COPY[g] || {})[c] |
 function adminMkOfferText(g, c, lang){ const e = (adminMk.offers || {})[adminMkTextKey(g, c, lang)]; return e && typeof e.t === 'string' && e.t.trim() ? e.t : adminMkDefaultText(g, c, lang); }
 function adminMkEdited(g, c, lang){ const e = (adminMk.offers || {})[adminMkTextKey(g, c, lang)]; return !!(e && typeof e.t === 'string' && e.t.trim()); }
 // The price in the learner's currency: TL list price (the site) for TR / EN, the toman price of the Persian sale page for FA.
-function adminMkPrice(c, lang){
-  const info = WAITLIST_COURSE_INFO[c] || {};
-  if(lang === 'fa') return MSG_TOMAN[c] ? MSG_TOMAN[c] + ' تومان' : '';
-  return info.tl ? '₺' + (lang === 'en' ? info.tl.replace('.', ',') : info.tl) : '';
+function adminMkPrice(c, lang){   // COURSES-IN-PLUS 2026-11-26: courses have no price of their own; {price} = Plus a month (regular, MB_PRICES)
+  const P = typeof MB_PRICES !== 'undefined' ? MB_PRICES : {tr:{plus:{month:[319]}}, ir:{plus:{month:[629000]}}};
+  if(lang === 'fa') return String(P.ir.plus.month[0].toLocaleString('en-US')).replace(/[0-9]/g, d=>'۰۱۲۳۴۵۶۷۸۹'[d]).replace(/,/g, '٬') + ' تومان';
+  return '₺' + P.tr.plus.month[0].toLocaleString(lang === 'en' ? 'en-US' : 'tr-TR');
 }
 function adminMkCourseUrl(c, lang){ const info = WAITLIST_COURSE_INFO[c]; return info && info[lang] ? WAITLIST_SITE + info[lang] : WAITLIST_SITE; }
 function adminMkFirst(name){ return String(name || '').trim().split(/\s+/)[0] || ''; }
@@ -44970,7 +44966,7 @@ function adminMkChatPreview(text, c, lang, ui){
   const crs = COURSES.find(x=>x.id === c), u = ui || lang, tfa = lang === 'fa', fa = u === 'fa';   // ui: the app's language (card labels)
   return `<div class="mk-chat${fa || tfa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="msg-b them" dir="auto"><span class="msg-who">${fa ? 'فرین' : 'Farin'}</span>${esc(text)}</div>
       <div class="msg-card them msg-offer"><div class="msg-card-top"><span class="eyebrow">${fa ? 'دوره' : u === 'tr' ? 'Kurs' : 'Course'}</span><b>${esc(crs ? (crs.title[u] || crs.title.en) : c)}</b></div>
-        <div class="msg-card-body"><span class="mk-fakebtn or">${fa ? 'دیدن دوره' : u === 'tr' ? 'Kursa bak' : 'See the course'}</span><span class="mk-fakebtn pu">${fa ? 'این دوره را می‌خواهم' : u === 'tr' ? 'Bu kursu istiyorum' : 'I want this course'}</span></div></div></div>`;
+        <div class="msg-card-body"><span class="mk-fakebtn or">${fa ? 'دیدن دوره' : u === 'tr' ? 'Kursa bak' : 'See the course'}</span><span class="mk-fakebtn pu">${fa ? 'گرفتن Plus: همه‌ی دوره‌ها' : u === 'tr' ? 'Plus\'a geç: bütün kurslar' : 'Get Plus: every course'}</span></div></div></div>`;
 }
 function adminMkWaPreview(text, lang){ const fa = lang === 'fa'; return `<div class="mk-wa${fa ? ' fa' : ''}" dir="${fa ? 'rtl' : 'ltr'}"><div class="mk-wa-b" dir="auto">${esc(text)}</div></div>`; }
 function adminMkOfferCard(g){
@@ -44995,7 +44991,7 @@ function adminMkOfferCard(g){
   return `<section class="ap-card ins-card mk-offer" style="--c:${COURSE_GOAL_COLORS[g] || '#7C5CFC'};">
       <span class="ap-eb">The offer for ${esc(ADMIN_MK_GT[g])}</span>
       <h3 class="ins-h">${esc(crs.title.en)}</h3>
-      <p class="mk-oprice"><b>${esc(adminMkPrice(c, 'tr'))}</b> Turkish and English learners · <b dir="rtl">${esc(adminMkPrice(c, 'fa'))}</b> Persian learners · one payment, 12 months · lesson 1 free</p>
+      <p class="mk-oprice"><b>${esc(adminMkPrice(c, 'tr'))}</b> Turkish and English learners · <b dir="rtl">${esc(adminMkPrice(c, 'fa'))}</b> Persian learners: Plus a month (the course is in Plus and Guided) · lesson 1 free</p>
       ${why ? `<p class="ins-note mk-why">Why this course: ${esc(why)}</p>` : ''}
       ${chips}
       ${langs}
