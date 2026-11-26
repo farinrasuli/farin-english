@@ -19,48 +19,48 @@ window.THEATRE_CONTENT = {
     chores:{
       title:'Open House',
       tagline:'Small jobs. Big hearts. One street.',
-      art:'games/posters/chores.webp', artReady:false,
+      art:'games/posters/chores.webp', artReady:false, full:'games/posters/chores-full.webp',
       palette:{sky:'#fff6d8', sky2:'#f7cf8f', glow:'#fffbe9', ground:'#e9a86a', ink:'#4a2a12', accent:'#d8343f', accentInk:'#ffffff'}
     },
     mystery:{
       title:'Harbour Files',
       tagline:'Everyone has a story. One of them isn’t true.',
-      art:'games/posters/mystery.webp', artReady:false,
+      art:'games/posters/mystery.webp', artReady:false, full:'games/posters/mystery-full.webp',
       palette:{sky:'#f3e6c9', sky2:'#dcc28e', glow:'#fbf3e0', ground:'#c9a66b', ink:'#2b2016', accent:'#b3261e', accentInk:'#ffffff'}
     },
     order:{
       title:'Rush Hour at Sam’s',
       tagline:'Five customers. One tray. Listen closely.',
-      art:'games/posters/order-3d.webp', artReady:true   // the 4:5 key art (3D Sam with a cup and cake, Higgsfield / farin-e9 2026-11-25; first 2026-11-16; Games 2.0 SPEC 5.1: shown whole), with the palette from skins.js
+      art:'games/posters/order-3d.webp', artReady:true, full:'games/posters/order-full.webp'   // the 4:5 key art (3D Sam with a cup and cake, Higgsfield / farin-e9 2026-11-25; first 2026-11-16; Games 2.0 SPEC 5.1: shown whole), with the palette from skins.js
     },
     desk:{
       title:'Arrivals',
       tagline:'Every traveller has a story. Check it.',
-      art:'games/posters/desk-3d.webp', artReady:true /* the 3D key art (Higgsfield, farin-e9, 2026-11-26) */   // until this portrait key art lands: the card poster + the palette from skins.js
+      art:'games/posters/desk-3d.webp', artReady:true, full:'games/posters/desk-full.webp' /* the 3D key art (Higgsfield, farin-e9, 2026-11-26) */   // until this portrait key art lands: the card poster + the palette from skins.js
     },
     radio:{
       // Mini Radio (spec mini-radio-2026-10-21.md 5.3): key art from the poster agent (GW74YH0q queue)
       title:'Mini Radio',
       tagline:'Tune in. Catch the story.',
-      art:'games/posters/radio-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */,
+      art:'games/posters/radio-3d.webp', artReady:true, full:'games/posters/radio-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */,
       palette:{sky:'#ffe1ef', sky2:'#ffd0e2', glow:'#fff3d2', ground:'#FF8FB3', ink:'#14332e', accent:'#FF6F5E', accentInk:'#ffffff'}
     },
     spell:{
       title:'The Word Doors',
       tagline:'Spell it right, and the door opens.',
-      art:'games/posters/spell-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */   // the 4:5 key art (worlds art 2026-11-19), wired with Magic Words v2 (2026-11-21)
+      art:'games/posters/spell-3d.webp', artReady:true, full:'games/posters/spell-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */   // the 4:5 key art (worlds art 2026-11-19), wired with Magic Words v2 (2026-11-21)
     },
     // quick games (2026-11-14): the poster is the live roadmap card art and its palette (skins.js), or the game's own 4:5 key art once it
     // passes (2026-11-16: Order Up!, Word Bingo, Say It Back; Mini Cross and Build It wait for fixed posters); titles + taglines from the
     // worlds SPEC section 16 (farin-gamification)
-    match:{title:'The Card Table', tagline:'Flip two. Find the pair. The ferry’s almost in.', art:'games/posters/match-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.', art:'games/posters/build-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},   // the 4:5 key art (worlds art 2026-11-19)
-    cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.', art:'games/posters/cross-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.', art:'games/posters/bingo-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    hunt:{title:'The Word Hunt', tagline:'Somewhere in your story, the words are hiding.', art:'games/posters/hunt-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.', art:'games/posters/echo-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    dictation:{title:'By the Window', tagline:'Listen closely. Type what you hear.', art:'games/posters/dictation-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
-    trap:{title:'Pier Dash', tagline:'Pick fast. Jump clean.', art:'games/posters/trap-3d.webp', artReady:true /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */}
+    match:{title:'The Card Table', tagline:'Flip two. Find the pair. The ferry’s almost in.', art:'games/posters/match-3d.webp', artReady:true, full:'games/posters/match-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    build:{title:'The Word Workshop', tagline:'Block by block, the sentence stands.', art:'games/posters/build-3d.webp', artReady:true, full:'games/posters/build-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},   // the 4:5 key art (worlds art 2026-11-19)
+    cross:{title:'The Morning Cross', tagline:'A coffee, a pencil and the words you know.', art:'games/posters/cross-3d.webp', artReady:true, full:'games/posters/cross-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    bingo:{title:'Window Bingo', tagline:'Nine words. One sunny card. Listen for yours.', art:'games/posters/bingo-3d.webp', artReady:true, full:'games/posters/bingo-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    hunt:{title:'The Word Hunt', tagline:'Somewhere in your story, the words are hiding.', art:'games/posters/hunt-3d.webp', artReady:true, full:'games/posters/hunt-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    echo:{title:'On Air', tagline:'Hear it. Say it. Hear your echo.', art:'games/posters/echo-3d.webp', artReady:true, full:'games/posters/echo-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    dictation:{title:'By the Window', tagline:'Listen closely. Type what you hear.', art:'games/posters/dictation-3d.webp', artReady:true, full:'games/posters/dictation-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */},
+    trap:{title:'Pier Dash', tagline:'Pick fast. Jump clean.', art:'games/posters/trap-3d.webp', artReady:true, full:'games/posters/trap-full.webp' /* 3D key art (Higgsfield, farin-e9, 2026-11-26) */}
   },
   // live text on the world art, in the language being learned (World Kit text layers with a key; never mirrored)
   worldText:{onair:'ON AIR', closed:'CLOSED'},   // closed: Passport Desk's window sign at the end
