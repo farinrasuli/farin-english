@@ -139,10 +139,10 @@
    "alpha": false
   },
   "C1_11": {
-   "src": "c1_11-hf.webp",
+   "src": "c1_11-hf2.webp",
    "w": 640,
    "h": 729,
-   "bytes": 96826,
+   "bytes": 96104,
    "ch": 1,
    "dev": false,
    "alpha": false
@@ -175,10 +175,10 @@
    "alpha": false
   },
   "C1_14": {
-   "src": "c1_14-hf.webp",
+   "src": "c1_14-hf2.webp",
    "w": 896,
    "h": 495,
-   "bytes": 76516,
+   "bytes": 87018,
    "ch": 1,
    "dev": false,
    "alpha": false
@@ -499,10 +499,10 @@
    "alpha": false
   },
   "C4_4B": {
-   "src": "c4_4b-hf.webp",
+   "src": "c4_4b-hf2.webp",
    "w": 629,
    "h": 839,
-   "bytes": 93424,
+   "bytes": 91308,
    "ch": 4,
    "dev": false,
    "alpha": false
@@ -571,10 +571,10 @@
    "alpha": false
   },
   "C5_1A": {
-   "src": "c5_1a-hf.webp",
+   "src": "c5_1a-hf2.webp",
    "w": 896,
    "h": 505,
-   "bytes": 103578,
+   "bytes": 93158,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -598,10 +598,10 @@
    "alpha": false
   },
   "C5_3A": {
-   "src": "c5_3a-hf.webp",
+   "src": "c5_3a-hf2.webp",
    "w": 640,
    "h": 722,
-   "bytes": 77540,
+   "bytes": 82472,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -616,10 +616,10 @@
    "alpha": false
   },
   "C5_4": {
-   "src": "c5_4-hf.webp",
+   "src": "c5_4-hf2.webp",
    "w": 896,
    "h": 484,
-   "bytes": 118246,
+   "bytes": 109708,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -661,19 +661,19 @@
    "alpha": false
   },
   "C5_8A": {
-   "src": "c5_8a-hf.webp",
+   "src": "c5_8a-hf2.webp",
    "w": 640,
    "h": 724,
-   "bytes": 68740,
+   "bytes": 60290,
    "ch": 5,
    "dev": false,
    "alpha": false
   },
   "C5_8B": {
-   "src": "c5_8b-hf.webp",
+   "src": "c5_8b-hf2.webp",
    "w": 640,
    "h": 724,
-   "bytes": 71254,
+   "bytes": 72824,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -751,10 +751,10 @@
    "alpha": false
   },
   "C5_11": {
-   "src": "c5_11-hf.webp",
+   "src": "c5_11-hf2.webp",
    "w": 896,
    "h": 494,
-   "bytes": 58534,
+   "bytes": 46866,
    "ch": 5,
    "dev": false,
    "alpha": false
@@ -877,10 +877,10 @@
    "alpha": false
   },
   "LAST90_A": {
-   "src": "last90_a-hf.webp",
+   "src": "last90_a-hf2.webp",
    "w": 864,
    "h": 1080,
-   "bytes": 142576,
+   "bytes": 139818,
    "ch": 6,
    "dev": false,
    "alpha": false
@@ -913,10 +913,10 @@
    "alpha": false
   },
   "C6_12": {
-   "src": "c6_12-hf.webp",
+   "src": "c6_12-hf2.webp",
    "w": 640,
    "h": 741,
-   "bytes": 59388,
+   "bytes": 68302,
    "ch": 6,
    "dev": false,
    "alpha": false
