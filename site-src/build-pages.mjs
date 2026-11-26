@@ -178,12 +178,12 @@ tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not
 blog:['Blog','Blog (Turkish)','وبلاگ (ترکی)'],
 coQ:['Şirketin için profesyonel kurslar mı istiyorsun','Want professional courses for your company','برای شرکتت دوره‌ی حرفه‌ای می‌خواهی'],
 coMark:['?','?','؟'],
-coS:['Çalışanların için iş İngilizcesi kursları, uygulamanın içinde','Work English courses for your staff, inside the app','دوره‌های انگلیسی کاری برای کارمندانت، داخل اپ'],
+coS:['Çalışanların için Plus üyelikleri: bütün iş İngilizcesi kursları','Plus seats for your staff: every work English course','عضویت Plus برای کارمندانت: همه‌ی دوره‌های انگلیسی کاری'],
 coEb:['Şirketler için','For companies','برای شرکت‌ها'],
-coP:['Çalışanların uygulamada kendi hızında öğrenir. Ekibine uyan kursları seçersin.','Your staff learn at their own pace in the app. You choose the courses that fit your team.','کارمندانت داخل اپ با سرعت خودشان یاد می‌گیرند. تو دوره‌هایی را انتخاب می‌کنی که به تیمت می‌خورند.'],
-coEach:['kişi başı','per person','برای هر نفر'],
-coOffer:['Ekibinin büyüklüğüne göre sana yazılı bir teklif hazırlarım. Canlı dersler isteğe bağlıdır ve ayrıca konuşulur.','I\'ll prepare a written offer based on the size of your team. Live classes are optional and agreed separately.','کلاس زنده اختیاری است و جدا توافق می‌شود: هر ۵۰ دقیقه ۴٬۵۰۰٬۰۰۰ تومان، برای گروه ۲ تا ۴ نفره.'],
-coFill:['','','پرسشنامه‌ی شرکت را پر کن'],
+coP:['Her çalışana bir Plus üyeliği: bütün premium kurslar ve her yol haritası sayfasının karnesi. Herkes kendi hızında, kendi rolüne uyan kursla başlar.','Each employee gets a Plus seat: every premium course and the page reports. Everyone learns at their own pace and starts with the course for their role.','برای هر کارمند یک عضویت Plus: همه‌ی دوره‌های ویژه و کارنامه‌ی هر صفحه‌ی نقشه‌ی راه. هر کس با سرعت خودش و با دوره‌ی متناسب با نقشش شروع می‌کند.'],
+coEach:['çalışan başına','per employee','برای هر کارمند'],coSeat:['Plus üyeliği','Plus seat','عضویت Plus'],coIn:['Her Plus üyeliğinde','In every Plus seat','داخل هر عضویت Plus'],
+coOffer:['Ekibinin büyüklüğüne göre sana yazılı bir teklif hazırlarım. Analiz seansı ve Kurs Raporu her çalışan için ücretsiz. Canlı dersler isteğe bağlıdır ve ayrıca konuşulur.','I\'ll prepare a written offer based on the size of your team. The analysis session and the Course Report are free for every employee. Live classes are optional and agreed separately.','جلسه‌ی نیازسنجی و گزارش دوره برای هر کارمند رایگان است. کلاس زنده اختیاری است و جدا توافق می‌شود: هر ۵۰ دقیقه ۴٬۵۰۰٬۰۰۰ تومان برای گروه ۲ تا ۴ نفره، بدون تخفیف و بیرون از برآورد عضویت‌ها.'],
+coFill:['','','برآورد هزینه برای تیمت'],
 coWa:['Şirketim için teklif al','Get an offer for my company','در واتس‌اپ بپرس'],
 coWaMsg:['Merhaba Farin! Şirketimiz için kurslarla ilgileniyoruz.','Hi Farin! We\'re interested in courses for our company.','سلام فرین! برای شرکتمان به دوره‌ها علاقه داریم.'],
 fCo:['Şirketler için','For companies','برای شرکت‌ها'],
@@ -503,28 +503,30 @@ const GOALS = {
 const [ALSO_INT, ALSO_MKT, ALSO_SALES] = GOALS.is.also;
 const COMPANY = [
   /* Q8rawI70 answer 5B (Farin 2026-10-31): the old Business package is the Sales & Trade package; managers and mixed office teams go to Complete Business, not here. */
-  { sale: 'sales', c: '--orange-deep', pkg: ['Satış ve Dış Ticaret paketi', 'Sales & Trade package', 'پکیج فروش و بازرگانی'], name: ALSO_SALES[1], price: ALSO_SALES[2],
+  { sale: 'sales', c: '--orange-deep', pkg: ['Satış ve Dış Ticaret', 'Sales & Trade', 'فروش و بازرگانی'], name: ALSO_SALES[1], price: ALSO_SALES[2],
     for: ['Satış, ihracat ve müşteri hizmetleri ekipleri', 'Sales, export and customer-service teams', 'تیم‌های فروش، صادرات و خدمات مشتری'] },
-  { sale: 'hr', c: '--g-career', pkg: ['İK paketi', 'HR package', 'پکیج منابع انسانی'], name: GOALS.is.self.name, price: null,
+  { sale: 'hr', c: '--g-career', pkg: ['İK', 'HR', 'منابع انسانی'], name: GOALS.is.self.name, price: null,
     for: ['İK ekipleri, işe alım uzmanları, ekip liderleri', 'HR staff, recruiters and team leads', 'تیم منابع انسانی، کارشناسان جذب و سرپرست‌ها'] },
-  { sale: 'marketing', c: '--purple', pkg: ['İçerik paketi', 'Content package', 'پکیج محتوا'], name: ALSO_MKT[1], price: ALSO_MKT[2],
+  { sale: 'marketing', c: '--purple', pkg: ['İçerik', 'Content', 'محتوا'], name: ALSO_MKT[1], price: ALSO_MKT[2],
     for: ['İçerik, metin yazarlığı ve sosyal medya ekipleri', 'Content, copy and social media teams', 'تیم‌های محتوا، کپی‌رایتینگ و شبکه‌های اجتماعی'] },
-  { sale: 'interview', c: '--g-imm', pkg: ['Mülakat paketi', 'Interview package', 'پکیج مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
+  { sale: 'interview', c: '--g-imm', pkg: ['Mülakat', 'Interview', 'مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
     for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
-  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: null,
+  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ', 'AI & Internet', 'هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: null,
     for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
-  { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş paketi', 'Complete Business package', 'پکیج جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: null,
+  { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş', 'Complete Business', 'جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: null,
     for: ['Yöneticiler, şirket sahipleri ve karma ofis ekipleri', 'Owners, managers and mixed office teams', 'مدیران، صاحبان کسب‌وکار و تیم‌های اداری'] },
-  { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama paketi', 'Marketing package', 'پکیج بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: null,
+  { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama', 'Marketing', 'بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: null,
     for: ['Pazarlama ekipleri ve yöneticileri', 'Marketing teams and managers', 'تیم‌های بازاریابی و مدیران'] },
-  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İngilizce İş Mülakatı Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: null,
+  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat', 'Interview Pro', 'مصاحبه‌ی پیشرفته'], name: ['İngilizce İş Mülakatı Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: null,
     for: ['Üst düzey roller ve zor mülakatlar için', 'For senior moves and harder interviews', 'برای جایگاه‌های ارشد و مصاحبه‌های سخت‌تر'] },
-  { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı paketi', 'Meetings package', 'پکیج جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: null,
+  { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı', 'Meetings', 'جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: null,
     for: ['Uluslararası ve uzaktan çalışan ekipler', 'International and remote teams', 'تیم‌های بین‌المللی و دورکار'] },
-  { sale: 'email', c: '--g-career', pkg: ['E-posta paketi', 'Email & Writing package', 'پکیج ایمیل و نگارش'], name: ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی'], price: null,
+  { sale: 'email', c: '--g-career', pkg: ['E-posta', 'Email & Writing', 'ایمیل و نگارش'], name: ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی'], price: null,
     for: ['İngilizce yazan ofis çalışanları', 'Office staff who write in English', 'کارکنان اداری که به انگلیسی می‌نویسند'] },
 ];
-const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته']];
+/* Company tiers (Farin 2026-10-31, kept for Plus seats 2026-11-26): set for Iranian companies, so they show on FA (toman); TR/EN ask for a written offer.
+   21-39 people -15%, 40+ -20% on the final price of the seats, list price struck through; weekly support (one 50-minute group session per order, up to 8 weeks) above 20 people. */
+const CO_TIERS = [['۱ تا ۲۰ نفر', 0, 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', 0.15, '٪۱۵ تخفیف + جلسه‌ی پشتیبانی گروهی هفتگی تا ۸ هفته'], ['۴۰ نفر به بالا', 0.2, '٪۲۰ تخفیف + جلسه‌ی پشتیبانی گروهی هفتگی تا ۸ هفته']];
 const ALT = {
   goals: ['FE App ilk ekranı: hedeflerini seçtiğin ekran', 'FE App first screen: pick your goals', 'صفحه‌ی اول اپ FE: انتخاب هدف‌ها'],
   kariyer: ['FE App yol haritası: B1 Kariyer ve İş hedefi', 'FE App roadmap: B1, career and work goal', 'نقشه‌ی راه اپ FE: سطح B1، هدف کار و شغل'],
@@ -777,8 +779,12 @@ function card(l, c, live, also) {
 /* company panel: same goal-picker panel as the courses, one small card per course */
 function companyPanel(l) {
   const i = LANGS[l].i;
-  /* 2026-11-26: no per-course prices or team discounts on the site (courses come with Plus; a company gets a written offer) */
-  const tiers = '';
+  /* 2026-11-26: companies buy Plus seats (one per employee); no per-course prices. FA shows Farin's team tiers in toman, TR/EN the seat price in lira. */
+  const cutp = (p, t) => Math.round(p * (1 - t));
+  const seat = l === 'fa'
+    ? `<div class="co-seat"><b>${S.coSeat[i]}</b><span><strong>${faNum(MB.ir.plus[0])}</strong> تومان در ماه · یا سالی ${faNum(MB.ir.plus[1])} تومان، ${S.coEach[i]}</span></div>`
+    : `<div class="co-seat"><b>${S.coSeat[i]}</b><span><strong>${lira(l, MB.tr.plus[0])}</strong> ${['/ ay', 'a month'][i]} · ${yearTxt(l, 'plus')}, ${S.coEach[i]}${l === 'en' ? ` (Iran: ${grp(MB.ir.plus[0], ',')} toman a month · ${grp(MB.ir.plus[1], ',')} a year)` : ''}</span></div>`;
+  const tiers = l === 'fa' ? `<ul class="co-tiers">${CO_TIERS.map(([sz, t, note]) => `<li><b>${sz}</b><span class="co-tp">${t ? `<s>${faNum(MB.ir.plus[0])}</s> ` : ''}${faNum(cutp(MB.ir.plus[0], t))} تومان در ماه</span><span class="co-tp">${t ? `<s>${faNum(MB.ir.plus[1])}</s> ` : ''}${faNum(cutp(MB.ir.plus[1], t))} تومان در سال</span><span>${note}</span></li>`).join('')}</ul>` : '';
   const wa = `href="${WA(S.coWaMsg[i])}" ${ext}`;
   const ctas = l === 'fa'
     ? `<a class="btn btn-orange" href="/companies/">${S.coFill[i]} <span aria-hidden="true">←</span></a><a class="btn btn-ghost" data-lead="course" data-course="company" ${wa}>${S.coWa[i]}</a>`
@@ -789,6 +795,8 @@ function companyPanel(l) {
         <div><p class="eyebrow">${S.coEb[i]}</p><h2>${S.coQ[i]}${dot(S.coMark[i])}</h2></div></div>
       <p>${S.coP[i]}</p>
     </div>
+    ${seat}
+    <p class="co-in">${S.coIn[i]}</p>
     <div class="co-grid">
       ${COMPANY.map(c => {
         const [cls, txt] = salePill(c.sale);

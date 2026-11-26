@@ -119,6 +119,14 @@ footer.site .f-cols a:hover{color:var(--ink)}
 .co-tiers{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
 .co-tiers li{background:var(--purple-soft);border-radius:18px;padding:14px 18px;display:flex;flex-direction:column;gap:2px}
 .co-tiers b{color:var(--purple-ink)}
+.co-seat{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;background:var(--purple-soft);border-radius:20px;padding:16px 20px;margin-bottom:16px}
+.co-seat b{font-family:var(--display);font-weight:600;font-size:1.25rem;color:var(--purple-ink)}
+.co-seat span{font-weight:700;color:var(--muted)}
+.co-seat strong{font-family:var(--display);font-weight:600;font-size:1.35rem;color:var(--ink)}
+.co-in{font-size:.74rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-ink);margin:0 0 10px}
+html[lang="fa"] .co-in{letter-spacing:0;font-size:.85rem;text-transform:none}
+.co-tiers .co-tp{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.co-tiers s{color:var(--muted);font-weight:600}
 .co-note{color:var(--muted);font-weight:700;margin-top:18px;text-align:center}
 .co-ctas{justify-content:center;margin-top:18px}
 .also .alinks{flex:1 1 100%;display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;margin:8px 0 12px}
