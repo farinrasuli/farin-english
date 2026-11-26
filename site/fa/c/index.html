@@ -1,116 +1,94 @@
 <!doctype html>
 <html lang="fa" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 2026-11-26: courses have no own price; this old share link now explains Plus (site refresh, farin-website). -->
 <title>همه‌ی دوره‌های پریمیوم | FE School</title>
-<meta name="description" content="۷ دوره‌ی تخصصی انگلیسی داخل اپ FE School: آیلتس، منابع انسانی، انگلیسی تجاری، مصاحبه‌ی شغلی، فروش، کپی‌رایتینگ و هوش مصنوعی. روی هر دوره بزن تا توضیح کامل و راه ثبت‌نام را ببینی.">
-<meta property="og:title" content="همه‌ی دوره‌های پریمیوم | FE School"><meta property="og:description" content="۷ دوره‌ی تخصصی انگلیسی داخل اپ FE School. روی هر دوره بزن تا توضیح کامل و راه ثبت‌نام را ببینی.">
+<meta name="description" content="۷ دوره‌ی تخصصی انگلیسی داخل اپ FE School، همه داخل عضویت Plus: آیلتس، منابع انسانی، انگلیسی تجاری، مصاحبه‌ی شغلی، فروش، کپی‌رایتینگ و هوش مصنوعی.">
+<meta property="og:title" content="همه‌ی دوره‌های پریمیوم | FE School"><meta property="og:description" content="۷ دوره‌ی تخصصی انگلیسی داخل اپ FE School، همه داخل عضویت Plus: آیلتس، منابع انسانی، انگلیسی تجاری، مصاحبه‌ی شغلی، فروش، کپی‌رایتینگ و هوش مصنوعی.">
 <meta property="og:image" content="https://thefeschool.com/icon-512.png"><meta property="og:url" content="https://thefeschool.com/fa/c/">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#7C5CFC">
 <link rel="icon" href="/icon-180.png">
 <link rel="preload" href="/fonts/vazirmatn-arabic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/fonts/fa.css">
 <style>
-:root{--bg:#FFF8F0;--card:#fff;--ink:#2B2340;--mute:#6E6680;--line:#F0E4D6;--brand:#FF7A1A;--brand-ink:#fff;--ok:#1F9D6B;--ok-soft:#E3F6EE;--soft:#FFEBD9}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1C1826;--card:#262132;--ink:#F5F1FA;--mute:#B5ADC4;--line:#3A3348;--soft:#3A2A1E;--ok:#4CC995;--ok-soft:#1D3A2E}}
-:root[data-theme="dark"]{--bg:#1C1826;--card:#262132;--ink:#F5F1FA;--mute:#B5ADC4;--line:#3A3348;--soft:#3A2A1E;--ok:#4CC995;--ok-soft:#1D3A2E}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.9 Vazirmatn,system-ui,sans-serif}
-main{max-width:560px;margin:0 auto;padding:24px 16px 48px}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--ink);text-decoration:none}.logo img{width:36px;height:36px;border-radius:10px}
-.tag{display:inline-block;background:var(--soft);color:var(--brand);font-weight:700;font-size:14px;padding:4px 14px;border-radius:99px;margin-top:22px}
-h1{font-size:28px;line-height:1.5;margin:10px 0 8px;font-weight:900}
-.lead{color:var(--mute);margin:0 0 6px}
-.facts{font-size:14px;color:var(--mute);margin:0 0 4px}
-.offer{display:inline-block;font-weight:700;color:var(--ok);margin:0 0 6px}
-.course{display:block;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px 20px;margin:14px 0;color:inherit;text-decoration:none;transition:border-color .15s}
-.course:hover{border-color:var(--brand)}
-.course:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
-.course h2{font-size:20px;line-height:1.55;margin:0 0 4px;font-weight:900}
-.course p{margin:0 0 10px;color:var(--mute);font-size:15px;line-height:1.85}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
-.chip{font-size:13px;font-weight:700;padding:2px 12px;border-radius:99px;background:var(--soft);color:var(--ink)}
-.chip.free{background:var(--ok-soft);color:var(--ok)}
-.price{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin:0 0 12px}
-.price .now{font-size:22px;font-weight:900;color:var(--brand)}
-.price .was{color:var(--mute);text-decoration:line-through;font-size:15px}
-.price .off{font-size:14px;font-weight:700;color:var(--ok)}
-.go{display:block;text-align:center;background:var(--brand);color:var(--brand-ink);font-weight:800;border-radius:99px;padding:11px 18px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:20px;margin:22px 0 14px}
-.card h2{font-size:19px;margin:0 0 6px}
-ol{margin:0;padding:0 20px 0 0;list-style:persian}ol li{margin:6px 0}
-.small{font-size:14px;color:var(--mute)}
-p.small a{color:var(--brand);font-weight:700}
-footer{text-align:center;margin-top:24px}footer a{color:var(--mute)}
+:root{--paper:#FAF7F0;--card:#fff;--ink:#1A1410;--muted:#6B5F55;--line:#E9E2D3;--purple:#7C5CFC;--purple-ink:#5A3FD6;--purple-deep:#3F2A9E;--purple-soft:#EEE9FF;--orange:#FFA53D;--orange-deep:#E8790A;--green:#85957A;--green-ink:#4F6047;--green-soft:#E8EEE3;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.9 Vazirmatn,system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:22px 16px 48px}
+a{color:inherit}
+.logo{display:inline-flex;align-items:center;gap:10px;font-weight:800;text-decoration:none}.logo img{width:36px;height:36px;border-radius:10px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(150deg,var(--purple),var(--purple-ink) 60%,var(--purple-deep));color:#fff;border-radius:28px;padding:24px 22px 26px;margin-top:16px}
+.hero::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(circle,rgba(255,165,61,.6) 0 3px,transparent 3.5px),radial-gradient(circle,rgba(255,255,255,.3) 0 2px,transparent 2.5px);background-size:150px 130px,110px 100px;opacity:.8}
+.hero>*{position:relative}
+.pill{display:inline-block;background:#1A1410;color:#fff;font-weight:800;font-size:13px;padding:3px 13px;border-radius:99px}
+h1{font-size:27px;line-height:1.5;margin:10px 0 6px;font-weight:900}
+.hero p{margin:0;color:rgba(255,255,255,.9)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:20px;margin:14px 0;box-shadow:0 1px 2px rgba(26,20,16,.05),0 10px 28px -14px rgba(26,20,16,.18)}
+.card h2{font-size:19px;margin:0 0 8px;font-weight:900}
+ul{margin:0;padding:0 18px 0 0}li{margin:4px 0}
+ol{margin:0;padding:0 20px 0 0;list-style:persian}ol li{margin:10px 0}
+.plus{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px}
+.plus b{font-size:30px;font-weight:900;color:var(--purple-ink)}
+.small{font-size:14px;color:var(--muted)}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:800;border-radius:99px;padding:12px 18px;margin:8px 0;border:0}
+.btn.main{background:var(--orange);color:#2A1700;box-shadow:0 4px 0 var(--orange-deep)}
+.btn.alt{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
+.row{display:flex;gap:8px}.row .btn{flex:1;margin:4px 0}
+.course{display:block;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px 18px;margin:12px 0;text-decoration:none}
+.course h2{font-size:18px;margin:0 0 4px;font-weight:900}.course p{margin:0 0 8px;color:var(--muted);font-size:15px;line-height:1.85}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font-size:13px;font-weight:700;padding:2px 12px;border-radius:99px;background:var(--purple-soft);color:var(--purple-ink)}.chip.free{background:var(--green-soft);color:var(--green-ink)}
+.links{display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;margin:18px 0 0;font-weight:800}
+.links a{color:var(--purple-ink);text-decoration:none;border-bottom:2px solid #D9CFFE}
+footer{text-align:center;margin-top:24px}footer a{color:var(--muted)}
 </style></head><body><main>
 <a class="logo" href="/fa/"><img src="/icon-180.png" alt="">FE School</a>
-<span class="tag">دوره‌های پریمیوم اپ</span>
+<section class="hero"><span class="pill">داخل عضویت Plus</span>
 <h1>همه‌ی دوره‌های FE School</h1>
-<p class="lead">۷ دوره‌ی تخصصی انگلیسی، همه داخل اپ. روی هر دوره بزن تا توضیح کامل، قیمت و مراحل ثبت‌نام را ببینی.</p>
-<p class="facts">یک‌بار پرداخت · ۱۲ ماه دسترسی · با سرعت خودت، داخل اپ</p>
-<p class="offer">تا ۶۷٪ تخفیف روی همه‌ی دوره‌ها</p>
-
-<a class="course" href="/fa/c/ielts.html">
+<p>۷ دوره‌ی تخصصی انگلیسی، همه داخل اپ و همه با یک عضویت Plus. درس ۱.۱ هر دوره رایگان است.</p></section>
+<a class="course" href="/fa/dore-ielts-online.html">
 <h2>آیلتس: ۱۰ آزمون کامل</h2>
 <p>برای کسی که آیلتس دارد: ۱۰ آزمون نزدیک به آزمون واقعی، و برای هر بخش یاد می‌گیری دقیقاً چطور جواب بدهی.</p>
 <div class="chips"><span class="chip">۱۰ آزمون · ۱۰ درس برای هر آزمون</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۳٬۰۰۰٬۰۰۰ تومان</span><span class="was">۸٬۹۹۰٬۰۰۰ تومان</span><span class="off">۶۷٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/hr.html">
+<a class="course" href="/fa/dore-englisi-manabe-ensani.html">
 <h2>انگلیسی منابع انسانی و کسب‌وکار</h2>
 <p>برای کسی که در منابع انسانی یا محیط اداری کار می‌کند و می‌خواهد جلسه، ایمیل و مصاحبه‌اش را با اعتمادبه‌نفس به انگلیسی پیش ببرد.</p>
 <div class="chips"><span class="chip">۳۲ درس</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۲٬۲۹۰٬۰۰۰ تومان</span><span class="was">۴٬۴۹۰٬۰۰۰ تومان</span><span class="off">۴۹٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/business.html">
+<a class="course" href="/fa/dore-zaban-englisi-tejari.html">
 <h2>دوره‌ی جامع انگلیسی تجاری</h2>
 <p>برای مدیران و صاحبان کسب‌وکار که می‌خواهند در کل کار شرکت، از جلسه تا قرارداد، به انگلیسی راحت کار کنند.</p>
 <div class="chips"><span class="chip">۴۰ درس در ۱۰ فصل</span><span class="chip">پروژه‌ی پایانی</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۲٬۶۹۰٬۰۰۰ تومان</span><span class="was">۶٬۲۹۰٬۰۰۰ تومان</span><span class="off">۵۷٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/interview.html">
+<a class="course" href="/fa/amadegi-mosahebe-kari-englisi.html">
 <h2>مصاحبه‌ی شغلی به انگلیسی</h2>
 <p>برای کسی که مصاحبه‌ی کاری به انگلیسی پیش رو دارد و می‌خواهد جواب‌هایش روشن، کوتاه و قانع‌کننده باشد.</p>
 <div class="chips"><span class="chip">تمرین صحبت کردن داخل اپ</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۱٬۵۰۰٬۰۰۰ تومان</span><span class="was">۲٬۶۹۰٬۰۰۰ تومان</span><span class="off">۴۴٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/sales.html">
+<a class="course" href="/fa/dore-zaban-englisi-bazargani.html">
 <h2>انگلیسی فروش و بازرگانی</h2>
 <p>برای کسی که با مشتری خارجی، صادرات یا فروش کار می‌کند و می‌خواهد مذاکره و پیگیری‌اش به انگلیسی حرفه‌ای باشد.</p>
 <div class="chips"><span class="chip">مذاکره، ایمیل و پیگیری</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۱٬۹۹۰٬۰۰۰ تومان</span><span class="was">۳٬۴۲۰٬۰۰۰ تومان</span><span class="off">۴۲٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/copywriting.html">
+<a class="course" href="/fa/dore-copywriting-englisi.html">
 <h2>انگلیسی کپی‌رایتینگ و تولید محتوا</h2>
 <p>برای کسی که محتوا، کپشن، تبلیغ یا متن سایت به انگلیسی می‌نویسد و می‌خواهد متنش طبیعی و فروشنده باشد.</p>
 <div class="chips"><span class="chip">نمونه‌ی قبل و بعد برای هر نکته</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۱٬۷۹۰٬۰۰۰ تومان</span><span class="was">۳٬۱۴۰٬۰۰۰ تومان</span><span class="off">۴۳٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<a class="course" href="/fa/c/ai.html">
+<a class="course" href="/fa/dore-prompt-nevisi-englisi.html">
 <h2>انگلیسی برای هوش مصنوعی و اینترنت</h2>
 <p>برای کسی که با ابزارهای هوش مصنوعی کار می‌کند و می‌خواهد به انگلیسی دقیق‌تر بنویسد، بپرسد و نتیجه‌ی بهتر بگیرد.</p>
 <div class="chips"><span class="chip">نوشتن پرامپت دقیق</span><span class="chip free">درس ۱.۱ رایگان</span></div>
-<div class="price"><span class="now">۱٬۹۹۰٬۰۰۰ تومان</span><span class="was">۳٬۴۲۰٬۰۰۰ تومان</span><span class="off">۴۲٪ تخفیف</span></div>
-<span class="go">توضیح کامل و ثبت‌نام</span>
 </a>
-
-<div class="card"><h2>ثبت‌نام در ۴ قدم</h2><ol>
-<li>اپ را نصب کن و ثبت‌نام کن.</li>
-<li>مبلغ دوره را کارت به کارت واریز کن.</li>
-<li>عکس رسید را در واتس‌اپ برایم بفرست.</li>
-<li>رمز دوره را برایت می‌فرستم؛ در بخش پریمیوم اپ واردش کن و دوره باز می‌شود.</li>
-</ol>
-<p class="small" style="margin:8px 0 0">لینک نصب اپ، شماره کارت و مبلغ دقیق در صفحه‌ی هر دوره هست.</p></div>
-
-<p class="small" style="text-align:center">نمی‌دانی کدام دوره برایت مناسب است؟ <a href="https://wa.me/905467615951">در واتس‌اپ بپرس</a></p>
+<div class="card"><h2>این دوره قیمت جداگانه ندارد</h2>
+<div class="plus"><b>۶۲۹٬۰۰۰ تومان</b><span class="small">در ماه با عضویت Plus · یا سالی ۵٬۶۹۰٬۰۰۰ تومان</span></div>
+<p class="small" style="margin:8px 0 0">با Plus این دوره و همه‌ی دوره‌های ویژه‌ی دیگر باز می‌شوند، به‌اضافه‌ی کارنامه‌ی پایان هر صفحه‌ی نقشه‌ی راه. Guided همه‌ی امکانات Plus است، به‌اضافه‌ی ماهی ۲ جلسه‌ی کوچینگ خصوصی، تکلیف و بازخورد فرین و باشگاه‌های مکالمه‌ی پنجشنبه به‌صورت رایگان.</p></div>
+<div class="card"><h2>چطور Plus را بگیری</h2><ol>
+<li><b>اپ را نصب کن و ثبت‌نام کن.</b>
+<div class="row"><a class="btn main" href="https://farinrasuli.github.io/farin-english-app/farin-english.apk">دانلود اندروید</a><a class="btn alt" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html?lang=fa">آیفون و کامپیوتر</a></div>
+<div class="small">آیفون: لینک را در Safari باز کن و «Add to Home Screen» را بزن.</div></li>
+<li><b>روی کادر عضویت در صفحه‌ی اصلی اپ بزن</b> و Plus را انتخاب کن.</li>
+<li><b>پرداخت را انجام بده و رسیدش را داخل اپ بفرست.</b> بعد از تأیید پرداخت، عضویتت شروع می‌شود و همه‌ی دوره‌ها باز می‌شوند.</li>
+</ol><p class="small" style="margin:6px 0 0">وقتی صفحه‌ی عضویت را برای اولین بار باز کنی، داخل اپ یک قیمت ۴۸ ساعته‌ی شروع می‌بینی.</p></div>
+<p class="small" style="text-align:center">سؤالی داری؟ <a href="https://wa.me/905467615951">در واتس‌اپ بپرس</a></p>
 <footer class="small"><a href="/fa/">thefeschool.com</a></footer>
 </main></body></html>

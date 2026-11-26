@@ -45,7 +45,7 @@ nav1:['Kurslar','Courses','دوره‌ها'],nav2:['Uygulama','App','اپلیک�
 openApp:['Uygulamayı aç','Open the app','باز کردن اپ'],
 skip:['İçeriğe geç','Skip to content','رفتن به محتوا'],
 menu:['Menü','Menu','منو'],langLabel:['Dil','Language','زبان'],
-heroEb:['FE School · Kurslar + ücretsiz İngilizce öğrenme uygulaması','FE School · English courses + a free English learning app','FE School · دوره‌های زبان انگلیسی + اپلیکیشن رایگان'],
+heroEb:['FE School · Ücretsiz İngilizce uygulaması, oyunlar ve kurslar','FE School · A free English app, games and courses','FE School · اپ رایگان انگلیسی، بازی‌ها و دوره‌ها'],
 h1:['Neden İngilizce öğrenmek istiyorsun'+dot('?'),'Why do you want to learn English'+dot('?'),'چرا می‌خواهی انگلیسی یاد بگیری'+dot('؟')],
 heroSub:['Cevabını seç. <b>Senin kursun hazır.</b>','Pick your answer. <b>Your course is ready.</b>','جوابت را انتخاب کن. <b>دوره‌ی تو آماده است.</b>'],
 note:['birini seç','pick one','یکی را انتخاب کن'],
@@ -54,20 +54,20 @@ gIe:['IELTS ve yurt dışı','IELTS &amp; moving abroad','آیلتس و مهاج
 gMu:['İş görüşmesi','Job interview','مصاحبه‌ی کاری'],gMuS:['Mülakata hazırlan','Get interview-ready','برای مصاحبه آماده شو'],
 gKo:['Rahat konuşmak','Speak with confidence','راحت حرف زدن'],gKoS:['Kişisel, kendi hedefin','Personal, your own goal','شخصی، با هدف خودت'],
 f1:['%97 öğrenci hedefine ulaştı','97% of students reached their goal','۹۷٪ شاگردها به هدفشان رسیدند'],
-f2:['Her kursta Ders 1.1 ücretsiz · birebir derste ilk analiz seansı hediye','Lesson 1.1 of every course free · a free analysis session with 1-to-1 lessons','درس ۱.۱ هر دوره رایگان · کلاس آنلاین برای ۱ تا ۴ نفر'],
+f2:['Yol haritanın yarısı oyun','Half your roadmap is games','نیمی از نقشه‌ی راهت بازی است'],
 f3:['Uygulama için kart gerekmez','No card needed for the app','برای اپ کارت بانکی لازم نیست'],
 forYou:['Senin için','For you','برای تو'],
 oneWay:['Bu hedef için hazır bir kurs var.','There is a ready-made course for this goal.','برای این هدف یک دوره‌ی آماده هست.'],
 twoWays:['İki yol var. Sana uyanı seç.','Two ways in. Pick what suits you.','دو راه هست. هر کدام که به تو می‌خورد را انتخاب کن.'],
 selfT:['Kendi hızında kurs','Self-paced course','دوره با سرعت خودت'],
-selfS:['Uygulamada · tek ödeme · 12 ay erişim','In the app · one payment · 12 months\' access','داخل اپ · یک‌بار پرداخت · ۱۲ ماه دسترسی'],
+selfS:['Uygulamada · Plus üyeliğiyle','In the app · with Plus','داخل اپ · با عضویت Plus'],
 liveT:['Birebir canlı ders','Live 1-to-1 lessons','کلاس آنلاین با فرین'],
 liveS:['Farin\'le online · ilk analiz seansı hediye','Online with Farin · free analysis session','تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر)'],
 /* 2026-11-10 (farin-seo, Loop 5): freebar + fP carry in-body text links to the app / system page of their own language (crawl help: /en/app.html + /en/system.html were nav/tlink-only) */
-freebar:['Kursun <a href="/uygulama.html">FE App</a>\'in içinde. Uygulamanın kendisi her zaman ücretsiz.','Your course lives inside <a href="/en/app.html">FE App</a>. The app itself is always free.','دوره‌ات داخل <a href="/fa/app.html">اپ FE</a> است. خود اپ همیشه رایگان است.'],
+freebar:['Kurslar <a href="/uygulama.html">FE App</a>\'in içinde ve Plus ile açılır. Uygulamanın kendisi her zaman ücretsiz.','The courses live inside <a href="/en/app.html">FE App</a> and open with Plus. The app itself is always free.','دوره‌ها داخل <a href="/fa/app.html">اپ FE</a> هستند و با Plus باز می‌شوند. خود اپ همیشه رایگان است.'],
 seeApp:['Uygulamayı gör →','See the app →','اپ را ببین ←'],
-appEb:['FE App · ücretsiz','FE App · free','اپ FE · رایگان'],
-appH:['Kart yok, abonelik yok. Sadece başla'+dot('.'),'No card, no subscription. Just start'+dot('.'),'نه کارت، نه اشتراک. فقط شروع کن'+dot('.')],
+appEb:['FE App','FE App','اپ FE'],
+appH:['Sana göre kurulan bir uygulama'+dot('.'),'An app built around you'+dot('.'),'اپی که برای تو ساخته می‌شود'+dot('.')],
 t1:['Sana özel yol haritası','A roadmap made for you','نقشه‌ی راه مخصوص خودت'],
 t2:['15 oyun, A1\'den C1\'e','15 games, A1 to C1','۱۵ بازی، از A1 تا C1'],
 t3:['İngilizce ve İspanyolca','English and Spanish','انگلیسی و اسپانیایی'],
@@ -109,13 +109,13 @@ cH:['Yolun burada başlıyor'+dot('.'),'Your path starts here'+dot('.'),'مسی�
 cP:['Soruların mı var? WhatsApp\'tan yaz, aynı gün dönüyorum.','Got questions? Message me on WhatsApp. I reply the same day.','سؤالی داری؟ در واتس‌اپ پیام بده، همان روز جواب می‌دهم.'],
 cBtn:['Cevabını seç ↑','Pick your answer ↑','جوابت را انتخاب کن ↑'],
 apH:['İngilizceni oynayarak kur'+dot('.'),'Build your English by playing'+dot('.'),'انگلیسی‌ات را با بازی بساز'+dot('.')],
-apL:['Hedefini seç, yol haritan kurulsun, durak durak ilerle. Kart istemez, abonelik yok.','Pick your goal, get your roadmap and move forward stop by stop. No card, no subscription.','هدفت را انتخاب کن، نقشه‌ی راهت ساخته شود و ایستگاه به ایستگاه جلو برو. نه کارت لازم است، نه اشتراک.'],
+apL:['Hedefini seç, yol haritan kurulsun, durak durak ilerle. Başlamak ücretsiz, kart gerekmez.','Pick your goal, get your roadmap and move forward stop by stop. Starting is free and needs no card.','هدفت را انتخاب کن، نقشه‌ی راهت ساخته شود و ایستگاه به ایستگاه جلو برو. شروع رایگان است و کارت بانکی لازم نیست.'],
 k1:['Adım 1','Step 1','قدم ۱'],k2:['Adım 2','Step 2','قدم ۲'],k3:['Kırmızı Bavul','The Red Suitcase','چمدان قرمز'],k4:['15 oyun','15 games','۱۵ بازی'],
 b2:['Yolun kurulur','Your path is built','مسیرت ساخته می‌شود'],b3:['Senin seçimin, senin hikâyen','Your choices, your story','انتخاب با تو، داستان مال تو'],b4:['Oyunla pekiştir','Lock it in with games','با بازی تثبیتش کن'],
 andA:['Android\'e indir','Download for Android','دانلود نسخه‌ی اندروید'],andB:['iPhone\'da tarayıcıdan açılır','opens in the browser on iPhone','در آیفون از مرورگر باز می‌شود'],
-pmH:['Premium kursların da burada'+dot('.'),'Your premium courses are here too'+dot('.'),'دوره‌های ویژه‌ات هم همین‌جاست'+dot('.')],
-pmP:['İş İngilizcesi ve IELTS kursları uygulamanın içinde açılır. Her kursta Ders 1.1 ücretsiz; gerisi için bekleme listesine yazılırsın, yer açılınca şifreni WhatsApp\'tan alırsın.','The Business English and IELTS courses open inside the app. Lesson 1.1 of each course is free; for the rest, join the waiting list; when a spot opens, you get a password on WhatsApp.','دوره‌های انگلیسی تجاری و آیلتس داخل اپ باز می‌شوند. درس ۱.۱ هر دوره رایگان است. برای بقیه‌اش، دکمه‌ی «این دوره را می‌خواهم» صفحه‌ی ثبت‌نام دوره را باز می‌کند؛ بعد از پرداخت، رمز دوره را از واتس‌اپ می‌گیری.'],
-pmBtn:['Hedefime uygun kurs','Find my course','دوره‌ی مناسب من'],
+pmH:['Premium kurslar Plus\'ta'+dot('.'),'The premium courses are in Plus'+dot('.'),'دوره‌های ویژه در Plus هستند'+dot('.')],
+pmP:['İş İngilizcesi, IELTS, mülakat ve daha fazlası uygulamanın içinde. Her kursun Ders 1.1\'i ücretsiz; tam kurslar Plus üyeliğiyle açılır.','Business English, IELTS, job interviews and more, inside the app. Lesson 1.1 of every course is free; the full courses open with a Plus membership.','انگلیسی تجاری، آیلتس، مصاحبه و دوره‌های دیگر داخل اپ هستند. درس ۱.۱ هر دوره رایگان است و دوره‌های کامل با عضویت Plus باز می‌شوند.'],
+pmBtn:['Üyelikleri gör','See the plans','عضویت‌ها را ببین'],
 gamesEb:['Oyunlar','Games','بازی‌ها'],
 gamesH:['Yol haritanın yarısı oyun'+dot('.'),'Half your roadmap is games'+dot('.'),'نیمی از نقشه‌ی راهت بازی است'+dot('.')],  /* 2026-11-12: app rot:5 'Learn, then play' puts a game between every two lessons, at least half of every roadmap page (was 'A game at every stop') */
 gamesL:['Siparişi hazırla, davayı çöz, odayı topla. On beş oyun, hepsi İngilizce, A1\'den C1\'e her seviyede.','Prepare the order, solve the case, tidy the room. Fifteen games, all in English, at every level from A1 to C1.','سفارش را آماده کن، پرونده را حل کن، اتاق را مرتب کن. پانزده بازی، همه به انگلیسی، در همه‌ی سطح‌ها از A1 تا C1.'],
@@ -167,9 +167,11 @@ nd3:['Seviyen, biliyorsan','Your level, if you know it','سطحت، اگر می�
 nd4:['Birebir ders için uygun gün ve saatler','Days and times that suit you for 1-to-1 lessons','روزها و ساعت‌های مناسب، و اگر با دوستانت می‌آیی، تعداد نفرات'],
 faqH:['Sık sorulanlar','Common questions','سؤال‌های رایج'],
 fq1:['Uygulama gerçekten ücretsiz mi?','Is the app really free?','اپ واقعاً رایگان است؟'],
-fa_1:['Evet. Yol haritası, oyunlar ve dersler ücretsiz. Sadece premium kurslar ücretli.','Yes. The roadmap, games and lessons are free. Only the premium courses are paid.','بله. نقشه‌ی راه، بازی‌ها و درس‌ها رایگان‌اند. فقط دوره‌های ویژه پولی هستند.'],
-fq2:['Kursu nasıl alırım?','How do I get a course?','دوره را چطور بخرم؟'],
-fa_2:['Ders 1.1\'i uygulamada ücretsiz dene. Devam etmek istersen «Bu kursu istiyorum» düğmesiyle bekleme listesine yazıl. Yer açılır açılmaz sana yazarız; ödemeden sonra kursun şifresini göndeririz.','Try Lesson 1.1 free in the app. If you want to continue, tap "I want this course" to join the waiting list. As soon as a spot opens, we\'ll message you, and you get the course password after you pay.','درس ۱.۱ را رایگان در اپ امتحان کن. اگر خواستی ادامه بدهی، دکمه‌ی «این دوره را می‌خواهم» را بزن تا صفحه‌ی ثبت‌نام دوره باز شود؛ قیمت و روش پرداخت (کارت‌به‌کارت) آن‌جاست. عکس رسید را در واتس‌اپ بفرست تا رمز دوره را برایت بفرستیم.'],
+fa_1:['Evet. Yol haritası, oyunlar, dersler ve pratik ücretsiz. Plus üyeliği bütün premium kursları ve her yol haritası sayfasının sonundaki sayfa karnesini açar; Guided buna birebir koçluğu ekler.','Yes. The roadmap, games, lessons and practice are free. A Plus membership opens every premium course and the page report at the end of each roadmap page; Guided adds one-to-one coaching.','بله. نقشه‌ی راه، بازی‌ها، درس‌ها و تمرین‌ها رایگان‌اند. عضویت Plus همه‌ی دوره‌های ویژه و کارنامه‌ی پایان هر صفحه‌ی نقشه‌ی راه را باز می‌کند و Guided کوچینگ خصوصی را هم اضافه می‌کند.'],
+fq2:['Bir kursu nasıl alırım?','How do I get a course?','دوره را چطور بگیرم؟'],
+fa_2:['Her premium kursun Ders 1.1\'i uygulamada ücretsiz. Kursun tamamı Plus üyeliğinde: aylık ₺319 ya da yıllık ₺2.290. Uygulamada Ana Sayfa\'daki üyelik kutusuna dokun, Plus\'ı seç ve ödemeni yap; ödemen onaylanınca bütün premium kurslar açılır.','Lesson 1.1 of every premium course is free in the app. The full course comes with a Plus membership: ₺319 a month or ₺2,290 a year (in Iran 629,000 toman a month or 5,690,000 a year). In the app, tap the membership box on Home, choose Plus and pay; once your payment is confirmed, every premium course opens.','درس ۱.۱ هر دوره‌ی ویژه داخل اپ رایگان است. دوره‌ی کامل با عضویت Plus باز می‌شود: ماهی ۶۲۹٬۰۰۰ تومان یا سالی ۵٬۶۹۰٬۰۰۰ تومان. داخل اپ روی کادر عضویت در صفحه‌ی اصلی بزن، Plus را انتخاب کن و پرداخت را انجام بده؛ بعد از تأیید پرداخت، همه‌ی دوره‌های ویژه باز می‌شوند.'],
+fq4:['Perşembe konuşma kulüpleri nasıl işliyor?','How do the Thursday speaking clubs work?','باشگاه‌های مکالمه‌ی پنجشنبه چطور برگزار می‌شوند؟'],
+fa_4:['Her perşembe Türkiye saatiyle 12:30, 13:30, 14:30, 15:30, 16:30 ve 17:30\'da birer grup başlar (İran saatiyle 13:00–18:00): 4 İngilizce, 2 İspanyolca grup, A1–B1 seviyelerinde. Her grupta 8 kişilik yer var ve her seans bir saat sürer. Seans ₺300; Guided üyelerine ücretsiz. Yerini uygulamadan ayırtırsın: Kulüp › Gruplarım.','Every Thursday a group starts on the hour from 13:00 to 18:00 Iran time (12:30 to 17:30 in Turkey): 4 English and 2 Spanish groups, A1 to B1. Each group has 8 seats and each session lasts an hour. A session costs ₺300 or 500,000 toman, and Guided members join free. You book your seat in the app: Club › My Groups.','هر پنجشنبه از ساعت ۱۳ تا ۱۸ به وقت ایران، سر هر ساعت یک گروه شروع می‌شود: ۴ گروه انگلیسی و ۲ گروه اسپانیایی، در سطح A1 تا B1. هر گروه ۸ جا دارد و هر جلسه یک ساعت است. هر جلسه ۵۰۰٬۰۰۰ تومان است و برای اعضای Guided رایگان. جایت را داخل اپ رزرو می‌کنی: باشگاه › گروه‌های من.'],
 fq3:['Birebir ders nasıl işliyor?','How do 1-to-1 lessons work?','کلاس آنلاین چطور است؟'],
 fa_3:['Online, sadece sen ve Farin. Aylık paket: ayda 4 ders ₺3.400, 8 ders ₺6.720 ya da 12 ders ₺9.960, sen seç; 3 ayı tek seferde ödersen 8 ve 12 derslik paketlerde %20 indirim. Ödemeden sonra ücretsiz bir analiz seansı: seviye tespiti, hedef belirleme ve sana özel yol haritası. Paketinin dışında, ek olarak.','Online, just you and Farin. A monthly pack: 4 lessons a month ₺3,400, 8 lessons ₺6,720 or 12 lessons ₺9,960, your choice; pay 3 months at once and get 20% off the 8- and 12-lesson packs. Free analysis session after you pay: level test, goal setting and your personal roadmap. Extra to your pack.','آنلاین با فرین، تنها یا با حداکثر ۳ دوست (۱ تا ۴ نفر). پرداخت ماهانه است و هر جلسه ۵۰ دقیقه؛ ۴، ۸ یا ۱۲ جلسه در ماه، به انتخاب خودت. اگر هزینه‌ی ۳ ماه را یک‌جا بپردازی، بسته‌های ۸ و ۱۲ جلسه‌ای ۲۰٪ تخفیف دارند. بسته‌ی ۴ جلسه‌ای کلاس تجاری ماهی ۱۸٬۰۰۰٬۰۰۰ تومان و کلاس عمومی شخصی‌سازی‌شده ماهی ۱۴٬۰۰۰٬۰۰۰ تومان است (بسته‌ی ۸ و ۱۲ جلسه‌ای به همین نسبت) و هزینه‌ی بسته بین اعضای گروه تقسیم می‌شود. جلسه‌ی اول یک جلسه‌ی تحلیل رایگان است و جدا از جلسه‌های بسته‌ی ماهانه حساب می‌شود: تعیین سطح، تعیین هدف و ساخت نقشه‌ی راه شخصی‌ات. بعد از پرداخت برگزار می‌شود.'],
 tag:['Öğrenmen gerektiği için değil, gidecek bir yerin olduğu için.','Not because you have to learn, but because you have somewhere to go.','نه چون باید یاد بگیری؛ چون جایی برای رفتن داری.'],
@@ -196,6 +198,241 @@ fEn:['Online İngilizce özel ders','English lessons','کلاس انگلیسی']
 fStudio:['Stüdyo','Studio','استودیو'],fEmail:['E-posta','Email','ایمیل'],fPrivacy:['Gizlilik Politikası','Privacy policy','سیاست حریم خصوصی'],
 rights:['FE School. Tüm hakları saklıdır.','FE School. All rights reserved.','FE School. همه‌ی حقوق محفوظ است.'],
 };
+
+/* ===== 2026-11-26 refresh (Farin: "update the website, and focus on our community, the app, our features, specially the games").
+   Order of weight on the home pages: games, community, the app's features, then the Free / Plus / Guided packages.
+   Courses have no price of their own any more (Farin 2026-11-26: "courses can be get through plus and guided"). ===== */
+const S2 = {
+/* course cards: the app's own wording ("Lesson 1.1 free · full course with Plus") */
+fullPlus:['Tam kurs Plus ile','Full course with Plus','دوره‌ی کامل با Plus'],
+fullPlusMid:['tam kurs Plus ile','full course with Plus','دوره‌ی کامل با Plus'],
+seePlus:['Plus\'ı gör','See Plus','Plus را ببین'],
+/* games band */
+rsK:['Çizgi roman macera','Comic adventure','ماجرای کمیک'],
+rsP:['Bir kırmızı bavulla küçük bir sahil kasabasına gelirsin. Ne diyeceğini sen seçersin, hikâye ona göre ilerler. Başrolde sen varsın, kendi adınla.','You arrive in a small seaside town with one red suitcase. You choose what to say, and the story follows. You play the lead, under your own name.','با یک چمدان قرمز به یک شهر کوچک ساحلی می‌رسی. خودت انتخاب می‌کنی چه بگویی و داستان بر همان اساس جلو می‌رود. نقش اصلی با توست، با اسم خودت.'],
+rsAlb:['Dört albüm, A1\'den B2\'ye','Four albums, A1 to B2','چهار آلبوم، از A1 تا B2'],
+rsEs:['İspanyolca öğreniyorsan: <i lang="es">La maleta roja</i>, Cudillero\'da.','Learning Spanish? <i lang="es">La maleta roja</i> is set in Cudillero.','اسپانیایی یاد می‌گیری؟ <i lang="es">La maleta roja</i> در <bdi lang="es">Cudillero</bdi> می‌گذرد.'],
+faceH:['Kasabanın insanları','Meet the town','آدم‌های شهر'],
+faceP:['Oyunların çoğu aynı liman kasabasında geçer: aynı komşularla kafede, sokakta ve iskelede yeniden karşılaşırsın.','Most games are set in the same harbour town, so you keep meeting the same neighbours: in the café, on the street, on the pier.','بیشتر بازی‌ها در همان شهر بندری می‌گذرند؛ همان همسایه‌ها را دوباره در کافه، خیابان و اسکله می‌بینی.'],
+quickL:['+ 8 hızlı oyun','+ 8 quick games','+ ۸ بازی سریع'],
+gsL:['Uygulamada 15 oyun var: hikâyeli büyük oyunlar ve hızlı oyunlar, A1\'den C1\'e. Yol haritanın her sayfasının yarısı oyun ve oyunların hepsi ücretsiz.','The app has 15 games: big story games and quick ones, from A1 to C1. Half of every roadmap page is games, and every game is free.','اپ ۱۵ بازی دارد: بازی‌های بزرگ داستانی و بازی‌های سریع، از A1 تا C1. نیمی از هر صفحه‌ی نقشه‌ی راهت بازی است و همه‌ی بازی‌ها رایگان‌اند.'],
+/* community band */
+cmEb:['Topluluğumuz','Our community','جمع ما'],
+cmH:['Yalnız öğrenmiyorsun'+dot('.'),'You don\'t learn alone'+dot('.'),'تنها یاد نمی‌گیری'+dot('.')],
+cmL:['Her perşembe canlı konuşma kulüpleri, uygulamada kendi Öğrenci Kulübün ve sorularına cevap veren Farin.','Live speaking clubs every Thursday, your own Student Club in the app, and Farin answering your questions.','هر پنجشنبه باشگاه مکالمه‌ی زنده، باشگاه دانش‌آموزان خودت داخل اپ و فرین که جواب سؤال‌هایت را می‌دهد.'],
+spPill:['Her perşembe','Every Thursday','هر پنجشنبه'],
+spH:['Perşembe konuşma kulüpleri','Thursday speaking clubs','باشگاه‌های مکالمه‌ی پنجشنبه'],
+spP:['Bir saatlik canlı gruplarda, seviyene yakın insanlarla İngilizce ya da İspanyolca konuşursun. Uygulama sana seviyene, hedeflerine ve sevdiğin konulara uyan grupları gösterir.','One-hour live groups where you speak English or Spanish with people near your level. The app shows you the groups that fit your level, your goals and the topics you love.','در گروه‌های زنده‌ی یک‌ساعته با آدم‌های هم‌سطح خودت انگلیسی یا اسپانیایی حرف می‌زنی. اپ گروه‌هایی را نشانت می‌دهد که به سطح، هدف‌ها و موضوع‌های مورد علاقه‌ات می‌خورند.'],
+spTz:['Türkiye saati (İran saatiyle 13:00–18:00)','Iran time (in Turkey, 30 minutes earlier)','به وقت ایران'],
+spEn:['İngilizce','English','انگلیسی'],spEs:['İspanyolca','Spanish','اسپانیایی'],
+spF1:['8 kişilik gruplar','Groups of 8','گروه‌های ۸ نفره'],spF2:['Seans 1 saat','One-hour sessions','جلسه‌های یک‌ساعته'],
+spF3:['Seans ₺300','₺300 or 500,000 toman a session','هر جلسه ۵۰۰٬۰۰۰ تومان'],spF4:['Guided üyelerine ücretsiz','Free with Guided','برای اعضای Guided رایگان'],
+spHow:['Yerini uygulamadan ayırt: <b>Kulüp › Gruplarım</b>. Bir seferde 1–4 perşembe seçebilirsin; Farin ödemeni onaylayınca yer senindir.','Book your seat in the app: <b>Club › My Groups</b>. Pick 1 to 4 Thursdays at a time; the seat is yours once Farin confirms your payment.','جایت را داخل اپ رزرو کن: <b>باشگاه › گروه‌های من</b>. هر بار می‌توانی ۱ تا ۴ پنجشنبه انتخاب کنی؛ وقتی فرین پرداختت را تأیید کند، جا مال توست.'],
+spAlt:['FE App: Gruplarım ekranında sana uyan konuşma kulüpleri','FE App: the My Groups screen with the speaking clubs that fit you','اپ FE: صفحه‌ی «گروه‌های من» با باشگاه‌های مکالمه‌ای که به تو می‌خورند'],
+scH:['Öğrenci Kulübü','Student Club','باشگاه دانش‌آموزان'],
+scP:['Alt çubuktaki <b>Kulüp</b> sekmesi senin köşen: ilerlemen ve konuşma grupların burada.','The <b>Club</b> tab in the bottom bar is your corner: your progress and your speaking groups live there.','تب <b>باشگاه</b> در نوار پایین اپ گوشه‌ی خودت است: پیشرفتت و گروه‌های مکالمه‌ات همین‌جاست.'],
+msH:['Farin\'e uygulamadan yaz','Message Farin in the app','در اپ به فرین پیام بده'],
+msP:['<b>Mesajlar</b> sekmesinden her şeyi sorabilirsin: bir kelime, bir kurs, bir kulüp yeri. Farin genelde bir gün içinde cevap verir.','Ask anything in the <b>Messages</b> tab: a word, a course, a club seat. Farin usually answers within a day.','در تب <b>پیام‌ها</b> هر سؤالی داری بپرس: یک کلمه، یک دوره، یک جا در باشگاه. فرین معمولاً تا یک روز جواب می‌دهد.'],
+cmBtn:['Kulübü uygulamada aç','Open the Club in the app','باشگاه را در اپ باز کن'],
+/* app features band */
+ftL:['İlk sorularda seviyeni, hedeflerini ve sevdiğin konuları seçersin; yol haritan bunlardan kurulur. Başlamak ücretsiz, kart gerekmez.','In the first questions you pick your level, your goals and the topics you love, and your roadmap is built from them. Starting is free and needs no card.','در سؤال‌های اول سطح، هدف‌ها و موضوع‌های مورد علاقه‌ات را انتخاب می‌کنی و نقشه‌ی راهت از همین‌ها ساخته می‌شود. شروع رایگان است و کارت بانکی لازم نیست.'],
+ftEb:['Uygulamada neler var','What\'s in the app','داخل اپ چه چیزهایی هست'],
+/* packages band */
+pkEb:['Üyelik','Membership','عضویت'],
+pkH:['Ücretsiz başla. İstediğinde büyüt'+dot('.'),'Start free. Grow when you\'re ready'+dot('.'),'رایگان شروع کن. هر وقت خواستی بیشترش کن'+dot('.')],
+pkL:['Uygulamanın kendisi ücretsiz. Premium kurslar Plus\'ta; Guided\'da yanında bir öğretmen de var.','The app itself is free. The premium courses are in Plus, and Guided adds a teacher by your side.','خود اپ رایگان است. دوره‌های ویژه در Plus هستند و Guided یک معلم هم کنارت می‌گذارد.'],
+pkFreeB:['Sana özel İngilizce yolun.','Your personal English path.','مسیر شخصی تو برای یادگیری انگلیسی.'],
+pkPlusB:['Bütün premium kurslar ve her yol haritası sayfası için bir karne.','Every premium course, and a report on each roadmap page.','همه‌ی دوره‌های ویژه، و یک کارنامه برای هر صفحه‌ی نقشه‌ی راه.'],
+pkGuidB:['Plus\'taki her şey, yanında bir öğretmenle.','Everything in Plus, with a teacher by your side.','همه‌ی امکانات Plus، با معلمی که کنارت است.'],
+pkFree:['Ücretsiz','Free','رایگان'],pkAlways:['her zaman','always','همیشه'],
+pkMonth:['/ ay','/ month','تومان در ماه'],
+pkInFree:['Free\'deki her şey, artı:','Everything in Free, plus:','همه‌ی امکانات Free، به‌اضافه‌ی:'],
+pkInPlus:['Plus\'taki her şey, artı:','Everything in Plus, plus:','همه‌ی امکانات Plus، به‌اضافه‌ی:'],
+pkF:[['Kişisel seviye testi ve yol haritası','Personal level test and roadmap','تعیین سطح و نقشه‌ی راه شخصی'],['Bütün öğrenme hedefleri','All learning goals','همه‌ی هدف‌های یادگیری'],['Oyunlar, dersler, alıştırmalar ve pratik','Games, lessons, exercises and practice','بازی‌ها، درس‌ها، تمرین‌ها و پرکتیس'],['Her premium kursun ilk dersi','The first lesson of every premium course','درس اول همه‌ی دوره‌های ویژه']],
+pkP:[['Bütün premium kurslar','All premium courses','همه‌ی دوره‌های ویژه'],['Her yol haritası sayfasını bitirince sayfa karnen','A page report each time you finish a roadmap page','کارنامه‌ی صفحه، هر بار که یک صفحه‌ی نقشه‌ی راه را تمام می‌کنی']],
+pkG:[['Ayda 2 birebir koçluk seansı, öğrenme yoluna göre','2 one-to-one coaching sessions a month, on your learning path','ماهی ۲ جلسه‌ی کوچینگ خصوصی، بر اساس مسیر یادگیری‌ات'],['Perşembe konuşma kulüpleri ücretsiz','Thursday speaking clubs, free','باشگاه‌های مکالمه‌ی پنجشنبه، رایگان'],['Sana özel ödevler','Homework made for you','تکلیف‌هایی که مخصوص تو طراحی می‌شوند'],['Farin ödevlerini kontrol edip geri bildirim verir','Farin checks your homework and gives you feedback','فرین تکلیف‌هایت را بررسی می‌کند و بازخورد می‌دهد'],['Farin\'e WhatsApp\'tan yaz','Message Farin on WhatsApp','در واتس‌اپ به فرین پیام بده']],
+pkCourses:['İK ve İş İngilizcesi · IELTS · İş Mülakatı · Metin Yazarlığı · Satış ve Dış Ticaret · Yapay Zekâ ve İnternet · Kapsamlı İş İngilizcesi','HR &amp; Business · IELTS · Job Interview · Copywriting · Sales &amp; Trade · AI &amp; the Internet · Complete Business English','منابع انسانی و کسب‌وکار · آیلتس · مصاحبه‌ی شغلی · کپی‌رایتینگ · فروش و بازرگانی · هوش مصنوعی و اینترنت · دوره‌ی جامع تجاری'],
+pkBtnF:['Ücretsiz başla','Start free','رایگان شروع کن'],pkBtnP:['Plus\'ı uygulamada al','Get Plus in the app','Plus را در اپ بگیر'],pkBtnG:['Guided\'ı uygulamada seç','Choose Guided in the app','Guided را در اپ انتخاب کن'],
+pkBadge:['Bütün kurslar','Every course','همه‌ی دوره‌ها'],
+pkNote:['Üyeliği uygulamadan alırsın: Ana Sayfa\'daki üyelik kutusuna dokun, planını seç ve ödemeni yap; ödemen onaylanınca üyeliğin başlar. Uygulamada, üyelik sayfasını ilk açtığında 48 saatlik bir tanışma fiyatı var.','You get a membership in the app: tap the membership box on Home, pick your plan and pay; it starts once your payment is confirmed. There is a 48-hour intro price in the app when you first open the membership page.','عضویت را داخل اپ می‌گیری: روی کادر عضویت در صفحه‌ی اصلی بزن، پلن خودت را انتخاب کن و پرداخت را انجام بده؛ بعد از تأیید پرداخت، عضویتت شروع می‌شود. وقتی صفحه‌ی عضویت را برای اولین بار باز کنی، داخل اپ یک قیمت ۴۸ ساعته‌ی شروع می‌بینی.'],
+pkAlt:['FE App: premium kurslar, her kartta "Ders 1.1 ücretsiz · tam kurs Plus ile"','FE App: the premium courses, each card saying "Lesson 1.1 free · full course with Plus"','اپ FE: دوره‌های ویژه، روی هر کارت «درس ۱.۱ رایگان · دوره‌ی کامل با Plus»'],
+};
+/* membership prices = MB_PRICES regular in the app (Claude/tools/membership/mb-app.js, farin-24, 2026-11-26). Regular prices only:
+   the 48-hour intro price lives only in the app (per account, server clock). Iran in toman, never rial. */
+const MB = { tr: { plus: [319, 2290], guided: [3190, 28900] }, ir: { plus: [629000, 5690000], guided: [2490000, 22490000] } };
+const SPK_TL = 300, SPK_TOMAN = 500000;   /* speaking club session, = SPK_PRICE in Claude/tools/speaking-club/spk-block.js */
+const grp = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+const faNum = n => grp(n, '٬').replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const lira = (l, n) => '₺' + grp(n, l === 'tr' ? '.' : ',');
+const yearTxt = (l, plan) => l === 'fa' ? `یا سالی ${faNum(MB.ir[plan][1])} تومان` : l === 'tr' ? `ya da yıllık ${lira('tr', MB.tr[plan][1])}` : `or ${lira('en', MB.tr[plan][1])} a year`;
+/* The games (names = gameDisplayName() in the app; levels checked in the app's GAME_ROTATION / CASE_LEVELS / YC_LEVELS, 2026-11-26).
+   Art = the 3D posters of farin-english dda98a5a, copied into site/assets/game (the site never links the app's files). */
+const RS_ALBUMS = [['A1', 'Whitby', 'The Camera'], ['A2', ['İstanbul', 'Istanbul', 'استانبول'], 'The Bazaar Key'], ['B1', 'Vík', 'Fire and Ice'], ['B2', 'Tsugaru', 'The Silent Train']];
+const GAMES3D = [
+  { img: 'p3d-harbour-files', c: '--purple', lv: 'A1–C1', k: ['Gizem', 'Mystery', 'معمایی'], name: ['Liman Dosyaları', 'Harbour Files', 'پرونده‌های بندر'], en: 'Harbour Files',
+    d: ['İpuçlarını dikkatle oku ve kimin yaptığını bul. Her seviyede iki gizem bölümü.', 'Read the clues carefully and find who did it. Two mystery episodes at every level.', 'سرنخ‌ها را با دقت بخوان و پیدا کن کار چه کسی بوده. در هر سطح دو قسمت معمایی.'],
+    alt: ['Liman Dosyaları afişi: yağmurlu limanda not defteriyle bir dedektif', 'Harbour Files poster: a detective with a notebook on the rainy harbour', 'پوستر پرونده‌های بندر: کارآگاهی با دفترچه در بندر بارانی'] },
+  { img: 'p3d-open-house', c: '--g-career', lv: 'A1–C1', k: ['Komşuluk', 'Neighbours', 'همسایگی'], name: ['Açık Kapı', 'Open House', 'خانه‌ی باز'], en: 'Open House',
+    d: ['Bir sokakta komşulara küçük işlerde yardım et: kek pişir, çamaşırı yık. Cümleleri takip et, işi bitir.', 'Help the neighbours with small jobs on one street: bake a cake, do the laundry. Follow the sentences, finish the job.', 'در یک خیابان به همسایه‌ها در کارهای کوچک کمک کن: کیک بپز، لباس‌ها را بشوی. جمله‌ها را دنبال کن و کار را تمام کن.'],
+    alt: ['Açık Kapı afişi: sokakta gülümseyen komşular ve bir kedi', 'Open House poster: smiling neighbours and a cat in the street', 'پوستر خانه‌ی باز: همسایه‌های خندان و یک گربه در خیابان'] },
+  { img: 'p3d-order-up', c: '--orange-deep', lv: 'A1–C1', k: ['Kafe', 'Café', 'کافه'], name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], en: 'Order Up!',
+    d: ['Sam\'in kafesinde her müşterinin siparişini dinle ve tepsiye hazırla.', 'At Sam\'s café, listen to each customer\'s order and build it on the tray.', 'در کافه‌ی سم سفارش هر مشتری را گوش کن و روی سینی بچین.'],
+    alt: ['Sipariş Hazır! afişi: elinde kahve ve pastayla gülümseyen Sam', 'Order Up! poster: Sam smiling with a coffee and a slice of cake', 'پوستر سفارش حاضر!: سم با یک فنجان قهوه و یک برش کیک'] },
+  { img: 'p3d-passport-desk', c: '--g-imm', lv: 'A1–C1', k: ['Dinle ve düzelt', 'Listen and fix', 'گوش کن و درست کن'], name: ['Pasaport Masası', 'Passport Desk', 'میز گذرنامه'], en: 'Passport Desk',
+    d: ['İskeledeki kulübede her yolcuyu dinle ve kartındaki hatayı düzelt.', 'In the booth on the pier, listen to each traveller and fix the mistake on their card.', 'در باجه‌ی کنار اسکله به هر مسافر گوش کن و اشتباه کارتش را درست کن.'],
+    alt: ['Pasaport Masası afişi: kulübede damga basan görevli', 'Passport Desk poster: the officer stamping a passport in his booth', 'پوستر میز گذرنامه: مأموری که در باجه مهر می‌زند'] },
+  { img: 'p3d-mini-radio', c: '--g-exam', lv: 'A1–C1', k: ['Dinleme', 'Listening', 'شنیداری'], name: ['Mini Radyo', 'Mini Radio', 'رادیو کوچک'], en: 'Mini Radio',
+    d: ['Radyoyu ayarla, parça parça dinle ve ana fikri yakala.', 'Tune in, listen part by part, and catch the big picture.', 'رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.'],
+    alt: ['Mini Radyo afişi: eski radyonun yanında kahvesini içen bir balıkçı', 'Mini Radio poster: a fisherman with his coffee next to an old radio', 'پوستر رادیو کوچک: ماهیگیری کنار یک رادیوی قدیمی با فنجان قهوه'] },
+  { img: 'p3d-magic-words', c: '--purple-ink', lv: null, k: ['Hızlı oyun', 'Quick game', 'بازی سریع'], name: ['Sihirli Kelimeler', 'Magic Words', 'کلمات جادویی'], en: 'Magic Words',
+    d: ['Eksik kelimeyi bul, harf harf yaz ve sihirli kapıyı aç.', 'Find the missing word, spell it, and open the magic door.', 'کلمه‌ی جاافتاده را پیدا کن، حرف‌هایش را بچین و در جادویی را باز کن.'],
+    alt: ['Sihirli Kelimeler afişi: parlayan sihirli kapıyı açan bir kız', 'Magic Words poster: a girl opening the glowing magic door', 'پوستر کلمات جادویی: دختری که در جادویی درخشان را باز می‌کند'] },
+];
+/* the other 8 quick games (app gameDisplayName + gameBlurb) */
+const QUICK = [
+  [['Kelime Tombalası', 'Word Bingo', 'بینگوی کلمات'], ['İpucunu dinle, kartındaki kelimeye dokun.', 'Listen to the clue and tap the word on your card.', 'سرنخ را گوش کن و روی کلمه در کارتت بزن.']],
+  [['Cümle Kur', 'Build It', 'جمله بساز'], ['Kelime karolarına dokunarak cümleyi kur.', 'Tap the word tiles to build the sentence.', 'روی کاشی‌های کلمه بزن و جمله را بساز.']],
+  [['Hikaye Avı', 'Story Hunt', 'شکار داستان'], ['Hikayenden bir bölümde gizli kelimeleri bul.', 'Find the words hidden in a passage from your story.', 'کلمه‌ها را در بخشی از داستانت پیدا کن.']],
+  [['Tekrar Et', 'Say It Back', 'بگو ببینم'], ['Bir cümle dinle ve tekrar et.', 'Listen to a line and say it back.', 'یک جمله گوش کن و همان را بگو.']],
+  [['Dinle ve Yaz', 'Listen & Type', 'گوش کن و بنویس'], ['Bir cümle dinle, duyduğunu yaz.', 'Listen to a sentence and type what you hear.', 'یک جمله گوش کن و همان را تایپ کن.']],
+  [['Mini Bulmaca', 'Mini Cross', 'جدول کوچک'], ['Öğrendiğin kelimeleri mini bir bulmacaya yaz.', 'Spell the words you learned into a pocket crossword.', 'کلمه‌هایی که یاد گرفتی را در یک جدول کوچک بنویس.']],
+  [['Kelime Yarışı', 'Word Rush', 'مسابقه کلمات'], ['Karoları çevir, her kelimeyi anlamıyla eşleştir.', 'Flip tiles and match each word with its meaning.', 'کاشی‌ها را برگردان و هر کلمه را با معنی‌اش جفت کن.']],
+  [['Tuzak Kaçışı', 'Trap Dash', 'فرار از تله‌ها'], ['Doğru şekli hızla seç, tuzaklar bekliyor.', 'Pick the right form quickly, the traps are waiting.', 'سریع شکل درست را انتخاب کن، تله‌ها منتظرند.']],
+];
+const FACES = ['bell', 'sam', 'gran', 'tom', 'meg', 'ada', 'leyla', 'ben', 'rosa', 'captain'];
+const FACE_NAME = { bell: 'Bell', sam: 'Sam', gran: 'Gran', tom: 'Tom', meg: 'Meg', ada: 'Ada', leyla: 'Leyla', ben: 'Ben', rosa: 'Rosa', captain: 'Captain' };
+/* Thursday clubs = SPK_GROUPS in Claude/tools/speaking-club/spk-block.js, one per hour, Iran time (UTC+3:30, no DST). Never a date: "every Thursday". */
+const SLOTS = [[13, 'First Words Café', 'en', 'A1'], [14, 'First Trip', 'en', 'A1'], [15, 'Work &amp; Study Talk', 'en', 'A2–B1'], [16, 'Café en español', 'es', 'A1–A2'], [17, 'Español para el trabajo', 'es', 'A1–A2'], [18, 'Everyday Chat', 'en', 'A2–B1']];
+/* app features: [icon, title x3, line x3, on the home page too] */
+const FEATS = [
+  ['map', ['Sana özel yol haritası', 'A roadmap made for you', 'نقشه‌ی راه مخصوص خودت'], ['Seviyene, hedeflerine ve sevdiğin konulara göre kurulur.', 'Built from your level, your goals and your favourite topics.', 'بر اساس سطح، هدف‌ها و موضوع‌های مورد علاقه‌ات ساخته می‌شود.'], 1],
+  ['story', ['Turlarla dersler', 'Lessons in rounds', 'درس‌ها در چند دور'], ['Kelimeler ve dilbilgisi kısa turlarla gelir; her tur bir öncekinin üstüne kurulur.', 'Words and grammar come in short rounds, each one building on the last.', 'واژه‌ها و گرامر در دورهای کوتاه می‌آیند و هر دور روی دور قبلی ساخته می‌شود.'], 1],
+  ['game', ['15 oyun', '15 games', '۱۵ بازی'], ['Yol haritanın yarısı oyun, A1\'den C1\'e.', 'Half your roadmap is games, from A1 to C1.', 'نیمی از نقشه‌ی راهت بازی است، از A1 تا C1.'], 1],
+  ['mic', ['Konuşma ve yazma pratiği', 'Speaking and writing practice', 'تمرین صحبت و نوشتن'], ['Cevabını sesli söyle ya da yaz, geri bildirimini hemen al.', 'Say or write your answer and get feedback right away.', 'جوابت را بلند بگو یا بنویس و فوراً بازخورد بگیر.'], 1],
+  ['box', ['Kelime Kutusu', 'Vocab Box', 'جعبه‌ی لغات'], ['"Tekrar çalışayım" dediğin kelimeler kutuya girer ve yol haritanda geri gelir.', 'Words you mark "Practice again" go into the box and come back on your roadmap.', 'واژه‌هایی که رویشان «دوباره تمرین کنم» را می‌زنی به جعبه می‌روند و در نقشه‌ی راهت برمی‌گردند.'], 1],
+  ['report', ['Sayfa karnesi (Plus)', 'Page report (Plus)', 'کارنامه‌ی صفحه (Plus)'], ['Her yol haritası sayfasını bitirince ne öğrendiğini gösteren bir karne.', 'A report on what you learned each time you finish a roadmap page.', 'هر بار که یک صفحه‌ی نقشه‌ی راه را تمام می‌کنی، کارنامه‌ای از آنچه یاد گرفتی.'], 1],
+  ['chat', ['Mesajlar', 'Messages', 'پیام‌ها'], ['Farin\'e uygulamadan yaz; genelde bir gün içinde cevap verir.', 'Write to Farin in the app; he usually answers within a day.', 'در اپ به فرین پیام بده؛ معمولاً تا یک روز جواب می‌دهد.'], 1],
+  ['globe', ['İngilizce ve İspanyolca', 'English and Spanish', 'انگلیسی و اسپانیایی'], ['İlk ekranda hangi dili öğreneceğini seçersin.', 'On the first screen you choose which language to learn.', 'در صفحه‌ی اول انتخاب می‌کنی کدام زبان را یاد بگیری.'], 1],
+  ['bell', ['Telefon bildirimleri', 'Phone notifications', 'اعلان روی گوشی'], ['Kısa hatırlatmalar; Ayarlar\'dan istediğin zaman kapatırsın.', 'Short reminders; turn them off in Settings any time.', 'یادآوری‌های کوتاه؛ هر وقت خواستی از تنظیمات خاموششان کن.'], 0],
+  ['users', ['Konuşma kulüpleri', 'Speaking clubs', 'باشگاه‌های مکالمه'], ['Her perşembe canlı gruplar; yerini Kulüp sekmesinden ayırtırsın.', 'Live groups every Thursday; book your seat in the Club tab.', 'هر پنجشنبه گروه‌های زنده؛ جایت را از تب باشگاه رزرو می‌کنی.'], 0],
+];
+const shot = (l, name) => `/assets/app/s26-${l}-${name}.webp`;
+
+/* the games band: the home pages (#oyunlar, IG game posts link /#oyunlar) and the app page (full = every quick game with its line) */
+function gamesShow(l, full) {
+  const i = LANGS[l].i, rtl = l === 'fa';
+  const nm = (g) => g.name[i] + (l === 'en' ? '' : ` <small dir="ltr" lang="en">${g.en}</small>`);
+  const albums = RS_ALBUMS.map(([lv, town, title]) => `<li><b dir="ltr">${lv}</b><span>${esc(Array.isArray(town) ? town[i] : town)}</span><i lang="en" dir="ltr">${title}</i></li>`).join('');
+  const posters = GAMES3D.map(g => `<figure class="gcard3" style="--c:var(${g.c})"><img src="/assets/game/${g.img}.webp" alt="${esc(g.alt[i])}" width="480" height="600" loading="lazy" decoding="async"><figcaption><span class="gk">${esc(g.k[i])}${g.lv ? ` · <bdi dir="ltr">${g.lv}</bdi>` : ''}</span><b>${nm(g)}</b><p>${esc(g.d[i])}</p></figcaption></figure>`).join('\n      ');
+  const quick = full
+    ? `<ul class="qlist">${QUICK.map(([n, d]) => `<li><b>${esc(n[i])}</b><span>${esc(d[i])}</span></li>`).join('')}</ul>`
+    : `<p class="qchips"><b>${S2.quickL[i]}</b>${QUICK.map(([n]) => `<span>${esc(n[i])}</span>`).join('')}</p>`;
+  return `
+<section class="gshow" id="oyunlar"><div class="wrap"><div class="gshow-in">
+  <div class="sec-head c"><p class="eyebrow">${S.gamesEb[i]}</p><h2>${S.gamesH[i]}</h2><p class="lead">${S2.gsL[i]}</p></div>
+  <article class="rs">
+    <div class="rs-art"><img src="/assets/game/rs-whitby.webp" alt="${esc(['Kırmızı Bavul, 1. albüm The Camera: Whitby limanında kırmızı bavullu kahraman', 'The Red Suitcase, album 1 The Camera: the hero with the red suitcase on the Whitby harbour', 'چمدان قرمز، آلبوم اول The Camera: قهرمان با چمدان قرمز در بندر ویتبی'][i])}" width="560" height="700" loading="lazy" decoding="async"></div>
+    <div class="rs-txt">
+      <span class="pill dark">${S2.rsK[i]} · <bdi dir="ltr">A1–B2</bdi></span>
+      <h3>${['Kırmızı Bavul', 'The Red Suitcase', 'چمدان قرمز'][i]}${l === 'en' ? '' : ` <small dir="ltr" lang="en">The Red Suitcase</small>`}</h3>
+      <p>${S2.rsP[i]}</p>
+      <p class="rs-alb-h">${S2.rsAlb[i]}</p>
+      <ul class="rs-alb">${albums}</ul>
+      <div class="rs-es"><img src="/assets/game/rs-cudillero.webp" alt="${esc(['La maleta roja, 1. albüm La cámara: Cudillero', 'La maleta roja, album 1 La cámara: Cudillero', 'La maleta roja، آلبوم اول La cámara: کودیرو'][i])}" width="400" height="500" loading="lazy" decoding="async"><p>${S2.rsEs[i]}</p></div>
+    </div>
+  </article>
+  <div class="g3grid">
+      ${posters}
+  </div>
+  <div class="faces">
+    <ul>${FACES.map(f => `<li><img src="/assets/game/face-${f}.webp" alt="${FACE_NAME[f]}" width="90" height="90" loading="lazy" decoding="async"></li>`).join('')}</ul>
+    <div><b>${S2.faceH[i]}</b><p>${S2.faceP[i]}</p></div>
+  </div>
+  ${quick}
+  <div class="cta-row"><a class="btn btn-orange" data-loc="${full ? 'app-games' : 'home-games'}" href="${APP}" ${ext}>${S.hgBtn[i]}</a>${full ? '' : `<a class="tlink tlink-w" href="${url(l, 'app')}#oyunlar">${S.hgAll[i]}</a>`}</div>
+</div></div></section>
+`;
+}
+
+/* community: Thursday speaking clubs, the Student Club, Messages */
+function communityBand(l) {
+  const i = LANGS[l].i;
+  const t = h => l === 'tr' ? `${h - 1}:30` : l === 'fa' ? faNum(h) + ':۰۰' : `${h}:00`;
+  const slots = SLOTS.map(([h, name, lang, lv]) => `<li><time dir="ltr">${t(h)}</time><b lang="${lang === 'es' ? 'es' : 'en'}" dir="ltr">${name}</b><span>${(lang === 'es' ? S2.spEs : S2.spEn)[i]} · <bdi dir="ltr">${lv}</bdi></span></li>`).join('\n          ');
+  const facts = [S2.spF1, S2.spF2, S2.spF3, S2.spF4].map((f, n) => `<li style="--c:var(${['--purple', '--g-imm', '--orange', '--green'][n]})"><i></i><span>${f[i]}</span></li>`).join('');
+  return `
+<section class="sec cm" id="topluluk"><div class="wrap">
+  <div class="sec-head c"><p class="eyebrow">${S2.cmEb[i]}</p><h2>${S2.cmH[i]}</h2><p class="lead">${S2.cmL[i]}</p></div>
+  <article class="clubs">
+    <div class="clubs-txt">
+      <span class="pill dark">${S2.spPill[i]}</span>
+      <h3>${S2.spH[i]}</h3>
+      <p>${S2.spP[i]}</p>
+      <div class="slots">
+        <p class="slots-h">${S2.spTz[i]}</p>
+        <ul>
+          ${slots}
+        </ul>
+      </div>
+      <ul class="facts">${facts}</ul>
+      <p class="clubs-how">${S2.spHow[i]}</p>
+    </div>
+    <div class="ph clubs-ph"><img src="${shot(l, 'groups')}" alt="${esc(S2.spAlt[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
+  </article>
+  <div class="cm-two">
+    <article class="cm-card"><span class="cm-ico" style="--c:var(--orange)">${ic('users')}</span><div><h3>${S2.scH[i]}</h3><p>${S2.scP[i]}</p></div></article>
+    <article class="cm-card"><span class="cm-ico" style="--c:var(--purple)">${ic('chat')}</span><div><h3>${S2.msH[i]}</h3><p>${S2.msP[i]}</p></div></article>
+  </div>
+  <div class="cta-row"><a class="btn btn-purple" data-loc="community" href="${APP}" ${ext}>${S2.cmBtn[i]}</a></div>
+</div></section>
+`;
+}
+
+/* the app's features grid (home: 8, app page: all) */
+function featGrid(l, all) {
+  const i = LANGS[l].i;
+  return `<ul class="fgrid${all ? ' all' : ''}">${FEATS.filter(f => all || f[3]).map(([icn, h, p]) => `<li><span class="fg-ico">${ic(icn)}</span><b>${h[i]}</b><span>${p[i]}</span></li>`).join('')}</ul>`;
+}
+
+/* Free / Plus / Guided (prices = MB regular; TR in lira, FA in toman, EN both) */
+function packagesBand(l) {
+  const i = LANGS[l].i, fa = l === 'fa';
+  const price = plan => fa
+    ? `<div class="pk-price"><b>${faNum(MB.ir[plan][0])}</b><span>${S2.pkMonth[i]}</span><small>${yearTxt(l, plan)}</small></div>`
+    : `<div class="pk-price"><b>${lira(l, MB.tr[plan][0])}</b><span>${S2.pkMonth[i]}</span><small>${yearTxt(l, plan)}</small>${l === 'en' ? `<small class="pk-ir">Iran: ${grp(MB.ir[plan][0], ',')} toman a month · ${grp(MB.ir[plan][1], ',')} a year</small>` : ''}</div>`;
+  const ul = arr => `<ul class="pk-feats">${arr.map(f => `<li>${ic('check')}<span>${f[i]}</span></li>`).join('')}</ul>`;
+  const arrow = fa ? '←' : '→';
+  return `
+<section class="sec pk" id="paketler"><div class="wrap">
+  <div class="sec-head c"><p class="eyebrow">${S2.pkEb[i]}</p><h2>${S2.pkH[i]}</h2><p class="lead">${S2.pkL[i]}</p></div>
+  <div class="pk-grid">
+    <article class="pk-card">
+      <p class="pk-name" lang="en">Free</p><p class="pk-blurb">${S2.pkFreeB[i]}</p>
+      <div class="pk-price"><b>${S2.pkFree[i]}</b><span>${S2.pkAlways[i]}</span></div>
+      ${ul(S2.pkF)}
+      <a class="btn btn-ghost" data-loc="pk-free" href="${APP}" ${ext}>${S2.pkBtnF[i]}</a>
+    </article>
+    <article class="pk-card pk-plus">
+      <span class="pill pk-badge">${S2.pkBadge[i]}</span>
+      <p class="pk-name" lang="en">Plus</p><p class="pk-blurb">${S2.pkPlusB[i]}</p>
+      ${price('plus')}
+      <p class="pk-in">${S2.pkInFree[i]}</p>
+      ${ul(S2.pkP)}
+      <p class="pk-courses">${S2.pkCourses[i]}</p>
+      <a class="btn btn-orange" data-loc="pk-plus" href="${APP}" ${ext}>${S2.pkBtnP[i]} <span aria-hidden="true">${arrow}</span></a>
+    </article>
+    <article class="pk-card pk-guided">
+      <p class="pk-name" lang="en">Guided</p><p class="pk-blurb">${S2.pkGuidB[i]}</p>
+      ${price('guided')}
+      <p class="pk-in">${S2.pkInPlus[i]}</p>
+      ${ul(S2.pkG)}
+      <a class="btn btn-ghost" data-loc="pk-guided" href="${APP}" ${ext}>${S2.pkBtnG[i]}</a>
+    </article>
+  </div>
+  <p class="pk-note">${S2.pkNote[i]}</p>
+</div></section>
+`;
+}
 
 const WAMSG = [n => `Merhaba Farin! "${n}" ile ilgileniyorum.`, n => `Hi Farin! I'm interested in "${n}".`, n => `سلام فرین! به «${n}» علاقه دارم.`];
 const LIVE_PRICE = ['₺3.400<small>\'dan / ay</small>', '<small style="margin:0 4px 0 0">from</small>₺3,400<small>/ month</small>', null];
@@ -232,32 +469,32 @@ const GOALS = {
     self: { key: 'hr', name: ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'],
       for: ['Toplantı, e-posta, sunum ve İK yazışmaları için hazır bir yol.', 'A ready path for meetings, emails, presentations and HR writing.', 'یک مسیر آماده برای جلسه، ایمیل، ارائه و مکاتبات منابع انسانی.'],
       outs: [['Gerçek iş senaryoları', 'Real workplace scenarios', 'سناریوهای واقعی محیط کار'], ['Hazır cümle kalıpları', 'Ready-to-use phrases', 'الگوهای جمله‌ی آماده'], OWN],
-      price: ['₺2.290', '₺2,290', '۲٬۲۹۰٬۰۰۰<small>تومان</small>'], pills: [salePill('hr')],
-      cta: FREE11, more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'], pageFa: ['/fa/dore-englisi-manabe-ensani.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
-    live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], ['₺1.500', '₺1,500', '۱٬۵۰۰٬۰۰۰ تومان'], 'interview', null, null, null, '/ingilizce-mulakat-hazirligi.html'],
-      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], ['₺1.790', '₺1,790', '۱٬۷۹۰٬۰۰۰ تومان'], 'marketing', 'marketing', true, '/fa/dore-copywriting-englisi.html', '/ingilizce-metin-yazarligi.html'],
-      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], ['₺1.990', '₺1,990', '۱٬۹۹۰٬۰۰۰ تومان'], 'sales', 'sales', true, '/fa/dore-zaban-englisi-bazargani.html', '/dis-ticaret-ingilizcesi.html'],
-      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], ['₺1.990', '₺1,990', '۱٬۹۹۰٬۰۰۰ تومان'], 'ai', 'ai-internet', true, '/fa/dore-prompt-nevisi-englisi.html', '/ingilizce-prompt-yazma.html'],
-      [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], ['₺2.690', '₺2,690', '۲٬۶۹۰٬۰۰۰ تومان'], 'biz', 'business', true, '/fa/dore-zaban-englisi-tejari.html', '/is-ingilizcesi.html#kapsamli-kurs']] },
+      pills: [salePill('hr')],
+      cta: FREE11, more: ['/is-ingilizcesi.html', 'İş İngilizcesi sayfası →'], moreFa: ['/fa/blog/estelahat-manabe-ensani-englisi.html', 'راهنما: اصطلاحات منابع انسانی به انگلیسی ←'], pageFa: ['/fa/dore-englisi-manabe-ensani.html', 'جزئیات دوره: فصل‌ها و درس‌ها ←'] },
+    live: 'biz', also: [['mulakat', ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'], null, 'interview', null, null, null, '/ingilizce-mulakat-hazirligi.html'],
+      [null, ['Metin Yazarlığı ve İçerik İngilizcesi', 'Copywriting & Content English', 'انگلیسی کپی‌رایتینگ و تولید محتوا'], null, 'marketing', 'marketing', true, '/fa/dore-copywriting-englisi.html', '/ingilizce-metin-yazarligi.html'],
+      [null, ['Satış ve Dış Ticaret İngilizcesi', 'Sales & Trade English', 'انگلیسی فروش و بازرگانی'], null, 'sales', 'sales', true, '/fa/dore-zaban-englisi-bazargani.html', '/dis-ticaret-ingilizcesi.html'],
+      [null, ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], null, 'ai', 'ai-internet', true, '/fa/dore-prompt-nevisi-englisi.html', '/ingilizce-prompt-yazma.html'],
+      [null, ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], null, 'biz', 'business', true, '/fa/dore-zaban-englisi-tejari.html', '/is-ingilizcesi.html#kapsamli-kurs']] },
   ielts: { img: 'char-exam', c: '--g-exam', title: ['IELTS ve yurt dışı', 'IELTS & moving abroad', 'آیلتس و مهاجرت'], label: 'gIe', sub: 'gIeS',
     self: { key: 'ielts', name: ['IELTS: 10 tam sınav', 'IELTS: 10 full exams', 'آیلتس: ۱۰ آزمون کامل'],
       for: ['Gerçek sınava yakın 10 deneme, bölüm bölüm teknik.', '10 practice tests close to the real exam, with technique part by part.', '۱۰ آزمون نزدیک به آزمون واقعی، با تکنیک بخش به بخش.'],
       outs: [['Listening, Reading, Writing, Speaking', 'Listening, Reading, Writing, Speaking', 'Listening، Reading، Writing، Speaking'], ['Her sınav 10 ders', '10 lessons per exam', '۱۰ درس برای هر آزمون'], OWN],
-      price: ['₺3.000', '₺3,000', '۳٬۰۰۰٬۰۰۰<small>تومان</small>'], pills: [salePill('ielts')],
-      cta: FREE11, more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'], pageFa: ['/fa/dore-ielts-online.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
+      pills: [salePill('ielts')],
+      cta: FREE11, more: ['/ielts-hazirlik.html#ielts-kursu', 'IELTS kursunun detayları →'], moreFa: ['/fa/blog/nameh-nevisi-ielts-general.html', 'راهنما: نامه‌نویسی آیلتس جنرال ←'], pageFa: ['/fa/dore-ielts-online.html', 'جزئیات دوره: فصل‌ها و درس‌ها ←'] },
     live: null },
   mulakat: { img: 'char-immigration', c: '--g-imm', title: ['İş görüşmesi', 'Job interview', 'مصاحبه‌ی کاری'], label: 'gMu', sub: 'gMuS',
     self: { key: 'interview', name: ['İngilizce İş Mülakatı', 'Job Interview English', 'مصاحبه‌ی شغلی به انگلیسی'],
       for: ['En sık sorulan sorular ve güçlü cevaplar.', 'The most common questions and strong answers.', 'رایج‌ترین سؤال‌ها و جواب‌های قوی.'],
       outs: [['Hazır cevap kalıpları', 'Ready-made answer patterns', 'الگوهای آماده برای جواب'], ['Kendini tanıtma, CV ve ön yazı', 'Your introduction, CV and cover letter', 'معرفی خودت، رزومه و کاور لتر'], OWN],
-      price: ['₺1.500', '₺1,500', '۱٬۵۰۰٬۰۰۰<small>تومان</small>'], pills: [salePill('interview')],
-      cta: FREE11, pageTr: '/ingilizce-mulakat-hazirligi.html', more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'], pageFa: ['/fa/amadegi-mosahebe-kari-englisi.html', 'جزئیات دوره: فصل‌ها، درس‌ها و قیمت ←'] },
-    live: 'biz', also: [['is', ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'], ['₺2.290', '₺2,290', '۲٬۲۹۰٬۰۰۰ تومان'], 'hr']] },
+      pills: [salePill('interview')],
+      cta: FREE11, pageTr: '/ingilizce-mulakat-hazirligi.html', more: ['/blog/is-ingilizcesi-mulakat-sorulari.html', 'Mülakat soruları rehberi →'], moreFa: ['/fa/blog/moarefi-khod-mosahebe-englisi.html', 'راهنما: معرفی خود در مصاحبه به انگلیسی ←'], pageFa: ['/fa/amadegi-mosahebe-kari-englisi.html', 'جزئیات دوره: فصل‌ها و درس‌ها ←'] },
+    live: 'biz', also: [['is', ['İK ve İş İngilizcesi', 'HR & Business English', 'انگلیسی منابع انسانی و کسب‌وکار'], null, 'hr']] },
   konusma: { img: 'char-everyday', c: '--g-every', title: ['Rahat konuşmak', 'Speak with confidence', 'راحت حرف زدن'], label: 'gKo', sub: 'gKoS',
     self: { key: 'roadmap', name: ['Ücretsiz yol haritası', 'Free roadmap', 'نقشه‌ی راه رایگان'],
       for: ['Hedefini ve seviyeni seç, uygulama yolunu kursun.', 'Pick your goal and level, and the app builds your path.', 'هدف و سطحت را انتخاب کن تا اپ مسیرت را بسازد.'],
       outs: [['Hikaye, kelime, dilbilgisi', 'Stories, vocabulary, grammar', 'داستان، واژگان، گرامر'], ['15 oyun', '15 games', '۱۵ بازی'], ['Tamamen ücretsiz', 'Completely free', 'کاملاً رایگان']],
-      price: ['₺0', 'Free', 'رایگان'], pills: [['free', ['Her zaman ücretsiz', 'Always free', 'همیشه رایگان']]],
+      price: ['Ücretsiz', 'Free', 'رایگان'], pills: [['free', ['Her zaman ücretsiz', 'Always free', 'همیشه رایگان']]],
       cta: ['Yol haritamı kur', 'Build my roadmap', 'نقشه‌ی راهم را بساز'], noWa: true, more: ['/blog/ingilizce-konusma-pratigi-nasil-yapilir.html', 'Konuşma pratiği rehberi →'] },
     live: 'gen' },
 };
@@ -268,72 +505,26 @@ const COMPANY = [
   /* Q8rawI70 answer 5B (Farin 2026-10-31): the old Business package is the Sales & Trade package; managers and mixed office teams go to Complete Business, not here. */
   { sale: 'sales', c: '--orange-deep', pkg: ['Satış ve Dış Ticaret paketi', 'Sales & Trade package', 'پکیج فروش و بازرگانی'], name: ALSO_SALES[1], price: ALSO_SALES[2],
     for: ['Satış, ihracat ve müşteri hizmetleri ekipleri', 'Sales, export and customer-service teams', 'تیم‌های فروش، صادرات و خدمات مشتری'] },
-  { sale: 'hr', c: '--g-career', pkg: ['İK paketi', 'HR package', 'پکیج منابع انسانی'], name: GOALS.is.self.name, price: ['₺2.290', '₺2,290', '۲٬۲۹۰٬۰۰۰ تومان'],
+  { sale: 'hr', c: '--g-career', pkg: ['İK paketi', 'HR package', 'پکیج منابع انسانی'], name: GOALS.is.self.name, price: null,
     for: ['İK ekipleri, işe alım uzmanları, ekip liderleri', 'HR staff, recruiters and team leads', 'تیم منابع انسانی، کارشناسان جذب و سرپرست‌ها'] },
   { sale: 'marketing', c: '--purple', pkg: ['İçerik paketi', 'Content package', 'پکیج محتوا'], name: ALSO_MKT[1], price: ALSO_MKT[2],
     for: ['İçerik, metin yazarlığı ve sosyal medya ekipleri', 'Content, copy and social media teams', 'تیم‌های محتوا، کپی‌رایتینگ و شبکه‌های اجتماعی'] },
   { sale: 'interview', c: '--g-imm', pkg: ['Mülakat paketi', 'Interview package', 'پکیج مصاحبه'], name: ALSO_INT[1], price: ALSO_INT[2],
     for: ['İç geçişler ve uluslararası projeler için', 'For internal moves and international projects', 'برای جابه‌جایی داخلی و پروژه‌های بین‌المللی'] },
-  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: ['₺1.990', '₺1,990', '۱٬۹۹۰٬۰۰۰ تومان'],
+  { sale: 'ai', c: '--g-exam', pkg: ['Yapay Zekâ paketi', 'AI & Internet package', 'پکیج هوش مصنوعی و اینترنت'], name: ['Yapay Zekâ ve İnternet için İngilizce', 'English for AI and the Internet', 'انگلیسی برای هوش مصنوعی و اینترنت'], price: null,
     for: ['Yapay zekâ araçları kullanan her ekip', 'Every team that uses AI tools', 'هر تیمی که با ابزارهای هوش مصنوعی کار می‌کند'] },
-  { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş paketi', 'Complete Business package', 'پکیج جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: ['₺2.690', '₺2,690', '۲٬۶۹۰٬۰۰۰ تومان'],
+  { sale: 'biz', c: '--purple-ink', pkg: ['Kapsamlı İş paketi', 'Complete Business package', 'پکیج جامع بیزنس'], name: ['Kapsamlı İş İngilizcesi', 'Complete Business English', 'دوره‌ی جامع انگلیسی تجاری'], price: null,
     for: ['Yöneticiler, şirket sahipleri ve karma ofis ekipleri', 'Owners, managers and mixed office teams', 'مدیران، صاحبان کسب‌وکار و تیم‌های اداری'] },
-  { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama paketi', 'Marketing package', 'پکیج بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: ['₺3.490', '₺3,490', '۴٬۹۹۰٬۰۰۰ تومان'],
+  { sale: 'mktg', c: '--orange-deep', pkg: ['Pazarlama paketi', 'Marketing package', 'پکیج بازاریابی'], name: ['Pazarlama İngilizcesi', 'Marketing English', 'انگلیسی بازاریابی'], price: null,
     for: ['Pazarlama ekipleri ve yöneticileri', 'Marketing teams and managers', 'تیم‌های بازاریابی و مدیران'] },
-  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İngilizce İş Mülakatı Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+  { sale: 'pro', c: '--g-imm', pkg: ['İleri Mülakat paketi', 'Interview Pro package', 'پکیج مصاحبه‌ی پیشرفته'], name: ['İngilizce İş Mülakatı Pro', 'Interview English Pro', 'مصاحبه‌ی شغلی پیشرفته به انگلیسی'], price: null,
     for: ['Üst düzey roller ve zor mülakatlar için', 'For senior moves and harder interviews', 'برای جایگاه‌های ارشد و مصاحبه‌های سخت‌تر'] },
-  { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı paketi', 'Meetings package', 'پکیج جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+  { sale: 'meetings', c: '--g-exam', pkg: ['Toplantı paketi', 'Meetings package', 'پکیج جلسه و ارائه'], name: ['Toplantı ve Sunum İngilizcesi', 'Meetings & Presentations', 'جلسه و ارائه به انگلیسی'], price: null,
     for: ['Uluslararası ve uzaktan çalışan ekipler', 'International and remote teams', 'تیم‌های بین‌المللی و دورکار'] },
-  { sale: 'email', c: '--g-career', pkg: ['E-posta paketi', 'Email & Writing package', 'پکیج ایمیل و نگارش'], name: ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی'], price: ['₺1.690', '₺1,690', '۳٬۴۹۰٬۰۰۰ تومان'],
+  { sale: 'email', c: '--g-career', pkg: ['E-posta paketi', 'Email & Writing package', 'پکیج ایمیل و نگارش'], name: ['Profesyonel E-posta ve Yazışma', 'Professional Email & Writing', 'ایمیل و نگارش حرفه‌ای به انگلیسی'], price: null,
     for: ['İngilizce yazan ofis çalışanları', 'Office staff who write in English', 'کارکنان اداری که به انگلیسی می‌نویسند'] },
 ];
 const CO_TIERS = [['۱ تا ۲۰ نفر', 'قیمت پایه'], ['۲۱ تا ۳۹ نفر', '۱۵٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته'], ['۴۰ نفر به بالا', '۲۰٪ تخفیف + جلسه‌ی پشتیبانی هفتگی تا ۸ هفته']];
-const GAMES_SHOWN = [
-  { img: 'screen-game-siparis', c: '--orange-deep', name: ['Sipariş Hazır!', 'Order Up!', 'سفارش حاضر!'], d: ['Müşteriyi dinle, tepsiyi hazırla.', 'Listen to the customer, fill the tray.', 'به مشتری گوش کن و سینی را آماده کن.'] },
-  { img: 'screen-game-dava', c: '--purple', name: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], d: ['İpuçlarını oku, kimin yaptığını bul.', 'Read the clues, find who did it.', 'سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'] },
-  { img: 'screen-game-pasaport', c: '--g-imm', name: ['Pasaport Masası', 'Passport Desk', 'میز گذرنامه'], d: ['Yolcuyu dinle, karttaki hatayı düzelt.', 'Listen to the traveller, fix the mistake on the card.', 'به مسافر گوش کن و اشتباه روی کارت را درست کن.'] },
-  { img: 'screen-game-sihirli', c: '--g-career', name: ['Sihirli Kelimeler', 'Magic Words', 'کلمات جادویی'], d: ['Eksik kelimeyi harf harf yaz, kapıyı aç.', 'Spell the missing word, open the door.', 'کلمه‌ی جاافتاده را حرف به حرف بچین و در را باز کن.'] },   /* Magic Words v2 (2026-11-22): the letter-tile game, no microphone */
-];
-const GAMES_MORE = [
-  [['Ev İşleri', 'Cozy Chores', 'کارهای دنج خانه'], ['Boyalı bir mutfakta cümleleri takip et, odayı sırayla topla.', 'Follow the sentences and tidy a painted kitchen step by step.', 'جمله‌ها را دنبال کن و یک آشپزخانه‌ی نقاشی‌شده را قدم به قدم مرتب کن.']],
-  [['Kırmızı Bavul', 'The Red Suitcase', 'چمدان قرمز'], ['Bir kırmızı bavulla küçük bir İngiliz sahil kasabasına gelirsin. Ne diyeceğini sen seçersin, hikâye ona göre ilerler.', 'You arrive in a small English seaside town with one red suitcase. You choose what to say, and the story follows.', 'با یک چمدان قرمز به یک شهر کوچک ساحلی در انگلیس می‌رسی. خودت انتخاب می‌کنی چه بگویی و داستان بر همان اساس جلو می‌رود.']],   /* was Karar Senin / Your Call (renamed 2026-11-15, Trello qnHV76GG) */
-  /* Mini Radio: on for learners since 2026-11-10 (GAMES_V2_LIVE.radio, EN + ES apps); blurb = the app's shelf line (gameBlurb 'radio'). */
-  [['Mini Radyo', 'Mini Radio', 'رادیو کوچک'], ['Radyoyu ayarla, parça parça dinle, ana fikri yakala.', 'Tune in, listen part by part and catch the big picture.', 'رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.']],
-  [['Mini Bulmaca', 'Mini Cross', 'جدول کوچک'], ['Öğrendiğin kelimeleri bulmacaya yaz.', 'Write the words you learned into the crossword.', 'کلمه‌هایی را که یاد گرفتی در جدول بنویس.']],
-  [['Kelime Yarışı', 'Word Rush', 'مسابقه کلمات'], ['Karoları çevir, kelimeyi anlamıyla eşleştir.', 'Flip the tiles and match each word to its meaning.', 'کاشی‌ها را برگردان و هر کلمه را با معنی‌اش جفت کن.']],
-  [['Hikaye Avı', 'Story Hunt', 'شکار داستان'], ['Hikayende gizli kelimeleri bul.', 'Find the hidden words in your story.', 'کلمه‌های پنهان را در داستانت پیدا کن.']],
-  [['Cümle Kur', 'Build It', 'جمله بساز'], ['Karolara dokun, cümleyi kur.', 'Tap the tiles and build the sentence.', 'روی کاشی‌ها بزن و جمله را بساز.']],
-  [['Kelime Tombalası', 'Word Bingo', 'بینگوی کلمات'], ['İpucunu dinle, kelimeye dokun.', 'Listen to the clue, tap the word.', 'به سرنخ گوش کن و روی کلمه بزن.']],
-  [['Tekrar Et', 'Say It Back', 'بگو ببینم'], ['Cümleyi dinle, sesli tekrar et.', 'Listen to the sentence and say it back.', 'به جمله گوش کن و بلند تکرارش کن.']],
-  [['Dinle ve Yaz', 'Listen & Type', 'گوش کن و بنویس'], ['Cümleyi dinle, duyduğunu yaz.', 'Listen to the sentence and type what you hear.', 'به جمله گوش کن و آنچه می‌شنوی را بنویس.']],
-  [['Tuzak Kaçışı', 'Trap Dash', 'فرار از تله‌ها'], ['Doğru şekli hızla seç.', 'Pick the right form, fast.', 'شکل درست را سریع انتخاب کن.']],
-];
-const HOME_GAMES = [
-  { img: 'kirmizi-bavul', c: '--orange-deep', k: ['Çizgi roman macera', 'Comic adventure', 'ماجرای کمیک'], name: ['Kırmızı Bavul', 'The Red Suitcase', 'چمدان قرمز'],
-    d: ['Seçimlerin hikâyeyi değiştirir. 1. albüm Whitby\'de, A2\'deki yeni albüm İstanbul\'da.', 'Your choices change the story. Album 1 is in Whitby, the new A2 album in Istanbul.', 'انتخاب‌هایت داستان را عوض می‌کنند. آلبوم اول در ویتبی است و آلبوم تازه‌ی A2 در استانبول.'],
-    alt: ['Kırmızı Bavul, 1. albüm The Camera: Whitby limanında kırmızı bavullu kahraman', 'The Red Suitcase, album 1 The Camera: the hero with the red suitcase on the Whitby harbour', 'چمدان قرمز، آلبوم اول The Camera: قهرمان با چمدان قرمز در بندر ویتبی'] },
-  { img: 'harbour-files', c: '--purple', k: ['Dava Kapandı', 'Case Closed', 'پرونده مختومه'], name: ['Harbour Files', 'Harbour Files', 'Harbour Files'],
-    d: ['A1\'den C1\'e her seviyede iki gizem bölümü. İpuçlarını oku, kimin yaptığını bul.', 'Two mystery episodes at every level, A1 to C1. Read the clues, find who did it.', 'در هر سطح از A1 تا C1 دو قسمت معمایی. سرنخ‌ها را بخوان و پیدا کن کار چه کسی بوده.'],
-    alt: ['Harbour Files afişi: liman penceresinin önünde masada bir dava dosyası ve büyüteç', 'Harbour Files key art: a case file and a magnifying glass on a desk by the harbour window', 'پوستر Harbour Files: پرونده و ذره‌بین روی میز، کنار پنجره‌ی رو به بندر'] },
-  { img: 'open-house', c: '--g-career', k: ['Ev İşleri', 'Chores', 'خانه‌داری'], name: ['Open House', 'Open House', 'Open House'],
-    d: ['Bir sokakta küçük işler: kek pişir, çamaşırı yık. Cümleleri takip et, işi bitir.', 'Small jobs on one street: bake a cake, do the laundry. Follow the sentences, finish the job.', 'کارهای کوچک در یک خیابان: کیک بپز، لباس‌ها را بشوی. جمله‌ها را دنبال کن و کار را تمام کن.'],
-    alt: ['Open House afişi: sokakta bir masada doğum günü pastası', 'Open House key art: a birthday cake on a table in the street', 'پوستر Open House: کیک تولد روی میزی در خیابان'] },
-  { img: 'mini-radio', c: '--g-imm', k: ['Dinleme', 'Listening', 'شنیداری'], name: ['Mini Radyo', 'Mini Radio', 'رادیو کوچک'],
-    d: ['Radyoyu ayarla, parça parça dinle ve ana fikri yakala.', 'Tune in, listen part by part, and catch the big picture.', 'رادیو را تنظیم کن، قسمت‌به‌قسمت گوش کن و موضوع اصلی را بفهم.'],
-    alt: ['Mini Radyo: pencere kenarında eski bir radyo', 'Mini Radio: an old radio on a window sill', 'رادیو کوچک: یک رادیوی قدیمی کنار پنجره'] },
-];
-function gamesBand(l) {
-  const i = LANGS[l].i;
-  return `
-<section class="sec" id="oyunlar"><div class="wrap">
-  <div class="sec-head c"><p class="eyebrow">${S.gamesEb[i]}</p><h2>${S.gamesH[i]}</h2><p class="lead">${S.hgL[i]}</p></div>
-  <div class="games keyart">
-    ${HOME_GAMES.map(g => `<figure class="fcard" style="--c:var(${g.c})"><div class="scr"><img src="/assets/game/${g.img}.webp" alt="${esc(g.alt[i])}" width="480" height="600" loading="lazy" decoding="async"></div><figcaption><span class="k">${esc(g.k[i])}</span><b>${esc(g.name[i])}</b><p>${esc(g.d[i])}</p></figcaption></figure>`).join('\n    ')}
-  </div>
-  <div class="cta-row"><a class="btn btn-orange" data-loc="home-games" href="${APP}" ${ext}>${S.hgBtn[i]}</a><a class="tlink" href="${url(l, 'app')}#oyunlar">${S.hgAll[i]}</a></div>
-</div></section>
-`;
-}
 const ALT = {
   goals: ['FE App ilk ekranı: hedeflerini seçtiğin ekran', 'FE App first screen: pick your goals', 'صفحه‌ی اول اپ FE: انتخاب هدف‌ها'],
   kariyer: ['FE App yol haritası: B1 Kariyer ve İş hedefi', 'FE App roadmap: B1, career and work goal', 'نقشه‌ی راه اپ FE: سطح B1، هدف کار و شغل'],
@@ -342,27 +533,30 @@ const ALT = {
   karar: ['Kırmızı Bavul oyunu: Whitby\'de çizgi roman bir sayfa ve iki İngilizce cevap seçeneği', 'The Red Suitcase story game: a comic page in Whitby with two English answers to choose from', 'بازی داستانی «چمدان قرمز»: یک صفحه‌ی کمیک در ویتبی با دو جواب انگلیسی'],
   ev: ['Ev İşleri oyunu: boyalı bir mutfak ve sırayla yapılacak işler', 'Cozy Chores game: a painted kitchen and tasks to do in order', 'بازی «کارهای دنج خانه»: آشپزخانه‌ی نقاشی‌شده و کارهایی که باید به ترتیب انجام شود'],
   game: ['FE App oyun ekranı: ', 'FE App game screen: ', 'صفحه‌ی بازی در اپ FE: '],
+  home: ['FE App Ana Sayfa: üyelik kutusu ve yol haritasının ilk kartı, Kırmızı Bavul', 'FE App Home: the membership box and the first roadmap card, The Red Suitcase', 'صفحه‌ی اصلی اپ FE: کادر عضویت و اولین کارت نقشه‌ی راه، چمدان قرمز'],
+  album: ['Kırmızı Bavul albüm ekranı: The Camera, başrolde öğrencinin kendi adı', 'The Red Suitcase album screen: The Camera, starring the learner by name', 'صفحه‌ی آلبوم چمدان قرمز: The Camera، با اسم خود بازیکن در نقش اصلی'],
+  courses: ['FE App: premium kurslar, her kartta "Ders 1.1 ücretsiz · tam kurs Plus ile"', 'FE App: the premium courses, each card saying "Lesson 1.1 free · full course with Plus"', 'اپ FE: دوره‌های ویژه، روی هر کارت «درس ۱.۱ رایگان · دوره‌ی کامل با Plus»'],
 };
 
 const META = {
   /* TR title, farin-seo 2026-11-15 (Loop 6, Trello 00woqQiS): targets 'online ingilizce kursu' (#1 completion of "online ingilizce");
      GSC 08-01..11-14 shows no non-brand impression for the old app phrase. Keep "Ücretsiz" + "Uygulama" (IG calls to action promise free). */
   home: { t: ['Online İngilizce Kursu ve Ücretsiz Uygulama | FE School', 'English Courses and a Free English App | FE School', 'کلاس و دوره‌ی آنلاین زبان انگلیسی + اپ رایگان | FE School'],
-    d: ['Hedefini seç: İş İngilizcesi, IELTS, iş görüşmesi ya da konuşma. Ücretsiz İngilizce öğrenme uygulaması, kendi hızında online kurslar ve birebir ders.',
-        'Pick your goal: Business English, IELTS, job interviews or confident speaking. Self-paced courses, live lessons with Farin and a free app.',
-        'هدفت را انتخاب کن: انگلیسی تجاری، آیلتس، مصاحبه‌ی کاری یا راحت حرف زدن. دوره با سرعت خودت، کلاس آنلاین با فرین و یک اپ رایگان.'] },
+    d: ['Hedefini seç: İş İngilizcesi, IELTS, iş görüşmesi ya da konuşma. Oyunlarla ücretsiz İngilizce uygulaması, perşembe konuşma kulüpleri ve Plus ile online kurslar.',
+        'Pick your goal: Business English, IELTS, interviews or speaking. A free English app full of games, Thursday speaking clubs and every course with Plus.',
+        'هدفت را انتخاب کن: انگلیسی تجاری، آیلتس، مصاحبه یا مکالمه. اپ رایگان انگلیسی پر از بازی، باشگاه مکالمه‌ی پنجشنبه و همه‌ی دوره‌ها با Plus.'] },
   app: { t: ['FE App: Oyunla İngilizce, Sana Özel Yol Haritası | FE School', 'FE App: a Free English App with Games | FE School', 'اپ FE: انگلیسی با بازی و نقشه‌ی راه شخصی | FE School'],
-    d: ['Hedefini seç, sana özel yol haritan kurulsun, 15 oyunla A1\'den C1\'e ilerle. Ücretsiz İngilizce öğrenme uygulaması: kart yok, abonelik yok.',
-        'Pick your goal, get a roadmap made for you and move from A1 to C1 with 15 games. A free English learning app: no card, no subscription.',
-        'هدفت را انتخاب کن، نقشه‌ی راه مخصوص خودت ساخته شود و با ۱۵ بازی از A1 تا C1 جلو برو. اپ رایگان یادگیری انگلیسی؛ نه کارت، نه اشتراک.'] },
+    d: ['Hedefini seç, sana özel yol haritan kurulsun, 15 oyunla A1\'den C1\'e ilerle. Ücretsiz İngilizce öğrenme uygulaması: başlamak için kart gerekmez.',
+        'Pick your goal, get a roadmap made for you and move from A1 to C1 with 15 games. A free English learning app: no card needed to start.',
+        'هدفت را انتخاب کن، نقشه‌ی راه مخصوص خودت ساخته شود و با ۱۵ بازی از A1 تا C1 جلو برو. اپ رایگان یادگیری انگلیسی؛ برای شروع کارت لازم نیست.'] },
   sys: { t: ['Sistemimiz: Hikaye ve Oyunla İngilizce | FE School', 'Our System: Learn English Through Stories | FE School', 'روش ما: یادگیری انگلیسی با داستان و بازی | FE School'],
     d: ['Ezber listesi yok. Hikaye, rol, oyun ve sana göre kurulan bir yol: FE School\'un SELIF yöntemi, seviye testinden sonraki seviyeye.',
         'No lists to memorise. Stories, roles, games and a path built around you: how the FE School SELIF method works, from level test to next level.',
         'خبری از لیست حفظ‌کردنی نیست. داستان، نقش، بازی و مسیری که برای تو ساخته می‌شود: روش SELIF در FE School از تعیین سطح تا سطح بعدی.'] },
   contact: { t: ['İletişim: Farin\'e WhatsApp\'tan Yaz | FE School', 'Contact: Message Farin on WhatsApp | FE School', 'تماس: در واتس‌اپ به فرین پیام بده | FE School'],
-    d: ['Kurs, birebir ders ya da sadece bir soru: Farin\'e WhatsApp\'tan yaz, aynı gün dönüyor. Uygulama, kurs şifresi ve birebir ders hakkında sık sorulanlar.',
+    d: ['Kurs, birebir ders ya da sadece bir soru: Farin\'e WhatsApp\'tan yaz, aynı gün dönüyor. Uygulama, Plus üyeliği, konuşma kulüpleri ve birebir ders hakkında sık sorulanlar.',
         'A course, live lessons or just a question: message Farin on WhatsApp and get a reply the same day. Plus answers to the most common questions.',
-        'دوره، کلاس آنلاین یا فقط یک سؤال: در واتس‌اپ به فرین پیام بده، همان روز جواب می‌دهد. جواب سؤال‌های رایج درباره‌ی اپ، رمز دوره و کلاس‌ها.'] },
+        'دوره، کلاس آنلاین یا فقط یک سؤال: در واتس‌اپ به فرین پیام بده، همان روز جواب می‌دهد. جواب سؤال‌های رایج درباره‌ی اپ، عضویت Plus، باشگاه مکالمه و کلاس‌ها.'] },
 };
 
 /* ---------------- templates ---------------- */
@@ -433,7 +627,7 @@ function schema(l, page) {
     graph.push(
       { '@type': 'EducationalOrganization', '@id': ORIGIN + '/#fe-school', name: 'FE School', alternateName: 'FEschool', url: ORIGIN + '/',
         logo: { '@type': 'ImageObject', url: ORIGIN + '/icon-512.png', width: 512, height: 512 }, image: ORIGIN + '/og-image.jpg',
-        description: 'Ücretsiz İngilizce öğrenme uygulaması (FE App), uygulama içinde kendi hızında İngilizce kursları (İK ve İş İngilizcesi, Kapsamlı İş İngilizcesi, IELTS, İş Mülakatı, Metin Yazarlığı ve İçerik, Satış ve Dış Ticaret, Yapay Zekâ ve İnternet) ve Farin ile canlı online dersler.',
+        description: 'Oyunlarla ücretsiz İngilizce öğrenme uygulaması (FE App), Plus üyeliğiyle uygulama içinde kendi hızında premium İngilizce kursları (İK ve İş İngilizcesi, Kapsamlı İş İngilizcesi, IELTS, İş Mülakatı, Metin Yazarlığı ve İçerik, Satış ve Dış Ticaret, Yapay Zekâ ve İnternet), perşembe konuşma kulüpleri ve Farin ile canlı online dersler.',
         email: 'mailto:farinrasuli@gmail.com', founder: { '@id': ORIGIN + '/#farin' }, areaServed: ['TR', 'IR'],
         contactPoint: { '@type': 'ContactPoint', contactType: 'customer support', url: 'https://wa.me/' + WAN, email: 'farinrasuli@gmail.com', availableLanguage: ['tr', 'en', 'fa'] },
         sameAs: ['https://www.instagram.com/the_feschool/', 'https://www.linkedin.com/company/thefeschool/'] },
@@ -446,7 +640,7 @@ function schema(l, page) {
       { '@type': 'SoftwareApplication', '@id': ORIGIN + '/#uygulama', name: 'FE App', alternateName: 'Farin English', applicationCategory: 'EducationalApplication', operatingSystem: 'Web, Android',
         url: APP, downloadUrl: APK, inLanguage: ['tr', 'en', 'fa'],
         description: 'Hedeflerine göre kişisel yol haritası kuran, yol haritasının yarısı oyunlardan oluşan ücretsiz İngilizce öğrenme uygulaması.',
-        featureList: ['Hedefe göre kişisel yol haritası', 'Dilbilgisi ve kelime oyunları', 'Aralıklı tekrar', 'Seviyeye göre hikâye kütüphanesi'],
+        featureList: ['Hedefe ve sevdiğin konulara göre kişisel yol haritası', '15 oyun: Kırmızı Bavul, Liman Dosyaları, Açık Kapı, Sipariş Hazır!, Pasaport Masası, Mini Radyo, Sihirli Kelimeler ve hızlı oyunlar', 'Konuşma ve yazma pratiği', 'Kelime Kutusu', 'Perşembe konuşma kulüpleri', 'Farin ile Mesajlar', 'İngilizce ve İspanyolca'],
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' }, publisher: { '@id': ORIGIN + '/#fe-school' } },
       { '@type': 'ItemList', name: 'FE School ile öğrenilebilecek diller', itemListElement: [
         { '@type': 'ListItem', position: 1, url: ORIGIN + '/english.html', name: 'İngilizce özel ders' },
@@ -457,7 +651,7 @@ function schema(l, page) {
   if (page !== 'home') graph.push({ '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: strip(S.nav1[i]), item: ORIGIN + url(l, 'home') },
     { '@type': 'ListItem', position: 2, name: strip(S[{ app: 'nav2', sys: 'nav3', contact: 'nav4' }[page]][i]), item: canon }] });
-  if (page === 'contact') graph.push({ '@type': 'FAQPage', mainEntity: [1, 2, 3].map(n => ({ '@type': 'Question', name: strip(S['fq' + n][i]),
+  if (page === 'contact') graph.push({ '@type': 'FAQPage', mainEntity: [1, 2, 3, 4].map(n => ({ '@type': 'Question', name: strip(S['fq' + n][i]),
     acceptedAnswer: { '@type': 'Answer', text: strip(S['fa_' + n][i]) } })) });
   return { '@context': 'https://schema.org', '@graph': graph };
 }
@@ -554,11 +748,12 @@ function card(l, c, live, also) {
     .map(p => `<span class="pill ${p[0]}"><i></i>${esc(p[1][i])}</span>`).join('');
   const msg = WA(WAMSG[i](name));
   let ctas;
+  /* 2026-11-26: courses have no price or buy button of their own; the full course comes with Plus (the app's wording), see #paketler */
+  const arrow = l === 'fa' ? '←' : '→';
   if (live) ctas = `<a class="btn btn-purple" data-lead="private" href="${msg}" ${ext}>${esc(BOOK[i])}</a>`;
-  else if (c.notify) ctas = `<a class="btn btn-ghost" data-course="${c.key}" href="${WL(c.key, l)}">${esc(c.cta[i])}</a>`;
   else ctas = `<a class="btn btn-orange" data-loc="course-${c.key}" href="${APP}${c.cta === FREE11 ? `?course=${c.key}&amp;lang=${l}` : ''}" ${ext}>${esc(c.cta[i])}</a>` +
-    (c.noWa ? '' : `<a class="btn btn-want" data-course="${c.key}" href="${WL(c.key, l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a>`);
-  const price = live ? (l === 'fa' ? c.month + '<small>تومان در ماه، از بسته‌ی ۴ جلسه‌ای</small>' : LIVE_PRICE[i]) : c.price[i];
+    (c.noWa ? '' : `<a class="tlink" data-loc="course-plus" href="${url(l, 'home')}#paketler">${esc(S2.seePlus[i])} <span aria-hidden="true">${arrow}</span></a>`);
+  const price = live ? (l === 'fa' ? c.month + '<small>تومان در ماه، از بسته‌ی ۴ جلسه‌ای</small>' : LIVE_PRICE[i]) : (c.price ? c.price[i] : `<span class="inplus">${ic('star')}${esc(S2.fullPlus[i])}</span>`);
   const PACK = ['Aylık · 50 dk · ayda 4, 8 veya 12 ders · 3 ay peşin: 8 ve 12 derslik paketlerde %20 indirim', 'Monthly · 50 min · 4, 8 or 12 lessons a month · Pay 3 months upfront: 20% off the 8- and 12-lesson packs'];
   const note = (icon, html, cls = '') => `<li${cls ? ` class="${cls}"` : ''}>${ic(icon)}<span>${html}</span></li>`;
   const liveNotes = !live ? '' : l === 'fa'
@@ -571,7 +766,8 @@ function card(l, c, live, also) {
     /* 2026-11-09 (farin-seo, Loop 2): indexable TR course pages (/<slug>.html) */
     : l === 'tr' && c.pageTr ? `<a class="tlink more" href="${c.pageTr}">${esc(DETAILS[0])}</a>` : '';
   /* also = list of [panel anchor or null, name x3, price x3, SALE key, app course id for the request button, true (or its own label) if it also has a free Lesson 1.1 link, optional FA course page that the name links to, optional TR course page that the name links to (2026-11-09)]; one row per course, one 'Also' label */
-  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : l === 'fa' && a[6] ? `<a href="${a[6]}">${esc(a[1][i])}</a>` : l === 'tr' && a[7] ? `<a href="${a[7]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + a[2][i])}</span>${a[4] ? `<div class="alinks">${a[5] ? `<a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc((a[5] === true ? FREE11 : a[5])[i])}</a>` : ''}<a class="btn btn-want btn-sm" data-course="${a[4]}" href="${WL(a[4], l)}">${esc(S.want[i])} <span aria-hidden="true">${l === 'fa' ? '←' : '→'}</span></a></div>` : ''}</div>`).join('')}</div>` : '';
+  /* 2026-11-26: one row per course = name + "Lesson 1.1 free · full course with Plus" + the free lesson link (no price, no request button) */
+  const alsoRow = also && also.length ? `<div class="also"><b class="al">${esc(S.also[i])}</b>${also.map(a => `<div class="arow"><b>${a[0] ? `<a href="#kurs-${a[0]}">${esc(a[1][i])}</a>` : l === 'fa' && a[6] ? `<a href="${a[6]}">${esc(a[1][i])}</a>` : l === 'tr' && a[7] ? `<a href="${a[7]}">${esc(a[1][i])}</a>` : esc(a[1][i])}</b><span>${esc(SALE_TXT[SALE[a[3]]][i] + ' · ' + S2.fullPlusMid[i])}</span>${a[4] ? `<div class="alinks"><a data-loc="course-${a[4]}" href="${APP}?course=${a[4]}&amp;lang=${l}" ${ext}>${esc(FREE11[i])}</a></div>` : ''}</div>`).join('')}</div>` : '';
   return `<div class="course"><h3>${esc(name)}</h3><p class="for">${esc(c.for[i])}</p>
         <ul class="outs">${c.outs.map(o => `<li>${ic('check')}${o === ES_DE ? o[i] : esc(o[i])}</li>`).join('')}</ul>
         <div class="pricebox"><span class="price">${price}</span><span class="pills">${pills}</span></div>${liveNotes}
@@ -581,7 +777,8 @@ function card(l, c, live, also) {
 /* company panel: same goal-picker panel as the courses, one small card per course */
 function companyPanel(l) {
   const i = LANGS[l].i;
-  const tiers = l === 'fa' ? `<ul class="co-tiers">${CO_TIERS.map(t => `<li><b>${t[0]}</b><span>${t[1]}</span></li>`).join('')}</ul>` : '';
+  /* 2026-11-26: no per-course prices or team discounts on the site (courses come with Plus; a company gets a written offer) */
+  const tiers = '';
   const wa = `href="${WA(S.coWaMsg[i])}" ${ext}`;
   const ctas = l === 'fa'
     ? `<a class="btn btn-orange" href="/companies/">${S.coFill[i]} <span aria-hidden="true">←</span></a><a class="btn btn-ghost" data-lead="course" data-course="company" ${wa}>${S.coWa[i]}</a>`
@@ -595,7 +792,7 @@ function companyPanel(l) {
     <div class="co-grid">
       ${COMPANY.map(c => {
         const [cls, txt] = salePill(c.sale);
-        return `<article class="co-card" style="--c:var(${c.c})"><p class="co-pkg">${esc(c.pkg[i])}</p><h3>${esc(c.name[i])}</h3><p class="for">${esc(c.for[i])}</p><div class="co-foot"><span class="co-price">${esc(c.price[i])}<small>${S.coEach[i]}</small></span><span class="pill ${cls}"><i></i>${esc(txt[i])}</span></div></article>`;
+        return `<article class="co-card" style="--c:var(${c.c})"><p class="co-pkg">${esc(c.pkg[i])}</p><h3>${esc(c.name[i])}</h3><p class="for">${esc(c.for[i])}</p><div class="co-foot"><span class="pill ${cls}"><i></i>${esc(txt[i])}</span></div></article>`;
       }).join('\n      ')}
     </div>
     ${tiers}
@@ -668,7 +865,7 @@ function home(l) {
     </div>
     <div class="hero-foot">
       <span>${ic('star')}<b style="font-weight:700">${S.f1[i]}</b></span>
-      <span>${ic('gift')}<b style="font-weight:700">${S.f2[i]}</b></span>
+      <span>${ic('game')}<b style="font-weight:700">${S.f2[i]}</b></span>
       <span>${ic('card')}<b style="font-weight:700">${S.f3[i]}</b></span>
     </div>
   </section>
@@ -679,29 +876,26 @@ function home(l) {
   <div class="freebar">${ic('gift')}<span>${S.freebar[i]}</span><a class="tlink" href="${url(l, 'app')}">${S.seeApp[i]}</a></div>
 </div></section>
 
-<div class="wrap">
+${gamesShow(l)}${communityBand(l)}
+<div class="wrap" id="uygulama">
   <section class="appband">
     <div class="copy">
       <p class="eyebrow">${S.appEb[i]}</p>
       <h2>${S.appH[i]}</h2>
-      <ul class="ticks">
-        <li><b>${ic('tick')}</b><span>${S.t1[i]}</span></li>
-        <li><b>${ic('tick')}</b><span>${S.t2[i]}</span></li>
-        <li><b>${ic('tick')}</b><span>${S.t3[i]}</span></li>
-      </ul>
+      <p class="lead">${S2.ftL[i]}</p>
       <div class="ctas"><a class="btn btn-purple" data-loc="appband" href="${APP}" ${ext}>${S.startFree[i]}</a><a class="tlink" href="${url(l, 'app')}">${S.explore[i]}</a></div>
     </div>
     <div class="phones" aria-hidden="false">
       <span class="sticker s1" aria-hidden="true">${S.st1[i]}</span>
       <span class="sticker s2" aria-hidden="true">${S.st2[i]}</span>
-      <div class="ph"><img src="/assets/app/screen-goals.webp" alt="${esc(ALT.goals[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
-      <div class="ph"><img src="/assets/app/screen-roadmap-b1-kariyer.webp" alt="${esc(ALT.kariyer[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
-      <div class="ph"><img src="/assets/app/screen-game-kirmizi-bavul.webp" alt="${esc(ALT.karar[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
+      <div class="ph"><img src="${shot(l, 'q1')}" alt="${esc(ALT.goals[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
+      <div class="ph"><img src="${shot(l, 'home')}" alt="${esc(ALT.home[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
+      <div class="ph"><img src="${shot(l, 'album')}" alt="${esc(ALT.album[i])}" width="600" height="1298" loading="lazy" decoding="async"></div>
     </div>
   </section>
+  <div class="feats-home"><p class="eyebrow">${S2.ftEb[i]}</p>${featGrid(l, false)}</div>
 </div>
-${gamesBand(l)}
-<section class="sec" id="ogrenciler"><div class="wrap">
+${packagesBand(l)}<section class="sec" id="ogrenciler"><div class="wrap">
   <div class="sec-head c"><p class="eyebrow">${S.prEb[i]}</p><h2>${S.prH[i]}</h2></div>
   <div class="proof">
     <div class="bigstat"><span class="hand">${S.real[i]}</span><b>${S.pct[i]}</b><p>${S.pctL[i]}</p></div>
@@ -749,7 +943,8 @@ ${guidesBand(l)}
 
 function appPage(l) {
   const i = LANGS[l].i;
-  const fc = (img, alt, col, k, b) => `<figure class="fcard" style="--c:var(${col})"><div class="scr"><img src="/assets/app/${img}.webp" alt="${esc(alt)}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><span class="k">${k}</span><b>${b}</b></figcaption></figure>`;
+  /* 2026-11-26 refresh: fresh screens from the live app (a throwaway local profile, nothing sent), the 3D game art, the community */
+  const fc = (src, alt, col, k, b) => `<figure class="fcard" style="--c:var(${col})"><div class="scr"><img src="${src}" alt="${esc(alt)}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><span class="k">${k}</span><b>${b}</b></figcaption></figure>`;
   return `
 <section class="phero"><div class="wrap">
   <p class="eyebrow">${S.appEb[i]}</p>
@@ -758,10 +953,10 @@ function appPage(l) {
 </div></section>
 <div class="wrap">
   <div class="feat" id="nasil">
-    ${fc('screen-goals', ALT.goals[i], '--g-career', S.k1[i], S.s1[i])}
-    ${fc('screen-roadmap-b1-ielts', ALT.ielts[i], '--purple', S.k2[i], S.b2[i])}
-    ${fc('screen-game-kirmizi-bavul', ALT.karar[i], '--g-imm', S.k3[i], S.b3[i])}
-    ${fc('screen-game-ev-isleri', ALT.ev[i], '--orange-deep', S.k4[i], S.b4[i])}
+    ${fc(shot(l, 'q1'), ALT.goals[i], '--g-career', S.k1[i], S.s1[i])}
+    ${fc(shot(l, 'home'), ALT.home[i], '--purple', S.k2[i], S.b2[i])}
+    ${fc(shot(l, 'album'), ALT.album[i], '--orange-deep', S.k3[i], S.b3[i])}
+    ${fc(shot(l, 'groups'), S2.spAlt[i], '--g-imm', S2.spPill[i], S2.spH[i])}
   </div>
   <div class="cta-row">
     <a class="btn btn-purple" data-loc="app-page" href="${APP}" ${ext}>${S.startFree[i]}</a>
@@ -769,27 +964,13 @@ function appPage(l) {
   </div>
 </div>
 
-<section class="sec" id="oyunlar"><div class="wrap">
-  <div class="sec-head c"><p class="eyebrow">${S.gamesEb[i]}</p><h2>${S.gamesH[i]}</h2><p class="lead">${S.gamesL[i]}</p></div>
-  <p class="gnew"><span class="pill dark">${S.gNewP[i]}</span><span>${S.gNew[i]}</span></p>
-  <div class="games">
-    ${GAMES_SHOWN.map(g => `<figure class="fcard" style="--c:var(${g.c})"><div class="scr"><img src="/assets/app/${g.img}.webp" alt="${esc(ALT.game[i] + g.name[i])}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption><b>${esc(g.name[i])}</b><p>${esc(g.d[i])}</p></figcaption></figure>`).join('\n    ')}
-  </div>
-  <div class="gmore"><details><summary>${S.gmore[i]}</summary><ul>
-    ${GAMES_MORE.map(([n, d]) => `<li><b>${esc(n[i])}</b>${esc(d[i])}</li>`).join('\n    ')}
-  </ul></details></div>
-</div></section>
-
-<section class="sec" id="sana-gore" style="padding-top:0"><div class="wrap">
+<section class="sec" id="sana-gore"><div class="wrap">
   <div class="sec-head c"><p class="eyebrow">${S.cmpEb[i]}</p><h2>${S.cmpH[i]}</h2><p class="lead">${S.cmpL[i]}</p></div>
-  <div class="compare">
-    <figure><div class="ph"><img src="/assets/app/screen-roadmap-b1-seyahat.webp" alt="${esc(ALT.seyahat[i])}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption>${S.cap1[i]}</figcaption></figure>
-    <figure><div class="ph"><img src="/assets/app/screen-roadmap-b1-kariyer.webp" alt="${esc(ALT.kariyer[i])}" width="600" height="1298" loading="lazy" decoding="async"></div><figcaption>${S.cap2[i]}</figcaption></figure>
-  </div>
+  ${featGrid(l, true)}
   <div class="cta-row"><a class="btn btn-orange" data-loc="personal" href="${APP}" ${ext}>${GOALS.konusma.self.cta[i]}</a></div>
 </div></section>
-
-<section class="sec" id="dogal-ses" style="padding-top:0"><div class="wrap">
+${gamesShow(l, true)}${communityBand(l)}
+<section class="sec" id="dogal-ses" style="padding-top:clamp(40px,5vw,64px)"><div class="wrap">
   <div class="sec-head c" style="margin-bottom:24px"><p class="eyebrow">${S.vEb[i]}</p><h2>${S.vH[i]}</h2><p class="lead">${S.vP[i]}</p></div>
   <ul class="facts" style="justify-content:center"><li style="--c:var(--purple)"><i></i><span>${S.vB[i]}</span></li><li style="--c:var(--orange)"><i></i><span>${S.vG[i]}</span></li></ul>
   <p class="muted" style="text-align:center;margin-top:16px">${S.vM[i]}</p>
@@ -799,7 +980,7 @@ function appPage(l) {
   <div class="premium-strip">
     <span class="p-ico"><svg style="width:30px;height:30px" aria-hidden="true"><use href="#i-star"/></svg></span>
     <div><h2 style="font-size:1.6rem">${S.pmH[i]}</h2><p>${S.pmP[i]}</p></div>
-    <a class="btn btn-orange btn-sm" href="${url(l, 'home')}#program">${S.pmBtn[i]}</a>
+    <a class="btn btn-orange btn-sm" href="${url(l, 'home')}#paketler">${S.pmBtn[i]}</a>
   </div>
 </div>
 `;
@@ -869,6 +1050,7 @@ function contactPage(l) {
         <details open><summary>${S.fq1[i]}</summary><p>${S.fa_1[i]}</p></details>
         <details><summary>${S.fq2[i]}</summary><p>${S.fa_2[i]}</p></details>
         <details><summary>${S.fq3[i]}</summary><p>${S.fa_3[i]}</p></details>
+        <details><summary>${S.fq4[i]}</summary><p>${S.fa_4[i]}</p></details>
       </div>
     </div>
   </div>

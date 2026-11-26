@@ -122,9 +122,10 @@
       },
       "offers": {
         "@type": "Offer",
-        "category": "Paid",
-        "price": "1990",
+        "category": "Subscription",
+        "price": "319",
         "priceCurrency": "TRY",
+        "description": "FEschool Plus üyeliğine dahil: aylık ₺319 ya da yıllık ₺2.290. Ders 1.1 ücretsiz.",
         "url": "https://thefeschool.com/dis-ticaret-ingilizcesi.html#fiyat"
       }
     },
@@ -194,7 +195,7 @@
           "name": "Kursun tamamını nasıl alırım?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "\"Bu kursu istiyorum\" butonuna bas, adını ve telefonunu bırak. Yer açılınca WhatsApp'tan yazarız ve kursa özel şifreni göndeririz. Tek ödeme, giriş yaptığın her cihazda 12 ay erişim. Ders 1.1 için şifre gerekmez."
+            "text": "Kursun ayrı bir fiyatı yok: FEschool Plus üyeliğine dahil. Uygulamada Ana Sayfa'daki üyelik kutusuna dokun, Plus'ı seç ve ödemeni yap (aylık ₺319 ya da yıllık ₺2.290); ödemen onaylanınca bu kurs ve diğer bütün premium kurslar açılır. Ders 1.1 her zaman ücretsiz."
           }
         }
       ]
@@ -222,6 +223,11 @@
   <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19M3 3l18 18"/></symbol>
   <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
   <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.8a3.3 3.3 0 0 1 0 6.4M18.5 14.8c1.7.8 2.7 2.5 3 5.2"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3.5"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2.2 2.2 0 0 0 4 0"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8l8.5-4.5L20.5 8v8.5L12 21l-8.5-4.5z"/><path d="M3.5 8L12 12.5 20.5 8M12 12.5V21"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.6 2.6 3.8 6 3.8 9.5s-1.2 6.9-3.8 9.5c-2.6-2.6-3.8-6-3.8-9.5S9.4 5.1 12 2.5z"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="2.5" width="15" height="19" rx="2.5"/><path d="M8.5 16.5v-3M12 16.5v-6M15.5 16.5v-4.5M8.5 6.5h7"/></symbol>
 </svg>
 <a class="skip" href="#main">İçeriğe geç</a>
 <header class="site"><div class="wrap">
@@ -247,9 +253,9 @@
       <ul class="facts"><li>4 bölümde 12 ders</li><li>Final projesi + sertifika</li><li>Ders 1.1 ücretsiz</li></ul>
       <div class="ctas" data-loc="lp-sales-hero">
           <a class="btn btn-orange" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html?course=sales&amp;lang=tr" target="_blank" rel="noopener">Ücretsiz Ders 1.1'e başla</a>
-          <a class="btn btn-want" data-course="sales" href="/waitlist/?course=sales&amp;lang=tr">Bu kursu istiyorum <span aria-hidden="true">→</span></a>
+          <a class="tlink" href="#fiyat">Tam kurs Plus ile <span aria-hidden="true">→</span></a>
         </div>
-      <p class="micro">Tek ödeme · 12 ay erişim · Kendi hızında, uygulamada</p>
+      <p class="micro">Ders 1.1 ücretsiz · tam kurs Plus ile · Kendi hızında, uygulamada</p>
     </div>
   </section>
 
@@ -295,7 +301,7 @@
       <p>4 bölümde 12 ders, her bölümün sonunda bir tekrar ve bir final projesi. Her ders üç kısa turda ilerler: <strong>Anla</strong>, <strong>Doğru söyle</strong>, <strong>Kullan</strong>. <strong>Anla</strong> turunda satış becerisini çözümlü bir örnekle öğrenirsin; <strong>Doğru söyle</strong> turunda bunun için gereken İngilizceyi çalışır, güçlü ve zayıf cümleleri ayırırsın; <strong>Kullan</strong> turunda aynı işi sesli söyler ve yazarsın. İlk iki tur 2 kısa soruyla biter; çoğu soruda yanılırsan bir ipucu alır, bir kez daha denersin. Her ders neyi öğreneceğini söyleyerek başlar ve sonunda artık ne yapabildiğini söyler. Yazdığında uygulama uzunluğu, anahtar ifadeleri, görevin her kısmını ve dikkat etmen gereken dil hatalarını gösterir, sonra örnek bir cevap açar. Haftada iki dersle yaklaşık 6 hafta sürer.</p>
       <p>İstersen derse 30 saniyede kendi işinden bir cümle yazarak başlarsın; ders sonunda o ilk cümleni yeni metninin yanında görürsün. Derste puan ekranı yok ve her turdan sonra ara verebilirsin.</p>
       <p>Başta kısa bir soru var: teklifleri ve müşteri e-postalarını İngilizce, şablonsuz yazabiliyor musun? Henüz değilse örnekler ve cümle başlangıçlarıyla ilerlersin; yazabiliyorsan ek B2 dilbilgisini seçersin.</p>
-      <p>Kurs FE uygulamasının içinde, kendi hızında ilerler. <strong>Sadece Ders 1.1 ücretsiz</strong>: uygulamayı aç, hesabını oluştur ve hemen başla, şifre gerekmez. Kursun tamamı için "Bu kursu istiyorum" butonuyla bekleme listesine yazılırsın; yer açılınca kursa özel şifren WhatsApp'tan gelir. Tek ödeme, giriş yaptığın her cihazda 12 ay erişim.</p>
+      <p>Kurs FE uygulamasının içinde, kendi hızında ilerler. <strong>Sadece Ders 1.1 ücretsiz</strong>: uygulamayı aç, hesabını oluştur ve hemen başla, şifre gerekmez. Kursun tamamı FEschool Plus üyeliğine dahil: Plus'la bu kurs ve diğer bütün premium kurslar açılır.</p>
       <p>Kendi müşteri görüşmelerini bir öğretmenle prova etmek istersen, Farin'le <a href="/is-ingilizcesi.html#ders">birebir iş İngilizcesi dersleri</a> senin sektörüne göre kurulur.</p>
       <p class="honest">Bu kurs yöntemi ve İngilizceyi öğretir; satış sözü veremez, çünkü sonuç ürününe, pazarına ve alıcılarına bağlıdır. Incoterms ve ödeme koşulları gibi ticaret konuları genel bilgidir; hukuki ya da yaptırım danışmanlığı değildir.</p>
     </div>
@@ -303,15 +309,15 @@
 
   <section id="fiyat">
     <div class="wrap narrow">
-      <h2>Kursun fiyatı</h2>
+      <h2>Bu kurs Plus'a dahil</h2>
       <div class="price-card">
-        <p class="now">₺1.990</p>
-        <p class="after">Tek ödeme · 12 ay erişim · Kendi hızında, uygulamada</p>
+        <p class="now">₺319 <small style="font-size:.5em">/ ay</small></p>
+        <p class="after">FEschool Plus · ya da yıllık ₺2.290 · bütün premium kurslar ve her yol haritası sayfasının karnesi</p>
         <div class="ctas" data-loc="lp-sales-price">
           <a class="btn btn-orange" href="https://farinrasuli.github.io/farin-english-app/farin-english-app.html?course=sales&amp;lang=tr" target="_blank" rel="noopener">Ücretsiz Ders 1.1'e başla</a>
-          <a class="btn btn-want" data-course="sales" href="/waitlist/?course=sales&amp;lang=tr">Bu kursu istiyorum <span aria-hidden="true">→</span></a>
+          <a class="tlink" href="/#paketler">Free, Plus ve Guided <span aria-hidden="true">→</span></a>
         </div>
-        <p class="micro">Ders 1.1 ücretsiz ve şifresiz. Kursun tamamı için bekleme listesine yazılırsın; yer açılınca WhatsApp'tan yazarız.</p>
+        <p class="micro">Kursun ayrı bir fiyatı yok. Plus'ı uygulamadan alırsın: Ana Sayfa'daki üyelik kutusuna dokun. Ders 1.1 ücretsiz ve şifresiz.</p>
       </div>
     </div>
   </section>
@@ -330,7 +336,7 @@
       <h3>Ders 1.1'de ne var?</h3>
       <p>Ders 1.1 "30 saniyede ürünün". Bu dersin sonunda bir ürünü, özelliklerini tek bir alıcı için faydaya çevirerek 30 saniyede tanıtabileceksin. Ücretsizdir, şifre gerekmez.</p>
       <h3>Kursun tamamını nasıl alırım?</h3>
-      <p>"Bu kursu istiyorum" butonuna bas, adını ve telefonunu bırak. Yer açılınca WhatsApp'tan yazarız ve kursa özel şifreni göndeririz. Tek ödeme, giriş yaptığın her cihazda 12 ay erişim. Ders 1.1 için şifre gerekmez.</p>
+      <p>Kursun ayrı bir fiyatı yok: FEschool Plus üyeliğine dahil. Uygulamada Ana Sayfa'daki üyelik kutusuna dokun, Plus'ı seç ve ödemeni yap (aylık ₺319 ya da yıllık ₺2.290); ödemen onaylanınca bu kurs ve diğer bütün premium kurslar açılır. Ders 1.1 her zaman ücretsiz.</p>
       <p style="margin-top:32px">Aklında başka bir soru mu var?<a data-lead="course" data-course="sales" target="_blank" rel="noopener" href="https://wa.me/905467615951?text=Merhaba%20Farin!%20%22Sat%C4%B1%C5%9F%20ve%20D%C4%B1%C5%9F%20Ticaret%20%C4%B0ngilizcesi%22%20kursu%20hakk%C4%B1nda%20bir%20sorum%20var.">WhatsApp'tan yaz</a>.</p>
     </div>
   </section>
